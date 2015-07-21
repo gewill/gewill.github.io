@@ -198,41 +198,216 @@
 <p>The second is provided either by the UIView or a Controller Depending on the situation. We’ll see an example of both in our demo.</p>
 </blockquote>
 <h3 id="第一步：Adding_a_gesture_recognizer_to_a_UIView">第一步：Adding a gesture recognizer to a UIView</h3><p>Imagine we wanted a UIView in our Controller’s View to recognize a “pan” gesture …</p>
-<p>```<br>@IBOutlet weak var pannableView: UIView {<br>    didSet {<br>        let recognizer = UIPanGestureRecognizer(target: self, action: “pan:”)<br>        pannableView.addGestureRecognizer(recognizer)<br>    }<br>}<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#10;&#10;&#10;&#13;This is just a normal outlet to the UIView we want to recognize the gesture&#10;&#13;We use its property observer to get involved when the outlet gets hooked up by iOS&#10;&#13;Here we are creating an instance of a concrete subclass of UIGestureRecognizer (for pans) &#10;&#10;The target gets notified when the gesture is recognized (in this case, the Controller itself) &#10;&#10;The action is the method invoked on recognition (the : means it has an argument)&#10;&#13;Here we ask the UIView to actually start trying to recognize this gesture in its bounds &#10;&#10;Let&#8217;s talk about how we implement the handler ...&#10;&#10;### &#31532;&#20108;&#27493;&#65306;A handler for a gesture needs gesture-specific information&#10;&#10;So each concrete subclass provides special methods for handling that type of gesture&#13;&#13;**For example, UIPanGestureRecognizer provides 3 methods**&#10;&#13;`func translationInView(view: UIView) -&#62; CGPoint` // cumulative since start of recognition &#10;&#10;`func velocityInView(view: UIView) -&#62; CGPoint` // how fast the finger is moving (points/s)&#10;&#10;`func setTranslation(translation: CGPoint, inView: UIView)`&#10;&#13;This last one is interesting because it allows you to reset the translation so far&#10;&#13;By resetting the translation to zero all the time, you end up getting &#8220;incremental&#8221; translation &#10;&#10;**The abstract superclass also provides state information**&#10;&#13;`var state: UIGestureRecognizerState &#123; get &#125;`&#13;This sits around in `.Possible` until recognition starts&#13;For a discrete gesture (e.g. a Swipe), it changes to `.Recognized` (Tap is not a normal discrete) For a continues gesture (e.g. a Pan), it moves from `.Began` thru repeated `.Changed` to `.Ended`&#13;It can go to `.Failed` or `.Cancelled` too, so watch out for those!&#10;&#10;**So, given this information, what would the pan handler look like?**&#10;&#10;&#10;```&#13;  func pan(gesture: UIPanGestureRecognizer) &#123;&#13;      switch gesture.state &#123;&#13;          case .Changed: fallthrough&#13;          case .Ended:&#13;              let translation = gesture.translationInView(pannableView)&#13;// update anything that depends on the pan gesture using translation.x and .y&#13;&#65532;            gesture.setTranslation(CGPointZero, inView: pannableView)&#13;        default: break&#13;     &#125;&#10;&#125;</span><br></pre></td></tr></table></figure></p>
-<p>Remember that the action was “pan:” (if no colon, we would not get the gesture argument)</p>
-<p>We are only going to do anything when the finger moves or lifts up off the device’s surface </p>
-<p>fallthrough means “execute the code for the next case down”</p>
-<p>Here we get the location of the pan in the pannableView’s coordinate system</p>
-<p>Now we do whatever we want with that information</p>
-<p>By resetting the translation, the next one we get will be how much it moved since this one</p>
-<h3 id="常用手势：">常用手势：</h3><ul>
-<li><p>UIPinchGestureRecognizer</p>
-<p>var scale: CGFloat // not read-only (can reset)</p>
-<p>var   velocity: CGFloat { get } // scale factor per second</p>
-</li>
-<li><p>UIRotationGestureRecognizer</p>
-<p>var rotation: CGFloat // not read-only (can reset); in radians </p>
-<p>var velocity: CGFloat { get } // radians per second</p>
-</li>
-<li><p>UISwipeGestureRecognizer</p>
-<p>Set up the direction and number of fingers you want, then look for .Recognized</p>
-<p>var direction: UISwipeGestureRecoginzerDirection // which swipes you want </p>
-<p>var numberOfTouchesRequired: Int // finger count</p>
-</li>
-<li><p>UITapGestureRecognizer</p>
-<p>Set up the number of taps and fingers you want, then look for .Ended </p>
-<p>var numberOfTapsRequired: Int // single tap, double tap, etc. </p>
-<p>var numberOfTouchesRequired: Int // finger count</p>
-</li>
-</ul>
-<p>￼￼￼￼</p>
-<h3 id="Demo:_Happiness_pinch_and_pan">Demo: Happiness pinch and pan</h3><p><strong>FaceView Gestures</strong></p>
-<p>Add a gesture recognizer (pinch) to the FaceView to zoom in and out (control its own scale) </p>
-<p>Add a gesture recognizer (pan) to the FaceView to control happiness (Model) in the Controller</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">//&#10;//  FaceView.swift&#10;//  Happiness&#10;&#10;&#10;import UIKit&#10;&#10;protocol FaceViewDataSource: class &#123;&#10;    func smilinessForFaceView(sender: FaceView) -&#62; Double?&#10;&#125;&#10;&#10;@IBDesignable&#10;class FaceView: UIView&#10;&#123;&#10;    @IBInspectable&#10;    var lineWidth: CGFloat = 3 &#123; didSet &#123; setNeedsDisplay() &#125; &#125;&#10;    @IBInspectable&#10;    var color: UIColor = UIColor.blueColor() &#123; didSet &#123; setNeedsDisplay() &#125; &#125;&#10;    @IBInspectable&#10;    var scale: CGFloat = 0.90 &#123; didSet &#123; setNeedsDisplay() &#125; &#125;&#10;    &#10;    var faceCenter: CGPoint &#123;&#10;        return convertPoint(center, fromView: superview)&#10;    &#125;&#10;    var faceRadius: CGFloat &#123;&#10;        return min(bounds.size.width, bounds.size.height) / 2 * scale&#10;    &#125;&#10;    &#10;    weak var dataSource: FaceViewDataSource?&#10;    &#10;    &#10;    // 2. handler&#10;    func scale(gestrue: UIPinchGestureRecognizer) &#123;&#10;    &#10;        if gestrue.state == .Changed &#123;&#10;            scale *= gestrue.scale&#10;            gestrue.scale = 1&#10;        &#125;&#10;    &#125;&#10;    &#10;    &#10;    override func drawRect(rect: CGRect)&#10;    &#123;&#10;        let facePath = UIBezierPath(&#10;            arcCenter: faceCenter,&#10;            radius: faceRadius,&#10;            startAngle: 0,&#10;            endAngle: CGFloat(2*M_PI),&#10;            clockwise: true&#10;        )&#10;        facePath.lineWidth = lineWidth&#10;        color.set()&#10;        facePath.stroke()&#10;        &#10;        bezierPathForEye(.Left).stroke()&#10;        bezierPathForEye(.Right).stroke()&#10;        &#10;        let smiliness = dataSource?.smilinessForFaceView(self) ?? 0.0&#10;        let smilePath = bezierPathForSmile(smiliness)&#10;        smilePath.stroke()&#10;    &#125;&#10;    &#10;    private struct Scaling &#123;&#10;        static let FaceRadiusToEyeRadiusRatio: CGFloat = 10&#10;        static let FaceRadiusToEyeOffsetRatio: CGFloat = 3&#10;        static let FaceRadiusToEyeSeparationRatio: CGFloat = 1.5&#10;        static let FaceRadiusToMouthWidthRatio: CGFloat = 1&#10;        static let FaceRadiusToMouthHeightRatio: CGFloat = 3&#10;        static let FaceRadiusToMouthOffsetRatio: CGFloat = 3&#10;    &#125;&#10;    &#10;    private enum Eye &#123; case Left, Right &#125;&#10;    &#10;    private func bezierPathForEye(whichEye: Eye) -&#62; UIBezierPath&#10;    &#123;&#10;        let eyeRadius = faceRadius / Scaling.FaceRadiusToEyeRadiusRatio&#10;        let eyeVerticalOffset = faceRadius / Scaling.FaceRadiusToEyeOffsetRatio&#10;        let eyeHorizontalSeparation = faceRadius / Scaling.FaceRadiusToEyeSeparationRatio&#10;        &#10;        var eyeCenter = faceCenter&#10;        eyeCenter.y -= eyeVerticalOffset&#10;        switch whichEye &#123;&#10;            case .Left: eyeCenter.x -= eyeHorizontalSeparation / 2&#10;            case .Right: eyeCenter.x += eyeHorizontalSeparation / 2&#10;        &#125;&#10;        &#10;        let path = UIBezierPath(&#10;            arcCenter: eyeCenter,&#10;            radius: eyeRadius,&#10;            startAngle: 0,&#10;            endAngle: CGFloat(2*M_PI),&#10;            clockwise: true&#10;        )&#10;        path.lineWidth = lineWidth&#10;        return path&#10;    &#125;&#10;&#10;    private func bezierPathForSmile(fractionOfMaxSmile: Double) -&#62; UIBezierPath&#10;    &#123;&#10;        let mouthWidth = faceRadius / Scaling.FaceRadiusToMouthWidthRatio&#10;        let mouthHeight = faceRadius / Scaling.FaceRadiusToMouthHeightRatio&#10;        let mouthVerticalOffset = faceRadius / Scaling.FaceRadiusToMouthOffsetRatio&#10;        &#10;        let smileHeight = CGFloat(max(min(fractionOfMaxSmile, 1), -1)) * mouthHeight&#10;        &#10;        let start = CGPoint(x: faceCenter.x - mouthWidth / 2, y: faceCenter.y + mouthVerticalOffset)&#10;        let end = CGPoint(x: start.x + mouthWidth, y: start.y)&#10;        let cp1 = CGPoint(x: start.x + mouthWidth / 3, y: start.y + smileHeight)&#10;        let cp2 = CGPoint(x: end.x - mouthWidth / 3, y: cp1.y)&#10;        &#10;        let path = UIBezierPath()&#10;        path.moveToPoint(start)&#10;        path.addCurveToPoint(end, controlPoint1: cp1, controlPoint2: cp2)&#10;        path.lineWidth = lineWidth&#10;        return path&#10;    &#125;&#10;&#125;</span><br></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">//&#10;//  HappinessViewController.swift&#10;//  Happiness&#10;&#10;import UIKit&#10;&#10;class HappinessViewController: UIViewController, FaceViewDataSource&#10;&#123;&#10;&#10;    @IBOutlet weak var faceView: FaceView! &#123;&#10;        didSet &#123;&#10;            faceView.dataSource = self&#10;            &#10;            // 1. Adding a gesture recognizer&#10;            faceView.addGestureRecognizer(UIPinchGestureRecognizer(target: faceView, action: &#34;scale:&#34;))&#10;            // try in storyboard&#10;            // faceView.addGestureRecognizer(UIPanGestureRecognizer(target: self, action: &#34;changeHapponess:&#34;))&#10;        &#125;&#10;    &#125;&#10;    &#10;    &#10;    // &#36890;&#36807; storyboard &#28155;&#21152; Pan Gesture Recognizer&#65292;&#28982;&#21518; storyboard &#28155;&#21152; IBAction &#21040; Controller &#20013;&#10;    private struct Constants &#123;&#10;        static let HappinessGestureScale: CGFloat = 4&#10;    &#125;&#10;    &#10;    @IBAction func changeHappiness(gesture: UIPanGestureRecognizer) &#123;&#10;        switch gesture.state &#123;&#10;        case .Ended: fallthrough&#10;        case .Changed:&#10;            let translatrion = gesture.translationInView(faceView)&#10;            let happinessChange = -Int(translatrion.y / Constants.HappinessGestureScale)&#10;            if happinessChange != 0 &#123;&#10;                happiness -= happinessChange&#10;                gesture.setTranslation(CGPointZero, inView: faceView)&#10;            &#125;&#10;        default: break&#10;        &#125;&#10;    &#125;&#10;    &#10;    var happiness: Int = 3 &#123; // 0 = very sad, 100 = ecstatic&#10;        didSet &#123;&#10;            happiness = min(max(happiness, 0), 100)&#10;            print(&#34;happiness = \(happiness)&#34;)&#10;            updateUI()&#10;        &#125;&#10;    &#125;&#10;    &#10;    func updateUI() &#123;&#10;        faceView.setNeedsDisplay()&#10;    &#125;&#10;    &#10;    func smilinessForFaceView(sender: FaceView) -&#62; Double? &#123;&#10;        return Double(happiness - 50) / 50&#10;    &#125;&#10;&#125;</span><br></pre></td></tr></table></figure>
+<p><img src="http://i.imgur.com/c1mSjmj.png" alt="pannableView"></p>
 <blockquote>
-<p>有待翻译，话说代码高亮造成排版换七八糟的，回头升级 Hexo 试试。</p>
+<p>上面的代码造成排版错误，估计代码高亮产生的，只能换成图片。</p>
+</blockquote>
+<p>This is just a normal outlet to the UIView we want to recognize the gesture</p>
+<p>We use its property observer to get involved when the outlet gets hooked up by iOS</p>
+<p>Here we are creating an instance of a concrete subclass of UIGestureRecognizer (for pans) </p>
+<p>The target gets notified when the gesture is recognized (in this case, the Controller itself) </p>
+<p>The action is the method invoked on recognition (the : means it has an argument)</p>
+<p>Here we ask the UIView to actually start trying to recognize this gesture in its bounds </p>
+<p>Let’s talk about how we implement the handler …</p>
+<h3 id="第二步：A_handler_for_a_gesture_needs_gesture-specific_information">第二步：A handler for a gesture needs gesture-specific information</h3><p>So each concrete subclass provides special methods for handling that type of gesture</p>
+<p><strong>For example, UIPanGestureRecognizer provides 3 methods</strong></p>
+<p><code>func translationInView(view: UIView) -&gt; CGPoint</code> // cumulative since start of recognition </p>
+<p><code>func velocityInView(view: UIView) -&gt; CGPoint</code> // how fast the finger is moving (points/s)</p>
+<p><code>func setTranslation(translation: CGPoint, inView: UIView)</code></p>
+<p>This last one is interesting because it allows you to reset the translation so far</p>
+<p>By resetting the translation to zero all the time, you end up getting “incremental” translation </p>
+<p><strong>The abstract superclass also provides state information</strong></p>
+<p><code>var state: UIGestureRecognizerState { get }</code><br>This sits around in <code>.Possible</code> until recognition starts<br>For a discrete gesture (e.g. a Swipe), it changes to <code>.Recognized</code> (Tap is not a normal discrete) For a continues gesture (e.g. a Pan), it moves from <code>.Began</code> thru repeated <code>.Changed</code> to <code>.Ended</code><br>It can go to <code>.Failed</code> or <code>.Cancelled</code> too, so watch out for those!</p>
+<p><strong>So, given this information, what would the pan handler look like?</strong></p>
+<pre><code>  <span class="func"><span class="keyword">func</span> <span class="title">pan</span><span class="params">(gesture: UIPanGestureRecognizer)</span></span> {
+      <span class="keyword">switch</span> gesture.state {
+          <span class="keyword">case</span> .<span class="type">Changed</span>: <span class="keyword">fallthrough</span>
+          <span class="keyword">case</span> .<span class="type">Ended</span>:
+              <span class="keyword">let</span> translation = gesture.translationInView(pannableView)
+<span class="comment">// update anything that depends on the pan gesture using translation.x and .y</span>
+￼            gesture.setTranslation(<span class="type">CGPointZero</span>, inView: pannableView)
+        <span class="keyword">default</span>: <span class="keyword">break</span>
+     }
+}
+&lt;!--￼<span class="number">2</span>--&gt;
+
+<span class="comment">//</span>
+<span class="comment">//  FaceView.swift</span>
+<span class="comment">//  Happiness</span>
+
+
+<span class="keyword">import</span> <span class="type">UIKit</span>
+
+<span class="class"><span class="keyword">protocol</span> <span class="title">FaceViewDataSource</span>: <span class="title">class</span> </span>{
+    <span class="func"><span class="keyword">func</span> <span class="title">smilinessForFaceView</span><span class="params">(sender: FaceView)</span></span> -&gt; <span class="type">Double</span>?
+}
+
+<span class="preprocessor">@IBDesignable</span>
+<span class="class"><span class="keyword">class</span> <span class="title">FaceView</span>: <span class="title">UIView</span>
+</span>{
+    <span class="preprocessor">@IBInspectable</span>
+    <span class="keyword">var</span> lineWidth: <span class="type">CGFloat</span> = <span class="number">3</span> { <span class="keyword">didSet</span> { setNeedsDisplay() } }
+    <span class="preprocessor">@IBInspectable</span>
+    <span class="keyword">var</span> color: <span class="type">UIColor</span> = <span class="type">UIColor</span>.blueColor() { <span class="keyword">didSet</span> { setNeedsDisplay() } }
+    <span class="preprocessor">@IBInspectable</span>
+    <span class="keyword">var</span> scale: <span class="type">CGFloat</span> = <span class="number">0.90</span> { <span class="keyword">didSet</span> { setNeedsDisplay() } }
+
+    <span class="keyword">var</span> faceCenter: <span class="type">CGPoint</span> {
+        <span class="keyword">return</span> convertPoint(center, fromView: superview)
+    }
+    <span class="keyword">var</span> faceRadius: <span class="type">CGFloat</span> {
+        <span class="keyword">return</span> <span class="built_in">min</span>(bounds.size.width, bounds.size.height) / <span class="number">2</span> * scale
+    }
+
+    <span class="keyword">weak</span> <span class="keyword">var</span> dataSource: <span class="type">FaceViewDataSource</span>?
+
+
+    <span class="comment">// 2. handler</span>
+    <span class="func"><span class="keyword">func</span> <span class="title">scale</span><span class="params">(gestrue: UIPinchGestureRecognizer)</span></span> {
+
+        <span class="keyword">if</span> gestrue.state == .<span class="type">Changed</span> {
+            scale *= gestrue.scale
+            gestrue.scale = <span class="number">1</span>
+        }
+    }
+
+
+    <span class="keyword">override</span> <span class="func"><span class="keyword">func</span> <span class="title">drawRect</span><span class="params">(rect: CGRect)</span></span>
+    {
+        <span class="keyword">let</span> facePath = <span class="type">UIBezierPath</span>(
+            arcCenter: faceCenter,
+            radius: faceRadius,
+            startAngle: <span class="number">0</span>,
+            endAngle: <span class="type">CGFloat</span>(<span class="number">2</span>*<span class="type">M_PI</span>),
+            clockwise: <span class="literal">true</span>
+        )
+        facePath.lineWidth = lineWidth
+        color.<span class="keyword">set</span>()
+        facePath.stroke()
+
+        bezierPathForEye(.<span class="type">Left</span>).stroke()
+        bezierPathForEye(.<span class="type">Right</span>).stroke()
+
+        <span class="keyword">let</span> smiliness = dataSource?.smilinessForFaceView(<span class="keyword">self</span>) ?? <span class="number">0.0</span>
+        <span class="keyword">let</span> smilePath = bezierPathForSmile(smiliness)
+        smilePath.stroke()
+    }
+
+    private <span class="class"><span class="keyword">struct</span> <span class="title">Scaling</span> </span>{
+        <span class="keyword">static</span> <span class="keyword">let</span> <span class="type">FaceRadiusToEyeRadiusRatio</span>: <span class="type">CGFloat</span> = <span class="number">10</span>
+        <span class="keyword">static</span> <span class="keyword">let</span> <span class="type">FaceRadiusToEyeOffsetRatio</span>: <span class="type">CGFloat</span> = <span class="number">3</span>
+        <span class="keyword">static</span> <span class="keyword">let</span> <span class="type">FaceRadiusToEyeSeparationRatio</span>: <span class="type">CGFloat</span> = <span class="number">1.5</span>
+        <span class="keyword">static</span> <span class="keyword">let</span> <span class="type">FaceRadiusToMouthWidthRatio</span>: <span class="type">CGFloat</span> = <span class="number">1</span>
+        <span class="keyword">static</span> <span class="keyword">let</span> <span class="type">FaceRadiusToMouthHeightRatio</span>: <span class="type">CGFloat</span> = <span class="number">3</span>
+        <span class="keyword">static</span> <span class="keyword">let</span> <span class="type">FaceRadiusToMouthOffsetRatio</span>: <span class="type">CGFloat</span> = <span class="number">3</span>
+    }
+
+    private <span class="class"><span class="keyword">enum</span> <span class="title">Eye</span> </span>{ <span class="keyword">case</span> <span class="type">Left</span>, <span class="type">Right</span> }
+
+    private <span class="func"><span class="keyword">func</span> <span class="title">bezierPathForEye</span><span class="params">(whichEye: Eye)</span></span> -&gt; <span class="type">UIBezierPath</span>
+    {
+        <span class="keyword">let</span> eyeRadius = faceRadius / <span class="type">Scaling</span>.<span class="type">FaceRadiusToEyeRadiusRatio</span>
+        <span class="keyword">let</span> eyeVerticalOffset = faceRadius / <span class="type">Scaling</span>.<span class="type">FaceRadiusToEyeOffsetRatio</span>
+        <span class="keyword">let</span> eyeHorizontalSeparation = faceRadius / <span class="type">Scaling</span>.<span class="type">FaceRadiusToEyeSeparationRatio</span>
+
+        <span class="keyword">var</span> eyeCenter = faceCenter
+        eyeCenter.y -= eyeVerticalOffset
+        <span class="keyword">switch</span> whichEye {
+            <span class="keyword">case</span> .<span class="type">Left</span>: eyeCenter.x -= eyeHorizontalSeparation / <span class="number">2</span>
+            <span class="keyword">case</span> .<span class="type">Right</span>: eyeCenter.x += eyeHorizontalSeparation / <span class="number">2</span>
+        }
+
+        <span class="keyword">let</span> path = <span class="type">UIBezierPath</span>(
+            arcCenter: eyeCenter,
+            radius: eyeRadius,
+            startAngle: <span class="number">0</span>,
+            endAngle: <span class="type">CGFloat</span>(<span class="number">2</span>*<span class="type">M_PI</span>),
+            clockwise: <span class="literal">true</span>
+        )
+        path.lineWidth = lineWidth
+        <span class="keyword">return</span> path
+    }
+
+    private <span class="func"><span class="keyword">func</span> <span class="title">bezierPathForSmile</span><span class="params">(fractionOfMaxSmile: Double)</span></span> -&gt; <span class="type">UIBezierPath</span>
+    {
+        <span class="keyword">let</span> mouthWidth = faceRadius / <span class="type">Scaling</span>.<span class="type">FaceRadiusToMouthWidthRatio</span>
+        <span class="keyword">let</span> mouthHeight = faceRadius / <span class="type">Scaling</span>.<span class="type">FaceRadiusToMouthHeightRatio</span>
+        <span class="keyword">let</span> mouthVerticalOffset = faceRadius / <span class="type">Scaling</span>.<span class="type">FaceRadiusToMouthOffsetRatio</span>
+
+        <span class="keyword">let</span> smileHeight = <span class="type">CGFloat</span>(<span class="built_in">max</span>(<span class="built_in">min</span>(fractionOfMaxSmile, <span class="number">1</span>), -<span class="number">1</span>)) * mouthHeight
+
+        <span class="keyword">let</span> start = <span class="type">CGPoint</span>(x: faceCenter.x - mouthWidth / <span class="number">2</span>, y: faceCenter.y + mouthVerticalOffset)
+        <span class="keyword">let</span> end = <span class="type">CGPoint</span>(x: start.x + mouthWidth, y: start.y)
+        <span class="keyword">let</span> cp1 = <span class="type">CGPoint</span>(x: start.x + mouthWidth / <span class="number">3</span>, y: start.y + smileHeight)
+        <span class="keyword">let</span> cp2 = <span class="type">CGPoint</span>(x: end.x - mouthWidth / <span class="number">3</span>, y: cp1.y)
+
+        <span class="keyword">let</span> path = <span class="type">UIBezierPath</span>()
+        path.moveToPoint(start)
+        path.addCurveToPoint(end, controlPoint1: cp1, controlPoint2: cp2)
+        path.lineWidth = lineWidth
+        <span class="keyword">return</span> path
+    }
+}
+&lt;!--￼<span class="number">3</span>--&gt;
+
+<span class="comment">//</span>
+<span class="comment">//  HappinessViewController.swift</span>
+<span class="comment">//  Happiness</span>
+
+<span class="keyword">import</span> <span class="type">UIKit</span>
+
+<span class="class"><span class="keyword">class</span> <span class="title">HappinessViewController</span>: <span class="title">UIViewController</span>, <span class="title">FaceViewDataSource</span>
+</span>{
+
+    <span class="preprocessor">@IBOutlet</span> <span class="keyword">weak</span> <span class="keyword">var</span> faceView: <span class="type">FaceView</span>! {
+        <span class="keyword">didSet</span> {
+            faceView.dataSource = <span class="keyword">self</span>
+
+            <span class="comment">// 1. Adding a gesture recognizer</span>
+            faceView.addGestureRecognizer(<span class="type">UIPinchGestureRecognizer</span>(target: faceView, action: <span class="string">"scale:"</span>))
+            <span class="comment">// try in storyboard</span>
+            <span class="comment">// faceView.addGestureRecognizer(UIPanGestureRecognizer(target: self, action: "changeHapponess:"))</span>
+        }
+    }
+
+
+    <span class="comment">// 通过 storyboard 添加 Pan Gesture Recognizer，然后 storyboard 添加 IBAction 到 Controller 中</span>
+    private <span class="class"><span class="keyword">struct</span> <span class="title">Constants</span> </span>{
+        <span class="keyword">static</span> <span class="keyword">let</span> <span class="type">HappinessGestureScale</span>: <span class="type">CGFloat</span> = <span class="number">4</span>
+    }
+
+    <span class="preprocessor">@IBAction</span> <span class="func"><span class="keyword">func</span> <span class="title">changeHappiness</span><span class="params">(gesture: UIPanGestureRecognizer)</span></span> {
+        <span class="keyword">switch</span> gesture.state {
+        <span class="keyword">case</span> .<span class="type">Ended</span>: <span class="keyword">fallthrough</span>
+        <span class="keyword">case</span> .<span class="type">Changed</span>:
+            <span class="keyword">let</span> translatrion = gesture.translationInView(faceView)
+            <span class="keyword">let</span> happinessChange = -<span class="type">Int</span>(translatrion.y / <span class="type">Constants</span>.<span class="type">HappinessGestureScale</span>)
+            <span class="keyword">if</span> happinessChange != <span class="number">0</span> {
+                happiness -= happinessChange
+                gesture.setTranslation(<span class="type">CGPointZero</span>, inView: faceView)
+            }
+        <span class="keyword">default</span>: <span class="keyword">break</span>
+        }
+    }
+
+    <span class="keyword">var</span> happiness: <span class="type">Int</span> = <span class="number">3</span> { <span class="comment">// 0 = very sad, 100 = ecstatic</span>
+        <span class="keyword">didSet</span> {
+            happiness = <span class="built_in">min</span>(<span class="built_in">max</span>(happiness, <span class="number">0</span>), <span class="number">100</span>)
+            <span class="built_in">print</span>(<span class="string">"happiness = <span class="subst">\(happiness)</span>"</span>)
+            updateUI()
+        }
+    }
+
+    <span class="func"><span class="keyword">func</span> <span class="title">updateUI</span><span class="params">()</span></span> {
+        faceView.setNeedsDisplay()
+    }
+
+    <span class="func"><span class="keyword">func</span> <span class="title">smilinessForFaceView</span><span class="params">(sender: FaceView)</span></span> -&gt; <span class="type">Double</span>? {
+        <span class="keyword">return</span> <span class="type">Double</span>(happiness - <span class="number">50</span>) / <span class="number">50</span>
+    }
+}
+</code></pre><blockquote>
+<p>有待翻译</p>
 </blockquote>
 
         
