@@ -1,0 +1,571 @@
+<!doctype html>
+<html class="theme-next use-motion theme-next-mist">
+<head>
+  
+
+<meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+  <meta name="google-site-verification" content="6p6MCt9mM7zNfEZF2HzE72sTOXJ8MC5frP4VNvYw1JU" />
+
+
+
+
+
+  <link rel="stylesheet" type="text/css" href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5"/>
+
+
+<link rel="stylesheet" type="text/css" href="/css/main.css?v=0.4.3"/>
+
+
+    <meta name="description" content="The people who are crazy enough to think they can change the world, are the ones who do." />
+
+
+
+  <meta name="keywords" content="Swift,iOS App Development," />
+
+
+
+
+
+  <link rel="shorticon icon" type="image/x-icon" href="/bitbug_favicon.ico?v=0.4.3" />
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var CONFIG = {
+    scheme: 'Mist',
+    analytics: {
+      baidu: '',
+      google: 'UA-62118677-1'
+    },
+    sidebar: 'hide'
+  };
+</script>
+
+
+
+
+  <title> Crazy Swift Lecture Chapter 3 // whoDO </title>
+</head>
+
+<body>
+<!--[if lte IE 8]> <div style=' clear: both; height: 59px; padding:0 0 0 15px; position: relative;margin:0 auto;'> <a href="http://windows.microsoft.com/en-US/internet-explorer/products/ie/home?ocid=ie6_countdown_bannercode"><img src="http://7u2nvr.com1.z0.glb.clouddn.com/picouterie.jpg" border="0" height="42" width="820" alt="You are using an outdated browser. For a faster, safer browsing experience, upgrade for free today or use other browser ,like chrome firefox safari." style='margin-left:auto;margin-right:auto;display: block;'/></a></div> <![endif]-->
+  <div class="container one-column page-post-detail">
+    <div class="headband"></div>
+
+    <div id="header" class="header">
+      <div class="header-inner">
+        <h1 class="site-meta">
+  <span class="logo-line-before"><i></i></span>
+  <a href="/" class="brand">
+      <span class="logo">
+        <i class="icon-logo"></i>
+      </span>
+      <span class="site-title">whoDO</span>
+  </a>
+  <span class="logo-line-after"><i></i></span>
+</h1>
+
+
+  <ul id="menu" class="menu">
+     
+    
+      
+      <li class="menu-item menu-item-archives">
+        <a href="/archives">
+          <i class="menu-item-icon icon-archives"></i> <br />
+          Archives
+        </a>
+      </li>
+    
+      
+      <li class="menu-item menu-item-tags">
+        <a href="/tags">
+          <i class="menu-item-icon icon-tags"></i> <br />
+          Tags
+        </a>
+      </li>
+    
+      
+      <li class="menu-item menu-item-about">
+        <a href="/about">
+          <i class="menu-item-icon icon-about"></i> <br />
+          About
+        </a>
+      </li>
+    
+  </ul>
+
+
+      </div>
+    </div>
+
+    <div id="main" class="main">
+      <div class="main-inner">
+        <div id="content" class="content">
+          
+
+  <div id="posts" class="posts-expand">
+    
+
+  <div class="post post-type-normal ">
+    <div class="post-header">
+
+      
+      
+        <h1 class="post-title">
+          
+          
+            
+              Crazy Swift Lecture Chapter 3
+            
+          
+        </h1>
+      
+
+      <div class="post-meta">
+        <span class="post-time">
+          Posted on 2015-05-16
+        </span>
+
+        
+
+        
+          
+            <span class="post-comments-count">
+            &nbsp; | &nbsp;
+            <a href="/2015/05/16/Crazy-Swift-Lecture-Chapter-3/#comments" >
+              <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2015/05/16/Crazy-Swift-Lecture-Chapter-3/"></span>
+            </a>
+          </span>
+          
+        
+      </div>
+    </div>
+
+    <div class="post-body">
+
+      
+      
+
+      
+        <blockquote>
+<p>Code is a kind of document.</p>
+</blockquote>
+<h1 id="第三章：运算符与表达式">第三章：运算符与表达式</h1><a id="more"></a>
+<h2 id="3-1_赋值运算符">3.1 赋值运算符</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">// &#20026;&#21464;&#37327;str&#36171;&#20540;&#20026;Swift&#13;var str = &#34;Swift&#34;&#13;// &#20026;&#21464;&#37327;pi&#36171;&#20540;&#20026;3.14&#13;var pi:Double = 3.14&#13;// &#20026;&#21464;&#37327;visited&#36171;&#20540;&#20026;YES&#13;var visited:Bool = true&#13;// &#23558;&#21464;&#37327;str&#30340;&#20540;&#36171;&#32473;str2&#13;var str2 : String = str&#13;&#13;var a:Int&#13;// &#30001;&#20110;&#36171;&#20540;&#34920;&#36798;&#24335;a=20&#23454;&#38469;&#19978;&#24182;&#27809;&#26377;&#20540;&#65292;&#22240;&#27492;&#32534;&#35793;&#22120;&#20250;&#23545;&#21464;&#37327;b&#21457;&#20986;&#35686;&#21578;&#13;var b = a = 20&#13;&#13;var d1: Double = 12.34&#13;// &#23558;&#34920;&#36798;&#24335;&#30340;&#20540;&#36171;&#32473;d2&#13;var d2 = d1 + 5&#13;// &#36755;&#20986;d2&#30340;&#20540;&#13;println(&#34;d2&#30340;&#20540;&#20026;&#65306;\(d2)&#34;)</span><br></pre></td></tr></table></figure>
+<h2 id="3-2_算数运算符">3.2 算数运算符</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">var a = 5.2&#13;var b = 3.1&#13;var sum = a + b&#13;// sum&#30340;&#20540;&#20026;8.3&#13;println(&#34;sum&#30340;&#20540;&#20026;&#65306;\(sum)&#34;)&#13;&#13;var c = 5.2&#13;var d = 3.1&#13;var sub = c - d&#13;// sub&#30340;&#20540;&#20026;2.1&#13;println(&#34;sub&#30340;&#20540;&#20026;&#65306;\(sub)&#34;)&#13;&#13;var e = 5.2&#13;var f = 3.1&#13;var multiply = e * f&#13;// multiply&#30340;&#20540;&#20026;16.12&#13;println(&#34;multiply&#30340;&#20540;&#20026;&#65306;\(multiply)&#34;)</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">println(&#34;19/4&#30340;&#32467;&#26524;&#26159;:\(19/4)&#34;)&#13;var a = 5.2&#13;var b = 3.1&#13;var div = a / b&#13;// div&#30340;&#20540;&#23558;&#26159;1.67742&#13;println(&#34;div&#30340;&#20540;&#26159;:\(div)&#34;)&#13;// &#36755;&#20986;&#27491;&#26080;&#31351;&#22823;&#65306;inf&#13;println(&#34;5&#38500;&#20197;0.0&#30340;&#32467;&#26524;&#26159;:\(5 / 0.0)&#34;)&#13;// &#36755;&#20986;&#36127;&#26080;&#31351;&#22823;&#65306;-inf&#13;println(&#34;-5&#38500;&#20197;0.0&#30340;&#32467;&#26524;&#26159;:\(-5.0 / 0)&#34;)&#13;// &#19979;&#38754;&#20195;&#30721;&#23558;&#23548;&#33268;&#32534;&#35793;&#38169;&#35823;&#13;//println(&#34;5&#38500;&#20197;0&#30340;&#32467;&#26524;&#26159;:\(-5 / 0)&#34;)</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">import Foundation&#13;// &#23450;&#20041;&#21464;&#37327;a&#20026;3.2&#13;var a = 3.2&#13;// &#27714;a&#30340;5&#27425;&#26041;&#65292;&#24182;&#23558;&#35745;&#31639;&#32467;&#26524;&#36171;&#20026;b&#12290;&#13;var b = pow(a , 5)&#13;// &#36755;&#20986;b&#30340;&#20540;&#13;println(&#34;b&#30340;&#20540;&#20026;&#65306;\(b)&#34;)&#13;// &#27714;a&#30340;&#24179;&#26041;&#26681;&#65292;&#24182;&#23558;&#32467;&#26524;&#36171;&#32473;c&#13;var c = sqrt(a)&#13;// &#36755;&#20986;c&#30340;&#20540;&#13;println(&#34;c&#30340;&#20540;&#20026;&#65306;\(c)&#34;)&#13;// &#35745;&#31639;&#38543;&#26426;&#25968;,&#36820;&#22238;&#19968;&#20010;0&#65374;10&#20043;&#38388;&#30340;&#20266;&#38543;&#26426;&#25968;&#12290;&#13;var d = arc4random() % 10&#13;// &#36755;&#20986;&#38543;&#26426;&#25968;d&#30340;&#20540;&#13;println(&#34;d&#30340;&#20540;&#20026;&#65306;\(d)&#34;)&#13;// &#27714;1.57&#30340;sin&#20989;&#25968;&#20540;&#65306;1.57&#34987;&#24403;&#25104;&#24359;&#24230;&#25968;&#13;var e = sin(1.57)&#13;// &#36755;&#20986;&#25509;&#36817;1&#13;println(&#34;e&#30340;&#20540;&#20026;&#65306;\(e)&#34;)</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">import Foundation&#10;var a = 5.2&#13;var b = 3.1&#13;var mod = a % b&#13;println(&#34;mod&#30340;&#20540;&#20026;&#65306;\(mod)&#34;) // mod&#30340;&#20540;&#20026;2.1&#13;println(&#34;-5.2%-3.1&#30340;&#20540;&#20026;&#65306;\(-5.2 % -3.1)&#34;) // &#36755;&#20986;-2.1&#13;println(&#34;-5.2%3.1&#30340;&#20540;&#20026;&#65306;\(-5.2 % 3.1)&#34;) // &#36755;&#20986;-2.1&#13;println(&#34;5.2%3.1&#30340;&#20540;&#20026;&#65306;\(5.2 % -3.1)&#34;) // &#36755;&#20986;2.1&#13;println(&#34;5&#23545;0.0&#27714;&#20313;&#30340;&#32467;&#26524;&#26159;:\(5 % 0.0)&#34;) // &#36755;&#20986;&#38750;&#25968;&#65306;nan&#13;println(&#34;-5.0&#23545;0&#27714;&#20313;&#30340;&#32467;&#26524;&#26159;:\(-5.0 % 0)&#34;) // &#36755;&#20986;&#38750;&#25968;&#65306;nan&#13;println(&#34;0&#23545;5.0&#27714;&#20313;&#30340;&#32467;&#26524;&#26159;:\(0 % 5.0)&#34;) // &#36755;&#20986;0.0&#13;println(&#34;0&#23545;0.0&#27714;&#20313;&#30340;&#32467;&#26524;&#26159;:\(0 % 0.0)&#34;) // &#36755;&#20986;&#38750;&#25968;&#65306;nan&#13;// &#19979;&#38754;&#20195;&#30721;&#23558;&#23548;&#33268;&#32534;&#35793;&#38169;&#35823;&#13;//println(&#34;-5&#23545;0&#27714;&#20313;&#30340;&#32467;&#26524;&#26159;:\(-5 % 0)&#34;)</span><br></pre></td></tr></table></figure>
+<h2 id="3-3_溢出运算符">3.3 溢出运算符</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">var a:Int16 = 20222&#10;a = a &#38;* 6&#10;println(a)  // &#36755;&#20986;-9740&#10;&#10;var b:UInt16 = 20&#10;b = b &#38;- 24&#10;println(b)  // &#36755;&#20986;65532&#10;&#10;var c = Int8.min&#10;c = c &#38;- 1&#10;println(c)  // &#36755;&#20986;127&#10;&#10;let x = 20&#13;let y = x &#38;/ 0  // &#24471;&#21040;0&#13;let z = x &#38;% 0  // &#24471;&#21040;0&#10;println(y) &#10;println(z)</span><br></pre></td></tr></table></figure>
+<h2 id="3-4_位运算符">3.4 位运算符</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">// &#23558;&#36755;&#20986;1&#13;println(5 &#38; 9)&#13;// &#23558;&#36755;&#20986;13&#13;println(5 | 9)&#13;&#13;var a:Int32 = -5&#13;// &#23558;&#36755;&#20986;4&#13;println( ~a)&#13;// &#23558;&#36755;&#20986;12&#13;println(5 ^ 9)&#13;&#13;// &#36755;&#20986;20&#13;println(&#34;\(5 &#60;&#60; 2)&#34;)&#13;// &#36755;&#20986;-20&#13;println(&#34;\(-5 &#60;&#60; 2)&#34;)&#13;&#13;&#13;var b:Int32 = -5&#13;// &#36755;&#20986;-2&#13;println(&#34;\(b &#62;&#62; 2)&#34;)</span><br></pre></td></tr></table></figure>
+<h2 id="3-6_范围运算符">3.6 范围运算符</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">// &#20351;&#29992;&#38381;&#33539;&#22260;&#36816;&#31639;&#31526;&#23450;&#20041;&#33539;&#22260;&#13;var range1 = 2...6&#13;for num in range1&#13;&#123;&#13;&#9;println(&#34;\(num) * 5 = \(num * 5)&#34;)&#13;&#125;&#13;println(&#34;-----&#19979;&#38754;&#26159;&#21322;&#24320;&#33539;&#22260;-----&#34;)&#13;&#13;// &#23450;&#20041;&#25968;&#32452;&#13;let books = [&#34;Swift&#34; , &#34;Objective-C&#34; , &#34;C&#34; , &#34;C++&#34;]&#13;// &#20351;&#29992;&#21322;&#24320;&#33539;&#22260;&#36816;&#31639;&#31526;&#23450;&#20041;&#33539;&#22260;&#13;for index in 0..&#60;books.count&#13;&#123;&#13;&#9;println(&#34;&#31532;\(index+1)&#31181;&#35821;&#35328;&#26159;&#65306;\(books[index])&#34;)&#13;&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="3-7_比较运算符">3.7 比较运算符</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">import Foundation&#13;// &#36755;&#20986;true&#13;println(&#34;5&#26159;&#21542;&#22823;&#20110; 4&#65306;\(5 &#62; 4)&#34;)&#13;// &#36755;&#20986;false&#13;println(&#34;3&#30340;4&#27425;&#26041;&#26159;&#21542;&#22823;&#20110;&#31561;&#20110;90.0&#65306;\(pow(3, 4) &#62;= 90.0)&#34;)&#13;// Swift&#35201;&#27714;&#27604;&#36739;&#36816;&#31639;&#31526;&#20004;&#36793;&#30340;&#25968;&#20540;&#30340;&#31867;&#22411;&#23436;&#20840;&#19968;&#26679;&#65292;&#13;// &#22240;&#27492;&#24517;&#39035;&#25226;&#21069;&#38754;Int&#31867;&#22411;&#24378;&#36716;&#20026;Double&#20043;&#21518;&#20877;&#27604;&#36739;&#65292;&#36755;&#20986;true&#13;println(&#34;20&#26159;&#21542;&#22823;&#20110;&#31561;&#20110;20.0&#65306;\(Double(20) &#62;= 20.0)&#34;)&#13;// &#36755;&#20986;true&#13;println(&#34;5&#21644;5.0&#26159;&#21542;&#30456;&#31561;&#65306;\(Double(5) == 5.0)&#34;)&#13;// &#36755;&#20986;false&#13;println(&#34;true&#21644;false&#26159;&#21542;&#30456;&#31561;&#65306;\(true == false)&#34;)&#13;// &#21019;&#24314;2&#20010;&#23545;&#35937;&#13;var d1 = NSMutableArray()&#13;var d2 = NSMutableArray()&#13;// &#21028;&#26029;&#20004;&#20010;&#23545;&#35937;&#30340;&#20869;&#23481;&#26159;&#21542;&#30456;&#31561;&#65292;&#36755;&#20986;true&#13;println(d1 == d2)&#13;// &#21028;&#26029;d1&#12289;d2&#26159;&#21542;&#25351;&#21521;&#21516;&#19968;&#20010;&#23545;&#35937;&#65292;&#36755;&#20986;false&#13;println(d1 === d2)</span><br></pre></td></tr></table></figure>
+<h2 id="3-8_逻辑运算符">3.8 逻辑运算符</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">var bookName = &#34;&#30127;&#29378;Swifts&#34;&#13;var price = 79&#13;var version = &#34;&#27491;&#24335;&#29256;&#34;&#13;if bookName.hasSuffix(&#34;Swift&#34;) &#38;&#38; (price &#60; 50 || version == &#34;&#27491;&#24335;&#29256;&#34;)&#13;&#123;&#13;&#9;println(&#34;&#25171;&#31639;&#36141;&#20080;&#36825;&#26412;Swift&#22270;&#20070;&#34;)&#13;&#125;&#13;else&#13;&#123;&#13;&#9;println(&#34;&#19981;&#36141;&#20080;&#65281;&#34;)&#13;&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">// &#30452;&#25509;&#23545;false&#27714;&#38750;&#36816;&#31639;&#65292;&#23558;&#36820;&#22238;true&#13;println(!false)&#13;// 5&#62;3&#36820;&#22238;true&#65292;20.0&#22823;&#20110;10&#65292;&#22240;&#27492;&#32467;&#26524;&#36820;&#22238;true&#13;println(5 &#62; 3 &#38;&#38; 20.0 &#62; Double(10))&#13;// 4&#62;=5&#36820;&#22238;false&#65292;&#34;c&#34;&#62;&#34;a&#34;&#36820;&#22238;true&#12290;&#27714;&#25110;&#21518;&#36820;&#22238;true&#13;println(4 &#62;= 5 || &#34;c&#34; &#62; &#34;a&#34;)&#13;// 4&#62;=5&#36820;&#22238;false&#65292;&#34;c&#34;&#62;&#34;a&#34;&#36820;&#22238;true&#12290;&#20004;&#20010;&#19981;&#21516;&#30340;&#25805;&#20316;&#25968;&#27714;&#24322;&#25110;&#36820;&#22238;true&#13;println((4 &#62;= 5) ^ (&#34;c&#34; &#62; &#34;a&#34;))&#13;&#13;&#13;// &#23450;&#20041;&#21464;&#37327;a,b&#65292;&#24182;&#20026;&#20004;&#20010;&#21464;&#37327;&#36171;&#20540;&#13;var a = 5&#13;var b = 10&#13;// &#23545;a &#62; 4&#21644;b++ &#62; 10&#27714;&#25110;&#36816;&#31639;&#13;if (a &#62; 4) | (b++ &#62; 10)&#13;&#123;&#13;&#9;// &#36755;&#20986;a&#30340;&#20540;&#26159;5&#65292;b&#30340;&#20540;&#26159;11&#13;&#9;println(&#34;a&#30340;&#20540;&#26159;:\(a)&#65292;b&#30340;&#20540;&#26159;:\(b)&#34;)&#13;&#125;&#13;&#13;&#13;// &#23450;&#20041;&#21464;&#37327;c,d&#65292;&#24182;&#20026;&#20004;&#20010;&#21464;&#37327;&#36171;&#20540;&#13;var c = 5&#13;var d = 10&#13;// c &#62; 4 || d++ &#62; 10&#27714;&#25110;&#36816;&#31639;&#13;if c &#62; 4 || d++ &#62; 10&#13;&#123;&#13;&#9;// &#36755;&#20986;c&#30340;&#20540;&#26159;5&#65292;d&#30340;&#20540;&#26159;10&#13;&#9;println(&#34;c&#30340;&#20540;&#26159;:\(c)&#65292;d&#30340;&#20540;&#26159;:\(d)&#34;)&#13;&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="3-9_三目运算符">3.9 三目运算符</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">var a = 5&#13;var b = 3&#13;var str = a &#62; b ? &#34;a&#22823;&#20110;b&#34; : &#34;a&#19981;&#22823;&#20110;b&#34;&#13;// &#36755;&#20986;&#34;a&#22823;&#20110;b&#34;&#13;println(str)&#13;&#13;var str2: String! = nil&#13;if a &#62; b&#13;&#123;&#13;&#9;str2 = &#34;a&#22823;&#20110;b&#34;&#13;&#125;&#13;else&#13;&#123;&#13;&#9;str2 = &#34;a&#19981;&#22823;&#20110;b&#34;&#13;&#125;&#13;// &#36755;&#20986;&#34;a&#22823;&#20110;b&#34;&#13;println(str2)&#13;&#13;&#13;// &#36755;&#20986;&#34;a&#22823;&#20110;b&#34;&#13;a &#62; b ? println(&#34;a&#22823;&#20110;b&#34;) : println(&#34;a&#19981;&#22823;&#20110;b&#34;)&#13;&#13;&#13;var c = 5&#13;var d = 5&#13;// &#19979;&#38754;&#23558;&#36755;&#20986;c&#31561;&#20110;d&#13;c &#62; d ? println(&#34;c&#22823;&#20110;d&#34;) : (c &#60; d ? println(&#34;c&#23567;&#20110;d&#34;) : println(&#34;c&#31561;&#20110;d&#34;))</span><br></pre></td></tr></table></figure>
+<h2 id="3-10_nil_合并运算符">3.10 nil 合并运算符</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">let defaultName = &#34;&#23385;&#24735;&#31354;&#34;&#13;// &#23450;&#20041;&#21487;&#36873;&#31867;&#22411;&#30340;&#21464;&#37327;&#65292;&#35813;&#21464;&#37327;&#19981;&#20026;nil&#13;var name1: String? = &#34;&#21776;&#20711;&#34;&#13;println(name1 ?? defaultName)  // &#36755;&#20986; &#21776;&#20711;&#13;// &#23450;&#20041;&#21487;&#36873;&#31867;&#22411;&#30340;&#30340;&#21464;&#37327;&#65292;&#19981;&#25351;&#23450;&#21021;&#22987;&#20540;&#13;var name2: String?  // &#27492;&#26102;name2&#40664;&#35748;&#20540;&#20026;nil&#13;println(name2 ?? defaultName)  // &#36755;&#20986; &#23385;&#24735;&#31354;&#13;&#13;// &#20351;&#29992;&#19977;&#30446;&#36816;&#31639;&#31526;&#20195;&#26367;??&#36816;&#31639;&#31526;&#13;println(name1 != nil ? name1! : defaultName)  // &#36755;&#20986; &#21776;&#20711;&#13;println(name2 != nil ? name2! : defaultName)  // &#36755;&#20986; &#23385;&#24735;&#31354;</span><br></pre></td></tr></table></figure>
+      
+    </div>
+
+    <div class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Swift/"> #Swift </a>
+          
+            <a href="/tags/iOS-App-Development/"> #iOS App Development </a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2015/05/16/Crazy-Swift-Lecture-Chapter-4/">Crazy Swift Lecture Chapter 4</a>
+            
+          </div>
+
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2015/05/14/Crazy-Swift-Lecture-Chapter-2/">Crazy Swift Lecture Chapter 2</a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </div>
+  </div>
+
+
+
+    
+      <div class="comments" id="comments">
+        
+          <div id="disqus_thread">
+            <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+          </div>
+        
+      </div>
+    
+  </div>
+
+
+        </div>
+
+        
+      </div>
+
+
+      
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table Of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            Overview
+          </li>
+        </ul>
+      
+
+      <div class="site-overview">
+        <div class="site-author motion-element">
+          <img class="site-author-image" src="http://i.imgur.com/uRJy8E9.png" alt="Ge Will" />
+          <p class="site-author-name">Ge Will</p>
+        </div>
+        <p class="site-description motion-element">The people who are crazy enough to think they can change the world, are the ones who do.</p>
+        <div class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">50</span>
+              <span class="site-state-item-name">posts</span>
+            </a>
+          </div>
+
+          <div class="site-state-item site-state-categories">
+            
+              <span class="site-state-item-count">0</span>
+              <span class="site-state-item-name">categories</span>
+              
+          </div>
+
+          <div class="site-state-item site-state-tags">
+            <a href="/tags">
+              <span class="site-state-item-count">9</span>
+              <span class="site-state-item-name">tags</span>
+              </a>
+          </div>
+
+        </div>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+              <a href="https://github.com/gewill" target="_blank">GitHub</a>
+            </span>
+            
+              <span class="links-of-author-item">
+              <a href="https://twitter.com/gewill_org" target="_blank">Twitter</a>
+            </span>
+            
+              <span class="links-of-author-item">
+              <a href="http://weibo.com/gewei" target="_blank">Weibo</a>
+            </span>
+            
+          
+        </div>
+
+        
+        
+          <div class="cc-license motion-element">
+            <a href="http://creativecommons.org/licenses/by-nc-sa/4.0" class="cc-opacity" target="_blank">
+              <img src="/images/cc-by-nc-sa.svg" alt="Creative Commons" />
+            </a>
+          </div>
+        
+
+      </div>
+
+      
+        <div class="post-toc-wrap sidebar-panel-active">
+          <div class="post-toc-indicator-top post-toc-indicator"></div>
+          <div class="post-toc">
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#第三章：运算符与表达式"><span class="nav-text">第三章：运算符与表达式</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#3-1_赋值运算符"><span class="nav-text">3.1 赋值运算符</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-2_算数运算符"><span class="nav-text">3.2 算数运算符</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-3_溢出运算符"><span class="nav-text">3.3 溢出运算符</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-4_位运算符"><span class="nav-text">3.4 位运算符</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-6_范围运算符"><span class="nav-text">3.6 范围运算符</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-7_比较运算符"><span class="nav-text">3.7 比较运算符</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-8_逻辑运算符"><span class="nav-text">3.8 逻辑运算符</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-9_三目运算符"><span class="nav-text">3.9 三目运算符</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-10_nil_合并运算符"><span class="nav-text">3.10 nil 合并运算符</span></a></li></ol></li></ol></div>
+            
+          </div>
+          <div class="post-toc-indicator-bottom post-toc-indicator"></div>
+        </div>
+      
+
+    </div>
+  </div>
+
+
+    </div>
+
+    <div id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">
+  
+  &copy; &nbsp; 
+  2015
+  <span style="color:red" class="with-love">
+    <i class="icon-heart"></i>
+  </span>
+  <span style="color:#00CED1" class="author">Ge Will</span>
+</div>
+
+<div class="powered-by">
+  Powered by <a class="theme-link" href="http://hexo.io">Hexo</a>
+</div>
+
+<div class="theme-info">
+  Theme -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+
+
+
+
+      </div>
+    </div>
+
+    <div class="back-to-top"></div>
+  </div>
+
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js"></script>
+  <script type="text/javascript" src="/js/fancy-box.js"></script>
+
+
+  <script type="text/javascript" src="/js/helpers.js"></script>
+  
+
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js"></script>
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js"></script>
+
+  <script type="text/javascript" src="/js/motion_global.js" id="motion.global"></script>
+
+
+
+
+  
+  
+<script type="text/javascript" src="/js/bootstrap.scrollspy.js" id="bootstrap.scrollspy.custom"></script>
+
+
+<script type="text/javascript" id="sidebar.toc.highlight">
+  $(document).ready(function () {
+    var tocSelector = '.post-toc';
+    var $tocSelector = $(tocSelector);
+    var activeCurrentSelector = '.active-current';
+
+    $tocSelector
+      .on('activate.bs.scrollspy', function () {
+        var $currentActiveElement = $(tocSelector + ' .active').last();
+
+        removeCurrentActiveClass();
+        $currentActiveElement.addClass('active-current');
+
+        $tocSelector[0].scrollTop = $currentActiveElement.position().top;
+      })
+      .on('clear.bs.scrollspy', function () {
+        removeCurrentActiveClass();
+      });
+
+    function removeCurrentActiveClass () {
+      $(tocSelector + ' ' + activeCurrentSelector)
+        .removeClass(activeCurrentSelector.substring(1));
+    }
+
+    function processTOC () {
+      getTOCMaxHeight();
+      toggleTOCOverflowIndicators();
+    }
+
+    function getTOCMaxHeight () {
+      var $sidebarInner = $('.sidebar-inner');
+      var height = $('.sidebar').height() -
+                   $tocSelector.position().top -
+                   $('.post-toc-indicator-bottom').height();
+
+      $tocSelector.css('height', height);
+
+      return height;
+    }
+
+    function toggleTOCOverflowIndicators () {
+      tocOverflowIndicator(
+        '.post-toc-indicator-top',
+        $tocSelector.scrollTop() > 0 ? 'show' : 'hide'
+      );
+
+      tocOverflowIndicator(
+        '.post-toc-indicator-bottom',
+        $tocSelector.scrollTop() >= $tocSelector.find('ol').height() - $tocSelector.height() ? 'hide' : 'show'
+      )
+    }
+
+    $(document).on('sidebar.didShow', function () {
+      processTOC();
+    });
+
+    $('body').scrollspy({ target: tocSelector });
+    $(window).on('resize', function () {
+      if ( $('.sidebar').hasClass('sidebar-active') ) {
+        processTOC();
+      }
+    });
+
+    onScroll($tocSelector);
+
+    function onScroll (element) {
+      element.on('mousewheel DOMMouseScroll', function (event) {
+          var oe = event.originalEvent;
+          var delta = oe.wheelDelta || -oe.detail;
+          var self = this;
+
+          this.scrollTop += ( delta < 0 ? 1 : -1 ) * 30;
+          event.preventDefault();
+
+          toggleTOCOverflowIndicators();
+      });
+    }
+
+    function tocOverflowIndicator (indicator, action) {
+      $(indicator).velocity('stop').velocity({
+        opacity: action === 'show' ? 0.4 : 0
+      }, { duration: 100 });
+    }
+
+  });
+</script>
+
+
+  <script type="text/javascript" id="sidebar.nav">
+    $(document).ready(function () {
+      var html = $('html');
+
+      $('.sidebar-nav li').on('click', function () {
+        var item = $(this);
+        var activeTabClassName = 'sidebar-nav-active';
+        var activePanelClassName = 'sidebar-panel-active';
+        if (item.hasClass(activeTabClassName)) {
+          return;
+        }
+
+        var currentTarget = $('.' + activePanelClassName);
+        var target = $('.' + item.data('target'));
+
+        currentTarget.velocity('transition.slideUpOut', 200, function () {
+          target
+            .velocity('stop')
+            .velocity('transition.slideDownIn', 200)
+            .addClass(activePanelClassName);
+        });
+
+        item.siblings().removeClass(activeTabClassName);
+        item.addClass(activeTabClassName);
+      });
+
+      $('.post-toc a').on('click', function (e) {
+        e.preventDefault();
+        var offset = $(escapeSelector(this.getAttribute('href'))).offset().top;
+        html.velocity('stop').velocity('scroll', {
+          offset: offset  + 'px',
+          mobileHA: false
+        });
+      });
+
+      // Expand sidebar on post detail page by default, when post has a toc.
+      var $tocContent = $('.post-toc-content');
+      if (isDesktop() && CONFIG.sidebar === 'post') {
+        if ($tocContent.length > 0 && $tocContent.html().trim().length > 0) {
+          displaySidebar();
+        }
+      }
+    });
+  </script>
+
+
+
+
+  <script type="text/javascript">
+    $(document).ready(function () {
+      if (CONFIG.sidebar === 'always') {
+        displaySidebar();
+      }
+    });
+  </script>
+
+  
+
+  
+  
+  
+
+  
+
+    
+      
+    
+
+    <script type="text/javascript">
+      var disqus_shortname = 'gewill';
+      var disqus_identifier = '2015/05/16/Crazy-Swift-Lecture-Chapter-3/';
+      var disqus_title = 'Crazy Swift Lecture Chapter 3';
+      var disqus_url = 'http://gewill.org/2015/05/16/Crazy-Swift-Lecture-Chapter-3/';
+
+      (function(){
+        var dsq = document.createElement('script');
+        dsq.type = 'text/javascript';
+        dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+      }());
+    </script>
+  
+
+
+
+
+  
+  
+  <script type="text/javascript" src="/js/analytics_google-analytics.js"></script>
+
+
+</body>
+</html>

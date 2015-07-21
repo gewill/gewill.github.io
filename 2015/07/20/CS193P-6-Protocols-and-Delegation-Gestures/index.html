@@ -1,0 +1,632 @@
+<!doctype html>
+<html class="theme-next use-motion theme-next-mist">
+<head>
+  
+
+<meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+  <meta name="google-site-verification" content="6p6MCt9mM7zNfEZF2HzE72sTOXJ8MC5frP4VNvYw1JU" />
+
+
+
+
+
+  <link rel="stylesheet" type="text/css" href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5"/>
+
+
+<link rel="stylesheet" type="text/css" href="/css/main.css?v=0.4.3"/>
+
+
+    <meta name="description" content="The people who are crazy enough to think they can change the world, are the ones who do." />
+
+
+
+  <meta name="keywords" content="CS193P,Swift,iOS App Development," />
+
+
+
+
+
+  <link rel="shorticon icon" type="image/x-icon" href="/bitbug_favicon.ico?v=0.4.3" />
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var CONFIG = {
+    scheme: 'Mist',
+    analytics: {
+      baidu: '',
+      google: 'UA-62118677-1'
+    },
+    sidebar: 'hide'
+  };
+</script>
+
+
+
+
+  <title> CS193P 6. Protocols and Delegation, Gestures // whoDO </title>
+</head>
+
+<body>
+<!--[if lte IE 8]> <div style=' clear: both; height: 59px; padding:0 0 0 15px; position: relative;margin:0 auto;'> <a href="http://windows.microsoft.com/en-US/internet-explorer/products/ie/home?ocid=ie6_countdown_bannercode"><img src="http://7u2nvr.com1.z0.glb.clouddn.com/picouterie.jpg" border="0" height="42" width="820" alt="You are using an outdated browser. For a faster, safer browsing experience, upgrade for free today or use other browser ,like chrome firefox safari." style='margin-left:auto;margin-right:auto;display: block;'/></a></div> <![endif]-->
+  <div class="container one-column page-post-detail">
+    <div class="headband"></div>
+
+    <div id="header" class="header">
+      <div class="header-inner">
+        <h1 class="site-meta">
+  <span class="logo-line-before"><i></i></span>
+  <a href="/" class="brand">
+      <span class="logo">
+        <i class="icon-logo"></i>
+      </span>
+      <span class="site-title">whoDO</span>
+  </a>
+  <span class="logo-line-after"><i></i></span>
+</h1>
+
+
+  <ul id="menu" class="menu">
+     
+    
+      
+      <li class="menu-item menu-item-archives">
+        <a href="/archives">
+          <i class="menu-item-icon icon-archives"></i> <br />
+          Archives
+        </a>
+      </li>
+    
+      
+      <li class="menu-item menu-item-tags">
+        <a href="/tags">
+          <i class="menu-item-icon icon-tags"></i> <br />
+          Tags
+        </a>
+      </li>
+    
+      
+      <li class="menu-item menu-item-about">
+        <a href="/about">
+          <i class="menu-item-icon icon-about"></i> <br />
+          About
+        </a>
+      </li>
+    
+  </ul>
+
+
+      </div>
+    </div>
+
+    <div id="main" class="main">
+      <div class="main-inner">
+        <div id="content" class="content">
+          
+
+  <div id="posts" class="posts-expand">
+    
+
+  <div class="post post-type-normal ">
+    <div class="post-header">
+
+      
+      
+        <h1 class="post-title">
+          
+          
+            
+              CS193P 6. Protocols and Delegation, Gestures
+            
+          
+        </h1>
+      
+
+      <div class="post-meta">
+        <span class="post-time">
+          Posted on 2015-07-20
+        </span>
+
+        
+
+        
+          
+            <span class="post-comments-count">
+            &nbsp; | &nbsp;
+            <a href="/2015/07/20/CS193P-6-Protocols-and-Delegation-Gestures/#comments" >
+              <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2015/07/20/CS193P-6-Protocols-and-Delegation-Gestures/"></span>
+            </a>
+          </span>
+          
+        
+      </div>
+    </div>
+
+    <div class="post-body">
+
+      
+      
+
+      
+        <p>网站添加 Tags，方便分类查找文章。 <a href="https://medium.com" target="_blank" rel="external">Medium</a> 非常简洁优雅，以后网站改版可以借鉴其风格。</p>
+<p>关于课程中 Swift 语言的知识我只是简单浏览一遍，毕竟他说的也不详细，真正搞懂还是要系统学习。复习一下《疯狂 Swift 讲义》或者 Google 都是可行的。重要是 Demo 实践。今天微博看到的玩笑：<a href="http://www.theallium.com/engineering/computer-programming-to-be-officially-renamed-googling-stackoverflow/" target="_blank" rel="external">Computer Programming To Be Officially Renamed “Googling Stackoverflow”
+</a>。</p>
+<h2 id="1-_Interface_Builder">1. Interface Builder</h2><p>Demo: 自定义 UIViews in your storyboard (FaceView)</p>
+<p><a href="http://www.cocoachina.com/ios/20140619/8883.html" target="_blank" rel="external">如何在iOS 8中使用Swift和Xcode 6制作精美的UI组件</a> 有个例子：苹果在Xcode 6中加入了两个新的Interface Builder（下文用IB简称）属性声明:IBInspectable和IBDesignable。IBInspectable在IB的Attribute Inspector（属性检查器）中查看类的属性，而IBDesignable能实时更新视图，很厉害吧！</p>
+<h2 id="2-_The_Happiness_MVC’s_Model">2. The Happiness MVC’s Model</h2><p>是寄于 HappinessViewController 里的 happiness，不同于 smiliness。</p>
+<h2 id="3-_Protocols_and_Delegation">3. Protocols and Delegation</h2><p>扩展</p>
+<p>协议也是一种数据类型</p>
+<p>代理是一种非常重要的协议的应用。<br>代理是我们完成视图和控制器盲沟通的方式。</p>
+<p><img src="http://i.imgur.com/OuW94mJ.png" alt="Delegation"></p>
+<p>通过代理模式 UIViews 可以控制 Model，虽然并不是真的拥有 Model。</p>
+<p>如何实现：</p>
+<ol>
+<li>视图中创建一个代理协议 (定义具体视图想要控制器关心的内容) </li>
+<li>视图中创建一个代理的属性，其类型是代理协议</li>
+<li>视图中使用代理的属性去得到并不用的事，或做并不控制的事</li>
+<li>控制器声明并完成代理协议</li>
+<li>控制器把自己作为视图的代理，通过设置设置代理的属性（上面2提到的）</li>
+<li>控制器实施协议</li>
+</ol>
+<p>现在视图就勾住了控制器。不过视图仍不晓得控制器的内容，所以视图仍是通用/可重复使用的。</p>
+<p><strong>Demo:  Happiness MVC’s Model using generic FaceView in its View</strong></p>
+<blockquote>
+<p>Cmd + Shift + O 快速打开文档，有种 Xcode 内置 spotlight 的即视感。</p>
+</blockquote>
+<p>FaceView.swift 为自定义 UIView 的类，是 View。<br>HappinessViewController.swift 是继承自 UIViewController，是 Controller。</p>
+<p>View 中 dataSource 是 protocol FaceViewDataSource 的属性（代理或数据源），作为 dataSource?.smilinessForFaceView(self) 的形参。</p>
+<p>Controller 实现了该协议，并将自己作为代理的对象，并通过 happiness 变量来改变协议中</p>
+<p>Controller 中的 faceView 通过 Outlet 监控 dataSource 值的改变（didSet），来控制 View 笑脸的变化（smiliness）。</p>
+<p><img src="http://i.imgur.com/Zop3POa.png" alt="Happiness MVC"><br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">//&#10;//  FaceView.swift&#10;//  Happiness&#10;&#10;&#10;import UIKit&#10;&#10;protocol FaceViewDataSource: class &#123;&#10;    func smilinessForFaceView(sender: FaceView) -&#62; Double?&#10;&#125;&#10;&#10;@IBDesignable&#10;class FaceView: UIView&#10;&#123;&#10;    @IBInspectable&#10;    var lineWidth: CGFloat = 3 &#123; didSet &#123; setNeedsDisplay() &#125; &#125;&#10;    @IBInspectable&#10;    var color: UIColor = UIColor.blueColor() &#123; didSet &#123; setNeedsDisplay() &#125; &#125;&#10;    @IBInspectable&#10;    var scale: CGFloat = 0.90 &#123; didSet &#123; setNeedsDisplay() &#125; &#125;&#10;    &#10;    var faceCenter: CGPoint &#123;&#10;        return convertPoint(center, fromView: superview)&#10;    &#125;&#10;    var faceRadius: CGFloat &#123;&#10;        return min(bounds.size.width, bounds.size.height) / 2 * scale&#10;    &#125;&#10;    &#10;    weak var dataSource: FaceViewDataSource?&#10;    &#10;    override func drawRect(rect: CGRect)&#10;    &#123;&#10;        let facePath = UIBezierPath(&#10;            arcCenter: faceCenter,&#10;            radius: faceRadius,&#10;            startAngle: 0,&#10;            endAngle: CGFloat(2*M_PI),&#10;            clockwise: true&#10;        )&#10;        facePath.lineWidth = lineWidth&#10;        color.set()&#10;        facePath.stroke()&#10;        &#10;        bezierPathForEye(.Left).stroke()&#10;        bezierPathForEye(.Right).stroke()&#10;        &#10;        let smiliness = dataSource?.smilinessForFaceView(self) ?? 0.0&#10;        let smilePath = bezierPathForSmile(smiliness)&#10;        smilePath.stroke()&#10;    &#125;&#10;    &#10;    private struct Scaling &#123;&#10;        static let FaceRadiusToEyeRadiusRatio: CGFloat = 10&#10;        static let FaceRadiusToEyeOffsetRatio: CGFloat = 3&#10;        static let FaceRadiusToEyeSeparationRatio: CGFloat = 1.5&#10;        static let FaceRadiusToMouthWidthRatio: CGFloat = 1&#10;        static let FaceRadiusToMouthHeightRatio: CGFloat = 3&#10;        static let FaceRadiusToMouthOffsetRatio: CGFloat = 3&#10;    &#125;&#10;    &#10;    private enum Eye &#123; case Left, Right &#125;&#10;    &#10;    private func bezierPathForEye(whichEye: Eye) -&#62; UIBezierPath&#10;    &#123;&#10;        let eyeRadius = faceRadius / Scaling.FaceRadiusToEyeRadiusRatio&#10;        let eyeVerticalOffset = faceRadius / Scaling.FaceRadiusToEyeOffsetRatio&#10;        let eyeHorizontalSeparation = faceRadius / Scaling.FaceRadiusToEyeSeparationRatio&#10;        &#10;        var eyeCenter = faceCenter&#10;        eyeCenter.y -= eyeVerticalOffset&#10;        switch whichEye &#123;&#10;            case .Left: eyeCenter.x -= eyeHorizontalSeparation / 2&#10;            case .Right: eyeCenter.x += eyeHorizontalSeparation / 2&#10;        &#125;&#10;        &#10;        let path = UIBezierPath(&#10;            arcCenter: eyeCenter,&#10;            radius: eyeRadius,&#10;            startAngle: 0,&#10;            endAngle: CGFloat(2*M_PI),&#10;            clockwise: true&#10;        )&#10;        path.lineWidth = lineWidth&#10;        return path&#10;    &#125;&#10;&#10;    private func bezierPathForSmile(fractionOfMaxSmile: Double) -&#62; UIBezierPath&#10;    &#123;&#10;        let mouthWidth = faceRadius / Scaling.FaceRadiusToMouthWidthRatio&#10;        let mouthHeight = faceRadius / Scaling.FaceRadiusToMouthHeightRatio&#10;        let mouthVerticalOffset = faceRadius / Scaling.FaceRadiusToMouthOffsetRatio&#10;        &#10;        let smileHeight = CGFloat(max(min(fractionOfMaxSmile, 1), -1)) * mouthHeight&#10;        &#10;        let start = CGPoint(x: faceCenter.x - mouthWidth / 2, y: faceCenter.y + mouthVerticalOffset)&#10;        let end = CGPoint(x: start.x + mouthWidth, y: start.y)&#10;        let cp1 = CGPoint(x: start.x + mouthWidth / 3, y: start.y + smileHeight)&#10;        let cp2 = CGPoint(x: end.x - mouthWidth / 3, y: cp1.y)&#10;        &#10;        let path = UIBezierPath()&#10;        path.moveToPoint(start)&#10;        path.addCurveToPoint(end, controlPoint1: cp1, controlPoint2: cp2)&#10;        path.lineWidth = lineWidth&#10;        return path&#10;    &#125;&#10;&#125;</span><br></pre></td></tr></table></figure></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">//&#10;//  HappinessViewController.swift&#10;//  Happiness&#10;&#10;&#10;import UIKit&#10;&#10;class HappinessViewController: UIViewController, FaceViewDataSource&#10;&#123;&#10;&#10;    @IBOutlet weak var faceView: FaceView! &#123;&#10;        didSet &#123;&#10;            faceView.dataSource = self&#10;        &#125;&#10;    &#125;&#10;    var happiness: Int = 99 &#123; // 0 = very sad, 100 = ecstatic&#10;        didSet &#123;&#10;            happiness = min(max(happiness, 0), 100)&#10;            print(&#34;happiness = \(happiness)&#34;)&#10;            updateUI()&#10;        &#125;&#10;    &#125;&#10;    &#10;    func updateUI() &#123;&#10;        faceView.setNeedsDisplay()&#10;    &#125;&#10;    &#10;    func smilinessForFaceView(sender: FaceView) -&#62; Double? &#123;&#10;        return Double(happiness - 50) / 50&#10;    &#125;&#10;&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="4-_Gestures">4. Gestures</h2><p>手势识别分两步走：</p>
+<ol>
+<li>Adding a gesture recognizer to a UIView (asking the UIView to “recognize” that gesture)</li>
+<li>Providing a method to “handle” that gesture (not necessarily handled by the UIView)</li>
+</ol>
+<blockquote>
+<p>Usually the first is done by a Controller<br>Though occasionally a UIView will do this itself if the gesture is integral to its existence</p>
+<p>The second is provided either by the UIView or a Controller Depending on the situation. We’ll see an example of both in our demo.</p>
+</blockquote>
+<h3 id="第一步：Adding_a_gesture_recognizer_to_a_UIView">第一步：Adding a gesture recognizer to a UIView</h3><p>Imagine we wanted a UIView in our Controller’s View to recognize a “pan” gesture …</p>
+<p>```<br>@IBOutlet weak var pannableView: UIView {<br>    didSet {<br>        let recognizer = UIPanGestureRecognizer(target: self, action: “pan:”)<br>        pannableView.addGestureRecognizer(recognizer)<br>    }<br>}<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#10;&#10;&#10;&#13;This is just a normal outlet to the UIView we want to recognize the gesture&#10;&#13;We use its property observer to get involved when the outlet gets hooked up by iOS&#10;&#13;Here we are creating an instance of a concrete subclass of UIGestureRecognizer (for pans) &#10;&#10;The target gets notified when the gesture is recognized (in this case, the Controller itself) &#10;&#10;The action is the method invoked on recognition (the : means it has an argument)&#10;&#13;Here we ask the UIView to actually start trying to recognize this gesture in its bounds &#10;&#10;Let&#8217;s talk about how we implement the handler ...&#10;&#10;### &#31532;&#20108;&#27493;&#65306;A handler for a gesture needs gesture-specific information&#10;&#10;So each concrete subclass provides special methods for handling that type of gesture&#13;&#13;**For example, UIPanGestureRecognizer provides 3 methods**&#10;&#13;`func translationInView(view: UIView) -&#62; CGPoint` // cumulative since start of recognition &#10;&#10;`func velocityInView(view: UIView) -&#62; CGPoint` // how fast the finger is moving (points/s)&#10;&#10;`func setTranslation(translation: CGPoint, inView: UIView)`&#10;&#13;This last one is interesting because it allows you to reset the translation so far&#10;&#13;By resetting the translation to zero all the time, you end up getting &#8220;incremental&#8221; translation &#10;&#10;**The abstract superclass also provides state information**&#10;&#13;`var state: UIGestureRecognizerState &#123; get &#125;`&#13;This sits around in `.Possible` until recognition starts&#13;For a discrete gesture (e.g. a Swipe), it changes to `.Recognized` (Tap is not a normal discrete) For a continues gesture (e.g. a Pan), it moves from `.Began` thru repeated `.Changed` to `.Ended`&#13;It can go to `.Failed` or `.Cancelled` too, so watch out for those!&#10;&#10;**So, given this information, what would the pan handler look like?**&#10;&#10;&#10;```&#13;  func pan(gesture: UIPanGestureRecognizer) &#123;&#13;      switch gesture.state &#123;&#13;          case .Changed: fallthrough&#13;          case .Ended:&#13;              let translation = gesture.translationInView(pannableView)&#13;// update anything that depends on the pan gesture using translation.x and .y&#13;&#65532;            gesture.setTranslation(CGPointZero, inView: pannableView)&#13;        default: break&#13;     &#125;&#10;&#125;</span><br></pre></td></tr></table></figure></p>
+<p>Remember that the action was “pan:” (if no colon, we would not get the gesture argument)</p>
+<p>We are only going to do anything when the finger moves or lifts up off the device’s surface </p>
+<p>fallthrough means “execute the code for the next case down”</p>
+<p>Here we get the location of the pan in the pannableView’s coordinate system</p>
+<p>Now we do whatever we want with that information</p>
+<p>By resetting the translation, the next one we get will be how much it moved since this one</p>
+<h3 id="常用手势：">常用手势：</h3><ul>
+<li><p>UIPinchGestureRecognizer</p>
+<p>var scale: CGFloat // not read-only (can reset)</p>
+<p>var   velocity: CGFloat { get } // scale factor per second</p>
+</li>
+<li><p>UIRotationGestureRecognizer</p>
+<p>var rotation: CGFloat // not read-only (can reset); in radians </p>
+<p>var velocity: CGFloat { get } // radians per second</p>
+</li>
+<li><p>UISwipeGestureRecognizer</p>
+<p>Set up the direction and number of fingers you want, then look for .Recognized</p>
+<p>var direction: UISwipeGestureRecoginzerDirection // which swipes you want </p>
+<p>var numberOfTouchesRequired: Int // finger count</p>
+</li>
+<li><p>UITapGestureRecognizer</p>
+<p>Set up the number of taps and fingers you want, then look for .Ended </p>
+<p>var numberOfTapsRequired: Int // single tap, double tap, etc. </p>
+<p>var numberOfTouchesRequired: Int // finger count</p>
+</li>
+</ul>
+<p>￼￼￼￼</p>
+<h3 id="Demo:_Happiness_pinch_and_pan">Demo: Happiness pinch and pan</h3><p><strong>FaceView Gestures</strong></p>
+<p>Add a gesture recognizer (pinch) to the FaceView to zoom in and out (control its own scale) </p>
+<p>Add a gesture recognizer (pan) to the FaceView to control happiness (Model) in the Controller</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">//&#10;//  FaceView.swift&#10;//  Happiness&#10;&#10;&#10;import UIKit&#10;&#10;protocol FaceViewDataSource: class &#123;&#10;    func smilinessForFaceView(sender: FaceView) -&#62; Double?&#10;&#125;&#10;&#10;@IBDesignable&#10;class FaceView: UIView&#10;&#123;&#10;    @IBInspectable&#10;    var lineWidth: CGFloat = 3 &#123; didSet &#123; setNeedsDisplay() &#125; &#125;&#10;    @IBInspectable&#10;    var color: UIColor = UIColor.blueColor() &#123; didSet &#123; setNeedsDisplay() &#125; &#125;&#10;    @IBInspectable&#10;    var scale: CGFloat = 0.90 &#123; didSet &#123; setNeedsDisplay() &#125; &#125;&#10;    &#10;    var faceCenter: CGPoint &#123;&#10;        return convertPoint(center, fromView: superview)&#10;    &#125;&#10;    var faceRadius: CGFloat &#123;&#10;        return min(bounds.size.width, bounds.size.height) / 2 * scale&#10;    &#125;&#10;    &#10;    weak var dataSource: FaceViewDataSource?&#10;    &#10;    &#10;    // 2. handler&#10;    func scale(gestrue: UIPinchGestureRecognizer) &#123;&#10;    &#10;        if gestrue.state == .Changed &#123;&#10;            scale *= gestrue.scale&#10;            gestrue.scale = 1&#10;        &#125;&#10;    &#125;&#10;    &#10;    &#10;    override func drawRect(rect: CGRect)&#10;    &#123;&#10;        let facePath = UIBezierPath(&#10;            arcCenter: faceCenter,&#10;            radius: faceRadius,&#10;            startAngle: 0,&#10;            endAngle: CGFloat(2*M_PI),&#10;            clockwise: true&#10;        )&#10;        facePath.lineWidth = lineWidth&#10;        color.set()&#10;        facePath.stroke()&#10;        &#10;        bezierPathForEye(.Left).stroke()&#10;        bezierPathForEye(.Right).stroke()&#10;        &#10;        let smiliness = dataSource?.smilinessForFaceView(self) ?? 0.0&#10;        let smilePath = bezierPathForSmile(smiliness)&#10;        smilePath.stroke()&#10;    &#125;&#10;    &#10;    private struct Scaling &#123;&#10;        static let FaceRadiusToEyeRadiusRatio: CGFloat = 10&#10;        static let FaceRadiusToEyeOffsetRatio: CGFloat = 3&#10;        static let FaceRadiusToEyeSeparationRatio: CGFloat = 1.5&#10;        static let FaceRadiusToMouthWidthRatio: CGFloat = 1&#10;        static let FaceRadiusToMouthHeightRatio: CGFloat = 3&#10;        static let FaceRadiusToMouthOffsetRatio: CGFloat = 3&#10;    &#125;&#10;    &#10;    private enum Eye &#123; case Left, Right &#125;&#10;    &#10;    private func bezierPathForEye(whichEye: Eye) -&#62; UIBezierPath&#10;    &#123;&#10;        let eyeRadius = faceRadius / Scaling.FaceRadiusToEyeRadiusRatio&#10;        let eyeVerticalOffset = faceRadius / Scaling.FaceRadiusToEyeOffsetRatio&#10;        let eyeHorizontalSeparation = faceRadius / Scaling.FaceRadiusToEyeSeparationRatio&#10;        &#10;        var eyeCenter = faceCenter&#10;        eyeCenter.y -= eyeVerticalOffset&#10;        switch whichEye &#123;&#10;            case .Left: eyeCenter.x -= eyeHorizontalSeparation / 2&#10;            case .Right: eyeCenter.x += eyeHorizontalSeparation / 2&#10;        &#125;&#10;        &#10;        let path = UIBezierPath(&#10;            arcCenter: eyeCenter,&#10;            radius: eyeRadius,&#10;            startAngle: 0,&#10;            endAngle: CGFloat(2*M_PI),&#10;            clockwise: true&#10;        )&#10;        path.lineWidth = lineWidth&#10;        return path&#10;    &#125;&#10;&#10;    private func bezierPathForSmile(fractionOfMaxSmile: Double) -&#62; UIBezierPath&#10;    &#123;&#10;        let mouthWidth = faceRadius / Scaling.FaceRadiusToMouthWidthRatio&#10;        let mouthHeight = faceRadius / Scaling.FaceRadiusToMouthHeightRatio&#10;        let mouthVerticalOffset = faceRadius / Scaling.FaceRadiusToMouthOffsetRatio&#10;        &#10;        let smileHeight = CGFloat(max(min(fractionOfMaxSmile, 1), -1)) * mouthHeight&#10;        &#10;        let start = CGPoint(x: faceCenter.x - mouthWidth / 2, y: faceCenter.y + mouthVerticalOffset)&#10;        let end = CGPoint(x: start.x + mouthWidth, y: start.y)&#10;        let cp1 = CGPoint(x: start.x + mouthWidth / 3, y: start.y + smileHeight)&#10;        let cp2 = CGPoint(x: end.x - mouthWidth / 3, y: cp1.y)&#10;        &#10;        let path = UIBezierPath()&#10;        path.moveToPoint(start)&#10;        path.addCurveToPoint(end, controlPoint1: cp1, controlPoint2: cp2)&#10;        path.lineWidth = lineWidth&#10;        return path&#10;    &#125;&#10;&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">//&#10;//  HappinessViewController.swift&#10;//  Happiness&#10;&#10;import UIKit&#10;&#10;class HappinessViewController: UIViewController, FaceViewDataSource&#10;&#123;&#10;&#10;    @IBOutlet weak var faceView: FaceView! &#123;&#10;        didSet &#123;&#10;            faceView.dataSource = self&#10;            &#10;            // 1. Adding a gesture recognizer&#10;            faceView.addGestureRecognizer(UIPinchGestureRecognizer(target: faceView, action: &#34;scale:&#34;))&#10;            // try in storyboard&#10;            // faceView.addGestureRecognizer(UIPanGestureRecognizer(target: self, action: &#34;changeHapponess:&#34;))&#10;        &#125;&#10;    &#125;&#10;    &#10;    &#10;    // &#36890;&#36807; storyboard &#28155;&#21152; Pan Gesture Recognizer&#65292;&#28982;&#21518; storyboard &#28155;&#21152; IBAction &#21040; Controller &#20013;&#10;    private struct Constants &#123;&#10;        static let HappinessGestureScale: CGFloat = 4&#10;    &#125;&#10;    &#10;    @IBAction func changeHappiness(gesture: UIPanGestureRecognizer) &#123;&#10;        switch gesture.state &#123;&#10;        case .Ended: fallthrough&#10;        case .Changed:&#10;            let translatrion = gesture.translationInView(faceView)&#10;            let happinessChange = -Int(translatrion.y / Constants.HappinessGestureScale)&#10;            if happinessChange != 0 &#123;&#10;                happiness -= happinessChange&#10;                gesture.setTranslation(CGPointZero, inView: faceView)&#10;            &#125;&#10;        default: break&#10;        &#125;&#10;    &#125;&#10;    &#10;    var happiness: Int = 3 &#123; // 0 = very sad, 100 = ecstatic&#10;        didSet &#123;&#10;            happiness = min(max(happiness, 0), 100)&#10;            print(&#34;happiness = \(happiness)&#34;)&#10;            updateUI()&#10;        &#125;&#10;    &#125;&#10;    &#10;    func updateUI() &#123;&#10;        faceView.setNeedsDisplay()&#10;    &#125;&#10;    &#10;    func smilinessForFaceView(sender: FaceView) -&#62; Double? &#123;&#10;        return Double(happiness - 50) / 50&#10;    &#125;&#10;&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>有待翻译，话说代码高亮造成排版换七八糟的，回头升级 Hexo 试试。</p>
+</blockquote>
+
+      
+    </div>
+
+    <div class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/CS193P/"> #CS193P </a>
+          
+            <a href="/tags/Swift/"> #Swift </a>
+          
+            <a href="/tags/iOS-App-Development/"> #iOS App Development </a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2015/07/20/GeekBand-iOS-APP-Development-1/">极客班 iOS 应用开发实战（一）</a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </div>
+  </div>
+
+
+
+    
+      <div class="comments" id="comments">
+        
+          <div id="disqus_thread">
+            <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+          </div>
+        
+      </div>
+    
+  </div>
+
+
+        </div>
+
+        
+      </div>
+
+
+      
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table Of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            Overview
+          </li>
+        </ul>
+      
+
+      <div class="site-overview">
+        <div class="site-author motion-element">
+          <img class="site-author-image" src="http://i.imgur.com/uRJy8E9.png" alt="Ge Will" />
+          <p class="site-author-name">Ge Will</p>
+        </div>
+        <p class="site-description motion-element">The people who are crazy enough to think they can change the world, are the ones who do.</p>
+        <div class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">50</span>
+              <span class="site-state-item-name">posts</span>
+            </a>
+          </div>
+
+          <div class="site-state-item site-state-categories">
+            
+              <span class="site-state-item-count">0</span>
+              <span class="site-state-item-name">categories</span>
+              
+          </div>
+
+          <div class="site-state-item site-state-tags">
+            <a href="/tags">
+              <span class="site-state-item-count">9</span>
+              <span class="site-state-item-name">tags</span>
+              </a>
+          </div>
+
+        </div>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+              <a href="https://github.com/gewill" target="_blank">GitHub</a>
+            </span>
+            
+              <span class="links-of-author-item">
+              <a href="https://twitter.com/gewill_org" target="_blank">Twitter</a>
+            </span>
+            
+              <span class="links-of-author-item">
+              <a href="http://weibo.com/gewei" target="_blank">Weibo</a>
+            </span>
+            
+          
+        </div>
+
+        
+        
+          <div class="cc-license motion-element">
+            <a href="http://creativecommons.org/licenses/by-nc-sa/4.0" class="cc-opacity" target="_blank">
+              <img src="/images/cc-by-nc-sa.svg" alt="Creative Commons" />
+            </a>
+          </div>
+        
+
+      </div>
+
+      
+        <div class="post-toc-wrap sidebar-panel-active">
+          <div class="post-toc-indicator-top post-toc-indicator"></div>
+          <div class="post-toc">
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-_Interface_Builder"><span class="nav-text">1. Interface Builder</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-_The_Happiness_MVC’s_Model"><span class="nav-text">2. The Happiness MVC’s Model</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-_Protocols_and_Delegation"><span class="nav-text">3. Protocols and Delegation</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-_Gestures"><span class="nav-text">4. Gestures</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#第一步：Adding_a_gesture_recognizer_to_a_UIView"><span class="nav-text">第一步：Adding a gesture recognizer to a UIView</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#常用手势："><span class="nav-text">常用手势：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Demo:_Happiness_pinch_and_pan"><span class="nav-text">Demo: Happiness pinch and pan</span></a></li></ol></li></ol></div>
+            
+          </div>
+          <div class="post-toc-indicator-bottom post-toc-indicator"></div>
+        </div>
+      
+
+    </div>
+  </div>
+
+
+    </div>
+
+    <div id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">
+  
+  &copy; &nbsp; 
+  2015
+  <span style="color:red" class="with-love">
+    <i class="icon-heart"></i>
+  </span>
+  <span style="color:#00CED1" class="author">Ge Will</span>
+</div>
+
+<div class="powered-by">
+  Powered by <a class="theme-link" href="http://hexo.io">Hexo</a>
+</div>
+
+<div class="theme-info">
+  Theme -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+
+
+
+
+      </div>
+    </div>
+
+    <div class="back-to-top"></div>
+  </div>
+
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js"></script>
+  <script type="text/javascript" src="/js/fancy-box.js"></script>
+
+
+  <script type="text/javascript" src="/js/helpers.js"></script>
+  
+
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js"></script>
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js"></script>
+
+  <script type="text/javascript" src="/js/motion_global.js" id="motion.global"></script>
+
+
+
+
+  
+  
+<script type="text/javascript" src="/js/bootstrap.scrollspy.js" id="bootstrap.scrollspy.custom"></script>
+
+
+<script type="text/javascript" id="sidebar.toc.highlight">
+  $(document).ready(function () {
+    var tocSelector = '.post-toc';
+    var $tocSelector = $(tocSelector);
+    var activeCurrentSelector = '.active-current';
+
+    $tocSelector
+      .on('activate.bs.scrollspy', function () {
+        var $currentActiveElement = $(tocSelector + ' .active').last();
+
+        removeCurrentActiveClass();
+        $currentActiveElement.addClass('active-current');
+
+        $tocSelector[0].scrollTop = $currentActiveElement.position().top;
+      })
+      .on('clear.bs.scrollspy', function () {
+        removeCurrentActiveClass();
+      });
+
+    function removeCurrentActiveClass () {
+      $(tocSelector + ' ' + activeCurrentSelector)
+        .removeClass(activeCurrentSelector.substring(1));
+    }
+
+    function processTOC () {
+      getTOCMaxHeight();
+      toggleTOCOverflowIndicators();
+    }
+
+    function getTOCMaxHeight () {
+      var $sidebarInner = $('.sidebar-inner');
+      var height = $('.sidebar').height() -
+                   $tocSelector.position().top -
+                   $('.post-toc-indicator-bottom').height();
+
+      $tocSelector.css('height', height);
+
+      return height;
+    }
+
+    function toggleTOCOverflowIndicators () {
+      tocOverflowIndicator(
+        '.post-toc-indicator-top',
+        $tocSelector.scrollTop() > 0 ? 'show' : 'hide'
+      );
+
+      tocOverflowIndicator(
+        '.post-toc-indicator-bottom',
+        $tocSelector.scrollTop() >= $tocSelector.find('ol').height() - $tocSelector.height() ? 'hide' : 'show'
+      )
+    }
+
+    $(document).on('sidebar.didShow', function () {
+      processTOC();
+    });
+
+    $('body').scrollspy({ target: tocSelector });
+    $(window).on('resize', function () {
+      if ( $('.sidebar').hasClass('sidebar-active') ) {
+        processTOC();
+      }
+    });
+
+    onScroll($tocSelector);
+
+    function onScroll (element) {
+      element.on('mousewheel DOMMouseScroll', function (event) {
+          var oe = event.originalEvent;
+          var delta = oe.wheelDelta || -oe.detail;
+          var self = this;
+
+          this.scrollTop += ( delta < 0 ? 1 : -1 ) * 30;
+          event.preventDefault();
+
+          toggleTOCOverflowIndicators();
+      });
+    }
+
+    function tocOverflowIndicator (indicator, action) {
+      $(indicator).velocity('stop').velocity({
+        opacity: action === 'show' ? 0.4 : 0
+      }, { duration: 100 });
+    }
+
+  });
+</script>
+
+
+  <script type="text/javascript" id="sidebar.nav">
+    $(document).ready(function () {
+      var html = $('html');
+
+      $('.sidebar-nav li').on('click', function () {
+        var item = $(this);
+        var activeTabClassName = 'sidebar-nav-active';
+        var activePanelClassName = 'sidebar-panel-active';
+        if (item.hasClass(activeTabClassName)) {
+          return;
+        }
+
+        var currentTarget = $('.' + activePanelClassName);
+        var target = $('.' + item.data('target'));
+
+        currentTarget.velocity('transition.slideUpOut', 200, function () {
+          target
+            .velocity('stop')
+            .velocity('transition.slideDownIn', 200)
+            .addClass(activePanelClassName);
+        });
+
+        item.siblings().removeClass(activeTabClassName);
+        item.addClass(activeTabClassName);
+      });
+
+      $('.post-toc a').on('click', function (e) {
+        e.preventDefault();
+        var offset = $(escapeSelector(this.getAttribute('href'))).offset().top;
+        html.velocity('stop').velocity('scroll', {
+          offset: offset  + 'px',
+          mobileHA: false
+        });
+      });
+
+      // Expand sidebar on post detail page by default, when post has a toc.
+      var $tocContent = $('.post-toc-content');
+      if (isDesktop() && CONFIG.sidebar === 'post') {
+        if ($tocContent.length > 0 && $tocContent.html().trim().length > 0) {
+          displaySidebar();
+        }
+      }
+    });
+  </script>
+
+
+
+
+  <script type="text/javascript">
+    $(document).ready(function () {
+      if (CONFIG.sidebar === 'always') {
+        displaySidebar();
+      }
+    });
+  </script>
+
+  
+
+  
+  
+  
+
+  
+
+    
+      
+    
+
+    <script type="text/javascript">
+      var disqus_shortname = 'gewill';
+      var disqus_identifier = '2015/07/20/CS193P-6-Protocols-and-Delegation-Gestures/';
+      var disqus_title = 'CS193P 6. Protocols and Delegation, Gestures';
+      var disqus_url = 'http://gewill.org/2015/07/20/CS193P-6-Protocols-and-Delegation-Gestures/';
+
+      (function(){
+        var dsq = document.createElement('script');
+        dsq.type = 'text/javascript';
+        dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+      }());
+    </script>
+  
+
+
+
+
+  
+  
+  <script type="text/javascript" src="/js/analytics_google-analytics.js"></script>
+
+
+</body>
+</html>

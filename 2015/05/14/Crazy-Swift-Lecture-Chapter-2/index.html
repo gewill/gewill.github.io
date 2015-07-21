@@ -1,0 +1,580 @@
+<!doctype html>
+<html class="theme-next use-motion theme-next-mist">
+<head>
+  
+
+<meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+  <meta name="google-site-verification" content="6p6MCt9mM7zNfEZF2HzE72sTOXJ8MC5frP4VNvYw1JU" />
+
+
+
+
+
+  <link rel="stylesheet" type="text/css" href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5"/>
+
+
+<link rel="stylesheet" type="text/css" href="/css/main.css?v=0.4.3"/>
+
+
+    <meta name="description" content="The people who are crazy enough to think they can change the world, are the ones who do." />
+
+
+
+  <meta name="keywords" content="Swift,iOS App Development," />
+
+
+
+
+
+  <link rel="shorticon icon" type="image/x-icon" href="/bitbug_favicon.ico?v=0.4.3" />
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var CONFIG = {
+    scheme: 'Mist',
+    analytics: {
+      baidu: '',
+      google: 'UA-62118677-1'
+    },
+    sidebar: 'hide'
+  };
+</script>
+
+
+
+
+  <title> Crazy Swift Lecture Chapter 2 // whoDO </title>
+</head>
+
+<body>
+<!--[if lte IE 8]> <div style=' clear: both; height: 59px; padding:0 0 0 15px; position: relative;margin:0 auto;'> <a href="http://windows.microsoft.com/en-US/internet-explorer/products/ie/home?ocid=ie6_countdown_bannercode"><img src="http://7u2nvr.com1.z0.glb.clouddn.com/picouterie.jpg" border="0" height="42" width="820" alt="You are using an outdated browser. For a faster, safer browsing experience, upgrade for free today or use other browser ,like chrome firefox safari." style='margin-left:auto;margin-right:auto;display: block;'/></a></div> <![endif]-->
+  <div class="container one-column page-post-detail">
+    <div class="headband"></div>
+
+    <div id="header" class="header">
+      <div class="header-inner">
+        <h1 class="site-meta">
+  <span class="logo-line-before"><i></i></span>
+  <a href="/" class="brand">
+      <span class="logo">
+        <i class="icon-logo"></i>
+      </span>
+      <span class="site-title">whoDO</span>
+  </a>
+  <span class="logo-line-after"><i></i></span>
+</h1>
+
+
+  <ul id="menu" class="menu">
+     
+    
+      
+      <li class="menu-item menu-item-archives">
+        <a href="/archives">
+          <i class="menu-item-icon icon-archives"></i> <br />
+          Archives
+        </a>
+      </li>
+    
+      
+      <li class="menu-item menu-item-tags">
+        <a href="/tags">
+          <i class="menu-item-icon icon-tags"></i> <br />
+          Tags
+        </a>
+      </li>
+    
+      
+      <li class="menu-item menu-item-about">
+        <a href="/about">
+          <i class="menu-item-icon icon-about"></i> <br />
+          About
+        </a>
+      </li>
+    
+  </ul>
+
+
+      </div>
+    </div>
+
+    <div id="main" class="main">
+      <div class="main-inner">
+        <div id="content" class="content">
+          
+
+  <div id="posts" class="posts-expand">
+    
+
+  <div class="post post-type-normal ">
+    <div class="post-header">
+
+      
+      
+        <h1 class="post-title">
+          
+          
+            
+              Crazy Swift Lecture Chapter 2
+            
+          
+        </h1>
+      
+
+      <div class="post-meta">
+        <span class="post-time">
+          Posted on 2015-05-14
+        </span>
+
+        
+
+        
+          
+            <span class="post-comments-count">
+            &nbsp; | &nbsp;
+            <a href="/2015/05/14/Crazy-Swift-Lecture-Chapter-2/#comments" >
+              <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2015/05/14/Crazy-Swift-Lecture-Chapter-2/"></span>
+            </a>
+          </span>
+          
+        
+      </div>
+    </div>
+
+    <div class="post-body">
+
+      
+      
+
+      
+        <blockquote>
+<p>Code is a kind of document.</p>
+</blockquote>
+<h1 id="第二章：Swift_的基本数据类型">第二章：Swift 的基本数据类型</h1><p><code>let</code> <code>var</code> <code>nil</code> <code>?</code> <code>!</code> are different from Objective-C.</p>
+<a id="more"></a>
+<h2 id="2-1_注释">2.1 注释</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">/*&#13;&#36825;&#37324;&#38754;&#30340;&#20869;&#23481;&#20840;&#37096;&#26159;&#22810;&#34892;&#27880;&#37322;&#13;Swift&#35821;&#35328;&#30495;&#30340;&#24456;&#31616;&#21333;&#13;*/&#13;// &#36825;&#26159;&#19968;&#34892;&#31616;&#21333;&#30340;&#27880;&#37322;&#13;println(&#34;Hello World!&#34;)&#13;// println(@&#34;&#36825;&#34892;&#20195;&#30721;&#34987;&#27880;&#37322;&#20102;&#65292;&#23558;&#19981;&#20250;&#34987;&#32534;&#35793;&#12289;&#25191;&#34892;!&#34;)&#13;/* &#36825;&#26159;&#31532;&#19968;&#20010;&#22810;&#34892;&#27880;&#37322;&#30340;&#24320;&#22836;&#13;/* &#36825;&#26159;&#31532;&#20108;&#20010;&#34987;&#23884;&#22871;&#30340;&#22810;&#34892;&#27880;&#37322; */&#13;&#36825;&#26159;&#31532;&#19968;&#20010;&#22810;&#34892;&#27880;&#37322;&#30340;&#32467;&#23614; */</span><br></pre></td></tr></table></figure>
+<h2 id="2-2_变量和常量">2.2 变量和常量</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">  // &#23450;&#20041;&#24120;&#37327;&#65292;&#27809;&#26377;&#26174;&#24335;&#25351;&#23450;&#31867;&#22411;&#65292;&#32534;&#35793;&#22120;&#26681;&#25454;&#21021;&#22987;&#20540;&#30830;&#23450;&#24120;&#37327;&#30340;&#31867;&#22411;&#13;let maxAge = 120&#13;&#13;// &#23450;&#20041;&#24120;&#37327;&#26102;&#65292;&#26082;&#26174;&#24335;&#25351;&#23450;&#24120;&#37327;&#30340;&#31867;&#22411;&#65292;&#20063;&#25351;&#23450;&#24120;&#37327;&#30340;&#21021;&#22987;&#20540;&#13;let eduName : String = &#34;&#30127;&#29378;&#36719;&#20214;&#25945;&#32946;&#34;&#13;// &#24120;&#37327;&#19981;&#20801;&#35768;&#37325;&#26032;&#36171;&#20540;&#65292;&#22240;&#27492;&#19979;&#38754;&#20195;&#30721;&#26159;&#38169;&#35823;&#30340;&#13;//maxAge = 12&#13;&#13;// &#21516;&#26102;&#23450;&#20041;&#22810;&#20010;&#21464;&#37327;&#13;let myName = &#34;fkit&#34; , myAge = 8&#13;println(&#34;myName&#30340;&#20540;&#20026;:\(myName) , myAge&#30340;&#20540;&#20026;:\(myAge)&#34;)</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">// &#22768;&#26126;&#21464;&#37327;&#26102;&#26174;&#24335;&#25351;&#23450;&#31867;&#22411;&#13;var b : Int&#13;// &#22768;&#26126;&#21464;&#37327;&#26102;&#25351;&#23450;&#21021;&#22987;&#20540;&#65292;&#32534;&#35793;&#22120;&#20250;&#26681;&#25454;&#21021;&#22987;&#20540;&#30830;&#23450;&#35813;&#21464;&#37327;&#30340;&#31867;&#22411;&#20026;String&#13;var name = &#34;crazyit.org&#34;&#13;b = 20  // b&#30340;&#31867;&#22411;&#26159;Int&#65288;&#25972;&#22411;&#65289;&#65292;&#36171;&#20540;&#27491;&#30830;&#13;name = &#34;fkit.org&#34; // name&#31867;&#22411;&#20026;String&#65292;&#36171;&#20540;&#27491;&#30830;&#13;//name = 12 // name&#31867;&#22411;&#20026;String&#65292;&#20294;12&#20026;Int&#65292;&#36171;&#20540;&#22833;&#36133;&#13;// &#22768;&#26126;&#21464;&#37327;&#26102;&#26082;&#26174;&#24335;&#25351;&#23450;&#31867;&#22411;&#65292;&#20063;&#25351;&#23450;&#21021;&#22987;&#20540;&#65292;&#13;// &#26174;&#24335;&#25351;&#23450;&#30340;&#31867;&#22411;&#19982;&#21021;&#22987;&#20540;&#30340;&#31867;&#22411;&#19968;&#33268;&#65292;&#22768;&#26126;&#21464;&#37327;&#27491;&#30830;&#13;var age: Int = 25 &#13;age = 12  // age&#30340;&#31867;&#22411;&#26159;Int&#65292;&#36171;&#20540;&#27491;&#30830;&#13;// &#22768;&#26126;&#21464;&#37327;&#26102;&#26082;&#26174;&#24335;&#25351;&#23450;&#31867;&#22411;&#65292;&#20063;&#25351;&#23450;&#21021;&#22987;&#20540;&#65292;&#13;// &#26174;&#24335;&#25351;&#23450;&#30340;&#31867;&#22411;&#19982;&#21021;&#22987;&#20540;&#30340;&#31867;&#22411;&#19981;&#19968;&#33268;&#65292;&#22768;&#26126;&#21464;&#37327;&#22833;&#36133;&#13;//var sun : String = 500 &#13;// &#21516;&#26102;&#22768;&#26126;&#22810;&#20010;&#21464;&#37327;&#65292;&#32780;&#19988;&#19981;&#38656;&#35201;&#21464;&#37327;&#20855;&#26377;&#30456;&#21516;&#30340;&#31867;&#22411;&#13;var a = 20 , d:String , c = &#34;swift&#34;&#13;// &#36755;&#20986;&#21464;&#37327;name&#30340;&#20540;&#13;println(name)</span><br></pre></td></tr></table></figure>
+<h2 id="2-3_整型">2.3 整型</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#13;// &#19979;&#38754;&#20195;&#30721;&#26159;&#27491;&#30830;&#30340;&#13;var a:Int = 56&#13;// &#19979;&#38754;&#20195;&#30721;&#38656;&#35201;&#38544;&#24335;&#22320;&#23558;2999999999&#36716;&#20026;Int32&#20351;&#29992;&#65292;&#22240;&#27492;&#32534;&#35793;&#22120;&#23558;&#20250;&#25253;&#38169;&#13;//var bigValue : Int32 = 2999999999&#13;// &#19979;&#38754;&#20195;&#30721;&#26159;&#27491;&#30830;&#30340;&#13;var bigValue2: Int64 = 2999999999&#13;//println(bigValue) &#13;println(bigValue2) &#13;println(Int16.min)&#13;println(Int16.max)&#13;// &#26080;&#31526;&#21495;&#25972;&#25968;&#30340;&#26368;&#23567;&#20540;&#20026;0&#65292;&#26368;&#22823;&#20540;&#27604;&#23545;&#24212;Int16&#30340;&#26368;&#22823;&#20540;&#22823;&#19968;&#20493;&#13;println(UInt16.min)&#13;println(UInt16.max)&#13;&#13;var binValue = 0b10101110&#13;// &#20197;0O&#24320;&#22836;&#30340;&#25972;&#25968;&#25968;&#20540;&#26159;8&#36827;&#21046;&#30340;&#25972;&#25968;&#13;var octalValue = 0o13&#13;// &#20197;0x&#24320;&#22836;&#30340;&#25972;&#25968;&#25968;&#20540;&#26159;16&#36827;&#21046;&#30340;&#25972;&#25968;&#13;var hexValue1 = 0x13&#13;var hexValue2 = 0xaF&#13;println(&#34;binValue&#30340;&#20540;&#20026;&#65306;\(binValue)&#34;)&#13;println(&#34;octalValue&#30340;&#20540;&#20026;&#65306;\(octalValue)&#34;)&#13;println(&#34;hexValue1&#30340;&#20540;&#20026;&#65306;\(hexValue1)&#34;)&#13;println(&#34;hexValue2&#30340;&#20540;&#20026;&#65306;\(hexValue2)&#34;)&#13;&#13;let oneMillion = 1_000_000&#13;let price = 0079 // price&#23454;&#38469;&#30340;&#20540;&#20026;79&#13;let android = 0109 // android&#23454;&#38469;&#30340;&#20540;&#20026;109</span><br></pre></td></tr></table></figure>
+<h2 id="2-4_浮点型">2.4 浮点型</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#13;var af: Float = 25.2345556&#13;// &#19979;&#38754;&#23558;&#30475;&#21040;af&#30340;&#20540;&#24050;&#32463;&#21457;&#29983;&#20102;&#25913;&#21464;,float&#21482;&#33021;&#25509;&#21463;6&#20301;&#26377;&#25928;&#25968;&#20540;&#13;println(&#34;af&#30340;&#20540;&#20026;&#65306;\(af)&#34;)&#13;// f1&#30340;&#31867;&#22411;&#34987;&#25512;&#26029;&#20026;Double&#13;var f1 = 5.12e2&#13;println(&#34;f1&#30340;&#20540;&#20026;:\(f1)&#34;)&#13;// f2&#30340;&#31867;&#22411;&#34987;&#25512;&#26029;&#20026;Double&#65292;&#20854;&#20540;&#36716;&#20026;10&#36827;&#21046;&#30340;&#25968;&#20026;&#65306;22.53125&#13;var f2 = 0x5.a2p2&#13;println(&#34;f2&#30340;&#20540;&#20026;:\(f2)&#34;)&#13;var a = 0.0&#13;// 5.0&#38500;&#20197;0.0&#23558;&#20986;&#29616;&#27491;&#26080;&#31351;&#22823;&#13;println(&#34;5.0/a&#30340;&#20540;&#20026;&#65306;\(5.0 / a)&#34;)&#13;// &#25152;&#26377;&#27491;&#26080;&#31351;&#22823;&#37117;&#30456;&#31561;&#65292;&#25152;&#20197;&#19979;&#38754;&#23558;&#20250;&#36755;&#20986;true&#13;println(5.0 / a == 50000 / 0.0) &#13;// -5.0&#38500;&#20197;0.0&#23558;&#20986;&#29616;&#36127;&#26080;&#31351;&#22823;&#13;println(&#34;-5.0/a&#30340;&#20540;&#20026;&#65306;\(-5.0 / a)&#34;)&#13;// &#25152;&#26377;&#36127;&#26080;&#31351;&#22823;&#37117;&#30456;&#31561;&#65292;&#25152;&#20197;&#19979;&#38754;&#23558;&#20250;&#36755;&#20986;true&#13;println(-5.0 / a == -50000 / 0.0)&#13;// 0.0&#38500;&#20197;0.0&#23558;&#20986;&#29616;&#38750;&#25968;&#13;var nan : Double = a / a &#13;println(&#34;a/a&#30340;&#20540;&#20026;&#65306;\(nan)&#34;)&#13;// &#38750;&#25968;&#19982;&#33258;&#24049;&#37117;&#19981;&#30456;&#31561;&#65292;&#25152;&#20197;&#19979;&#38754;&#23558;&#20250;&#36755;&#20986;false&#13;println(nan == nan)</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">var width : Float = 2.3 &#13;var height : Double = 4.5 &#13;// width&#24517;&#39035;&#26174;&#24335;&#24378;&#36716;&#20026;Double&#20043;&#21518;&#65292;&#25165;&#33021;&#36171;&#20540;&#32473;&#21464;&#37327;a&#12290;&#13;var a: Double = Double(width)&#13;println(&#34;a&#30340;&#20540;&#20026;:\(a)&#34;)&#13;// &#23558;height&#24378;&#36716;&#20026;Float&#20043;&#21518;&#20877;&#36827;&#34892;&#35745;&#31639;&#65292;&#25972;&#20010;&#34920;&#36798;&#24335;&#30340;&#31867;&#22411;&#37117;&#26159;Float&#31867;&#22411;&#65292;&#13;// &#22240;&#27492;area1&#30340;&#31867;&#22411;&#20063;&#34987;&#25512;&#26029;&#20026;Float&#31867;&#22411;&#13;var area1 = width * Float(height)&#13;// &#23558;width&#24378;&#36716;&#20026;Double&#20043;&#21518;&#20877;&#36827;&#34892;&#35745;&#31639;&#65292;&#25972;&#20010;&#34920;&#36798;&#24335;&#30340;&#31867;&#22411;&#37117;&#26159;Double&#31867;&#22411;&#65292;&#13;// &#22240;&#27492;area2&#30340;&#31867;&#22411;&#20063;&#34987;&#25512;&#26029;&#20026;Double&#31867;&#22411;&#13;var area2 = Double(width) * height&#13;let multi : Int = 5&#13;// &#23558;multi&#24378;&#36716;&#20026;Double&#21518;&#36827;&#34892;&#35745;&#31639;&#65292;&#25972;&#20010;&#34920;&#36798;&#24335;&#30340;&#31867;&#22411;&#37117;&#26159;Double&#31867;&#22411;&#65292;&#13;// &#22240;&#27492;totalHeight1&#30340;&#31867;&#22411;&#20063;&#34987;&#25512;&#26029;&#20026;Double&#31867;&#22411;&#13;var totalHeight1 = height * Double(multi)  // &#9312;&#13;// &#23558;height&#24378;&#36716;&#20026;Int&#21518;&#36827;&#34892;&#35745;&#31639;&#65292;&#25972;&#20010;&#34920;&#36798;&#24335;&#30340;&#31867;&#22411;&#37117;&#26159;height&#31867;&#22411;&#65292;&#13;// &#22240;&#27492;totalHeight2&#30340;&#31867;&#22411;&#20063;&#34987;&#25512;&#26029;&#20026;Int&#31867;&#22411;&#13;var totalHeight2 = Int(height) * multi  // &#9313;</span><br></pre></td></tr></table></figure>
+<h2 id="2-5_数值型之间的类型转换">2.5 数值型之间的类型转换</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#13;var bookPrice : Int8 = 79&#13;var itemPrice : Int16 = 120&#13;// bookPrice&#26159;Int8&#31867;&#22411;&#65292;&#20294;&#21464;&#37327;a&#26159;Int16&#31867;&#22411;&#65292;&#22240;&#27492;&#19979;&#38754;&#20195;&#30721;&#38169;&#35823;&#13;//var a : UInt16 = bookPrice&#13;// bookPrice&#19982;itemPrice&#31867;&#22411;&#19981;&#21516;&#65292;&#19981;&#33021;&#36827;&#34892;&#21152;&#27861;&#36816;&#31639;&#13;//var total = bookPrice + itemPrice&#13;&#13;// &#26174;&#24335;&#23558;bookPrice&#24378;&#36716;&#20026;Int16&#31867;&#22411;&#13;var a : Int16 = Int16(bookPrice)  // &#9312;&#13;// &#26174;&#24335;&#23558;bookPrice&#24378;&#36716;&#20026;Int16&#31867;&#22411;&#65292;&#25972;&#20010;&#34920;&#36798;&#24335;&#32467;&#26524;&#20026;Int16&#31867;&#22411;&#65292;&#13;// &#25925;total&#30340;&#31867;&#22411;&#20026;Int16&#65292;&#35745;&#31639;&#20986;&#26469;&#30340;&#32467;&#26524;&#65288;199&#65289;&#20301;&#20110;Int16&#30340;&#21462;&#20540;&#33539;&#22260;&#20043;&#20869;&#65292;&#22240;&#27492;&#31243;&#24207;&#27491;&#30830;&#13;var total = Int16(bookPrice) + itemPrice  // &#9313;&#13;println(&#34;total&#30340;&#20540;&#20026;:\(total)&#34;)&#13;// &#26174;&#24335;&#23558;itemPrice&#24378;&#36716;&#20026;Int8&#31867;&#22411;&#65292;&#25972;&#20010;&#34920;&#36798;&#24335;&#32467;&#26524;&#20026;Int8&#31867;&#22411;&#65292;&#13;// &#25925;tot&#30340;&#31867;&#22411;&#20026;Int9&#65292;&#35745;&#31639;&#20986;&#26469;&#30340;&#32467;&#26524;&#65288;199&#65289;&#36229;&#36807;&#20102;Int8&#30340;&#21462;&#20540;&#33539;&#22260;&#20043;&#20869;&#65292;&#22240;&#27492;&#31243;&#24207;&#36816;&#34892;&#20986;&#38169;&#13;var tot = bookPrice + Int8(itemPrice)  // &#9314;&#13;println(tot)</span><br></pre></td></tr></table></figure>
+<h2 id="2-6_布尔型">2.6 布尔型</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#13;// &#23450;&#20041;b1&#30340;&#20540;&#20026;true&#13;var b1 : Bool = true&#13;// &#23450;&#20041;b2&#30340;&#20540;&#20026;false&#13;var b2 : Bool = false&#13;// &#23558;Bool&#31867;&#22411;&#30340;&#21464;&#37327;&#25554;&#20540;&#21040;&#23383;&#31526;&#20018;&#20013;&#13;var str :String = &#34;\(b1)&#20195;&#34920;&#30495;&#34;&#13;println(str)</span><br></pre></td></tr></table></figure>
+<h2 id="2-7_元组（tuple）类型">2.7 元组（tuple）类型</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#13;// &#23450;&#20041;&#20803;&#32452;&#21464;&#37327;&#65292;&#24182;&#25351;&#23450;&#21021;&#22987;&#20540;&#65292;&#13;// &#31995;&#32479;&#25512;&#26029;&#35813;&#20803;&#32452;&#31867;&#22411;&#20026;(height:Int, &#20307;&#37325;:Int, status:String)&#13;var health = (height:182 , &#20307;&#37325;:78 , status:&#34;&#33391;&#22909;&#34;)&#13;// &#20351;&#29992;&#20803;&#32452;&#31867;&#22411;&#26469;&#23450;&#20041;&#20803;&#32452;&#21464;&#37327;&#13;var score : (swift:Int , oc:Int , lua:String , ruby:Double)&#13;// &#31616;&#21333;&#20026;&#27599;&#20010;&#20803;&#32032;&#25351;&#23450;&#20540;&#65292;&#27492;&#26102;&#24517;&#39035;&#25353;&#39034;&#24207;&#20026;&#27599;&#20010;&#20803;&#32032;&#25351;&#23450;&#20540;&#13;score = (98 , 89 , &#34;&#21450;&#26684;&#34; , 20.4)  // &#9312;&#13;// &#36890;&#36807;key&#20026;&#20803;&#32452;&#30340;&#20803;&#32032;&#25351;&#23450;&#20540;&#65292;&#22312;&#36825;&#31181;&#26041;&#24335;&#19979;&#65292;&#20803;&#32452;&#20869;&#21508;&#20803;&#32032;&#30340;&#39034;&#24207;&#21487;&#20197;&#35843;&#25442;&#13;score = (oc:89 , swift:98 , lua:&#34;&#21450;&#26684;&#34; , ruby:4.4)  // &#9313;&#13;println(&#34;health&#30340;&#36523;&#39640;&#20026;&#65306;\(health.height)&#34;)&#13;println(&#34;health&#30340;&#20307;&#37325;&#20026;&#65306;\(health.&#20307;&#37325;)&#34;)&#13;println(&#34;Swift&#25104;&#32489;&#65306;\(score.swift),OC&#25104;&#32489;&#65306;\(score.oc),&#34;&#13;&#9;+ &#34;Lua&#25104;&#32489;&#65306;\(score.lua),Ruby&#25104;&#32489;&#65306;\(score.ruby)&#34;)</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#13;&#9;// &#23450;&#20041;&#20803;&#32452;&#21464;&#37327;&#65292;&#24182;&#25351;&#23450;&#21021;&#22987;&#20540;&#65292;&#31995;&#32479;&#25512;&#26029;&#35813;&#20803;&#32452;&#31867;&#22411;&#20026;(Int, Int, String)&#13;var health = (182 , 78 , &#34;&#33391;&#22909;&#34;)&#13;// &#20351;&#29992;&#20803;&#32452;&#31867;&#22411;&#26469;&#23450;&#20041;&#20803;&#32452;&#21464;&#37327;&#13;var score : (Int , Int , String , Double)&#13;// &#20026;&#20803;&#32452;&#21464;&#37327;&#36171;&#20540;&#26102;&#24517;&#39035;&#20026;&#25152;&#26377;&#25104;&#21592;&#37117;&#25351;&#23450;&#20540;&#13;score = (98 , 89 , &#34;&#21450;&#26684;&#34; , 20.4)&#13;// &#20803;&#32452;&#30340;&#25104;&#21592;&#21448;&#26159;&#20803;&#32452;&#13;var test : (Int , (Int , String))&#13;test = (20 , (15 , &#34;Swift&#34;))&#13;// &#36755;&#20986;&#20803;&#32452;&#13;println(&#34;health&#20803;&#32452;&#30340;&#20540;&#20026;&#65306;\(health)&#34;)&#13;println(&#34;score&#20803;&#32452;&#30340;&#20540;&#20026;&#65306;\(score)&#34;)&#13;println(&#34;test&#20803;&#32452;&#30340;&#20540;&#20026;&#65306;\(test)&#34;)&#13;// &#26681;&#25454;&#32034;&#24341;&#35775;&#38382;&#20803;&#32452;&#30340;&#20803;&#32032;&#13;println(&#34;health&#20803;&#32452;&#30340;&#36523;&#39640;&#20803;&#32032;&#20026;&#65306;\(health.0)&#34;)&#13;println(&#34;health&#20803;&#32452;&#30340;&#20307;&#37325;&#20803;&#32032;&#20026;&#65306;\(health.1)&#34;)&#13;println(&#34;score&#20803;&#32452;&#30340;Swift&#20026;&#65306;\(score.0)&#34;)&#13;println(&#34;score&#20803;&#32452;&#30340;Objective-C&#20026;&#65306;\(score.2)&#34;)&#13;println(&#34;test&#20803;&#32452;&#30340;&#31532;2&#20010;&#20803;&#32032;&#30340;&#31532;1&#20010;&#20803;&#32032;&#20026;&#65306;\(test.1.0)&#34;)&#13;// &#23558;&#20803;&#32452;&#25286;&#20998;&#25104;&#22810;&#20010;&#21464;&#37327;&#13;var (height ,weight, status) = health&#13;println(&#34;&#36523;&#39640;:\(height)&#12289;&#20307;&#37325;:\(weight)&#12289;&#36523;&#20307;&#29366;&#24577;:\(status)&#34;)&#13;// &#23558;&#20803;&#32452;&#25286;&#20998;&#25104;&#22810;&#20010;&#24120;&#37327;&#65292; &#24573;&#30053;&#20803;&#32452;&#30340;&#31532;&#22235;&#20010;&#20803;&#32032;&#13;let (swift, oc , lua, _) = score&#13;println(&#34;Swift&#25104;&#32489;:\(swift)&#12289;OC&#25104;&#32489;:\(oc)&#12289;Lua&#25104;&#32489;:\(lua)&#34;)</span><br></pre></td></tr></table></figure>
+<h1 id="2-8_可选类型">2.8 可选类型</h1><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#13;var str : String? = &#34;crazyit.org&#34;&#13;// str&#26159;String?&#31867;&#22411;&#30340;&#65292;&#19981;&#33021;&#36171;&#20540;&#32473;String&#31867;&#22411;&#30340;s&#21464;&#37327;&#13;//var s : String = str&#13;if str != nil&#13;&#123;&#13;&#9;// &#22312;str&#21518;&#28155;&#21152;!&#65292;&#21363;&#21487;&#33719;&#21462;String?&#31867;&#22411;&#21464;&#37327;&#23454;&#38469;&#23384;&#20648;&#30340;&#20540;&#65292;&#13;&#9;// &#35813;&#20540;&#26159;String&#31867;&#22411;&#65292;&#22240;&#27492;&#21487;&#36171;&#20540;&#32473;String&#31867;&#22411;&#30340;s&#21464;&#37327;&#13;&#9;var s : String = str!&#13;&#125;&#13;else&#13;&#123;&#13;&#9;println(&#34;str&#20026;nil&#65292;&#19981;&#33021;&#24378;&#21046;&#35299;&#26512;&#34;)&#13;&#125;&#13;var n1 : Int? = 20&#13;var n2 : Int? = 15 &#13;if n1 != nil &#38;&#38; n2 != nil&#13;&#123;&#13;&#9;// n1&#21644;n2&#26159;Int?&#31867;&#22411;&#65292;&#22240;&#27492;&#19981;&#33021;&#21442;&#19982;&#21152;&#27861;&#36816;&#31639;&#13;&#9;//let sum = n1 + n2&#13;&#9;// &#22312;&#21464;&#37327;&#21518;&#28155;&#21152;&#24863;&#21497;&#21495;&#65288;!)&#21363;&#21487;&#24378;&#21046;&#35299;&#26512;&#21487;&#36873;&#31867;&#22411;&#30340;&#20540;&#13;&#9;let sum = n1! + n2!&#13;&#9;println(sum)&#13;&#125;&#13;else&#13;&#123;&#13;&#9;println(&#34;n1&#25110;n2&#20026;nil&#65292;&#19981;&#33021;&#24378;&#21046;&#35299;&#26512;&#34;)&#13;&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#13;var s1: String? = &#34;fkit.org&#34;&#13;// &#23545;&#20110;String?&#21487;&#36873;&#31867;&#22411;&#65292;&#24517;&#39035;&#20351;&#29992;&#24863;&#21497;&#21495;&#25191;&#34892;&#24378;&#21046;&#35299;&#26512;&#13;var tmp : String = s1!&#13;var s2 : String! = &#34;crazyit.org&#34;&#13;// &#23545;&#20110;String!&#38544;&#24335;&#21487;&#36873;&#31867;&#22411;&#65292;&#26080;&#38656;&#20351;&#29992;&#24863;&#21497;&#21495;&#25191;&#34892;&#24378;&#21046;&#35299;&#26512;&#13;var tmp2 : String = s2&#13;println(&#34;tmp&#30340;&#20540;&#20026;&#65306;\(tmp)&#65292;tmp2&#30340;&#20540;&#20026;&#65306;\(tmp2)&#34;)&#13;&#13;var name: String!&#13;println(name)&#13;name = &#34;&#30127;&#29378;&#36719;&#20214;&#34;&#13;// &#20808;&#21028;&#26029;&#38544;&#24335;&#21487;&#36873;&#31867;&#22411;&#30340;name&#21464;&#37327;&#19981;&#20026;nil&#65292;&#28982;&#21518;&#25165;&#33719;&#21462;&#35813;&#21464;&#37327;&#30340;&#20540;&#13;if name != nil&#13;&#123;&#13;&#9;var tmp = name&#13;&#9;println(&#34;name&#21464;&#37327;&#26377;&#20540;&#65292;&#20854;&#20540;&#20026;&#65306;\(name)&#34;)&#13;&#125;&#13;// &#20351;&#29992;&#21487;&#36873;&#32465;&#23450;&#26469;&#33719;&#21462;name&#21464;&#37327;&#30340;&#20540;&#13;if let temp = name&#13;&#123;&#13;&#9;println(&#34;name&#21464;&#37327;&#26377;&#20540;&#65292;&#20854;&#20540;&#20026;&#65306;\(name)&#34;)&#13;&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#13;var str : String! = &#34;fkit.org&#34;&#13;// &#22914;&#26524;&#21487;&#36873;&#21464;&#37327;str&#26377;&#20540;&#65292;&#23558;&#20540;&#36171;&#20540;&#32473;tmp&#21464;&#37327;&#12290;&#13;if var tmp = str&#13;&#123;&#13;&#9;println(&#34;str&#30340;&#20540;&#20026;&#65306;\(tmp)&#34;)&#13;&#125;&#13;else&#13;&#123;&#13;&#9;println(&#34;str&#30340;&#20540;&#20026;nil&#65292;&#19981;&#33021;&#35299;&#26512;&#65281;&#34;)&#13;&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#13;var str = &#34;fkit&#34;&#13;// &#30001;&#20110;str&#36716;&#25442;&#20026;Int&#26377;&#21487;&#33021;&#22833;&#36133;&#65292;&#25925;num&#26377;&#21487;&#33021;&#27809;&#26377;&#20540;&#13;// &#22240;&#27492;&#19981;&#33021;&#20351;&#29992;Int&#26469;&#22768;&#26126;num&#30340;&#31867;&#22411;&#13;//var num :Int = str.toInt()&#13;var num: Int? = str.toInt()&#13;println(num)&#13;// &#32534;&#35793;&#22120;&#25512;&#26029;n&#30340;&#31867;&#22411;&#20026;Int?&#13;var n = str.toInt() &#13;// Int&#31867;&#22411;&#30340;&#21464;&#37327;&#19981;&#25509;&#21463;nil&#13;//var age: Int = nil&#13;// Int?&#31867;&#22411;&#30340;&#21464;&#37327;&#25165;&#33021;&#25509;&#21463;nil&#13;var age: Int? = nil&#13;// &#23450;&#20041;myName&#21464;&#37327;&#65292;&#22768;&#26126;&#20854;&#31867;&#22411;&#20026;String?&#65292;&#35813;&#21464;&#37327;&#23558;&#34987;&#33258;&#21160;&#35774;&#32622;&#20026;nil&#13;var myName : String?&#13;println(myName)</span><br></pre></td></tr></table></figure>
+<h1 id="2-10_字符和字符串">2.10 字符和字符串</h1><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#13;var s: Character = &#34;&#39321;&#34;&#13;var quote1 = &#34;\&#34;&#34;&#13;var quote2 = &#34;\u&#123;22&#125;&#34;&#13;println(&#34;quote1&#30340;&#20540;&#20026;&#65306;\(quote1), quote2&#30340;&#20540;&#20026;&#65306;\(quote2)&#34;)&#13;// &#20351;&#29992;Unicode&#24418;&#24335;&#23450;&#20041;4&#20010;&#23383;&#31526;&#13;var diamond : Character = &#34;\u&#123;2666&#125;&#34;&#13;var heart : Character = &#34;\u&#123;2663&#125;&#34;&#13;var club : Character = &#34;\u&#123;2665&#125;&#34;&#13;var spade : Character = &#34;\u&#123;2660&#125;&#34;&#13;println(&#34;\(diamond) \(heart) \(club) \(spade)&#34;)</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#13;import Foundation&#13;&#13;var name = &#34;fkit.org&#34;&#13;var myBook:String = &#34;&#30127;&#29378;&#36719;&#20214;&#25945;&#32946;&#34;&#13;// &#35843;&#29992;&#26500;&#36896;&#22120;&#26469;&#21019;&#24314;&#23383;&#31526;&#20018;&#13;var str2 = String()  // &#21019;&#24314;&#31354;&#23383;&#31526;&#20018;&#13;// &#21019;&#24314;&#22810;&#20010;&#37325;&#22797;&#23383;&#31526;&#30340;&#23383;&#31526;&#20018;&#13;var str3 = String(count:5, repeatedValue: Character(&#34;f&#34;))&#13;println(str3)&#13;// &#21028;&#26029;&#25351;&#23450;&#23383;&#31526;&#20018;&#26159;&#21542;&#20026;&#31354;&#13;println(str2.isEmpty)&#13;&#13;&#13;let prefix = &#34;fkit.org&#34;&#13;// &#20351;&#29992;+&#25340;&#25509;&#23383;&#31526;&#20018;&#13;var info = prefix + &#34; is a good training center&#34;&#13;println(info)  // &#36755;&#20986; fkit.org is a good training center&#13;&#13;&#13;// &#31243;&#24207;&#23450;&#20041;&#20102;&#19968;&#20010;NSString&#31867;&#22411;&#30340;&#21464;&#37327;&#65292;&#21487;&#20197;&#30452;&#25509;&#23558;Swift&#30340;&#23383;&#31526;&#20018;&#36171;&#20540;&#32473;s&#21464;&#37327;&#13;var s: NSString = &#34;crazyit.org&#34;&#13;// &#35843;&#29992;NSString&#30340;substringWithRange&#26041;&#27861;&#13;var subStr = s.substringWithRange(NSMakeRange(2, 5))&#13;println(subStr) //&#36755;&#20986;azyit</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#13;let cn = &#34;china,&#127464;&#127475;&#34;&#10;// &#35775;&#38382;&#23383;&#31526;&#20018;&#24213;&#23618;&#30340;UTF-8&#32534;&#30721;&#10;for codeUnit in cn.utf8&#10;&#123;&#10;&#9;print(&#34;\(codeUnit) &#34;)&#10;&#125;&#10;println()&#10;// &#35775;&#38382;&#23383;&#31526;&#20018;&#24213;&#23618;&#30340;UTF-16&#32534;&#30721;&#10;for codeUnit in cn.utf16&#10;&#123;&#10;&#9;print(&#34;\(codeUnit) &#34;)&#10;&#125;&#10;println()&#10;// &#35775;&#38382;&#23383;&#31526;&#20018;&#24213;&#23618;&#30340;Unicode&#26631;&#37327;&#10;for scalar in cn.unicodeScalars&#10;&#123;&#10;&#9;print(&#34;\(scalar.value) &#34;)&#10;&#125;&#10;println()</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#13;var str = &#34;fkit.org&#34;&#13;var str2 = String()&#13;// &#23558;str2&#19982;str&#25340;&#25509;&#21518;&#36171;&#20540;&#32473;str2&#13;str2 = str2 + str&#13;// &#21028;&#26029;str&#19982;str2&#26159;&#21542;&#30456;&#31561;&#65292;&#31243;&#24207;&#23558;&#20250;&#36755;&#20986;true&#13;println(str == str2)&#13;var hasFkPrefix : Bool = str.hasPrefix(&#34;fk&#34;)&#13;var hasOrgSuffix : Bool = str.hasSuffix(&#34;org&#34;)&#13;// &#21028;&#26029;str&#26159;&#21542;&#26377;&#29305;&#23450;&#21069;&#32512;&#13;println(&#34;str&#26159;&#21542;&#20197;fk&#24320;&#22836;:\(hasFkPrefix)&#34;)&#13;// &#21028;&#26029;str&#26159;&#21542;&#26377;&#29305;&#23450;&#21518;&#32512;&#13;println(&#34;str&#26159;&#21542;&#20197;org&#32467;&#23614;:\(hasOrgSuffix)&#34;)</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#13;let animals = &#34;&#128049;&#128054;&#128059;&#128055;&#128002;&#128052;&#128013;&#128017;&#128053;&#128020;&#128047;&#128048;&#34;&#10;println(&#34;animals&#30340;&#21253;&#21547;&#30340;&#21160;&#29289;&#25968;&#65306;\(countElements(animals))&#34;)&#10;for animal in animals&#10;&#123;&#10;&#9;println(animal)&#10;&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">var mutableStr = &#34;swift&#34;&#13;// var&#22768;&#26126;&#30340;String&#26159;&#21487;&#21464;&#30340;&#13;mutableStr += &#34; is a good programming language&#34;&#13;println(mutableStr) // &#36755;&#20986; swift is a good programming language&#34;&#13;// &#28165;&#31354;mutableStr&#30340;&#25152;&#26377;&#23383;&#31526;&#13;mutableStr.removeAll(keepCapacity:false)&#13;println(mutableStr) // &#36755;&#20986;&#31354;&#13;let immutableStr = &#34;Objective-C&#34;&#13;// let&#22768;&#26126;&#30340;String&#26159;&#19981;&#21487;&#21464;&#30340;&#65292;&#22240;&#27492;&#19981;&#33021;&#36861;&#21152;&#13;//immutableStr += &#34; is a classic programming language&#34;&#13;// &#19981;&#21487;&#21464;&#23383;&#31526;&#20018;&#19981;&#20801;&#35768;&#25913;&#21464;&#23383;&#31526;&#20018;&#20013;&#23383;&#31526;&#24207;&#21015;&#65292;&#22240;&#27492;&#19979;&#38754;&#20195;&#30721;&#32534;&#35793;&#20986;&#38169;&#13;//immutableStr.removeAll(keepCapacity:false)</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    <div class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Swift/"> #Swift </a>
+          
+            <a href="/tags/iOS-App-Development/"> #iOS App Development </a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2015/05/16/Crazy-Swift-Lecture-Chapter-3/">Crazy Swift Lecture Chapter 3</a>
+            
+          </div>
+
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2015/05/14/Crazy-Swift-Lecture-Chapter-1/">Crazy Swift Lecture Chapter 1</a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </div>
+  </div>
+
+
+
+    
+      <div class="comments" id="comments">
+        
+          <div id="disqus_thread">
+            <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+          </div>
+        
+      </div>
+    
+  </div>
+
+
+        </div>
+
+        
+      </div>
+
+
+      
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table Of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            Overview
+          </li>
+        </ul>
+      
+
+      <div class="site-overview">
+        <div class="site-author motion-element">
+          <img class="site-author-image" src="http://i.imgur.com/uRJy8E9.png" alt="Ge Will" />
+          <p class="site-author-name">Ge Will</p>
+        </div>
+        <p class="site-description motion-element">The people who are crazy enough to think they can change the world, are the ones who do.</p>
+        <div class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">50</span>
+              <span class="site-state-item-name">posts</span>
+            </a>
+          </div>
+
+          <div class="site-state-item site-state-categories">
+            
+              <span class="site-state-item-count">0</span>
+              <span class="site-state-item-name">categories</span>
+              
+          </div>
+
+          <div class="site-state-item site-state-tags">
+            <a href="/tags">
+              <span class="site-state-item-count">9</span>
+              <span class="site-state-item-name">tags</span>
+              </a>
+          </div>
+
+        </div>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+              <a href="https://github.com/gewill" target="_blank">GitHub</a>
+            </span>
+            
+              <span class="links-of-author-item">
+              <a href="https://twitter.com/gewill_org" target="_blank">Twitter</a>
+            </span>
+            
+              <span class="links-of-author-item">
+              <a href="http://weibo.com/gewei" target="_blank">Weibo</a>
+            </span>
+            
+          
+        </div>
+
+        
+        
+          <div class="cc-license motion-element">
+            <a href="http://creativecommons.org/licenses/by-nc-sa/4.0" class="cc-opacity" target="_blank">
+              <img src="/images/cc-by-nc-sa.svg" alt="Creative Commons" />
+            </a>
+          </div>
+        
+
+      </div>
+
+      
+        <div class="post-toc-wrap sidebar-panel-active">
+          <div class="post-toc-indicator-top post-toc-indicator"></div>
+          <div class="post-toc">
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#第二章：Swift_的基本数据类型"><span class="nav-text">第二章：Swift 的基本数据类型</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#2-1_注释"><span class="nav-text">2.1 注释</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-2_变量和常量"><span class="nav-text">2.2 变量和常量</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-3_整型"><span class="nav-text">2.3 整型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-4_浮点型"><span class="nav-text">2.4 浮点型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-5_数值型之间的类型转换"><span class="nav-text">2.5 数值型之间的类型转换</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-6_布尔型"><span class="nav-text">2.6 布尔型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-7_元组（tuple）类型"><span class="nav-text">2.7 元组（tuple）类型</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-8_可选类型"><span class="nav-text">2.8 可选类型</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-10_字符和字符串"><span class="nav-text">2.10 字符和字符串</span></a></li></ol></div>
+            
+          </div>
+          <div class="post-toc-indicator-bottom post-toc-indicator"></div>
+        </div>
+      
+
+    </div>
+  </div>
+
+
+    </div>
+
+    <div id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">
+  
+  &copy; &nbsp; 
+  2015
+  <span style="color:red" class="with-love">
+    <i class="icon-heart"></i>
+  </span>
+  <span style="color:#00CED1" class="author">Ge Will</span>
+</div>
+
+<div class="powered-by">
+  Powered by <a class="theme-link" href="http://hexo.io">Hexo</a>
+</div>
+
+<div class="theme-info">
+  Theme -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+
+
+
+
+      </div>
+    </div>
+
+    <div class="back-to-top"></div>
+  </div>
+
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js"></script>
+  <script type="text/javascript" src="/js/fancy-box.js"></script>
+
+
+  <script type="text/javascript" src="/js/helpers.js"></script>
+  
+
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js"></script>
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js"></script>
+
+  <script type="text/javascript" src="/js/motion_global.js" id="motion.global"></script>
+
+
+
+
+  
+  
+<script type="text/javascript" src="/js/bootstrap.scrollspy.js" id="bootstrap.scrollspy.custom"></script>
+
+
+<script type="text/javascript" id="sidebar.toc.highlight">
+  $(document).ready(function () {
+    var tocSelector = '.post-toc';
+    var $tocSelector = $(tocSelector);
+    var activeCurrentSelector = '.active-current';
+
+    $tocSelector
+      .on('activate.bs.scrollspy', function () {
+        var $currentActiveElement = $(tocSelector + ' .active').last();
+
+        removeCurrentActiveClass();
+        $currentActiveElement.addClass('active-current');
+
+        $tocSelector[0].scrollTop = $currentActiveElement.position().top;
+      })
+      .on('clear.bs.scrollspy', function () {
+        removeCurrentActiveClass();
+      });
+
+    function removeCurrentActiveClass () {
+      $(tocSelector + ' ' + activeCurrentSelector)
+        .removeClass(activeCurrentSelector.substring(1));
+    }
+
+    function processTOC () {
+      getTOCMaxHeight();
+      toggleTOCOverflowIndicators();
+    }
+
+    function getTOCMaxHeight () {
+      var $sidebarInner = $('.sidebar-inner');
+      var height = $('.sidebar').height() -
+                   $tocSelector.position().top -
+                   $('.post-toc-indicator-bottom').height();
+
+      $tocSelector.css('height', height);
+
+      return height;
+    }
+
+    function toggleTOCOverflowIndicators () {
+      tocOverflowIndicator(
+        '.post-toc-indicator-top',
+        $tocSelector.scrollTop() > 0 ? 'show' : 'hide'
+      );
+
+      tocOverflowIndicator(
+        '.post-toc-indicator-bottom',
+        $tocSelector.scrollTop() >= $tocSelector.find('ol').height() - $tocSelector.height() ? 'hide' : 'show'
+      )
+    }
+
+    $(document).on('sidebar.didShow', function () {
+      processTOC();
+    });
+
+    $('body').scrollspy({ target: tocSelector });
+    $(window).on('resize', function () {
+      if ( $('.sidebar').hasClass('sidebar-active') ) {
+        processTOC();
+      }
+    });
+
+    onScroll($tocSelector);
+
+    function onScroll (element) {
+      element.on('mousewheel DOMMouseScroll', function (event) {
+          var oe = event.originalEvent;
+          var delta = oe.wheelDelta || -oe.detail;
+          var self = this;
+
+          this.scrollTop += ( delta < 0 ? 1 : -1 ) * 30;
+          event.preventDefault();
+
+          toggleTOCOverflowIndicators();
+      });
+    }
+
+    function tocOverflowIndicator (indicator, action) {
+      $(indicator).velocity('stop').velocity({
+        opacity: action === 'show' ? 0.4 : 0
+      }, { duration: 100 });
+    }
+
+  });
+</script>
+
+
+  <script type="text/javascript" id="sidebar.nav">
+    $(document).ready(function () {
+      var html = $('html');
+
+      $('.sidebar-nav li').on('click', function () {
+        var item = $(this);
+        var activeTabClassName = 'sidebar-nav-active';
+        var activePanelClassName = 'sidebar-panel-active';
+        if (item.hasClass(activeTabClassName)) {
+          return;
+        }
+
+        var currentTarget = $('.' + activePanelClassName);
+        var target = $('.' + item.data('target'));
+
+        currentTarget.velocity('transition.slideUpOut', 200, function () {
+          target
+            .velocity('stop')
+            .velocity('transition.slideDownIn', 200)
+            .addClass(activePanelClassName);
+        });
+
+        item.siblings().removeClass(activeTabClassName);
+        item.addClass(activeTabClassName);
+      });
+
+      $('.post-toc a').on('click', function (e) {
+        e.preventDefault();
+        var offset = $(escapeSelector(this.getAttribute('href'))).offset().top;
+        html.velocity('stop').velocity('scroll', {
+          offset: offset  + 'px',
+          mobileHA: false
+        });
+      });
+
+      // Expand sidebar on post detail page by default, when post has a toc.
+      var $tocContent = $('.post-toc-content');
+      if (isDesktop() && CONFIG.sidebar === 'post') {
+        if ($tocContent.length > 0 && $tocContent.html().trim().length > 0) {
+          displaySidebar();
+        }
+      }
+    });
+  </script>
+
+
+
+
+  <script type="text/javascript">
+    $(document).ready(function () {
+      if (CONFIG.sidebar === 'always') {
+        displaySidebar();
+      }
+    });
+  </script>
+
+  
+
+  
+  
+  
+
+  
+
+    
+      
+    
+
+    <script type="text/javascript">
+      var disqus_shortname = 'gewill';
+      var disqus_identifier = '2015/05/14/Crazy-Swift-Lecture-Chapter-2/';
+      var disqus_title = 'Crazy Swift Lecture Chapter 2';
+      var disqus_url = 'http://gewill.org/2015/05/14/Crazy-Swift-Lecture-Chapter-2/';
+
+      (function(){
+        var dsq = document.createElement('script');
+        dsq.type = 'text/javascript';
+        dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+      }());
+    </script>
+  
+
+
+
+
+  
+  
+  <script type="text/javascript" src="/js/analytics_google-analytics.js"></script>
+
+
+</body>
+</html>
