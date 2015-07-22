@@ -122,6 +122,131 @@
           
           
             
+              <a class="post-title-link" href="/2015/05/18/Crazy-Swift-Lecture-Chapter-7/">
+                Crazy Swift Lecture Chapter 7
+              </a>
+            
+          
+        </h1>
+      
+
+      <div class="post-meta">
+        <span class="post-time">
+          Posted on 2015-05-18
+        </span>
+
+        
+
+        
+          
+            <span class="post-comments-count">
+            &nbsp; | &nbsp;
+            <a href="/2015/05/18/Crazy-Swift-Lecture-Chapter-7/#comments" >
+              <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2015/05/18/Crazy-Swift-Lecture-Chapter-7/"></span>
+            </a>
+          </span>
+          
+        
+      </div>
+    </div>
+
+    <div class="post-body">
+
+      
+      
+
+      
+        
+          <h1 id="第七章：面向对象（上）">第七章：面向对象（上）</h1><p>为了让我多说话，多表达，多交流，以后博客还是中文为主。英文还是看看新闻，写日记好了。</p>
+<p>回到开发，最近学了6章 Swift 的基础语法，可是基本上和其他语言一致，稍微学习一下，没有什么理解的障碍。只有一点，我又想入了之前学习的问题（或者是我一直以来的了解世界的最大问题），总是过目就忘，不去思考，总结，反思，实践。所谓，纸上得来终觉浅，绝知此事要躬行，先说学习开发这一件，以后要多思考，反复尝试验证，自己编写代码运行。可以试着先把书上的示例，改一改。</p>
+<p>复制代码还是太费事，就本地编译运行好了，能改就改，看看会有什么变化和规律。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#10140; swiftc *.swift&#10;&#10140; ./main</span><br></pre></td></tr></table></figure>
+<h1 id="7-1_Swift_的面向对象支持">7.1 Swift 的面向对象支持</h1><p>Swift 的5种面向对象的程序单元为：</p>
+<ul>
+<li>类</li>
+<li>结构体</li>
+<li>枚举</li>
+<li>扩展</li>
+<li>协议</li>
+</ul>
+<p>Swift 定义任意类型后，以下几个方面使用该类型：</p>
+<ul>
+<li>声明变量</li>
+<li>创建实例</li>
+<li>访问类型属性</li>
+<li>调用类型方法</li>
+<li>派生子类</li>
+</ul>
+<h2 id="7-2_枚举">7.2 枚举</h2><p>枚举定义示例如下，可与 switch 配合使用：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">enum Weekday&#13;&#123;&#13;&#9;// &#20351;&#29992;&#19968;&#20010;case&#21015;&#20986;7&#20010;&#26522;&#20030;&#23454;&#20363;&#13;&#9;case Monday, Tuesday, Wednesday , Thursday, Friday, Saturday, Sunday&#13;&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">// &#20351;&#29992;&#26522;&#20030;&#22768;&#26126;&#21464;&#37327;&#13;var day : Weekday&#13;// &#20351;&#29992;&#24050;&#26377;&#30340;&#26522;&#20030;&#23454;&#20363;&#36171;&#20540;&#13;day = Weekday.Sunday&#13;// &#30001;&#20110;&#31243;&#24207;&#21487;&#20197;&#25512;&#26029;day&#26159;Weekday&#30340;&#23454;&#20363;&#65292;&#22240;&#27492;&#21487;&#20197;&#30465;&#30053;&#26522;&#20030;&#21517;&#21069;&#32512;&#13;day = .Wednesday&#13;println(day)&#13;&#13;var chooseDay = Weekday.Saturday&#13;// &#20351;&#29992;switch&#35821;&#21477;&#21028;&#26029;&#26522;&#20030;&#13;switch(chooseDay)&#13;&#123;&#13;&#9;case .Monday:&#13;&#9;&#9;println(&#34;&#26143;&#26399;&#19968;&#65292;&#20934;&#22791;&#19978;&#29677;&#34;)&#13;&#9;case .Tuesday, .Wednesday:&#13;&#9;&#9;println(&#34;&#26143;&#26399;&#20108;&#12289;&#19977;&#65292;&#25918;&#20551;&#36824;&#24456;&#36828;&#34;)&#13;&#9;case .Thursday:&#13;&#9;&#9;println(&#34;&#26143;&#26399;&#22235;&#65292;&#20877;&#22362;&#25345;&#19968;&#22825;&#34;)&#13;&#9;case .Friday:&#13;&#9;&#9;println(&#34;&#26143;&#26399;&#20116;&#65292;&#20934;&#22791;&#25918;&#20551;&#34;)&#9;&#13;&#9;case .Saturday:&#13;&#9;&#9;println(&#34;&#26143;&#26399;&#20845;&#65292;&#24555;&#20048;&#30340;&#19968;&#22825;&#34;)&#13;&#9;case .Sunday:&#13;&#9;&#9;println(&#34;&#26143;&#26399;&#22825;&#65292;&#36825;&#20040;&#24555;&#23601;&#36807;&#20102;&#19968;&#22825;&#65311;&#34;)&#13;&#125;&#13;&#13;// &#20351;&#29992;switch&#35821;&#21477;&#21028;&#26029;&#26522;&#20030;&#13;switch(chooseDay)&#13;&#123;&#13;&#9;case .Monday:&#13;&#9;&#9;println(&#34;&#26143;&#26399;&#19968;&#65292;&#20934;&#22791;&#19978;&#29677;&#34;)&#13;&#9;case .Tuesday, .Wednesday:&#13;&#9;&#9;println(&#34;&#26143;&#26399;&#20108;&#12289;&#19977;&#65292;&#25918;&#20551;&#36824;&#24456;&#36828;&#34;)&#13;&#9;default:&#13;&#9;&#9;println(&#34;&#35201;&#20040;&#22312;&#25918;&#20551;&#65292;&#35201;&#20040;&#22312;&#20934;&#22791;&#25918;&#20551;&#34;)&#13;&#125;</span><br></pre></td></tr></table></figure>
+<p>枚举支持原始值和关联值，见下面的代码：<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">// &#23450;&#20041;&#26522;&#20030;&#13;enum Planet&#13;&#123;&#13;&#9;static var weightx: Double = 2.3&#13;&#9;// &#19981;&#21516;&#26522;&#20030;&#20540;&#21487;&#20197;&#25658;&#24102;&#25968;&#37327;&#19981;&#31561;&#12289;&#31867;&#22411;&#19981;&#31561;&#30340;&#20851;&#32852;&#20540;&#13;&#9;case Mercury(weight:Double , density: Double , name:String)&#13;&#9;case Venus(Double , Double)&#13;&#9;case Earth(Double , String)&#13;&#9;case Mars(density:Double , name:String)&#13;&#9;case Jupiter&#13;&#9;case Saturn&#13;&#9;case Uranus&#13;&#9;case Nepturn&#13;&#125;&#13;var p1 = Planet.Mercury(weight:0.05 , density:5.43 , name:&#34;&#27700;&#26143;&#34;)&#13;var p2 = Planet.Venus(0.815 , 5.25)&#13;var p3 = Planet.Earth(1.0 , &#34;&#22320;&#29699;&#34;)&#13;var p4 = Planet.Mars(density:3.95 , name:&#34;&#28779;&#26143;&#34;)&#13;&#13;switch(p3)&#13;&#123;&#13;&#9;case Planet.Earth(var weight , var name):&#13;&#9;&#9;println(&#34;&#35813;&#34892;&#26143;&#30340;&#21517;&#23383;&#20026;&#65306;\(name)&#65292;&#36136;&#37327;&#30456;&#24403;&#20110;&#65306;\(weight)&#20010;&#22320;&#29699;&#34;)&#13;&#9;default:&#13;&#9;&#9;break&#13;&#125;&#13;&#13;switch(p1)&#13;&#123;&#13;&#9;// &#23558;Planet.Venus&#30340;&#20851;&#32852;&#20540;&#32465;&#23450;&#21040;weight&#12289;density&#24120;&#37327;&#13;&#9;case let .Venus(weight , density):&#13;&#9;&#9;println(&#34;&#35813;&#34892;&#26143;&#30340;&#36136;&#37327;&#30456;&#24403;&#20110;&#65306;\(weight)&#20010;&#22320;&#29699;&#65292;&#23494;&#24230;&#20026;\(density)&#34;)&#13;&#9;// &#23558;Planet.Mercury&#30340;&#20851;&#32852;&#20540;&#32465;&#23450;&#21040;w&#12289;d&#12289;n&#24120;&#37327;&#13;&#9;case let .Mercury(weight:w , density:d , name:n):&#13;&#9;&#9;println(&#34;&#35813;&#34892;&#26143;&#30340;&#21517;&#23383;&#20026;&#65306;\(n)&#65292;&#36136;&#37327;&#30456;&#24403;&#20110;&#65306;\(w)&#20010;&#22320;&#29699;&#65292;&#23494;&#24230;&#20026;\(d)&#34;)&#13;&#9;default:&#13;&#9;&#9;break&#13;&#125;</span><br></pre></td></tr></table></figure></p>
+<h2 id="7-3_类和结构体">7.3 类和结构体</h2><p>类和结构体主要区别：</p>
+<ol>
+<li>结构体不支持继承</li>
+<li>结构体不支持定义析构器</li>
+<li>结构体是值类型，而类是引用类型</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">class Person &#123;&#10;    var name: String = &#34;&#34;&#10;    var age: Int = 0&#10;    &#10;    func say(content:String)&#123;&#10;        print(content)&#10;    &#125;&#10;&#125;&#10;&#10;var p: Person&#10;p = Person()&#10;&#10;var q = Person()&#10;&#10;p.name = &#34;Wll&#34;&#10;q.age = 23&#10;q.say(&#34;Hi, \(p.name)&#34;)&#10;&#10;var p2 = p&#10;&#10;p2.name = &#34;Bruce Li&#34;&#10;print(p.name)&#10;&#10;&#10;struct Dog &#123;&#10;    var name: String&#10;    var age: Int&#10;    &#10;    func run()&#123;&#10;        print(&#34;\(name) run quickly.&#34;)&#10;    &#125;&#10;&#125;&#10;&#10;var poppy = Dog(name: &#34;Wang&#34;, age: 2)&#10;print(poppy.name)&#10;poppy.run()&#10;&#10;var poppy2 = poppy&#10;poppy2.name = &#34;Cai&#128054;&#34;&#10;print(poppy2.name)&#10;print(poppy.name)</span><br></pre></td></tr></table></figure>
+<p>引用类型的比较：</p>
+<ul>
+<li>===</li>
+<li>!== </li>
+</ul>
+<p>结构体是值类型的引用，不适用此运算符。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">class User &#123;&#10;    var name: String&#10;    var age: Int&#10;    &#10;    init (name:String, age:Int)&#10;    &#123;&#10;        self.name = name&#10;        self.age = age&#10;    &#125;&#10;&#125;&#10;&#10;var u1 = User(name: &#34;Li&#34;, age: 18)&#10;var u2 = User(name: &#34;Li&#34;, age: 18)&#10;&#10;print(u1 === u2) // false&#10;print(u1 !== u2) // true&#10;&#10;var u3 = u1&#10;print(u1 === u3) // true&#10;print(u1 !== u3) // false&#10;&#10;&#10;&#10;struct Level&#123;&#10;    var grade: Int&#10;&#125;&#10;&#10;var lv1 = Level(grade: 20)&#10;var lv2 = Level(grade: 20)&#10;&#10;// print(lv1 === lv2)</span><br></pre></td></tr></table></figure>
+<p>self 关键字：</p>
+<ul>
+<li>构造器中 self 代表该构造器正在进行初始化的实例</li>
+<li>方法中 self 代表该方法的调用者</li>
+</ul>
+<p>类和结构体的选择</p>
+<ul>
+<li>结构体的主要目的是用于封装少量相关的简单数据值</li>
+<li>程序需要让该实例在赋值或参数传递时会自动复制副本</li>
+<li>程序明确该类型无需继承</li>
+</ul>
+<h2 id="7-4_存储属性">7.4 存储属性</h2><p>使用 lazy 关键字修饰 var 实现延迟加载机制</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">import Foundation&#10;&#10;class Dept &#123;&#10;    var id : Int&#10;    var info: String&#10;    &#10;    init(id: Int)&#10;    &#123;&#10;        self.id = id&#10;        // &#26242;&#20572; 10 &#31186;&#65292;&#27169;&#25311;&#32791;&#26102;&#25805;&#20316;&#10;        NSThread.sleepForTimeInterval(10)&#10;        self.info = &#34;&#27169;&#25311;&#35835;&#21462;&#25968;&#25454;&#24211;    &#128526;&#34;&#10;        &#10;    &#125;&#10;&#125;&#10;&#10;class User &#123;&#10;    var id: Int = 0&#10;    lazy var dept = Dept(id: 20)&#10;    var nicks = [String]()&#10;    &#10;&#125;&#10;&#10;var user1 = User()&#10;&#10;user1.nicks.append(&#34; Bruce Li&#34;)&#10;user1.nicks.append(&#34;Li Bai&#34;)&#10;print(user1.nicks)</span><br></pre></td></tr></table></figure>
+<h2 id="7-5_计算属性">7.5 计算属性</h2><p>计算属性相当于 Objective-C、Java等语言通过 getter、setter 合成的属性。</p>
+<p>set 部分的形参可以省略，Swift提供一个隐式的形参名：newValue<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">import Foundation&#10;&#10;class User &#123;&#10;    var first: String = &#34;&#34;&#10;    var last: String = &#34;&#34;&#10;    &#10;    var fullName: String &#123;&#10;        get &#123;&#10;    &#10;         return first + &#34;-&#34; + last&#10;     &#125;&#10;        set &#123;&#10;            var names = newValue.componentsSeparatedByString(&#34;-&#34;)&#10;            &#10;            self.first = names[0]&#10;            self.last = names[1]&#10;     &#125;&#10;    &#125;&#10;    &#10;    init(first:String, last:String)&#10;    &#123;&#10;        self.first = first&#10;        self.last = last&#10;    &#125;&#10;&#125;&#10;&#10;let s = User(first: &#34;Long&#34;, last: &#34;Lee&#34;)&#10;print(s.fullName) // &#36755;&#20986;&#65306;Long-Lee&#10;s.fullName = &#34;Sam-Zhang&#34;&#10;print(s.first) // &#36755;&#20986;Sam</span><br></pre></td></tr></table></figure></p>
+<p>只有 get，没有 set 的计算属性称之为只读的计算属性。<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">import Foundation&#10;&#10;class User &#123;&#10;    var first: String = &#34;&#34;&#10;    var last: String = &#34;&#34;&#10;     // &#23450;&#20041;&#19968;&#20010;&#21482;&#35835;&#30340;&#35745;&#31639;&#23646;&#24615;&#65292;&#21482;&#26377; get&#65292;&#30465;&#30053; get &#21644;&#33457;&#25324;&#21495;&#10;    var fullName: String &#123;&#10;        return first + &#34;-&#34; + last&#10;    &#125;&#10;    init(first:String, last:String)&#10;    &#123;&#10;        self.first = first&#10;        self.last = last&#10;    &#125;&#10;    &#10;&#125;&#10;&#10;let s = User(first: &#34;Long&#34;, last: &#34;Lee&#34;)&#10;print(s.fullName) // &#36755;&#20986;&#65306;Long-Lee</span><br></pre></td></tr></table></figure></p>
+<h2 id="7-9_可选链">7.9 可选链</h2><p>Swift 所有类型默认都不可接受 nil 值，如果想接受 nil，可使用以下两种方法：</p>
+<ul>
+<li>原有类型后添加？后缀，这种可选类型必须强制解析才能获取被包装的值</li>
+<li>原有类型后添加！后缀，这种可选类型可有 Swift 隐式解析被包装的值<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">class Customer&#10;&#123;&#10;    var name = &#34;&#34;&#10;    var emp: Employee?&#10;    init(name: String)&#10;    &#123;&#10;        self.name = name&#10;    &#125;&#10;&#125;&#10;&#10;class Employee &#123;&#10;    var name = &#34;Bai&#34;&#10;    var title = &#34;service&#34;&#10;    var company: Company!&#10;    init(name: String, title: String)&#10;    &#123;&#10;        self.name = name&#10;        self.title = title&#10;    &#125;&#10;&#10;&#125;&#10;&#10;class Company &#123;&#10;    var name = &#34;whoDO&#34;&#10;    var addr = &#34;Shanghai&#34;&#10;    init(name: String, addr: String)&#10;    &#123;&#10;        self.name = name&#10;        self.addr = addr&#10;    &#125;&#10;&#125;&#10;&#10;var c = Customer(name: &#34;Sam&#34;)&#10;var emp = Employee(name: &#34;Ken&#34;, title: &#34;Manage&#34;)&#10;c.emp = emp&#10;emp.company = Company(name: &#34;Googl&#34;, addr: &#34;LV&#34;)&#10;print(&#34;&#20026;\(c.name)&#26381;&#21153;&#30340;&#26159;&#65306;\(c.emp!.company.name)&#20844;&#21496;&#30340; \(c.emp!.name)&#12290;&#34;)&#10;// &#36755;&#20986;&#65306;&#20026;Sam&#26381;&#21153;&#30340;&#26159;&#65306;Googl&#20844;&#21496;&#30340; Ken&#12290;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+
+        
+      
+    </div>
+
+    <div class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </div>
+  </div>
+
+
+    
+      
+
+  <div class="post post-type-normal ">
+    <div class="post-header">
+
+      
+      
+        <h1 class="post-title">
+          
+          
+            
               <a class="post-title-link" href="/2015/05/17/MUST-CODE/">
                 MUST CODE
               </a>
@@ -749,80 +874,11 @@
 
 
     
-      
-
-  <div class="post post-type-normal ">
-    <div class="post-header">
-
-      
-      
-        <h1 class="post-title">
-          
-          
-            
-              <a class="post-title-link" href="/2015/05/09/open-file-with-application-in-terminal/">
-                Open file with application in terminal
-              </a>
-            
-          
-        </h1>
-      
-
-      <div class="post-meta">
-        <span class="post-time">
-          Posted on 2015-05-09
-        </span>
-
-        
-
-        
-          
-            <span class="post-comments-count">
-            &nbsp; | &nbsp;
-            <a href="/2015/05/09/open-file-with-application-in-terminal/#comments" >
-              <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2015/05/09/open-file-with-application-in-terminal/"></span>
-            </a>
-          </span>
-          
-        
-      </div>
-    </div>
-
-    <div class="post-body">
-
-      
-      
-
-      
-        
-          <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">open -a application ~/file</span><br></pre></td></tr></table></figure>
-<hr>
-<p>If have a space in it’s name, like Android Studio, then use quotation marks. Or use escape character: “\ “ instead of space: “ “ between two words.</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">open -a &#34;Android Studio&#34; ~/&#34;file copy&#34;&#10;open -a &#39;Android Studio&#39; ~/&#39;file copy&#39;&#10;open -a Android\ Studio ~/file\ copy</span><br></pre></td></tr></table></figure>
-
-        
-      
-    </div>
-
-    <div class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </div>
-  </div>
-
-
-    
   </div>
 
   
   <div class="pagination">
-    <a class="extend prev" rel="prev" href="/page/3/">&laquo;</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/3/">3</a><span class="page-number current">4</span><a class="page-number" href="/page/5/">5</a><a class="extend next" rel="next" href="/page/5/">&raquo;</a>
+    <a class="extend prev" rel="prev" href="/page/3/">&laquo;</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/3/">3</a><span class="page-number current">4</span><a class="page-number" href="/page/5/">5</a><a class="page-number" href="/page/6/">6</a><a class="extend next" rel="next" href="/page/5/">&raquo;</a>
   </div>
 
 
@@ -856,7 +912,7 @@
         <div class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">50</span>
+              <span class="site-state-item-count">51</span>
               <span class="site-state-item-name">posts</span>
             </a>
           </div>
@@ -870,7 +926,7 @@
 
           <div class="site-state-item site-state-tags">
             <a href="/tags">
-              <span class="site-state-item-count">12</span>
+              <span class="site-state-item-count">10</span>
               <span class="site-state-item-name">tags</span>
               </a>
           </div>

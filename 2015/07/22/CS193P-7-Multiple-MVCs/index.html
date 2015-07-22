@@ -24,7 +24,7 @@
 
 
 
-  <meta name="keywords" content="whoDO" />
+  <meta name="keywords" content="CS193P,Swift,iOS Dev," />
 
 
 
@@ -48,7 +48,7 @@
 
 
 
-  <title> Flat Tomato // whoDO </title>
+  <title> CS193P 7. Multiple MVCs // whoDO </title>
 </head>
 
 <body>
@@ -120,7 +120,7 @@
           
           
             
-              Flat Tomato
+              CS193P 7. Multiple MVCs
             
           
         </h1>
@@ -128,7 +128,7 @@
 
       <div class="post-meta">
         <span class="post-time">
-          Posted on 2015-05-24
+          Posted on 2015-07-22
         </span>
 
         
@@ -137,8 +137,8 @@
           
             <span class="post-comments-count">
             &nbsp; | &nbsp;
-            <a href="/2015/05/24/Flat-Tomato/#comments" >
-              <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2015/05/24/Flat-Tomato/"></span>
+            <a href="/2015/07/22/CS193P-7-Multiple-MVCs/#comments" >
+              <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2015/07/22/CS193P-7-Multiple-MVCs/"></span>
             </a>
           </span>
           
@@ -152,28 +152,47 @@
       
 
       
-        <p>重新使用番茄学习法，<a href="https://itunes.apple.com/cn/app/flat-tomato-time-management/id719462746?l=en&amp;mt=8" target="_blank" rel="external">Flat Tomato</a> 设计非常简洁优雅。</p>
-<p>使用计时器感觉时间过得飞快，也是平日里浪费时间习惯了。一晃一下午就过去了，什么都没做，就听歌看新闻了，关键是没有总结和互动，往往一个耳朵进一个耳朵出。</p>
-<p>希望以后能够珍惜时间，做正确的事。</p>
-<p><img src="http://i.imgur.com/SjGeNXd.jpg" alt="Imgur"></p>
+        <h2 id="1-_Split_View_Controllers_&amp;_Navigation_Controllers_&amp;_Tab_Bar_Controllers">1. Split View Controllers &amp; Navigation Controllers &amp; Tab Bar Controllers</h2><blockquote>
+<p>Slide 中图太多就不一一贴在这里了</p>
+</blockquote>
+<p>UINavigationController 比喻成一堆卡片，一直只能看到一张。新的 MVC 出来，旧的就被丢弃。</p>
+<h2 id="2-_Segues">2. Segues</h2><p>Segue 总是引导到一个新建的 MVC，旧的同样被丢弃。</p>
+<p>Storyboard 总是通过名字连接代码的：UIView 的 Class、View Controller 的 Class、Outlet 的名字、IBAction 的名字，这是一种松散耦合，能够这个两件东西连接起来。</p>
+<h2 id="3-_Demo:_Psychologist">3. Demo: Psychologist</h2><p>最好的理解就是做实践（Demo）。</p>
+<p>我们将会新建一个 Psychologist MVC</p>
+<p>Psychologist 将会披露他的诊断，通过 segue Happiness MVC。</p>
+<p>我们会把 MVCs 放进 navigation controllers 内部 split view controllers,它将兼容 iPad 和 iPhone 设备。</p>
+<p>Autolayout 另一个技巧是使用 Reset to Suggested Constraints，配合 Size Inspector 面板里 Descendant Constraints。</p>
+<h2 id="4-_Popovers">4. Popovers</h2><p>Popover 对应的是 popoverPresentationController</p>
+<p>由于 Popover 出来的 MVC 每次的新建的，History 相关信息可以存储到 NSUserDefaults 中。</p>
+<p>iPad 是小的弹窗，iPhone 默认 Modal，可以改回 Popover。可以重写  UIViewController 中的 preferredContentSize 自定义大小。</p>
+<p>源码保存在 我的GitHub 的 <a href="https://github.com/gewill/CS193P-2015" target="_blank" rel="external">CS193P-2015</a>。</p>
 
       
     </div>
 
     <div class="post-footer">
       
+        <div class="post-tags">
+          
+            <a href="/tags/CS193P/"> #CS193P </a>
+          
+            <a href="/tags/Swift/"> #Swift </a>
+          
+            <a href="/tags/iOS-Dev/"> #iOS Dev </a>
+          
+        </div>
+      
 
       
         <div class="post-nav">
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2015/05/24/Photo-DEMO/">Photo DEMO</a>
-            
           </div>
 
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2015/05/24/Tomcat-Game-DEMO/">Tomcat Game DEMO</a>
+              <a href="/2015/07/20/CS193P-6-Protocols-and-Delegation-Gestures/">CS193P 6. Protocols and Delegation, Gestures</a>
             
           </div>
         </div>
@@ -295,7 +314,7 @@
           <div class="post-toc">
             
             
-              <p class="post-toc-empty">This post does not have a Table Of Contents</p>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-_Split_View_Controllers_&_Navigation_Controllers_&_Tab_Bar_Controllers"><span class="nav-text">1. Split View Controllers & Navigation Controllers & Tab Bar Controllers</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-_Segues"><span class="nav-text">2. Segues</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-_Demo:_Psychologist"><span class="nav-text">3. Demo: Psychologist</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-_Popovers"><span class="nav-text">4. Popovers</span></a></li></ol></div>
             
           </div>
           <div class="post-toc-indicator-bottom post-toc-indicator"></div>
@@ -525,9 +544,9 @@
 
     <script type="text/javascript">
       var disqus_shortname = 'gewill';
-      var disqus_identifier = '2015/05/24/Flat-Tomato/';
-      var disqus_title = 'Flat Tomato';
-      var disqus_url = 'http://gewill.org/2015/05/24/Flat-Tomato/';
+      var disqus_identifier = '2015/07/22/CS193P-7-Multiple-MVCs/';
+      var disqus_title = 'CS193P 7. Multiple MVCs';
+      var disqus_url = 'http://gewill.org/2015/07/22/CS193P-7-Multiple-MVCs/';
 
       (function(){
         var dsq = document.createElement('script');

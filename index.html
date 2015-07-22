@@ -122,6 +122,86 @@
           
           
             
+              <a class="post-title-link" href="/2015/07/22/CS193P-7-Multiple-MVCs/">
+                CS193P 7. Multiple MVCs
+              </a>
+            
+          
+        </h1>
+      
+
+      <div class="post-meta">
+        <span class="post-time">
+          Posted on 2015-07-22
+        </span>
+
+        
+
+        
+          
+            <span class="post-comments-count">
+            &nbsp; | &nbsp;
+            <a href="/2015/07/22/CS193P-7-Multiple-MVCs/#comments" >
+              <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2015/07/22/CS193P-7-Multiple-MVCs/"></span>
+            </a>
+          </span>
+          
+        
+      </div>
+    </div>
+
+    <div class="post-body">
+
+      
+      
+
+      
+        
+          <h2 id="1-_Split_View_Controllers_&amp;_Navigation_Controllers_&amp;_Tab_Bar_Controllers">1. Split View Controllers &amp; Navigation Controllers &amp; Tab Bar Controllers</h2><blockquote>
+<p>Slide 中图太多就不一一贴在这里了</p>
+</blockquote>
+<p>UINavigationController 比喻成一堆卡片，一直只能看到一张。新的 MVC 出来，旧的就被丢弃。</p>
+<h2 id="2-_Segues">2. Segues</h2><p>Segue 总是引导到一个新建的 MVC，旧的同样被丢弃。</p>
+<p>Storyboard 总是通过名字连接代码的：UIView 的 Class、View Controller 的 Class、Outlet 的名字、IBAction 的名字，这是一种松散耦合，能够这个两件东西连接起来。</p>
+<h2 id="3-_Demo:_Psychologist">3. Demo: Psychologist</h2><p>最好的理解就是做实践（Demo）。</p>
+<p>我们将会新建一个 Psychologist MVC</p>
+<p>Psychologist 将会披露他的诊断，通过 segue Happiness MVC。</p>
+<p>我们会把 MVCs 放进 navigation controllers 内部 split view controllers,它将兼容 iPad 和 iPhone 设备。</p>
+<p>Autolayout 另一个技巧是使用 Reset to Suggested Constraints，配合 Size Inspector 面板里 Descendant Constraints。</p>
+<h2 id="4-_Popovers">4. Popovers</h2><p>Popover 对应的是 popoverPresentationController</p>
+<p>由于 Popover 出来的 MVC 每次的新建的，History 相关信息可以存储到 NSUserDefaults 中。</p>
+<p>iPad 是小的弹窗，iPhone 默认 Modal，可以改回 Popover。可以重写  UIViewController 中的 preferredContentSize 自定义大小。</p>
+<p>源码保存在 我的GitHub 的 <a href="https://github.com/gewill/CS193P-2015" target="_blank" rel="external">CS193P-2015</a>。</p>
+
+        
+      
+    </div>
+
+    <div class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </div>
+  </div>
+
+
+    
+      
+
+  <div class="post post-type-normal ">
+    <div class="post-header">
+
+      
+      
+        <h1 class="post-title">
+          
+          
+            
               <a class="post-title-link" href="/2015/07/20/CS193P-6-Protocols-and-Delegation-Gestures/">
                 CS193P 6. Protocols and Delegation, Gestures
               </a>
@@ -412,6 +492,7 @@
 <p>有待翻译</p>
 </blockquote>
 <h2 id="5-_拓展阅读">5. 拓展阅读</h2><p><a href="http://www.raywenderlich.com/76020/using-uigesturerecognizer-with-swift-tutorial" target="_blank" rel="external">UIGestureRecognizer Tutorial: Getting Started</a></p>
+<p>源码保存在 我的GitHub 的 <a href="https://github.com/gewill/CS193P-2015" target="_blank" rel="external">CS193P-2015</a>。</p>
 
         
       
@@ -1091,83 +1172,11 @@
 
 
     
-      
-
-  <div class="post post-type-normal ">
-    <div class="post-header">
-
-      
-      
-        <h1 class="post-title">
-          
-          
-            
-              <a class="post-title-link" href="/2015/07/15/Crazy-Swift-Lecture-Chapter-9/">
-                Crazy Swift Lecture Chapter 9
-              </a>
-            
-          
-        </h1>
-      
-
-      <div class="post-meta">
-        <span class="post-time">
-          Posted on 2015-07-15
-        </span>
-
-        
-
-        
-          
-            <span class="post-comments-count">
-            &nbsp; | &nbsp;
-            <a href="/2015/07/15/Crazy-Swift-Lecture-Chapter-9/#comments" >
-              <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2015/07/15/Crazy-Swift-Lecture-Chapter-9/"></span>
-            </a>
-          </span>
-          
-        
-      </div>
-    </div>
-
-    <div class="post-body">
-
-      
-      
-
-      
-        
-          <h1 id="第九章_泛型">第九章 泛型</h1><p>类型形参实际代表的类型是动态改变的，程序课等到真正使用这些函数、枚举、结构体和类时才为这些类型形参传入实际的类型。</p>
-<p>说白了就是一个通用的占位符，实际使用时再具体说是哪个类型。</p>
-<h2 id="9-2_泛型函数">9.2 泛型函数</h2><p>可定义多个类型参数</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">func copyArray &#60;T&#62; (src: [T], inout dest: [T])&#10;&#123;&#10;    // &#36941;&#21382; src &#25968;&#32452;&#65292;&#24182;&#23558; src &#25968;&#32452;&#30340;&#20803;&#32032;&#36861;&#21152;&#21040; dest &#25968;&#32452;&#21518;&#38754;&#10;    for element in src&#10;    &#123;&#10;        dest.append(element)&#10;    &#125;&#10;&#125;&#10;&#10;var arr = [29, 2, 33]&#10;copyArray([12, 8], dest: &#38;arr)&#10;print(arr)&#10;&#10;var  strArr = [&#34;Taylor&#34;, &#34;Swift&#34;, &#34;win&#34;]&#10;copyArray([&#34;Apple&#34;, &#34;Music&#34;], dest: &#38;strArr)&#10;print(strArr)</span><br></pre></td></tr></table></figure>
-<h2 id="9-3_泛型类型">9.3 泛型类型</h2><p>Swift 内置支持的 Array、Dictionary 就是典型的泛型结构体。</p>
-<p>泛型结构体可以派生子类，可以扩展，可以添加约束（协议或 where 子句）<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#10;func bubbleSort &#60;T: Comparable&#62; (inout array: [T])&#10;&#123;&#10;    let len = array.count&#10;    var hasSwap = true&#10;    for var i = 0; i &#60; len - 1 &#38;&#38; hasSwap; i++&#10;    &#123;&#10;        hasSwap = false&#10;        for var j = 0; j &#60; len - 1; j++&#10;        &#123;&#10;            if array[j] &#62; array[j + 1]&#10;            &#123;&#10;                let tmp = array[j]&#10;                array[j] = array[j + 1]&#10;                array[j + 1] = tmp&#10;                hasSwap = true&#10;            &#125;&#10;        &#125;&#10;    &#125;&#10;&#125;&#10;&#10;var myArr = [-1, 22, 32, 32, 5, 344, -66]&#10;bubbleSort(&#38;myArr)&#10;print(myArr)&#10;&#10;var strArr = [&#34;Will&#34;, &#34;Wang&#34;, &#34;Alxx&#34;, &#34;Ken&#34;, &#34;Saale&#34;, &#34;Bene&#34;]&#10;bubbleSort(&#38;strArr)&#10;print(strArr)</span><br></pre></td></tr></table></figure></p>
-<p>稍后把书中代码均打出来。</p>
-
-        
-      
-    </div>
-
-    <div class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </div>
-  </div>
-
-
-    
   </div>
 
   
   <div class="pagination">
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/">5</a><a class="extend next" rel="next" href="/page/2/">&raquo;</a>
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/6/">6</a><a class="extend next" rel="next" href="/page/2/">&raquo;</a>
   </div>
 
 
@@ -1201,7 +1210,7 @@
         <div class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">50</span>
+              <span class="site-state-item-count">51</span>
               <span class="site-state-item-name">posts</span>
             </a>
           </div>
@@ -1215,7 +1224,7 @@
 
           <div class="site-state-item site-state-tags">
             <a href="/tags">
-              <span class="site-state-item-count">12</span>
+              <span class="site-state-item-count">10</span>
               <span class="site-state-item-name">tags</span>
               </a>
           </div>
