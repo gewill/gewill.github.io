@@ -183,8 +183,8 @@
 <p>View 中 dataSource 是 protocol FaceViewDataSource 的属性（代理或数据源），作为 dataSource?.smilinessForFaceView(self) 的形参。</p>
 <p>Controller 实现了该协议，并将自己作为代理的对象，并通过 happiness 变量来改变协议中</p>
 <p>Controller 中的 faceView 通过 Outlet 监控 dataSource 值的改变（didSet），来控制 View 笑脸的变化（smiliness）。</p>
-<p><img src="http://i.imgur.com/Zop3POa.png" alt="Happiness MVC"><br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">//&#10;//  FaceView.swift&#10;//  Happiness&#10;&#10;&#10;import UIKit&#10;&#10;protocol FaceViewDataSource: class &#123;&#10;    func smilinessForFaceView(sender: FaceView) -&#62; Double?&#10;&#125;&#10;&#10;@IBDesignable&#10;class FaceView: UIView&#10;&#123;&#10;    @IBInspectable&#10;    var lineWidth: CGFloat = 3 &#123; didSet &#123; setNeedsDisplay() &#125; &#125;&#10;    @IBInspectable&#10;    var color: UIColor = UIColor.blueColor() &#123; didSet &#123; setNeedsDisplay() &#125; &#125;&#10;    @IBInspectable&#10;    var scale: CGFloat = 0.90 &#123; didSet &#123; setNeedsDisplay() &#125; &#125;&#10;    &#10;    var faceCenter: CGPoint &#123;&#10;        return convertPoint(center, fromView: superview)&#10;    &#125;&#10;    var faceRadius: CGFloat &#123;&#10;        return min(bounds.size.width, bounds.size.height) / 2 * scale&#10;    &#125;&#10;    &#10;    weak var dataSource: FaceViewDataSource?&#10;    &#10;    override func drawRect(rect: CGRect)&#10;    &#123;&#10;        let facePath = UIBezierPath(&#10;            arcCenter: faceCenter,&#10;            radius: faceRadius,&#10;            startAngle: 0,&#10;            endAngle: CGFloat(2*M_PI),&#10;            clockwise: true&#10;        )&#10;        facePath.lineWidth = lineWidth&#10;        color.set()&#10;        facePath.stroke()&#10;        &#10;        bezierPathForEye(.Left).stroke()&#10;        bezierPathForEye(.Right).stroke()&#10;        &#10;        let smiliness = dataSource?.smilinessForFaceView(self) ?? 0.0&#10;        let smilePath = bezierPathForSmile(smiliness)&#10;        smilePath.stroke()&#10;    &#125;&#10;    &#10;    private struct Scaling &#123;&#10;        static let FaceRadiusToEyeRadiusRatio: CGFloat = 10&#10;        static let FaceRadiusToEyeOffsetRatio: CGFloat = 3&#10;        static let FaceRadiusToEyeSeparationRatio: CGFloat = 1.5&#10;        static let FaceRadiusToMouthWidthRatio: CGFloat = 1&#10;        static let FaceRadiusToMouthHeightRatio: CGFloat = 3&#10;        static let FaceRadiusToMouthOffsetRatio: CGFloat = 3&#10;    &#125;&#10;    &#10;    private enum Eye &#123; case Left, Right &#125;&#10;    &#10;    private func bezierPathForEye(whichEye: Eye) -&#62; UIBezierPath&#10;    &#123;&#10;        let eyeRadius = faceRadius / Scaling.FaceRadiusToEyeRadiusRatio&#10;        let eyeVerticalOffset = faceRadius / Scaling.FaceRadiusToEyeOffsetRatio&#10;        let eyeHorizontalSeparation = faceRadius / Scaling.FaceRadiusToEyeSeparationRatio&#10;        &#10;        var eyeCenter = faceCenter&#10;        eyeCenter.y -= eyeVerticalOffset&#10;        switch whichEye &#123;&#10;            case .Left: eyeCenter.x -= eyeHorizontalSeparation / 2&#10;            case .Right: eyeCenter.x += eyeHorizontalSeparation / 2&#10;        &#125;&#10;        &#10;        let path = UIBezierPath(&#10;            arcCenter: eyeCenter,&#10;            radius: eyeRadius,&#10;            startAngle: 0,&#10;            endAngle: CGFloat(2*M_PI),&#10;            clockwise: true&#10;        )&#10;        path.lineWidth = lineWidth&#10;        return path&#10;    &#125;&#10;&#10;    private func bezierPathForSmile(fractionOfMaxSmile: Double) -&#62; UIBezierPath&#10;    &#123;&#10;        let mouthWidth = faceRadius / Scaling.FaceRadiusToMouthWidthRatio&#10;        let mouthHeight = faceRadius / Scaling.FaceRadiusToMouthHeightRatio&#10;        let mouthVerticalOffset = faceRadius / Scaling.FaceRadiusToMouthOffsetRatio&#10;        &#10;        let smileHeight = CGFloat(max(min(fractionOfMaxSmile, 1), -1)) * mouthHeight&#10;        &#10;        let start = CGPoint(x: faceCenter.x - mouthWidth / 2, y: faceCenter.y + mouthVerticalOffset)&#10;        let end = CGPoint(x: start.x + mouthWidth, y: start.y)&#10;        let cp1 = CGPoint(x: start.x + mouthWidth / 3, y: start.y + smileHeight)&#10;        let cp2 = CGPoint(x: end.x - mouthWidth / 3, y: cp1.y)&#10;        &#10;        let path = UIBezierPath()&#10;        path.moveToPoint(start)&#10;        path.addCurveToPoint(end, controlPoint1: cp1, controlPoint2: cp2)&#10;        path.lineWidth = lineWidth&#10;        return path&#10;    &#125;&#10;&#125;</span><br></pre></td></tr></table></figure></p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">//&#10;//  HappinessViewController.swift&#10;//  Happiness&#10;&#10;&#10;import UIKit&#10;&#10;class HappinessViewController: UIViewController, FaceViewDataSource&#10;&#123;&#10;&#10;    @IBOutlet weak var faceView: FaceView! &#123;&#10;        didSet &#123;&#10;            faceView.dataSource = self&#10;        &#125;&#10;    &#125;&#10;    var happiness: Int = 99 &#123; // 0 = very sad, 100 = ecstatic&#10;        didSet &#123;&#10;            happiness = min(max(happiness, 0), 100)&#10;            print(&#34;happiness = \(happiness)&#34;)&#10;            updateUI()&#10;        &#125;&#10;    &#125;&#10;    &#10;    func updateUI() &#123;&#10;        faceView.setNeedsDisplay()&#10;    &#125;&#10;    &#10;    func smilinessForFaceView(sender: FaceView) -&#62; Double? &#123;&#10;        return Double(happiness - 50) / 50&#10;    &#125;&#10;&#125;</span><br></pre></td></tr></table></figure>
+<p><img src="http://i.imgur.com/Zop3POa.png" alt="Happiness MVC"><br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#10;//  FaceView.swift &#37096;&#20998;&#20195;&#30721;&#10;&#10;&#10;import UIKit&#10;&#10;protocol FaceViewDataSource: class &#123;&#10;    func smilinessForFaceView(sender: FaceView) -&#62; Double?&#10;&#125;&#10;&#10;@IBDesignable&#10;class FaceView: UIView&#10;&#123;&#10;    @IBInspectable&#10;    var lineWidth: CGFloat = 3 &#123; didSet &#123; setNeedsDisplay() &#125; &#125;&#10;    @IBInspectable&#10;    var color: UIColor = UIColor.blueColor() &#123; didSet &#123; setNeedsDisplay() &#125; &#125;&#10;    @IBInspectable&#10;    var scale: CGFloat = 0.90 &#123; didSet &#123; setNeedsDisplay() &#125; &#125;&#10;    &#10;    var faceCenter: CGPoint &#123;&#10;        return convertPoint(center, fromView: superview)&#10;    &#125;&#10;    var faceRadius: CGFloat &#123;&#10;        return min(bounds.size.width, bounds.size.height) / 2 * scale&#10;    &#125;&#10;    &#10;    weak var dataSource: FaceViewDataSource?</span><br></pre></td></tr></table></figure></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">//  HappinessViewController.swift&#10;&#10;&#10;import UIKit&#10;&#10;class HappinessViewController: UIViewController, FaceViewDataSource&#10;&#123;&#10;&#10;    @IBOutlet weak var faceView: FaceView! &#123;&#10;        didSet &#123;&#10;            faceView.dataSource = self&#10;        &#125;&#10;    &#125;&#10;    var happiness: Int = 99 &#123; // 0 = very sad, 100 = ecstatic&#10;        didSet &#123;&#10;            happiness = min(max(happiness, 0), 100)&#10;            print(&#34;happiness = \(happiness)&#34;)&#10;            updateUI()&#10;        &#125;&#10;    &#125;&#10;    &#10;    func updateUI() &#123;&#10;        faceView.setNeedsDisplay()&#10;    &#125;&#10;    &#10;    func smilinessForFaceView(sender: FaceView) -&#62; Double? &#123;&#10;        return Double(happiness - 50) / 50&#10;    &#125;&#10;&#125;</span><br></pre></td></tr></table></figure>
 <h2 id="4-_Gestures">4. Gestures</h2><p>手势识别分两步走：</p>
 <ol>
 <li>Adding a gesture recognizer to a UIView (asking the UIView to “recognize” that gesture)</li>
@@ -228,9 +228,7 @@
 }
 &lt;!--￼<span class="number">2</span>--&gt;
 
-<span class="comment">//</span>
-<span class="comment">//  FaceView.swift</span>
-<span class="comment">//  Happiness</span>
+<span class="comment">//  FaceView.swift 部分代码</span>
 
 
 <span class="keyword">import</span> <span class="type">UIKit</span>
@@ -238,26 +236,6 @@
 <span class="class"><span class="keyword">protocol</span> <span class="title">FaceViewDataSource</span>: <span class="title">class</span> </span>{
     <span class="func"><span class="keyword">func</span> <span class="title">smilinessForFaceView</span><span class="params">(sender: FaceView)</span></span> -&gt; <span class="type">Double</span>?
 }
-
-<span class="preprocessor">@IBDesignable</span>
-<span class="class"><span class="keyword">class</span> <span class="title">FaceView</span>: <span class="title">UIView</span>
-</span>{
-    <span class="preprocessor">@IBInspectable</span>
-    <span class="keyword">var</span> lineWidth: <span class="type">CGFloat</span> = <span class="number">3</span> { <span class="keyword">didSet</span> { setNeedsDisplay() } }
-    <span class="preprocessor">@IBInspectable</span>
-    <span class="keyword">var</span> color: <span class="type">UIColor</span> = <span class="type">UIColor</span>.blueColor() { <span class="keyword">didSet</span> { setNeedsDisplay() } }
-    <span class="preprocessor">@IBInspectable</span>
-    <span class="keyword">var</span> scale: <span class="type">CGFloat</span> = <span class="number">0.90</span> { <span class="keyword">didSet</span> { setNeedsDisplay() } }
-
-    <span class="keyword">var</span> faceCenter: <span class="type">CGPoint</span> {
-        <span class="keyword">return</span> convertPoint(center, fromView: superview)
-    }
-    <span class="keyword">var</span> faceRadius: <span class="type">CGFloat</span> {
-        <span class="keyword">return</span> <span class="built_in">min</span>(bounds.size.width, bounds.size.height) / <span class="number">2</span> * scale
-    }
-
-    <span class="keyword">weak</span> <span class="keyword">var</span> dataSource: <span class="type">FaceViewDataSource</span>?
-
 
     <span class="comment">// 2. handler</span>
     <span class="func"><span class="keyword">func</span> <span class="title">scale</span><span class="params">(gestrue: UIPinchGestureRecognizer)</span></span> {
@@ -269,87 +247,10 @@
     }
 
 
-    <span class="keyword">override</span> <span class="func"><span class="keyword">func</span> <span class="title">drawRect</span><span class="params">(rect: CGRect)</span></span>
-    {
-        <span class="keyword">let</span> facePath = <span class="type">UIBezierPath</span>(
-            arcCenter: faceCenter,
-            radius: faceRadius,
-            startAngle: <span class="number">0</span>,
-            endAngle: <span class="type">CGFloat</span>(<span class="number">2</span>*<span class="type">M_PI</span>),
-            clockwise: <span class="literal">true</span>
-        )
-        facePath.lineWidth = lineWidth
-        color.<span class="keyword">set</span>()
-        facePath.stroke()
-
-        bezierPathForEye(.<span class="type">Left</span>).stroke()
-        bezierPathForEye(.<span class="type">Right</span>).stroke()
-
-        <span class="keyword">let</span> smiliness = dataSource?.smilinessForFaceView(<span class="keyword">self</span>) ?? <span class="number">0.0</span>
-        <span class="keyword">let</span> smilePath = bezierPathForSmile(smiliness)
-        smilePath.stroke()
-    }
-
-    private <span class="class"><span class="keyword">struct</span> <span class="title">Scaling</span> </span>{
-        <span class="keyword">static</span> <span class="keyword">let</span> <span class="type">FaceRadiusToEyeRadiusRatio</span>: <span class="type">CGFloat</span> = <span class="number">10</span>
-        <span class="keyword">static</span> <span class="keyword">let</span> <span class="type">FaceRadiusToEyeOffsetRatio</span>: <span class="type">CGFloat</span> = <span class="number">3</span>
-        <span class="keyword">static</span> <span class="keyword">let</span> <span class="type">FaceRadiusToEyeSeparationRatio</span>: <span class="type">CGFloat</span> = <span class="number">1.5</span>
-        <span class="keyword">static</span> <span class="keyword">let</span> <span class="type">FaceRadiusToMouthWidthRatio</span>: <span class="type">CGFloat</span> = <span class="number">1</span>
-        <span class="keyword">static</span> <span class="keyword">let</span> <span class="type">FaceRadiusToMouthHeightRatio</span>: <span class="type">CGFloat</span> = <span class="number">3</span>
-        <span class="keyword">static</span> <span class="keyword">let</span> <span class="type">FaceRadiusToMouthOffsetRatio</span>: <span class="type">CGFloat</span> = <span class="number">3</span>
-    }
-
-    private <span class="class"><span class="keyword">enum</span> <span class="title">Eye</span> </span>{ <span class="keyword">case</span> <span class="type">Left</span>, <span class="type">Right</span> }
-
-    private <span class="func"><span class="keyword">func</span> <span class="title">bezierPathForEye</span><span class="params">(whichEye: Eye)</span></span> -&gt; <span class="type">UIBezierPath</span>
-    {
-        <span class="keyword">let</span> eyeRadius = faceRadius / <span class="type">Scaling</span>.<span class="type">FaceRadiusToEyeRadiusRatio</span>
-        <span class="keyword">let</span> eyeVerticalOffset = faceRadius / <span class="type">Scaling</span>.<span class="type">FaceRadiusToEyeOffsetRatio</span>
-        <span class="keyword">let</span> eyeHorizontalSeparation = faceRadius / <span class="type">Scaling</span>.<span class="type">FaceRadiusToEyeSeparationRatio</span>
-
-        <span class="keyword">var</span> eyeCenter = faceCenter
-        eyeCenter.y -= eyeVerticalOffset
-        <span class="keyword">switch</span> whichEye {
-            <span class="keyword">case</span> .<span class="type">Left</span>: eyeCenter.x -= eyeHorizontalSeparation / <span class="number">2</span>
-            <span class="keyword">case</span> .<span class="type">Right</span>: eyeCenter.x += eyeHorizontalSeparation / <span class="number">2</span>
-        }
-
-        <span class="keyword">let</span> path = <span class="type">UIBezierPath</span>(
-            arcCenter: eyeCenter,
-            radius: eyeRadius,
-            startAngle: <span class="number">0</span>,
-            endAngle: <span class="type">CGFloat</span>(<span class="number">2</span>*<span class="type">M_PI</span>),
-            clockwise: <span class="literal">true</span>
-        )
-        path.lineWidth = lineWidth
-        <span class="keyword">return</span> path
-    }
-
-    private <span class="func"><span class="keyword">func</span> <span class="title">bezierPathForSmile</span><span class="params">(fractionOfMaxSmile: Double)</span></span> -&gt; <span class="type">UIBezierPath</span>
-    {
-        <span class="keyword">let</span> mouthWidth = faceRadius / <span class="type">Scaling</span>.<span class="type">FaceRadiusToMouthWidthRatio</span>
-        <span class="keyword">let</span> mouthHeight = faceRadius / <span class="type">Scaling</span>.<span class="type">FaceRadiusToMouthHeightRatio</span>
-        <span class="keyword">let</span> mouthVerticalOffset = faceRadius / <span class="type">Scaling</span>.<span class="type">FaceRadiusToMouthOffsetRatio</span>
-
-        <span class="keyword">let</span> smileHeight = <span class="type">CGFloat</span>(<span class="built_in">max</span>(<span class="built_in">min</span>(fractionOfMaxSmile, <span class="number">1</span>), -<span class="number">1</span>)) * mouthHeight
-
-        <span class="keyword">let</span> start = <span class="type">CGPoint</span>(x: faceCenter.x - mouthWidth / <span class="number">2</span>, y: faceCenter.y + mouthVerticalOffset)
-        <span class="keyword">let</span> end = <span class="type">CGPoint</span>(x: start.x + mouthWidth, y: start.y)
-        <span class="keyword">let</span> cp1 = <span class="type">CGPoint</span>(x: start.x + mouthWidth / <span class="number">3</span>, y: start.y + smileHeight)
-        <span class="keyword">let</span> cp2 = <span class="type">CGPoint</span>(x: end.x - mouthWidth / <span class="number">3</span>, y: cp1.y)
-
-        <span class="keyword">let</span> path = <span class="type">UIBezierPath</span>()
-        path.moveToPoint(start)
-        path.addCurveToPoint(end, controlPoint1: cp1, controlPoint2: cp2)
-        path.lineWidth = lineWidth
-        <span class="keyword">return</span> path
-    }
-}
 &lt;!--￼<span class="number">3</span>--&gt;
 
-<span class="comment">//</span>
-<span class="comment">//  HappinessViewController.swift</span>
-<span class="comment">//  Happiness</span>
+<span class="comment">//  HappinessViewController.swift 部分代码</span>
+
 
 <span class="keyword">import</span> <span class="type">UIKit</span>
 
@@ -408,7 +309,7 @@
 </blockquote>
 <h2 id="5-_拓展阅读">5. 拓展阅读</h2><p><a href="http://www.raywenderlich.com/76020/using-uigesturerecognizer-with-swift-tutorial" target="_blank" rel="external">UIGestureRecognizer Tutorial: Getting Started</a></p>
 <blockquote>
-<p>项目代码保存在 我的GitHub 的 <a href="https://github.com/gewill/CS193P-2015" target="_blank" rel="external">CS193P-2015</a>。</p>
+<p><strong>项目代码保存在 我的GitHub 的 <a href="https://github.com/gewill/CS193P-2015" target="_blank" rel="external">CS193P-2015</a>。</strong></p>
 </blockquote>
 
       
