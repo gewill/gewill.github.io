@@ -24,7 +24,7 @@
 
 
 
-  <meta name="keywords" content="whoDO" />
+  <meta name="keywords" content="Objective-C,iOS Development,iOS Programming 4ed," />
 
 
 
@@ -48,7 +48,7 @@
 
 
 
-  <title> Photo DEMO // whoDO </title>
+  <title> 《iOS 编程》3. 通过 ARC 管理内存 // whoDO </title>
 </head>
 
 <body>
@@ -120,7 +120,7 @@
           
           
             
-              Photo DEMO
+              《iOS 编程》3. 通过 ARC 管理内存
             
           
         </h1>
@@ -128,7 +128,7 @@
 
       <div class="post-meta">
         <span class="post-time">
-          Posted on 2015-05-24
+          Posted on 2015-07-23
         </span>
 
         
@@ -137,8 +137,8 @@
           
             <span class="post-comments-count">
             &nbsp; | &nbsp;
-            <a href="/2015/05/24/Photo-DEMO/#comments" >
-              <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2015/05/24/Photo-DEMO/"></span>
+            <a href="/2015/07/23/iOS-Programming-4ed-3/#comments" >
+              <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2015/07/23/iOS-Programming-4ed-3/"></span>
             </a>
           </span>
           
@@ -152,26 +152,50 @@
       
 
       
-        <p> 尚有一个 BUG，真机无法加载图片，模拟器可以。</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">//&#10;//  ViewController.m&#10;//  Photo DEMO&#10;//&#10;//  Created by Will on 5/24/15.&#10;//  Copyright (c) 2015 gewill.org. All rights reserved.&#10;//&#10;&#10;#import &#34;ViewController.h&#34;&#10;&#10;@interface ViewController ()&#10;@property (weak, nonatomic) IBOutlet UILabel *topLabel;&#10;@property (weak, nonatomic) IBOutlet UILabel *descLabel;&#10;@property (weak, nonatomic) IBOutlet UIButton *leftBtn;&#10;@property (weak, nonatomic) IBOutlet UIButton *rightBtn;&#10;@property (weak, nonatomic) IBOutlet UIImageView *imageView;&#10;&#10;@property (nonatomic, assign) int  index;&#10;@property (nonatomic, strong) NSArray *imageDicts;&#10;&#10;@end&#10;&#10;@implementation ViewController&#10;&#10;- (NSArray *)imageDicts&#123;&#10;    if (!_imageDicts) &#123;&#10;        _imageDicts = [NSArray arrayWithContentsOfFile:&#10;        [[NSBundle mainBundle] pathForResource:@&#34;imageDate.plist&#34; ofType:nil]];&#10;    &#125;&#10;    return _imageDicts;&#10;&#125;&#10;&#10;- (IBAction)clickLeftBtn:(UIButton *)sender &#123;&#10;    self.index --;&#10;    [self clickBtn];&#10;&#125;&#10;- (IBAction)clickRightBtn:(UIButton *)sender &#123;&#10;    self.index ++;&#10;    [self clickBtn];&#10;&#125;&#10;&#10;- (void)clickBtn&#123;&#10;    self.topLabel.text = [NSString stringWithFormat:@&#34;%d/%d&#34;, self.index+1, self.imageDicts.count];&#10;    self.descLabel.text = self.imageDicts[self.index][@&#34;description&#34;];&#10;    self.imageView.image = [UIImage imageNamed:self.imageDicts[self.index][@&#34;name&#34;]];&#10;    &#10;    self.leftBtn.enabled = (self.index != 0);&#10;    self.rightBtn.enabled = (self.index != 4);&#10;    &#10;&#125;&#10;&#10;- (void)viewDidLoad &#123;&#10;    [super viewDidLoad];&#10;    // Do any additional setup after loading the view, typically from a nib.&#10;&#125;&#10;&#10;- (void)didReceiveMemoryWarning &#123;&#10;    [super didReceiveMemoryWarning];&#10;    // Dispose of any resources that can be recreated.&#10;&#125;&#10;&#10;@end</span><br></pre></td></tr></table></figure>
-
+        <h2 id="3-1_栈">3.1 栈 </h2><p> 栈对应方法或函数的帧，堆则是包含大量 iOS 应用创建的对象</p>
+<h2 id="3-3_指针变量与对象所有权">3.3 指针变量与对象所有权 </h2><p> 引用计数就是社保局，调查每个人有几份工作，一个正式工作，或兼职几份工作，或失业。失业，内存就会被释放，就会给你这个 free man 推荐新工作。</p>
+<p>那些情况会使对象失去拥有者：</p>
+<ul>
+<li>修改指针指向另一个变量（跳槽）</li>
+<li>设为 nil（辞职）</li>
+<li>对象拥有者被释放（公司倒闭）</li>
+<li>从 collection 对象中删除对象（裁员）</li>
+</ul>
+<h2 id="3-4_强引用与弱引用">3.4 强引用与弱引用 </h2><p> 大部分强引用循环可以确定一个父子关系，子对象改为弱引用即刻。</p>
+<p>Xcode 的 Leaks 工具可以帮忙找出强引用循环问题。</p>
+<h2 id="3-5_属性">3.5 属性 </h2><p> 声明属性，等于隐式地声明和创建相应名称的实例变量，声明一对存取方法。当然我们还可以自定义存取方法。</p>
+<p>属性的特性（attribute）:</p>
+<ul>
+<li>多线程：nonatomic/atomic</li>
+<li>读写：readwrite/readonly</li>
+<li>内存管理：strong/weak/copy/unsafe_unretained</li>
+</ul>
+<h2 id="项目代码保存在我的_GitHub:_iOSProgramming4edSolutions">项目代码保存在我的 GitHub: <a href="https://github.com/gewill/iOSProgramming4edSolutions" target="_blank" rel="external">iOSProgramming4edSolutions</a></h2>
       
     </div>
 
     <div class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Objective-C/"> #Objective-C </a>
+          
+            <a href="/tags/iOS-Development/"> #iOS Development </a>
+          
+            <a href="/tags/iOS-Programming-4ed/"> #iOS Programming 4ed </a>
+          
+        </div>
       
 
       
         <div class="post-nav">
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2015/05/25/Sketch-interface-design/">Sketch interface design</a>
-            
           </div>
 
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2015/05/24/Flat-Tomato/">Flat Tomato</a>
+              <a href="/2015/07/23/iOS-Programming-4ed-2/">《iOS 编程》2. Objective-C</a>
             
           </div>
         </div>
@@ -293,7 +317,7 @@
           <div class="post-toc">
             
             
-              <p class="post-toc-empty">This post does not have a Table Of Contents</p>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#3-1_栈"><span class="nav-text">3.1 栈 </span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-3_指针变量与对象所有权"><span class="nav-text">3.3 指针变量与对象所有权 </span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-4_强引用与弱引用"><span class="nav-text">3.4 强引用与弱引用 </span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-5_属性"><span class="nav-text">3.5 属性 </span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#项目代码保存在我的_GitHub:_iOSProgramming4edSolutions"><span class="nav-text">项目代码保存在我的 GitHub: iOSProgramming4edSolutions</span></a></li></ol></div>
             
           </div>
           <div class="post-toc-indicator-bottom post-toc-indicator"></div>
@@ -523,9 +547,9 @@
 
     <script type="text/javascript">
       var disqus_shortname = 'gewill';
-      var disqus_identifier = '2015/05/24/Photo-DEMO/';
-      var disqus_title = 'Photo DEMO';
-      var disqus_url = 'http://gewill.org/2015/05/24/Photo-DEMO/';
+      var disqus_identifier = '2015/07/23/iOS-Programming-4ed-3/';
+      var disqus_title = '《iOS 编程》3. 通过 ARC 管理内存';
+      var disqus_url = 'http://gewill.org/2015/07/23/iOS-Programming-4ed-3/';
 
       (function(){
         var dsq = document.createElement('script');
