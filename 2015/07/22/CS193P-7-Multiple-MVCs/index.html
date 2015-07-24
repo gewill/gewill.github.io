@@ -153,21 +153,21 @@
 
       
         <h2 id="1-_Split_View_Controllers_&amp;_Navigation_Controllers_&amp;_Tab_Bar_Controllers">1. Split View Controllers &amp; Navigation Controllers &amp; Tab Bar Controllers</h2><blockquote>
-<p>Slide 中图太多就不一一贴在这里了</p>
+<p>Slide 中图太多就不一一贴在这里了 </p>
 </blockquote>
 <p>UINavigationController 比喻成一堆卡片，只能看到一张卡片。新的 MVC 出来，旧的就被丢弃。</p>
 <h2 id="2-_Segues">2. Segues</h2><p>Segue 总是引导到一个新建的 MVC，旧的同样被丢弃。</p>
 <p>Storyboard 总是通过名字连接代码的：UIView 的 Class、View Controller 的 Class、Outlet 的名字、IBAction 的名字，这是一种松散耦合，能够这个两件东西连接起来。</p>
-<h2 id="3-_Demo:_Psychologist">3. Demo: Psychologist</h2><p>最好的理解就是做实践（Demo）。</p>
-<p>我们将会新建一个 Psychologist MVC</p>
+<h2 id="3-_Demo:_Psychologist">3. Demo: Psychologist</h2><p> 最好的理解就是做实践（Demo）。</p>
+<p> 我们将会新建一个 Psychologist MVC</p>
 <p>Psychologist 将会披露他的诊断，通过 segue Happiness MVC。</p>
-<p>我们会把 MVCs 放进 navigation controllers 内部 split view controllers,它将兼容 iPad 和 iPhone 设备。</p>
+<p> 我们会把 MVCs 放进 navigation controllers 内部 split view controllers, 它将兼容 iPad 和 iPhone 设备。</p>
 <p>Autolayout 另一个技巧是使用 Reset to Suggested Constraints，配合 Size Inspector 面板里 Descendant Constraints。</p>
 <h2 id="4-_Popovers">4. Popovers</h2><p>Popover 对应的是 popoverPresentationController</p>
-<p>由于 Popover 出来的 MVC 每次的新建的，History 相关信息可以存储到 NSUserDefaults 中。</p>
+<p> 由于 Popover 出来的 MVC 每次的新建的，History 相关信息可以存储到 NSUserDefaults 中。</p>
 <p>iPad 是小的弹窗，iPhone 默认 Modal，可以改回 Popover。</p>
-<p>可以UIPopoverPresentationControllerDelegate协议，重写  UIViewController 中的 preferredContentSize 自定义大小。</p>
-<h2 id="源码保存在我的_GitHub:_CS193P-2015">源码保存在我的 GitHub: <a href="https://github.com/gewill/CS193P-2015" target="_blank" rel="external">CS193P-2015</a></h2>
+<p> 可以 UIPopoverPresentationControllerDelegate 协议，重写  UIViewController 中的 preferredContentSize 自定义大小。</p>
+<h2 id="源码保存在我的_GitHub:_CS193P-2015"> 源码保存在我的 GitHub: <a href="https://github.com/gewill/CS193P-2015" target="_blank" rel="external">CS193P-2015</a></h2>
       
     </div>
 
@@ -187,6 +187,8 @@
       
         <div class="post-nav">
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2015/07/23/iOS-Programming-4ed-2/">《iOS 编程》2. Objective-C</a>
             
           </div>
 
@@ -256,7 +258,7 @@
         <div class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">51</span>
+              <span class="site-state-item-count">52</span>
               <span class="site-state-item-name">posts</span>
             </a>
           </div>
@@ -270,7 +272,7 @@
 
           <div class="site-state-item site-state-tags">
             
-              <span class="site-state-item-count">13</span>
+              <span class="site-state-item-count">12</span>
               <span class="site-state-item-name">tags</span>
               
           </div>
@@ -314,7 +316,7 @@
           <div class="post-toc">
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-_Split_View_Controllers_&_Navigation_Controllers_&_Tab_Bar_Controllers"><span class="nav-text">1. Split View Controllers & Navigation Controllers & Tab Bar Controllers</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-_Segues"><span class="nav-text">2. Segues</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-_Demo:_Psychologist"><span class="nav-text">3. Demo: Psychologist</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-_Popovers"><span class="nav-text">4. Popovers</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#源码保存在我的_GitHub:_CS193P-2015"><span class="nav-text">源码保存在我的 GitHub: CS193P-2015</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-_Split_View_Controllers_&_Navigation_Controllers_&_Tab_Bar_Controllers"><span class="nav-text">1. Split View Controllers & Navigation Controllers & Tab Bar Controllers</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-_Segues"><span class="nav-text">2. Segues</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-_Demo:_Psychologist"><span class="nav-text">3. Demo: Psychologist</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-_Popovers"><span class="nav-text">4. Popovers</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#源码保存在我的_GitHub:_CS193P-2015"><span class="nav-text"> 源码保存在我的 GitHub: CS193P-2015</span></a></li></ol></div>
             
           </div>
           <div class="post-toc-indicator-bottom post-toc-indicator"></div>

@@ -152,20 +152,20 @@
       
 
       
-        <p>继续 DEMO: Calculator </p>
-<p>Swift 能类型推断</p>
-<p>自动布局：</p>
+        <p> 继续 DEMO: Calculator </p>
+<p>Swift 能类型推断 </p>
+<p> 自动布局：</p>
 <ul>
 <li>Pin: Spacing to nearest neighbor, Equal Widths, Equal Heights</li>
 <li>Resolve Auto Layout Issues: Clear Constraints</li>
 </ul>
-<p>87果然是个神奇的数字，我之前没有对齐就开始 Pin，始终无法得到“Add 87 Constraints”，自然没有得到自动对齐的理想布局。</p>
-<p>代码如下：<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">//&#10;//  ViewController.swift&#10;//  Calculator&#10;//&#10;//  Created by Will Ge on 6/28/15.&#10;//  Copyright &#169; 2015 gewill.org. All rights reserved.&#10;//&#10;&#10;import UIKit&#10;&#10;class ViewController: UIViewController &#123;&#10;    &#10;&#10;    @IBOutlet weak var display: UILabel!&#10;    &#10;    var userIsInTheMiddleOfTypingANumber: Bool = false&#10;&#10;    @IBAction func appendDigit(sender: UIButton) &#123;&#10;        let digit = sender.currentTitle!&#10;        if userIsInTheMiddleOfTypingANumber&#123;&#10;              display.text = display.text! + digit&#10;        &#125; else &#123;&#10;            display.text = digit&#10;            userIsInTheMiddleOfTypingANumber = true&#10;        &#125;&#10;    &#10;        print(&#34;digit = \(digit)&#34;)&#10;    &#125;&#10;&#10;    var operandStack = Array&#60;Double&#62;()&#10;    &#10;    @IBAction func enter() &#123;&#10;        userIsInTheMiddleOfTypingANumber = false&#10;        operandStack.append(displayValue)&#10;        print(&#34;operandStack = \(operandStack)&#34;)&#10;        &#10;    &#125;&#10;    &#10;    @IBAction func operate(sender: UIButton) &#123;&#10;        let operation = sender.currentTitle!&#10;        if userIsInTheMiddleOfTypingANumber &#123;&#10;            enter()&#10;        &#125;&#10;        switch operation &#123;&#10;        case &#34;&#215;&#34;: performOperation &#123; $0 * $1 &#125;&#10;        case &#34;&#247;&#34;: performOperation &#123; $1 / $1 &#125;&#10;        case &#34;+&#34;: performOperation &#123; $0 + $1 &#125;&#10;        case &#34;&#8722;&#34;: performOperation &#123; $1 - $0 &#125;&#10;        case &#34;&#8730;&#34;: performOperation1 &#123; sqrt($0) &#125;&#10;        default: break&#10;        &#125;&#10;    &#125;&#10;    &#10;    func performOperation(operation: (Double, Double) -&#62;Double) &#123;&#10;        if operandStack.count &#62;= 2 &#123;&#10;            displayValue = operation(operandStack.removeLast(), operandStack.removeLast())&#10;            enter()&#10;        &#125;&#10;    &#125;&#10;    &#10;    func performOperation1(operation: Double -&#62;Double) &#123;&#10;        if operandStack.count &#62;= 2 &#123;&#10;            displayValue = operation(operandStack.removeLast())&#10;            enter()&#10;        &#125;&#10;    &#125;&#10;&#10;    &#10;    var displayValue: Double&#123;&#10;        get &#123;&#10;            return NSNumberFormatter().numberFromString(display.text!)!.doubleValue&#10;        &#125;&#10;        set &#123;&#10;            display.text = &#34;\(newValue)&#34;&#10;            userIsInTheMiddleOfTypingANumber = false&#10;        &#125;&#10;    &#125;&#10;&#125;</span><br></pre></td></tr></table></figure></p>
+<p>87 果然是个神奇的数字，我之前没有对齐就开始 Pin，始终无法得到“Add 87 Constraints”，自然没有得到自动对齐的理想布局。</p>
+<p> 代码如下：<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">//&#10;//  ViewController.swift&#10;//  Calculator&#10;//&#10;//  Created by Will Ge on 6/28/15.&#10;//  Copyright &#169; 2015 gewill.org. All rights reserved.&#10;//&#10;&#10;import UIKit&#10;&#10;class ViewController: UIViewController &#123;&#10;    &#10;&#10;    @IBOutlet weak var display: UILabel!&#10;    &#10;    var userIsInTheMiddleOfTypingANumber: Bool = false&#10;&#10;    @IBAction func appendDigit(sender: UIButton) &#123;&#10;        let digit = sender.currentTitle!&#10;        if userIsInTheMiddleOfTypingANumber&#123;&#10;              display.text = display.text! + digit&#10;        &#125; else &#123;&#10;            display.text = digit&#10;            userIsInTheMiddleOfTypingANumber = true&#10;        &#125;&#10;    &#10;        print(&#34;digit = \(digit)&#34;)&#10;    &#125;&#10;&#10;    var operandStack = Array&#60;Double&#62;()&#10;    &#10;    @IBAction func enter() &#123;&#10;        userIsInTheMiddleOfTypingANumber = false&#10;        operandStack.append(displayValue)&#10;        print(&#34;operandStack = \(operandStack)&#34;)&#10;        &#10;    &#125;&#10;    &#10;    @IBAction func operate(sender: UIButton) &#123;&#10;        let operation = sender.currentTitle!&#10;        if userIsInTheMiddleOfTypingANumber &#123;&#10;            enter()&#10;        &#125;&#10;        switch operation &#123;&#10;        case &#34;&#215;&#34;: performOperation &#123; $0 * $1 &#125;&#10;        case &#34;&#247;&#34;: performOperation &#123; $1 / $1 &#125;&#10;        case &#34;+&#34;: performOperation &#123; $0 + $1 &#125;&#10;        case &#34;&#8722;&#34;: performOperation &#123; $1 - $0 &#125;&#10;        case &#34;&#8730;&#34;: performOperation1 &#123; sqrt($0) &#125;&#10;        default: break&#10;        &#125;&#10;    &#125;&#10;    &#10;    func performOperation(operation: (Double, Double) -&#62;Double) &#123;&#10;        if operandStack.count &#62;= 2 &#123;&#10;            displayValue = operation(operandStack.removeLast(), operandStack.removeLast())&#10;            enter()&#10;        &#125;&#10;    &#125;&#10;    &#10;    func performOperation1(operation: Double -&#62;Double) &#123;&#10;        if operandStack.count &#62;= 2 &#123;&#10;            displayValue = operation(operandStack.removeLast())&#10;            enter()&#10;        &#125;&#10;    &#125;&#10;&#10;    &#10;    var displayValue: Double&#123;&#10;        get &#123;&#10;            return NSNumberFormatter().numberFromString(display.text!)!.doubleValue&#10;        &#125;&#10;        set &#123;&#10;            display.text = &#34;\(newValue)&#34;&#10;            userIsInTheMiddleOfTypingANumber = false&#10;        &#125;&#10;    &#125;&#10;&#125;</span><br></pre></td></tr></table></figure></p>
 <p>MVC:</p>
 <ul>
-<li>各个模块之间的含义</li>
-<li>模块之间的通信有无</li>
-<li>模块之间的控制关系</li>
+<li> 各个模块之间的含义 </li>
+<li> 模块之间的通信有无 </li>
+<li> 模块之间的控制关系 </li>
 </ul>
 <p><img src="http://i.imgur.com/i8HTac7.png" alt="MVC"></p>
 
@@ -259,7 +259,7 @@
         <div class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">51</span>
+              <span class="site-state-item-count">52</span>
               <span class="site-state-item-name">posts</span>
             </a>
           </div>
@@ -273,7 +273,7 @@
 
           <div class="site-state-item site-state-tags">
             
-              <span class="site-state-item-count">13</span>
+              <span class="site-state-item-count">12</span>
               <span class="site-state-item-name">tags</span>
               
           </div>

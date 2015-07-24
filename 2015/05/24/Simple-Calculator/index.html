@@ -152,7 +152,7 @@
       
 
       
-        <p>一个简单地计算器，可以加减乘除，除法还有问题，待解决。</p>
+        <p> 一个简单地计算器，可以加减乘除，除法还有问题，待解决。</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">//&#10;//  ViewController.swift&#10;//  Simple Calculator&#10;//&#10;//  Created by Will on 5/24/15.&#10;//  Copyright (c) 2015 gewill.org. All rights reserved.&#10;//&#10;&#10;import UIKit&#10;&#10;class ViewController: UIViewController &#123;&#10;    @IBOutlet weak var text1: UITextField!&#10;    &#10;    &#10;    @IBOutlet weak var text2: UITextField!&#10;    @IBOutlet weak var result: UITextField!&#10;    &#10;    @IBAction func BeZero(sender: AnyObject) &#123;&#10;        self.result.text = &#34;0&#34;&#10;        self.text1.text = &#34; &#34;&#10;        self.text2.text = &#34; &#34;&#10;        &#10;    &#125;&#10;    @IBAction func plus(sender: AnyObject) &#123;&#10;        // &#19977;&#30446;&#36816;&#31639;&#31526;&#31616;&#27905;&#65292;&#20294;&#26159;&#27809;&#26377; if &#36923;&#36753;&#28165;&#26224;&#12290;&#10;        var num1 = self.text1.text.isEmpty ? 0 : self.text1.text.toInt()&#10;        var num2 = self.text2.text.isEmpty ? 0 : self.text2.text.toInt()&#10;        &#10;        &#10;        var resultNum:Double = Double(num1!) + Double(num2!)&#10;        println(resultNum)&#10;        &#10;        self.result.text = &#34;\(resultNum)&#34;&#10;        &#10;        self.text1.resignFirstResponder()&#10;        self.text2.resignFirstResponder()&#10;        &#10;        &#10;    &#125;&#10;    @IBAction func minus(sender: AnyObject) &#123;&#10;        // &#19977;&#30446;&#36816;&#31639;&#31526;&#31616;&#27905;&#65292;&#20294;&#26159;&#27809;&#26377; if &#36923;&#36753;&#28165;&#26224;&#12290;&#10;        var num1 = self.text1.text.isEmpty ? 0 : self.text1.text.toInt()&#10;        var num2 = self.text2.text.isEmpty ? 0 : self.text2.text.toInt()&#10;        &#10;        &#10;        var resultNum = num1! - num2!&#10;        &#10;        self.result.text = &#34;\(resultNum)&#34;&#10;        &#10;        self.text1.resignFirstResponder()&#10;        self.text2.resignFirstResponder()&#10;        &#10;    &#125;&#10;    @IBAction func multiply(sender: AnyObject) &#123;&#10;        // &#19977;&#30446;&#36816;&#31639;&#31526;&#31616;&#27905;&#65292;&#20294;&#26159;&#27809;&#26377; if &#36923;&#36753;&#28165;&#26224;&#12290;&#10;        var num1 = self.text1.text.isEmpty ? 0 : self.text1.text.toInt()&#10;        var num2 = self.text2.text.isEmpty ? 0 : self.text2.text.toInt()&#10;        &#10;        &#10;        var resultNum = num1! * num2!&#10;        &#10;        self.result.text = &#34;\(resultNum)&#34;&#10;        &#10;        self.text1.resignFirstResponder()&#10;        self.text2.resignFirstResponder()&#10;        &#10;    &#125;&#10;    @IBAction func division(sender: AnyObject) &#123;&#10;        // &#19977;&#30446;&#36816;&#31639;&#31526;&#31616;&#27905;&#65292;&#20294;&#26159;&#27809;&#26377; if &#36923;&#36753;&#28165;&#26224;&#12290;&#10;        var num1 = self.text1.text.isEmpty ? 0 : self.text1.text.toInt()&#10;        var num2 = self.text2.text.isEmpty ? 0 : self.text2.text.toInt()&#10;        &#10;        &#10;        var resultNum = num1! / num2!&#10;        &#10;        self.result.text = &#34;\(resultNum)&#34;&#10;        &#10;        self.text1.resignFirstResponder()&#10;        self.text2.resignFirstResponder()&#10;        &#10;    &#125;&#10;    override func viewDidLoad() &#123;&#10;        super.viewDidLoad()&#10;        // Do any additional setup after loading the view, typically from a nib.&#10;    &#125;&#10;    &#10;    override func didReceiveMemoryWarning() &#123;&#10;        super.didReceiveMemoryWarning()&#10;        // Dispose of any resources that can be recreated.&#10;    &#125;&#10;    &#10;    &#10;&#125;</span><br></pre></td></tr></table></figure>
 <p><img src="http://i.imgur.com/96q8Eay.png" alt="Imgur"><br><img src="http://i.imgur.com/7kHLTc4.png" alt="Imgur"></p>
 
@@ -244,7 +244,7 @@
         <div class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">51</span>
+              <span class="site-state-item-count">52</span>
               <span class="site-state-item-name">posts</span>
             </a>
           </div>
@@ -258,7 +258,7 @@
 
           <div class="site-state-item site-state-tags">
             
-              <span class="site-state-item-count">13</span>
+              <span class="site-state-item-count">12</span>
               <span class="site-state-item-name">tags</span>
               
           </div>

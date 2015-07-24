@@ -152,22 +152,22 @@
       
 
       
-        <p><a href="https://selfstore.io/products/171" target="_blank" rel="external">Swifter - 100 个 Swift 必备 tips</a>，作者<a href="SWifter - 100个 Swift 必备 tips">王巍</a>。书买了很久了，25元比实体书便宜不少，而且收入基本上都归作者。学习完<a href="http://book.douban.com/subject/26292006/" target="_blank" rel="external">疯狂 Swift 讲义</a>，再看看这个补充一下。</p>
+        <p><a href="https://selfstore.io/products/171" target="_blank" rel="external">Swifter - 100 个 Swift 必备 tips</a>，作者 <a href="SWifter - 100 个 Swift 必备 tips"> 王巍 </a>。书买了很久了，25 元比实体书便宜不少，而且收入基本上都归作者。学习完<a href="http://book.douban.com/subject/26292006/" target="_blank" rel="external"> 疯狂 Swift 讲义</a>，再看看这个补充一下。</p>
 <p>章节顺序可能与书不一致，全凭兴趣随意浏览，尤其是不太懂得方面。</p>
 <h2 id="操作符">操作符</h2><p>infix 表示一个中位操作符，前后都有输入。类似的还有 prefix 和 postfix。</p>
 <p>associativity 定义了结合律</p>
-<p>precedence 运算的优先级，Swift 中乘法和除法的优先级是150，加法和减法是140，这里定义160，就是高于普通的四则运算。</p>
+<p>precedence 运算的优先级，Swift 中乘法和除法的优先级是 150，加法和减法是 140，这里定义 160，就是高于普通的四则运算。</p>
 <p>操作符定义在全局，不可滥用。</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">//  main.swift&#10;//  Swift-test&#10;&#10;import Foundation&#10;&#10;struct Vector2D &#123;&#10;    var x = 0.0&#10;    var y = 0.0&#10;&#125;&#10;&#10;func +(left: Vector2D, right: Vector2D) -&#62; Vector2D &#123;&#10;    return Vector2D(x: left.x + right.x, y: left.y + right.y)&#10;&#125;&#10;&#10;let v1 = Vector2D(x: 2.0, y: 3.0)&#10;let v2 = Vector2D(x: 1.0, y: 5.0)&#10;print(v1 + v2)  // Swift_test.Vector2D(x: 3.0, y: 8.0)&#10;&#10;infix operator +* &#123;&#10;    associativity none&#10;    precedence 160&#10;&#125;&#10;&#10;func +*(left: Vector2D, right: Vector2D) -&#62; Double &#123;&#10;    return left.x * right.x + left.y * right.y&#10;&#125;&#10;&#10;print(v1 +* v2) // 17.0</span><br></pre></td></tr></table></figure>
-<h2 id="随机数生成">随机数生成</h2><p>创建一个 Range 的随机数的方法，方便以后复用。</p>
-<p>Swift 支持 // MARK: 、// TODO:、// FIXME:等编译标记，方便分段，将一标签的形式显示在导航栏中，让程序更易读。</p>
+<h2 id="随机数生成">随机数生成 </h2><p> 创建一个 Range 的随机数的方法，方便以后复用。</p>
+<p>Swift 支持 // MARK: 、// TODO:、// FIXME: 等编译标记，方便分段，将一标签的形式显示在导航栏中，让程序更易读。</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">// MARK: &#23454;&#29616;&#26041;&#27861;&#10;func randomInRange(range: Range&#60;Int&#62;) -&#62; Int &#123;&#10;    let count = UInt32(range.endIndex - range.startIndex)&#10;    return Int(arc4random_uniform(count)) + range.startIndex&#10;&#125;&#10;&#10;// TODO: &#27979;&#35797;&#26159;&#21542;&#26377;&#25928;&#10;for _ in 0...100 &#123;&#10;    print(randomInRange(1...6))&#10;&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="断言">断言</h2><p>对于判断输入是否满足某种条件的运用情景，使用断言比 if 更合适。且在 Debug 编译是才有效，运行时不被编译执行，不会消耗运行时的性能。是非常合适的调试判断。</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">import Foundation&#10;&#10;func convertToKelvin( celsius: Double) -&#62; Double &#123;&#10;    let AbsoluteZeroInCelsius = -273.15&#10;    assert(celsius &#62; AbsoluteZeroInCelsius, &#34;&#36755;&#20837;&#30340;&#25668;&#27663;&#28201;&#24230;&#19981;&#33021;&#20302;&#20110;&#32477;&#23545;&#38646;&#24230;&#12290;&#34;)&#10;    return celsius - AbsoluteZeroInCelsius&#10;&#125;&#10;&#10;let roomTemperature = convertToKelvin(27)&#10;print(roomTemperature)  // 300.15</span><br></pre></td></tr></table></figure>
-<h2 id="自省">自省</h2><p>程序设计和人类哲学所面临的同一个重大课程就是解决“我是谁”。</p>
+<h2 id="断言">断言 </h2><p> 对于判断输入是否满足某种条件的运用情景，使用断言比 if 更合适。且在 Debug 编译是才有效，运行时不被编译执行，不会消耗运行时的性能。是非常合适的调试判断。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">import Foundation&#10;&#10;func convertToKelvin(celsius: Double) -&#62; Double &#123;&#10;    let AbsoluteZeroInCelsius = -273.15&#10;    assert(celsius &#62; AbsoluteZeroInCelsius, &#34;&#36755;&#20837;&#30340;&#25668;&#27663;&#28201;&#24230;&#19981;&#33021;&#20302;&#20110;&#32477;&#23545;&#38646;&#24230;&#12290;&#34;)&#10;    return celsius - AbsoluteZeroInCelsius&#10;&#125;&#10;&#10;let roomTemperature = convertToKelvin(27)&#10;print(roomTemperature)  // 300.15</span><br></pre></td></tr></table></figure>
+<h2 id="自省">自省 </h2><p> 程序设计和人类哲学所面临的同一个重大课程就是解决“我是谁”。</p>
 <p>isKindOfClass、isMemberOfClass、is</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">class ClassA: NSObject &#123; &#125;&#10;class ClassB: NSObject &#123; &#125;&#10;&#10;let obj1: NSObject = ClassA()&#10;let obj2: NSObject = ClassB()&#10;&#10;print(obj1.isKindOfClass(ClassA.self))    // true&#10;print(obj2.isMemberOfClass(ClassA.self))  // false</span><br></pre></td></tr></table></figure>
-<h2 id="属性观察">属性观察</h2><p>属性观察可以对当前类型内监视其属性的设定，并作出响应。</p>
+<h2 id="属性观察">属性观察 </h2><p> 属性观察可以对当前类型内监视其属性的设定，并作出响应。</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">class MyClass &#123;&#13;    var date: NSDate &#123;&#13;        willSet &#123;&#13;        print(&#34;&#21363;&#23558;&#23558;&#26085;&#26399;&#20174; \(date) &#35774;&#23450;&#33267; \(newValue)&#34;)&#13;        &#125;&#13;        didSet &#123;&#13;        print(&#34;&#24050;&#32463;&#23558;&#26085;&#26399;&#20174; \(oldValue) &#35774;&#23450;&#33267; \(date)&#34;)&#13;        &#125;&#10;    &#125;&#13;    init() &#123;&#13;    date = NSDate()&#13;    &#125;&#10;&#125;&#10;&#13;let foo = MyClass()&#13;foo.date = foo.date.dateByAddingTimeInterval(10086)&#10;&#13;// &#36755;&#20986;&#13;// &#21363;&#23558;&#23558;&#26085;&#26399;&#20174; 2015-07-16 16:01:49 +0000 &#35774;&#23450;&#33267; 2015-07-16 18:49:55 +0000&#10;// &#24050;&#32463;&#23558;&#26085;&#26399;&#20174; 2015-07-16 16:01:49 +0000 &#35774;&#23450;&#33267; 2015-07-16 18:49:55 +0000</span><br></pre></td></tr></table></figure>
 
       
@@ -250,7 +250,7 @@
         <div class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">51</span>
+              <span class="site-state-item-count">52</span>
               <span class="site-state-item-name">posts</span>
             </a>
           </div>
@@ -264,7 +264,7 @@
 
           <div class="site-state-item site-state-tags">
             
-              <span class="site-state-item-count">13</span>
+              <span class="site-state-item-count">12</span>
               <span class="site-state-item-name">tags</span>
               
           </div>
@@ -308,7 +308,7 @@
           <div class="post-toc">
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#操作符"><span class="nav-text">操作符</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#随机数生成"><span class="nav-text">随机数生成</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#断言"><span class="nav-text">断言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#自省"><span class="nav-text">自省</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#属性观察"><span class="nav-text">属性观察</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#操作符"><span class="nav-text">操作符</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#随机数生成"><span class="nav-text">随机数生成 </span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#断言"><span class="nav-text">断言 </span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#自省"><span class="nav-text">自省 </span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#属性观察"><span class="nav-text">属性观察 </span></a></li></ol></div>
             
           </div>
           <div class="post-toc-indicator-bottom post-toc-indicator"></div>
