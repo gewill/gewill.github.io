@@ -48,7 +48,7 @@
 
 
 
-  <title> 《iOS 编程》3. 通过 ARC 管理内存 // whoDO </title>
+  <title> 《iOS 编程》4. 视图层次结构 // whoDO </title>
 </head>
 
 <body>
@@ -120,7 +120,7 @@
           
           
             
-              《iOS 编程》3. 通过 ARC 管理内存
+              《iOS 编程》4. 视图层次结构
             
           
         </h1>
@@ -128,7 +128,7 @@
 
       <div class="post-meta">
         <span class="post-time">
-          Posted on 2015-07-23
+          Posted on 2015-07-24
         </span>
 
         
@@ -137,8 +137,8 @@
           
             <span class="post-comments-count">
             &nbsp; | &nbsp;
-            <a href="/2015/07/23/iOS-Programming-4ed-3/#comments" >
-              <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2015/07/23/iOS-Programming-4ed-3/"></span>
+            <a href="/2015/07/24/iOS-Programming-4ed-4/#comments" >
+              <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2015/07/24/iOS-Programming-4ed-4/"></span>
             </a>
           </span>
           
@@ -152,25 +152,7 @@
       
 
       
-        <h2 id="3-1_栈">3.1 栈 </h2><p> 栈对应方法或函数的帧，堆则是包含大量 iOS 应用创建的对象</p>
-<h2 id="3-3_指针变量与对象所有权">3.3 指针变量与对象所有权 </h2><p> 引用计数就是社保局，调查每个人有几份工作，一个正式工作，或兼职几份工作，或失业。失业，内存就会被释放，就会给你这个 free man 推荐新工作。</p>
-<p>那些情况会使对象失去拥有者：</p>
-<ul>
-<li>修改指针指向另一个变量（跳槽）</li>
-<li>设为 nil（辞职）</li>
-<li>对象拥有者被释放（公司倒闭）</li>
-<li>从 collection 对象中删除对象（裁员）</li>
-</ul>
-<h2 id="3-4_强引用与弱引用">3.4 强引用与弱引用 </h2><p> 大部分强引用循环可以确定一个父子关系，子对象改为弱引用即刻。</p>
-<p>Xcode 的 Leaks 工具可以帮忙找出强引用循环问题。</p>
-<h2 id="3-5_属性">3.5 属性 </h2><p> 声明属性，等于隐式地声明和创建相应名称的实例变量，声明一对存取方法。当然我们还可以自定义存取方法。</p>
-<p>属性的特性（attribute）:</p>
-<ul>
-<li>多线程：nonatomic/atomic</li>
-<li>读写：readwrite/readonly</li>
-<li>内存管理：strong/weak/copy/unsafe_unretained</li>
-</ul>
-<h2 id="项目代码保存在我的_GitHub:_iOSProgramming4edSolutions">项目代码保存在我的 GitHub: <a href="https://github.com/gewill/iOSProgramming4edSolutions" target="_blank" rel="external">iOSProgramming4edSolutions</a></h2>
+        <h2 id="项目代码保存在我的_GitHub:_iOSProgramming4edSolutions"> 项目代码保存在我的 GitHub: <a href="https://github.com/gewill/iOSProgramming4edSolutions" target="_blank" rel="external">iOSProgramming4edSolutions</a></h2>
       
     </div>
 
@@ -195,7 +177,7 @@
 
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2015/07/23/iOS-Programming-4ed-2/">《iOS 编程》2. Objective-C</a>
+              <a href="/2015/07/24/iOS-Programming-4ed-3/">《iOS 编程》3. 通过 ARC 管理内存</a>
             
           </div>
         </div>
@@ -259,7 +241,7 @@
         <div class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">53</span>
+              <span class="site-state-item-count">54</span>
               <span class="site-state-item-name">posts</span>
             </a>
           </div>
@@ -317,7 +299,7 @@
           <div class="post-toc">
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#3-1_栈"><span class="nav-text">3.1 栈 </span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-3_指针变量与对象所有权"><span class="nav-text">3.3 指针变量与对象所有权 </span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-4_强引用与弱引用"><span class="nav-text">3.4 强引用与弱引用 </span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-5_属性"><span class="nav-text">3.5 属性 </span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#项目代码保存在我的_GitHub:_iOSProgramming4edSolutions"><span class="nav-text">项目代码保存在我的 GitHub: iOSProgramming4edSolutions</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#项目代码保存在我的_GitHub:_iOSProgramming4edSolutions"><span class="nav-text"> 项目代码保存在我的 GitHub: iOSProgramming4edSolutions</span></a></li></ol></div>
             
           </div>
           <div class="post-toc-indicator-bottom post-toc-indicator"></div>
@@ -547,9 +529,9 @@
 
     <script type="text/javascript">
       var disqus_shortname = 'gewill';
-      var disqus_identifier = '2015/07/23/iOS-Programming-4ed-3/';
-      var disqus_title = '《iOS 编程》3. 通过 ARC 管理内存';
-      var disqus_url = 'http://gewill.org/2015/07/23/iOS-Programming-4ed-3/';
+      var disqus_identifier = '2015/07/24/iOS-Programming-4ed-4/';
+      var disqus_title = '《iOS 编程》4. 视图层次结构';
+      var disqus_url = 'http://gewill.org/2015/07/24/iOS-Programming-4ed-4/';
 
       (function(){
         var dsq = document.createElement('script');

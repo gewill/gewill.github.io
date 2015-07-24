@@ -24,7 +24,7 @@
 
 
 
-  <meta name="keywords" content="CS193P,Swift,iOS Dev," />
+  <meta name="keywords" content="Objective-C,iOS Development,iOS Programming 4ed," />
 
 
 
@@ -48,7 +48,7 @@
 
 
 
-  <title> CS193P 1.Logistics, iOS 8 Overview // whoDO </title>
+  <title> 《iOS 编程》3. 通过 ARC 管理内存 // whoDO </title>
 </head>
 
 <body>
@@ -120,7 +120,7 @@
           
           
             
-              CS193P 1.Logistics, iOS 8 Overview
+              《iOS 编程》3. 通过 ARC 管理内存
             
           
         </h1>
@@ -128,7 +128,7 @@
 
       <div class="post-meta">
         <span class="post-time">
-          Posted on 2015-06-28
+          Posted on 2015-07-24
         </span>
 
         
@@ -137,8 +137,8 @@
           
             <span class="post-comments-count">
             &nbsp; | &nbsp;
-            <a href="/2015/06/28/CS193P-1-Logistics-iOS-8-Overview/#comments" >
-              <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2015/06/28/CS193P-1-Logistics-iOS-8-Overview/"></span>
+            <a href="/2015/07/24/iOS-Programming-4ed-3/#comments" >
+              <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2015/07/24/iOS-Programming-4ed-3/"></span>
             </a>
           </span>
           
@@ -152,26 +152,25 @@
       
 
       
-        <p>iTunes U 课程地址：<a href="https://itunes.apple.com/us/course/developing-ios-8-apps-swift/id961180099" target="_blank" rel="external">iTunes U/Developing iOS 8 Apps Swift</a></p>
-<p>CS193P 课程地址：<a href="http://web.stanford.edu/class/cs193p/cgi-bin/drupal/" target="_blank" rel="external">CS193P iPhone Application Development</a></p>
-<p> 字幕下载：<a href="https://github.com/x140yu/Developing_iOS_8_Apps_With_Swift" target="_blank" rel="external">https://github.com/x140yu/Developing_iOS_8_Apps_With_Swift</a></p>
-<p> 课程不用多介绍，下面直接进入笔记：</p>
-<p>iOS 仍是一个 Unix 系统，添加了很多移动方面的模块和优化。</p>
-<p>Cocoa Touch 是本课的重点，如涉及 Media 等主题需要自行找资料深入学习。</p>
-<p><strong> 自己动手写代码，绝不复制粘贴别人的代码。</strong></p>
-<p> 接下来是 DEMO：Calculator </p>
-<p> 蓝线是自动布局时的好帮手。</p>
-<p>Storyboard 是正方形，自动布局就是实现对真实屏幕比例添加挤压效果或规则，已完成适配。</p>
-<p>Trailing Margin （尾部到边框）<br>Leading Margin （头部到边框）<br>Top （顶部）</p>
-<p>Outline mode （大纲模式）</p>
-<p>? 表示 Optional，有两种情况：</p>
+        <h2 id="3-1_栈">3.1 栈 </h2><p> 栈对应方法或函数的帧，堆则是包含大量 iOS 应用创建的对象</p>
+<h2 id="3-3_指针变量与对象所有权">3.3 指针变量与对象所有权 </h2><p> 引用计数就是社保局，调查每个人有几份工作，一个正式工作，或兼职几份工作，或失业。失业，内存就会被释放，就会给你这个 free man 推荐新工作。</p>
+<p>那些情况会使对象失去拥有者：</p>
 <ul>
-<li>nil ： 值缺失 </li>
-<li> 有值 </li>
+<li>修改指针指向另一个变量（跳槽）</li>
+<li>设为 nil（辞职）</li>
+<li>对象拥有者被释放（公司倒闭）</li>
+<li>从 collection 对象中删除对象（裁员）</li>
 </ul>
-<p> 源码如下：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#10;//  ViewController.swift&#10;&#10;&#10;import UIKit&#10;&#10;class ViewController: UIViewController &#123;&#10;&#10;    &#10;    @IBOutlet weak var display: UILabel!&#10;    &#10;    var userIsInTheMiddleOfTypingANumber: Bool = false&#10;&#10;    @IBAction func appendDigit(sender: UIButton) &#123;&#10;        let digit = sender.currentTitle!&#10;        if userIsInTheMiddleOfTypingANumber&#123;&#10;              display.text = display.text! + digit&#10;        &#125; else &#123;&#10;            display.text = digit&#10;            userIsInTheMiddleOfTypingANumber = true&#10;        &#125;&#10;    &#10;        print(&#34;digit = \(digit)&#34;)&#10;    &#125;&#10;&#10;&#125;</span><br></pre></td></tr></table></figure>
-
+<h2 id="3-4_强引用与弱引用">3.4 强引用与弱引用 </h2><p><img src="http://ww2.sinaimg.cn/large/5369602ejw1eue4oorli3j20go08amxk.jpg" alt="解决强引用循环"><br> 大部分强引用循环可以确定一个父子关系，子对象改为弱引用即刻。</p>
+<p>Xcode 的 Leaks 工具可以帮忙找出强引用循环问题。</p>
+<h2 id="3-5_属性">3.5 属性 </h2><p> 声明属性，等于隐式地声明和创建相应名称的实例变量，声明一对存取方法。当然我们还可以自定义存取方法。</p>
+<p>属性的特性（attribute）:</p>
+<ul>
+<li>多线程：nonatomic/atomic</li>
+<li>读写：readwrite/readonly</li>
+<li>内存管理：strong/weak/copy/unsafe_unretained</li>
+</ul>
+<h2 id="项目代码保存在我的_GitHub:_iOSProgramming4edSolutions">项目代码保存在我的 GitHub: <a href="https://github.com/gewill/iOSProgramming4edSolutions" target="_blank" rel="external">iOSProgramming4edSolutions</a></h2>
       
     </div>
 
@@ -179,11 +178,11 @@
       
         <div class="post-tags">
           
-            <a href="/tags/CS193P/"> #CS193P </a>
+            <a href="/tags/Objective-C/"> #Objective-C </a>
           
-            <a href="/tags/Swift/"> #Swift </a>
+            <a href="/tags/iOS-Development/"> #iOS Development </a>
           
-            <a href="/tags/iOS-Dev/"> #iOS Dev </a>
+            <a href="/tags/iOS-Programming-4ed/"> #iOS Programming 4ed </a>
           
         </div>
       
@@ -192,13 +191,13 @@
         <div class="post-nav">
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2015/07/07/CS193P-2-More-Xcode-and-Swift-MVC/">CS193P 2. More Xcode and Swift, MVC</a>
+              <a href="/2015/07/24/iOS-Programming-4ed-4/">《iOS 编程》4. 视图层次结构</a>
             
           </div>
 
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2015/06/20/Windows-Advanced-Learning-Methods/">Windows 进阶的学习方法－笔记</a>
+              <a href="/2015/07/23/iOS-Programming-4ed-2/">《iOS 编程》2. Objective-C</a>
             
           </div>
         </div>
@@ -320,7 +319,7 @@
           <div class="post-toc">
             
             
-              <p class="post-toc-empty">This post does not have a Table Of Contents</p>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#3-1_栈"><span class="nav-text">3.1 栈 </span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-3_指针变量与对象所有权"><span class="nav-text">3.3 指针变量与对象所有权 </span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-4_强引用与弱引用"><span class="nav-text">3.4 强引用与弱引用 </span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-5_属性"><span class="nav-text">3.5 属性 </span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#项目代码保存在我的_GitHub:_iOSProgramming4edSolutions"><span class="nav-text">项目代码保存在我的 GitHub: iOSProgramming4edSolutions</span></a></li></ol></div>
             
           </div>
           <div class="post-toc-indicator-bottom post-toc-indicator"></div>
@@ -550,9 +549,9 @@
 
     <script type="text/javascript">
       var disqus_shortname = 'gewill';
-      var disqus_identifier = '2015/06/28/CS193P-1-Logistics-iOS-8-Overview/';
-      var disqus_title = 'CS193P 1.Logistics, iOS 8 Overview';
-      var disqus_url = 'http://gewill.org/2015/06/28/CS193P-1-Logistics-iOS-8-Overview/';
+      var disqus_identifier = '2015/07/24/iOS-Programming-4ed-3/';
+      var disqus_title = '《iOS 编程》3. 通过 ARC 管理内存';
+      var disqus_url = 'http://gewill.org/2015/07/24/iOS-Programming-4ed-3/';
 
       (function(){
         var dsq = document.createElement('script');
