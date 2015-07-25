@@ -122,6 +122,90 @@
           
           
             
+              <a class="post-title-link" href="/2015/06/28/CS193P-1-Logistics-iOS-8-Overview/">
+                CS193P 1.Logistics, iOS 8 Overview
+              </a>
+            
+          
+        </h1>
+      
+
+      <div class="post-meta">
+        <span class="post-time">
+          Posted on 2015-06-28
+        </span>
+
+        
+
+        
+          
+            <span class="post-comments-count">
+            &nbsp; | &nbsp;
+            <a href="/2015/06/28/CS193P-1-Logistics-iOS-8-Overview/#comments" >
+              <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2015/06/28/CS193P-1-Logistics-iOS-8-Overview/"></span>
+            </a>
+          </span>
+          
+        
+      </div>
+    </div>
+
+    <div class="post-body">
+
+      
+      
+
+      
+        
+          <p>iTunes U 课程地址：<a href="https://itunes.apple.com/us/course/developing-ios-8-apps-swift/id961180099" target="_blank" rel="external">iTunes U/Developing iOS 8 Apps Swift</a></p>
+<p>CS193P 课程地址：<a href="http://web.stanford.edu/class/cs193p/cgi-bin/drupal/" target="_blank" rel="external">CS193P iPhone Application Development</a></p>
+<p> 字幕下载：<a href="https://github.com/x140yu/Developing_iOS_8_Apps_With_Swift" target="_blank" rel="external">https://github.com/x140yu/Developing_iOS_8_Apps_With_Swift</a></p>
+<p> 课程不用多介绍，下面直接进入笔记：</p>
+<p>iOS 仍是一个 Unix 系统，添加了很多移动方面的模块和优化。</p>
+<p>Cocoa Touch 是本课的重点，如涉及 Media 等主题需要自行找资料深入学习。</p>
+<p><strong> 自己动手写代码，绝不复制粘贴别人的代码。</strong></p>
+<p> 接下来是 DEMO：Calculator </p>
+<p> 蓝线是自动布局时的好帮手。</p>
+<p>Storyboard 是正方形，自动布局就是实现对真实屏幕比例添加挤压效果或规则，已完成适配。</p>
+<p>Trailing Margin （尾部到边框）<br>Leading Margin （头部到边框）<br>Top （顶部）</p>
+<p>Outline mode （大纲模式）</p>
+<p>? 表示 Optional，有两种情况：</p>
+<ul>
+<li>nil ： 值缺失 </li>
+<li> 有值 </li>
+</ul>
+<p> 源码如下：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#10;//  ViewController.swift&#10;&#10;&#10;import UIKit&#10;&#10;class ViewController: UIViewController &#123;&#10;&#10;    &#10;    @IBOutlet weak var display: UILabel!&#10;    &#10;    var userIsInTheMiddleOfTypingANumber: Bool = false&#10;&#10;    @IBAction func appendDigit(sender: UIButton) &#123;&#10;        let digit = sender.currentTitle!&#10;        if userIsInTheMiddleOfTypingANumber&#123;&#10;              display.text = display.text! + digit&#10;        &#125; else &#123;&#10;            display.text = digit&#10;            userIsInTheMiddleOfTypingANumber = true&#10;        &#125;&#10;    &#10;        print(&#34;digit = \(digit)&#34;)&#10;    &#125;&#10;&#10;&#125;</span><br></pre></td></tr></table></figure>
+
+        
+      
+    </div>
+
+    <div class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </div>
+  </div>
+
+
+    
+      
+
+  <div class="post post-type-normal ">
+    <div class="post-header">
+
+      
+      
+        <h1 class="post-title">
+          
+          
+            
               <a class="post-title-link" href="/2015/06/20/Windows-Advanced-Learning-Methods/">
                 Windows 进阶的学习方法－笔记
               </a>
@@ -954,74 +1038,6 @@
 
 
     
-      
-
-  <div class="post post-type-normal ">
-    <div class="post-header">
-
-      
-      
-        <h1 class="post-title">
-          
-          
-            
-              <a class="post-title-link" href="/2015/05/24/Simple-Calculator/">
-                Simple Calculator
-              </a>
-            
-          
-        </h1>
-      
-
-      <div class="post-meta">
-        <span class="post-time">
-          Posted on 2015-05-24
-        </span>
-
-        
-
-        
-          
-            <span class="post-comments-count">
-            &nbsp; | &nbsp;
-            <a href="/2015/05/24/Simple-Calculator/#comments" >
-              <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2015/05/24/Simple-Calculator/"></span>
-            </a>
-          </span>
-          
-        
-      </div>
-    </div>
-
-    <div class="post-body">
-
-      
-      
-
-      
-        
-          <p> 一个简单地计算器，可以加减乘除，除法还有问题，待解决。</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">//&#10;//  ViewController.swift&#10;//  Simple Calculator&#10;//&#10;//  Created by Will on 5/24/15.&#10;//  Copyright (c) 2015 gewill.org. All rights reserved.&#10;//&#10;&#10;import UIKit&#10;&#10;class ViewController: UIViewController &#123;&#10;    @IBOutlet weak var text1: UITextField!&#10;    &#10;    &#10;    @IBOutlet weak var text2: UITextField!&#10;    @IBOutlet weak var result: UITextField!&#10;    &#10;    @IBAction func BeZero(sender: AnyObject) &#123;&#10;        self.result.text = &#34;0&#34;&#10;        self.text1.text = &#34; &#34;&#10;        self.text2.text = &#34; &#34;&#10;        &#10;    &#125;&#10;    @IBAction func plus(sender: AnyObject) &#123;&#10;        // &#19977;&#30446;&#36816;&#31639;&#31526;&#31616;&#27905;&#65292;&#20294;&#26159;&#27809;&#26377; if &#36923;&#36753;&#28165;&#26224;&#12290;&#10;        var num1 = self.text1.text.isEmpty ? 0 : self.text1.text.toInt()&#10;        var num2 = self.text2.text.isEmpty ? 0 : self.text2.text.toInt()&#10;        &#10;        &#10;        var resultNum:Double = Double(num1!) + Double(num2!)&#10;        println(resultNum)&#10;        &#10;        self.result.text = &#34;\(resultNum)&#34;&#10;        &#10;        self.text1.resignFirstResponder()&#10;        self.text2.resignFirstResponder()&#10;        &#10;        &#10;    &#125;&#10;    @IBAction func minus(sender: AnyObject) &#123;&#10;        // &#19977;&#30446;&#36816;&#31639;&#31526;&#31616;&#27905;&#65292;&#20294;&#26159;&#27809;&#26377; if &#36923;&#36753;&#28165;&#26224;&#12290;&#10;        var num1 = self.text1.text.isEmpty ? 0 : self.text1.text.toInt()&#10;        var num2 = self.text2.text.isEmpty ? 0 : self.text2.text.toInt()&#10;        &#10;        &#10;        var resultNum = num1! - num2!&#10;        &#10;        self.result.text = &#34;\(resultNum)&#34;&#10;        &#10;        self.text1.resignFirstResponder()&#10;        self.text2.resignFirstResponder()&#10;        &#10;    &#125;&#10;    @IBAction func multiply(sender: AnyObject) &#123;&#10;        // &#19977;&#30446;&#36816;&#31639;&#31526;&#31616;&#27905;&#65292;&#20294;&#26159;&#27809;&#26377; if &#36923;&#36753;&#28165;&#26224;&#12290;&#10;        var num1 = self.text1.text.isEmpty ? 0 : self.text1.text.toInt()&#10;        var num2 = self.text2.text.isEmpty ? 0 : self.text2.text.toInt()&#10;        &#10;        &#10;        var resultNum = num1! * num2!&#10;        &#10;        self.result.text = &#34;\(resultNum)&#34;&#10;        &#10;        self.text1.resignFirstResponder()&#10;        self.text2.resignFirstResponder()&#10;        &#10;    &#125;&#10;    @IBAction func division(sender: AnyObject) &#123;&#10;        // &#19977;&#30446;&#36816;&#31639;&#31526;&#31616;&#27905;&#65292;&#20294;&#26159;&#27809;&#26377; if &#36923;&#36753;&#28165;&#26224;&#12290;&#10;        var num1 = self.text1.text.isEmpty ? 0 : self.text1.text.toInt()&#10;        var num2 = self.text2.text.isEmpty ? 0 : self.text2.text.toInt()&#10;        &#10;        &#10;        var resultNum = num1! / num2!&#10;        &#10;        self.result.text = &#34;\(resultNum)&#34;&#10;        &#10;        self.text1.resignFirstResponder()&#10;        self.text2.resignFirstResponder()&#10;        &#10;    &#125;&#10;    override func viewDidLoad() &#123;&#10;        super.viewDidLoad()&#10;        // Do any additional setup after loading the view, typically from a nib.&#10;    &#125;&#10;    &#10;    override func didReceiveMemoryWarning() &#123;&#10;        super.didReceiveMemoryWarning()&#10;        // Dispose of any resources that can be recreated.&#10;    &#125;&#10;    &#10;    &#10;&#125;</span><br></pre></td></tr></table></figure>
-<p><img src="http://i.imgur.com/96q8Eay.png" alt="Imgur"><br><img src="http://i.imgur.com/7kHLTc4.png" alt="Imgur"></p>
-
-        
-      
-    </div>
-
-    <div class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </div>
-  </div>
-
-
-    
   </div>
 
   
@@ -1060,7 +1076,7 @@
         <div class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">54</span>
+              <span class="site-state-item-count">55</span>
               <span class="site-state-item-name">posts</span>
             </a>
           </div>
