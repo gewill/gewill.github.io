@@ -122,6 +122,113 @@
           
           
             
+              <a class="post-title-link" href="/2015/07/17/CS193P-5-Objective-C-Compatibility-Proper/">
+                CS193P 5. Objective-C Compatibility, Proper
+              </a>
+            
+          
+        </h1>
+      
+
+      <div class="post-meta">
+        <span class="post-time">
+          Posted on 2015-07-17
+        </span>
+
+        
+
+        
+          
+            <span class="post-comments-count">
+            &nbsp; | &nbsp;
+            <a href="/2015/07/17/CS193P-5-Objective-C-Compatibility-Proper/#comments" >
+              <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2015/07/17/CS193P-5-Objective-C-Compatibility-Proper/"></span>
+            </a>
+          </span>
+          
+        
+      </div>
+    </div>
+
+    <div class="post-body">
+
+      
+      
+
+      
+        
+          <h2 id="1-_Objective-C_兼容性">1. Objective-C 兼容性</h2><p>Bridging</p>
+<p>Swift 可以无缝使用以前 Objective-C 的 API，但是一些特殊的数据类型需要桥接。桥接是指可以互换的使用。</p>
+<p>NSString &lt;-&gt; String</p>
+<p>NSArray &lt;-&gt;  Array<anyobject></anyobject></p>
+<p>NSDictionary &lt;-&gt;  Dictionary<nsobject, anyobject=""></nsobject,></p>
+<p>Int, Float, Double, Bool -&gt;  NSNumber (反之不行)</p>
+<p>99% 的桥接均是隐式完成的。</p>
+<h2 id="2-_属性列表">2. 属性列表 </h2><p> 属性列表指 AnyObject 是一下六种类型的集合列表：<br>NSString, NSArray, NSDictionary, NSNumber, NSData, NSDate。</p>
+<p>处理属性列表通常需要映射：如 is 和 as。</p>
+<p>属性列表可以“盲”传递数据，也可以作为一种通用数据结构 - 类似泛型。</p>
+<p>NSUserDefaults 作为一种使用属性列表的存储机制。本质上就是一个小的存储数据列表的数据库。通常用存储“设置”信息。<br>NSUserDefaults 可以通过名称或键来存储或检索整个属性列表。</p>
+<p><strong>以下用法摘自：<a href="http://www.codingexplorer.com/nsuserdefaults-a-swift-introduction/" target="_blank" rel="external">NSUserDefaults — A Swift Introduction</a></strong></p>
+<h3 id="存储_NSUserDefaults">存储 NSUserDefaults</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">let defaults = NSUserDefaults.standardUserDefaults()&#10;defaults.setObject(&#34;Coding Explorer&#34;, forKey: &#34;userNameKey&#34;)</span><br></pre></td></tr></table></figure>
+<p>NSUserDefaults 常用的写入方法:</p>
+<ul>
+<li>func setBool(value: Bool, forKey defaultName: String)</li>
+<li>func setInteger(value: Int, forKey defaultName: String)</li>
+<li>func setFloat(value: Float, forKey defaultName: String)</li>
+<li>func setDouble(value: Double, forKey defaultName: String)</li>
+<li>func setObject(value: AnyObject?, forKey defaultName: String)</li>
+<li>func setURL(url: NSURL, forKey defaultName: String)</li>
+</ul>
+<p>iOS 8 或更新版本不要使用 synchronize。 </p>
+<h3 id="读取_NSUserDefaults">读取 NSUserDefaults</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">let defaults = NSUserDefaults.standardUserDefaults()&#10;if let name = defaults.stringForKey(&#34;userNameKey&#34;)&#10;&#123;&#10;    println(name)&#10;&#125;</span><br></pre></td></tr></table></figure>
+<p>对应的常用读取 NSUserDefaults 的方法：</p>
+<ul>
+<li>func boolForKey(defaultName: String) -&gt; Bool</li>
+<li>func integerForKey(defaultName: String) -&gt; Int</li>
+<li>func floatForKey(defaultName: String) -&gt; Float</li>
+<li>func doubleForKey(defaultName: String) -&gt; Double</li>
+<li>func objectForKey(defaultName: String) -&gt; AnyObject?</li>
+<li>func URLForKey(defaultName: String) -&gt; NSURL?</li>
+<li>func dataForKey(defaultName: String) -&gt; NSData?</li>
+<li>func stringForKey(defaultName: String) -&gt; String?</li>
+<li>func stringArrayForKey(defaultName: String) -&gt; [AnyObject]?</li>
+<li>func arrayForKey(defaultName: String) -&gt; [AnyObject]?</li>
+<li>func dictionaryForKey(defaultName: String) -&gt; [NSObject : AnyObject]?</li>
+</ul>
+<h3 id="使用常量做键">使用常量做键 </h3><p> 方便在一处修改，容易理解编译报错。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">let userNameKeyConstant = &#34;userNameKey&#34;&#10;&#10;@IBAction func writeButton(sender: UIButton)&#10;&#123;&#10;    let defaults = NSUserDefaults.standardUserDefaults()&#10;    defaults.setObject(&#34;Coding Explorer&#34;, forKey: userNameKeyConstant)&#10;&#125;&#10;&#10;@IBAction func readButton(sender: UIButton)&#10;&#123;&#10;    let defaults = NSUserDefaults.standardUserDefaults()&#10;    if let name = defaults.stringForKey(userNameKeyConstant)&#10;    &#123;&#10;        print(name)&#10;    &#125;&#10;&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="3-_视图">3. 视图 </h2><p> 视图代表了一个长方形区域。</p>
+<p>视图是等级，类似单继承：一个视图只可以有一个 superview，但可以有很多 subviews。<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">//&#10;//  FaceView.swift&#10;//  Happiness&#10;//&#10;//  Created by Will Ge on 7/17/15.&#10;//  Copyright &#169; 2015 gewill.org. All rights reserved.&#10;//&#10;&#10;import UIKit&#10;&#10;class FaceView: UIView &#123;&#10;    &#10;    var lineWidth: CGFloat = 5 &#123; didSet &#123; setNeedsDisplay() &#125; &#125;&#10;    var color: UIColor = UIColor.blueColor() &#123; didSet &#123; setNeedsDisplay() &#125; &#125;&#10;    var scale: CGFloat = 0.9&#10;    var faceCenter: CGPoint &#123;&#10;        return convertPoint(center, fromView: superview)&#10;    &#125;&#10;    &#10;    var faceRadius: CGFloat &#123;&#10;        return min(bounds.size.width, bounds.size.height) / 2 * scale&#10;    &#125;&#10;    &#10;    // &#35206;&#20889; drawRect&#65292;&#33258;&#23450;&#20041;&#35270;&#22270;&#10;    override func drawRect(rect: CGRect) &#123;&#10;        &#10;        // &#30011;&#33080;&#10;        let facePath = UIBezierPath(arcCenter: faceCenter, radius: faceRadius, startAngle: 0, endAngle: CGFloat(2 * M_PI), clockwise: true)&#10;        facePath.lineWidth = lineWidth&#10;        color.set()&#10;        facePath.stroke()&#10;        &#10;        // &#30011;&#30524;&#10;        bezierPathForEye(.Left).stroke()&#10;        bezierPathForEye(.Right).stroke()&#10;        &#10;        // &#30011;&#22068;&#24052;&#10;        let smiliness = 0.8&#10;        let smilePath = bezierPathForSmile(smiliness)&#10;        smilePath.stroke()&#10;    &#125;&#10;    &#10;    &#10;    private struct Scaling &#123;&#10;        static let FaceRadiusToEyeRadiusRatio: CGFloat = 10&#10;        static let FaceRadiusToEyeOffsetRatio: CGFloat = 3&#10;        static let FaceRadiusToEyeSeparationRatio: CGFloat = 1.5&#10;        static let FaceRadiusToMouthWidthRatio: CGFloat = 1&#10;        static let FaceRadiusToMouthHeightRatio: CGFloat = 3&#10;        static let FaceRadiusToMouthOffsetRatio: CGFloat = 3&#10;        &#10;    &#125;&#10;    &#10;    // &#23450;&#20041;&#26522;&#20030;&#65306;&#24038;&#21491;&#30524;&#10;    private enum Eye &#123; case Left, Right &#125;&#10;    &#10;    // &#23450;&#20041;&#20989;&#25968;&#65306;&#30524;&#30555;&#30340;&#36335;&#24452;&#10;    private func bezierPathForEye(whichEye: Eye) -&#62; UIBezierPath &#123;&#10;        &#10;        let eyeRadius = faceRadius / Scaling.FaceRadiusToEyeRadiusRatio&#10;        let eyeVerticalOffset = faceRadius / Scaling.FaceRadiusToEyeOffsetRatio&#10;        let eyeHorizontalSeparation = faceRadius / Scaling.FaceRadiusToEyeSeparationRatio&#10;        &#10;        var eyeCenter = faceCenter&#10;        eyeCenter.y -= eyeVerticalOffset&#10;        switch whichEye &#123;&#10;        case .Left: eyeCenter.x -= eyeHorizontalSeparation / 2&#10;        case .Right: eyeCenter.x += eyeHorizontalSeparation / 2&#10;        &#125;&#10;        &#10;        let path = UIBezierPath(arcCenter: eyeCenter, radius: eyeRadius, startAngle: 0, endAngle: CGFloat(2 * M_PI), clockwise: true)&#10;        path.lineWidth = lineWidth&#10;        return path&#10;        &#10;    &#125;&#10;    &#10;    // &#23450;&#20041;&#20989;&#25968;&#65306;&#22068;&#24052;&#30340;&#36335;&#24452;&#10;    private func bezierPathForSmile(fractionOfMaxSmile: Double) -&#62; UIBezierPath &#123;&#10;        &#10;        let mouthWidth = faceRadius / Scaling.FaceRadiusToMouthWidthRatio&#10;        let mouthHeight = faceRadius / Scaling.FaceRadiusToMouthHeightRatio&#10;        let mouthVerticalOffset = faceRadius / Scaling.FaceRadiusToMouthOffsetRatio&#10;        &#10;        let smileHeight = CGFloat(max(min(fractionOfMaxSmile, 1), -1)) * mouthHeight&#10;        &#10;        let start = CGPoint(x: faceCenter.x - mouthWidth / 2, y: faceCenter.y + mouthVerticalOffset)&#10;        let end = CGPoint(x: start.x + mouthWidth, y: start.y)&#10;        let cp1 = CGPoint(x: start.x + mouthWidth / 3, y: start.y + smileHeight)&#10;        let cp2 = CGPoint(x: end.x - mouthWidth / 3, y: cp1.y)&#10;        &#10;        let path = UIBezierPath()&#10;        path.moveToPoint(start)&#10;        path.addCurveToPoint(end, controlPoint1: cp1, controlPoint2: cp2)&#10;        path.lineWidth = lineWidth&#10;        return path&#10;    &#125;&#10;&#10;    &#10;&#125;</span><br></pre></td></tr></table></figure></p>
+
+        
+      
+    </div>
+
+    <div class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </div>
+  </div>
+
+
+    
+      
+
+  <div class="post post-type-normal ">
+    <div class="post-header">
+
+      
+      
+        <h1 class="post-title">
+          
+          
+            
               <a class="post-title-link" href="/2015/07/16/Why-I-quit-my-job/">
                 辞职参加博览网 iOS 极客班
               </a>
@@ -816,87 +923,6 @@
 
 
     
-      
-
-  <div class="post post-type-normal ">
-    <div class="post-header">
-
-      
-      
-        <h1 class="post-title">
-          
-          
-            
-              <a class="post-title-link" href="/2015/07/07/CS193P-2-More-Xcode-and-Swift-MVC/">
-                CS193P 2. More Xcode and Swift, MVC
-              </a>
-            
-          
-        </h1>
-      
-
-      <div class="post-meta">
-        <span class="post-time">
-          Posted on 2015-07-07
-        </span>
-
-        
-
-        
-          
-            <span class="post-comments-count">
-            &nbsp; | &nbsp;
-            <a href="/2015/07/07/CS193P-2-More-Xcode-and-Swift-MVC/#comments" >
-              <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2015/07/07/CS193P-2-More-Xcode-and-Swift-MVC/"></span>
-            </a>
-          </span>
-          
-        
-      </div>
-    </div>
-
-    <div class="post-body">
-
-      
-      
-
-      
-        
-          <p> 继续 DEMO: Calculator </p>
-<p>Swift 能类型推断 </p>
-<p> 自动布局：</p>
-<ul>
-<li>Pin: Spacing to nearest neighbor, Equal Widths, Equal Heights</li>
-<li>Resolve Auto Layout Issues: Clear Constraints</li>
-</ul>
-<p>87 果然是个神奇的数字，我之前没有对齐就开始 Pin，始终无法得到“Add 87 Constraints”，自然没有得到自动对齐的理想布局。</p>
-<p> 代码如下：<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">//&#10;//  ViewController.swift&#10;//  Calculator&#10;//&#10;//  Created by Will Ge on 6/28/15.&#10;//  Copyright &#169; 2015 gewill.org. All rights reserved.&#10;//&#10;&#10;import UIKit&#10;&#10;class ViewController: UIViewController &#123;&#10;    &#10;&#10;    @IBOutlet weak var display: UILabel!&#10;    &#10;    var userIsInTheMiddleOfTypingANumber: Bool = false&#10;&#10;    @IBAction func appendDigit(sender: UIButton) &#123;&#10;        let digit = sender.currentTitle!&#10;        if userIsInTheMiddleOfTypingANumber&#123;&#10;              display.text = display.text! + digit&#10;        &#125; else &#123;&#10;            display.text = digit&#10;            userIsInTheMiddleOfTypingANumber = true&#10;        &#125;&#10;    &#10;        print(&#34;digit = \(digit)&#34;)&#10;    &#125;&#10;&#10;    var operandStack = Array&#60;Double&#62;()&#10;    &#10;    @IBAction func enter() &#123;&#10;        userIsInTheMiddleOfTypingANumber = false&#10;        operandStack.append(displayValue)&#10;        print(&#34;operandStack = \(operandStack)&#34;)&#10;        &#10;    &#125;&#10;    &#10;    @IBAction func operate(sender: UIButton) &#123;&#10;        let operation = sender.currentTitle!&#10;        if userIsInTheMiddleOfTypingANumber &#123;&#10;            enter()&#10;        &#125;&#10;        switch operation &#123;&#10;        case &#34;&#215;&#34;: performOperation &#123; $0 * $1 &#125;&#10;        case &#34;&#247;&#34;: performOperation &#123; $1 / $1 &#125;&#10;        case &#34;+&#34;: performOperation &#123; $0 + $1 &#125;&#10;        case &#34;&#8722;&#34;: performOperation &#123; $1 - $0 &#125;&#10;        case &#34;&#8730;&#34;: performOperation1 &#123; sqrt($0) &#125;&#10;        default: break&#10;        &#125;&#10;    &#125;&#10;    &#10;    func performOperation(operation: (Double, Double) -&#62;Double) &#123;&#10;        if operandStack.count &#62;= 2 &#123;&#10;            displayValue = operation(operandStack.removeLast(), operandStack.removeLast())&#10;            enter()&#10;        &#125;&#10;    &#125;&#10;    &#10;    func performOperation1(operation: Double -&#62;Double) &#123;&#10;        if operandStack.count &#62;= 2 &#123;&#10;            displayValue = operation(operandStack.removeLast())&#10;            enter()&#10;        &#125;&#10;    &#125;&#10;&#10;    &#10;    var displayValue: Double&#123;&#10;        get &#123;&#10;            return NSNumberFormatter().numberFromString(display.text!)!.doubleValue&#10;        &#125;&#10;        set &#123;&#10;            display.text = &#34;\(newValue)&#34;&#10;            userIsInTheMiddleOfTypingANumber = false&#10;        &#125;&#10;    &#125;&#10;&#125;</span><br></pre></td></tr></table></figure></p>
-<p>MVC:</p>
-<ul>
-<li> 各个模块之间的含义 </li>
-<li> 模块之间的通信有无 </li>
-<li> 模块之间的控制关系 </li>
-</ul>
-<p><img src="http://i.imgur.com/i8HTac7.png" alt="MVC"></p>
-
-        
-      
-    </div>
-
-    <div class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </div>
-  </div>
-
-
-    
   </div>
 
   
@@ -935,7 +961,7 @@
         <div class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">55</span>
+              <span class="site-state-item-count">56</span>
               <span class="site-state-item-name">posts</span>
             </a>
           </div>
@@ -949,7 +975,7 @@
 
           <div class="site-state-item site-state-tags">
             
-              <span class="site-state-item-count">13</span>
+              <span class="site-state-item-count">22</span>
               <span class="site-state-item-name">tags</span>
               
           </div>
