@@ -155,9 +155,18 @@
         <blockquote>
 <p> 项目需要，直接看这一节。</p>
 </blockquote>
-<p>UIImagePickerViewController</p>
-<p>Set the source and media type you want in the picker<br>Example setup of a picker for capturing video (kUTTypeMovie) …<br>(From here out, UIImagePickerController will be abbreviated UIIPC for space reasons.)<br>let picker = UIImagePickerController()<br>picker.delegate = self // self has to say it implements UINavigationControllerDelegate too if UIIPC.isSourceTypeAvailable(.Camera) {<br>￼picker.sourceType = .Camera<br>if let availableTypes = UIIPC.availableMediaTypesForSourceType(.Camera) {<br>if (availableTypes as NSArray).containsObject(kUTTypeMovie) {<br>picker.mediaTypes = [kUTTypeMovie]<br>// proceed to put the picker up<br>￼} }<br>}</p>
-
+<p><strong>UIImagePickerViewController</strong></p>
+<p>Set the source and media type you want in the picker<br>Example setup of a picker for capturing video (kUTTypeMovie) …<br>(From here out, UIImagePickerController will be abbreviated UIIPC for space reasons.)</p>
+<pre><code><span class="built_in">let</span> picker = UIImagePickerController<span class="params">()</span>
+picker.delegate = self <span class="comment">// self has to say it implements UINavigationControllerDelegate too </span>
+<span class="keyword">if</span> UIIPC.isSourceTypeAvailable<span class="params">(.Camera)</span> {
+￼    picker.sourceType = .Camera
+    <span class="keyword">if</span> <span class="built_in">let</span> availableTypes = UIIPC.availableMediaTypesForSourceType<span class="params">(.Camera)</span> {<span class="keyword">if</span> <span class="params">(availableTypes as NSArray)</span>.containsObject<span class="params">(kUTTypeMovie)</span> {picker.mediaTypes = [kUTTypeMovie]
+            <span class="comment">// proceed to put the picker up</span>
+        ￼} 
+    }
+}
+</code></pre>
       
     </div>
 
