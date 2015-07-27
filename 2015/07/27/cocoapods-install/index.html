@@ -24,7 +24,7 @@
 
 
 
-  <meta name="keywords" content="Swift,iOS Dev," />
+  <meta name="keywords" content="CocoaPods," />
 
 
 
@@ -48,7 +48,7 @@
 
 
 
-  <title> Crazy Swift Lecture Chapter 10 // whoDO </title>
+  <title> cocoapods install // whoDO </title>
 </head>
 
 <body>
@@ -120,7 +120,7 @@
           
           
             
-              Crazy Swift Lecture Chapter 10
+              cocoapods install
             
           
         </h1>
@@ -128,7 +128,7 @@
 
       <div class="post-meta">
         <span class="post-time">
-          Posted on 2015-07-15
+          Posted on 2015-07-27
         </span>
 
         
@@ -137,8 +137,8 @@
           
             <span class="post-comments-count">
             &nbsp; | &nbsp;
-            <a href="/2015/07/15/Crazy-Swift-Lecture-Chapter-10/#comments" >
-              <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2015/07/15/Crazy-Swift-Lecture-Chapter-10/"></span>
+            <a href="/2015/07/27/cocoapods-install/#comments" >
+              <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2015/07/27/cocoapods-install/"></span>
             </a>
           </span>
           
@@ -152,7 +152,28 @@
       
 
       
-        <h1 id="第十章_运算符函数"> 第十章 运算符函数 </h1><p>Swift 的运算符本质上都是函数，我们可以重新定义运算符函数。然后就没有然后了。</p>
+        <p> 看到极客班同学 Kevin Wang 分享的 CocoaPods 笔记：<a href="http://www.jianshu.com/p/c1063c9017b0?utm_campaign=maleskine&amp;utm_content=note&amp;utm_medium=reader_share&amp;utm_source=weixin&amp;from=singlemessage&amp;isappinstalled=0" target="_blank" rel="external">iOS 学习备忘录：CocoaPods 基本使用技巧 </a>，我自己就试着一下。</p>
+<p> 以下安装 <a href="https://github.com/AFNetworking/AFNetworking" target="_blank" rel="external">AFNetworking</a> 的过程，同时参考了：<a href="https://github.com/AFNetworking/AFNetworking/wiki/Getting-Started-with-AFNetworking" target="_blank" rel="external">Getting Started with AFNetworking</a> 和 唐巧的 <a href="http://book.douban.com/subject/26287173/" target="_blank" rel="external">iOS 开发进阶 </a>。</p>
+<p> 感觉 <a href="https://github.com/AFNetworking/AFNetworking/wiki/Getting-Started-with-AFNetworking" target="_blank" rel="external">Getting Started with AFNetworking</a>，写的非常好了。我已经没有地方修改，就加了我在安装 CocoaPods 遇到的一个坑。看样子还是英文顺溜的才行。</p>
+<h2 id="Step_1:_Download_CocoaPods">Step 1: Download CocoaPods</h2><p> 第一步开 VPN，不要问为什么。终端输入：</p>
+<pre><code><span class="variable">$ </span>sudo gem install cocoapods
+<span class="variable">$ </span>pod setup
+</code></pre><blockquote>
+<p> 我遇到没有安装没有如何进度和提示，重装 Ruby 和 RubyGems 就好了。</p>
+</blockquote>
+<pre><code>$ brew <span class="operator"><span class="keyword">install</span> ruby
+$ gem <span class="keyword">update</span> <span class="comment">--system</span></span>
+</code></pre><h2 id="Step_2:_Create_a_Podfile">Step 2: Create a Podfile</h2><p> 用 Xcode 或其他编辑器新建 <code>Podfile</code>，放在项目根目录下：</p>
+<pre><code><span class="variable">$ </span>touch <span class="constant">Podfile</span>
+<span class="variable">$ </span>open -a <span class="constant">Xcode Podfile</span>
+</code></pre><p> 并复制下面内容到 <code>Podfile</code>：</p>
+<pre><code><span class="literal">source</span> <span class="string">'https://github.com/CocoaPods/Specs.git'</span>
+<span class="literal">platform</span> :ios, <span class="string">'7.0'</span>
+pod <span class="string">'AFNetworking'</span>, <span class="string">'~&gt; 2.5'</span>
+</code></pre><h2 id="Step_3:_Install_Dependencies">Step 3: Install Dependencies</h2><pre><code>$ pod <span class="keyword">install</span>
+</code></pre><p> 以后只要打开 Xcode workspace (<code>.xcworkspace</code>) 才行 </p>
+<pre><code>$ open <span class="tag">&lt;<span class="title">YourProjectName</span>&gt;</span>.xcworkspace
+</code></pre><h2 id="Step_4:_Dive_In!">Step 4: Dive In!</h2><p> 大功告成，至此就可以使用 AFNetworking。记得在需要的地方 <code>#import</code> 。</p>
 
       
     </div>
@@ -161,9 +182,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/Swift/"> #Swift </a>
-          
-            <a href="/tags/iOS-Dev/"> #iOS Dev </a>
+            <a href="/tags/CocoaPods/"> #CocoaPods </a>
           
         </div>
       
@@ -172,13 +191,11 @@
         <div class="post-nav">
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2015/07/15/Crazy-Swift-Lecture-Chapter-11/">Crazy Swift Lecture Chapter 11</a>
-            
           </div>
 
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2015/07/15/Crazy-Swift-Lecture-Chapter-9/">Crazy Swift Lecture Chapter 9</a>
+              <a href="/2015/07/26/GeekBand-Objective-C-Programming-2/">极客班 Objective-C 高级编程（二）</a>
             
           </div>
         </div>
@@ -300,7 +317,7 @@
           <div class="post-toc">
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#第十章_运算符函数"><span class="nav-text"> 第十章 运算符函数 </span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Step_1:_Download_CocoaPods"><span class="nav-text">Step 1: Download CocoaPods</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Step_2:_Create_a_Podfile"><span class="nav-text">Step 2: Create a Podfile</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Step_3:_Install_Dependencies"><span class="nav-text">Step 3: Install Dependencies</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Step_4:_Dive_In!"><span class="nav-text">Step 4: Dive In!</span></a></li></ol></div>
             
           </div>
           <div class="post-toc-indicator-bottom post-toc-indicator"></div>
@@ -530,9 +547,9 @@
 
     <script type="text/javascript">
       var disqus_shortname = 'gewill';
-      var disqus_identifier = '2015/07/15/Crazy-Swift-Lecture-Chapter-10/';
-      var disqus_title = 'Crazy Swift Lecture Chapter 10';
-      var disqus_url = 'http://gewill.org/2015/07/15/Crazy-Swift-Lecture-Chapter-10/';
+      var disqus_identifier = '2015/07/27/cocoapods-install/';
+      var disqus_title = 'cocoapods install';
+      var disqus_url = 'http://gewill.org/2015/07/27/cocoapods-install/';
 
       (function(){
         var dsq = document.createElement('script');
