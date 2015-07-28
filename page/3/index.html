@@ -122,6 +122,84 @@
           
           
             
+              <a class="post-title-link" href="/2015/07/11/CS193P-3-Applying-MVC/">
+                CS193P 3. Applying MVC
+              </a>
+            
+          
+        </h1>
+      
+
+      <div class="post-meta">
+        <span class="post-time">
+          Posted on 2015-07-11
+        </span>
+
+        
+
+        
+          
+            <span class="post-comments-count">
+            &nbsp; | &nbsp;
+            <a href="/2015/07/11/CS193P-3-Applying-MVC/#comments" >
+              <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2015/07/11/CS193P-3-Applying-MVC/"></span>
+            </a>
+          </span>
+          
+        
+      </div>
+    </div>
+
+    <div class="post-body">
+
+      
+      
+
+      
+        
+          <p> 看英文视频加中文字幕，效率也是蛮低的，下个星期六博览网的 iOS 极客班就开学了，希望能够认真高效投入更多时间去学习，一定要学好，找到开发的工作，圆毕业三年的一个梦。</p>
+<p>Swift 学习还算顺利，MVC 模式也有所熟悉，就是独自开发和想法实现有困难，暂时停留在看懂和自己写一遍的水平。</p>
+<p> 还有就是玩手机，刷微博啥的超级浪费时间，因为这个不费脑，玩的也高兴，能够一天不吃饭，也不困，也停不下来。<br><strong> 但是学习或看书，就很费神，容易犯困，这个一定要克服，实在困了就休息 10 分钟，再继续。</strong></p>
+<p>New Calculator Demo</p>
+<ul>
+<li>Applying MVC to the Calculator </li>
+<li>enum</li>
+<li>Simple initializer</li>
+<li>Returning an Optional</li>
+<li>Dicionary</li>
+<li>Tuples</li>
+</ul>
+<p> 源码如下，待修改：<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">//&#10;//  CalculatorBrain.swift&#10;//  Calculator&#10;//&#10;//  Created by Will Ge on 7/11/15.&#10;//  Copyright &#169; 2015 gewill.org. All rights reserved.&#10;//&#10;&#10;import Foundation&#10;&#10;class CauculatorBrain&#10;&#123;&#10;    // &#23450;&#20041;&#19968;&#20010;&#26522;&#20030;&#31867;&#22411;&#65292;&#26469;&#20998;&#31867;&#34920;&#31034;&#36755;&#20837;&#30340;&#65306;&#36816;&#31639;&#25968;&#12289;&#19968;&#20803;&#36816;&#31639;&#21644;&#20108;&#20803;&#36816;&#31639;&#10;    enum Op &#123;&#10;        case Operand(Double)&#10;        case UnaryOperation(String, Double -&#62; Double)&#10;        case BinaryOperation(String, (Double, Double) -&#62; Double)&#10;    &#125;&#10;    &#10;    // &#23450;&#20041;&#19968;&#20010;&#25968;&#32452;&#26469;&#20648;&#23384;&#25152;&#26377;&#36755;&#20837;&#10;    var opStack = [Op]()&#10;    &#10;    // &#23450;&#20041;&#24050;&#30693;&#36816;&#31639;&#31526;&#10;    var knownOps = [String:Op]()&#10;    &#10;    // &#21021;&#22987;&#21270;&#24050;&#30693;&#36816;&#31639;&#31526;&#10;    init() &#123;&#10;        knownOps[&#34;+&#34;] = Op.BinaryOperation(&#34;+&#34;, +)&#10;        knownOps[&#34;&#8722;&#34;] = Op.BinaryOperation(&#34;&#8722;&#34;) &#123;$1 - $0&#125;&#10;        knownOps[&#34;&#215;&#34;] = Op.BinaryOperation(&#34;&#215;&#34;, *)&#10;        knownOps[&#34;&#247;&#34;] = Op.BinaryOperation(&#34;&#247;&#34;) &#123;$1 / $0&#125;&#10;        knownOps[&#34;&#8730;&#34;] = Op.UnaryOperation(&#34;&#8730;&#34;, sqrt)&#10;    &#125;&#10;    &#10;    // &#23450;&#20041;&#19968;&#20010;&#20989;&#25968;&#65292;&#25226;&#36755;&#20837;&#36882;&#24402;&#21462;&#20986;&#10;    func evaluate(ops: [Op]) -&#62; (result: Double?, remainingOps:[Op]) &#123;&#10;        if !ops.isEmpty &#123;&#10;            var remainingOps = ops&#10;            let op = remainingOps.removeLast()&#10;            switch op &#123;&#10;            case.Operand(let operand):&#10;                return (operand, remainingOps)&#10;            case .UnaryOperation(_, let operation):&#10;                let operandEvaluation = evaluate(remainingOps)&#10;                if let operand = operandEvaluation.result &#123;&#10;                    return (operation(operand), operandEvaluation.remainingOps)&#10;                &#125;&#10;            case .BinaryOperation(_, let operation):&#10;                let op1Evaluation = evaluate(remainingOps)&#10;                if let operand1 = op1Evaluation.result &#123;&#10;                    let op2Evaluation = evaluate(remainingOps)&#10;                    if let operand2 = op2Evaluation.result &#123;&#10;                        return (operation(operand1, operand2), op2Evaluation.remainingOps)&#10;                    &#125;&#10;&#10;                    &#10;                &#125;&#10;                &#10;            &#125;&#10;        &#125;&#10;        return (nil, ops)&#10;    &#125;&#10;    &#10;    func evaluate() -&#62; Double? &#123;&#10;        let (result, remainder) = evaluate(opStack)&#10;        print(&#34;\(opStack) = \(result) with \(remainder) left over&#34;)&#10;        return result&#10;        &#10;    &#125;&#10;    &#10;    // &#36816;&#31639;&#25968;&#10;    func pushOperand(operand: Double) -&#62; Double? &#123;&#10;        opStack.append(Op.Operand(operand))&#10;        return evaluate()&#10;    &#125;&#10;    &#10;    // &#36816;&#31639;&#31526;&#10;    func performOperation(symbol: String) -&#62; Double? &#123;&#10;        if let operation = knownOps[symbol] &#123;&#10;            opStack.append(operation)&#10;        &#125;&#10;        return evaluate()&#10;    &#125;&#10;&#125;</span><br></pre></td></tr></table></figure></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">//&#10;//  ViewController.swift&#10;//  Calculator&#10;//&#10;//  Created by Will Ge on 6/28/15.&#10;//  Copyright &#169; 2015 gewill.org. All rights reserved.&#10;//&#10;&#10;import UIKit&#10;&#10;class ViewController: UIViewController &#123;&#10;    &#10;&#10;    @IBOutlet weak var history: UILabel!&#10;    &#10;    @IBOutlet weak var display: UILabel!&#10;    &#10;    &#10;    var userIsInTheMiddleOfTypingANumber: Bool = false&#10;    &#10;    var brain = CauculatorBrain()&#10;&#10;    @IBAction func appendDigit(sender: UIButton) &#123;&#10;        let digit = sender.currentTitle!&#10;        if userIsInTheMiddleOfTypingANumber&#123;&#10;              display.text = display.text! + digit&#10;        &#125; else &#123;&#10;            display.text = digit&#10;            userIsInTheMiddleOfTypingANumber = true&#10;        &#125;&#10;    &#10;        print(&#34;digit = \(digit)&#34;)&#10;    &#125;&#10;&#10;    &#10;    &#10;    @IBAction func enter() &#123;&#10;        userIsInTheMiddleOfTypingANumber = false&#10;        if let result = brain.pushOperand(displayValue) &#123;&#10;            displayValue = result&#10;        &#125; else &#123;&#10;            displayValue = 0&#10;        &#125;&#10;        print(&#34;pushOperand = \(displayValue)&#34;)&#10;        &#10;    &#125;&#10;    &#10;    @IBAction func operate(sender: UIButton) &#123;&#10;        &#10;        if userIsInTheMiddleOfTypingANumber &#123;&#10;            enter()&#10;        &#125;&#10;        if let operation = sender.currentTitle &#123;&#10;            print(&#34;\(operation)&#34;)&#10;        &#125;&#10;    &#125;&#10;    &#10;&#10;    &#10;    var displayValue: Double&#123;&#10;        get &#123;&#10;            return NSNumberFormatter().numberFromString(display.text!)!.doubleValue&#10;        &#125;&#10;        set &#123;&#10;            display.text = &#34;\(newValue)&#34;&#10;            userIsInTheMiddleOfTypingANumber = false&#10;        &#125;&#10;    &#125;&#10;&#125;</span><br></pre></td></tr></table></figure>
+        
+      
+    </div>
+
+    <div class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </div>
+  </div>
+
+
+    
+      
+
+  <div class="post post-type-normal ">
+    <div class="post-header">
+
+      
+      
+        <h1 class="post-title">
+          
+          
+            
               <a class="post-title-link" href="/2015/07/07/new-DNS-setting/">
                 new DNS setting
               </a>
@@ -991,73 +1069,6 @@
 
 
     
-      
-
-  <div class="post post-type-normal ">
-    <div class="post-header">
-
-      
-      
-        <h1 class="post-title">
-          
-          
-            
-              <a class="post-title-link" href="/2015/05/24/Photo-DEMO/">
-                Photo DEMO
-              </a>
-            
-          
-        </h1>
-      
-
-      <div class="post-meta">
-        <span class="post-time">
-          Posted on 2015-05-24
-        </span>
-
-        
-
-        
-          
-            <span class="post-comments-count">
-            &nbsp; | &nbsp;
-            <a href="/2015/05/24/Photo-DEMO/#comments" >
-              <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2015/05/24/Photo-DEMO/"></span>
-            </a>
-          </span>
-          
-        
-      </div>
-    </div>
-
-    <div class="post-body">
-
-      
-      
-
-      
-        
-          <p> 尚有一个 BUG，真机无法加载图片，模拟器可以。</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">//&#10;//  ViewController.m&#10;//  Photo DEMO&#10;//&#10;//  Created by Will on 5/24/15.&#10;//  Copyright (c) 2015 gewill.org. All rights reserved.&#10;//&#10;&#10;#import &#34;ViewController.h&#34;&#10;&#10;@interface ViewController ()&#10;@property (weak, nonatomic) IBOutlet UILabel *topLabel;&#10;@property (weak, nonatomic) IBOutlet UILabel *descLabel;&#10;@property (weak, nonatomic) IBOutlet UIButton *leftBtn;&#10;@property (weak, nonatomic) IBOutlet UIButton *rightBtn;&#10;@property (weak, nonatomic) IBOutlet UIImageView *imageView;&#10;&#10;@property (nonatomic, assign) int  index;&#10;@property (nonatomic, strong) NSArray *imageDicts;&#10;&#10;@end&#10;&#10;@implementation ViewController&#10;&#10;- (NSArray *)imageDicts&#123;&#10;    if (!_imageDicts) &#123;&#10;        _imageDicts = [NSArray arrayWithContentsOfFile:&#10;        [[NSBundle mainBundle] pathForResource:@&#34;imageDate.plist&#34; ofType:nil]];&#10;    &#125;&#10;    return _imageDicts;&#10;&#125;&#10;&#10;- (IBAction)clickLeftBtn:(UIButton *)sender &#123;&#10;    self.index --;&#10;    [self clickBtn];&#10;&#125;&#10;- (IBAction)clickRightBtn:(UIButton *)sender &#123;&#10;    self.index ++;&#10;    [self clickBtn];&#10;&#125;&#10;&#10;- (void)clickBtn&#123;&#10;    self.topLabel.text = [NSString stringWithFormat:@&#34;%d/%d&#34;, self.index+1, self.imageDicts.count];&#10;    self.descLabel.text = self.imageDicts[self.index][@&#34;description&#34;];&#10;    self.imageView.image = [UIImage imageNamed:self.imageDicts[self.index][@&#34;name&#34;]];&#10;    &#10;    self.leftBtn.enabled = (self.index != 0);&#10;    self.rightBtn.enabled = (self.index != 4);&#10;    &#10;&#125;&#10;&#10;- (void)viewDidLoad &#123;&#10;    [super viewDidLoad];&#10;    // Do any additional setup after loading the view, typically from a nib.&#10;&#125;&#10;&#10;- (void)didReceiveMemoryWarning &#123;&#10;    [super didReceiveMemoryWarning];&#10;    // Dispose of any resources that can be recreated.&#10;&#125;&#10;&#10;@end</span><br></pre></td></tr></table></figure>
-
-        
-      
-    </div>
-
-    <div class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </div>
-  </div>
-
-
-    
   </div>
 
   
@@ -1096,7 +1107,7 @@
         <div class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">57</span>
+              <span class="site-state-item-count">58</span>
               <span class="site-state-item-name">posts</span>
             </a>
           </div>
@@ -1110,7 +1121,7 @@
 
           <div class="site-state-item site-state-tags">
             
-              <span class="site-state-item-count">36</span>
+              <span class="site-state-item-count">37</span>
               <span class="site-state-item-name">tags</span>
               
           </div>

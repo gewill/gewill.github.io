@@ -122,6 +122,74 @@
           
           
             
+              <a class="post-title-link" href="/2015/07/28/iOS-Programming-4ed-5/">
+                《iOS 编程》4. 视图层次结构
+              </a>
+            
+          
+        </h1>
+      
+
+      <div class="post-meta">
+        <span class="post-time">
+          Posted on 2015-07-28
+        </span>
+
+        
+
+        
+          
+            <span class="post-comments-count">
+            &nbsp; | &nbsp;
+            <a href="/2015/07/28/iOS-Programming-4ed-5/#comments" >
+              <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2015/07/28/iOS-Programming-4ed-5/"></span>
+            </a>
+          </span>
+          
+        
+      </div>
+    </div>
+
+    <div class="post-body">
+
+      
+      
+
+      
+        
+          <h2 id="5-1_运行循环和重绘原理">5.1 运行循环和重绘原理 </h2><p>iOS 每次事件处理周期中只发送一次 <code>drawRect:</code> 消息。所以视图要重绘必须向其发送 <code>setNeedDisplay</code> 消息。</p>
+<h2 id="使用_UIScrollView"> 使用 UIScrollView</h2><p> 添加子视图，设置大小即可。类似一张大的画布，可以方便移动局部查看。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#10;CGRect screenRect = self.window.bounds;&#10;CGRect bigRect = screenRect;&#10;bigRect.size.width *= 2.0;&#10;&#10;UIScrollView *scrollView = [[UIScrollView alloc] initWithFrame:screenRect];&#10;[scrollView setPagingEnabled:YES];&#10;[self.window addSubview:scrollView];&#10;&#10;&#10;GWHypnosisView *hypnosisView = [[GWHypnosisView alloc] initWithFrame:screenRect];&#10;[scrollView addSubview:hypnosisView];&#10;&#10;screenRect.origin.x += screenRect.size.width;&#10;GWHypnosisView *anotherView = [[GWHypnosisView alloc] initWithFrame:screenRect];&#10;[scrollView addSubview:anotherView];&#10;&#10;&#10;scrollView.contentSize = bigRect.size;</span><br></pre></td></tr></table></figure>
+<h2 id="项目代码保存在我的_GitHub:_iOSProgramming4edSolutions"> 项目代码保存在我的 GitHub: <a href="https://github.com/gewill/iOSProgramming4edSolutions" target="_blank" rel="external">iOSProgramming4edSolutions</a></h2>
+        
+      
+    </div>
+
+    <div class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </div>
+  </div>
+
+
+    
+      
+
+  <div class="post post-type-normal ">
+    <div class="post-header">
+
+      
+      
+        <h1 class="post-title">
+          
+          
+            
               <a class="post-title-link" href="/2015/07/27/iOS-Programming-4ed-4/">
                 《iOS 编程》4. 视图层次结构
               </a>
@@ -1006,74 +1074,6 @@ pod <span class="string">'AFNetworking'</span>, <span class="string">'~&gt; 2.5'
 
 
     
-      
-
-  <div class="post post-type-normal ">
-    <div class="post-header">
-
-      
-      
-        <h1 class="post-title">
-          
-          
-            
-              <a class="post-title-link" href="/2015/07/20/GeekBand-Objective-C-Programming-1/">
-                极客班 Objective-C 高级编程（一）
-              </a>
-            
-          
-        </h1>
-      
-
-      <div class="post-meta">
-        <span class="post-time">
-          Posted on 2015-07-20
-        </span>
-
-        
-
-        
-          
-            <span class="post-comments-count">
-            &nbsp; | &nbsp;
-            <a href="/2015/07/20/GeekBand-Objective-C-Programming-1/#comments" >
-              <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2015/07/20/GeekBand-Objective-C-Programming-1/"></span>
-            </a>
-          </span>
-          
-        
-      </div>
-    </div>
-
-    <div class="post-body">
-
-      
-      
-
-      
-        
-          <p><a href="http://weibo.com/songduan" target="_blank" rel="external">@段松 </a> 老师有 7 年的 iOS 研发经验，一线大牛我喜欢，奇幻之旅就正式开始吧。</p>
-<p>iOS 开发和盖房子差不多，那么我们就先学习一些基本建筑材料: 数据类型与操作符。后面还有一些数组、运算符、流程控制语句、枚举、结构体和宏定义等。</p>
-<p> 虽然这些之前都有学过，也算温故知新吧。和 Swift 相比确实繁琐古老的一些。<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">NSInteger age = 18;&#10;NSInteger testAge;&#10;testAge = age &#62;= 18 ? 1 : 0;&#10;&#10;&#10;if (testAge) &#123;&#10;    NSLog(@&#34;&#20320;&#24050;&#32463;&#26159;&#20010;&#25104;&#24180;&#20154;&#20102;&#34;);&#10;&#125; else &#123;&#10;    NSLog(@&#34;&#20320;&#36824;&#26159;&#26410;&#25104;&#24180;&#20154;&#34;);&#10;&#125;&#10;&#10;char name[] = &#34;Will&#34;;&#10;printf(name);&#10;&#10;NSInteger price = 4;&#10;switch (price) &#123;&#10;    case 4: &#123;&#10;        NSLog(@&#34;four&#34;);&#10;        NSLog(@&#34;more than one line.&#34;);&#10;                break;&#10;            &#125;&#10;    case 3:        &#10;        NSLog(@&#34;three&#34;);        &#10;        break;        &#10;    case 2:        &#10;        NSLog(@&#34;two&#34;);        &#10;        break;        &#10;    default:        &#10;        break;        &#10; &#125;&#10;        &#10;bool isFemale = false;&#10;BOOL isMale = YES;&#10;if (isMale) &#123;&#10;    if (!isFemale) &#123;&#10;        NSLog(@&#34;You are a ture man.&#34;);&#10;    &#125;&#10;&#125;&#10;&#10;// &#24490;&#29615;&#10;int sum = 0;&#10;for (int i = 1; i &#60;= 100; ++i) &#123;&#10;    sum += i;&#10;&#125;&#10;NSLog(@&#34;%i&#34;, sum);&#10;&#10;int sum1 = 0;&#10;int j = 1;&#10;for (;  ;) &#123;&#10;    sum1 += j;&#10;    j++;&#10;    if (j &#62; 100) &#123;&#10;        break;&#10;    &#125;&#10;&#125;&#10;NSLog(@&#34;%i&#34;, sum1);&#10;&#10;&#10;// &#26522;&#20030;&#10;enum Person &#123;GoodGirl, GodBoy, BadGirl, BadBoy&#125;;&#10;enum Person someone;&#10;someone = GodBoy;&#10;if (someone != BadBoy &#38;&#38; someone != BadGirl) &#123;&#10;            NSLog(@&#34;Someone is a good person.&#34;);&#10;&#125;&#10;        &#10;        &#10;// &#32467;&#26500;&#20307;&#10;typedef struct &#123;CGFloat x; CGFloat y;&#125; MyPoint;&#10;MyPoint myPoint = &#123;6, 8&#125;;&#10;CGFloat result = myPoint.x + myPoint.y;&#10;NSLog(@&#34;result = %f&#34;, result);&#10;&#10;// #define &#23439;&#65306;&#25991;&#26412;&#26367;&#25442;&#10;        &#10;#define PI 3.1415926&#10;#define SQUARE(x) ((x)*(x))&#10;        &#10;NSLog(@&#34;%f&#34;, PI * SQUARE(5 - 4));   // 3.141593&#10;NSLog(@&#34;%.7f&#34;, PI * SQUARE(5 - 4)); // 3.1415926&#10;NSLog(@&#34;%e&#34;, PI * SQUARE(5 - 4));   // 3.141593e+00&#10;    &#10;// #import &#23548;&#20837;&#25991;&#20214;&#10;// #import &#34;example.h&#34;&#10;        &#10;// &#26465;&#20214;&#32534;&#35793;&#10;#ifdef __OBJC__&#10;#import &#60;Foundation/Foundation.h&#62;&#10;#endif</span><br></pre></td></tr></table></figure></p>
-
-        
-      
-    </div>
-
-    <div class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </div>
-  </div>
-
-
-    
   </div>
 
   
@@ -1112,7 +1112,7 @@ pod <span class="string">'AFNetworking'</span>, <span class="string">'~&gt; 2.5'
         <div class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">57</span>
+              <span class="site-state-item-count">58</span>
               <span class="site-state-item-name">posts</span>
             </a>
           </div>
@@ -1126,7 +1126,7 @@ pod <span class="string">'AFNetworking'</span>, <span class="string">'~&gt; 2.5'
 
           <div class="site-state-item site-state-tags">
             
-              <span class="site-state-item-count">36</span>
+              <span class="site-state-item-count">37</span>
               <span class="site-state-item-name">tags</span>
               
           </div>
