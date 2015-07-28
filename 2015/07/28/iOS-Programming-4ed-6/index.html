@@ -24,7 +24,7 @@
 
 
 
-  <meta name="keywords" content="Object Oriented,Protocols,Swift,iOS Development," />
+  <meta name="keywords" content="Objective-C,ViewController,iOS Development,iOS Programming 4ed," />
 
 
 
@@ -48,7 +48,7 @@
 
 
 
-  <title> Crazy Swift Lecture Chapter 8 // whoDO </title>
+  <title> 《iOS 编程》6. 视图控制器 // whoDO </title>
 </head>
 
 <body>
@@ -120,7 +120,7 @@
           
           
             
-              Crazy Swift Lecture Chapter 8
+              《iOS 编程》6. 视图控制器
             
           
         </h1>
@@ -128,7 +128,7 @@
 
       <div class="post-meta">
         <span class="post-time">
-          Posted on 2015-07-15
+          Posted on 2015-07-28
         </span>
 
         
@@ -137,8 +137,8 @@
           
             <span class="post-comments-count">
             &nbsp; | &nbsp;
-            <a href="/2015/07/15/Crazy-Swift-Lecture-Chapter-8/#comments" >
-              <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2015/07/15/Crazy-Swift-Lecture-Chapter-8/"></span>
+            <a href="/2015/07/28/iOS-Programming-4ed-6/#comments" >
+              <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2015/07/28/iOS-Programming-4ed-6/"></span>
             </a>
           </span>
           
@@ -152,60 +152,38 @@
       
 
       
-        <h1 id="第八章_面向对象（下）">第八章 面向对象（下）</h1><p>Swift 学习了一段时间，还算熟悉了其语法，有待开发 APP 练习提高。</p>
-<p>Swift 面向对象的三大特性：封装、继承、多态。还提供 private、internal 和 public 等访问控制符来实现封装。</p>
-<h2 id="8-1_继承">8.1 继承</h2><p>Swift 不支持多继承。</p>
-<p>如果没有指定父类，他将没有父类，并没有 Objective-C 的基类如 NSObject 或 Object 之类。</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">class Fruit&#10;&#123;&#10;    var weight = 0.0&#10;    func info()&#10;    &#123;&#10;        print(&#34;&#25105;&#26159;&#19968;&#20010;&#27700;&#26524;&#65292;&#37325;\(weight)g&#12290;&#34;)&#10;    &#125;&#10;&#125;&#10;&#10;class Apple: Fruit &#123;&#10;    var name: String!&#10;    func taste()&#10;    &#123;&#10;        print(&#34;\(name)&#21507;&#36215;&#26469;&#24456;&#22909;&#21507;&#12290;&#34;)&#10;    &#125;&#10;&#125;&#10;&#10;var a = Apple()&#10;a.name = &#34;&#32418;&#23500;&#22763;&#34;&#10;a.weight = 56&#10;&#10;a.info()  // &#36755;&#20986;&#65306;&#25105;&#26159;&#19968;&#20010;&#27700;&#26524;&#65292;&#37325;56.0g&#12290;&#10;a.taste() // &#36755;&#20986;&#65306;&#32418;&#23500;&#22763;&#21507;&#36215;&#26469;&#24456;&#22909;&#21507;&#12290;</span><br></pre></td></tr></table></figure>
-<p>重写父类的方法</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">class Bird &#123;&#10;    func fly()&#10;    &#123;&#10;        print(&#34;I can fly in the blue sky.&#34;)&#10;    &#125;&#10;&#125;&#10;&#10;class Ostrich: Bird &#123;&#10;    override func fly() &#123;&#10;        print(&#34;I only run on the groud.&#34;)&#10;    &#125;&#10;&#125;&#10;&#10;var os = Ostrich()&#10;&#10;os.fly() //&#36755;&#20986;&#65306;I only run on the groud.</span><br></pre></td></tr></table></figure>
-<p>重写父类的属性</p>
-<p>super 用于限定调用它从父类继承得到的属性、方法。</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">class Bird &#123;&#10;    var speed: Double = 0&#10;&#125;&#10;&#10;class Ostrich: Bird &#123;&#10;    override var speed: Double&#123;&#10;        get&#123;&#10;            print(&#34;&#27491;&#22312;&#35775;&#38382;&#34987;&#37325;&#20889;&#30340;&#23646;&#24615;&#12290;&#34;)&#10;            return super.speed&#10;        &#125;&#10;        set&#123;&#10;            super.speed = newValue * newValue&#10;        &#125;&#10;    &#125;&#10;&#125;&#10;&#10;var os = Ostrich()&#10;&#10;os.speed = 20&#10;&#10;print(&#34;os &#30340;&#36895;&#24230;&#20026;&#65306;\(os.speed)&#12290;&#34;)</span><br></pre></td></tr></table></figure>
-<p>还可以重写读写观察者、父类的下标，使用 final 防止重写。</p>
-<h2 id="8-2_类的构造和析构">8.2 类的构造和析构 </h2><p> 类的构造器链调用规则：</p>
+        <h2 id="6-5_添加本地通知">6.5 添加本地通知 </h2><p> 书中没有提到申请通知权限，方法如下</p>
+<p><a href="http://stackoverflow.com/questions/24203066/ask-user-for-permission-to-show-alert-when-firing-local-notification" target="_blank" rel="external">add this code, it will show a alert view to ask user for permission.</a></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#10;if ([UIApplication instancesRespondToSelector:@selector(registerUserNotificationSettings:)]) &#123;&#10;    [[UIApplication sharedApplication] registerUserNotificationSettings:[UIUserNotificationSettings settingsForTypes:UIUserNotificationTypeAlert|UIUserNotificationTypeSound|UIUserNotificationTypeBadge&#10;                                                                                                          categories:nil]];&#10;&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="6-7_与视图控制器及其视图进行交互">6.7 与视图控制器及其视图进行交互 </h2><p><strong> 视图控制器的生命周期方法（lifecycle method）：</strong></p>
 <ul>
-<li>指定构造器总是必须向上代理（调用父类构造器）</li>
-<li>便利构造器总是必须横向代理（调用当前类的其他构造器）</li>
+<li><p>application:didFinishLaunchingWithOptions: 在该方法中设置和初始化应用窗口的根视图控制器。该方法只会在应用启动完毕后调用一次。</p>
+</li>
+<li><p>initWithNibName:bundle: 该方法是 UIViewController 的指定初始化方法，创建视图控制器时，就会调用该方法。请注意，某些情况下，需要在同一个应用中创建多个相同的 UIViewController 子类对象，每次创建一个该类的对象时，都会调用一次该类的 initWithNibName:bundle: 方法。</p>
+</li>
 </ul>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">class Apple &#123;&#10;    var name: String!&#10;    var weight: Double&#10;    &#10;    // &#23450;&#20041;&#25351;&#23450;&#26500;&#36896;&#22120;&#10;    init(name: String, weight: Double)&#10;    &#123;&#10;        self.name = name&#10;        self.weight = weight&#10;    &#125;&#10;    &#10;    // &#23450;&#20041;&#20415;&#21033;&#26500;&#36896;&#22120;&#10;    convenience init(n name: String, w weight: Double)&#10;    &#123;&#10;        // &#20415;&#21033;&#26500;&#36896;&#22120;&#24517;&#39035;&#35843;&#29992;&#21516;&#19968;&#20010;&#31867;&#20013;&#30340;&#20854;&#20182;&#26500;&#36896;&#22120;&#10;        self.init(name: name, weight: weight)&#10;        self.name = name&#10;    &#125;&#10;&#125;&#10;&#10;var app1 = Apple(n: &#34;&#32418;&#23500;&#22763;&#34;, w: 1.2)&#10;var app2 = Apple(name: &#34;&#25351;&#23450;&#34;, weight: 8.8)</span><br></pre></td></tr></table></figure>
-<h2 id="8-3_多态">8.3 多态 </h2><p> 相同类型的变量、调用同一个方法时呈现出多种不同的行为特征，就叫多态。</p>
-<p>is 运算符可以判断前面的引用变量是否引用后面的类，或其子类、实现的类的实例。</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">@objc protocol TestProtocol&#123;&#125;&#10;&#10;let hello: NSObject = &#34;Hello&#34;&#10;print(&#34;&#23383;&#31526;&#20018;&#26159;&#21542;&#26159; NSString &#31867;&#30340;&#23454;&#20363;&#65306;\(hello is NSString)&#34;) // &#36820;&#22238; true&#10;print(&#34;&#23383;&#31526;&#20018;&#26159;&#21542;&#26159; NSDate&#31867;&#30340;&#23454;&#20363;&#65306;\(hello is NSDate)&#34;) // &#36820;&#22238; false&#10;print(&#34;&#23383;&#31526;&#20018;&#26159;&#21542;&#26159; TestProtocol &#21327;&#35758;&#30340;&#23454;&#20363;&#65306;\(hello is TestProtocol)&#34;) // &#36820;&#22238; false&#10;let a: NSString = &#34;Hello&#34;&#10;print(&#34;&#23383;&#31526;&#20018;&#26159;&#21542;&#26159; NSDate &#31867;&#30340;&#23454;&#20363;&#65306;\(a is NSDate)&#34;) // &#36820;&#22238; false</span><br></pre></td></tr></table></figure>
-<p>as 运算符向下转型为引用变量的实际类型：</p>
 <ul>
-<li>as：强制转换，失败则运行错误</li>
-<li>as?：可选形式的向下转换，返回一个可选值，成功则包含转换结果，失败则包含 nil</li>
+<li>loadView: 可以覆盖该方法，使用代码方式设置视图控制器的 view 属性。</li>
 </ul>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">class Fruit &#123;&#10;    var name: String&#10;    var weight: Double&#10;    init(name: String, weight: Double)&#10;    &#123;&#10;        self.weight = weight&#10;        self.name = name&#10;    &#125;&#10;&#125;&#10;&#10;class Apple: Fruit &#123;&#10;    var color: String&#10;    init(name: String, weight: Double, color:String)&#10;    &#123;&#10;        self.color = color&#10;        super.init(name: name, weight: weight)&#10;    &#125;&#10;&#125;&#10;&#10;class Grape: Fruit &#123;&#10;    var sugarRate: Double&#10;    init(name: String, weight: Double, sugarRate: Double)&#10;    &#123;&#10;        self.sugarRate = sugarRate&#10;        super.init(name: name, weight: weight)&#10;    &#125;&#10;&#125;&#10;&#10;var fruits: [Fruit] = [&#10;    Apple(name: &#34;Red Fuji&#34;, weight: 1.8, color: &#34;Pink&#34;),&#10;    Apple(name: &#34;Cattle Fruit&#34;, weight: 2.2, color: &#34;Pink&#34;),&#10;    Grape(name: &#34;California Raisins&#34;, weight: 1.4, sugarRate: 0.34),&#10;    Grape(name: &#34;Xinjiang Grape&#34;, weight: 2.3, sugarRate: 0.45)&#10;]&#10;&#10;for f in fruits &#123;&#10;    if let ap = f as? Apple &#123;&#10;        print(&#34;\(ap.name)&#39;s color is \(ap.color).&#34;)&#10;    &#125;&#10;    else if let gp = f as? Grape &#123;&#10;        print(&#34;\(gp.name)&#39;s suagr rate is \(gp.sugarRate).&#34;)&#10;    &#125;&#10;&#125;&#10;&#10;/* output:&#10;&#10;Red Fuji&#39;s color is Pink.&#10;Cattle Fruit&#39;s color is Pink.&#10;California Raisins&#39;s suagr rate is 0.34.&#10;Xinjiang Grape&#39;s suagr rate is 0.45.&#10;&#10;*/</span><br></pre></td></tr></table></figure>
-<p>不确定类型：</p>
 <ul>
-<li>AnyObject：可代表任何类的实例</li>
-<li>Any：可代表任何类型，包括 Int、Double 等值类型</li>
+<li>viewDidLoad 可以覆盖该方法，设置使用 NIB 文件创建的视图对象。该方法会在视图控制器加载完视图后被调用。</li>
 </ul>
-<h2 id="8-4_嵌套类型">8.4 嵌套类型 </h2><p> 程序外部使用嵌套类型需要添加被嵌套类型的前缀。</p>
-<h2 id="8-5_扩展">8.5 扩展</h2><p>Swift 的扩展和 Objective-C 的分类比较相似，可以提高如下功能：</p>
 <ul>
-<li>添加属性</li>
-<li>添加方法</li>
-<li>添加新的构造器</li>
-<li>添加下标</li>
-<li>定义和使用新的嵌套类型</li>
-<li>使用一个类型符合一个或多个协议</li>
+<li>viewWillAppear: 可以覆盖该方法，设置使用 NIB 文件创建的视图对象。该方法和</li>
+<li>viewDidAppear: 会在每次视图控制器的 view 显示在屏幕上时被调用；相反，</li>
+<li>viewWillDisappear: 和 viewDidDisappear: 方法会在每次视图控制器的 view 从屏幕上消失时被调用。</li>
 </ul>
-<h2 id="8-6_协议">8.6 协议 </h2><h2 id="8-7_隐藏和封装">8.7 隐藏和封装</h2><p> 对于开发通用性架构时使用，可实现该隐藏的隐藏，该暴漏的暴漏。<br>Swift 提供 3 中访问控制符：</p>
-<ul>
-<li>public</li>
-<li>internal：internal 实体可以被同一个模块或应用的其他实体使用</li>
-<li>private：只能在当前源文件中使用</li>
-</ul>
-<p>Swift 默认的访问控制符： internal</p>
-<p>所有的实体只能指定比它所依赖的实体更低或相等的访问权限，如：</p>
-<ul>
-<li>不能在 internal 和 private 的类型中定义 public 访问权限的属性、方法、下标、构造器等</li>
-<li>函数的访问权限不能高于它的参数。返回值的访问权限</li>
-</ul>
-<h2 id="8-8_Swift_内存管理">8.8 Swift 内存管理</h2>
+<h2 id="6-9_中级练习：控制逻辑">6.9 中级练习：控制逻辑 </h2><p> 查文档不懂，这是个大问题，有待提高看文档具体怎么组织的能力。<a href="http://stackoverflow.com/questions/6688160/how-to-programmatically-add-a-uisegmentedcontrol-to-a-container-view" target="_blank" rel="external">Stack Overflow</a> 的答案运行崩溃，没有理解原理，<code>mainSegmentControl:</code> 方法没有声明。最后还是去 <a href="http://forums.bignerdranch.com/viewtopic.php?f=487&amp;t=9844" target="_blank" rel="external">BNR 论坛</a> 找到了答案。</p>
+<blockquote>
+<p>熟悉文档浏览 UIColor，其实也是不很精通颜色，但是还是大部分看懂了，也了解了目录结构和对应文本的样式。</p>
+</blockquote>
+<p>GWHypnosisViewController.m </p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#10;- (void)viewDidLoad &#123;&#10;    [super viewDidLoad];&#10;    // Do any additional setup after loading the view.&#10;    NSLog(@&#34;GWHypnosisViewController loaded its view.&#34;);&#10;&#10;    // &#21021;&#22987;&#21270;UISegmentedControl&#65292;&#35774;&#32622;&#22823;&#23567;&#21644;&#39068;&#33394;&#10;    UISegmentedControl *segmentedControl = [[UISegmentedControl alloc] initWithItems:@[@&#34;Red&#34;, @&#34;Green&#34;, @&#34;Blue&#34;]];&#10;    segmentedControl.frame = CGRectMake(0, 0, 250, 50);&#10;    segmentedControl.tintColor = [UIColor blackColor];&#10;    &#10;    // &#27880;&#20876;UISegmentedControl&#10;    [segmentedControl addTarget:self.view&#10;                         action:@selector(mainSegmentControl:)&#10;               forControlEvents: UIControlEventValueChanged];&#10;    // &#28155;&#21152;&#21040;&#35270;&#22270;&#10;    [self.view addSubview:segmentedControl];&#10;    &#10;&#125;</span><br></pre></td></tr></table></figure>
+<p>GWHypnosisView.h</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#10;- (void)mainSegmentControl:(UISegmentedControl *)segment;</span><br></pre></td></tr></table></figure>
+<p>GWHypnosisView.m</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">// mainSegmentControl: &#26041;&#27861;&#29992;&#26469;&#25509;&#21463; UISegmentedControl &#21457;&#30340;&#28040;&#24687;&#10;- (void)mainSegmentControl:(UISegmentedControl *)segment&#10;&#123;&#10;    &#10;    if(segment.selectedSegmentIndex == 0)&#10;    &#123;&#10;        // action for the first button (Current or Default)&#10;        self.circleColor = [UIColor redColor];&#10;    &#125;&#10;    else if(segment.selectedSegmentIndex == 1)&#10;    &#123;&#10;        // action for the second button&#10;        self.circleColor = [UIColor greenColor];&#10;    &#125;&#10;    else if(segment.selectedSegmentIndex == 2)&#10;    &#123;&#10;        // action for the third button&#10;        self.circleColor = [UIColor blueColor];&#10;    &#125;&#10;    &#10;&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="项目代码保存在我的_GitHub:_iOSProgramming4edSolutions">项目代码保存在我的 GitHub: <a href="https://github.com/gewill/iOSProgramming4edSolutions" target="_blank" rel="external">iOSProgramming4edSolutions</a></h2>
       
     </div>
 
@@ -213,13 +191,13 @@
       
         <div class="post-tags">
           
-            <a href="/tags/Object-Oriented/"> #Object Oriented </a>
+            <a href="/tags/Objective-C/"> #Objective-C </a>
           
-            <a href="/tags/Protocols/"> #Protocols </a>
-          
-            <a href="/tags/Swift/"> #Swift </a>
+            <a href="/tags/ViewController/"> #ViewController </a>
           
             <a href="/tags/iOS-Development/"> #iOS Development </a>
+          
+            <a href="/tags/iOS-Programming-4ed/"> #iOS Programming 4ed </a>
           
         </div>
       
@@ -228,13 +206,13 @@
         <div class="post-nav">
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2015/07/15/CS193P-4-More-Swift-and-Foundation-Frameworks/">CS193P 4. More Swift and Foundation Frameworks</a>
+              <a href="/2015/07/28/GeekBand-iOS-APP-Development-2/">极客班 iOS 应用开发实战（二）</a>
             
           </div>
 
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2015/07/11/CS193P-3-Applying-MVC/">CS193P 3. Applying MVC</a>
+              <a href="/2015/07/28/iOS-Programming-4ed-5/">《iOS 编程》5. 视图：重绘与 UIScrollView</a>
             
           </div>
         </div>
@@ -356,7 +334,7 @@
           <div class="post-toc">
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#第八章_面向对象（下）"><span class="nav-text">第八章 面向对象（下）</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#8-1_继承"><span class="nav-text">8.1 继承</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#8-2_类的构造和析构"><span class="nav-text">8.2 类的构造和析构 </span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#8-3_多态"><span class="nav-text">8.3 多态 </span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#8-4_嵌套类型"><span class="nav-text">8.4 嵌套类型 </span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#8-5_扩展"><span class="nav-text">8.5 扩展</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#8-6_协议"><span class="nav-text">8.6 协议 </span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#8-7_隐藏和封装"><span class="nav-text">8.7 隐藏和封装</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#8-8_Swift_内存管理"><span class="nav-text">8.8 Swift 内存管理</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#6-5_添加本地通知"><span class="nav-text">6.5 添加本地通知 </span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#6-7_与视图控制器及其视图进行交互"><span class="nav-text">6.7 与视图控制器及其视图进行交互 </span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#6-9_中级练习：控制逻辑"><span class="nav-text">6.9 中级练习：控制逻辑 </span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#项目代码保存在我的_GitHub:_iOSProgramming4edSolutions"><span class="nav-text">项目代码保存在我的 GitHub: iOSProgramming4edSolutions</span></a></li></ol></div>
             
           </div>
           <div class="post-toc-indicator-bottom post-toc-indicator"></div>
@@ -602,9 +580,9 @@
 
     <script type="text/javascript">
       var disqus_shortname = 'gewill';
-      var disqus_identifier = '2015/07/15/Crazy-Swift-Lecture-Chapter-8/';
-      var disqus_title = 'Crazy Swift Lecture Chapter 8';
-      var disqus_url = 'http://gewill.org/2015/07/15/Crazy-Swift-Lecture-Chapter-8/';
+      var disqus_identifier = '2015/07/28/iOS-Programming-4ed-6/';
+      var disqus_title = '《iOS 编程》6. 视图控制器';
+      var disqus_url = 'http://gewill.org/2015/07/28/iOS-Programming-4ed-6/';
 
       (function(){
         var dsq = document.createElement('script');
