@@ -1,0 +1,589 @@
+<!doctype html>
+<html class="theme-next use-motion theme-next-mist">
+<head>
+  
+
+<meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+  <meta name="google-site-verification" content="6p6MCt9mM7zNfEZF2HzE72sTOXJ8MC5frP4VNvYw1JU" />
+
+
+
+
+
+  <link rel="stylesheet" type="text/css" href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5"/>
+
+
+<link rel="stylesheet" type="text/css" href="/css/main.css?v=0.4.3"/>
+
+
+    <meta name="description" content="The people who are crazy enough to think they can change the world, are the ones who do." />
+
+
+
+  <meta name="keywords" content="Collection Types,Swift,iOS Development," />
+
+
+
+
+
+  <link rel="shorticon icon" type="image/x-icon" href="/bitbug_favicon.ico?v=0.4.3" />
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var CONFIG = {
+    scheme: 'Mist',
+    analytics: {
+      baidu: '',
+      google: 'UA-62118677-1'
+    },
+    sidebar: 'hide'
+  };
+</script>
+
+
+
+
+  <title> Crazy Swift Lecture Chapter 5 // whoDO </title>
+</head>
+
+<body>
+<!--[if lte IE 8]> <div style=' clear: both; height: 59px; padding:0 0 0 15px; position: relative;margin:0 auto;'> <a href="http://windows.microsoft.com/en-US/internet-explorer/products/ie/home?ocid=ie6_countdown_bannercode"><img src="http://7u2nvr.com1.z0.glb.clouddn.com/picouterie.jpg" border="0" height="42" width="820" alt="You are using an outdated browser. For a faster, safer browsing experience, upgrade for free today or use other browser ,like chrome firefox safari." style='margin-left:auto;margin-right:auto;display: block;'/></a></div> <![endif]-->
+  <div class="container one-column page-post-detail">
+    <div class="headband"></div>
+
+    <div id="header" class="header">
+      <div class="header-inner">
+        <h1 class="site-meta">
+  <span class="logo-line-before"><i></i></span>
+  <a href="/" class="brand">
+      <span class="logo">
+        <i class="icon-logo"></i>
+      </span>
+      <span class="site-title">whoDO</span>
+  </a>
+  <span class="logo-line-after"><i></i></span>
+</h1>
+
+
+  <ul id="menu" class="menu">
+     
+    
+      
+      <li class="menu-item menu-item-home">
+        <a href="/">
+          <i class="menu-item-icon icon-home"></i> <br />
+          Home
+        </a>
+      </li>
+    
+      
+      <li class="menu-item menu-item-archives">
+        <a href="/archives">
+          <i class="menu-item-icon icon-archives"></i> <br />
+          Archives
+        </a>
+      </li>
+    
+      
+      <li class="menu-item menu-item-about">
+        <a href="/about">
+          <i class="menu-item-icon icon-about"></i> <br />
+          About
+        </a>
+      </li>
+    
+  </ul>
+
+
+      </div>
+    </div>
+
+    <div id="main" class="main">
+      <div class="main-inner">
+        <div id="content" class="content">
+          
+
+  <div id="posts" class="posts-expand">
+    
+
+  <div class="post post-type-normal ">
+    <div class="post-header">
+
+      
+      
+        <h1 class="post-title">
+          
+          
+            
+              Crazy Swift Lecture Chapter 5
+            
+          
+        </h1>
+      
+
+      <div class="post-meta">
+        <span class="post-time">
+          Posted on 2015-05-16
+        </span>
+
+        
+
+        
+          
+            <span class="post-comments-count">
+            &nbsp; | &nbsp;
+            <a href="/2015/05/16/Crazy-Swift-Lecture-Chapter-5/#comments" >
+              <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2015/05/16/Crazy-Swift-Lecture-Chapter-5/"></span>
+            </a>
+          </span>
+          
+        
+      </div>
+    </div>
+
+    <div class="post-body">
+
+      
+      
+
+      
+        <h1 id="第五章：集合"> 第五章：集合 </h1><h2 id="5-1_数组">5.1 数组 </h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">// &#20351;&#29992;&#27867;&#22411;&#35821;&#27861;&#22768;&#26126;&#25968;&#32452;&#13;var myArr : Array&#60;String&#62;&#13;// &#20351;&#29992;&#31616;&#21270;&#35821;&#27861;&#22768;&#26126;&#25968;&#32452;&#13;var names : [String]&#13;var nums : [Int]&#13;// &#21019;&#24314;&#19968;&#20010;&#31354;&#25968;&#32452;&#65292;&#24182;&#23558;&#35813;&#31354;&#25968;&#32452;&#36171;&#20540;&#32473;myArr&#21464;&#37327;&#13;myArr = Array&#60;String&#62;()&#13;// &#21019;&#24314;&#19968;&#20010;&#21253;&#21547;10&#20010;&#34;fkit&#34;&#20803;&#32032;&#30340;&#25968;&#32452;&#65292;&#24182;&#23558;&#35813;&#25968;&#32452;&#36171;&#20540;&#32473;names&#21464;&#37327;&#13;names = Array&#60;String&#62;(count: 10, repeatedValue: &#34;fkit&#34;)&#13;// &#21019;&#24314;&#19968;&#20010;&#21253;&#21547;100&#20010;&#25968;&#20540;0&#30340;&#25968;&#32452;&#65292;&#24182;&#23558;&#35813;&#25968;&#32452;&#36171;&#20540;&#32473;nums&#21464;&#37327;&#13;nums = Array&#60;Int&#62;(count: 100, repeatedValue: 0)&#13;&#13;// &#20351;&#29992;&#31616;&#21270;&#35821;&#27861;&#21019;&#24314;&#25968;&#32452;&#65292;&#24182;&#23558;&#25968;&#32452;&#36171;&#20540;&#32473;flowers&#21464;&#37327;&#13;var flowers:[String] = [&#34;&#9830;&#34; , &#34;&#9827;&#34; , &#34;&#10084;&#34; , &#34;&#9824;&#34;]&#13;// &#20351;&#29992;&#31616;&#21270;&#35821;&#27861;&#21019;&#24314;&#25968;&#32452;&#65292;&#24182;&#23558;&#25968;&#32452;&#36171;&#20540;&#32473;values&#21464;&#37327;&#13;var values = [&#34;2&#34; , &#34;3&#34; , &#34;3&#34; , &#34;4&#34; , &#34;5&#34; , &#34;6&#34;,&#13;&#9;&#34;7&#34; , &#34;8&#34; , &#34;9&#34; , &#34;10&#34; , &#34;J&#34; , &#34;Q&#34; , &#34;K&#34; , &#34;A&#34;]&#13;&#9;&#13;// &#36755;&#20986;names&#25968;&#32452;&#30340;&#31532;&#20108;&#20010;&#20803;&#32032;&#65292;&#23558;&#36755;&#20986;&#23383;&#31526;&#20018;&#34;fkit&#34;&#13;println(names[1])&#13;// &#20026;names&#30340;&#31532;&#19968;&#20010;&#25968;&#32452;&#20803;&#32032;&#36171;&#20540;&#13;names[0] = &#34;Spring&#34;&#13;println(names)&#13;&#13;//println(names[10])&#13;&#13;// &#20351;&#29992;&#24490;&#29615;&#36755;&#20986;flowers&#25968;&#32452;&#30340;&#27599;&#20010;&#25968;&#32452;&#20803;&#32032;&#30340;&#20540;&#13;for var i = 0; i &#60; flowers.count ; i++&#13;&#123;&#13;&#9;println(flowers[i])&#13;&#125;&#13;&#13;&#13;// &#23545;names&#25968;&#32452;&#30340;&#25968;&#32452;&#20803;&#32032;&#36827;&#34892;&#36171;&#20540;&#13;names[1] = &#34;Lua&#34;&#13;names[2] = &#34;Ruby&#34;&#13;// &#20351;&#29992;&#24490;&#29615;&#36755;&#20986;names&#25968;&#32452;&#30340;&#27599;&#20010;&#25968;&#32452;&#20803;&#32032;&#30340;&#20540;&#13;for var i = 0 ; i &#60; names.count ; i++&#13;&#123;&#13;&#9;println(names[i])&#13;&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">var books:[String] = [&#34;&#30127;&#29378;Swift&#35762;&#20041;&#34; , &#13;&#9;&#34;&#30127;&#29378;iOS&#35762;&#20041;&#34;,&#13;&#9;&#34;&#30127;&#29378;Android&#35762;&#20041;&#34;]&#13;// &#20351;&#29992;for-in&#24490;&#29615;&#26469;&#36941;&#21382;&#25968;&#32452;&#13;// &#20854;&#20013;book&#23558;&#20250;&#33258;&#21160;&#36845;&#20195;&#27599;&#20010;&#25968;&#32452;&#20803;&#32032;&#13;for book in books&#13;&#123;&#13;&#9;println(book)&#13;&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">// &#19979;&#38754;&#23581;&#35797;&#22312; for-in &#24490;&#29615;&#36941;&#21382;&#26102;&#23545;&#24490;&#29615;&#24120;&#37327;&#36171;&#20540;&#26159;&#38169;&#35823;&#30340;&#65281;&#65281;&#65281;&#10;var books:[String] = [&#34;&#30127;&#29378;Swift&#35762;&#20041;&#34; , &#13;&#9;&#34;&#30127;&#29378;iOS&#35762;&#20041;&#34;,&#13;&#9;&#34;&#30127;&#29378;Android&#35762;&#20041;&#34;]&#13;// book&#24120;&#37327;&#23558;&#20250;&#33258;&#21160;&#36845;&#20195;&#27599;&#20010;&#25968;&#32452;&#20803;&#32032;&#13;for book in books&#13;&#123;&#13;&#9;book = &#34;&#30127;&#29378;Ajax&#35762;&#20041;&#34;&#13;&#9;println(book)&#13;&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">// &#20351;&#29992;var&#23450;&#20041;&#19968;&#20010;&#21487;&#21464;&#25968;&#32452;&#13;var languages = [&#34;Swift&#34;]&#13;// &#36861;&#21152;&#19968;&#20010;&#20803;&#32032;&#13;languages.append(&#34;Go&#34;)&#13;languages.append(&#34;Lua&#34;)&#13;// &#36755;&#20986;Swift, Go, Lua&#13;println(languages)&#13;println(languages.count) // &#36755;&#20986;3&#13;languages = languages + [&#34;Ruby&#34;]&#13;// &#19978;&#38754;&#20195;&#30721;&#21487;&#31616;&#20889;&#20026;&#22914;&#19979;&#13;languages += [&#34;Ruby&#34;]&#13;// &#36755;&#20986;Swift, Go, Lua, Ruby, Ruby&#13;println(languages)&#13;println(languages.count) // &#36755;&#20986;5</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">// &#20351;&#29992;var&#23450;&#20041;&#19968;&#20010;&#21487;&#21464;&#25968;&#32452;&#13;var languages = [&#34;Swift&#34;]&#13;// &#25554;&#20837;&#19968;&#20010;&#20803;&#32032;&#13;languages.insert(&#34;Go&#34; , atIndex:0)&#13;// &#25554;&#20837;&#19968;&#20010;&#20803;&#32032;&#65292;&#25351;&#23450;atIndex:2&#65292;&#34920;&#26126;&#35813;&#20803;&#32032;&#25554;&#20837;&#25968;&#32452;&#30340;&#26368;&#21518;&#13;languages.insert(&#34;Lua&#34; , atIndex:2)&#13;// &#36755;&#20986;Go, Swift, Lua&#13;println(languages)&#13;println(languages.count) // &#36755;&#20986;3&#13;// &#19979;&#38754;&#20195;&#30721;&#25351;&#23450;atIndex&#36229;&#36807;&#20102;&#25968;&#32452;&#38271;&#24230;&#65292;&#22240;&#27492;&#19979;&#38754;&#20195;&#30721;&#23558;&#20250;&#23548;&#33268;&#38169;&#35823;&#13;languages.insert(&#34;Ruby&#34; , atIndex:4)</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">var languages = [&#34;Swift&#34;, &#34;OC&#34;, &#34;PHP&#34;, &#34;Perl&#34; , &#34;Ruby&#34; , &#34;Go&#34;]&#13;// &#33719;&#21462;languages&#20013;&#25968;&#32452;&#20013;&#32034;&#24341;&#20026;1~4&#30340;&#20803;&#32032;&#13;let subRange = languages[1..&#60;4]&#13;println(subRange)  // &#36755;&#20986;[OC, PHP, Perl]&#13;// &#23558;languages&#20013;&#25968;&#32452;&#20013;&#32034;&#24341;&#20026;2~4&#30340;&#20803;&#32032;&#26367;&#25442;&#25104;&#34;C/C++&#34; , &#34;Python&#34;&#13;languages[2...4] = [&#34;C/C++&#34; , &#34;Python&#34;]&#13;println(languages)  // &#36755;&#20986;[Swift, OC, C/C++, Python, Go]&#13;// &#23558;languages&#20013;&#25968;&#32452;&#20013;&#32034;&#24341;&#20026;1~2&#30340;&#20803;&#32032;&#26367;&#25442;&#25104;&#34;a&#34; , &#34;b&#34; , &#34;c&#34;&#13;languages[1...2] = [&#34;a&#34; , &#34;b&#34; , &#34;c&#34;]&#13;println(languages)  // &#36755;&#20986;[Swift, a, b, c, Python, Go]&#13;// &#28165;&#31354;&#25968;&#32452;&#13;languages[0..&#60;languages.count] = []&#13;println(languages)  // &#36755;&#20986;[]</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">var languages = [&#34;Swift&#34;, &#34;OC&#34;, &#34;PHP&#34;, &#34;Perl&#34; , &#34;Ruby&#34; , &#34;Go&#34;]&#13;// &#21024;&#38500;&#32034;&#24341;&#20026;2&#30340;&#20803;&#32032;&#65292;&#21024;&#38500;&#34;PHP&#34;&#13;languages.removeAtIndex(2)&#13;// &#20877;&#27425;&#21024;&#38500;&#32034;&#24341;&#20026;2&#30340;&#20803;&#32032;&#65292;&#21024;&#38500;&#34;Perl&#34;&#13;languages.removeAtIndex(2)&#13;println(languages)  // &#36755;&#20986;[Swift, OC, Ruby, Go]&#13;// &#21024;&#38500;&#26368;&#21518;&#19968;&#20010;&#20803;&#32032;&#65292;&#21024;&#38500;&#34;Go&#34;&#13;languages.removeLast()&#13;println(languages)  // &#36755;&#20986;[Swift, OC, Ruby]&#13;// &#21024;&#38500;&#25152;&#26377;&#20803;&#32032;&#13;languages.removeAll()&#13;println(languages)  // &#36755;&#20986;[]&#13;println(languages.count)  // &#36755;&#20986;0</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">// &#23450;&#20041;&#19968;&#20010;&#20108;&#32500;&#25968;&#32452;&#13;var a : [[Int]]&#13;// &#25226;a&#24403;&#25104;&#19968;&#32500;&#25968;&#32452;&#36827;&#34892;&#21021;&#22987;&#21270;&#65292;&#21021;&#22987;&#21270;a&#26159;&#19968;&#20010;&#38271;&#24230;&#20026;4&#30340;&#25968;&#32452;&#13;// a&#25968;&#32452;&#30340;&#25968;&#32452;&#20803;&#32032;&#21448;&#26159;&#24341;&#29992;&#31867;&#22411;&#13;a = Array&#60;Array&#60;Int&#62;&#62;(count:4 , repeatedValue:[])&#13;// &#25226;a&#25968;&#32452;&#24403;&#25104;&#19968;&#32500;&#25968;&#32452;&#65292;&#36941;&#21382;a&#25968;&#32452;&#30340;&#27599;&#20010;&#25968;&#32452;&#20803;&#32032;&#13;for var i = 0 , len = a.count; i &#60; len ; i++&#13;&#123;&#13;&#9;println(a[i]);&#13;&#125;&#13;// &#21021;&#22987;&#21270;a&#25968;&#32452;&#30340;&#31532;&#19968;&#20010;&#20803;&#32032;&#13;a[0] = Array&#60;Int&#62;(count: 2, repeatedValue:0)&#13;// &#35775;&#38382;a&#25968;&#32452;&#30340;&#31532;&#19968;&#20010;&#20803;&#32032;&#65288;&#21448;&#26159;&#25968;&#32452;&#65289;&#30340;&#31532;&#20108;&#20010;&#20803;&#32032;&#13;a[0][1] = 6;&#13;// a&#25968;&#32452;&#30340;&#31532;&#19968;&#20010;&#20803;&#32032;&#26159;&#19968;&#20010;&#19968;&#32500;&#25968;&#32452;&#65292;&#36941;&#21382;&#36825;&#20010;&#19968;&#32500;&#25968;&#32452;&#13;for var i = 0 , len = a[0].count ; i &#60; len ; i++&#13;&#123;&#13;&#9;println(a[0][i]);&#13;&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="5-2_字典">5.2 字典 </h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">// &#20351;&#29992;&#27867;&#22411;&#35821;&#27861;&#22768;&#26126;&#23383;&#20856;&#13;var myDict : Dictionary&#60;String, String&#62;&#13;// &#20351;&#29992;&#31616;&#21270;&#35821;&#27861;&#22768;&#26126;&#23383;&#20856;&#13;var scores : [String:Int]&#13;var health : [String:String]&#13;// &#21019;&#24314;&#19968;&#20010;Dictionary&#32467;&#26500;&#20307;&#65292;&#20351;&#29992;&#40664;&#35748;&#30340;&#21442;&#25968;&#13;myDict = Dictionary&#60;String, String&#62;()&#13;// &#23558;minimumCapacity&#21442;&#25968;&#35774;&#20026;5&#65292;&#21019;&#24314;Dictionary&#32467;&#26500;&#20307;&#13;scores = Dictionary&#60;String, Int&#62;(minimumCapacity:5)&#13;println(scores)&#13;// &#20351;&#29992;&#31616;&#21270;&#35821;&#27861;&#21019;&#24314;&#23383;&#20856;&#13;health = [&#34;&#36523;&#39640;&#34;:&#34;178&#34; , &#34;&#20307;&#37325;&#34;:&#34;74&#34; , &#34;&#34880;&#21387;&#34;:&#34;86/113&#34;]&#13;println(health)&#13;var dict = [&#34;one&#34;: 1 , &#34;two&#34;: 2 , &#34;three&#34;: 3, &#34;four&#34;: 4]&#13;println(dict)&#13;// &#20351;&#29992;&#31616;&#21270;&#35821;&#27861;&#21019;&#24314;&#19981;&#21253;&#21547;key-value&#23545;&#30340;&#23383;&#20856;&#13;var emptyDict:[String:Double] = [:]&#13;// isEmpty&#23646;&#24615;&#21487;&#21028;&#26029;&#25968;&#32452;&#12289;&#23383;&#20856;&#26159;&#21542;&#19981;&#21253;&#21547;&#20219;&#20309;&#20803;&#32032;&#13;println(emptyDict.isEmpty)  // &#36755;&#20986;true&#13;println(emptyDict) // &#36755;&#20986;[:]&#13;&#13;&#13;var height = health[&#34;&#36523;&#39640;&#34;]&#13;println(&#34;&#36523;&#39640;&#20026;&#65306;\(height)&#34;) // &#36755;&#20986;Optional(&#34;178&#34;)&#13;// &#35775;&#38382;&#24182;&#19981;&#23384;&#22312;&#30340;key&#23545;&#24212;&#30340;value&#26102;&#65292;&#23558;&#20250;&#36820;&#22238;nil&#13;var noExist = health[&#34;no&#34;]&#13;println(noExist)  // &#36755;&#20986;nil&#13;// &#20462;&#25913;&#25351;&#23450;key&#23545;&#24212;&#30340;value&#13;health[&#34;&#34880;&#21387;&#34;] = &#34;78/112&#34;&#13;println(health) // &#36755;&#20986;[&#20307;&#37325;: 74, &#34880;&#21387;: 78/112, &#36523;&#39640;: 178]&#13;// &#23545;&#19981;&#23384;&#22312;&#30340;key&#35774;&#32622;value&#65292;&#35813;&#23383;&#20856;&#23558;&#20250;&#28155;&#21152;key-value&#23545;&#13;scores[&#34;&#35821;&#25991;&#34;] = 87&#13;scores[&#34;&#25968;&#23398;&#34;] = 92&#13;scores[&#34;&#33521;&#25991;&#34;] = 95&#13;println(scores)  // &#36755;&#20986;[&#25968;&#23398;: 92, &#35821;&#25991;: 87, &#33521;&#25991;: 95]&#13;&#13;&#13;// &#27880;&#24847;englishScore&#30340;&#31867;&#22411;&#26159;Int?&#65292;&#32780;&#19981;&#26159;Int&#13;var englishScore: Int? =  scores[&#34;&#33521;&#25991;&#34;]&#13;if englishScore != nil&#13;&#123;&#13;&#9;// &#27880;&#24847;&#31243;&#24207;&#20351;&#29992;!&#25191;&#34892;&#24378;&#21046;&#35299;&#26512;&#13;&#9;println(&#34;scores&#20013;&#21253;&#21547;&#30340;&#33521;&#25991;&#25104;&#32489;&#20026;&#65306;\(englishScore!)&#34;)&#13;&#125;&#13;&#13;&#13;// &#20026;scores&#28155;&#21152;&#26032;&#30340;key-value&#23545;&#13;var result = scores.updateValue(20, forKey:&#34;java&#34;)&#13;// &#30001;&#20110;&#19978;&#38754;&#35843;&#29992;updateValue()&#26041;&#27861;&#24182;&#26410;&#26367;&#25442;&#24050;&#26377;&#30340;key-value&#23545;&#65292;&#22240;&#27492;result&#20026;nil&#13;println(result)  // &#36755;&#20986;nil&#13;println(scores)  // &#36755;&#20986;[&#25968;&#23398;: 92, &#35821;&#25991;: 87, &#33521;&#25991;: 95]</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">var seasons = [&#34;spring&#34;:&#34;&#26149;&#26262;&#33457;&#24320;&#34; ,&#13;&#9;&#34;summer&#34;:&#34;&#22799;&#26085;&#28814;&#28814;&#34; , &#13;&#9;&#34;autumn&#34;:&#34;&#31179;&#39640;&#27668;&#29245;&#34; , &#13;&#9;&#34;winter&#34;:&#34;&#20908;&#38634;&#30353;&#30353;&#34;]&#13;// &#20351;&#29992;for-in&#24490;&#29615;&#26469;&#36941;&#21382;&#23383;&#20856;&#13;// &#20854;&#20013;(season , desc)&#20803;&#32452;&#23558;&#20250;&#33258;&#21160;&#36845;&#20195;&#23383;&#20856;&#30340;key-value&#23545;&#13;for (season , desc) in seasons&#13;&#123;&#13;&#9;println(&#34;\(season)--&#62;\(desc)&#34;)&#13;&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">var seasons = [&#34;spring&#34;:&#34;&#26149;&#26262;&#33457;&#24320;&#34; ,&#13;&#9;&#34;summer&#34;:&#34;&#22799;&#26085;&#28814;&#28814;&#34; , &#13;&#9;&#34;autumn&#34;:&#34;&#31179;&#39640;&#27668;&#29245;&#34; , &#13;&#9;&#34;winter&#34;:&#34;&#20908;&#38634;&#30353;&#30353;&#34;]&#13;// &#23558;&#25152;&#26377;seasons&#30340;&#25152;&#26377;key&#21253;&#35013;&#25104;Array&#38598;&#21512;&#13;var keys = Array(seasons.keys)&#13;// &#23558;&#25152;&#26377;seasons&#30340;&#25152;&#26377;value&#21253;&#35013;&#25104;Array&#38598;&#21512;&#13;var values = Array(seasons.values)&#13;println(keys) // &#36755;&#20986;[summer, spring, winter, autumn]&#13;// &#19979;&#38754;&#36755;&#20986;[&#22799;&#26085;&#28814;&#28814;, &#26149;&#26262;&#33457;&#24320;, &#20908;&#38634;&#30353;&#30353;, &#31179;&#39640;&#27668;&#29245;]&#13;println(values)</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">var languages = [&#34;Swift&#34;:9000, &#34;OC&#34;:8600, &#34;PHP&#34;:3400, &#13;&#9;&#34;Perl&#34;:4300 , &#34;Ruby&#34;:5600 , &#34;Go&#34;: 5600]&#13;// &#21024;&#38500;key&#20026;&#34;PHP&#34;&#30340;key-value&#23545;&#13;languages.removeValueForKey(&#34;PHP&#34;)&#13;// &#21024;&#38500;key&#20026;&#34;Perl&#34;&#30340;key-value&#23545;&#13;languages.removeValueForKey(&#34;Perl&#34;)&#13;// &#19979;&#38754;&#36755;&#20986;&#65306;[Go: 5600, OC: 8600, Ruby: 5600, Swift: 9000]&#13;println(languages)&#13;println(languages.count)  // &#36755;&#20986;4&#13;&#13;&#13;// &#21024;&#38500;key&#20026;&#34;Go&#34;&#30340;key-value&#23545;&#13;languages[&#34;Go&#34;] = nil&#13;println(languages)  // &#36755;&#20986;[OC: 8600, Ruby: 5600, Swift: 9000]&#13;// &#21024;&#38500;&#25152;&#26377;&#20803;&#32032;&#13;languages.removeAll()&#13;println(languages)  // &#36755;&#20986;[:]&#13;println(languages.count)  // &#36755;&#20986;0</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">let str = &#34;fkit.orgabcxyz123crazyittianhijt&#34;&#13;// &#23450;&#20041;&#19968;&#20010;Dictionary&#65292;&#32479;&#35745;&#21508;&#23383;&#31526;&#30340;&#20986;&#29616;&#27425;&#25968;&#13;var status:[Character:Int] = [:]&#13;// &#36941;&#21382;str&#23383;&#31526;&#20018;&#20013;&#30340;&#23383;&#31526;&#65292;&#32479;&#35745;&#21508;&#23383;&#31526;&#30340;&#20986;&#29616;&#27425;&#25968;&#13;for ch in str&#13;&#123;&#13;&#9;// &#33719;&#21462;ch&#23383;&#31526;&#24050;&#32463;&#20986;&#29616;&#30340;&#27425;&#25968;&#13;&#9;var num = status[ch]&#13;&#9;// &#22914;&#26524;&#20043;&#21069;&#20174;&#26410;&#20986;&#29616;&#36807;ch&#23383;&#31526;&#65292;&#37027;&#20040;status&#23383;&#20856;&#20013;&#24182;&#19981;&#21253;&#21547;ch&#23383;&#31526;&#30340;&#32479;&#35745;&#20449;&#24687;&#65292;&#13;&#9;// num&#23558;&#20250;&#31561;&#20110;nil&#13;&#9;if num != nil&#13;&#9;&#123;&#13;&#9;&#9;// &#23558;ch&#30340;&#20986;&#29616;&#27425;&#25968;&#21152;1&#13;&#9;&#9;status[ch] = num! + 1&#13;&#9;&#125;&#13;&#9;else&#13;&#9;&#123;&#13;&#9;&#9;// &#22312;status&#25968;&#32452;&#20013;&#35774;&#32622;ch&#23383;&#31526;&#20986;&#29616;&#20102;&#19968;&#27425;&#13;&#9;&#9;status[ch] = 1&#13;&#9;&#125;&#13;&#125;&#13;println(status)&#13;var maxOccurs = 0&#13;// &#36941;&#21382;status&#30340;value&#38598;&#21512;&#65292;&#25214;&#20986;&#23383;&#31526;&#30340;&#26368;&#22823;&#20986;&#29616;&#27425;&#25968;&#13;for occurs in Array(status.values)&#13;&#123;&#13;&#9;if occurs &#62; maxOccurs&#13;&#9;&#123;&#13;&#9;&#9;maxOccurs = occurs&#13;&#9;&#125;&#13;&#125;&#13;// &#25214;&#20986;&#26368;&#22810;&#20986;&#29616;&#27425;&#25968;&#23545;&#24212;&#30340;&#23383;&#31526;&#13;for (ch, occurs) in status&#13;&#123;&#13;&#9;if occurs == maxOccurs&#13;&#9;&#123;&#13;&#9;&#9;println(&#34;&#20986;&#29616;&#26368;&#22810;&#30340;&#23383;&#31526;&#20026; \(ch)&#65292;&#35813;&#23383;&#31526;&#20986;&#29616;\(occurs)&#27425;&#34;)&#13;&#9;&#125;&#13;&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="5-3_集合的复制">5.3 集合的复制 </h1><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">var names = [&#34;&#23385;&#24735;&#31354;&#34; , &#34;&#29482;&#20843;&#25106;&#34; , &#34;&#21776;&#20711;&#34;]&#13;// &#23558;names&#36171;&#20540;&#32473;cp1&#12289;cp2&#23454;&#38469;&#19978;&#20250;&#20808;&#22797;&#21046;&#25968;&#32452;&#30340;2&#20010;&#21103;&#26412;&#65292;&#13;// &#28982;&#21518;&#20998;&#21035;&#23558;2&#20010;&#21103;&#26412;&#36171;&#20540;&#32473;cp1&#12289; cp2&#13;var cp1 = names;&#13;var cp2 = names;&#13;// &#30001;&#20110;names&#25968;&#32452;&#30340;&#20803;&#32032;&#26159;String&#65292;&#20063;&#26159;&#20540;&#31867;&#22411;&#65292;&#13;// &#22240;&#27492;&#31243;&#24207;&#20250;&#23558;&#25968;&#32452;&#20803;&#32032;&#20063;&#22797;&#21046;&#19968;&#20221;&#21103;&#26412;&#65292;&#13;// &#22240;&#27492;&#31243;&#24207;&#23545;cp1[0]&#12289; cp2[0]&#30340;&#20462;&#25913;&#21482;&#26159;&#20462;&#25913;&#21508;&#33258;&#30340;&#21103;&#26412;&#65292;&#30456;&#20114;&#20043;&#38388;&#19981;&#20250;&#20135;&#29983;&#20219;&#20309;&#24433;&#21709;&#13;cp1[0] += &#34;&#40784;&#22825;&#22823;&#22307;&#34;&#13;cp2[0] += &#34;&#24380;&#39532;&#28201;&#34;&#13;println(names[0])&#13;println(cp1[0])&#13;println(cp2[0])</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">// &#23450;&#20041;&#19968;&#20010;User&#31867;&#65292;&#31867;&#26159;&#24341;&#29992;&#31867;&#22411;&#13;class User &#13;&#123;&#13;&#9;var name: String&#13;&#9;init(name:String)&#13;&#9;&#123;&#13;&#9;&#9;self.name = name&#13;&#9;&#125;&#13;&#125;&#13;var users = [User(name:&#34;&#23385;&#24735;&#31354;&#34;), User(name:&#34;&#29482;&#20843;&#25106;&#34;) , User(name:&#34;&#21776;&#20711;&#34;)]&#13;// &#23558;users&#36171;&#20540;&#32473;cp1&#12289;cp2&#23454;&#38469;&#19978;&#20250;&#20808;&#22797;&#21046;&#25968;&#32452;&#30340;2&#20010;&#21103;&#26412;&#65292;&#13;// &#28982;&#21518;&#20998;&#21035;&#23558;2&#20010;&#21103;&#26412;&#36171;&#20540;&#32473;cp1&#12289; cp2&#13;var cp1 = users;&#13;var cp2 = users;&#13;// &#30001;&#20110;users&#25968;&#32452;&#30340;&#20803;&#32032;&#26159;User&#23545;&#35937;&#65292;&#20063;&#23601;&#26159;&#24341;&#29992;&#31867;&#22411;&#65292;&#13;// &#22240;&#27492;&#31243;&#24207;&#19981;&#20250;&#22797;&#21046;&#25968;&#32452;&#20013;&#21508;&#24212;&#29992;&#25152;&#24341;&#29992;&#30340;User&#23545;&#35937;&#12290;&#13;// &#22240;&#27492;&#31243;&#24207;&#23545;cp1[0]&#12289; cp2[0]&#30340;&#20462;&#25913;&#23545;&#30456;&#20114;&#20043;&#38388;&#20250;&#20135;&#29983;&#20219;&#20309;&#24433;&#21709;&#13;cp1[0].name += &#34;&#40784;&#22825;&#22823;&#22307;&#34;&#13;cp2[0].name += &#34;&#24380;&#39532;&#28201;&#34;&#13;println(users[0].name)&#13;println(cp1[0].name)&#13;println(cp2[0].name)</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">var scores = [&#34;&#35821;&#25991;&#34;:89 , &#34;&#25968;&#23398;&#34;:92 , &#34;&#33521;&#35821;&#34;:87]&#13;// &#23558;scores&#36171;&#20540;&#32473;cp1&#12289;cp2&#23454;&#38469;&#19978;&#20250;&#20808;&#22797;&#21046;&#23383;&#20856;&#30340;2&#20010;&#21103;&#26412;&#65292;&#13;// &#28982;&#21518;&#20998;&#21035;&#23558;2&#20010;&#21103;&#26412;&#36171;&#20540;&#32473;cp1&#12289; cp2&#13;var cp1 = scores;&#13;var cp2 = scores;&#13;// &#30001;&#20110;scores&#30340;value&#26159;Int&#31867;&#22411;&#65292;&#20063;&#26159;&#20540;&#31867;&#22411;&#65292;&#13;// &#22240;&#27492;&#31243;&#24207;&#20250;&#23558;value&#20063;&#22797;&#21046;&#19968;&#20221;&#21103;&#26412;&#65292;&#13;// &#22240;&#27492;&#31243;&#24207;&#23545;cp1[&#34;&#35821;&#25991;&#34;]&#12289; cp2[&#34;&#35821;&#25991;&#34;]&#30340;&#20462;&#25913;&#21482;&#26159;&#20462;&#25913;&#21508;&#33258;&#30340;&#21103;&#26412;&#65292;&#30456;&#20114;&#20043;&#38388;&#19981;&#20250;&#20135;&#29983;&#20219;&#20309;&#24433;&#21709;&#13;cp1[&#34;&#35821;&#25991;&#34;] = 60&#13;cp2[&#34;&#35821;&#25991;&#34;] = 70&#13;println(scores[&#34;&#35821;&#25991;&#34;])&#13;println(cp1[&#34;&#35821;&#25991;&#34;])&#13;println(cp2[&#34;&#35821;&#25991;&#34;])</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">// &#23450;&#20041;&#19968;&#20010;Score&#31867;&#65292;&#31867;&#26159;&#24341;&#29992;&#31867;&#22411;&#13;class Score&#13;&#123;&#13;&#9;var mark: Int&#13;&#9;init(mark:Int)&#13;&#9;&#123;&#13;&#9;&#9;self.mark = mark&#13;&#9;&#125;&#13;&#125;&#13;var scores = [&#34;&#35821;&#25991;&#34;:Score(mark:89)&#13; , &#34;&#25968;&#23398;&#34;:Score(mark:92) , &#34;&#33521;&#35821;&#34;:Score(mark:87)]&#13;// &#23558;scores&#36171;&#20540;&#32473;cp1&#12289;cp2&#23454;&#38469;&#19978;&#20250;&#20808;&#22797;&#21046;&#23383;&#20856;&#30340;2&#20010;&#21103;&#26412;&#65292;&#13;// &#28982;&#21518;&#20998;&#21035;&#23558;2&#20010;&#21103;&#26412;&#36171;&#20540;&#32473;cp1&#12289; cp2&#13;var cp1 = scores;&#13;var cp2 = scores;&#13;// &#30001;&#20110;scores&#30340;value&#26159;Score&#31867;&#22411;&#65292;&#23646;&#20110;&#24341;&#29992;&#31867;&#22411;&#65292;&#13;// &#22240;&#27492;&#31243;&#24207;&#19981;&#20250;&#23558;value&#23545;&#24212;&#30340;&#23545;&#35937;&#22797;&#21046;&#21103;&#26412;&#13;// &#22240;&#27492;&#31243;&#24207;&#23545;cp1[&#34;&#35821;&#25991;&#34;]&#12289; cp2[&#34;&#35821;&#25991;&#34;]&#30340;&#20462;&#25913;&#30456;&#20114;&#20043;&#38388;&#20250;&#20135;&#29983;&#20219;&#20309;&#24433;&#21709;&#13;cp1[&#34;&#35821;&#25991;&#34;]!.mark = 60&#13;cp2[&#34;&#35821;&#25991;&#34;]!.mark = 70&#13;println(scores[&#34;&#35821;&#25991;&#34;]!.mark)&#13;println(cp1[&#34;&#35821;&#25991;&#34;]!.mark)&#13;println(cp2[&#34;&#35821;&#25991;&#34;]!.mark)</span><br></pre></td></tr></table></figure>
+      
+    </div>
+
+    <div class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Collection-Types/"> #Collection Types </a>
+          
+            <a href="/tags/Swift/"> #Swift </a>
+          
+            <a href="/tags/iOS-Development/"> #iOS Development </a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2015/05/16/Crazy-Swift-Lecture-Chapter-6/">Crazy Swift Lecture Chapter 6</a>
+            
+          </div>
+
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2015/05/16/Crazy-Swift-Lecture-Chapter-4/">Crazy Swift Lecture Chapter 4</a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </div>
+  </div>
+
+
+
+    
+      <div class="comments" id="comments">
+        
+          <div id="disqus_thread">
+            <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+          </div>
+        
+      </div>
+    
+  </div>
+
+
+        </div>
+
+        
+      </div>
+
+
+      
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table Of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            Overview
+          </li>
+        </ul>
+      
+
+      <div class="site-overview">
+        <div class="site-author motion-element">
+          <img class="site-author-image" src="http://i.imgur.com/uRJy8E9.png" alt="Ge Will" />
+          <p class="site-author-name">Ge Will</p>
+        </div>
+        <p class="site-description motion-element">The people who are crazy enough to think they can change the world, are the ones who do.</p>
+        <div class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">57</span>
+              <span class="site-state-item-name">posts</span>
+            </a>
+          </div>
+
+          <div class="site-state-item site-state-categories">
+            
+              <span class="site-state-item-count">0</span>
+              <span class="site-state-item-name">categories</span>
+              
+          </div>
+
+          <div class="site-state-item site-state-tags">
+            
+              <span class="site-state-item-count">38</span>
+              <span class="site-state-item-name">tags</span>
+              
+          </div>
+
+        </div>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+              <a href="https://github.com/gewill" target="_blank">GitHub</a>
+            </span>
+            
+              <span class="links-of-author-item">
+              <a href="https://twitter.com/gewill_org" target="_blank">Twitter</a>
+            </span>
+            
+              <span class="links-of-author-item">
+              <a href="http://weibo.com/gewei" target="_blank">Weibo</a>
+            </span>
+            
+          
+        </div>
+
+        
+        
+          <div class="cc-license motion-element">
+            <a href="http://creativecommons.org/licenses/by-nc-sa/4.0" class="cc-opacity" target="_blank">
+              <img src="/images/cc-by-nc-sa.svg" alt="Creative Commons" />
+            </a>
+          </div>
+        
+
+      </div>
+
+      
+        <div class="post-toc-wrap sidebar-panel-active">
+          <div class="post-toc-indicator-top post-toc-indicator"></div>
+          <div class="post-toc">
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#第五章：集合"><span class="nav-text"> 第五章：集合 </span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#5-1_数组"><span class="nav-text">5.1 数组 </span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-2_字典"><span class="nav-text">5.2 字典 </span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#5-3_集合的复制"><span class="nav-text">5.3 集合的复制 </span></a></li></ol></div>
+            
+          </div>
+          <div class="post-toc-indicator-bottom post-toc-indicator"></div>
+        </div>
+      
+
+    </div>
+  </div>
+
+
+    </div>
+
+    <div id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">
+  
+  &copy; &nbsp; 
+  2015
+  <span style="color:red" class="with-love">
+    <i class="icon-heart"></i>
+  </span>
+  <span style="color:#00CED1" class="author">Ge Will</span>
+</div>
+
+<div class="powered-by">
+  Powered by <a class="theme-link" href="http://hexo.io">Hexo</a>
+</div>
+
+<div class="theme-info">
+  Theme -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+<script>
+  window.fbAsyncInit = function() {
+    FB.init({
+      appId      : '1607853709465253',
+      xfbml      : true,
+      version    : 'v2.4'
+    });
+  };
+
+  (function(d, s, id){
+     var js, fjs = d.getElementsByTagName(s)[0];
+     if (d.getElementById(id)) {return;}
+     js = d.createElement(s); js.id = id;
+     js.src = "//connect.facebook.net/en_US/sdk.js";
+     fjs.parentNode.insertBefore(js, fjs);
+   }(document, 'script', 'facebook-jssdk'));
+</script>
+
+
+
+      </div>
+    </div>
+
+    <div class="back-to-top"></div>
+  </div>
+
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js"></script>
+  <script type="text/javascript" src="/js/fancy-box.js"></script>
+
+
+  <script type="text/javascript" src="/js/helpers.js"></script>
+  
+
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js"></script>
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js"></script>
+
+  <script type="text/javascript" src="/js/motion_global.js" id="motion.global"></script>
+
+
+
+
+  
+  
+<script type="text/javascript" src="/js/bootstrap.scrollspy.js" id="bootstrap.scrollspy.custom"></script>
+
+
+<script type="text/javascript" id="sidebar.toc.highlight">
+  $(document).ready(function () {
+    var tocSelector = '.post-toc';
+    var $tocSelector = $(tocSelector);
+    var activeCurrentSelector = '.active-current';
+
+    $tocSelector
+      .on('activate.bs.scrollspy', function () {
+        var $currentActiveElement = $(tocSelector + ' .active').last();
+
+        removeCurrentActiveClass();
+        $currentActiveElement.addClass('active-current');
+
+        $tocSelector[0].scrollTop = $currentActiveElement.position().top;
+      })
+      .on('clear.bs.scrollspy', function () {
+        removeCurrentActiveClass();
+      });
+
+    function removeCurrentActiveClass () {
+      $(tocSelector + ' ' + activeCurrentSelector)
+        .removeClass(activeCurrentSelector.substring(1));
+    }
+
+    function processTOC () {
+      getTOCMaxHeight();
+      toggleTOCOverflowIndicators();
+    }
+
+    function getTOCMaxHeight () {
+      var $sidebarInner = $('.sidebar-inner');
+      var height = $('.sidebar').height() -
+                   $tocSelector.position().top -
+                   $('.post-toc-indicator-bottom').height();
+
+      $tocSelector.css('height', height);
+
+      return height;
+    }
+
+    function toggleTOCOverflowIndicators () {
+      tocOverflowIndicator(
+        '.post-toc-indicator-top',
+        $tocSelector.scrollTop() > 0 ? 'show' : 'hide'
+      );
+
+      tocOverflowIndicator(
+        '.post-toc-indicator-bottom',
+        $tocSelector.scrollTop() >= $tocSelector.find('ol').height() - $tocSelector.height() ? 'hide' : 'show'
+      )
+    }
+
+    $(document).on('sidebar.didShow', function () {
+      processTOC();
+    });
+
+    $('body').scrollspy({ target: tocSelector });
+    $(window).on('resize', function () {
+      if ( $('.sidebar').hasClass('sidebar-active') ) {
+        processTOC();
+      }
+    });
+
+    onScroll($tocSelector);
+
+    function onScroll (element) {
+      element.on('mousewheel DOMMouseScroll', function (event) {
+          var oe = event.originalEvent;
+          var delta = oe.wheelDelta || -oe.detail;
+          var self = this;
+
+          this.scrollTop += ( delta < 0 ? 1 : -1 ) * 30;
+          event.preventDefault();
+
+          toggleTOCOverflowIndicators();
+      });
+    }
+
+    function tocOverflowIndicator (indicator, action) {
+      $(indicator).velocity('stop').velocity({
+        opacity: action === 'show' ? 0.4 : 0
+      }, { duration: 100 });
+    }
+
+  });
+</script>
+
+
+  <script type="text/javascript" id="sidebar.nav">
+    $(document).ready(function () {
+      var html = $('html');
+
+      $('.sidebar-nav li').on('click', function () {
+        var item = $(this);
+        var activeTabClassName = 'sidebar-nav-active';
+        var activePanelClassName = 'sidebar-panel-active';
+        if (item.hasClass(activeTabClassName)) {
+          return;
+        }
+
+        var currentTarget = $('.' + activePanelClassName);
+        var target = $('.' + item.data('target'));
+
+        currentTarget.velocity('transition.slideUpOut', 200, function () {
+          target
+            .velocity('stop')
+            .velocity('transition.slideDownIn', 200)
+            .addClass(activePanelClassName);
+        });
+
+        item.siblings().removeClass(activeTabClassName);
+        item.addClass(activeTabClassName);
+      });
+
+      $('.post-toc a').on('click', function (e) {
+        e.preventDefault();
+        var offset = $(escapeSelector(this.getAttribute('href'))).offset().top;
+        html.velocity('stop').velocity('scroll', {
+          offset: offset  + 'px',
+          mobileHA: false
+        });
+      });
+
+      // Expand sidebar on post detail page by default, when post has a toc.
+      var $tocContent = $('.post-toc-content');
+      if (isDesktop() && CONFIG.sidebar === 'post') {
+        if ($tocContent.length > 0 && $tocContent.html().trim().length > 0) {
+          displaySidebar();
+        }
+      }
+    });
+  </script>
+
+
+
+
+  <script type="text/javascript">
+    $(document).ready(function () {
+      if (CONFIG.sidebar === 'always') {
+        displaySidebar();
+      }
+    });
+  </script>
+
+  
+
+  
+  
+  
+
+  
+
+    
+      
+    
+
+    <script type="text/javascript">
+      var disqus_shortname = 'gewill';
+      var disqus_identifier = '2015/05/16/Crazy-Swift-Lecture-Chapter-5/';
+      var disqus_title = 'Crazy Swift Lecture Chapter 5';
+      var disqus_url = 'http://gewill.org/2015/05/16/Crazy-Swift-Lecture-Chapter-5/';
+
+      (function(){
+        var dsq = document.createElement('script');
+        dsq.type = 'text/javascript';
+        dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+      }());
+    </script>
+  
+
+
+
+
+  
+  
+  <script type="text/javascript" src="/js/analytics_google-analytics.js"></script>
+
+
+</body>
+</html>
