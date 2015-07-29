@@ -122,99 +122,6 @@
           
           
             
-              <a class="post-title-link" href="/2015/07/23/iOS-Programming-4ed-2/">
-                《iOS 编程》2. Objective-C
-              </a>
-            
-          
-        </h1>
-      
-
-      <div class="post-meta">
-        <span class="post-time">
-          Posted on 2015-07-23
-        </span>
-
-        
-
-        
-          
-            <span class="post-comments-count">
-            &nbsp; | &nbsp;
-            <a href="/2015/07/23/iOS-Programming-4ed-2/#comments" >
-              <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2015/07/23/iOS-Programming-4ed-2/"></span>
-            </a>
-          </span>
-          
-        
-      </div>
-    </div>
-
-    <div class="post-body">
-
-      
-      
-
-      
-        
-          <blockquote>
-<p> 网站加了一个 <a href="https://github.com/hexojs/hexo-filter-auto-spacing" target="_blank" rel="external">hexo-filter-auto-spacing</a> 插件，中英文之间自动加空格😊</p>
-</blockquote>
-<h2 id="2-1_类和对象">2.1 类和对象 </h2><ul>
-<li> 类和对象。对象通过实例变量保存属性的值。</li>
-<li><p> 类有方法，类似函数，调用对象的方法一般叫发消息。</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">[partyInstance addAttendee: somePerson&#10;                   withDish: deviledEggs]</span><br></pre></td></tr></table></figure>
-</li>
-<li><p> 方法的唯一性取决方法名。</p>
-</li>
-<li> 实例变量的存取方法：get 和 set</li>
-<li> 发消息的三种语法：<ul>
-<li> 发消息 []：调用方法 </li>
-<li> 点语法.：存取实例变量 </li>
-<li> 下标语法 []：访问数组 </li>
-</ul>
-</li>
-<li><p> 类方法和实例方法区别：</p>
-<ul>
-<li> 类方法通常用来创建对象，或者获取类的全局变量 </li>
-<li> 实例变量则是用来操作类的对象（对象就是类的实例），如存取方法 </li>
-</ul>
-</li>
-<li><p> 类方法的初始化 </p>
-<p> 必须选一个指定初始化方法，其他初始化方法可以调用指定初始化方法，形成一个初始化方法链 <br><img src="http://ww2.sinaimg.cn/large/5369602ejw1eudiggqtaej20go08adgf.jpg" alt="初始化方法链"></p>
-</li>
-</ul>
-<h2 id="2-5_NSArray 与_NSMultableArray">2.5 NSArray 与 NSMultableArray</h2><p> 数组对象只能保存指向 Objective-C 对象的指针，不能保存基本类型和 C 结构加入数组对象。当然包装成 Objective-C 对象，就可以了，如 NSNumber、NSValue 和 NSDate。nil 包装成 NSNull 才能加入数组。</p>
-<h2 id="项目代码保存在我的_GitHub:_iOSProgramming4edSolutions"> 项目代码保存在我的 GitHub: <a href="https://github.com/gewill/iOSProgramming4edSolutions" target="_blank" rel="external">iOSProgramming4edSolutions</a></h2>
-        
-      
-    </div>
-
-    <div class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </div>
-  </div>
-
-
-    
-      
-
-  <div class="post post-type-normal ">
-    <div class="post-header">
-
-      
-      
-        <h1 class="post-title">
-          
-          
-            
               <a class="post-title-link" href="/2015/07/22/CS193P-7-Multiple-MVCs/">
                 CS193P 7. Multiple MVCs
               </a>
@@ -1064,6 +971,72 @@
           <h1 id="第十一章_Foundation_框架详解"> 第十一章 Foundation 框架详解 </h1><h2 id="11-1_包装类">11.1 包装类 </h2><p>NSInterger、NSUInterger、CGFloat 都是不包装类，只是基本类。<br>NSValue、NSNumber 都是包装类，前者是后者的父类。NSValue 代表的一个更通用的包装类，可用于包装单个 short、int、long、float、char、指针、对象 ID 等数据项。</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">let num: NSNumber = NSNumber(int: 20)&#10;let de: NSNumber = NSNumber(double: 3.4)&#10;print(num.integerValue)&#10;print(de.doubleValue)&#10;&#10;let ch:NSNumber = NSNumber(char: CChar(97))&#10;print(ch)</span><br></pre></td></tr></table></figure>
 <h2 id="11-2_字符串（NSString_与_NSMutableString）">11.2 字符串（NSString 与 NSMutableString）</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">var  str: NSString = &#34;Hello&#34;&#10;let book = &#34;Carzy Swift&#34;&#10;&#10;str = str.stringByAppendingString(&#34;, iOS &#34;)&#10;str = str.stringByAppendingString(book)&#10;print(str)&#10;print(str.length)&#10;&#10;let n = 7&#10;let s1 = str.substringFromIndex(n)&#10;print(s1)&#10;print(str.substringToIndex(n))&#10;print(str.substringWithRange(NSMakeRange(2, 11)))&#10;print(str.rangeOfString(&#34;iOS&#34;))&#10;print(str.uppercaseString)</span><br></pre></td></tr></table></figure>
+
+        
+      
+    </div>
+
+    <div class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </div>
+  </div>
+
+
+    
+      
+
+  <div class="post post-type-normal ">
+    <div class="post-header">
+
+      
+      
+        <h1 class="post-title">
+          
+          
+            
+              <a class="post-title-link" href="/2015/07/15/Crazy-Swift-Lecture-Chapter-10/">
+                Crazy Swift Lecture Chapter 10
+              </a>
+            
+          
+        </h1>
+      
+
+      <div class="post-meta">
+        <span class="post-time">
+          Posted on 2015-07-15
+        </span>
+
+        
+
+        
+          
+            <span class="post-comments-count">
+            &nbsp; | &nbsp;
+            <a href="/2015/07/15/Crazy-Swift-Lecture-Chapter-10/#comments" >
+              <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2015/07/15/Crazy-Swift-Lecture-Chapter-10/"></span>
+            </a>
+          </span>
+          
+        
+      </div>
+    </div>
+
+    <div class="post-body">
+
+      
+      
+
+      
+        
+          <h1 id="第十章_运算符函数"> 第十章 运算符函数 </h1><p>Swift 的运算符本质上都是函数，我们可以重新定义运算符函数。然后就没有然后了。</p>
 
         
       

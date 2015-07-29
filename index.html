@@ -122,75 +122,6 @@
           
           
             
-              <a class="post-title-link" href="/2015/07/29/Simple-Calculator/">
-                Untitled
-              </a>
-            
-          
-        </h1>
-      
-
-      <div class="post-meta">
-        <span class="post-time">
-          Posted on 2015-07-29
-        </span>
-
-        
-
-        
-          
-            <span class="post-comments-count">
-            &nbsp; | &nbsp;
-            <a href="/2015/07/29/Simple-Calculator/#comments" >
-              <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2015/07/29/Simple-Calculator/"></span>
-            </a>
-          </span>
-          
-        
-      </div>
-    </div>
-
-    <div class="post-body">
-
-      
-      
-
-      
-        
-          <p>title: “Simple Calculator”<br>date: 2015-05-24 10:23:41<br>tags:</p>
-<p> 一个简单地计算器，可以加减乘除，除法还有问题，待解决。</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">//&#10;//  ViewController.swift&#10;//  Simple Calculator&#10;//&#10;//  Created by Will on 5/24/15.&#10;//  Copyright (c) 2015 gewill.org. All rights reserved.&#10;//&#10;&#10;import UIKit&#10;&#10;class ViewController: UIViewController &#123;&#10;    @IBOutlet weak var text1: UITextField!&#10;    &#10;    &#10;    @IBOutlet weak var text2: UITextField!&#10;    @IBOutlet weak var result: UITextField!&#10;    &#10;    @IBAction func BeZero(sender: AnyObject) &#123;&#10;        self.result.text = &#34;0&#34;&#10;        self.text1.text = &#34; &#34;&#10;        self.text2.text = &#34; &#34;&#10;        &#10;    &#125;&#10;    @IBAction func plus(sender: AnyObject) &#123;&#10;        // &#19977;&#30446;&#36816;&#31639;&#31526;&#31616;&#27905;&#65292;&#20294;&#26159;&#27809;&#26377; if &#36923;&#36753;&#28165;&#26224;&#12290;&#10;        var num1 = self.text1.text.isEmpty ? 0 : self.text1.text.toInt()&#10;        var num2 = self.text2.text.isEmpty ? 0 : self.text2.text.toInt()&#10;        &#10;        &#10;        var resultNum:Double = Double(num1!) + Double(num2!)&#10;        println(resultNum)&#10;        &#10;        self.result.text = &#34;\(resultNum)&#34;&#10;        &#10;        self.text1.resignFirstResponder()&#10;        self.text2.resignFirstResponder()&#10;        &#10;        &#10;    &#125;&#10;    @IBAction func minus(sender: AnyObject) &#123;&#10;        // &#19977;&#30446;&#36816;&#31639;&#31526;&#31616;&#27905;&#65292;&#20294;&#26159;&#27809;&#26377; if &#36923;&#36753;&#28165;&#26224;&#12290;&#10;        var num1 = self.text1.text.isEmpty ? 0 : self.text1.text.toInt()&#10;        var num2 = self.text2.text.isEmpty ? 0 : self.text2.text.toInt()&#10;        &#10;        &#10;        var resultNum = num1! - num2!&#10;        &#10;        self.result.text = &#34;\(resultNum)&#34;&#10;        &#10;        self.text1.resignFirstResponder()&#10;        self.text2.resignFirstResponder()&#10;        &#10;    &#125;&#10;    @IBAction func multiply(sender: AnyObject) &#123;&#10;        // &#19977;&#30446;&#36816;&#31639;&#31526;&#31616;&#27905;&#65292;&#20294;&#26159;&#27809;&#26377; if &#36923;&#36753;&#28165;&#26224;&#12290;&#10;        var num1 = self.text1.text.isEmpty ? 0 : self.text1.text.toInt()&#10;        var num2 = self.text2.text.isEmpty ? 0 : self.text2.text.toInt()&#10;        &#10;        &#10;        var resultNum = num1! * num2!&#10;        &#10;        self.result.text = &#34;\(resultNum)&#34;&#10;        &#10;        self.text1.resignFirstResponder()&#10;        self.text2.resignFirstResponder()&#10;        &#10;    &#125;&#10;    @IBAction func division(sender: AnyObject) &#123;&#10;        // &#19977;&#30446;&#36816;&#31639;&#31526;&#31616;&#27905;&#65292;&#20294;&#26159;&#27809;&#26377; if &#36923;&#36753;&#28165;&#26224;&#12290;&#10;        var num1 = self.text1.text.isEmpty ? 0 : self.text1.text.toInt()&#10;        var num2 = self.text2.text.isEmpty ? 0 : self.text2.text.toInt()&#10;        &#10;        &#10;        var resultNum = num1! / num2!&#10;        &#10;        self.result.text = &#34;\(resultNum)&#34;&#10;        &#10;        self.text1.resignFirstResponder()&#10;        self.text2.resignFirstResponder()&#10;        &#10;    &#125;&#10;    override func viewDidLoad() &#123;&#10;        super.viewDidLoad()&#10;        // Do any additional setup after loading the view, typically from a nib.&#10;    &#125;&#10;    &#10;    override func didReceiveMemoryWarning() &#123;&#10;        super.didReceiveMemoryWarning()&#10;        // Dispose of any resources that can be recreated.&#10;    &#125;&#10;    &#10;    &#10;&#125;</span><br></pre></td></tr></table></figure>
-<p><img src="http://i.imgur.com/96q8Eay.png" alt="Imgur"><br><img src="http://i.imgur.com/7kHLTc4.png" alt="Imgur"></p>
-
-        
-      
-    </div>
-
-    <div class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </div>
-  </div>
-
-
-    
-      
-
-  <div class="post post-type-normal ">
-    <div class="post-header">
-
-      
-      
-        <h1 class="post-title">
-          
-          
-            
               <a class="post-title-link" href="/2015/07/29/iOS-Programming-4ed-7/">
                 《iOS 编程》7. 委托与文本输入
               </a>
@@ -927,6 +858,99 @@ pod <span class="string">'AFNetworking'</span>, <span class="string">'~&gt; 2.5'
 <li>内存管理：strong/weak/copy/unsafe_unretained</li>
 </ul>
 <h2 id="项目代码保存在我的_GitHub:_iOSProgramming4edSolutions">项目代码保存在我的 GitHub: <a href="https://github.com/gewill/iOSProgramming4edSolutions" target="_blank" rel="external">iOSProgramming4edSolutions</a></h2>
+        
+      
+    </div>
+
+    <div class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </div>
+  </div>
+
+
+    
+      
+
+  <div class="post post-type-normal ">
+    <div class="post-header">
+
+      
+      
+        <h1 class="post-title">
+          
+          
+            
+              <a class="post-title-link" href="/2015/07/23/iOS-Programming-4ed-2/">
+                《iOS 编程》2. Objective-C
+              </a>
+            
+          
+        </h1>
+      
+
+      <div class="post-meta">
+        <span class="post-time">
+          Posted on 2015-07-23
+        </span>
+
+        
+
+        
+          
+            <span class="post-comments-count">
+            &nbsp; | &nbsp;
+            <a href="/2015/07/23/iOS-Programming-4ed-2/#comments" >
+              <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2015/07/23/iOS-Programming-4ed-2/"></span>
+            </a>
+          </span>
+          
+        
+      </div>
+    </div>
+
+    <div class="post-body">
+
+      
+      
+
+      
+        
+          <blockquote>
+<p> 网站加了一个 <a href="https://github.com/hexojs/hexo-filter-auto-spacing" target="_blank" rel="external">hexo-filter-auto-spacing</a> 插件，中英文之间自动加空格😊</p>
+</blockquote>
+<h2 id="2-1_类和对象">2.1 类和对象 </h2><ul>
+<li> 类和对象。对象通过实例变量保存属性的值。</li>
+<li><p> 类有方法，类似函数，调用对象的方法一般叫发消息。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">[partyInstance addAttendee: somePerson&#10;                   withDish: deviledEggs]</span><br></pre></td></tr></table></figure>
+</li>
+<li><p> 方法的唯一性取决方法名。</p>
+</li>
+<li> 实例变量的存取方法：get 和 set</li>
+<li> 发消息的三种语法：<ul>
+<li> 发消息 []：调用方法 </li>
+<li> 点语法.：存取实例变量 </li>
+<li> 下标语法 []：访问数组 </li>
+</ul>
+</li>
+<li><p> 类方法和实例方法区别：</p>
+<ul>
+<li> 类方法通常用来创建对象，或者获取类的全局变量 </li>
+<li> 实例变量则是用来操作类的对象（对象就是类的实例），如存取方法 </li>
+</ul>
+</li>
+<li><p> 类方法的初始化 </p>
+<p> 必须选一个指定初始化方法，其他初始化方法可以调用指定初始化方法，形成一个初始化方法链 <br><img src="http://ww2.sinaimg.cn/large/5369602ejw1eudiggqtaej20go08adgf.jpg" alt="初始化方法链"></p>
+</li>
+</ul>
+<h2 id="2-5_NSArray 与_NSMultableArray">2.5 NSArray 与 NSMultableArray</h2><p> 数组对象只能保存指向 Objective-C 对象的指针，不能保存基本类型和 C 结构加入数组对象。当然包装成 Objective-C 对象，就可以了，如 NSNumber、NSValue 和 NSDate。nil 包装成 NSNull 才能加入数组。</p>
+<h2 id="项目代码保存在我的_GitHub:_iOSProgramming4edSolutions"> 项目代码保存在我的 GitHub: <a href="https://github.com/gewill/iOSProgramming4edSolutions" target="_blank" rel="external">iOSProgramming4edSolutions</a></h2>
         
       
     </div>
