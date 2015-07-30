@@ -20,7 +20,7 @@
 <link rel="stylesheet" type="text/css" href="/css/main.css?v=0.4.3"/>
 
 
-    <meta name="description" content="The people who are crazy enough to think they can change the world, are the ones who do." />
+    <meta name="description" content="The people who are crazy enough to think they can change the world, are the ones who Do." />
 
 
 
@@ -110,6 +110,87 @@
         <div id="content" class="content">
           
   <div id="posts" class="posts-expand">
+    
+      
+
+  <div class="post post-type-normal ">
+    <div class="post-header">
+
+      
+      
+        <h1 class="post-title">
+          
+          
+            
+              <a class="post-title-link" href="/2015/07/30/CocoaHeads Shanghai Meetup 12 A Better Way to Use UIKit and Singleton Pattern/">
+                CocoaHeads Shanghai Meetup 12 A Better Way to Use UIKit and Singleton Pattern
+              </a>
+            
+          
+        </h1>
+      
+
+      <div class="post-meta">
+        <span class="post-time">
+          Posted on 2015-07-30
+        </span>
+
+        
+
+        
+          
+            <span class="post-comments-count">
+            &nbsp; | &nbsp;
+            <a href="/2015/07/30/CocoaHeads Shanghai Meetup 12 A Better Way to Use UIKit and Singleton Pattern/#comments" >
+              <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2015/07/30/CocoaHeads Shanghai Meetup 12 A Better Way to Use UIKit and Singleton Pattern/"></span>
+            </a>
+          </span>
+          
+        
+      </div>
+    </div>
+
+    <div class="post-body">
+
+      
+      
+
+      
+        
+          <p>Let’s meet on 30 July, grab a drink and talk about development and design for the  we love and hate.</p>
+<p>Paul Wood will share his tricks and tips for “Using Protocol Extensions with UIKit in Swift 2.0”.</p>
+<p>Antoine will talk about “The Wrong and Good Singleton Patterns”.</p>
+<hr>
+<p>所以先了解一下设计的话题：</p>
+<h3 id="避免滥用单例："><a href="http://objccn.io/issue-13-2/​" target="_blank" rel="external">避免滥用单例</a>：</h3><p>Miško Hevery 的话来说，<a href="http://misko.hevery.com/2008/08/25/root-cause-of-singletons/" target="_blank" rel="external">“单例就是披着羊皮的全局状态”</a>。</p>
+<p>单例应该只用来保存全局的状态，并且不能和任何作用域绑定。如果这些状态的作用域比一个完整的应用程序的生命周期要短，那么这个状态就不应该使用单例来管理。用一个单例来管理用户绑定的状态，是代码的坏味道，你应该认真的重新评估你的对象图的设计。</p>
+<p>在面向对象编程中我们想要最小化可变状态的作用域。但是单例却因为使可变的状态可以被程序中的任何地方访问，而站在了对立面。下一次你想使用单例时，我希望你能够好好考虑一下使用依赖注入作为替代方案。</p>
+<p>我们可以显式地把经过认证的 user 对象作为参数传递给这个 view controller。这种把依赖性传递给依赖对象的技术正式的叫法是 <a href="http://en.wikipedia.org/wiki/Dependency_injection" target="_blank" rel="external"> 依赖注入</a>。</p>
+<h3 id="依赖注入"><a href="http://objccn.io/issue-15-3/" target="_blank" rel="external">依赖注入 </a></h3><p> 事实上，很可能不知不觉中你已经在使用 DI 框架了！<strong>它就是 Interface Builder</strong>。IB 其实不仅仅是 UI 设计器，任何属性都可以通过将其声明为 IBOutlets 来赋值。当通过 IB 创建的 View 初始化的时候，可以一并创建通过 IB 声明的 Object (因为利用 IB 不仅可以创建 UI 对象还可以创建 “Object” (NSObject 类型，代表 icon 是个纯黄色立方体)，那么当 IB 文件初始化的时候，IB 上定义的对象也会随之初始化)。2009 年，Eric Smith 在其文章 <a href="http://blog.8thlight.com/eric-smith/2009/04/16/dependency-inversion-principle-and-iphone.html" target="_blank" rel="external">“Dependency Inversion Principle and iPhone” </a>中将 Interface Builder 称为是自己 “一直以来最偏爱的 DI 框架”，文中同时给出了如何用 Interface Builder 做依赖注入的例子。</p>
+<p>DI 不仅仅是测试</p>
+<p>我最初决定钻研 DI 是因为在执行测试驱动开发 (TDD)，而在 TDD 的过程中有一个很纠结的问题会时常跳出来：“对于这个实现，如何编写单元测试？”。后来我发现其实 DI 本身是在彰显一个更高层面的概念：<strong>代码组成了模块，模块拼接构建成了应用本身</strong>。</p>
+<p>使用这种方法有很多益处。Graham Lee 在文章 “Dependency Injection, iOS and You” 中这样描述：“适应新需求，解决 bug，增加新功能，单独测试组件。”</p>
+<p>所以当我们在编写单元测试的时候用到 DI，应该回想一下上文所提到的更高层面的概念。请将 <strong> 可插拔模块 </strong> 牢记吧。它会影响你的很多设计决策，并且引导你去理解更多的 DI 模式和原则。</p>
+<h3 id="Design_Patterns:_Singletons"><a href="http://code.tutsplus.com/articles/design-patterns-singletons--cms-23886" target="_blank" rel="external">Design Patterns: Singletons</a></h3><p>The definition of the singleton pattern is simple, only one instance of the singleton class can be created or is alive at any one time.</p>
+<p>The singleton pattern is simple and powerful, but it should be used sparingly.</p>
+
+        
+      
+    </div>
+
+    <div class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </div>
+  </div>
+
+
     
       
 
@@ -258,10 +339,11 @@
 
       
         
-          <h2 id="经典_UI_应用框架"> 经典 UI 应用框架 </h2><p>UITabBarController + UINavigationController 基本上就可以完成一个 APP。</p>
-<p> 删除多余注释，不是强迫症而是要保证代码简洁干净。</p>
-<p> 有了 BLDemo03 就有了一个基础 UI 框架 ，就可以快速开发一个 APP，很给力。</p>
-<h2 id="源码保存在我的_GitHub:_GeekBand-iOS-Demo"> 源码保存在我的 GitHub: <a href="https://github.com/gewill/GeekBand-iOS-Demo" target="_blank" rel="external">GeekBand-iOS-Demo</a></h2>
+          <h2 id="7-_经典_UI_应用框架">7. 经典 UI 应用框架</h2><p>UITabBarController + UINavigationController 基本上就可以完成一个 APP。</p>
+<p>删除多余注释，不是强迫症而是要保证代码简洁干净。</p>
+<p>有了 BLDemo03 就有了一个基础 UI 框架 ，就可以快速开发一个 APP，很给力。</p>
+<h2 id="9-_应用界面的切换">9. 应用界面的切换 </h2><p> 添加按钮，push/modal 到自定义子视图</p>
+<h2 id="源码保存在我的_GitHub:_GeekBand-iOS-Demo">源码保存在我的 GitHub: <a href="https://github.com/gewill/GeekBand-iOS-Demo" target="_blank" rel="external">GeekBand-iOS-Demo</a></h2>
         
       
     </div>
@@ -876,99 +958,6 @@ pod <span class="string">'AFNetworking'</span>, <span class="string">'~&gt; 2.5'
 
 
     
-      
-
-  <div class="post post-type-normal ">
-    <div class="post-header">
-
-      
-      
-        <h1 class="post-title">
-          
-          
-            
-              <a class="post-title-link" href="/2015/07/23/iOS-Programming-4ed-2/">
-                《iOS 编程》2. Objective-C
-              </a>
-            
-          
-        </h1>
-      
-
-      <div class="post-meta">
-        <span class="post-time">
-          Posted on 2015-07-23
-        </span>
-
-        
-
-        
-          
-            <span class="post-comments-count">
-            &nbsp; | &nbsp;
-            <a href="/2015/07/23/iOS-Programming-4ed-2/#comments" >
-              <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2015/07/23/iOS-Programming-4ed-2/"></span>
-            </a>
-          </span>
-          
-        
-      </div>
-    </div>
-
-    <div class="post-body">
-
-      
-      
-
-      
-        
-          <blockquote>
-<p> 网站加了一个 <a href="https://github.com/hexojs/hexo-filter-auto-spacing" target="_blank" rel="external">hexo-filter-auto-spacing</a> 插件，中英文之间自动加空格😊</p>
-</blockquote>
-<h2 id="2-1_类和对象">2.1 类和对象 </h2><ul>
-<li> 类和对象。对象通过实例变量保存属性的值。</li>
-<li><p> 类有方法，类似函数，调用对象的方法一般叫发消息。</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">[partyInstance addAttendee: somePerson&#10;                   withDish: deviledEggs]</span><br></pre></td></tr></table></figure>
-</li>
-<li><p> 方法的唯一性取决方法名。</p>
-</li>
-<li> 实例变量的存取方法：get 和 set</li>
-<li> 发消息的三种语法：<ul>
-<li> 发消息 []：调用方法 </li>
-<li> 点语法.：存取实例变量 </li>
-<li> 下标语法 []：访问数组 </li>
-</ul>
-</li>
-<li><p> 类方法和实例方法区别：</p>
-<ul>
-<li> 类方法通常用来创建对象，或者获取类的全局变量 </li>
-<li> 实例变量则是用来操作类的对象（对象就是类的实例），如存取方法 </li>
-</ul>
-</li>
-<li><p> 类方法的初始化 </p>
-<p> 必须选一个指定初始化方法，其他初始化方法可以调用指定初始化方法，形成一个初始化方法链 <br><img src="http://ww2.sinaimg.cn/large/5369602ejw1eudiggqtaej20go08adgf.jpg" alt="初始化方法链"></p>
-</li>
-</ul>
-<h2 id="2-5_NSArray 与_NSMultableArray">2.5 NSArray 与 NSMultableArray</h2><p> 数组对象只能保存指向 Objective-C 对象的指针，不能保存基本类型和 C 结构加入数组对象。当然包装成 Objective-C 对象，就可以了，如 NSNumber、NSValue 和 NSDate。nil 包装成 NSNull 才能加入数组。</p>
-<h2 id="项目代码保存在我的_GitHub:_iOSProgramming4edSolutions"> 项目代码保存在我的 GitHub: <a href="https://github.com/gewill/iOSProgramming4edSolutions" target="_blank" rel="external">iOSProgramming4edSolutions</a></h2>
-        
-      
-    </div>
-
-    <div class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </div>
-  </div>
-
-
-    
   </div>
 
   
@@ -1003,11 +992,11 @@ pod <span class="string">'AFNetworking'</span>, <span class="string">'~&gt; 2.5'
           <img class="site-author-image" src="http://i.imgur.com/uRJy8E9.png" alt="Ge Will" />
           <p class="site-author-name">Ge Will</p>
         </div>
-        <p class="site-description motion-element">The people who are crazy enough to think they can change the world, are the ones who do.</p>
+        <p class="site-description motion-element">The people who are crazy enough to think they can change the world, are the ones who Do.</p>
         <div class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">57</span>
+              <span class="site-state-item-count">58</span>
               <span class="site-state-item-name">posts</span>
             </a>
           </div>
