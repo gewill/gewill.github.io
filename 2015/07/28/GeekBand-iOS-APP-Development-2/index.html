@@ -156,6 +156,10 @@
 <p>删除多余注释，不是强迫症而是要保证代码简洁干净。</p>
 <p>有了 BLDemo03 就有了一个基础 UI 框架 ，就可以快速开发一个 APP，很给力。</p>
 <h2 id="9-_应用界面的切换">9. 应用界面的切换 </h2><p> 添加按钮，push/modal 到自定义子视图</p>
+<h2 id="10-_UI_界面编程基础">10. UI 界面编程基础</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">    // add an UIImageView and an image in it&#10;    UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(10, 212, 200, 200)];&#10;    UIImage *image = [UIImage imageNamed:@&#34;bg5.png&#34;];&#10;    [imageView initWithImage:image];&#10;    [self.view addSubview:imageView];&#10;``` &#10;&#24863;&#35273;&#20195;&#30721;&#28155;&#21152; UI &#24456;&#31616;&#21333;&#65292;&#35774;&#32622;&#22823;&#23567;&#23646;&#24615;&#20869;&#23481;&#65292;&#28155;&#21152;&#21040; view&#12290;&#10;&#23436;&#25104;&#30456;&#24212;&#22320;&#20195;&#29702;&#65292;&#21487;&#20197;&#23454;&#29616;&#35270;&#22270;&#8220;&#25511;&#21046;&#8221; model&#12290;&#10;&#10;## 13.UIView &#21644;&#24120;&#29992;&#30340;&#32452;&#20214;&#10;&#10;&#31867;&#20284;&#30011;&#30011;&#19978;&#33394;&#36807;&#31243;&#65292;&#33258;&#24213;&#21521;&#19978;&#20197;&#27492;&#19978;&#33394;&#12290;&#10;&#10;Views &#33258;&#19978;&#21040;&#19979;&#30340;&#23618;&#27425;&#20851;&#31995;&#65306;&#10;&#10;* UIImage&#10;* UIImageView&#10;* UIView &#10;* UIScrollView &#21644; UIPagecontrol &#10;* self.view</span><br></pre></td></tr></table></figure>
+<p>//<br>//  BLThreeViewController.h<br>//  BLDemo03</p>
+<h1 id="import">import <uikit uikit.h=""></uikit></h1><h1 id="import_“BLBaseViewController-h”">import “BLBaseViewController.h”</h1><p>@interface BLThreeViewController : BLBaseViewController <uiscrollviewdelegate><br>{<br>    UIScrollView  <em>_scrollView;<br>    UIPageControl </em>_pageControl;<br>    UIView        *_contentView;<br>}</uiscrollviewdelegate></p>
+<p>@end<br>```</p>
 <h2 id="源码保存在我的_GitHub:_GeekBand-iOS-Demo">源码保存在我的 GitHub: <a href="https://github.com/gewill/GeekBand-iOS-Demo" target="_blank" rel="external">GeekBand-iOS-Demo</a></h2>
       
     </div>
@@ -237,7 +241,7 @@
         <div class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">57</span>
+              <span class="site-state-item-count">58</span>
               <span class="site-state-item-name">posts</span>
             </a>
           </div>
@@ -295,7 +299,7 @@
           <div class="post-toc">
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#7-_经典_UI_应用框架"><span class="nav-text">7. 经典 UI 应用框架</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#9-_应用界面的切换"><span class="nav-text">9. 应用界面的切换 </span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#源码保存在我的_GitHub:_GeekBand-iOS-Demo"><span class="nav-text">源码保存在我的 GitHub: GeekBand-iOS-Demo</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#7-_经典_UI_应用框架"><span class="nav-text">7. 经典 UI 应用框架</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#9-_应用界面的切换"><span class="nav-text">9. 应用界面的切换 </span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#10-_UI_界面编程基础"><span class="nav-text">10. UI 界面编程基础</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#import"><span class="nav-text">import </span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#import_“BLBaseViewController-h”"><span class="nav-text">import “BLBaseViewController.h”</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#源码保存在我的_GitHub:_GeekBand-iOS-Demo"><span class="nav-text">源码保存在我的 GitHub: GeekBand-iOS-Demo</span></a></li></ol></div>
             
           </div>
           <div class="post-toc-indicator-bottom post-toc-indicator"></div>

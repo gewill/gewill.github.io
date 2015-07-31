@@ -48,7 +48,7 @@
 
 
 
-  <title> 《iOS 编程》6. 视图控制器 // whoDO </title>
+  <title> 最近 5 点钟起床 // whoDO </title>
 </head>
 
 <body>
@@ -120,7 +120,7 @@
           
           
             
-              《iOS 编程》6. 视图控制器
+              最近 5 点钟起床
             
           
         </h1>
@@ -128,7 +128,7 @@
 
       <div class="post-meta">
         <span class="post-time">
-          Posted on 2015-07-28
+          Posted on 2015-08-01
         </span>
 
         
@@ -137,8 +137,8 @@
           
             <span class="post-comments-count">
             &nbsp; | &nbsp;
-            <a href="/2015/07/28/iOS-Programming-4ed-6/#comments" >
-              <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2015/07/28/iOS-Programming-4ed-6/"></span>
+            <a href="/2015/08/01/Why-I-get-up-at-5-o-clock/#comments" >
+              <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2015/08/01/Why-I-get-up-at-5-o-clock/"></span>
             </a>
           </span>
           
@@ -152,38 +152,24 @@
       
 
       
-        <h2 id="6-5_添加本地通知">6.5 添加本地通知 </h2><p> 书中没有提到申请通知权限，方法如下</p>
-<p><a href="http://stackoverflow.com/questions/24203066/ask-user-for-permission-to-show-alert-when-firing-local-notification" target="_blank" rel="external">add this code, it will show a alert view to ask user for permission.</a></p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#10;if ([UIApplication instancesRespondToSelector:@selector(registerUserNotificationSettings:)]) &#123;&#10;    [[UIApplication sharedApplication] registerUserNotificationSettings:[UIUserNotificationSettings settingsForTypes:UIUserNotificationTypeAlert|UIUserNotificationTypeSound|UIUserNotificationTypeBadge&#10;                                                                                                          categories:nil]];&#10;&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="6-7_与视图控制器及其视图进行交互">6.7 与视图控制器及其视图进行交互 </h2><p><strong> 视图控制器的生命周期方法（lifecycle method）：</strong></p>
-<ul>
-<li><p>application:didFinishLaunchingWithOptions: 在该方法中设置和初始化应用窗口的根视图控制器。该方法只会在应用启动完毕后调用一次。</p>
-</li>
-<li><p>initWithNibName:bundle: 该方法是 UIViewController 的指定初始化方法，创建视图控制器时，就会调用该方法。请注意，某些情况下，需要在同一个应用中创建多个相同的 UIViewController 子类对象，每次创建一个该类的对象时，都会调用一次该类的 initWithNibName:bundle: 方法。</p>
-</li>
-</ul>
-<ul>
-<li>loadView: 可以覆盖该方法，使用代码方式设置视图控制器的 view 属性。</li>
-</ul>
-<ul>
-<li>viewDidLoad 可以覆盖该方法，设置使用 NIB 文件创建的视图对象。该方法会在视图控制器加载完视图后被调用。</li>
-</ul>
-<ul>
-<li>viewWillAppear: 可以覆盖该方法，设置使用 NIB 文件创建的视图对象。该方法和</li>
-<li>viewDidAppear: 会在每次视图控制器的 view 显示在屏幕上时被调用；相反，</li>
-<li>viewWillDisappear: 和 viewDidDisappear: 方法会在每次视图控制器的 view 从屏幕上消失时被调用。</li>
-</ul>
-<h2 id="6-9_中级练习：控制逻辑">6.9 中级练习：控制逻辑 </h2><p> 查文档不懂，这是个大问题，有待提高看文档具体怎么组织的能力。<a href="http://stackoverflow.com/questions/6688160/how-to-programmatically-add-a-uisegmentedcontrol-to-a-container-view" target="_blank" rel="external">Stack Overflow</a> 的答案运行崩溃，没有理解原理，<code>mainSegmentControl:</code> 方法没有声明。最后还是去 <a href="http://forums.bignerdranch.com/viewtopic.php?f=487&amp;t=9844" target="_blank" rel="external">BNR 论坛</a> 找到了答案。</p>
-<blockquote>
-<p>熟悉文档浏览 UIColor，其实也是不很精通颜色，但是还是大部分看懂了，也了解了目录结构和对应文本的样式。</p>
+        <blockquote>
+<p>sunshine of 5 o’clock</p>
 </blockquote>
-<p>GWHypnosisViewController.m </p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#10;- (void)viewDidLoad &#123;&#10;    [super viewDidLoad];&#10;    // Do any additional setup after loading the view.&#10;    NSLog(@&#34;GWHypnosisViewController loaded its view.&#34;);&#10;&#10;    // &#21021;&#22987;&#21270;UISegmentedControl&#65292;&#35774;&#32622;&#22823;&#23567;&#21644;&#39068;&#33394;&#10;    UISegmentedControl *segmentedControl = [[UISegmentedControl alloc] initWithItems:@[@&#34;Red&#34;, @&#34;Green&#34;, @&#34;Blue&#34;]];&#10;    segmentedControl.frame = CGRectMake(0, 0, 250, 50);&#10;    segmentedControl.tintColor = [UIColor blackColor];&#10;    &#10;    // &#27880;&#20876;UISegmentedControl&#10;    [segmentedControl addTarget:self.view&#10;                         action:@selector(mainSegmentControl:)&#10;               forControlEvents: UIControlEventValueChanged];&#10;    // &#28155;&#21152;&#21040;&#35270;&#22270;&#10;    [self.view addSubview:segmentedControl];&#10;    &#10;&#125;</span><br></pre></td></tr></table></figure>
-<p>GWHypnosisView.h</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#10;- (void)mainSegmentControl:(UISegmentedControl *)segment;</span><br></pre></td></tr></table></figure>
-<p>GWHypnosisView.m</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">// mainSegmentControl: &#26041;&#27861;&#29992;&#26469;&#25509;&#21463; UISegmentedControl &#21457;&#30340;&#28040;&#24687;&#10;- (void)mainSegmentControl:(UISegmentedControl *)segment&#10;&#123;&#10;    &#10;    if(segment.selectedSegmentIndex == 0)&#10;    &#123;&#10;        // action for the first button (Current or Default)&#10;        self.circleColor = [UIColor redColor];&#10;    &#125;&#10;    else if(segment.selectedSegmentIndex == 1)&#10;    &#123;&#10;        // action for the second button&#10;        self.circleColor = [UIColor greenColor];&#10;    &#125;&#10;    else if(segment.selectedSegmentIndex == 2)&#10;    &#123;&#10;        // action for the third button&#10;        self.circleColor = [UIColor blueColor];&#10;    &#125;&#10;    &#10;&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="项目代码保存在我的_GitHub:_iOSProgramming4edSolutions">项目代码保存在我的 GitHub: <a href="https://github.com/gewill/iOSProgramming4edSolutions" target="_blank" rel="external">iOSProgramming4edSolutions</a></h2>
+<p><img src="http://ww1.sinaimg.cn/large/5369602ejw1eumnv1opobj22io1w0b29.jpg" alt="early morining"></p>
+<p>最近 5 点钟起床，可能昨天是 1 点钟睡的（哦不对，是今天），可能中午会补一觉回来。这里绝不是学习科技公司的 CEO，必须早上起来处理完事情，员工才能上班按计划做事。因为学习 iOS 的激情和自我的压力，希望不会想初中高中那会，累的白了头，毕竟现在还是稍微完善了自我管理和娱乐方式也多了。</p>
+<h2 id="学习的激情">学习的激情 </h2><p> 接触 iOS 可能有 2 年了，自学开发断断续续也有 1 年了。问题来了之前没有激情吗？答案是我只是停留在用户角度喜欢苹果的设计的美感和简介，优雅是苹果追求的，但是只有少数产品实现了。另外闭门造车太难了，根据学习本来是就社交属性的，联系到 <a href="http://www.douban.com/note/344117673/" target="_blank" rel="external"> 学习金字塔理论 </a>，培训和参加社区，才能找到开发的乐趣。包括认识很多不同的人，有趣的人，又或者精神导师之类，可以讨论问题、新的技术或新的产品。这一切都是<a href="http://simpleprogrammer.com/2012/12/09/the-4-most-important-skills-for-a-software-developer/" target="_blank" rel="external"> 与人打交道 </a> 的。孤立起来的人，要么天才要么疯子。显然我不是前者，随意为了避免成为后者我要主动开放的心态参加社区，结交朋友。尤其最近参加了 <a href="http://www.meetup.com/CocoaHeads-Shanghai/" target="_blank" rel="external">CocoaHeads Shanghai Meetup</a>，发了很多有意思的开发者和有趣的人。还是 tinyfool 很久以前提到的 Meetup，最近想认识更多的 iOS 开发者才想起来参加的活动。</p>
+<blockquote>
+<p>We just grab a coffee and speak French. Some people have been coming every week for months… it creates a kind of warmth to the group.</p>
+<p>— Rafaël, started French Conversation Group</p>
+</blockquote>
+<p>书非借不能读也，软件非买不珍惜也。两者真心是个矛盾的东西，按照割肉理论，可能是书太便宜了，买了也是几乎零成本。最近买了些开发利器如：Duet Display、<a href="https://itunes.apple.com/us/app/dash-3-api-docs-snippets/id449589707" target="_blank" rel="external">Dash 3</a>，还有免费的 Alcatraz、FuzzyAutocomplete、<a href="https://github.com/danielgindi/ios-charts" target="_blank" rel="external">iOS Charts</a> 等等。也让我很是着迷之中。</p>
+<p>最近一周学习到很多知识，尤其学会利用 Apple iOS Documentation，这里强烈推荐 <a href="https://itunes.apple.com/us/app/dash-3-api-docs-snippets/id449589707" target="_blank" rel="external">Dash 3</a>，可以一步打开 Documentation（学习快人一步）。而且继承了 Google 和 Stack Overflow，非常方便。还有 GeekBand 段松老师的课程也是很好的，毕竟是一线开发者，提到了很多经验和工作中常用的方法和知识点。学会看文档掌握了主动权，可以练习和实战课程没有提到的点，练习也是非常重要的学习方法。以前也看了借本书和视频教程，但是很快就忘记了，究其原因不过是似懂非懂的了解一下，还是不会实际开发。正所谓听了很多道理，依然过不好这一生。没有去实践，就是过了听瘾，如同看电影肥皂剧一样。别人的道理又怎么会改变你的人生？</p>
+<h2 id="自我压力">自我压力 </h2><p> 本来想说是自我管理，生活的动力往往来自压力或激情。尤其是最近读了一篇文章：<a href="http://www.douban.com/group/topic/78105857/" target="_blank" rel="external">不和穷人谈恋爱？</a>，简直是是醍醐灌顶。本非简单地说你的屌丝，不愿理你，而是说你甘愿做一个屌丝这就有问题。我再也不愿逃避我现阶段失败的状态。直接导致我每天 5 点钟自然醒，因为压力，因为我要改变自己。</p>
+<blockquote>
+<p>我说你说的就跟穷人有罪似的。她说对啊，穷人就是有罪。然后她看着夜空说，“你不觉得现在这个社会，年轻人很难穷吗？真的只要稍微学点什么，用点脑子，对生活稍微用力一点，就可以养活自己。在这个时代，还坚持穷下去的人他绝对不是简单的穷的问题了，一定是他性格或者人品上有什么缺陷和问题，才导致他穷。你不要小看穷，也不用动不动掏出你一颗圣母心来疼爱万物，我再说一遍，在这个时代一个人穷说明他自身有着很大的问题。” </p>
+<p>“尤其男人，穷就判定了这个人没有责任心，也没有任何人脉，换句话说没有人脉就是不会看人，不会交朋友。你肯定又要跟我扯阶级，说一个人也必须拥有差不多的实力，才能跻身比自己高一个级别的圈子。但是就算门口烤白薯的人特别好，特别会做人，他也能交到几个朋友愿意帮他的。这是一个人情商问题，没有朋友愿意帮他，第一说明他情商低，第二说明这个人人品有问题，第三，正常人都有社交，一个人没对象很正常，要是一个朋友都没有，那你不用跟我争，这人就是有问题。” </p>
+</blockquote>
+<h3 id="矫情一下😸：">矫情一下😸：</h3><h3 id="从明天起，做一个有趣的人">从明天起，做一个有趣的人 </h3><h3 id="学习，吃饭，周游世界"> 学习，吃饭，周游世界</h3>
       
     </div>
 
@@ -194,13 +180,11 @@
         <div class="post-nav">
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2015/07/28/GeekBand-iOS-APP-Development-2/">极客班 iOS 应用开发实战（二）</a>
-            
           </div>
 
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2015/07/28/iOS-Programming-4ed-5/">《iOS 编程》5. 视图：重绘与 UIScrollView</a>
+              <a href="/2015/07/29/iOS-Programming-4ed-7/">《iOS 编程》7. 委托与文本输入</a>
             
           </div>
         </div>
@@ -322,7 +306,7 @@
           <div class="post-toc">
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#6-5_添加本地通知"><span class="nav-text">6.5 添加本地通知 </span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#6-7_与视图控制器及其视图进行交互"><span class="nav-text">6.7 与视图控制器及其视图进行交互 </span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#6-9_中级练习：控制逻辑"><span class="nav-text">6.9 中级练习：控制逻辑 </span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#项目代码保存在我的_GitHub:_iOSProgramming4edSolutions"><span class="nav-text">项目代码保存在我的 GitHub: iOSProgramming4edSolutions</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#学习的激情"><span class="nav-text">学习的激情 </span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#自我压力"><span class="nav-text">自我压力 </span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#矫情一下😸："><span class="nav-text">矫情一下😸：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#从明天起，做一个有趣的人"><span class="nav-text">从明天起，做一个有趣的人 </span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#学习，吃饭，周游世界"><span class="nav-text"> 学习，吃饭，周游世界</span></a></li></ol></li></ol></div>
             
           </div>
           <div class="post-toc-indicator-bottom post-toc-indicator"></div>
@@ -568,9 +552,9 @@
 
     <script type="text/javascript">
       var disqus_shortname = 'gewill';
-      var disqus_identifier = '2015/07/28/iOS-Programming-4ed-6/';
-      var disqus_title = '《iOS 编程》6. 视图控制器';
-      var disqus_url = 'http://gewill.org/2015/07/28/iOS-Programming-4ed-6/';
+      var disqus_identifier = '2015/08/01/Why-I-get-up-at-5-o-clock/';
+      var disqus_title = '最近 5 点钟起床';
+      var disqus_url = 'http://gewill.org/2015/08/01/Why-I-get-up-at-5-o-clock/';
 
       (function(){
         var dsq = document.createElement('script');
