@@ -122,6 +122,79 @@
           
           
             
+              <a class="post-title-link" href="/2015/08/02/Crazy-Swift-Lecture-Chapter-12/">
+                Crazy Swift Lecture Chapter 12
+              </a>
+            
+          
+        </h1>
+      
+
+      <div class="post-meta">
+        <span class="post-time">
+          Posted on 2015-08-02
+        </span>
+
+        
+
+        
+          
+            <span class="post-comments-count">
+            &nbsp; | &nbsp;
+            <a href="/2015/08/02/Crazy-Swift-Lecture-Chapter-12/#comments" >
+              <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2015/08/02/Crazy-Swift-Lecture-Chapter-12/"></span>
+            </a>
+          </span>
+          
+        
+      </div>
+    </div>
+
+    <div class="post-body">
+
+      
+      
+
+      
+        
+          <h1 id="第十二章_使用_Swift_开发_iOS_应用"> 第十二章 使用 Swift 开发 iOS 应用 </h1><p>Swift 和 Objective-C 明显语法习惯区别：</p>
+<ul>
+<li>Swift 类型名在后面，以为前面被 let、var 占用了 </li>
+<li> 初始化 ()，和 Frameworks 中的习惯一致，区别 Objective-C 的 alloc 、 init </li>
+<li> 方法调用. 跟方便，区别 Objective-C 的发消息 []</li>
+</ul>
+<p> 用代码写的 UI：</p>
+<figure class="highlight swift"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment">//  AppDelegate.swift</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> <span class="type">UIKit</span></span><br><span class="line"></span><br><span class="line">@<span class="type">UIApplicationMain</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">AppDelegate</span>: <span class="title">UIResponder</span>, <span class="title">UIApplicationDelegate</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">var</span> window: <span class="type">UIWindow</span>?</span><br><span class="line">    </span><br><span class="line">    <span class="func"><span class="keyword">func</span> <span class="title">tappedHandler</span><span class="params">(sender: UIButton)</span></span> &#123;</span><br><span class="line">        sender.setTitle(<span class="string">"You did it."</span>, forState: <span class="type">UIControlState</span>.<span class="type">Normal</span>)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="func"><span class="keyword">func</span> <span class="title">application</span><span class="params">(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?)</span></span> -&gt; <span class="type">Bool</span> &#123;</span><br><span class="line">        <span class="keyword">self</span>.window = <span class="type">UIWindow</span>(frame: <span class="type">UIScreen</span>.mainScreen().bounds)</span><br><span class="line">        <span class="keyword">self</span>.window!.backgroundColor = <span class="type">UIColor</span> (red: <span class="number">0.8042</span>, green: <span class="number">0.9882</span>, blue: <span class="number">0.672</span>, alpha: <span class="number">1.0</span> )</span><br><span class="line">        </span><br><span class="line">        <span class="comment">// add a UIViewController</span></span><br><span class="line">        <span class="keyword">let</span> controller = <span class="type">UIViewController</span>()</span><br><span class="line">        <span class="keyword">self</span>.window!.rootViewController = controller;</span><br><span class="line">        </span><br><span class="line">        <span class="comment">// add a UIView</span></span><br><span class="line">        <span class="keyword">let</span> rootView = <span class="type">UIView</span>(frame: <span class="type">UIScreen</span>.mainScreen().bounds)</span><br><span class="line">        controller.view = rootView</span><br><span class="line">        </span><br><span class="line">        <span class="comment">// add an UIButton</span></span><br><span class="line">        <span class="keyword">let</span> button = <span class="type">UIButton</span>.buttonWithType(<span class="type">UIButtonType</span>.<span class="type">InfoDark</span>) <span class="keyword">as</span>! <span class="type">UIButton</span></span><br><span class="line">        button.frame = <span class="type">CGRectMake</span>(<span class="number">40</span> , <span class="number">100</span> , <span class="number">300</span> , <span class="number">40</span> )</span><br><span class="line">        button.backgroundColor = <span class="type">UIColor</span> (red: <span class="number">0.0</span>, green: <span class="number">0.9811</span>, blue: <span class="number">0.5737</span>, alpha: <span class="number">1.0</span> )</span><br><span class="line">        button.setTitle(<span class="string">"I'm an UIButton, try to touch me😝"</span>, forState: <span class="type">UIControlState</span>.<span class="type">Normal</span>)</span><br><span class="line">        button.addTarget(<span class="keyword">self</span>,</span><br><span class="line">                         action: <span class="string">"tappedHandler:"</span>,</span><br><span class="line">               forControlEvents: <span class="type">UIControlEvents</span>.<span class="type">TouchUpInside</span>)</span><br><span class="line">        rootView.addSubview(button)</span><br><span class="line">        </span><br><span class="line">        <span class="comment">// add a Label</span></span><br><span class="line">        <span class="keyword">var</span> label = <span class="type">UILabel</span>(frame: <span class="type">CGRectMake</span>(<span class="number">60</span> , <span class="number">40</span> , <span class="number">180</span> , <span class="number">30</span> ))</span><br><span class="line">        label.text = <span class="string">"a label"</span></span><br><span class="line">        label.backgroundColor = <span class="type">UIColor</span> (red: <span class="number">1.0</span>, green: <span class="number">0.5781</span>, blue: <span class="number">0.0</span>, alpha: <span class="number">1.0</span> )</span><br><span class="line">        rootView.addSubview(label)</span><br><span class="line">        </span><br><span class="line">        </span><br><span class="line">        </span><br><span class="line">        <span class="keyword">self</span>.window!.makeKeyAndVisible()</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">true</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+        
+      
+    </div>
+
+    <div class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </div>
+  </div>
+
+
+    
+      
+
+  <div class="post post-type-normal ">
+    <div class="post-header">
+
+      
+      
+        <h1 class="post-title">
+          
+          
+            
               <a class="post-title-link" href="/2015/08/01/Why-I-get-up-at-5-o-clock/">
                 最近 5 点钟起床
               </a>
@@ -889,89 +962,6 @@ pod <span class="string">'AFNetworking'</span>, <span class="string">'~&gt; 2.5'
 
 
     
-      
-
-  <div class="post post-type-normal ">
-    <div class="post-header">
-
-      
-      
-        <h1 class="post-title">
-          
-          
-            
-              <a class="post-title-link" href="/2015/07/24/iOS-Programming-4ed-3/">
-                《iOS 编程》3. 通过 ARC 管理内存
-              </a>
-            
-          
-        </h1>
-      
-
-      <div class="post-meta">
-        <span class="post-time">
-          Posted on 2015-07-24
-        </span>
-
-        
-
-        
-          
-            <span class="post-comments-count">
-            &nbsp; | &nbsp;
-            <a href="/2015/07/24/iOS-Programming-4ed-3/#comments" >
-              <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2015/07/24/iOS-Programming-4ed-3/"></span>
-            </a>
-          </span>
-          
-        
-      </div>
-    </div>
-
-    <div class="post-body">
-
-      
-      
-
-      
-        
-          <h2 id="3-1_栈">3.1 栈 </h2><p> 栈对应方法或函数的帧，堆则是包含大量 iOS 应用创建的对象</p>
-<h2 id="3-3_指针变量与对象所有权">3.3 指针变量与对象所有权 </h2><p> 引用计数就是社保局，调查每个人有几份工作，一个正式工作，或兼职几份工作，或失业。失业，内存就会被释放，就会给你这个 free man 推荐新工作。</p>
-<p>那些情况会使对象失去拥有者：</p>
-<ul>
-<li>修改指针指向另一个变量（跳槽）</li>
-<li>设为 nil（辞职）</li>
-<li>对象拥有者被释放（公司倒闭）</li>
-<li>从 collection 对象中删除对象（裁员）</li>
-</ul>
-<h2 id="3-4_强引用与弱引用">3.4 强引用与弱引用 </h2><p><img src="http://ww2.sinaimg.cn/large/5369602ejw1eue4oorli3j20go08amxk.jpg" alt="解决强引用循环问题后的 RandomItems"><br> 大部分强引用循环可以确定一个父子关系，子对象改为弱引用即刻。</p>
-<p>Xcode 的 Leaks 工具可以帮忙找出强引用循环问题。</p>
-<h2 id="3-5_属性">3.5 属性 </h2><p> 声明属性，等于隐式地声明和创建相应名称的实例变量，声明一对存取方法。当然我们还可以自定义存取方法。</p>
-<p>属性的特性（attribute）:</p>
-<ul>
-<li>多线程：nonatomic/atomic</li>
-<li>读写：readwrite/readonly</li>
-<li>内存管理：strong/weak/copy/unsafe_unretained</li>
-</ul>
-<h2 id="项目代码保存在我的_GitHub:_iOSProgramming4edSolutions">项目代码保存在我的 GitHub: <a href="https://github.com/gewill/iOSProgramming4edSolutions" target="_blank" rel="external">iOSProgramming4edSolutions</a></h2>
-        
-      
-    </div>
-
-    <div class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </div>
-  </div>
-
-
-    
   </div>
 
   
@@ -1010,7 +1000,7 @@ pod <span class="string">'AFNetworking'</span>, <span class="string">'~&gt; 2.5'
         <div class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">58</span>
+              <span class="site-state-item-count">59</span>
               <span class="site-state-item-name">posts</span>
             </a>
           </div>
