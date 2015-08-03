@@ -122,6 +122,166 @@
           
           
             
+              <a class="post-title-link" href="/2015/07/27/cocoapods-install/">
+                CocoaPods 安装步骤
+              </a>
+            
+          
+        </h1>
+      
+
+      <div class="post-meta">
+        <span class="post-time">
+          Posted on 2015-07-27
+        </span>
+
+        
+
+        
+          
+            <span class="post-comments-count">
+            &nbsp; | &nbsp;
+            <a href="/2015/07/27/cocoapods-install/#comments" >
+              <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2015/07/27/cocoapods-install/"></span>
+            </a>
+          </span>
+          
+        
+      </div>
+    </div>
+
+    <div class="post-body">
+
+      
+      
+
+      
+        
+          <p>看到极客班同学 Kevin Wang 分享的 CocoaPods 笔记：<a href="http://www.jianshu.com/p/c1063c9017b0" target="_blank" rel="external">iOS 学习备忘录：CocoaPods 基本使用技巧</a>，我自己就试着一下。</p>
+<p>以下安装 <a href="https://github.com/AFNetworking/AFNetworking" target="_blank" rel="external">AFNetworking</a> 的过程，同时参考了：<a href="https://github.com/AFNetworking/AFNetworking/wiki/Getting-Started-with-AFNetworking" target="_blank" rel="external">Getting Started with AFNetworking</a> 和 唐巧的 <a href="http://book.douban.com/subject/26287173/" target="_blank" rel="external">《iOS 开发进阶》</a>。</p>
+<p>感觉 <a href="https://github.com/AFNetworking/AFNetworking/wiki/Getting-Started-with-AFNetworking" target="_blank" rel="external">Getting Started with AFNetworking</a>，写的非常好了。我已经没有地方修改，就加了我在安装 CocoaPods 遇到的一个坑。看样子还是要英文顺溜才行。</p>
+<p>CocoaPods 网络库加 Podfile 配置文件，一个可以方便添加第三方库，而是团队协作容易统一版本，真真一个好东西。</p>
+<h2 id="Step_1:_Download_CocoaPods">Step 1: Download CocoaPods</h2><p>第一步开 VPN，不要问为什么。终端输入：</p>
+<pre><code><span class="variable">$ </span>sudo gem install cocoapods
+<span class="variable">$ </span>pod setup
+</code></pre><blockquote>
+<p>我遇到没有安装没有如何进度和提示，重装 Ruby 和 RubyGems 就好了。</p>
+</blockquote>
+<pre><code>$ brew <span class="operator"><span class="keyword">install</span> ruby
+$ gem <span class="keyword">update</span> <span class="comment">--system</span></span>
+</code></pre><h2 id="Step_2:_Create_a_Podfile">Step 2: Create a Podfile</h2><p>用 Xcode 或其他编辑器新建 <code>Podfile</code>，放在项目根目录下：</p>
+<pre><code><span class="variable">$ </span>touch <span class="constant">Podfile</span>
+<span class="variable">$ </span>open -a <span class="constant">Xcode Podfile</span>
+</code></pre><p>并复制下面内容到 <code>Podfile</code>：</p>
+<pre><code><span class="literal">source</span> <span class="string">'https://github.com/CocoaPods/Specs.git'</span>
+<span class="literal">platform</span> :ios, <span class="string">'7.0'</span>
+pod <span class="string">'AFNetworking'</span>, <span class="string">'~&gt; 2.5'</span>
+</code></pre><h2 id="Step_3:_Install_Dependencies">Step 3: Install Dependencies</h2><pre><code>$ pod <span class="keyword">install</span>
+</code></pre><p>以后只要打开 Xcode workspace (<code>.xcworkspace</code>)才行</p>
+<pre><code>$ open <span class="tag">&lt;<span class="title">YourProjectName</span>&gt;</span>.xcworkspace
+</code></pre><h2 id="Step_4:_Dive_In!">Step 4: Dive In!</h2><p>大功告成，至此就可以使用 AFNetworking 了。记得在需要的类中 <code>#import</code> 头文件。</p>
+<blockquote>
+<p>最后分享一个在 <a href="http://liqi.io" target="_blank" rel="external"> 利器 </a> 上看到的利器：<a href="https://www.pushbullet.com/" target="_blank" rel="external">Pushbullet</a> 是跨平台双向文件传输工具。如果你同时使用 Mac、ios 和 Android 又想要在设备间无线传输图片、文字，那么你一定需要这样的工具。</p>
+<p>其实还有隐藏功能共享剪切板，瞬间变成神器了，有没有？比微信和 Airdrop 方便多了。</p>
+</blockquote>
+
+        
+      
+    </div>
+
+    <div class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </div>
+  </div>
+
+
+    
+      
+
+  <div class="post post-type-normal ">
+    <div class="post-header">
+
+      
+      
+        <h1 class="post-title">
+          
+          
+            
+              <a class="post-title-link" href="/2015/07/26/GeekBand-Objective-C-Programming-2/">
+                极客班 Objective-C 高级编程（二）
+              </a>
+            
+          
+        </h1>
+      
+
+      <div class="post-meta">
+        <span class="post-time">
+          Posted on 2015-07-26
+        </span>
+
+        
+
+        
+          
+            <span class="post-comments-count">
+            &nbsp; | &nbsp;
+            <a href="/2015/07/26/GeekBand-Objective-C-Programming-2/#comments" >
+              <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2015/07/26/GeekBand-Objective-C-Programming-2/"></span>
+            </a>
+          </span>
+          
+        
+      </div>
+    </div>
+
+    <div class="post-body">
+
+      
+      
+
+      
+        
+          <h2 id="课堂笔记"> 课堂笔记 </h2><p><a href="http://weibo.com/songduan" target="_blank" rel="external">@段松 </a> 老师上课喜欢类比生活中的对象，还是比较容易理解的。</p>
+<p> 断点的使用可以帮助理解每一行的作用和追踪对象或属性的变化。</p>
+<p> 内存管理讲的挺详细，发现课程结构顺序和《iOS 编程》很像。</p>
+<h2 id="源码保存在我的_GitHub:_GeekBand-iOS-Demo"> 源码保存在我的 GitHub: <a href="https://github.com/gewill/GeekBand-iOS-Demo" target="_blank" rel="external">GeekBand-iOS-Demo</a></h2>
+        
+      
+    </div>
+
+    <div class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </div>
+  </div>
+
+
+    
+      
+
+  <div class="post post-type-normal ">
+    <div class="post-header">
+
+      
+      
+        <h1 class="post-title">
+          
+          
+            
               <a class="post-title-link" href="/2015/07/25/GeekBand-flip-classroom-week-2/">
                 极客班线下翻转课堂第二周
               </a>
@@ -956,187 +1116,11 @@
 
 
     
-      
-
-  <div class="post post-type-normal ">
-    <div class="post-header">
-
-      
-      
-        <h1 class="post-title">
-          
-          
-            
-              <a class="post-title-link" href="/2015/07/17/CS193P-5-Objective-C-Compatibility-Proper/">
-                CS193P 5. Objective-C Compatibility, Proper
-              </a>
-            
-          
-        </h1>
-      
-
-      <div class="post-meta">
-        <span class="post-time">
-          Posted on 2015-07-17
-        </span>
-
-        
-
-        
-          
-            <span class="post-comments-count">
-            &nbsp; | &nbsp;
-            <a href="/2015/07/17/CS193P-5-Objective-C-Compatibility-Proper/#comments" >
-              <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2015/07/17/CS193P-5-Objective-C-Compatibility-Proper/"></span>
-            </a>
-          </span>
-          
-        
-      </div>
-    </div>
-
-    <div class="post-body">
-
-      
-      
-
-      
-        
-          <h2 id="1-_Objective-C_兼容性">1. Objective-C 兼容性</h2><p>Bridging</p>
-<p>Swift 可以无缝使用以前 Objective-C 的 API，但是一些特殊的数据类型需要桥接。桥接是指可以互换的使用。</p>
-<p>NSString &lt;-&gt; String</p>
-<p>NSArray &lt;-&gt;  Array<anyobject></anyobject></p>
-<p>NSDictionary &lt;-&gt;  Dictionary<nsobject, anyobject=""></nsobject,></p>
-<p>Int, Float, Double, Bool -&gt;  NSNumber (反之不行)</p>
-<p>99% 的桥接均是隐式完成的。</p>
-<h2 id="2-_属性列表">2. 属性列表 </h2><p> 属性列表指 AnyObject 是一下六种类型的集合列表：<br>NSString, NSArray, NSDictionary, NSNumber, NSData, NSDate。</p>
-<p>处理属性列表通常需要映射：如 is 和 as。</p>
-<p>属性列表可以“盲”传递数据，也可以作为一种通用数据结构 - 类似泛型。</p>
-<p>NSUserDefaults 作为一种使用属性列表的存储机制。本质上就是一个小的存储数据列表的数据库。通常用存储“设置”信息。<br>NSUserDefaults 可以通过名称或键来存储或检索整个属性列表。</p>
-<p><strong>以下用法摘自：<a href="http://www.codingexplorer.com/nsuserdefaults-a-swift-introduction/" target="_blank" rel="external">NSUserDefaults — A Swift Introduction</a></strong></p>
-<h3 id="存储_NSUserDefaults">存储 NSUserDefaults</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">let defaults = NSUserDefaults.standardUserDefaults()&#10;defaults.setObject(&#34;Coding Explorer&#34;, forKey: &#34;userNameKey&#34;)</span><br></pre></td></tr></table></figure>
-<p>NSUserDefaults 常用的写入方法:</p>
-<ul>
-<li>func setBool(value: Bool, forKey defaultName: String)</li>
-<li>func setInteger(value: Int, forKey defaultName: String)</li>
-<li>func setFloat(value: Float, forKey defaultName: String)</li>
-<li>func setDouble(value: Double, forKey defaultName: String)</li>
-<li>func setObject(value: AnyObject?, forKey defaultName: String)</li>
-<li>func setURL(url: NSURL, forKey defaultName: String)</li>
-</ul>
-<p>iOS 8 或更新版本不要使用 synchronize。 </p>
-<h3 id="读取_NSUserDefaults">读取 NSUserDefaults</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">let defaults = NSUserDefaults.standardUserDefaults()&#10;if let name = defaults.stringForKey(&#34;userNameKey&#34;)&#10;&#123;&#10;    println(name)&#10;&#125;</span><br></pre></td></tr></table></figure>
-<p>对应的常用读取 NSUserDefaults 的方法：</p>
-<ul>
-<li>func boolForKey(defaultName: String) -&gt; Bool</li>
-<li>func integerForKey(defaultName: String) -&gt; Int</li>
-<li>func floatForKey(defaultName: String) -&gt; Float</li>
-<li>func doubleForKey(defaultName: String) -&gt; Double</li>
-<li>func objectForKey(defaultName: String) -&gt; AnyObject?</li>
-<li>func URLForKey(defaultName: String) -&gt; NSURL?</li>
-<li>func dataForKey(defaultName: String) -&gt; NSData?</li>
-<li>func stringForKey(defaultName: String) -&gt; String?</li>
-<li>func stringArrayForKey(defaultName: String) -&gt; [AnyObject]?</li>
-<li>func arrayForKey(defaultName: String) -&gt; [AnyObject]?</li>
-<li>func dictionaryForKey(defaultName: String) -&gt; [NSObject : AnyObject]?</li>
-</ul>
-<h3 id="使用常量做键">使用常量做键 </h3><p> 方便在一处修改，容易理解编译报错。</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">let userNameKeyConstant = &#34;userNameKey&#34;&#10;&#10;@IBAction func writeButton(sender: UIButton)&#10;&#123;&#10;    let defaults = NSUserDefaults.standardUserDefaults()&#10;    defaults.setObject(&#34;Coding Explorer&#34;, forKey: userNameKeyConstant)&#10;&#125;&#10;&#10;@IBAction func readButton(sender: UIButton)&#10;&#123;&#10;    let defaults = NSUserDefaults.standardUserDefaults()&#10;    if let name = defaults.stringForKey(userNameKeyConstant)&#10;    &#123;&#10;        print(name)&#10;    &#125;&#10;&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="3-_视图">3. 视图 </h2><p> 视图代表了一个长方形区域。</p>
-<p>视图是等级，类似单继承：一个视图只可以有一个 superview，但可以有很多 subviews。<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">//&#10;//  FaceView.swift&#10;//  Happiness&#10;//&#10;//  Created by Will Ge on 7/17/15.&#10;//  Copyright &#169; 2015 gewill.org. All rights reserved.&#10;//&#10;&#10;import UIKit&#10;&#10;class FaceView: UIView &#123;&#10;    &#10;    var lineWidth: CGFloat = 5 &#123; didSet &#123; setNeedsDisplay() &#125; &#125;&#10;    var color: UIColor = UIColor.blueColor() &#123; didSet &#123; setNeedsDisplay() &#125; &#125;&#10;    var scale: CGFloat = 0.9&#10;    var faceCenter: CGPoint &#123;&#10;        return convertPoint(center, fromView: superview)&#10;    &#125;&#10;    &#10;    var faceRadius: CGFloat &#123;&#10;        return min(bounds.size.width, bounds.size.height) / 2 * scale&#10;    &#125;&#10;    &#10;    // &#35206;&#20889; drawRect&#65292;&#33258;&#23450;&#20041;&#35270;&#22270;&#10;    override func drawRect(rect: CGRect) &#123;&#10;        &#10;        // &#30011;&#33080;&#10;        let facePath = UIBezierPath(arcCenter: faceCenter, radius: faceRadius, startAngle: 0, endAngle: CGFloat(2 * M_PI), clockwise: true)&#10;        facePath.lineWidth = lineWidth&#10;        color.set()&#10;        facePath.stroke()&#10;        &#10;        // &#30011;&#30524;&#10;        bezierPathForEye(.Left).stroke()&#10;        bezierPathForEye(.Right).stroke()&#10;        &#10;        // &#30011;&#22068;&#24052;&#10;        let smiliness = 0.8&#10;        let smilePath = bezierPathForSmile(smiliness)&#10;        smilePath.stroke()&#10;    &#125;&#10;    &#10;    &#10;    private struct Scaling &#123;&#10;        static let FaceRadiusToEyeRadiusRatio: CGFloat = 10&#10;        static let FaceRadiusToEyeOffsetRatio: CGFloat = 3&#10;        static let FaceRadiusToEyeSeparationRatio: CGFloat = 1.5&#10;        static let FaceRadiusToMouthWidthRatio: CGFloat = 1&#10;        static let FaceRadiusToMouthHeightRatio: CGFloat = 3&#10;        static let FaceRadiusToMouthOffsetRatio: CGFloat = 3&#10;        &#10;    &#125;&#10;    &#10;    // &#23450;&#20041;&#26522;&#20030;&#65306;&#24038;&#21491;&#30524;&#10;    private enum Eye &#123; case Left, Right &#125;&#10;    &#10;    // &#23450;&#20041;&#20989;&#25968;&#65306;&#30524;&#30555;&#30340;&#36335;&#24452;&#10;    private func bezierPathForEye(whichEye: Eye) -&#62; UIBezierPath &#123;&#10;        &#10;        let eyeRadius = faceRadius / Scaling.FaceRadiusToEyeRadiusRatio&#10;        let eyeVerticalOffset = faceRadius / Scaling.FaceRadiusToEyeOffsetRatio&#10;        let eyeHorizontalSeparation = faceRadius / Scaling.FaceRadiusToEyeSeparationRatio&#10;        &#10;        var eyeCenter = faceCenter&#10;        eyeCenter.y -= eyeVerticalOffset&#10;        switch whichEye &#123;&#10;        case .Left: eyeCenter.x -= eyeHorizontalSeparation / 2&#10;        case .Right: eyeCenter.x += eyeHorizontalSeparation / 2&#10;        &#125;&#10;        &#10;        let path = UIBezierPath(arcCenter: eyeCenter, radius: eyeRadius, startAngle: 0, endAngle: CGFloat(2 * M_PI), clockwise: true)&#10;        path.lineWidth = lineWidth&#10;        return path&#10;        &#10;    &#125;&#10;    &#10;    // &#23450;&#20041;&#20989;&#25968;&#65306;&#22068;&#24052;&#30340;&#36335;&#24452;&#10;    private func bezierPathForSmile(fractionOfMaxSmile: Double) -&#62; UIBezierPath &#123;&#10;        &#10;        let mouthWidth = faceRadius / Scaling.FaceRadiusToMouthWidthRatio&#10;        let mouthHeight = faceRadius / Scaling.FaceRadiusToMouthHeightRatio&#10;        let mouthVerticalOffset = faceRadius / Scaling.FaceRadiusToMouthOffsetRatio&#10;        &#10;        let smileHeight = CGFloat(max(min(fractionOfMaxSmile, 1), -1)) * mouthHeight&#10;        &#10;        let start = CGPoint(x: faceCenter.x - mouthWidth / 2, y: faceCenter.y + mouthVerticalOffset)&#10;        let end = CGPoint(x: start.x + mouthWidth, y: start.y)&#10;        let cp1 = CGPoint(x: start.x + mouthWidth / 3, y: start.y + smileHeight)&#10;        let cp2 = CGPoint(x: end.x - mouthWidth / 3, y: cp1.y)&#10;        &#10;        let path = UIBezierPath()&#10;        path.moveToPoint(start)&#10;        path.addCurveToPoint(end, controlPoint1: cp1, controlPoint2: cp2)&#10;        path.lineWidth = lineWidth&#10;        return path&#10;    &#125;&#10;&#10;    &#10;&#125;</span><br></pre></td></tr></table></figure></p>
-
-        
-      
-    </div>
-
-    <div class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </div>
-  </div>
-
-
-    
-      
-
-  <div class="post post-type-normal ">
-    <div class="post-header">
-
-      
-      
-        <h1 class="post-title">
-          
-          
-            
-              <a class="post-title-link" href="/2015/07/16/Why-I-quit-my-job/">
-                辞职参加博览网 iOS 极客班
-              </a>
-            
-          
-        </h1>
-      
-
-      <div class="post-meta">
-        <span class="post-time">
-          Posted on 2015-07-16
-        </span>
-
-        
-
-        
-          
-            <span class="post-comments-count">
-            &nbsp; | &nbsp;
-            <a href="/2015/07/16/Why-I-quit-my-job/#comments" >
-              <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2015/07/16/Why-I-quit-my-job/"></span>
-            </a>
-          </span>
-          
-        
-      </div>
-    </div>
-
-    <div class="post-body">
-
-      
-      
-
-      
-        
-          <p>上个星期五正式从公司离职，做了一年整。为什么辞职不做 IT 技术支持，一个原因工资太低。</p>
-<p>记得当初进公司是在家自学了 3 个月 iOS 无果，准备一边上班一边继续自学，现在看来多么傻的一个决定，既然不想做 IT 技术支持，就不要做。因为实际上很累，一天下来，偶尔还要加班，完全没有精力晚上在学习。当然只是一部分原因，最主要的阻碍是我自律很差，完全不适合自学。早早的应该 3 年前和老爸去咨询 IT 开发培训的时候，就该入学的。也不至于毕业 3 年，一事无成。</p>
-<p>最近几天我在浦东图书馆学习，效率很高，完全能够投入其中。报了博览网的 <a href="http://boolan.com/geekband/2" target="_blank" rel="external">iOS 极客班 </a>，希望能够<strong> 一反面改变我自己：提高自我管理能力，另一方面也能得到系统的学习和大神的指导。</strong></p>
-<p>选择极客班不仅仅是价格比传统线下培训学校便宜，主要看中老师都是一线的大牛。最初最初也是通过<a href="http://weibo.com/tinyfool" target="_blank" rel="external">@tinyfool</a> 老师了解到极客班，相信性情中人不会错。期待周末开班，当然还有顺利结业并找到 iOS 的工作。</p>
-
-        
-      
-    </div>
-
-    <div class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </div>
-  </div>
-
-
-    
   </div>
 
   
   <div class="pagination">
-    <a class="extend prev" rel="prev" href="/">&laquo;</a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/6/">6</a><a class="extend next" rel="next" href="/page/3/">&raquo;</a>
+    <a class="extend prev" rel="prev" href="/">&laquo;</a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/7/">7</a><a class="extend next" rel="next" href="/page/3/">&raquo;</a>
   </div>
 
 
@@ -1170,7 +1154,7 @@
         <div class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">60</span>
+              <span class="site-state-item-count">62</span>
               <span class="site-state-item-name">posts</span>
             </a>
           </div>
