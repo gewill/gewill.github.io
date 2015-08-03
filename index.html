@@ -168,7 +168,7 @@
 <blockquote>
 <p><strong>WARNING</strong>: Never ship a release build of your app containing the Reveal dynamic library. Apple does not allow dynamic library loading in iOS apps distributed via the App Store.</p>
 </blockquote>
-<ul>
+<ol>
 <li><p>Open your iOS project in Xcode.</p>
 </li>
 <li><p>Launch Reveal and select <strong>Help → Show Reveal Library in Finder</strong>. This will open a Finder window showing a folder named <em>iOS-Libraries</em>.</p>
@@ -189,42 +189,42 @@
 <p>Go to your target’s <strong>Build Phases</strong> tab and select <strong>Editor → Add Build Phase → Add Run Script</strong> menu. Edit the Run Script to contain:</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">set -e&#10;&#10;if [-n &#34;$&#123;CODE_SIGN_IDENTITY&#125;&#34;]; then&#10;  codesign -fs &#34;$&#123;CODE_SIGN_IDENTITY&#125;&#34; &#34;$&#123;BUILT_PRODUCTS_DIR&#125;/$&#123;FULL_PRODUCT_NAME&#125;/libReveal.dylib&#34;&#10;fi</span><br></pre></td></tr></table></figure>
 </li>
-</ul>
-<ul>
+</ol>
+<ol>
 <li><p>Add the following code to an appropriate class (e.g. your <code>UIApplicationDelegate</code>) in your project, and modify it to suit your needs:</p>
 <p><strong>Swift:</strong></p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">// MARK: - Reveal&#10;&#10;func loadReveal() &#123;&#10;    if NSClassFromString(&#34;IBARevealLoader&#34;) == nil &#123;&#10;        let revealLibName = &#34;libReveal&#34;&#10;        let revealLibExtension = &#34;dylib&#34;&#10;        var error: String?&#10;        if let dylibPath = NSBundle.mainBundle().pathForResource(revealLibName, ofType: revealLibExtension) &#123;&#10;            println(&#34;Loading dynamic library \(dylibPath)&#34;)&#10;            let revealLib = dlopen(dylibPath, RTLD_NOW)&#10;            if revealLib == nil &#123;&#10;                error = String(UTF8String: dlerror())&#10;            &#125;&#10;        &#125; else &#123;&#10;            error = &#34;File not found.&#34;&#10;        &#125;&#10;&#10;        if error != nil &#123;&#10;            UIAlertView(&#10;                title: &#34;Reveal library could not be loaded&#34;,&#10;                message: &#34;\(revealLibName).\(revealLibExtension) failed to load with error: \(error!)&#34;,&#10;                delegate: nil,&#10;                cancelButtonTitle: &#34;OK&#34;&#10;                ).show()&#10;        &#125;&#10;    &#125;&#10;&#125;</span><br></pre></td></tr></table></figure>
 </li>
-</ul>
+</ol>
 <p> <strong>Objective-C:</strong></p>
  <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">#pragma mark - Reveal&#10;#import &#60;dlfcn.h&#62;&#10;&#10;- (void)loadReveal&#10;&#123;&#10;    if (NSClassFromString(@&#34;IBARevealLoader&#34;) == nil)&#10;    &#123;&#10;        NSString *revealLibName = @&#34;libReveal&#34;;&#10;        NSString *revealLibExtension = @&#34;dylib&#34;;&#10;        NSString *error;&#10;        NSString *dyLibPath = [[NSBundle mainBundle] pathForResource:revealLibName ofType:revealLibExtension];&#10;        if (dyLibPath != nil)&#10;        &#123;&#10;            NSLog(@&#34;Loading dynamic library: %@&#34;, dyLibPath);&#10;            void *revealLib = dlopen([dyLibPath cStringUsingEncoding:NSUTF8StringEncoding], RTLD_NOW);&#10;            if (revealLib == NULL)&#10;            &#123;&#10;                error = [NSString stringWithUTF8String:dlerror()];&#10;            &#125;&#10;        &#125;&#10;        else&#10;        &#123;&#10;            error = @&#34;File not found.&#34;;&#10;        &#125;&#10;&#10;        if (error != nil)&#10;        &#123;&#10;            NSString *message = [NSString stringWithFormat:@&#34;%@.%@ failed to load with error: %@&#34;, revealLibName, revealLibExtension, error];&#10;            [[[UIAlertView alloc] initWithTitle:@&#34;Reveal library could not be loaded&#34; message:message delegate:nil cancelButtonTitle:@&#34;OK&#34; otherButtonTitles:nil] show];&#10;        &#125;&#10;    &#125;&#10;&#125;</span><br></pre></td></tr></table></figure>
 <blockquote>
 <p><strong>WARNING</strong>: You should not call this method from a release build. Be sure to only load <em>libReveal.dylib</em>from debug builds of your application.</p>
 </blockquote>
-<ul>
+<ol>
 <li><p>A simple integration might call the method above from within the <code>-[UIApplicationDelegate application: didFinishLaunchingWithOptions:]</code> method to ensure the library is loaded as soon as possible:</p>
 <p><strong>Swift:</strong></p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -&#62; Bool &#123;&#10;    self.loadReveal()&#10;    return true&#10;&#125;</span><br></pre></td></tr></table></figure>
 </li>
-</ul>
+</ol>
 <p> <strong>Objective-C:</strong></p>
  <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions&#10;&#123;&#10;    [self loadReveal];&#10;    return YES;&#10;&#125;</span><br></pre></td></tr></table></figure>
 <blockquote>
 <p><strong>Note</strong>: Loading the library before <code>-[UIApplicationDelegate application: didFinishLaunchingWithOptions:]</code> returns has the added bonus that the Reveal Service will start automatically at launch.</p>
 </blockquote>
-<ul>
+<ol>
 <li><p>If you prefer not to have the Reveal Service start automatically as described in the previous step, it can be started manually such as via a Debug button or similar. Just call the <code>loadReveal</code> method yourself after the app has started, and then post an <code>NSNotification</code> named <code>IBARevealRequestStart</code>:</p>
 <p><strong>Swift:</strong></p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">func startReveal() &#123;&#10;    NSNotificationCenter.defaultCenter().postNotificationName(&#34;IBARevealRequestStart&#34;, object: nil)&#10;&#125;</span><br></pre></td></tr></table></figure>
 </li>
-</ul>
+</ol>
 <p> <strong>Objective-C:</strong></p>
  <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">- (void)startReveal&#10;&#123;&#10;    [[NSNotificationCenter defaultCenter] postNotificationName:@&#34;IBARevealRequestStart&#34; object:nil];&#10;&#125;</span><br></pre></td></tr></table></figure>
-<ul>
+<ol>
 <li><p>In Xcode, build and run your application using a scheme that is set to use the <strong>Debug</strong> configuration.</p>
 <p><img src="http://support.revealapp.com/help/assets/50e63a60bde957c90d7e24157acb1c0cb0f5e4c4/reveal-app-chooser_normal.jpg" alt="Reveal App Chooser showing Soundstagram"></p>
 </li>
-</ul>
+</ol>
 
         
       
