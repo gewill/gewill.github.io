@@ -122,6 +122,87 @@
           
           
             
+              <a class="post-title-link" href="/2015/07/07/CS193P-2-More-Xcode-and-Swift-MVC/">
+                CS193P 2. More Xcode and Swift, MVC
+              </a>
+            
+          
+        </h1>
+      
+
+      <div class="post-meta">
+        <span class="post-time">
+          Posted on 2015-07-07
+        </span>
+
+        
+
+        
+          
+            <span class="post-comments-count">
+            &nbsp; | &nbsp;
+            <a href="/2015/07/07/CS193P-2-More-Xcode-and-Swift-MVC/#comments" >
+              <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2015/07/07/CS193P-2-More-Xcode-and-Swift-MVC/"></span>
+            </a>
+          </span>
+          
+        
+      </div>
+    </div>
+
+    <div class="post-body">
+
+      
+      
+
+      
+        
+          <p> 继续 DEMO: Calculator </p>
+<p>Swift 能类型推断 </p>
+<p> 自动布局：</p>
+<ul>
+<li>Pin: Spacing to nearest neighbor, Equal Widths, Equal Heights</li>
+<li>Resolve Auto Layout Issues: Clear Constraints</li>
+</ul>
+<p>87 果然是个神奇的数字，我之前没有对齐就开始 Pin，始终无法得到“Add 87 Constraints”，自然没有得到自动对齐的理想布局。</p>
+<p> 代码如下：<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">//&#10;//  ViewController.swift&#10;//  Calculator&#10;//&#10;//  Created by Will Ge on 6/28/15.&#10;//  Copyright &#169; 2015 gewill.org. All rights reserved.&#10;//&#10;&#10;import UIKit&#10;&#10;class ViewController: UIViewController &#123;&#10;    &#10;&#10;    @IBOutlet weak var display: UILabel!&#10;    &#10;    var userIsInTheMiddleOfTypingANumber: Bool = false&#10;&#10;    @IBAction func appendDigit(sender: UIButton) &#123;&#10;        let digit = sender.currentTitle!&#10;        if userIsInTheMiddleOfTypingANumber&#123;&#10;              display.text = display.text! + digit&#10;        &#125; else &#123;&#10;            display.text = digit&#10;            userIsInTheMiddleOfTypingANumber = true&#10;        &#125;&#10;    &#10;        print(&#34;digit = \(digit)&#34;)&#10;    &#125;&#10;&#10;    var operandStack = Array&#60;Double&#62;()&#10;    &#10;    @IBAction func enter() &#123;&#10;        userIsInTheMiddleOfTypingANumber = false&#10;        operandStack.append(displayValue)&#10;        print(&#34;operandStack = \(operandStack)&#34;)&#10;        &#10;    &#125;&#10;    &#10;    @IBAction func operate(sender: UIButton) &#123;&#10;        let operation = sender.currentTitle!&#10;        if userIsInTheMiddleOfTypingANumber &#123;&#10;            enter()&#10;        &#125;&#10;        switch operation &#123;&#10;        case &#34;&#215;&#34;: performOperation &#123; $0 * $1 &#125;&#10;        case &#34;&#247;&#34;: performOperation &#123; $1 / $1 &#125;&#10;        case &#34;+&#34;: performOperation &#123; $0 + $1 &#125;&#10;        case &#34;&#8722;&#34;: performOperation &#123; $1 - $0 &#125;&#10;        case &#34;&#8730;&#34;: performOperation1 &#123; sqrt($0) &#125;&#10;        default: break&#10;        &#125;&#10;    &#125;&#10;    &#10;    func performOperation(operation: (Double, Double) -&#62;Double) &#123;&#10;        if operandStack.count &#62;= 2 &#123;&#10;            displayValue = operation(operandStack.removeLast(), operandStack.removeLast())&#10;            enter()&#10;        &#125;&#10;    &#125;&#10;    &#10;    func performOperation1(operation: Double -&#62;Double) &#123;&#10;        if operandStack.count &#62;= 2 &#123;&#10;            displayValue = operation(operandStack.removeLast())&#10;            enter()&#10;        &#125;&#10;    &#125;&#10;&#10;    &#10;    var displayValue: Double&#123;&#10;        get &#123;&#10;            return NSNumberFormatter().numberFromString(display.text!)!.doubleValue&#10;        &#125;&#10;        set &#123;&#10;            display.text = &#34;\(newValue)&#34;&#10;            userIsInTheMiddleOfTypingANumber = false&#10;        &#125;&#10;    &#125;&#10;&#125;</span><br></pre></td></tr></table></figure></p>
+<p>MVC:</p>
+<ul>
+<li> 各个模块之间的含义 </li>
+<li> 模块之间的通信有无 </li>
+<li> 模块之间的控制关系 </li>
+</ul>
+<p><img src="http://i.imgur.com/i8HTac7.png" alt="MVC"></p>
+
+        
+      
+    </div>
+
+    <div class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </div>
+  </div>
+
+
+    
+      
+
+  <div class="post post-type-normal ">
+    <div class="post-header">
+
+      
+      
+        <h1 class="post-title">
+          
+          
+            
               <a class="post-title-link" href="/2015/06/28/CS193P-1-Logistics-iOS-8-Overview/">
                 CS193P 1.Logistics, iOS 8 Overview
               </a>
@@ -970,74 +1051,6 @@
 
 
     
-      
-
-  <div class="post post-type-normal ">
-    <div class="post-header">
-
-      
-      
-        <h1 class="post-title">
-          
-          
-            
-              <a class="post-title-link" href="/2015/05/24/Tomcat-Game-DEMO/">
-                Tomcat Game DEMO
-              </a>
-            
-          
-        </h1>
-      
-
-      <div class="post-meta">
-        <span class="post-time">
-          Posted on 2015-05-24
-        </span>
-
-        
-
-        
-          
-            <span class="post-comments-count">
-            &nbsp; | &nbsp;
-            <a href="/2015/05/24/Tomcat-Game-DEMO/#comments" >
-              <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2015/05/24/Tomcat-Game-DEMO/"></span>
-            </a>
-          </span>
-          
-        
-      </div>
-    </div>
-
-    <div class="post-body">
-
-      
-      
-
-      
-        
-          <p><a href="http://www.jikexueyuan.com/" target="_blank" rel="external">极客学院 </a> 充值月度 VIP，学习 iOS 视频，感觉他们的知识体系图和实战路径图很不错，按照一个大纲去学习的。</p>
-<p>今天按照视频指导：<a href="http://www.jikexueyuan.com/course/339.html" target="_blank" rel="external">制作汤姆猫小游戏</a>，完成以下 DEMO。</p>
-<p>其中发现我写代码中遇到很多小问题，google 就有答案的。</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">//&#10;//  ViewController.m&#10;//  Tomcat Game DEMO&#10;//&#10;//  Created by Will on 5/24/15.&#10;//  Copyright (c) 2015 gewill.org. All rights reserved.&#10;//&#10;&#10;#import &#34;ViewController.h&#34;&#10;&#10;@interface ViewController ()&#10;@property (weak, nonatomic) IBOutlet UIImageView *tomImageView;&#10;&#10;@end&#10;&#10;@implementation ViewController&#10;&#10;&#10;&#10;- (IBAction)touchHeadOnHead:(UIButton *)sender &#123;&#10;    [self tomAnimateWith:@&#34;knockout&#34; imageCount:81];&#10;    &#10;    &#10;&#125;&#10;- (IBAction)touchEat:(UIButton *)sender &#123;&#10;    [self tomAnimateWith:@&#34;eat&#34; imageCount:40];&#10;&#125;&#10;- (IBAction)touchPie:(UIButton *)sender &#123;&#10;    [self tomAnimateWith:@&#34;pie&#34; imageCount:24];&#10;&#125;&#10;- (IBAction)touchScratch:(UIButton *)sender &#123;&#10;    [self tomAnimateWith:@&#34;scratch&#34; imageCount:56];&#10;&#125;&#10;- (IBAction)TouchDrink:(UIButton *)sender &#123;&#10;    [self tomAnimateWith:@&#34;drink&#34; imageCount:81];&#10;&#125;&#10;- (IBAction)touchCymbal:(UIButton *)sender &#123;&#10;    [self tomAnimateWith:@&#34;symbal&#34; imageCount:13];&#10;&#125;&#10;- (IBAction)touchStomach:(UIButton *)sender &#123;&#10;    [self tomAnimateWith:@&#34;stomach&#34; imageCount:34];&#10;    &#10;&#125;&#10;- (IBAction)touchFootLeft:(UIButton *)sender &#123;&#10;    [self tomAnimateWith:@&#34;footLeft&#34; imageCount:30];&#10;&#125;&#10;- (IBAction)touchFootRight:(UIButton *)sender &#123;&#10;    [self tomAnimateWith:@&#34;footRight&#34; imageCount:30];&#10;&#125;&#10;- (IBAction)touchAngry:(UIButton *)sender &#123;&#10;    [self tomAnimateWith:@&#34;angry&#34; imageCount:26];&#10;&#125;&#10;&#10;#pragma mark - &#21160;&#30011;&#25191;&#34892;&#26041;&#27861;&#10;- (void)tomAnimateWith:(NSString *)fileName imageCount:(NSInteger)imageCount&#123;&#10;    // 0. &#21028;&#26029;&#26159;&#21542;&#27491;&#22312;&#25191;&#34892;&#21160;&#30011;&#10;    if (self.tomImageView.isAnimating) &#123;&#10;        return;&#10;    &#125;&#10;    &#10;    // 1. &#21019;&#24314;&#22270;&#29255;&#25968;&#32452;&#10;    NSMutableArray *tomImages = [NSMutableArray array];&#10;    &#10;    for (int i = 0; i &#60; imageCount; i++) &#123;&#10;        NSString *imageName = [NSString stringWithFormat:@&#34;%@_%02d.jpg&#34;, fileName, i];&#10;        NSString *path =[[NSBundle mainBundle] pathForResource:imageName ofType:nil];&#10;        UIImage *image = [UIImage imageWithContentsOfFile:path];&#10;        [tomImages addObject:image];&#10;    &#125;&#10;   &#10;    // 2. &#35774;&#32622;&#21160;&#30011;&#36807;&#31243;&#10;    [self.tomImageView setAnimationImages:tomImages];&#10;    [self.tomImageView setAnimationDuration:self.tomImageView.animationImages.count * 0.1];&#10;    [self.tomImageView setAnimationRepeatCount:1];&#10;    [self.tomImageView startAnimating];&#10;    &#10;&#125;&#10;&#10;&#10;&#10;- (void)viewDidLoad &#123;&#10;    [super viewDidLoad];&#10;    // Do any additional setup after loading the view, typically from a nib.&#10;&#125;&#10;&#10;- (void)didReceiveMemoryWarning &#123;&#10;    [super didReceiveMemoryWarning];&#10;    // Dispose of any resources that can be recreated.&#10;&#125;&#10;&#10;@end</span><br></pre></td></tr></table></figure>
-        
-      
-    </div>
-
-    <div class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </div>
-  </div>
-
-
-    
   </div>
 
   
@@ -1076,7 +1089,7 @@
         <div class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">61</span>
+              <span class="site-state-item-count">62</span>
               <span class="site-state-item-name">posts</span>
             </a>
           </div>
