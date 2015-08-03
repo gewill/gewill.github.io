@@ -48,7 +48,7 @@
 
 
 
-  <title> Simple Calculator // whoDO </title>
+  <title> Reveal // whoDO </title>
 </head>
 
 <body>
@@ -120,7 +120,7 @@
           
           
             
-              Simple Calculator
+              Reveal
             
           
         </h1>
@@ -128,7 +128,7 @@
 
       <div class="post-meta">
         <span class="post-time">
-          Posted on 2015-05-24
+          Posted on 2015-08-03
         </span>
 
         
@@ -137,8 +137,8 @@
           
             <span class="post-comments-count">
             &nbsp; | &nbsp;
-            <a href="/2015/05/24/Simple-Calculator/#comments" >
-              <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2015/05/24/Simple-Calculator/"></span>
+            <a href="/2015/08/03/Reveal/#comments" >
+              <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2015/08/03/Reveal/"></span>
             </a>
           </span>
           
@@ -152,9 +152,19 @@
       
 
       
-        <p> 一个简单地计算器，可以加减乘除，除法还有问题，待解决。</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">//&#10;//  ViewController.swift&#10;//  Simple Calculator&#10;//&#10;//  Created by Will on 5/24/15.&#10;//  Copyright (c) 2015 gewill.org. All rights reserved.&#10;//&#10;&#10;import UIKit&#10;&#10;class ViewController: UIViewController &#123;&#10;    @IBOutlet weak var text1: UITextField!&#10;    &#10;    &#10;    @IBOutlet weak var text2: UITextField!&#10;    @IBOutlet weak var result: UITextField!&#10;    &#10;    @IBAction func BeZero(sender: AnyObject) &#123;&#10;        self.result.text = &#34;0&#34;&#10;        self.text1.text = &#34; &#34;&#10;        self.text2.text = &#34; &#34;&#10;        &#10;    &#125;&#10;    @IBAction func plus(sender: AnyObject) &#123;&#10;        // &#19977;&#30446;&#36816;&#31639;&#31526;&#31616;&#27905;&#65292;&#20294;&#26159;&#27809;&#26377; if &#36923;&#36753;&#28165;&#26224;&#12290;&#10;        var num1 = self.text1.text.isEmpty ? 0 : self.text1.text.toInt()&#10;        var num2 = self.text2.text.isEmpty ? 0 : self.text2.text.toInt()&#10;        &#10;        &#10;        var resultNum:Double = Double(num1!) + Double(num2!)&#10;        println(resultNum)&#10;        &#10;        self.result.text = &#34;\(resultNum)&#34;&#10;        &#10;        self.text1.resignFirstResponder()&#10;        self.text2.resignFirstResponder()&#10;        &#10;        &#10;    &#125;&#10;    @IBAction func minus(sender: AnyObject) &#123;&#10;        // &#19977;&#30446;&#36816;&#31639;&#31526;&#31616;&#27905;&#65292;&#20294;&#26159;&#27809;&#26377; if &#36923;&#36753;&#28165;&#26224;&#12290;&#10;        var num1 = self.text1.text.isEmpty ? 0 : self.text1.text.toInt()&#10;        var num2 = self.text2.text.isEmpty ? 0 : self.text2.text.toInt()&#10;        &#10;        &#10;        var resultNum = num1! - num2!&#10;        &#10;        self.result.text = &#34;\(resultNum)&#34;&#10;        &#10;        self.text1.resignFirstResponder()&#10;        self.text2.resignFirstResponder()&#10;        &#10;    &#125;&#10;    @IBAction func multiply(sender: AnyObject) &#123;&#10;        // &#19977;&#30446;&#36816;&#31639;&#31526;&#31616;&#27905;&#65292;&#20294;&#26159;&#27809;&#26377; if &#36923;&#36753;&#28165;&#26224;&#12290;&#10;        var num1 = self.text1.text.isEmpty ? 0 : self.text1.text.toInt()&#10;        var num2 = self.text2.text.isEmpty ? 0 : self.text2.text.toInt()&#10;        &#10;        &#10;        var resultNum = num1! * num2!&#10;        &#10;        self.result.text = &#34;\(resultNum)&#34;&#10;        &#10;        self.text1.resignFirstResponder()&#10;        self.text2.resignFirstResponder()&#10;        &#10;    &#125;&#10;    @IBAction func division(sender: AnyObject) &#123;&#10;        // &#19977;&#30446;&#36816;&#31639;&#31526;&#31616;&#27905;&#65292;&#20294;&#26159;&#27809;&#26377; if &#36923;&#36753;&#28165;&#26224;&#12290;&#10;        var num1 = self.text1.text.isEmpty ? 0 : self.text1.text.toInt()&#10;        var num2 = self.text2.text.isEmpty ? 0 : self.text2.text.toInt()&#10;        &#10;        &#10;        var resultNum = num1! / num2!&#10;        &#10;        self.result.text = &#34;\(resultNum)&#34;&#10;        &#10;        self.text1.resignFirstResponder()&#10;        self.text2.resignFirstResponder()&#10;        &#10;    &#125;&#10;    override func viewDidLoad() &#123;&#10;        super.viewDidLoad()&#10;        // Do any additional setup after loading the view, typically from a nib.&#10;    &#125;&#10;    &#10;    override func didReceiveMemoryWarning() &#123;&#10;        super.didReceiveMemoryWarning()&#10;        // Dispose of any resources that can be recreated.&#10;    &#125;&#10;    &#10;    &#10;&#125;</span><br></pre></td></tr></table></figure>
-<p><img src="http://i.imgur.com/96q8Eay.png" alt="Imgur"><br><img src="http://i.imgur.com/7kHLTc4.png" alt="Imgur"></p>
+        <p><img src="http://i.imgur.com/OKKIRbq.jpg" alt="Imgur"></p>
+<p>Reveal 最早是在唐巧的《iOS 开发进阶》看到的，当时不以为然。其实很多内容都不以为然，因为那时候还是入门阶段，自然看不懂的。主要缺乏交流，自悟容易自误。</p>
+<p> 最近 GeekBand 的段松老师的课程，纯代码的 UI 布局，就遇到了极大的困惑：布局错了不知道在哪里，控件失踪了（跑到屏幕外的 frame）。搜索了一下，重新找到 Reveal 介绍的文章，试用了一下很强大。可以实时更改控件大小位置，显示在真机或 Simulator 中。和 Sketch、Photoshop 的 Mirror 功能差不多，当然只是调试，实际更改还要在 Xcode 中完成。另外还能查看第三方 APP，不过设备要越狱。</p>
+<blockquote>
+<p>Xcode 的 <a href="https://developer.apple.com/library/ios/recipes/xcode_help-debugger/using_view_debugger/using_view_debugger.html" target="_blank" rel="external">Debug View Hierarchy</a>  只能看看，就弱爆了。</p>
+</blockquote>
+<p><img src="http://i.imgur.com/R7XAflX.jpg" alt="Imgur"></p>
+<hr>
+<p><strong>Reveal 连接真机调试最新的方法：</strong><a href="http://support.revealapp.com/kb/getting-started/integrating-reveal-add-reveal-to-your-xcode-project" target="_blank" rel="external">http://support.revealapp.com/kb/getting-started/integrating-reveal-add-reveal-to-your-xcode-project</a></p>
+<p>Adding Reveal to your Xcode project allows all members of your team to use Reveal without having to perform further configuration.</p>
+<blockquote>
+<p><strong>WARNING</strong>: Never ship a release build of your app containing the Reveal dynamic library. Apple does not allow dynamic library loading in iOS apps distributed via the App Store.</p>
+</blockquote>
 
       
     </div>
@@ -166,13 +176,11 @@
         <div class="post-nav">
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2015/05/24/Tomcat-Game-DEMO/">Tomcat Game DEMO</a>
-            
           </div>
 
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2015/05/22/how-to-be-an-excellent-designer/">如何成为一名优秀的设计师</a>
+              <a href="/2015/08/02/Crazy-Swift-Lecture-Chapter-12/">Crazy Swift Lecture Chapter 12</a>
             
           </div>
         </div>
@@ -540,9 +548,9 @@
 
     <script type="text/javascript">
       var disqus_shortname = 'gewill';
-      var disqus_identifier = '2015/05/24/Simple-Calculator/';
-      var disqus_title = 'Simple Calculator';
-      var disqus_url = 'http://gewill.org/2015/05/24/Simple-Calculator/';
+      var disqus_identifier = '2015/08/03/Reveal/';
+      var disqus_title = 'Reveal';
+      var disqus_url = 'http://gewill.org/2015/08/03/Reveal/';
 
       (function(){
         var dsq = document.createElement('script');
