@@ -122,6 +122,85 @@
           
           
             
+              <a class="post-title-link" href="/2015/08/03/GeekBand-flip-classroom-week-3/">
+                极客班线下翻转课堂第三周
+              </a>
+            
+          
+        </h1>
+      
+
+      <div class="post-meta">
+        <span class="post-time">
+          Posted on 2015-08-03
+        </span>
+
+        
+
+        
+          
+            <span class="post-comments-count">
+            &nbsp; | &nbsp;
+            <a href="/2015/08/03/GeekBand-flip-classroom-week-3/#comments" >
+              <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2015/08/03/GeekBand-flip-classroom-week-3/"></span>
+            </a>
+          </span>
+          
+        
+      </div>
+    </div>
+
+    <div class="post-body">
+
+      
+      
+
+      
+        
+          <p>读书很重要，但是学习起步阶段还是跟老师前辈学习，容易入”门”。</p>
+<p>上午听了产品经理的课，感觉对公司产品有了更直接的了解，更多的是面向用户面向市场的考虑。</p>
+<p>小组项目基本确定，期待一周内见到它。</p>
+<h2 id="王程远">王程远 </h2><p> 淘宝 4 年产品经理</p>
+<p>产品经理要有无授权领导能力</p>
+<p>视觉设计和交互设计角色，不一定等同于具体一个人。</p>
+<p>豆瓣小组是社区运营典范，其搜索排序算法：小组浓度，重心在核心用户质量</p>
+<p>投资砸钱考虑 RY</p>
+<p>多变的奖励让用户成为深度用户 </p>
+<p>推荐书：<a href="http://www.amazon.com/Hooked-How-Build-Habit-Forming-Products-ebook/dp/B00HJ4A43S" target="_blank" rel="external">Hooked: How to Build Habit-Forming Products</a></p>
+<h2 id="Tinyfool">Tinyfool</h2><p>-Git: 模块细分好</p>
+<p>- 时间周期：至少有个版本</p>
+<p>- 看文档：还需要自主学习，扫目录索引记忆，术语概念明白</p>
+<h2 id="小组技术讨论">小组技术讨论 </h2><p> 郭意亮：技术分解原型图，大致分了相机和 UI 界面。尽可能地分解每一步，并画出原型图。我和易庆晟分别负责相机和 UI，下周交付出一个 MVP 出来。</p>
+
+        
+      
+    </div>
+
+    <div class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </div>
+  </div>
+
+
+    
+      
+
+  <div class="post post-type-normal ">
+    <div class="post-header">
+
+      
+      
+        <h1 class="post-title">
+          
+          
+            
               <a class="post-title-link" href="/2015/08/03/Reveal/">
                 Reveal
               </a>
@@ -503,14 +582,11 @@
 <p>完成相应地代理，可以实现视图“控制” model。</p>
 <h2 id="13-UIView_和常用的组件">13.UIView 和常用的组件 </h2><p> 类似画画上色过程，自底向上以此上色。</p>
 <p>Views 自上到下的层次关系：</p>
-<ul>
-<li>UIImage</li>
-<li>UIImageView</li>
-<li>UIView </li>
-<li>UIScrollView 和 UIPagecontrol </li>
-<li>self.view</li>
-</ul>
+<p>-UIImage<br>-UIImageView<br>-UIView<br>-UIScrollView 和 UIPagecontrol<br>-self.view</p>
 <figure class="highlight"><table><tr><td class="code"><pre><span class="line">&#10;//&#10;//  BLThreeViewController.h&#10;//  BLDemo03&#10;&#10;&#10;#import &#60;UIKit/UIKit.h&#62;&#10;#import &#34;BLBaseViewController.h&#34;&#10;&#10;@interface BLThreeViewController : BLBaseViewController &#60;UIScrollViewDelegate&#62;&#10;&#123;&#10;    UIScrollView  *_scrollView;&#10;    UIPageControl *_pageControl;&#10;    UIView        *_contentView;&#10;&#125;&#10;&#10;&#10;@end</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>BLDemo01 L13 课开始集成了 Reveal</p>
+</blockquote>
 <h2 id="源码保存在我的_GitHub:_GeekBand-iOS-Demo">源码保存在我的 GitHub: <a href="https://github.com/gewill/GeekBand-iOS-Demo" target="_blank" rel="external">GeekBand-iOS-Demo</a></h2>
         
       
@@ -741,6 +817,7 @@
       
         
           <p>独立做练习的过程中学习和收获的很多，很多原本认为了解的知识变成了理解和会用的知识。官方文档还有待熟悉。</p>
+<p><img src="http://imgur.com/bdYyIqi.jpg" alt="frame vs bounds"></p>
 <h2 id="4-2_视图层次结构">4.2 视图层次结构</h2><p><img src="http://i.imgur.com/m0Cjfz1.jpg" alt="View"></p>
 <h2 id="4-6_初级练习：绘制图片">4.6 初级练习：绘制图片 </h2><p><code>GWHypnosisView.m</code> 的 <code>- (void)drawRect:(CGRect)rect{}</code> 添加以下代码：</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">// &#28155;&#21152;logo&#65292;&#20013;&#24515;&#28857;&#20026;&#23631;&#24149;&#20013;&#24515;&#28857;&#10;CGRect logoFrame = CGRectMake(center.x - bounds.size.width / 4,  center.y - bounds.size.height / 4, bounds.size.width / 4 * 2, bounds.size.height / 4 * 2);&#10;UIImage *logoimage = [UIImage imageNamed:@&#34;logo.png&#34;];&#10;[logoimage drawInRect:logoFrame];&#10;UIView *logoView = [[UIView alloc]initWithFrame:logoFrame];&#10;[self.window addSubview:logoView];</span><br></pre></td></tr></table></figure>
@@ -859,79 +936,11 @@ pod <span class="string">'AFNetworking'</span>, <span class="string">'~&gt; 2.5'
 
 
     
-      
-
-  <div class="post post-type-normal ">
-    <div class="post-header">
-
-      
-      
-        <h1 class="post-title">
-          
-          
-            
-              <a class="post-title-link" href="/2015/07/26/GeekBand-Objective-C-Programming-2/">
-                极客班 Objective-C 高级编程（二）
-              </a>
-            
-          
-        </h1>
-      
-
-      <div class="post-meta">
-        <span class="post-time">
-          Posted on 2015-07-26
-        </span>
-
-        
-
-        
-          
-            <span class="post-comments-count">
-            &nbsp; | &nbsp;
-            <a href="/2015/07/26/GeekBand-Objective-C-Programming-2/#comments" >
-              <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2015/07/26/GeekBand-Objective-C-Programming-2/"></span>
-            </a>
-          </span>
-          
-        
-      </div>
-    </div>
-
-    <div class="post-body">
-
-      
-      
-
-      
-        
-          <h2 id="课堂笔记"> 课堂笔记 </h2><p><a href="http://weibo.com/songduan" target="_blank" rel="external">@段松 </a> 老师上课喜欢类比生活中的对象，还是比较容易理解的。</p>
-<p> 断点的使用可以帮助理解每一行的作用和追踪对象或属性的变化。</p>
-<p> 内存管理讲的挺详细，发现课程结构顺序和《iOS 编程》很像。</p>
-<h2 id="源码保存在我的_GitHub:_GeekBand-iOS-Demo"> 源码保存在我的 GitHub: <a href="https://github.com/gewill/GeekBand-iOS-Demo" target="_blank" rel="external">GeekBand-iOS-Demo</a></h2>
-        
-      
-    </div>
-
-    <div class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </div>
-  </div>
-
-
-    
   </div>
 
   
   <div class="pagination">
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/6/">6</a><a class="extend next" rel="next" href="/page/2/">&raquo;</a>
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/7/">7</a><a class="extend next" rel="next" href="/page/2/">&raquo;</a>
   </div>
 
 
@@ -965,7 +974,7 @@ pod <span class="string">'AFNetworking'</span>, <span class="string">'~&gt; 2.5'
         <div class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">60</span>
+              <span class="site-state-item-count">61</span>
               <span class="site-state-item-name">posts</span>
             </a>
           </div>

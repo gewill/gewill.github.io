@@ -48,7 +48,7 @@
 
 
 
-  <title> Add share button and statistics // whoDO </title>
+  <title> 极客班线下翻转课堂第三周 // whoDO </title>
 </head>
 
 <body>
@@ -120,7 +120,7 @@
           
           
             
-              Add share button and statistics
+              极客班线下翻转课堂第三周
             
           
         </h1>
@@ -128,7 +128,7 @@
 
       <div class="post-meta">
         <span class="post-time">
-          Posted on 2015-05-26
+          Posted on 2015-08-03
         </span>
 
         
@@ -137,8 +137,8 @@
           
             <span class="post-comments-count">
             &nbsp; | &nbsp;
-            <a href="/2015/05/26/Add-share-button-and-statistics/#comments" >
-              <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2015/05/26/Add-share-button-and-statistics/"></span>
+            <a href="/2015/08/03/GeekBand-flip-classroom-week-3/#comments" >
+              <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2015/08/03/GeekBand-flip-classroom-week-3/"></span>
             </a>
           </span>
           
@@ -152,25 +152,20 @@
       
 
       
-        <h2 id="添加分享">添加分享 </h2><h3 id="方法一：原生分享"> 方法一：原生分享 </h3><p> 添加分享按钮代码， Hexo 文件夹下<code>/theme/next/layout/_macro/post.swig</code>。</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#60;html xmlns:wb=&#34;http://open.weibo.com/wb&#34;&#62;&#10;&#10;&#60;script src=&#34;http://tjs.sjs.sinajs.cn/open/api/js/wb.js&#34; type=&#34;text/javascript&#34; charset=&#34;utf-8&#34;&#62;&#60;/script&#62;&#10;&#10;&#60;wb:share-button appkey=&#34;2407521490&#34; addition=&#34;simple&#34; type=&#34;button&#34;&#62;&#60;/wb:share-button&#62;&#10;&#10;&#10;&#60;a href=&#34;https://twitter.com/share&#34; class=&#34;twitter-share-button&#34; data-via=&#34;gewillorg&#34; data-size=&#34;large&#34; data-count=&#34;none&#34;&#62;Tweet&#60;/a&#62;&#10;&#10;&#60;script&#62;&#10;!function(d,s,id)&#123;&#10;  var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?&#39;http&#39;:&#39;https&#39;;&#10;  &#9;if(!d.getElementById(id))&#123;&#10;  &#9;    js=d.createElement(s);&#10;&#9;    js.id=id;js.src=p+&#39;://platform.twitter.com/widgets.js&#39;;&#10;&#9;    fjs.parentNode.insertBefore(js,fjs);&#10;&#9;&#125;&#10;&#125;&#10;(document, &#39;script&#39;, &#39;twitter-wjs&#39;);&#10;&#60;/script&#62;</span><br></pre></td></tr></table></figure>
-<h3 id="方案二：ShareThis_定制">方案二：<a href="http://www.sharethis.com/" target="_blank" rel="external">ShareThis</a> 定制 </h3><p> 更加统一优美的解决方案，有个各种样式可选，非常方便。<br>稍后我再进行定制，最好是默认黑色，点击激活时恢复彩色。</p>
-<p>默认有添加后缀在你的网址，去除方法如下<code>doNotHash: ture</code>，详情参考：<a href="http://support.sharethis.com/customer/portal/articles/961937#sthash.QKAIxxCu.dpbs" target="_blank" rel="external">CopyNShare Settings</a>。</p>
-<pre><code>
-<span class="tag">&lt;<span class="title">script</span> <span class="attribute">type</span>=<span class="value">"text/javascript"</span>&gt;</span><span class="kotlin"><span class="variable"><span class="keyword">var</span> switchTo5x</span>=<span class="literal">true</span>;</span><span class="tag">&lt;/<span class="title">script</span>&gt;</span>
-<span class="tag">&lt;<span class="title">script</span> <span class="attribute">type</span>=<span class="value">"text/javascript"</span> <span class="attribute">src</span>=<span class="value">"http://w.sharethis.com/button/buttons.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="title">script</span>&gt;</span>
-<span class="tag">&lt;<span class="title">script</span> <span class="attribute">type</span>=<span class="value">"text/javascript"</span>&gt;</span><span class="less"><span class="tag">stLight</span><span class="class">.options</span>({<span class="attribute">publisher</span>: <span class="string">"7fb5f31a-b8e7-4aa1-a6eb-9aac8b9b13f0"</span>, <span class="attribute">doNotHash</span>: ture, <span class="attribute">doNotCopy</span>: false, <span class="attribute">hashAddressBar</span>: true});
-</span><span class="tag">&lt;/<span class="title">script</span>&gt;</span>
-
-<span class="tag">&lt;<span class="title">span</span> <span class="attribute">class</span>=<span class="value">'st_sina_large'</span> <span class="attribute">displayText</span>=<span class="value">'Sina'</span>&gt;</span><span class="tag">&lt;/<span class="title">span</span>&gt;</span>
-<span class="tag">&lt;<span class="title">span</span> <span class="attribute">class</span>=<span class="value">'st_twitter_large'</span> <span class="attribute">displayText</span>=<span class="value">'Tweet'</span>&gt;</span><span class="tag">&lt;/<span class="title">span</span>&gt;</span>
-<span class="tag">&lt;<span class="title">span</span> <span class="attribute">class</span>=<span class="value">'st_facebook_large'</span> <span class="attribute">displayText</span>=<span class="value">'Facebook'</span>&gt;</span><span class="tag">&lt;/<span class="title">span</span>&gt;</span>
-<span class="tag">&lt;<span class="title">span</span> <span class="attribute">class</span>=<span class="value">'st_googleplus_large'</span> <span class="attribute">displayText</span>=<span class="value">'Google +'</span>&gt;</span><span class="tag">&lt;/<span class="title">span</span>&gt;</span>
-<span class="tag">&lt;<span class="title">span</span> <span class="attribute">class</span>=<span class="value">'st_pinterest_large'</span> <span class="attribute">displayText</span>=<span class="value">'Pinterest'</span>&gt;</span><span class="tag">&lt;/<span class="title">span</span>&gt;</span>
-<span class="tag">&lt;<span class="title">span</span> <span class="attribute">class</span>=<span class="value">'st_tumblr_large'</span> <span class="attribute">displayText</span>=<span class="value">'Tumblr'</span>&gt;</span><span class="tag">&lt;/<span class="title">span</span>&gt;</span>
-<span class="tag">&lt;<span class="title">span</span> <span class="attribute">class</span>=<span class="value">'st_reddit_large'</span> <span class="attribute">displayText</span>=<span class="value">'Reddit'</span>&gt;</span><span class="tag">&lt;/<span class="title">span</span>&gt;</span>
-</code></pre><h2 id="不蒜子统计">不蒜子统计 </h2><p>“<a href="http://ibruce.info/2015/04/04/busuanzi/" target="_blank" rel="external"> 不蒜子</a>”与百度统计谷歌分析等有区别：“不蒜子”可直接将访问次数显示在您在网页上。</p>
-<p>添加统计代码， Hexo 文件夹下<code>/theme/next/layout/_partials/footer.swig</code>。 </p>
+        <p>读书很重要，但是学习起步阶段还是跟老师前辈学习，容易入”门”。</p>
+<p>上午听了产品经理的课，感觉对公司产品有了更直接的了解，更多的是面向用户面向市场的考虑。</p>
+<p>小组项目基本确定，期待一周内见到它。</p>
+<h2 id="王程远">王程远 </h2><p> 淘宝 4 年产品经理</p>
+<p>产品经理要有无授权领导能力</p>
+<p>视觉设计和交互设计角色，不一定等同于具体一个人。</p>
+<p>豆瓣小组是社区运营典范，其搜索排序算法：小组浓度，重心在核心用户质量</p>
+<p>投资砸钱考虑 RY</p>
+<p>多变的奖励让用户成为深度用户 </p>
+<p>推荐书：<a href="http://www.amazon.com/Hooked-How-Build-Habit-Forming-Products-ebook/dp/B00HJ4A43S" target="_blank" rel="external">Hooked: How to Build Habit-Forming Products</a></p>
+<h2 id="Tinyfool">Tinyfool</h2><p>-Git: 模块细分好</p>
+<p>- 时间周期：至少有个版本</p>
+<p>- 看文档：还需要自主学习，扫目录索引记忆，术语概念明白</p>
+<h2 id="小组技术讨论">小组技术讨论 </h2><p> 郭意亮：技术分解原型图，大致分了相机和 UI 界面。尽可能地分解每一步，并画出原型图。我和易庆晟分别负责相机和 UI，下周交付出一个 MVP 出来。</p>
 
       
     </div>
@@ -182,13 +177,11 @@
         <div class="post-nav">
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2015/06/01/Producter/">《Producter - 让产品从 0 到 1 》读书笔记</a>
-            
           </div>
 
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2015/05/25/Sketch-improvements-and-skills/">Sketch improvements and skills</a>
+              <a href="/2015/08/03/Reveal/">Reveal</a>
             
           </div>
         </div>
@@ -310,7 +303,7 @@
           <div class="post-toc">
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#添加分享"><span class="nav-text">添加分享 </span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#方法一：原生分享"><span class="nav-text"> 方法一：原生分享 </span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#方案二：ShareThis_定制"><span class="nav-text">方案二：ShareThis 定制 </span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#不蒜子统计"><span class="nav-text">不蒜子统计 </span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#王程远"><span class="nav-text">王程远 </span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Tinyfool"><span class="nav-text">Tinyfool</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#小组技术讨论"><span class="nav-text">小组技术讨论 </span></a></li></ol></div>
             
           </div>
           <div class="post-toc-indicator-bottom post-toc-indicator"></div>
@@ -556,9 +549,9 @@
 
     <script type="text/javascript">
       var disqus_shortname = 'gewill';
-      var disqus_identifier = '2015/05/26/Add-share-button-and-statistics/';
-      var disqus_title = 'Add share button and statistics';
-      var disqus_url = 'http://gewill.org/2015/05/26/Add-share-button-and-statistics/';
+      var disqus_identifier = '2015/08/03/GeekBand-flip-classroom-week-3/';
+      var disqus_title = '极客班线下翻转课堂第三周';
+      var disqus_url = 'http://gewill.org/2015/08/03/GeekBand-flip-classroom-week-3/';
 
       (function(){
         var dsq = document.createElement('script');

@@ -161,14 +161,11 @@
 <p>完成相应地代理，可以实现视图“控制” model。</p>
 <h2 id="13-UIView_和常用的组件">13.UIView 和常用的组件 </h2><p> 类似画画上色过程，自底向上以此上色。</p>
 <p>Views 自上到下的层次关系：</p>
-<ul>
-<li>UIImage</li>
-<li>UIImageView</li>
-<li>UIView </li>
-<li>UIScrollView 和 UIPagecontrol </li>
-<li>self.view</li>
-</ul>
+<p>-UIImage<br>-UIImageView<br>-UIView<br>-UIScrollView 和 UIPagecontrol<br>-self.view</p>
 <figure class="highlight"><table><tr><td class="code"><pre><span class="line">&#10;//&#10;//  BLThreeViewController.h&#10;//  BLDemo03&#10;&#10;&#10;#import &#60;UIKit/UIKit.h&#62;&#10;#import &#34;BLBaseViewController.h&#34;&#10;&#10;@interface BLThreeViewController : BLBaseViewController &#60;UIScrollViewDelegate&#62;&#10;&#123;&#10;    UIScrollView  *_scrollView;&#10;    UIPageControl *_pageControl;&#10;    UIView        *_contentView;&#10;&#125;&#10;&#10;&#10;@end</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>BLDemo01 L13 课开始集成了 Reveal</p>
+</blockquote>
 <h2 id="源码保存在我的_GitHub:_GeekBand-iOS-Demo">源码保存在我的 GitHub: <a href="https://github.com/gewill/GeekBand-iOS-Demo" target="_blank" rel="external">GeekBand-iOS-Demo</a></h2>
       
     </div>
@@ -250,7 +247,7 @@
         <div class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">60</span>
+              <span class="site-state-item-count">61</span>
               <span class="site-state-item-name">posts</span>
             </a>
           </div>
