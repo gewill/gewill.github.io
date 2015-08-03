@@ -122,367 +122,6 @@
           
           
             
-              <a class="post-title-link" href="/2015/08/03/Integrating Reveal: Add Reveal to your Xcode Project/">
-                Untitled
-              </a>
-            
-          
-        </h1>
-      
-
-      <div class="post-meta">
-        <span class="post-time">
-          Posted on 2015-08-03
-        </span>
-
-        
-
-        
-          
-            <span class="post-comments-count">
-            &nbsp; | &nbsp;
-            <a href="/2015/08/03/Integrating Reveal: Add Reveal to your Xcode Project/#comments" >
-              <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2015/08/03/Integrating Reveal: Add Reveal to your Xcode Project/"></span>
-            </a>
-          </span>
-          
-        
-      </div>
-    </div>
-
-    <div class="post-body">
-
-      
-      
-
-      
-        
-          <h1 id="Integrating_Reveal:_Add_Reveal_to_your_Xcode_Project">Integrating Reveal: Add Reveal to your Xcode Project</h1><p>Adding Reveal to your Xcode project allows all members of your team to use Reveal without having to perform further configuration.</p>
-<blockquote>
-<p><strong>WARNING</strong>: Never ship a release build of your app containing the Reveal dynamic library. Apple does not allow dynamic library loading in iOS apps distributed via the App Store.</p>
-</blockquote>
-<p>Open your iOS project in Xcode.</p>
-
-        
-      
-    </div>
-
-    <div class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </div>
-  </div>
-
-
-    
-      
-
-  <div class="post post-type-normal ">
-    <div class="post-header">
-
-      
-      
-        <h1 class="post-title">
-          
-          
-            
-              <a class="post-title-link" href="/2015/08/03/Reveal/">
-                Untitled
-              </a>
-            
-          
-        </h1>
-      
-
-      <div class="post-meta">
-        <span class="post-time">
-          Posted on 2015-08-03
-        </span>
-
-        
-
-        
-          
-            <span class="post-comments-count">
-            &nbsp; | &nbsp;
-            <a href="/2015/08/03/Reveal/#comments" >
-              <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2015/08/03/Reveal/"></span>
-            </a>
-          </span>
-          
-        
-      </div>
-    </div>
-
-    <div class="post-body">
-
-      
-      
-
-      
-        
-          <!doctype html>
-<html lang="en">
-<head>
-<meta charset="utf-8">
-<title>Reveal</title><link href="http://fonts.googleapis.com/css?family=Open+Sans:400italic,700italic,700,400&subset=latin,latin-ext" rel="stylesheet" type="text/css"><style type="text/css">html, body {overflow-x: initial !important;}html {font-size: 14px;}
-body {margin: 0px; padding: 0px; height: auto; bottom: 0px; top: 0px; left: 0px; right: 0px; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-size: 1rem; line-height: 1.42857143; color: rgb(51, 51, 51); background-color: rgb(255, 255, 255); overflow-x: hidden; }
-a:active, a:hover {outline: 0px;}
-::selection {background-color: rgb(181, 214, 252); text-shadow: none; background-position: initial initial; background-repeat: initial initial; }
-#write {max-width: 854px; margin: 0px auto; height: auto; width: inherit; word-break: normal; word-wrap: break-word; position: relative; white-space: pre-wrap; text-align: justify; padding-bottom: 70px;}
-body.typora-export {padding-left: 30px; padding-right: 30px;}
-.typora-export #write {margin: 0px auto;}
-#write > p:first-child, #write > ul:first-child, #write > pre:first-child, #write > blockquote:first-child, #write > div:first-child {margin-top: 30px;}
-img {max-width: 100%;}
-input, button, select, textarea {color: inherit; font-family: inherit; font-size: inherit; font-style: inherit; font-variant: inherit; font-weight: inherit; line-height: inherit;}
-input[type="checkbox"], input[type="radio"] {line-height: normal; padding: 0px;}
-::before, ::after, * {box-sizing: border-box;}
-#write p, #write h1, #write h2, #write h3, #write h4, #write h5, #write h6, #write div, #write pre {width: inherit;}
-h1 {font-size: 2rem;}
-p, .mathjax-block {display: block; -webkit-margin-before: 1rem; -webkit-margin-after: 1rem; -webkit-margin-start: 0px; -webkit-margin-end: 0px;}
-.hidden {display: none;}
-.md-blockmeta {color: rgb(204, 204, 204); font-weight: bold; font-style: italic; }
-a {cursor: pointer;}
-li span {min-width: 10px;}
-#write input[type="checkbox"] {cursor: pointer; width: inherit; height: inherit; margin: 4px 0px 0px;}
-tr {page-break-inside: avoid; page-break-after: auto;}
-thead {display: table-header-group;}
-table {border-collapse: collapse; border-spacing: 0px; width: 100%; overflow: auto; page-break-inside: auto;}
-table.md-table td {min-width: 80px;}
-.CodeMirror-placeholder {opacity: 0.3;}
-.CodeMirror-code pre {padding: 0px;}
-.CodeMirror-lines {padding: 0px;}
-div.hr:focus {cursor: none;}
-.md-fences, pre.md-fences {font-size: 0.9rem; display: block; page-break-inside: avoid; text-align: left; overflow: visible; white-space: pre; position: relative !important;}
-.md-fences .CodeMirror.cm-s-default.CodeMirror-wrap {top: -1.6em; margin-bottom: -1.6em;}
-.md-fences.mock-cm {white-space: pre-wrap;}
-.footnotes {color: rgb(136, 136, 136); font-size: 0.9rem; padding-top: 1em; padding-bottom: 1em; }
-.footnotes + .footnotes {margin-top: -1em;}
-sub, sup {line-height: inherit; position: inherit; top: inherit; vertical-align: super;}
-.md-reset {margin: 0px; padding: 0px; border: 0px; outline: 0px; vertical-align: top; background-color: transparent; text-decoration: none; color: rgb(51, 51, 51); font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-size: 1rem; text-shadow: none; float: none; position: static; width: auto; height: auto; white-space: nowrap; cursor: inherit; line-height: normal; font-weight: normal; text-align: left; box-sizing: content-box; direction: ltr; background-position: initial initial; background-repeat: initial initial; }
-li div {padding-top: 0px;}
-blockquote {margin: 1rem 0px;}
-li p, li .mathjax-block {margin: 0.5rem 0px;}
-li {margin: 0px; position: relative;}
-blockquote > :last-child {margin-bottom: 0px;}
-blockquote > :first-child {margin-top: 0px;}
-.footnotes-area {color: rgb(136, 136, 136); margin-top: 0.714rem; padding-bottom: 0.143rem; }
-@media print {html, body { height: 100%;}
-  .typora-export * {-webkit-print-color-adjust: exact;}
-}
-.footnote-line {margin-top: 0.714em; font-size: 0.7em;}
-a img, img a {cursor: pointer;}
-#write pre.md-meta-block {font-size: 0.8rem; min-height: 2.86rem; white-space: pre; background-color: rgb(204, 204, 204); display: block; background-position: initial initial; background-repeat: initial initial; }
-p > .md-image:only-child {display: inline-block; width: 100%; text-align: center;}
-#write .MathJax_Display {margin: 0.8em 0px 0px;}
-.mathjax-block {white-space: pre; padding-bottom: 0.65rem; overflow: hidden; width: 100%;}
-p + .mathjax-block {margin-top: -1.143rem;}
-.mathjax-block:not(:empty)::after {display: none;}
-[contenteditable="true"]:active, [contenteditable="true"]:focus {outline: none; box-shadow: none;}
-:focus {outline: none; box-shadow: rgb(79, 172, 249) 0px 0px 2px 3px, rgb(120, 174, 218) 0px 0px 2px inset; }
-.task-list {list-style-type: none;}
-.task-list-item {position: relative; padding-left: 1em;}
-.task-list-item input {position: absolute; top: 0px; left: 0px;}
-.math {font-size: 1rem;}
-.md-toc {min-height: 3.58rem; position: relative; font-size: 0.9rem; border-top-left-radius: 10px; border-top-right-radius: 10px; border-bottom-right-radius: 10px; border-bottom-left-radius: 10px;}
-.md-toc-content {position: relative; margin-left: 0px;}
-.md-toc::after, .md-toc-content::after {display: none;}
-.md-toc-item {display: block; color: rgb(65, 131, 196); text-decoration: none; }
-.md-toc-inner:hover {text-decoration: underline;}
-.md-toc-inner {display: inline-block; cursor: pointer;}
-.md-toc-h1 .md-toc-inner {margin-left: 0px; font-weight: bold;}
-.md-toc-h2 .md-toc-inner {margin-left: 2em;}
-.md-toc-h3 .md-toc-inner {margin-left: 4em;}
-.md-toc-h4 .md-toc-inner {margin-left: 6em;}
-.md-toc-h5 .md-toc-inner {margin-left: 8em;}
-.md-toc-h6 .md-toc-inner {margin-left: 10em;}
-.md-toc-h6 {margin-left: 12em;}
-@media screen and (max-width: 48em) {.md-toc-h3 .md-toc-inner { margin-left: 3.5em;}
-  .md-toc-h4 .md-toc-inner {margin-left: 5em;}
-  .md-toc-h5 .md-toc-inner {margin-left: 6.5em;}
-  .md-toc-h5 .md-toc-inner {margin-left: 8em;}
-  .md-toc-h6 {margin-left: 9.5em;}
-}
-a.md-toc-inner {color: inherit; font-size: inherit; font-style: inherit; font-weight: inherit; text-decoration: inherit; line-height: inherit;}
-.footnote-line a:not(.reversefootnote) {color: inherit;}
-.md-attr {display: none;}
-.md-fn-count::after {content: '.';}
-.md-tag {opacity: 0.5;}
-h1 .md-tag, h2 .md-tag, h3 .md-tag, h4 .md-tag, h5 .md-tag, h6 .md-tag {font-weight: initial; opacity: 0.35;}
-
-
-@font-face {font-family: 'Open Sans'; font-style: normal; font-weight: normal; src: local(Open Sans Regular), url(file:///Users/Will/Library/Application%20Support/abnerworks.Typora/themes/github/400.woff) format(woff); }
-@font-face {font-family: 'Open Sans'; font-style: italic; font-weight: normal; src: local(Open Sans Italic), url(file:///Users/Will/Library/Application%20Support/abnerworks.Typora/themes/github/400i.woff) format(woff); }
-@font-face {font-family: 'Open Sans'; font-style: normal; font-weight: bold; src: local(Open Sans Bold), url(file:///Users/Will/Library/Application%20Support/abnerworks.Typora/themes/github/700.woff) format(woff); }
-@font-face {font-family: 'Open Sans'; font-style: italic; font-weight: bold; src: local(Open Sans Bold Italic), url(file:///Users/Will/Library/Application%20Support/abnerworks.Typora/themes/github/700i.woff) format(woff); }
-html {font-size: 16px;}
-body {font-family: 'Open Sans', 'Clear Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif; color: rgb(51, 51, 51); line-height: 1.6; -webkit-font-smoothing: antialiased; }
-#write {max-width: 800px; margin: 0px auto; padding: 20px 30px 40px;}
-#write::after {height: 80px;}
-#write > ul:first-child, #write > ol:first-child {margin-top: 30px;}
-body > :first-child {margin-top: 0px !important;}
-body > :last-child {margin-bottom: 0px !important;}
-a {color: rgb(65, 131, 196); }
-h1, h2, h3, h4, h5, h6 {position: relative; margin-top: 1rem; margin-bottom: 1rem; font-weight: bold; line-height: 1.4; -webkit-font-smoothing: antialiased; cursor: text;}
-h1:hover a.anchor, h2:hover a.anchor, h3:hover a.anchor, h4:hover a.anchor, h5:hover a.anchor, h6:hover a.anchor {text-decoration: none;}
-h1 tt, h1 code {font-size: inherit;}
-h2 tt, h2 code {font-size: inherit;}
-h3 tt, h3 code {font-size: inherit;}
-h4 tt, h4 code {font-size: inherit;}
-h5 tt, h5 code {font-size: inherit;}
-h6 tt, h6 code {font-size: inherit;}
-h1 {padding-bottom: 0.3em; font-size: 2.25em; line-height: 1.2; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: rgb(238, 238, 238); }
-h2 {padding-bottom: 0.3em; font-size: 1.75em; line-height: 1.225; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: rgb(238, 238, 238); }
-h3 {font-size: 1.5em; line-height: 1.43;}
-h4 {font-size: 1.25em;}
-h5 {font-size: 1em;}
-h6 {font-size: 1em; color: rgb(119, 119, 119); }
-p, blockquote, ul, ol, dl, table {margin: 0.8em 0px;}
-hr {height: 4px; padding: 0px; margin: 16px 0px; background-color: rgb(231, 231, 231); border-width: 0px 0px 1px; border-style: none none solid; overflow: hidden; box-sizing: content-box; border-bottom-color: rgb(221, 221, 221); }
-body > h2:first-child {margin-top: 0px; padding-top: 0px;}
-body > h1:first-child {margin-top: 0px; padding-top: 0px;}
-body > h1:first-child + h2 {margin-top: 0px; padding-top: 0px;}
-body > h3:first-child, body > h4:first-child, body > h5:first-child, body > h6:first-child {margin-top: 0px; padding-top: 0px;}
-a:first-child h1, a:first-child h2, a:first-child h3, a:first-child h4, a:first-child h5, a:first-child h6 {margin-top: 0px; padding-top: 0px;}
-h1 p, h2 p, h3 p, h4 p, h5 p, h6 p {margin-top: 0px;}
-li p.first {display: inline-block;}
-ul, ol {padding-left: 30px;}
-ul:first-child, ol:first-child {margin-top: 0px;}
-ul:last-child, ol:last-child {margin-bottom: 0px;}
-blockquote {border-left-width: 4px; border-left-style: solid; border-left-color: rgb(221, 221, 221); padding: 0px 15px; color: rgb(119, 119, 119); }
-table {padding: 0px;}
-table tr {border-top-width: 1px; border-top-style: solid; border-top-color: rgb(204, 204, 204); background-color: white; margin: 0px; padding: 0px; }
-table tr:nth-child(2n) {background-color: rgb(248, 248, 248); }
-table tr th {font-weight: bold; border: 1px solid rgb(204, 204, 204); text-align: left; margin: 0px; padding: 6px 13px; }
-table tr td {border: 1px solid rgb(204, 204, 204); text-align: left; margin: 0px; padding: 6px 13px; }
-table tr th:first-child, table tr td:first-child {margin-top: 0px;}
-table tr th:last-child, table tr td:last-child {margin-bottom: 0px;}
-pre.md-fences, .md-fences, code, tt {border: 1px solid rgb(221, 221, 221); background-color: rgb(248, 248, 248); border-top-left-radius: 3px; border-top-right-radius: 3px; border-bottom-right-radius: 3px; border-bottom-left-radius: 3px; font-family: Consolas, 'Liberation Mono', Courier, monospace; padding: 2px 4px 0px; font-size: 0.9em; }
-pre.md-fences, .md-fences {margin-bottom: 15px; margin-top: 15px; padding: 8px 1em 6px;}
-.task-list {padding-left: 0px;}
-.task-list-item {padding-left: 32px;}
-.task-list-item input {top: 4px; left: 8px;}
-@media screen and (min-width: 914px) { }
-@media print {table, pre { page-break-inside: avoid;}
-  pre {word-wrap: break-word;}
-}
-.md-fences {background-color: rgb(248, 248, 248); }
-#write pre.md-meta-block {padding: 1rem; font-size: 85%; line-height: 1.45; background-color: rgb(247, 247, 247); border: 0px; border-top-left-radius: 3px; border-top-right-radius: 3px; border-bottom-right-radius: 3px; border-bottom-left-radius: 3px; color: rgb(119, 119, 119); margin-top: 0px !important; }
-.mathjax-block > .code-tooltip {bottom: 0.375rem;}
-#write > h3.md-focus::before {left: -1.5625rem; top: 0.375rem;}
-#write > h4.md-focus::before {left: -1.5625rem; top: 0.285714286rem;}
-#write > h5.md-focus::before {left: -1.5625rem; top: 0.285714286rem;}
-#write > h6.md-focus::before {left: -1.5625rem; top: 0.285714286rem;}
-.md-image > .md-meta {border: 1px solid rgb(221, 221, 221); background-color: rgb(248, 248, 248); border-top-left-radius: 3px; border-top-right-radius: 3px; border-bottom-right-radius: 3px; border-bottom-left-radius: 3px; font-family: Consolas, 'Liberation Mono', Courier, monospace; padding: 2px 4px 0px; font-size: 0.9em; color: inherit; }
-.md-tag {color: inherit;}
-.md-toc {margin-top: 20px; padding-bottom: 20px;}
-
-
-</style>
-</head>
-<body class="typora-export">
-<div id="write" class="is-mac"><p>title: Reveal</p><p>date: 2015-08-03 10:14:48</p><p>tags:</p><hr><p><img src="http://i.imgur.com/OKKIRbq.jpg" alt="Imgur"></p><p>Reveal 最早是在唐巧的《iOS 开发进阶》看到的，当时不以为然。其实很多内容都不以为然，因为那时候还是入门阶段，自然看不懂的。主要缺乏交流，自悟容易自误。</p><p> 最近 GeekBand 的段松老师的课程，纯代码的 UI 布局，就遇到了极大的困惑：布局错了不知道在哪里，控件失踪了（跑到屏幕外的 frame）。搜索了一下，重新找到 Reveal 介绍的文章，试用了一下很强大。可以实时更改控件大小位置，显示在真机或 Simulator 中。和 Sketch、Photoshop 的 Mirror 功能差不多，当然只是调试，实际更改还要在 Xcode 中完成。另外还能查看第三方 APP，不过设备要越狱。</p><p></p><p>Xcode 的 <a href="https://developer.apple.com/library/ios/recipes/xcode_help-debugger/using_view_debugger/using_view_debugger.html" target="_blank" rel="external">Debug View Hierarchy</a>  只能看看，就弱爆了。</p><p><img src="http://i.imgur.com/R7XAflX.jpg" alt="Imgur"></p><p></p><p><strong>Reveal 连接真机调试最新的方法：</strong><a href="http://support.revealapp.com/kb/getting-started/integrating-reveal-add-reveal-to-your-xcode-project" target="_blank" rel="external">http://support.revealapp.com/kb/getting-started/integrating-reveal-add-reveal-to-your-xcode-project</a></p><p></p><h1><a name="header-c293" class="md-header-anchor"></a>Integrating Reveal: Add Reveal to your Xcode Project</h1><p>Adding Reveal to your Xcode project allows all members of your team to use Reveal without having to perform further configuration.</p><blockquote><p><strong>WARNING</strong>: Never ship a release build of your app containing the Reveal dynamic library. Apple does not allow dynamic library loading in iOS apps distributed via the App Store.</p></blockquote><ol><li><p>Open your iOS project in Xcode.</p></li><li><p>Launch Reveal and select <strong>Help → Show Reveal Library in Finder</strong>. This will open a Finder window showing a folder named <em>iOS-Libraries</em>.</p><p><img src="http://support.revealapp.com/help/assets/b92d7e7deaa650540e281b955ba676f51cf5964e/show-reveal-library-in-finder_normal.jpg" alt="Show Reveal Library in Finder"></p></li><li><p>Drag <em>libReveal.dylib</em> in to the Project Navigator panel of your project in Xcode.</p></li><li><p>In the add to targets dialog that is shown, <strong>deselect all targets</strong>. This ensures that Xcode doesn&#39;t link the dynamic library at compile time. Optionally, select <strong>Copy items if needed</strong> to copy <em>libReveal.dylib</em> into your project — if you do, <strong>you&#39;ll need to remember to update this library whenever Reveal is updated</strong> by following the previous steps again.</p><p><img src="http://support.revealapp.com/help/assets/615691974dcbcedb1a9659555cdab98959de9010/add-resource-to-project-no-targets_normal.jpg" alt="Copy resource to project dialog"></p></li><li><p>Click <strong>Finish</strong>.</p></li><li><p>In Xcode&#39;s Project Navigator, select your project. For each target that you wish to use with Reveal:</p><p><img src="http://support.revealapp.com/help/assets/6a5cc067985b752d6fb2ecd94e63a1d02348fbab/copy-library-bundle-resources_normal.jpg" alt="Copy library to bundle resources"></p><ol><li>In the <strong>Copy Bundle Resources</strong> section, add <em>libReveal.dylib</em>.</li><li>Under <strong>Link Binary with Libraries</strong>:Remove <em>libReveal.dylib</em> if it is present - the dylib should not be linked at compile time.Add the following system frameworks and libraries if they&#39;re not present:libz.dylibCFNetwork.frameworkQuartzCore.frameworkCoreGraphics.framework - this is usually included by default by Xcode.</li></ol></li><li><p>To dynamically load the library in an application running on a device outside of the debugger, you need to code sign libReveal.dylib as part of the build process.</p><p><img src="http://support.revealapp.com/help/assets/ed6cd90871033f269c9de378fd9680298eb57d98/add-run-script-phase_normal.jpg" alt="Add Run Script phase"></p><p>Go to your target&#39;s <strong>Build Phases</strong> tab and select <strong>Editor → Add Build Phase → Add Run Script</strong> menu. Edit the Run Script to contain:</p><pre class="md-fences mock-cm" style="display:block;position:relative">set -e
-
-if [-n &quot;${CODE_SIGN_IDENTITY}&quot; ]; then
-  codesign -fs &quot;${CODE_SIGN_IDENTITY}&quot; &quot;${BUILT_PRODUCTS_DIR}/${FULL_PRODUCT_NAME}/libReveal.dylib&quot;
-fi
-</pre></li><li><p>Add the following code to an appropriate class (e.g. your <code>UIApplicationDelegate</code>) in your project, and modify it to suit your needs:</p><p><strong>Swift:</strong></p><pre class="md-fences mock-cm" style="display:block;position:relative">// MARK: - Reveal
-
-func loadReveal() {if NSClassFromString(&quot;IBARevealLoader&quot;) == nil {
-        let revealLibName = &quot;libReveal&quot;
-        let revealLibExtension = &quot;dylib&quot;
-        var error: String?
-        if let dylibPath = NSBundle.mainBundle().pathForResource(revealLibName, ofType: revealLibExtension) {println(&quot;Loading dynamic library \(dylibPath)&quot;)
-            let revealLib = dlopen(dylibPath, RTLD_NOW)
-            if revealLib == nil {error = String(UTF8String: dlerror())
-            }
-        } else {error = &quot;File not found.&quot;}
-
-        if error != nil {
-            UIAlertView(
-                title: &quot;Reveal library could not be loaded&quot;,
-                message: &quot;\(revealLibName).\(revealLibExtension) failed to load with error: \(error!)&quot;,
-                delegate: nil,
-                cancelButtonTitle: &quot;OK&quot;
-                ).show()}
-    }
-}
-</pre><p><strong>Objective-C:</strong></p><pre class="md-fences mock-cm" style="display:block;position:relative">#pragma mark - Reveal
-#import &lt;dlfcn.h&gt;
-
-- (void)loadReveal
-{if (NSClassFromString(@&quot;IBARevealLoader&quot;) == nil)
-    {
-        NSString *revealLibName = @&quot;libReveal&quot;;
-        NSString *revealLibExtension = @&quot;dylib&quot;;
-        NSString *error;
-        NSString *dyLibPath = [[NSBundle mainBundle] pathForResource:revealLibName ofType:revealLibExtension];
-        if (dyLibPath != nil)
-        {NSLog(@&quot;Loading dynamic library: %@&quot;, dyLibPath);
-            void *revealLib = dlopen([dyLibPath cStringUsingEncoding:NSUTF8StringEncoding], RTLD_NOW);
-            if (revealLib == NULL)
-            {error = [NSString stringWithUTF8String:dlerror()];
-            }
-        }
-        else
-        {error = @&quot;File not found.&quot;;}
-
-        if (error != nil)
-        {NSString *message = [NSString stringWithFormat:@&quot;%@.%@ failed to load with error: %@&quot;, revealLibName, revealLibExtension, error];
-            [[[UIAlertView alloc] initWithTitle:@&quot;Reveal library could not be loaded&quot; message:message delegate:nil cancelButtonTitle:@&quot;OK&quot; otherButtonTitles:nil] show];
-        }
-    }
-}
-</pre><blockquote><p><strong>WARNING</strong>: You should not call this method from a release build. Be sure to only load <em>libReveal.dylib</em>from debug builds of your application.</p></blockquote></li><li><p>A simple integration might call the method above from within the <code>-[UIApplicationDelegate application: didFinishLaunchingWithOptions:]</code> method to ensure the library is loaded as soon as possible:</p><p><strong>Swift:</strong></p><pre class="md-fences mock-cm" style="display:block;position:relative">func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -&gt; Bool {self.loadReveal()
-    return true
-}
-</pre><p><strong>Objective-C:</strong></p><pre class="md-fences mock-cm" style="display:block;position:relative">- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
-{[self loadReveal];
-    return YES;
-}
-</pre><blockquote><p><strong>Note</strong>: Loading the library before <code>-[UIApplicationDelegate application: didFinishLaunchingWithOptions:]</code> returns has the added bonus that the Reveal Service will start automatically at launch.</p></blockquote></li><li><p>If you prefer not to have the Reveal Service start automatically as described in the previous step, it can be started manually such as via a Debug button or similar. Just call the <code>loadReveal</code> method yourself after the app has started, and then post an <code>NSNotification</code> named <code>IBARevealRequestStart</code>:</p><p><strong>Swift:</strong></p><pre class="md-fences mock-cm" style="display:block;position:relative">func startReveal() {NSNotificationCenter.defaultCenter().postNotificationName(&quot;IBARevealRequestStart&quot;, object: nil)
-}
-</pre><p><strong>Objective-C:</strong></p><pre class="md-fences mock-cm" style="display:block;position:relative">- (void)startReveal
-{[[NSNotificationCenter defaultCenter] postNotificationName:@&quot;IBARevealRequestStart&quot; object:nil];
-}
-</pre></li><li><p>In Xcode, build and run your application using a scheme that is set to use the <strong>Debug</strong> configuration.</p><p><img src="http://support.revealapp.com/help/assets/50e63a60bde957c90d7e24157acb1c0cb0f5e4c4/reveal-app-chooser_normal.jpg" alt="Reveal App Chooser showing Soundstagram"></p><p>If everything worked, you should be able to switch to Reveal and see your iOS application listed in the app selector pull-down. Select your app and verify that you can see a snapshot of the app matching what you see in the simulator.</p></li></ol><p></p></div>
-</body>
-</html>
-        
-      
-    </div>
-
-    <div class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </div>
-  </div>
-
-
-    
-      
-
-  <div class="post post-type-normal ">
-    <div class="post-header">
-
-      
-      
-        <h1 class="post-title">
-          
-          
-            
               <a class="post-title-link" href="/2015/08/03/Reveal/">
                 Reveal
               </a>
@@ -519,10 +158,11 @@ func loadReveal() {if NSClassFromString(&quot;IBARevealLoader&quot;) == nil {
       
         
           <p><img src="http://i.imgur.com/OKKIRbq.jpg" alt="Imgur"></p>
-<p>Reveal 最早是在唐巧的《iOS 开发进阶》看到的，当时不以为然。其实很多内容都不以为然，因为那时候还是入门阶段，自然看不懂的。主要缺乏交流，自悟容易自误。</p>
+<p>Reveal 最早是在唐巧的《iOS 开发进阶》看到的，当时不以为然。其实书中很多内容都不以为然，因为那时候还是入门阶段，自然看不懂的。主要缺乏交流，自悟容易自误。</p>
 <p> 最近 GeekBand 的段松老师的课程，纯代码的 UI 布局，就遇到了极大的困惑：布局错了不知道在哪里，控件失踪了（跑到屏幕外的 frame）。搜索了一下，重新找到 Reveal 介绍的文章，试用了一下很强大。可以实时更改控件大小位置，显示在真机或 Simulator 中。和 Sketch、Photoshop 的 Mirror 功能差不多，当然只是调试，实际更改还要在 Xcode 中完成。另外还能查看第三方 APP，不过设备要越狱。</p>
-<p>Xcode 的 <a href="https://developer.apple.com/library/ios/recipes/xcode_help-debugger/using_view_debugger/using_view_debugger.html" target="_blank" rel="external">Debug View Hierarchy</a>  只能看看，就弱爆了。</p>
-<p><img src="http://i.imgur.com/R7XAflX.jpg" alt="Imgur"></p>
+<blockquote>
+<p>Xcode 的 <a href="https://developer.apple.com/library/ios/recipes/xcode_help-debugger/using_view_debugger/using_view_debugger.html" target="_blank" rel="external">Debug View Hierarchy</a>  只能看看，就弱爆了。<br><img src="http://i.imgur.com/R7XAflX.jpg" alt="Imgur"></p>
+</blockquote>
 <p><strong>Reveal 连接真机调试最新的方法：</strong><a href="http://support.revealapp.com/kb/getting-started/integrating-reveal-add-reveal-to-your-xcode-project" target="_blank" rel="external">http://support.revealapp.com/kb/getting-started/integrating-reveal-add-reveal-to-your-xcode-project</a></p>
 <h1 id="Integrating_Reveal:_Add_Reveal_to_your_Xcode_Project">Integrating Reveal: Add Reveal to your Xcode Project</h1><p>Adding Reveal to your Xcode project allows all members of your team to use Reveal without having to perform further configuration.</p>
 <blockquote>
@@ -1183,11 +823,171 @@ func loadReveal() {if NSClassFromString(&quot;IBARevealLoader&quot;) == nil {
 
 
     
+      
+
+  <div class="post post-type-normal ">
+    <div class="post-header">
+
+      
+      
+        <h1 class="post-title">
+          
+          
+            
+              <a class="post-title-link" href="/2015/07/27/cocoapods-install/">
+                CocoaPods 安装步骤
+              </a>
+            
+          
+        </h1>
+      
+
+      <div class="post-meta">
+        <span class="post-time">
+          Posted on 2015-07-27
+        </span>
+
+        
+
+        
+          
+            <span class="post-comments-count">
+            &nbsp; | &nbsp;
+            <a href="/2015/07/27/cocoapods-install/#comments" >
+              <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2015/07/27/cocoapods-install/"></span>
+            </a>
+          </span>
+          
+        
+      </div>
+    </div>
+
+    <div class="post-body">
+
+      
+      
+
+      
+        
+          <p>看到极客班同学 Kevin Wang 分享的 CocoaPods 笔记：<a href="http://www.jianshu.com/p/c1063c9017b0" target="_blank" rel="external">iOS 学习备忘录：CocoaPods 基本使用技巧</a>，我自己就试着一下。</p>
+<p>以下安装 <a href="https://github.com/AFNetworking/AFNetworking" target="_blank" rel="external">AFNetworking</a> 的过程，同时参考了：<a href="https://github.com/AFNetworking/AFNetworking/wiki/Getting-Started-with-AFNetworking" target="_blank" rel="external">Getting Started with AFNetworking</a> 和 唐巧的 <a href="http://book.douban.com/subject/26287173/" target="_blank" rel="external">《iOS 开发进阶》</a>。</p>
+<p>感觉 <a href="https://github.com/AFNetworking/AFNetworking/wiki/Getting-Started-with-AFNetworking" target="_blank" rel="external">Getting Started with AFNetworking</a>，写的非常好了。我已经没有地方修改，就加了我在安装 CocoaPods 遇到的一个坑。看样子还是要英文顺溜才行。</p>
+<p>CocoaPods 网络库加 Podfile 配置文件，一个可以方便添加第三方库，而是团队协作容易统一版本，真真一个好东西。</p>
+<h2 id="Step_1:_Download_CocoaPods">Step 1: Download CocoaPods</h2><p>第一步开 VPN，不要问为什么。终端输入：</p>
+<pre><code><span class="variable">$ </span>sudo gem install cocoapods
+<span class="variable">$ </span>pod setup
+</code></pre><blockquote>
+<p>我遇到没有安装没有如何进度和提示，重装 Ruby 和 RubyGems 就好了。</p>
+</blockquote>
+<pre><code>$ brew <span class="operator"><span class="keyword">install</span> ruby
+$ gem <span class="keyword">update</span> <span class="comment">--system</span></span>
+</code></pre><h2 id="Step_2:_Create_a_Podfile">Step 2: Create a Podfile</h2><p>用 Xcode 或其他编辑器新建 <code>Podfile</code>，放在项目根目录下：</p>
+<pre><code><span class="variable">$ </span>touch <span class="constant">Podfile</span>
+<span class="variable">$ </span>open -a <span class="constant">Xcode Podfile</span>
+</code></pre><p>并复制下面内容到 <code>Podfile</code>：</p>
+<pre><code><span class="literal">source</span> <span class="string">'https://github.com/CocoaPods/Specs.git'</span>
+<span class="literal">platform</span> :ios, <span class="string">'7.0'</span>
+pod <span class="string">'AFNetworking'</span>, <span class="string">'~&gt; 2.5'</span>
+</code></pre><h2 id="Step_3:_Install_Dependencies">Step 3: Install Dependencies</h2><pre><code>$ pod <span class="keyword">install</span>
+</code></pre><p>以后只要打开 Xcode workspace (<code>.xcworkspace</code>)才行</p>
+<pre><code>$ open <span class="tag">&lt;<span class="title">YourProjectName</span>&gt;</span>.xcworkspace
+</code></pre><h2 id="Step_4:_Dive_In!">Step 4: Dive In!</h2><p>大功告成，至此就可以使用 AFNetworking 了。记得在需要的类中 <code>#import</code> 头文件。</p>
+<blockquote>
+<p>最后分享一个在 <a href="http://liqi.io" target="_blank" rel="external"> 利器 </a> 上看到的利器：<a href="https://www.pushbullet.com/" target="_blank" rel="external">Pushbullet</a> 是跨平台双向文件传输工具。如果你同时使用 Mac、ios 和 Android 又想要在设备间无线传输图片、文字，那么你一定需要这样的工具。</p>
+<p>其实还有隐藏功能共享剪切板，瞬间变成神器了，有没有？比微信和 Airdrop 方便多了。</p>
+</blockquote>
+
+        
+      
+    </div>
+
+    <div class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </div>
+  </div>
+
+
+    
+      
+
+  <div class="post post-type-normal ">
+    <div class="post-header">
+
+      
+      
+        <h1 class="post-title">
+          
+          
+            
+              <a class="post-title-link" href="/2015/07/26/GeekBand-Objective-C-Programming-2/">
+                极客班 Objective-C 高级编程（二）
+              </a>
+            
+          
+        </h1>
+      
+
+      <div class="post-meta">
+        <span class="post-time">
+          Posted on 2015-07-26
+        </span>
+
+        
+
+        
+          
+            <span class="post-comments-count">
+            &nbsp; | &nbsp;
+            <a href="/2015/07/26/GeekBand-Objective-C-Programming-2/#comments" >
+              <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2015/07/26/GeekBand-Objective-C-Programming-2/"></span>
+            </a>
+          </span>
+          
+        
+      </div>
+    </div>
+
+    <div class="post-body">
+
+      
+      
+
+      
+        
+          <h2 id="课堂笔记"> 课堂笔记 </h2><p><a href="http://weibo.com/songduan" target="_blank" rel="external">@段松 </a> 老师上课喜欢类比生活中的对象，还是比较容易理解的。</p>
+<p> 断点的使用可以帮助理解每一行的作用和追踪对象或属性的变化。</p>
+<p> 内存管理讲的挺详细，发现课程结构顺序和《iOS 编程》很像。</p>
+<h2 id="源码保存在我的_GitHub:_GeekBand-iOS-Demo"> 源码保存在我的 GitHub: <a href="https://github.com/gewill/GeekBand-iOS-Demo" target="_blank" rel="external">GeekBand-iOS-Demo</a></h2>
+        
+      
+    </div>
+
+    <div class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </div>
+  </div>
+
+
+    
   </div>
 
   
   <div class="pagination">
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/7/">7</a><a class="extend next" rel="next" href="/page/2/">&raquo;</a>
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/6/">6</a><a class="extend next" rel="next" href="/page/2/">&raquo;</a>
   </div>
 
 
@@ -1221,7 +1021,7 @@ func loadReveal() {if NSClassFromString(&quot;IBARevealLoader&quot;) == nil {
         <div class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">62</span>
+              <span class="site-state-item-count">60</span>
               <span class="site-state-item-name">posts</span>
             </a>
           </div>
