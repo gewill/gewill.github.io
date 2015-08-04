@@ -122,6 +122,98 @@
           
           
             
+              <a class="post-title-link" href="/2015/07/27/cocoapods-install/">
+                CocoaPods 安装步骤
+              </a>
+            
+          
+        </h1>
+      
+
+      <div class="post-meta">
+        <span class="post-time">
+          Posted on 2015-07-27
+        </span>
+
+        
+
+        
+          
+            <span class="post-comments-count">
+            &nbsp; | &nbsp;
+            <a href="/2015/07/27/cocoapods-install/#comments" >
+              <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2015/07/27/cocoapods-install/"></span>
+            </a>
+          </span>
+          
+        
+      </div>
+    </div>
+
+    <div class="post-body">
+
+      
+      
+
+      
+        
+          <p>看到极客班同学 Kevin Wang 分享的 CocoaPods 笔记：<a href="http://www.jianshu.com/p/c1063c9017b0" target="_blank" rel="external">iOS 学习备忘录：CocoaPods 基本使用技巧</a>，我自己就试着一下。</p>
+<p>以下安装 <a href="https://github.com/AFNetworking/AFNetworking" target="_blank" rel="external">AFNetworking</a> 的过程，同时参考了：<a href="https://github.com/AFNetworking/AFNetworking/wiki/Getting-Started-with-AFNetworking" target="_blank" rel="external">Getting Started with AFNetworking</a> 和 唐巧的 <a href="http://book.douban.com/subject/26287173/" target="_blank" rel="external">《iOS 开发进阶》</a>。</p>
+<p>感觉 <a href="https://github.com/AFNetworking/AFNetworking/wiki/Getting-Started-with-AFNetworking" target="_blank" rel="external">Getting Started with AFNetworking</a>，写的非常好了。我已经没有地方修改，就加了我在安装 CocoaPods 遇到的一个坑。看样子还是要英文顺溜才行。</p>
+<p>CocoaPods 网络库加 Podfile 配置文件，一个可以方便添加第三方库，而是团队协作容易统一版本，真真一个好东西。</p>
+<h2 id="Step_1:_Download_CocoaPods">Step 1: Download CocoaPods</h2><p>第一步开 VPN，不要问为什么。终端输入：</p>
+<pre><code><span class="variable">$ </span>sudo gem install cocoapods
+<span class="variable">$ </span>pod setup
+</code></pre><blockquote>
+<p>我遇到没有安装没有如何进度和提示，重装 Ruby 和 RubyGems 就好了。</p>
+</blockquote>
+<pre><code>$ brew <span class="operator"><span class="keyword">install</span> ruby
+$ gem <span class="keyword">update</span> <span class="comment">--system</span></span>
+</code></pre><h2 id="Step_2:_Create_a_Podfile">Step 2: Create a Podfile</h2><p>用 Xcode 或其他编辑器新建 <code>Podfile</code>，放在项目根目录下：</p>
+<pre><code><span class="variable">$ </span>touch <span class="constant">Podfile</span>
+<span class="variable">$ </span>open -a <span class="constant">Xcode Podfile</span>
+</code></pre><p>并复制下面内容到 <code>Podfile</code>：</p>
+<pre><code><span class="literal">source</span> <span class="string">'https://github.com/CocoaPods/Specs.git'</span>
+<span class="literal">platform</span> :ios, <span class="string">'7.0'</span>
+pod <span class="string">'AFNetworking'</span>, <span class="string">'~&gt; 2.5'</span>
+</code></pre><h2 id="Step_3:_Install_Dependencies">Step 3: Install Dependencies</h2><pre><code>$ pod <span class="keyword">install</span>
+</code></pre><p>以后只要打开 Xcode workspace (<code>.xcworkspace</code>)才行</p>
+<pre><code>$ open <span class="tag">&lt;<span class="title">YourProjectName</span>&gt;</span>.xcworkspace
+</code></pre><h2 id="Step_4:_Dive_In!">Step 4: Dive In!</h2><p>大功告成，至此就可以使用 AFNetworking 了。记得在需要的类中 <code>#import</code> 头文件。</p>
+<blockquote>
+<p>最后分享一个在 <a href="http://liqi.io" target="_blank" rel="external"> 利器 </a> 上看到的利器：<a href="https://www.pushbullet.com/" target="_blank" rel="external">Pushbullet</a> 是跨平台双向文件传输工具。如果你同时使用 Mac、ios 和 Android 又想要在设备间无线传输图片、文字，那么你一定需要这样的工具。</p>
+<p>其实还有隐藏功能共享剪切板，瞬间变成神器了，有没有？比微信和 Airdrop 方便多了。</p>
+</blockquote>
+
+        
+      
+    </div>
+
+    <div class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </div>
+  </div>
+
+
+    
+      
+
+  <div class="post post-type-normal ">
+    <div class="post-header">
+
+      
+      
+        <h1 class="post-title">
+          
+          
+            
               <a class="post-title-link" href="/2015/07/26/GeekBand-Objective-C-Programming-2/">
                 极客班 Objective-C 高级编程（二）
               </a>
@@ -161,89 +253,6 @@
 <p> 断点的使用可以帮助理解每一行的作用和追踪对象或属性的变化。</p>
 <p> 内存管理讲的挺详细，发现课程结构顺序和《iOS 编程》很像。</p>
 <h2 id="源码保存在我的_GitHub:_GeekBand-iOS-Demo"> 源码保存在我的 GitHub: <a href="https://github.com/gewill/GeekBand-iOS-Demo" target="_blank" rel="external">GeekBand-iOS-Demo</a></h2>
-        
-      
-    </div>
-
-    <div class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </div>
-  </div>
-
-
-    
-      
-
-  <div class="post post-type-normal ">
-    <div class="post-header">
-
-      
-      
-        <h1 class="post-title">
-          
-          
-            
-              <a class="post-title-link" href="/2015/07/26/GeekBand-Objective-C-Programming-3/">
-                极客班 Objective-C 高级编程（三）
-              </a>
-            
-          
-        </h1>
-      
-
-      <div class="post-meta">
-        <span class="post-time">
-          Posted on 2015-07-26
-        </span>
-
-        
-
-        
-          
-            <span class="post-comments-count">
-            &nbsp; | &nbsp;
-            <a href="/2015/07/26/GeekBand-Objective-C-Programming-3/#comments" >
-              <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2015/07/26/GeekBand-Objective-C-Programming-3/"></span>
-            </a>
-          </span>
-          
-        
-      </div>
-    </div>
-
-    <div class="post-body">
-
-      
-      
-
-      
-        
-          <h2 id="13-_集合类">13. 集合类 </h2><p> 只要记住有这个方法或类，知道有什么用，不一定非要记住长长的名字，我们随时查看文档即可。</p>
-<h2 id="14-_代理">14. 代理 </h2><p> 上班怎么收家里衣服：电话请家人、邻居帮忙。</p>
-<p>MVC 为什么使用代理？</p>
-<p>前三步：A、申明代理原型。B、申明代理变量。C、调用代理方法。</p>
-<p>后三步：A、&lt;&gt; 申明实现代理。B、设置代理的值。C、实现代理方法。</p>
-<h2 id="16-_类别、扩展与通知">16. 类别、扩展与通知</h2><p>Category &amp; Extension</p>
-<ul>
-<li>Category 给原有的类扩展特有的方法。可以分解文件代码和功能</li>
-</ul>
-<ul>
-<li>Extension 可以扩展变量、属性, 可以改写属性的读写属性。</li>
-</ul>
-<ul>
-<li>什么时候用？</li>
-</ul>
-<blockquote>
-<p>BLDemo01 L16 在 ViewController.h 完成代理，非课堂上 AppDelegate.h 中。</p>
-</blockquote>
-<h2 id="源码保存在我的_GitHub:_GeekBand-iOS-Demo">源码保存在我的 GitHub: <a href="https://github.com/gewill/GeekBand-iOS-Demo" target="_blank" rel="external">GeekBand-iOS-Demo</a></h2>
         
       
     </div>
