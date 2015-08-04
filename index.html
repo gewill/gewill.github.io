@@ -122,6 +122,94 @@
           
           
             
+              <a class="post-title-link" href="/2015/08/04/new-shortcuts/">
+                New shortcuts
+              </a>
+            
+          
+        </h1>
+      
+
+      <div class="post-meta">
+        <span class="post-time">
+          Posted on 2015-08-04
+        </span>
+
+        
+
+        
+          
+            <span class="post-comments-count">
+            &nbsp; | &nbsp;
+            <a href="/2015/08/04/new-shortcuts/#comments" >
+              <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2015/08/04/new-shortcuts/"></span>
+            </a>
+          </span>
+          
+        
+      </div>
+    </div>
+
+    <div class="post-body">
+
+      
+      
+
+      
+        
+          <table>
+<thead>
+<tr>
+<th>Shortcuts</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Command–Space Bar</td>
+<td>Alfred</td>
+</tr>
+<tr>
+<td>Control-Space Bar</td>
+<td>change input source</td>
+</tr>
+<tr>
+<td>Shift-Space Bar</td>
+<td>open or hide Dash</td>
+</tr>
+</tbody>
+</table>
+<p><a href="https://support.apple.com/en-us/HT201236" target="_blank" rel="external">More shortcuts</a></p>
+
+        
+      
+    </div>
+
+    <div class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </div>
+  </div>
+
+
+    
+      
+
+  <div class="post post-type-normal ">
+    <div class="post-header">
+
+      
+      
+        <h1 class="post-title">
+          
+          
+            
               <a class="post-title-link" href="/2015/08/04/GeekBand-Objective-C-Programming-3/">
                 极客班 Objective-C 高级编程（三）
               </a>
@@ -858,80 +946,6 @@
 
 
     
-      
-
-  <div class="post post-type-normal ">
-    <div class="post-header">
-
-      
-      
-        <h1 class="post-title">
-          
-          
-            
-              <a class="post-title-link" href="/2015/07/27/iOS-Programming-4ed-4/">
-                《iOS 编程》4. 视图层次结构
-              </a>
-            
-          
-        </h1>
-      
-
-      <div class="post-meta">
-        <span class="post-time">
-          Posted on 2015-07-27
-        </span>
-
-        
-
-        
-          
-            <span class="post-comments-count">
-            &nbsp; | &nbsp;
-            <a href="/2015/07/27/iOS-Programming-4ed-4/#comments" >
-              <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2015/07/27/iOS-Programming-4ed-4/"></span>
-            </a>
-          </span>
-          
-        
-      </div>
-    </div>
-
-    <div class="post-body">
-
-      
-      
-
-      
-        
-          <p>独立做练习的过程中学习和收获的很多，很多原本认为了解的知识变成了理解和会用的知识。官方文档还有待熟悉。</p>
-<p><img src="http://imgur.com/bdYyIqi.jpg" alt="frame vs bounds"></p>
-<h2 id="4-2_视图层次结构">4.2 视图层次结构</h2><p><img src="http://i.imgur.com/m0Cjfz1.jpg" alt="View"></p>
-<h2 id="4-6_初级练习：绘制图片">4.6 初级练习：绘制图片 </h2><p><code>GWHypnosisView.m</code> 的 <code>- (void)drawRect:(CGRect)rect{}</code> 添加以下代码：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">// &#28155;&#21152;logo&#65292;&#20013;&#24515;&#28857;&#20026;&#23631;&#24149;&#20013;&#24515;&#28857;&#10;CGRect logoFrame = CGRectMake(center.x - bounds.size.width / 4,  center.y - bounds.size.height / 4, bounds.size.width / 4 * 2, bounds.size.height / 4 * 2);&#10;UIImage *logoimage = [UIImage imageNamed:@&#34;logo.png&#34;];&#10;[logoimage drawInRect:logoFrame];&#10;UIView *logoView = [[UIView alloc]initWithFrame:logoFrame];&#10;[self.window addSubview:logoView];</span><br></pre></td></tr></table></figure>
-<h2 id="4-8_高级练习：阴影和渐变">4.8 高级练习：阴影和渐变 </h2><p><code>GWHypnosisView.m</code> 的 <code>- (void)drawRect:(CGRect)rect{}</code> 添加以下代码：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#10;// &#28155;&#21152;&#19977;&#35282;&#24418;&#65292;&#24182;&#28155;&#21152;&#28176;&#21464;&#25928;&#26524;&#10;&#10;CGContextRef triangleContext = UIGraphicsGetCurrentContext();&#10;&#10;UIBezierPath *trianglePath = [[UIBezierPath alloc] init];&#10;[trianglePath moveToPoint:CGPointMake(center.x + bounds.size.width / 3, center.y + bounds.size.height / 3)];&#10;[trianglePath addLineToPoint:CGPointMake(center.x - bounds.size.width / 3, center.y + bounds.size.height / 3)];&#10;[trianglePath addLineToPoint:CGPointMake(center.x, center.y - bounds.size.height / 3)];&#10;[trianglePath addLineToPoint:CGPointMake(center.x + bounds.size.width / 3, center.y + bounds.size.height / 3)];&#10;[trianglePath stroke];&#10;&#10;CGContextSaveGState(triangleContext);&#10;[trianglePath addClip];&#10;&#10;&#10;CGFloat locations[2] = &#123; 0.0, 1.0 &#125;;&#10;CGFloat components[8] = &#123; 1.0, 1.0, 0.0, 1.0,&#10;    0.0, 0.5, 0.0, 1.0 &#125;;&#10;CGColorSpaceRef colorspace = CGColorSpaceCreateDeviceRGB();&#10;CGGradientRef gradient = CGGradientCreateWithColorComponents(colorspace, components, locations, 2);&#10;&#10;CGPoint startPoint = CGPointMake(center.x, center.y + bounds.size.height / 3);&#10;CGPoint endPoint = CGPointMake(center.x, center.y - bounds.size.height / 3);&#10;CGContextDrawLinearGradient(triangleContext, gradient, startPoint, endPoint, 0);&#10;&#10;CGGradientRelease(gradient);&#10;CGColorSpaceRelease(colorspace);&#10;&#10;CGContextRestoreGState(triangleContext);&#10;&#10;// &#28155;&#21152;&#38452;&#24433;&#10;CGContextRef logoContext = UIGraphicsGetCurrentContext();&#10;CGContextSaveGState(logoContext);&#10;CGContextSetShadow(logoContext, CGSizeMake(4, 7), 3);&#10;&#10;&#10;// &#28155;&#21152;logo&#65292;&#20013;&#24515;&#28857;&#20026;&#23631;&#24149;&#20013;&#24515;&#28857;&#10;CGRect logoFrame = CGRectMake(center.x - bounds.size.width / 4,  center.y - bounds.size.height / 4, bounds.size.width / 4 * 2, bounds.size.height / 4 * 2);&#10;UIImage *logoimage = [UIImage imageNamed:@&#34;logo.png&#34;];&#10;[logoimage drawInRect:logoFrame];&#10;UIView *logoView = [[UIView alloc]initWithFrame:logoFrame];&#10;[self.window addSubview:logoView];&#10;&#10;CGContextRestoreGState(logoContext);</span><br></pre></td></tr></table></figure>
-<p>最终效果图：</p>
-<p><img src="http://i.imgur.com/zREns9p.png" alt="Hypnosister"></p>
-<h2 id="项目代码保存在我的_GitHub:_iOSProgramming4edSolutions">项目代码保存在我的 GitHub: <a href="https://github.com/gewill/iOSProgramming4edSolutions" target="_blank" rel="external">iOSProgramming4edSolutions</a></h2>
-        
-      
-    </div>
-
-    <div class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </div>
-  </div>
-
-
-    
   </div>
 
   
@@ -970,7 +984,7 @@
         <div class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">62</span>
+              <span class="site-state-item-count">63</span>
               <span class="site-state-item-name">posts</span>
             </a>
           </div>

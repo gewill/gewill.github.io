@@ -122,6 +122,82 @@
           
           
             
+              <a class="post-title-link" href="/2015/07/07/new-DNS-setting/">
+                new DNS setting
+              </a>
+            
+          
+        </h1>
+      
+
+      <div class="post-meta">
+        <span class="post-time">
+          Posted on 2015-07-07
+        </span>
+
+        
+
+        
+          
+            <span class="post-comments-count">
+            &nbsp; | &nbsp;
+            <a href="/2015/07/07/new-DNS-setting/#comments" >
+              <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2015/07/07/new-DNS-setting/"></span>
+            </a>
+          </span>
+          
+        
+      </div>
+    </div>
+
+    <div class="post-body">
+
+      
+      
+
+      
+        
+          <p>我的需求： www.gewill.org 跳转到 gewill.org。</p>
+<p>使用 <a href="http://wan.wang" target="_blank" rel="external"> 万网 </a> 域名服务提供的 DNS 解析需要备案才能实现 301 跳转，所以之前使用 <a href="http://DNSPOD.COM" target="_blank" rel="external">DNSPOD</a> 的服务，但是不知为何竟失效了，gewill.org 能打开，www.gewill.org 打不开了。换了其他的也都不行，dig 也是对的。</p>
+<p>Google Github Pages 的相关信息，发现官方帮助文档就有简单是实现方案：</p>
+<blockquote>
+<p><a href="https://help.github.com/articles/tips-for-configuring-a-cname-record-with-your-dns-provider/" target="_blank" rel="external">Configuring a www subdomain</a></p>
+<p>If you configure both an apex domain (e.g. example.com) and a matching www subdomain (e.g. www.example.com), GitHub’s servers will automatically create redirects between the two.</p>
+<p>For example:</p>
+<p>If your CNAME file contains example.com, then www.example.com will redirect to example.com.<br>If your CNAME file contains www.example.com, then example.com will redirect to www.example.com.”</p>
+</blockquote>
+<p><strong>DNS 同时 CNAME 顶级域名和 WWW，然后在 Github CNAME 文件中添加偏好的一个。</strong></p>
+<p>虽然之前有看过，一则英文看了只解一二，二则当时对于 DNS 和网站都刚刚接触。我学习新鲜东西节奏还是太慢，以后还要多思考，多与人交流。官方文档还是最简洁正确的。</p>
+
+        
+      
+    </div>
+
+    <div class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </div>
+  </div>
+
+
+    
+      
+
+  <div class="post post-type-normal ">
+    <div class="post-header">
+
+      
+      
+        <h1 class="post-title">
+          
+          
+            
               <a class="post-title-link" href="/2015/07/07/CS193P-2-More-Xcode-and-Swift-MVC/">
                 CS193P 2. More Xcode and Swift, MVC
               </a>
@@ -982,75 +1058,6 @@
 
 
     
-      
-
-  <div class="post post-type-normal ">
-    <div class="post-header">
-
-      
-      
-        <h1 class="post-title">
-          
-          
-            
-              <a class="post-title-link" href="/2015/05/24/Flat-Tomato/">
-                Flat Tomato
-              </a>
-            
-          
-        </h1>
-      
-
-      <div class="post-meta">
-        <span class="post-time">
-          Posted on 2015-05-24
-        </span>
-
-        
-
-        
-          
-            <span class="post-comments-count">
-            &nbsp; | &nbsp;
-            <a href="/2015/05/24/Flat-Tomato/#comments" >
-              <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2015/05/24/Flat-Tomato/"></span>
-            </a>
-          </span>
-          
-        
-      </div>
-    </div>
-
-    <div class="post-body">
-
-      
-      
-
-      
-        
-          <p> 重新使用番茄学习法，<a href="https://itunes.apple.com/cn/app/flat-tomato-time-management/id719462746?l=en&amp;mt=8" target="_blank" rel="external">Flat Tomato</a> 设计非常简洁优雅。</p>
-<p> 使用计时器感觉时间过得飞快，也是平日里浪费时间习惯了。一晃一下午就过去了，什么都没做，就听歌看新闻了，关键是没有总结和互动，往往一个耳朵进一个耳朵出。</p>
-<p> 希望以后能够珍惜时间，做正确的事。</p>
-<p><img src="http://i.imgur.com/SjGeNXd.jpg" alt="Imgur"></p>
-
-        
-      
-    </div>
-
-    <div class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </div>
-  </div>
-
-
-    
   </div>
 
   
@@ -1089,7 +1096,7 @@
         <div class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">62</span>
+              <span class="site-state-item-count">63</span>
               <span class="site-state-item-name">posts</span>
             </a>
           </div>
