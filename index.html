@@ -449,6 +449,86 @@
           
           
             
+              <a class="post-title-link" href="/2015/08/04/GeekBand-iOS-APP-Development-3/">
+                极客班 iOS 应用开发实战（三）
+              </a>
+            
+          
+        </h1>
+      
+
+      <div class="post-meta">
+        <span class="post-time">
+          Posted on 2015-08-04
+        </span>
+
+        
+
+        
+          
+            <span class="post-comments-count">
+            &nbsp; | &nbsp;
+            <a href="/2015/08/04/GeekBand-iOS-APP-Development-3/#comments" >
+              <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2015/08/04/GeekBand-iOS-APP-Development-3/"></span>
+            </a>
+          </span>
+          
+        
+      </div>
+    </div>
+
+    <div class="post-body">
+
+      
+      
+
+      
+        
+          <blockquote>
+<p>Removed FuzzyAutocomplete plugin. It made me stupid.</p>
+</blockquote>
+<h2 id="15-_地图与定位">15. 地图与定位 </h2><p> 地图这一节实践了一天，理一理知识点：</p>
+<ul>
+<li>CLLocationManager and CLLocationManagerDelegate 地理事件处理和其代理方法</li>
+<li>CLLocation 地理坐标</li>
+<li>CLGeocoder 地理坐标化</li>
+<li>MKMapView and MKMapViewDelegate 地图显示和处理相关的代理方法</li>
+<li>MKAnnotationView’s protocol is MKAnnotation 自定义一个标记</li>
+</ul>
+<blockquote>
+<p>Geocoding (sometimes called forward geocoding) uses a description of a location, most typically a postal address or place name, to find geographic coordinates from spatial reference data such as building polygons, land parcels, street addresses, postal codes (e.g. ZIP codes, CEDEX) and so on. </p>
+<p>可能是时间不充足，段老师后面课程的代码风格不好。少 #pragma mark 分段，少注释，if 语句嵌套的错误，命名随意。</p>
+</blockquote>
+<h2 id="源码保存在我的_GitHub:_GeekBand-iOS-Demo">源码保存在我的 GitHub: <a href="https://github.com/gewill/GeekBand-iOS-Demo/tree/master/iOS%20APP%20Development" target="_blank" rel="external">GeekBand-iOS-Demo</a></h2>
+        
+      
+    </div>
+
+    <div class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </div>
+  </div>
+
+
+    
+      
+
+  <div class="post post-type-normal ">
+    <div class="post-header">
+
+      
+      
+        <h1 class="post-title">
+          
+          
+            
               <a class="post-title-link" href="/2015/08/03/GeekBand-flip-classroom-week-3/">
                 极客班线下翻转课堂第三周
               </a>
@@ -859,85 +939,6 @@
 
 
     
-      
-
-  <div class="post post-type-normal ">
-    <div class="post-header">
-
-      
-      
-        <h1 class="post-title">
-          
-          
-            
-              <a class="post-title-link" href="/2015/07/28/GeekBand-iOS-APP-Development-2/">
-                极客班 iOS 应用开发实战（二）
-              </a>
-            
-          
-        </h1>
-      
-
-      <div class="post-meta">
-        <span class="post-time">
-          Posted on 2015-07-28
-        </span>
-
-        
-
-        
-          
-            <span class="post-comments-count">
-            &nbsp; | &nbsp;
-            <a href="/2015/07/28/GeekBand-iOS-APP-Development-2/#comments" >
-              <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2015/07/28/GeekBand-iOS-APP-Development-2/"></span>
-            </a>
-          </span>
-          
-        
-      </div>
-    </div>
-
-    <div class="post-body">
-
-      
-      
-
-      
-        
-          <h2 id="7-_经典_UI_应用框架">7. 经典 UI 应用框架</h2><p>UITabBarController + UINavigationController 基本上就可以完成一个 APP。</p>
-<p>删除多余注释，不是强迫症而是要保证代码简洁干净。</p>
-<p>有了 BLDemo03 就有了一个基础 UI 框架 ，就可以快速开发一个 APP，很给力。</p>
-<h2 id="9-_应用界面的切换">9. 应用界面的切换 </h2><p> 添加按钮，push/modal 到自定义子视图</p>
-<h2 id="10-_UI_界面编程基础">10. UI 界面编程基础</h2><figure class="highlight"><table><tr><td class="code"><pre><span class="line">// add an UIImageView and an image in it&#10;&#10;UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(10, 212, 200, 200)];&#10;&#10;UIImage *image = [UIImage imageNamed:@&#34;bg5.png&#34;];&#10;&#10;[imageView initWithImage:image];&#10;&#10;[self.view addSubview:imageView];</span><br></pre></td></tr></table></figure>
-<p>感觉代码添加 UI 很简单，设置大小属性内容，添加到 view。</p>
-<p>完成相应地代理，可以实现视图“控制” model。</p>
-<h2 id="13-UIView_和常用的组件">13.UIView 和常用的组件 </h2><p> 类似画画上色过程，自底向上以此上色。</p>
-<p>Views 自上到下的层次关系：</p>
-<p>-UIImage<br>-UIImageView<br>-UIView<br>-UIScrollView 和 UIPagecontrol<br>-self.view</p>
-<figure class="highlight"><table><tr><td class="code"><pre><span class="line">&#10;//&#10;//  BLThreeViewController.h&#10;//  BLDemo03&#10;&#10;&#10;#import &#60;UIKit/UIKit.h&#62;&#10;#import &#34;BLBaseViewController.h&#34;&#10;&#10;@interface BLThreeViewController : BLBaseViewController &#60;UIScrollViewDelegate&#62;&#10;&#123;&#10;    UIScrollView  *_scrollView;&#10;    UIPageControl *_pageControl;&#10;    UIView        *_contentView;&#10;&#125;&#10;&#10;&#10;@end</span><br></pre></td></tr></table></figure>
-<blockquote>
-<p>BLDemo01 L13 课开始集成了 Reveal</p>
-</blockquote>
-<h2 id="源码保存在我的_GitHub:_GeekBand-iOS-Demo">源码保存在我的 GitHub: <a href="https://github.com/gewill/GeekBand-iOS-Demo/tree/master/iOS%20APP%20Development" target="_blank" rel="external">GeekBand-iOS-Demo</a></h2>
-        
-      
-    </div>
-
-    <div class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </div>
-  </div>
-
-
-    
   </div>
 
   
@@ -976,7 +977,7 @@
         <div class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">65</span>
+              <span class="site-state-item-count">66</span>
               <span class="site-state-item-name">posts</span>
             </a>
           </div>

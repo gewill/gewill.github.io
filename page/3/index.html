@@ -122,6 +122,211 @@
           
           
             
+              <a class="post-title-link" href="/2015/07/20/CS193P-6-Protocols-and-Delegation-Gestures/">
+                CS193P 6. Protocols and Delegation, Gestures
+              </a>
+            
+          
+        </h1>
+      
+
+      <div class="post-meta">
+        <span class="post-time">
+          Posted on 2015-07-20
+        </span>
+
+        
+
+        
+          
+            <span class="post-comments-count">
+            &nbsp; | &nbsp;
+            <a href="/2015/07/20/CS193P-6-Protocols-and-Delegation-Gestures/#comments" >
+              <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2015/07/20/CS193P-6-Protocols-and-Delegation-Gestures/"></span>
+            </a>
+          </span>
+          
+        
+      </div>
+    </div>
+
+    <div class="post-body">
+
+      
+      
+
+      
+        
+          <p> 网站添加 Tags，方便分类查找文章。 <a href="https://medium.com" target="_blank" rel="external">Medium</a> 非常简洁优雅，可以借鉴。网站改版和文章排版比较耗费时间，以后要以内容输出优先。</p>
+<p> 关于课程中 Swift 语言的知识我只是简单浏览一遍，毕竟他说的也不详细，真正搞懂还是要系统学习。复习一下《疯狂 Swift 讲义》或者 Google 都是可行的。重要是 Demo 实践。今天微博看到的玩笑：<a href="http://www.theallium.com/engineering/computer-programming-to-be-officially-renamed-googling-stackoverflow/" target="_blank" rel="external">Computer Programming To Be Officially Renamed “Googling Stackoverflow”
+</a>。</p>
+<h2 id="1-_Interface_Builder">1. Interface Builder</h2><p>Demo: 自定义 UIViews in your storyboard (FaceView)</p>
+<blockquote>
+<p><a href="http://www.cocoachina.com/ios/20140619/8883.html" target="_blank" rel="external"> 如何在 iOS 8 中使用 Swift 和 Xcode 6 制作精美的 UI 组件 </a> 有个例子：苹果在 Xcode 6 中加入了两个新的 Interface Builder（下文用 IB 简称）属性声明:IBInspectable 和 IBDesignable。IBInspectable 在 IB 的 Attribute Inspector（属性检查器）中查看类的属性，而 IBDesignable 能实时更新视图，很厉害吧！</p>
+</blockquote>
+<h2 id="2-_The_Happiness_MVC’s_Model">2. The Happiness MVC’s Model</h2><p> 是寄于 HappinessViewController 里的 happiness，不同于 smiliness。</p>
+<h2 id="3-_Protocols_and_Delegation">3. Protocols and Delegation</h2><p> 扩展 </p>
+<p> 协议也是一种数据类型 </p>
+<p> 代理是一种非常重要的协议的应用。<br> 代理是我们完成视图和控制器盲沟通的方式。</p>
+<p><img src="http://i.imgur.com/OuW94mJ.png" alt="Delegation"></p>
+<p> 通过代理模式 UIViews 可以控制 Model，虽然并不是真的拥有 Model。</p>
+<p><strong> 如何实现：</strong></p>
+<ol>
+<li> 视图中创建一个代理协议 (定义具体视图想要控制器关心的内容) </li>
+<li> 视图中创建一个代理的属性，其类型是代理协议 </li>
+<li> 视图中使用代理的属性去得到并不用的事，或做并不能控制的事 </li>
+<li> 控制器声明并完成代理协议 </li>
+<li> 控制器把自己作为视图的代理，通过设置设置代理的属性（上面 2 提到的）</li>
+<li> 控制器实施协议 </li>
+</ol>
+<p> 现在视图就勾住了控制器。不过视图仍不晓得控制器的内容，所以视图仍是通用 / 可重复使用的。</p>
+<p><strong>Demo:  Happiness MVC’s Model using generic FaceView in its View</strong></p>
+<blockquote>
+<p>Cmd + Shift + O 快速打开文档，有种 Xcode 内置 spotlight 的即视感。</p>
+</blockquote>
+<p>FaceView.swift 为自定义 UIView 的类，是 View。<br>HappinessViewController.swift 是继承自 UIViewController，是 Controller。</p>
+<p>View 中 dataSource 是 protocol FaceViewDataSource 的属性（代理或数据源），作为 dataSource?.smilinessForFaceView(self) 的形参。</p>
+<p>Controller 实现了该协议，并将自己作为代理的对象，并通过 happiness 变量来改变协议中 </p>
+<p>Controller 中的 faceView 通过 Outlet 监控 dataSource 值的改变（didSet），来控制 View 笑脸的变化（smiliness）。</p>
+<p><img src="http://i.imgur.com/Zop3POa.png" alt="Happiness MVC"><br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#10;//  FaceView.swift &#37096;&#20998;&#20195;&#30721;&#10;&#10;&#10;import UIKit&#10;&#10;protocol FaceViewDataSource: class &#123;&#10;    func smilinessForFaceView(sender: FaceView) -&#62; Double?&#10;&#125;&#10;&#10;@IBDesignable&#10;class FaceView: UIView&#10;&#123;&#10;    @IBInspectable&#10;    var lineWidth: CGFloat = 3 &#123; didSet &#123; setNeedsDisplay() &#125; &#125;&#10;    @IBInspectable&#10;    var color: UIColor = UIColor.blueColor() &#123; didSet &#123; setNeedsDisplay() &#125; &#125;&#10;    @IBInspectable&#10;    var scale: CGFloat = 0.90 &#123; didSet &#123; setNeedsDisplay() &#125; &#125;&#10;    &#10;    var faceCenter: CGPoint &#123;&#10;        return convertPoint(center, fromView: superview)&#10;    &#125;&#10;    var faceRadius: CGFloat &#123;&#10;        return min(bounds.size.width, bounds.size.height) / 2 * scale&#10;    &#125;&#10;    &#10;    weak var dataSource: FaceViewDataSource?</span><br></pre></td></tr></table></figure></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">//  HappinessViewController.swift&#10;&#10;&#10;import UIKit&#10;&#10;class HappinessViewController: UIViewController, FaceViewDataSource&#10;&#123;&#10;&#10;    @IBOutlet weak var faceView: FaceView! &#123;&#10;        didSet &#123;&#10;            faceView.dataSource = self&#10;        &#125;&#10;    &#125;&#10;    var happiness: Int = 99 &#123; // 0 = very sad, 100 = ecstatic&#10;        didSet &#123;&#10;            happiness = min(max(happiness, 0), 100)&#10;            print(&#34;happiness = \(happiness)&#34;)&#10;            updateUI()&#10;        &#125;&#10;    &#125;&#10;    &#10;    func updateUI() &#123;&#10;        faceView.setNeedsDisplay()&#10;    &#125;&#10;    &#10;    func smilinessForFaceView(sender: FaceView) -&#62; Double? &#123;&#10;        return Double(happiness - 50) / 50&#10;    &#125;&#10;&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="4-_Gestures">4. Gestures</h2><p> 手势识别分两步走：</p>
+<ol>
+<li>Adding a gesture recognizer to a UIView (asking the UIView to “recognize” that gesture)</li>
+<li>Providing a method to “handle” that gesture (not necessarily handled by the UIView)</li>
+</ol>
+<blockquote>
+<p>Usually the first is done by a Controller<br>Though occasionally a UIView will do this itself if the gesture is integral to its existence</p>
+<p>The second is provided either by the UIView or a Controller Depending on the situation. We’ll see an example of both in our demo.</p>
+</blockquote>
+<h3 id="第一步：Adding_a_gesture_recognizer_to_a_UIView"> 第一步：Adding a gesture recognizer to a UIView</h3><p>Imagine we wanted a UIView in our Controller’s View to recognize a “pan” gesture …</p>
+<p><img src="http://i.imgur.com/c1mSjmj.png" alt="pannableView"></p>
+<blockquote>
+<p> 上面的代码造成排版错误，估计代码高亮产生的，先换成图片。</p>
+</blockquote>
+<p>This is just a normal outlet to the UIView we want to recognize the gesture</p>
+<p>We use its property observer to get involved when the outlet gets hooked up by iOS</p>
+<p>Here we are creating an instance of a concrete subclass of UIGestureRecognizer (for pans) </p>
+<p>The target gets notified when the gesture is recognized (in this case, the Controller itself) </p>
+<p>The action is the method invoked on recognition (the : means it has an argument)</p>
+<p>Here we ask the UIView to actually start trying to recognize this gesture in its bounds </p>
+<p>Let’s talk about how we implement the handler …</p>
+<h3 id="第二步：A_handler_for_a_gesture_needs_gesture-specific_information"> 第二步：A handler for a gesture needs gesture-specific information</h3><p>So each concrete subclass provides special methods for handling that type of gesture</p>
+<p><strong>For example, UIPanGestureRecognizer provides 3 methods</strong></p>
+<p><code>func translationInView(view: UIView) -&gt; CGPoint</code> // cumulative since start of recognition </p>
+<p><code>func velocityInView(view: UIView) -&gt; CGPoint</code> // how fast the finger is moving (points/s)</p>
+<p><code>func setTranslation(translation: CGPoint, inView: UIView)</code></p>
+<p>This last one is interesting because it allows you to reset the translation so far</p>
+<p>By resetting the translation to zero all the time, you end up getting “incremental” translation </p>
+<p><strong>The abstract superclass also provides state information</strong></p>
+<p><code>var state: UIGestureRecognizerState {get}</code><br>This sits around in <code>.Possible</code> until recognition starts<br>For a discrete gesture (e.g. a Swipe), it changes to <code>.Recognized</code> (Tap is not a normal discrete) For a continues gesture (e.g. a Pan), it moves from <code>.Began</code> thru repeated <code>.Changed</code> to <code>.Ended</code><br>It can go to <code>.Failed</code> or <code>.Cancelled</code> too, so watch out for those!</p>
+<p><strong>So, given this information, what would the pan handler look like?</strong></p>
+<pre><code>  <span class="func"><span class="keyword">func</span> <span class="title">pan</span><span class="params">(gesture: UIPanGestureRecognizer)</span></span> {<span class="keyword">switch</span> gesture.state {<span class="keyword">case</span> .<span class="type">Changed</span>: <span class="keyword">fallthrough</span>
+          <span class="keyword">case</span> .<span class="type">Ended</span>:
+              <span class="keyword">let</span> translation = gesture.translationInView(pannableView)
+<span class="comment">// update anything that depends on the pan gesture using translation.x and .y</span>
+￼            gesture.setTranslation(<span class="type">CGPointZero</span>, inView: pannableView)
+        <span class="keyword">default</span>: <span class="keyword">break</span>
+     }
+}
+&lt;!--￼<span class="number">2</span>--&gt;
+
+<span class="comment">//  FaceView.swift 部分代码 </span>
+
+
+<span class="keyword">import</span> <span class="type">UIKit</span>
+
+<span class="class"><span class="keyword">protocol</span> <span class="title">FaceViewDataSource</span>: <span class="title">class</span> </span>{<span class="func"><span class="keyword">func</span> <span class="title">smilinessForFaceView</span><span class="params">(sender: FaceView)</span></span> -&gt; <span class="type">Double</span>?
+}
+
+    <span class="comment">// 2. handler</span>
+    <span class="func"><span class="keyword">func</span> <span class="title">scale</span><span class="params">(gestrue: UIPinchGestureRecognizer)</span></span> {<span class="keyword">if</span> gestrue.state == .<span class="type">Changed</span> {
+            scale *= gestrue.scale
+            gestrue.scale = <span class="number">1</span>
+        }
+    }
+
+
+&lt;!--￼<span class="number">3</span>--&gt;
+
+<span class="comment">//  HappinessViewController.swift 部分代码 </span>
+
+
+<span class="keyword">import</span> <span class="type">UIKit</span>
+
+<span class="class"><span class="keyword">class</span> <span class="title">HappinessViewController</span>: <span class="title">UIViewController</span>, <span class="title">FaceViewDataSource</span>
+</span>{<span class="preprocessor">@IBOutlet</span> <span class="keyword">weak</span> <span class="keyword">var</span> faceView: <span class="type">FaceView</span>! {<span class="keyword">didSet</span> {faceView.dataSource = <span class="keyword">self</span>
+
+            <span class="comment">// 1. Adding a gesture recognizer</span>
+            faceView.addGestureRecognizer(<span class="type">UIPinchGestureRecognizer</span>(target: faceView, action: <span class="string">"scale:"</span>))
+            <span class="comment">// try in storyboard</span>
+            <span class="comment">// faceView.addGestureRecognizer(UIPanGestureRecognizer(target: self, action: "changeHapponess:"))</span>
+        }
+    }
+
+
+    <span class="comment">// 通过 storyboard 添加 Pan Gesture Recognizer，然后 storyboard 添加 IBAction 到 Controller 中 </span>
+    private <span class="class"><span class="keyword">struct</span> <span class="title">Constants</span> </span>{<span class="keyword">static</span> <span class="keyword">let</span> <span class="type">HappinessGestureScale</span>: <span class="type">CGFloat</span> = <span class="number">4</span>
+    }
+
+    <span class="preprocessor">@IBAction</span> <span class="func"><span class="keyword">func</span> <span class="title">changeHappiness</span><span class="params">(gesture: UIPanGestureRecognizer)</span></span> {<span class="keyword">switch</span> gesture.state {<span class="keyword">case</span> .<span class="type">Ended</span>: <span class="keyword">fallthrough</span>
+        <span class="keyword">case</span> .<span class="type">Changed</span>:
+            <span class="keyword">let</span> translatrion = gesture.translationInView(faceView)
+            <span class="keyword">let</span> happinessChange = -<span class="type">Int</span>(translatrion.y / <span class="type">Constants</span>.<span class="type">HappinessGestureScale</span>)
+            <span class="keyword">if</span> happinessChange != <span class="number">0</span> {
+                happiness -= happinessChange
+                gesture.setTranslation(<span class="type">CGPointZero</span>, inView: faceView)
+            }
+        <span class="keyword">default</span>: <span class="keyword">break</span>
+        }
+    }
+
+    <span class="keyword">var</span> happiness: <span class="type">Int</span> = <span class="number">3</span> {<span class="comment">// 0 = very sad, 100 = ecstatic</span>
+        <span class="keyword">didSet</span> {happiness = <span class="built_in">min</span>(<span class="built_in">max</span>(happiness, <span class="number">0</span>), <span class="number">100</span>)
+            <span class="built_in">print</span>(<span class="string">"happiness = <span class="subst">\(happiness)</span>"</span>)
+            updateUI()}
+    }
+
+    <span class="func"><span class="keyword">func</span> <span class="title">updateUI</span><span class="params">()</span></span> {faceView.setNeedsDisplay()
+    }
+
+    <span class="func"><span class="keyword">func</span> <span class="title">smilinessForFaceView</span><span class="params">(sender: FaceView)</span></span> -&gt; <span class="type">Double</span>? {<span class="keyword">return</span> <span class="type">Double</span>(happiness - <span class="number">50</span>) / <span class="number">50</span>
+    }
+}
+</code></pre><blockquote>
+<p> 有待翻译 </p>
+</blockquote>
+<h2 id="5-_拓展阅读">5. 拓展阅读 </h2><p><a href="http://www.raywenderlich.com/76020/using-uigesturerecognizer-with-swift-tutorial" target="_blank" rel="external">UIGestureRecognizer Tutorial: Getting Started</a></p>
+<h2 id="项目代码保存在我的_GitHub:_CS193P-2015"> 项目代码保存在我的 GitHub: <a href="https://github.com/gewill/CS193P-2015" target="_blank" rel="external">CS193P-2015</a></h2>
+        
+      
+    </div>
+
+    <div class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </div>
+  </div>
+
+
+    
+      
+
+  <div class="post post-type-normal ">
+    <div class="post-header">
+
+      
+      
+        <h1 class="post-title">
+          
+          
+            
               <a class="post-title-link" href="/2015/07/20/GeekBand-iOS-APP-Development-1/">
                 极客班 iOS 应用开发实战（一）
               </a>
@@ -843,82 +1048,6 @@
 
 
     
-      
-
-  <div class="post post-type-normal ">
-    <div class="post-header">
-
-      
-      
-        <h1 class="post-title">
-          
-          
-            
-              <a class="post-title-link" href="/2015/07/15/CS193P-4-More-Swift-and-Foundation-Frameworks/">
-                CS193P 4. More Swift and Foundation Frameworks
-              </a>
-            
-          
-        </h1>
-      
-
-      <div class="post-meta">
-        <span class="post-time">
-          Posted on 2015-07-15
-        </span>
-
-        
-
-        
-          
-            <span class="post-comments-count">
-            &nbsp; | &nbsp;
-            <a href="/2015/07/15/CS193P-4-More-Swift-and-Foundation-Frameworks/#comments" >
-              <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2015/07/15/CS193P-4-More-Swift-and-Foundation-Frameworks/"></span>
-            </a>
-          </span>
-          
-        
-      </div>
-    </div>
-
-    <div class="post-body">
-
-      
-      
-
-      
-        
-          <p> 本节介绍了一些 Swift 和 Foundation Framework，基本是要求自己搜索学习完成的，最好是参考 Swift 教材系统看看。说实话老师一节课只是把大纲列一下，好多根本没有展开详细系统的讲，当然时间上也不允许。</p>
-<ul>
-<li> 可选值和枚举 </li>
-<li> 数组、字典、区间 </li>
-<li> 数据类型 </li>
-<li> 方法 </li>
-<li> 属性 </li>
-<li> 初始化 </li>
-<li>AnyObject</li>
-<li> 常用的方法和函数 </li>
-</ul>
-
-        
-      
-    </div>
-
-    <div class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </div>
-  </div>
-
-
-    
   </div>
 
   
@@ -957,7 +1086,7 @@
         <div class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">65</span>
+              <span class="site-state-item-count">66</span>
               <span class="site-state-item-name">posts</span>
             </a>
           </div>
