@@ -497,9 +497,19 @@
 </ul>
 <blockquote>
 <p>Geocoding (sometimes called forward geocoding) uses a description of a location, most typically a postal address or place name, to find geographic coordinates from spatial reference data such as building polygons, land parcels, street addresses, postal codes (e.g. ZIP codes, CEDEX) and so on. </p>
-<p>可能是时间不充足，段老师后面课程的代码风格不好。少 #pragma mark 分段，少注释，if 语句嵌套的错误，命名随意。</p>
 </blockquote>
-<h2 id="17-_UITableView">17. UITableView</h2><h2 id="源码保存在我的_GitHub:_GeekBand-iOS-Demo">源码保存在我的 GitHub: <a href="https://github.com/gewill/GeekBand-iOS-Demo/tree/master/iOS%20APP%20Development" target="_blank" rel="external">GeekBand-iOS-Demo</a></h2><h2 id="to_be_continued">to be continued</h2>
+<p>可能是时间不充足，段老师后面课程的代码风格不好。少 #pragma mark 分段，少注释，if 语句嵌套的错误，命名随意。</p>
+<p>贴一个 Apple Sample: <a href="https://developer.apple.com/library/prerelease/ios/samplecode/MapCallouts/Introduction/Intro.html" target="_blank" rel="external">MapCallouts</a></p>
+<h2 id="17-_UITableView">17. UITableView</h2><p>UITableView 和 UITableViewController 关系图</p>
+<p><img src="http://i.imgur.com/IQWE4NL.jpg" alt="Imgur"><br><img src="http://i.imgur.com/XqbWU5H.jpg" alt="Imgur"></p>
+<ul>
+<li>UITableView 初始化后，属性和方法</li>
+<li>UITableViewDataSource and UITableViewDelegate 方法</li>
+<li>section、row、cell 部分、行、细胞</li>
+<li>header、footer </li>
+<li>separator 分割线</li>
+</ul>
+<h2 id="源码保存在我的_GitHub:_GeekBand-iOS-Demo">源码保存在我的 GitHub: <a href="https://github.com/gewill/GeekBand-iOS-Demo/tree/master/iOS%20APP%20Development" target="_blank" rel="external">GeekBand-iOS-Demo</a></h2><h2 id="to_be_continued">to be continued</h2>
         
       
     </div>
@@ -650,16 +660,13 @@
         
           <p><img src="http://i.imgur.com/OKKIRbq.jpg" alt="Imgur"></p>
 <p>Reveal 最早是在唐巧的《iOS 开发进阶》看到的，当时不以为然。其实书中很多内容都不以为然，因为那时候还是入门阶段，自然看不懂的。主要缺乏交流，自悟容易自误。</p>
-<p> 最近 GeekBand 的段松老师的课程，纯代码的 UI 布局，就遇到了极大的困惑：布局错了不知道在哪里，控件失踪了（跑到屏幕外的 frame）。搜索了一下，重新找到 Reveal 介绍的文章，试用了一下很强大。可以实时更改控件属性、大小位置等等，同步显示在真机或 Simulator 中。和 Sketch、Photoshop 的 Mirror 功能差不多，当然只是调试，实际更改还要在 Xcode 中完成。另外还能查看第三方 APP，不过设备要越狱。</p>
+<p> 最近 GeekBand 的段松老师的课程，纯代码的 UI 布局，就遇到了极大的困惑：布局错了不知道在哪里，控件失踪了（跑到屏幕外的 frame）。搜索了一下，重新找到 Reveal 介绍的文章，试用了一下很强大。可以实时更改控件属性、大小位置等等，同步显示在真机或 Simulator 中。和 Sketch、Photoshop 的 Mirror 功能差不多，当然只是调试，实际更改还要在 Xcode 中完成。</p>
+<p>Reveal 连接真机调试最新的方法：<a href="http://support.revealapp.com/kb/getting-started/integrating-reveal-add-reveal-to-your-xcode-project" target="_blank" rel="external">http://support.revealapp.com/kb/getting-started/integrating-reveal-add-reveal-to-your-xcode-project</a></p>
+<p><strong> 如果觉得每个项目都配置 Reveal 太麻烦，只要设备越狱简单配置一下，就查看所有 APP（包括手机安装的第三方 APP 哟）。</strong></p>
 <blockquote>
 <p>Xcode 的 <a href="https://developer.apple.com/library/ios/recipes/xcode_help-debugger/using_view_debugger/using_view_debugger.html" target="_blank" rel="external">Debug View Hierarchy</a>  只能看看，就弱爆了。而且极易造成 Xcode 崩溃。</p>
 </blockquote>
 <p><img src="http://i.imgur.com/R7XAflX.jpg" alt="Imgur"></p>
-<p><strong>Reveal 连接真机调试最新的方法：</strong><a href="http://support.revealapp.com/kb/getting-started/integrating-reveal-add-reveal-to-your-xcode-project" target="_blank" rel="external">http://support.revealapp.com/kb/getting-started/integrating-reveal-add-reveal-to-your-xcode-project</a></p>
-<p>Adding Reveal to your Xcode project allows all members of your team to use Reveal without having to perform further configuration.</p>
-<blockquote>
-<p><strong>WARNING</strong>: Never ship a release build of your app containing the Reveal dynamic library. Apple does not allow dynamic library loading in iOS apps distributed via the App Store.</p>
-</blockquote>
 
         
       
