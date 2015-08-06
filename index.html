@@ -671,11 +671,12 @@
 <ul>
 <li> 导入 libReveal.plist 格式如下：</li>
 </ul>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#123;&#10;Filter = &#123;&#10;Bundles = (&#10;&#34;com.apple.Safari&#34;,&#10;);&#10;&#125;;&#10;&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#123;&#10;Filter = &#123;&#10;Bundles = (&#10;&#34;com.apple.test&#34;,&#10;);&#10;&#125;;&#10;&#125;</span><br></pre></td></tr></table></figure>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#10;scp ~/Documents/libReveal.plist root@192.168.0.X:/Library/MobileSubstrate/DynamicLibraries</span><br></pre></td></tr></table></figure>
 <blockquote>
-<p>Xcode 的 <a href="https://developer.apple.com/library/ios/recipes/xcode_help-debugger/using_view_debugger/using_view_debugger.html" target="_blank" rel="external">Debug View Hierarchy</a>  只能看看，就弱爆了。而且极易造成 Xcode 崩溃。<br><img src="http://i.imgur.com/R7XAflX.jpg" alt="Imgur"></p>
+<p> 小技巧：网上现在的 Demo 直接改 Bundle ID：com.apple.test，即可开始 Reveal 了。</p>
 </blockquote>
+<p>Xcode 的 <a href="https://developer.apple.com/library/ios/recipes/xcode_help-debugger/using_view_debugger/using_view_debugger.html" target="_blank" rel="external">Debug View Hierarchy</a>  只能看看，就弱爆了。而且极易造成 Xcode 崩溃。<br><img src="http://i.imgur.com/R7XAflX.jpg" alt="Imgur"></p>
 
         
       
