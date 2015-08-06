@@ -1,109 +1,156 @@
-<!DOCTYPE html>
-<html>
+<!doctype html>
+<html class="theme-next use-motion theme-next-mist">
 <head>
-  <meta charset="utf-8">
   
-  <title>《iOS 编程》4. 视图层次结构 - whoDO</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="独立做练习的过程中学习和收获的很多，很多原本认为了解的知识变成了理解和会用的知识。官方文档还有待熟悉。
 
-4.2 视图层次结构
-4.6 初级练习：绘制图片 GWHypnosisView.m 的 - (void)drawRect:(CGRect)rect{} 添加以下代码：
-// &amp;#28155;&amp;#21152;logo&amp;#65292;&amp;#20013;&amp;#24515;&amp;#28857;&amp;#20026;">
-<meta property="og:type" content="article">
-<meta property="og:title" content="《iOS 编程》4. 视图层次结构">
-<meta property="og:url" content="http://gewill.org/2015/07/27/iOS-Programming-4ed-4/index.html">
-<meta property="og:site_name" content="whoDO">
-<meta property="og:description" content="独立做练习的过程中学习和收获的很多，很多原本认为了解的知识变成了理解和会用的知识。官方文档还有待熟悉。
+<meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
 
-4.2 视图层次结构
-4.6 初级练习：绘制图片 GWHypnosisView.m 的 - (void)drawRect:(CGRect)rect{} 添加以下代码：
-// &amp;#28155;&amp;#21152;logo&amp;#65292;&amp;#20013;&amp;#24515;&amp;#28857;&amp;#20026;">
-<meta property="og:image" content="http://imgur.com/bdYyIqi.jpg">
-<meta property="og:image" content="http://i.imgur.com/m0Cjfz1.jpg">
-<meta property="og:image" content="http://i.imgur.com/zREns9p.png">
-<meta property="og:updated_time" content="2015-08-03T07:35:11.000Z">
-<meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="《iOS 编程》4. 视图层次结构">
-<meta name="twitter:description" content="独立做练习的过程中学习和收获的很多，很多原本认为了解的知识变成了理解和会用的知识。官方文档还有待熟悉。
 
-4.2 视图层次结构
-4.6 初级练习：绘制图片 GWHypnosisView.m 的 - (void)drawRect:(CGRect)rect{} 添加以下代码：
-// &amp;#28155;&amp;#21152;logo&amp;#65292;&amp;#20013;&amp;#24515;&amp;#28857;&amp;#20026;">
-  
-  
-    <link rel="icon" href="/bitbug_favicon.ico">
-  
-  <link href="/webfonts/ptserif/main.css" rel='stylesheet' type='text/css'>
-  <link href="/webfonts/source-code-pro/main.css" rel="stylesheet" type="text/css">
-  <link rel="stylesheet" href="/css/style.css" type="text/css">
-  
-<!-- Google Analytics -->
-<script type="text/javascript">
-(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+  <meta name="google-site-verification" content="6p6MCt9mM7zNfEZF2HzE72sTOXJ8MC5frP4VNvYw1JU" />
 
-ga('create', 'UA-62118677-1', 'auto');
-ga('send', 'pageview');
 
+
+
+
+  <link rel="stylesheet" type="text/css" href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5"/>
+
+
+<link rel="stylesheet" type="text/css" href="/css/main.css?v=0.4.3"/>
+
+
+    <meta name="description" content="The people who are crazy enough to think they can change the world, are the ones who Do." />
+
+
+
+  <meta name="keywords" content="whoDO" />
+
+
+
+
+
+  <link rel="shorticon icon" type="image/x-icon" href="/favicon.ico?v=0.4.3" />
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var CONFIG = {
+    scheme: 'Mist',
+    analytics: {
+      baidu: '',
+      google: 'UA-62118677-1'
+    },
+    sidebar: 'hide'
+  };
 </script>
-<!-- End Google Analytics -->
 
 
+
+
+  <title> 《iOS 编程》4. 视图层次结构 // whoDO </title>
 </head>
 
 <body>
-  <div id="container">
-    <header id="header">
-  <div id="header-outer" class="outer">
-    <div id="header-inner" class="inner">
-      <a id="main-nav-toggle" class="nav-icon"></a>
-      <a id="logo" class="logo logo-text" href="/">whoDO</a>
-      <nav id="main-nav">
-        
-          <a class="main-nav-link" href="/">Home</a>
-        
-          <a class="main-nav-link" href="/archives">Archives</a>
-        
-          <a class="main-nav-link" href="/about">About</a>
-        
-      </nav>
-      <nav id="sub-nav">
-        <div id="search-form-wrap">
-          <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://gewill.org"></form>
-        </div>
-      </nav>
-    </div>
-  </div>
-</header>
-    <section id="main" class="outer"><article id="post-iOS-Programming-4ed-4" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 class="article-title" itemprop="name">
-      《iOS 编程》4. 视图层次结构
-    </h1>
-  
+<!--[if lte IE 8]> <div style=' clear: both; height: 59px; padding:0 0 0 15px; position: relative;margin:0 auto;'> <a href="http://windows.microsoft.com/en-US/internet-explorer/products/ie/home?ocid=ie6_countdown_bannercode"><img src="http://7u2nvr.com1.z0.glb.clouddn.com/picouterie.jpg" border="0" height="42" width="820" alt="You are using an outdated browser. For a faster, safer browsing experience, upgrade for free today or use other browser ,like chrome firefox safari." style='margin-left:auto;margin-right:auto;display: block;'/></a></div> <![endif]-->
+  <div class="container one-column page-post-detail">
+    <div class="headband"></div>
 
-      </header>
+    <div id="header" class="header">
+      <div class="header-inner">
+        <h1 class="site-meta">
+  <span class="logo-line-before"><i></i></span>
+  <a href="/" class="brand">
+      <span class="logo">
+        <i class="icon-logo"></i>
+      </span>
+      <span class="site-title">whoDO</span>
+  </a>
+  <span class="logo-line-after"><i></i></span>
+</h1>
+
+
+  <ul id="menu" class="menu">
+     
     
-    <div class="article-meta">
-      <a href="/2015/07/27/iOS-Programming-4ed-4/" class="article-date">
-  <time datetime="2015-07-27T09:10:23.000Z" itemprop="datePublished">2015-07-27</time>
-</a>
       
+      <li class="menu-item menu-item-home">
+        <a href="/">
+          <i class="menu-item-icon icon-home"></i> <br />
+          Home
+        </a>
+      </li>
+    
       
-        <div class="article-comment-link-wrap">
-          <a href="http://gewill.org/2015/07/27/iOS-Programming-4ed-4/#disqus_thread" class="article-comment-link">Comments</a>
-        </div>
+      <li class="menu-item menu-item-archives">
+        <a href="/archives">
+          <i class="menu-item-icon icon-archives"></i> <br />
+          Archives
+        </a>
+      </li>
+    
       
+      <li class="menu-item menu-item-about">
+        <a href="/about">
+          <i class="menu-item-icon icon-about"></i> <br />
+          About
+        </a>
+      </li>
+    
+  </ul>
+
+
+      </div>
     </div>
-    <div class="article-entry" itemprop="articleBody">
+
+    <div id="main" class="main">
+      <div class="main-inner">
+        <div id="content" class="content">
+          
+
+  <div id="posts" class="posts-expand">
+    
+
+  <div class="post post-type-normal ">
+    <div class="post-header">
+
+      
+      
+        <h1 class="post-title">
+          
+          
+            
+              《iOS 编程》4. 视图层次结构
+            
+          
+        </h1>
+      
+
+      <div class="post-meta">
+        <span class="post-time">
+          Posted on 2015-07-27
+        </span>
+
+        
+
+        
+          
+            <span class="post-comments-count">
+            &nbsp; | &nbsp;
+            <a href="/2015/07/27/iOS-Programming-4ed-4/#comments" >
+              <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2015/07/27/iOS-Programming-4ed-4/"></span>
+            </a>
+          </span>
+          
+        
+      </div>
+    </div>
+
+    <div class="post-body">
+
+      
+      
+
       
         <p>独立做练习的过程中学习和收获的很多，很多原本认为了解的知识变成了理解和会用的知识。官方文档还有待熟悉。</p>
 <p><img src="http://imgur.com/bdYyIqi.jpg" alt="frame vs bounds"></p>
@@ -117,74 +164,409 @@ ga('send', 'pageview');
 <h2 id="项目代码保存在我的_GitHub:_iOSProgramming4edSolutions">项目代码保存在我的 GitHub: <a href="https://github.com/gewill/iOSProgramming4edSolutions" target="_blank" rel="external">iOSProgramming4edSolutions</a></h2>
       
     </div>
-  
-    <footer class="article-footer">
+
+    <div class="post-footer">
       
-    </footer>
-  
-  </div>
-  
-    
-<nav id="article-nav">
-  
-    <a href="/2015/07/28/iOS-Programming-4ed-5/" id="article-nav-newer" class="article-nav-link-wrap">
-      <div class="article-nav-title"><span>&lt;</span>&nbsp;
-        
-          《iOS 编程》5. 视图：重绘与 UIScrollView
-        
-      </div>
-    </a>
-  
-  
-    <a href="/2015/07/27/cocoapods-install/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">CocoaPods 安装步骤&nbsp;<span>&gt;</span></div>
-    </a>
-  
-</nav>
 
-  
-</article>
+      
+        <div class="post-nav">
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2015/07/28/iOS-Programming-4ed-5/">《iOS 编程》5. 视图：重绘与 UIScrollView</a>
+            
+          </div>
 
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2015/07/27/cocoapods-install/">CocoaPods 安装步骤</a>
+            
+          </div>
+        </div>
+      
 
-<section id="comments">
-  <div id="disqus_thread">
-    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-  </div>
-</section>
-</section>
-    <footer id="footer">
-  
-  <div class="outer">
-    <div id="footer-info" class="inner">
-      &copy; 2015 Ge Will&nbsp;
-      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>, theme by <a href="http://github.com/ppoffice">PPOffice</a>
+      
+      
     </div>
   </div>
-</footer>
+
+
+
     
+      <div class="comments" id="comments">
+        
+          <div id="disqus_thread">
+            <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+          </div>
+        
+      </div>
+    
+  </div>
+
+
+        </div>
+
+        
+      </div>
+
+
+      
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table Of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            Overview
+          </li>
+        </ul>
+      
+
+      <div class="site-overview">
+        <div class="site-author motion-element">
+          <img class="site-author-image" src="http://i.imgur.com/uRJy8E9.png" alt="Ge Will" />
+          <p class="site-author-name">Ge Will</p>
+        </div>
+        <p class="site-description motion-element">The people who are crazy enough to think they can change the world, are the ones who Do.</p>
+        <div class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">66</span>
+              <span class="site-state-item-name">posts</span>
+            </a>
+          </div>
+
+          <div class="site-state-item site-state-categories">
+            
+              <span class="site-state-item-count">0</span>
+              <span class="site-state-item-name">categories</span>
+              
+          </div>
+
+          <div class="site-state-item site-state-tags">
+            
+              <span class="site-state-item-count">0</span>
+              <span class="site-state-item-name">tags</span>
+              
+          </div>
+
+        </div>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+              <a href="https://github.com/gewill" target="_blank">GitHub</a>
+            </span>
+            
+              <span class="links-of-author-item">
+              <a href="https://twitter.com/gewill_org" target="_blank">Twitter</a>
+            </span>
+            
+              <span class="links-of-author-item">
+              <a href="http://weibo.com/gewei" target="_blank">Weibo</a>
+            </span>
+            
+          
+        </div>
+
+        
+        
+          <div class="cc-license motion-element">
+            <a href="http://creativecommons.org/licenses/by-nc-sa/4.0" class="cc-opacity" target="_blank">
+              <img src="/images/cc-by-nc-sa.svg" alt="Creative Commons" />
+            </a>
+          </div>
+        
+
+      </div>
+
+      
+        <div class="post-toc-wrap sidebar-panel-active">
+          <div class="post-toc-indicator-top post-toc-indicator"></div>
+          <div class="post-toc">
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#4-2_视图层次结构"><span class="nav-text">4.2 视图层次结构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-6_初级练习：绘制图片"><span class="nav-text">4.6 初级练习：绘制图片 </span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-8_高级练习：阴影和渐变"><span class="nav-text">4.8 高级练习：阴影和渐变 </span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#项目代码保存在我的_GitHub:_iOSProgramming4edSolutions"><span class="nav-text">项目代码保存在我的 GitHub: iOSProgramming4edSolutions</span></a></li></ol></div>
+            
+          </div>
+          <div class="post-toc-indicator-bottom post-toc-indicator"></div>
+        </div>
+      
+
+    </div>
+  </div>
+
+
+    </div>
+
+    <div id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">
+  
+  &copy; &nbsp; 
+  2015
+  <span style="color:red" class="with-love">
+    <i class="icon-heart"></i>
+  </span>
+  <span style="color:#00CED1" class="author">Ge Will</span>
+</div>
+
+<div class="powered-by">
+  Powered by <a class="theme-link" href="http://hexo.io">Hexo</a>
+</div>
+
+<div class="theme-info">
+  Theme -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
 <script>
-  var disqus_shortname = 'gewill';
-  
-  var disqus_url = 'http://gewill.org/2015/07/27/iOS-Programming-4ed-4/';
-  
-  (function(){
-    var dsq = document.createElement('script');
-    dsq.type = 'text/javascript';
-    dsq.async = true;
-    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
-    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-  })();
+  window.fbAsyncInit = function() {
+    FB.init({
+      appId      : '1607853709465253',
+      xfbml      : true,
+      version    : 'v2.4'
+    });
+  };
+
+  (function(d, s, id){
+     var js, fjs = d.getElementsByTagName(s)[0];
+     if (d.getElementById(id)) {return;}
+     js = d.createElement(s); js.id = id;
+     js.src = "//connect.facebook.net/en_US/sdk.js";
+     fjs.parentNode.insertBefore(js, fjs);
+   }(document, 'script', 'facebook-jssdk'));
 </script>
 
 
-<script src="/js/jquery.min.js"></script>
 
+      </div>
+    </div>
 
-  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css" type="text/css">
-  <script src="/fancybox/jquery.fancybox.pack.js" type="text/javascript"></script>
-
-
-<script src="/js/script.js" type="text/javascript"></script>
+    <div class="back-to-top"></div>
   </div>
+
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js"></script>
+  <script type="text/javascript" src="/js/fancy-box.js"></script>
+
+
+  <script type="text/javascript" src="/js/helpers.js"></script>
+  
+
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js"></script>
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js"></script>
+
+  <script type="text/javascript" src="/js/motion_global.js" id="motion.global"></script>
+
+
+
+
+  
+  
+<script type="text/javascript" src="/js/bootstrap.scrollspy.js" id="bootstrap.scrollspy.custom"></script>
+
+
+<script type="text/javascript" id="sidebar.toc.highlight">
+  $(document).ready(function () {
+    var tocSelector = '.post-toc';
+    var $tocSelector = $(tocSelector);
+    var activeCurrentSelector = '.active-current';
+
+    $tocSelector
+      .on('activate.bs.scrollspy', function () {
+        var $currentActiveElement = $(tocSelector + ' .active').last();
+
+        removeCurrentActiveClass();
+        $currentActiveElement.addClass('active-current');
+
+        $tocSelector[0].scrollTop = $currentActiveElement.position().top;
+      })
+      .on('clear.bs.scrollspy', function () {
+        removeCurrentActiveClass();
+      });
+
+    function removeCurrentActiveClass () {
+      $(tocSelector + ' ' + activeCurrentSelector)
+        .removeClass(activeCurrentSelector.substring(1));
+    }
+
+    function processTOC () {
+      getTOCMaxHeight();
+      toggleTOCOverflowIndicators();
+    }
+
+    function getTOCMaxHeight () {
+      var $sidebarInner = $('.sidebar-inner');
+      var height = $('.sidebar').height() -
+                   $tocSelector.position().top -
+                   $('.post-toc-indicator-bottom').height();
+
+      $tocSelector.css('height', height);
+
+      return height;
+    }
+
+    function toggleTOCOverflowIndicators () {
+      tocOverflowIndicator(
+        '.post-toc-indicator-top',
+        $tocSelector.scrollTop() > 0 ? 'show' : 'hide'
+      );
+
+      tocOverflowIndicator(
+        '.post-toc-indicator-bottom',
+        $tocSelector.scrollTop() >= $tocSelector.find('ol').height() - $tocSelector.height() ? 'hide' : 'show'
+      )
+    }
+
+    $(document).on('sidebar.didShow', function () {
+      processTOC();
+    });
+
+    $('body').scrollspy({ target: tocSelector });
+    $(window).on('resize', function () {
+      if ( $('.sidebar').hasClass('sidebar-active') ) {
+        processTOC();
+      }
+    });
+
+    onScroll($tocSelector);
+
+    function onScroll (element) {
+      element.on('mousewheel DOMMouseScroll', function (event) {
+          var oe = event.originalEvent;
+          var delta = oe.wheelDelta || -oe.detail;
+          var self = this;
+
+          this.scrollTop += ( delta < 0 ? 1 : -1 ) * 30;
+          event.preventDefault();
+
+          toggleTOCOverflowIndicators();
+      });
+    }
+
+    function tocOverflowIndicator (indicator, action) {
+      $(indicator).velocity('stop').velocity({
+        opacity: action === 'show' ? 0.4 : 0
+      }, { duration: 100 });
+    }
+
+  });
+</script>
+
+
+  <script type="text/javascript" id="sidebar.nav">
+    $(document).ready(function () {
+      var html = $('html');
+
+      $('.sidebar-nav li').on('click', function () {
+        var item = $(this);
+        var activeTabClassName = 'sidebar-nav-active';
+        var activePanelClassName = 'sidebar-panel-active';
+        if (item.hasClass(activeTabClassName)) {
+          return;
+        }
+
+        var currentTarget = $('.' + activePanelClassName);
+        var target = $('.' + item.data('target'));
+
+        currentTarget.velocity('transition.slideUpOut', 200, function () {
+          target
+            .velocity('stop')
+            .velocity('transition.slideDownIn', 200)
+            .addClass(activePanelClassName);
+        });
+
+        item.siblings().removeClass(activeTabClassName);
+        item.addClass(activeTabClassName);
+      });
+
+      $('.post-toc a').on('click', function (e) {
+        e.preventDefault();
+        var offset = $(escapeSelector(this.getAttribute('href'))).offset().top;
+        html.velocity('stop').velocity('scroll', {
+          offset: offset  + 'px',
+          mobileHA: false
+        });
+      });
+
+      // Expand sidebar on post detail page by default, when post has a toc.
+      var $tocContent = $('.post-toc-content');
+      if (isDesktop() && CONFIG.sidebar === 'post') {
+        if ($tocContent.length > 0 && $tocContent.html().trim().length > 0) {
+          displaySidebar();
+        }
+      }
+    });
+  </script>
+
+
+
+
+  <script type="text/javascript">
+    $(document).ready(function () {
+      if (CONFIG.sidebar === 'always') {
+        displaySidebar();
+      }
+    });
+  </script>
+
+  
+
+  
+  
+  
+
+  
+
+    
+      
+    
+
+    <script type="text/javascript">
+      var disqus_shortname = 'gewill';
+      var disqus_identifier = '2015/07/27/iOS-Programming-4ed-4/';
+      var disqus_title = '《iOS 编程》4. 视图层次结构';
+      var disqus_url = 'http://gewill.org/2015/07/27/iOS-Programming-4ed-4/';
+
+      (function(){
+        var dsq = document.createElement('script');
+        dsq.type = 'text/javascript';
+        dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+      }());
+    </script>
+  
+
+
+
+
+  
+  
+  <script type="text/javascript" src="/js/analytics_google-analytics.js"></script>
+
+
 </body>
 </html>
