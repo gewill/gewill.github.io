@@ -159,13 +159,17 @@
 <p><strong> 如果觉得每个项目都配置 Reveal 太麻烦，只要设备越狱简单配置一下，就查看所有 APP（包括手机安装的第三方 APP 哟）。</strong></p>
 <ul>
 <li> 越狱后安装 Apple File Conduit “2” 和 OpenSSH</li>
-<li>Mac 终端：</li>
+<li> 导入 libReveal.dylib ：</li>
 </ul>
-<figure class="highlight"><table><tr><td class="code"><pre><span class="line">&#10;scp /Applications/Reveal.app/Contents/SharedSupport/iOS-Libraries/libReveal.dylib root@192.168.0.X:/Library/MobileSubstrate/DynamicLibraries</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#10;scp /Applications/Reveal.app/Contents/SharedSupport/iOS-Libraries/libReveal.dylib root@192.168.0.X:/Library/MobileSubstrate/DynamicLibraries</span><br></pre></td></tr></table></figure>
+<ul>
+<li> 导入 libReveal.plist 格式如下：</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#123;&#10;Filter = &#123;&#10;Bundles = (&#10;&#34;com.apple.Safari&#34;,&#10;);&#10;&#125;;&#10;&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#10;scp ~/Documents/libReveal.plist root@192.168.0.102:/Library/MobileSubstrate/DynamicLibraries</span><br></pre></td></tr></table></figure>
 <blockquote>
-<p>Xcode 的 <a href="https://developer.apple.com/library/ios/recipes/xcode_help-debugger/using_view_debugger/using_view_debugger.html" target="_blank" rel="external">Debug View Hierarchy</a>  只能看看，就弱爆了。而且极易造成 Xcode 崩溃。</p>
+<p>Xcode 的 <a href="https://developer.apple.com/library/ios/recipes/xcode_help-debugger/using_view_debugger/using_view_debugger.html" target="_blank" rel="external">Debug View Hierarchy</a>  只能看看，就弱爆了。而且极易造成 Xcode 崩溃。<br><img src="http://i.imgur.com/R7XAflX.jpg" alt="Imgur"></p>
 </blockquote>
-<p><img src="http://i.imgur.com/R7XAflX.jpg" alt="Imgur"></p>
 
       
     </div>
