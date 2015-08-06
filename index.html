@@ -658,10 +658,10 @@
 
       
         
-          <p><img src="http://i.imgur.com/OKKIRbq.jpg" alt="Imgur"></p>
+          <h2 id="Reveal_介绍">Reveal 介绍 </h2><p><img src="http://i.imgur.com/OKKIRbq.jpg" alt="Imgur"></p>
 <p>Reveal 最早是在唐巧的《iOS 开发进阶》看到的，当时不以为然。其实书中很多内容都不以为然，因为那时候还是入门阶段，自然看不懂的。主要缺乏交流，自悟容易自误。</p>
 <p> 最近 GeekBand 的段松老师的课程，纯代码的 UI 布局，就遇到了极大的困惑：布局错了不知道在哪里，控件失踪了（跑到屏幕外的 frame）。搜索了一下，重新找到 Reveal 介绍的文章，试用了一下很强大。可以实时更改控件属性、大小位置等等，同步显示在真机或 Simulator 中。和 Sketch、Photoshop 的 Mirror 功能差不多，当然只是调试，实际更改还要在 Xcode 中完成。</p>
-<p>Reveal 连接真机调试最新的方法：<a href="http://support.revealapp.com/kb/getting-started/integrating-reveal-add-reveal-to-your-xcode-project" target="_blank" rel="external">http://support.revealapp.com/kb/getting-started/integrating-reveal-add-reveal-to-your-xcode-project</a></p>
+<h2 id="Reveal_使用方法">Reveal 使用方法 </h2><p>Reveal 连接真机调试最新的方法：<a href="http://support.revealapp.com/kb/getting-started/integrating-reveal-add-reveal-to-your-xcode-project" target="_blank" rel="external">http://support.revealapp.com/kb/getting-started/integrating-reveal-add-reveal-to-your-xcode-project</a></p>
 <p><strong> 设备越狱简单配置一下，就查看手机安装的第三方 APP。</strong></p>
 <ul>
 <li> 越狱后安装 Apple File Conduit “2” 和 OpenSSH</li>
@@ -674,9 +674,9 @@
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#123;&#10;Filter = &#123;&#10;Bundles = (&#10;&#34;com.apple.test&#34;,&#10;);&#10;&#125;;&#10;&#125;</span><br></pre></td></tr></table></figure>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#10;scp ~/Documents/libReveal.plist root@192.168.0.X:/Library/MobileSubstrate/DynamicLibraries</span><br></pre></td></tr></table></figure>
 <blockquote>
-<p> 小技巧：网上现在的 Demo 直接改 Bundle ID：com.apple.test，即可开始 Reveal 了。</p>
+<p> 小技巧：网上下载的 Demo 直接改 Bundle ID：com.apple.test，即刻开始 Reveal 了。</p>
 </blockquote>
-<p>Xcode 的 <a href="https://developer.apple.com/library/ios/recipes/xcode_help-debugger/using_view_debugger/using_view_debugger.html" target="_blank" rel="external">Debug View Hierarchy</a>  只能看看，就弱爆了。而且极易造成 Xcode 崩溃。<br><img src="http://i.imgur.com/R7XAflX.jpg" alt="Imgur"></p>
+<h2 id="Debug_View_Hierarchy_in_Xcode">Debug View Hierarchy in Xcode</h2><p>Xcode 的 <a href="https://developer.apple.com/library/ios/recipes/xcode_help-debugger/using_view_debugger/using_view_debugger.html" target="_blank" rel="external">Debug View Hierarchy</a> 只能看看，就弱爆了。而且极易造成 Xcode 崩溃。<br><img src="http://i.imgur.com/R7XAflX.jpg" alt="Imgur"></p>
 
         
       
