@@ -122,6 +122,78 @@
           
           
             
+              <a class="post-title-link" href="/2015/07/15/Crazy-Swift-Lecture-Chapter-9/">
+                Crazy Swift Lecture Chapter 9
+              </a>
+            
+          
+        </h1>
+      
+
+      <div class="post-meta">
+        <span class="post-time">
+          Posted on 2015-07-15
+        </span>
+
+        
+
+        
+          
+            <span class="post-comments-count">
+            &nbsp; | &nbsp;
+            <a href="/2015/07/15/Crazy-Swift-Lecture-Chapter-9/#comments" >
+              <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2015/07/15/Crazy-Swift-Lecture-Chapter-9/"></span>
+            </a>
+          </span>
+          
+        
+      </div>
+    </div>
+
+    <div class="post-body">
+
+      
+      
+
+      
+        
+          <h1 id="第九章_泛型">第九章 泛型 </h1><p> 类型形参实际代表的类型是动态改变的，程序课等到真正使用这些函数、枚举、结构体和类时才为这些类型形参传入实际的类型。</p>
+<p>说白了就是一个通用的占位符，实际使用时再具体说是哪个类型。</p>
+<h2 id="9-2_泛型函数">9.2 泛型函数 </h2><p> 可定义多个类型参数</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">func copyArray &#60;T&#62; (src: [T], inout dest: [T])&#10;&#123;&#10;    // &#36941;&#21382; src &#25968;&#32452;&#65292;&#24182;&#23558; src &#25968;&#32452;&#30340;&#20803;&#32032;&#36861;&#21152;&#21040; dest &#25968;&#32452;&#21518;&#38754;&#10;    for element in src&#10;    &#123;&#10;        dest.append(element)&#10;    &#125;&#10;&#125;&#10;&#10;var arr = [29, 2, 33]&#10;copyArray([12, 8], dest: &#38;arr)&#10;print(arr)&#10;&#10;var  strArr = [&#34;Taylor&#34;, &#34;Swift&#34;, &#34;win&#34;]&#10;copyArray([&#34;Apple&#34;, &#34;Music&#34;], dest: &#38;strArr)&#10;print(strArr)</span><br></pre></td></tr></table></figure>
+<h2 id="9-3_泛型类型">9.3 泛型类型</h2><p>Swift 内置支持的 Array、Dictionary 就是典型的泛型结构体。</p>
+<p>泛型结构体可以派生子类，可以扩展，可以添加约束（协议或 where 子句）<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#10;func bubbleSort &#60;T: Comparable&#62; (inout array: [T])&#10;&#123;&#10;    let len = array.count&#10;    var hasSwap = true&#10;    for var i = 0; i &#60; len - 1 &#38;&#38; hasSwap; i++&#10;    &#123;&#10;        hasSwap = false&#10;        for var j = 0; j &#60; len - 1; j++&#10;        &#123;&#10;            if array[j] &#62; array[j + 1]&#10;            &#123;&#10;                let tmp = array[j]&#10;                array[j] = array[j + 1]&#10;                array[j + 1] = tmp&#10;                hasSwap = true&#10;            &#125;&#10;        &#125;&#10;    &#125;&#10;&#125;&#10;&#10;var myArr = [-1, 22, 32, 32, 5, 344, -66]&#10;bubbleSort(&#38;myArr)&#10;print(myArr)&#10;&#10;var strArr = [&#34;Will&#34;, &#34;Wang&#34;, &#34;Alxx&#34;, &#34;Ken&#34;, &#34;Saale&#34;, &#34;Bene&#34;]&#10;bubbleSort(&#38;strArr)&#10;print(strArr)</span><br></pre></td></tr></table></figure></p>
+<p>稍后把书中代码均打出来。</p>
+
+        
+      
+    </div>
+
+    <div class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </div>
+  </div>
+
+
+    
+      
+
+  <div class="post post-type-normal ">
+    <div class="post-header">
+
+      
+      
+        <h1 class="post-title">
+          
+          
+            
               <a class="post-title-link" href="/2015/07/15/CS193P-4-More-Swift-and-Foundation-Frameworks/">
                 CS193P 4. More Swift and Foundation Frameworks
               </a>
@@ -911,90 +983,6 @@
 
 
     
-      
-
-  <div class="post post-type-normal ">
-    <div class="post-header">
-
-      
-      
-        <h1 class="post-title">
-          
-          
-            
-              <a class="post-title-link" href="/2015/05/26/Add-share-button-and-statistics/">
-                Add share button and statistics
-              </a>
-            
-          
-        </h1>
-      
-
-      <div class="post-meta">
-        <span class="post-time">
-          Posted on 2015-05-26
-        </span>
-
-        
-
-        
-          
-            <span class="post-comments-count">
-            &nbsp; | &nbsp;
-            <a href="/2015/05/26/Add-share-button-and-statistics/#comments" >
-              <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2015/05/26/Add-share-button-and-statistics/"></span>
-            </a>
-          </span>
-          
-        
-      </div>
-    </div>
-
-    <div class="post-body">
-
-      
-      
-
-      
-        
-          <h2 id="添加分享">添加分享 </h2><h3 id="方法一：原生分享"> 方法一：原生分享 </h3><p> 添加分享按钮代码， Hexo 文件夹下<code>/theme/next/layout/_macro/post.swig</code>。</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#60;html xmlns:wb=&#34;http://open.weibo.com/wb&#34;&#62;&#10;&#10;&#60;script src=&#34;http://tjs.sjs.sinajs.cn/open/api/js/wb.js&#34; type=&#34;text/javascript&#34; charset=&#34;utf-8&#34;&#62;&#60;/script&#62;&#10;&#10;&#60;wb:share-button appkey=&#34;2407521490&#34; addition=&#34;simple&#34; type=&#34;button&#34;&#62;&#60;/wb:share-button&#62;&#10;&#10;&#10;&#60;a href=&#34;https://twitter.com/share&#34; class=&#34;twitter-share-button&#34; data-via=&#34;gewillorg&#34; data-size=&#34;large&#34; data-count=&#34;none&#34;&#62;Tweet&#60;/a&#62;&#10;&#10;&#60;script&#62;&#10;!function(d,s,id)&#123;&#10;  var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?&#39;http&#39;:&#39;https&#39;;&#10;  &#9;if(!d.getElementById(id))&#123;&#10;  &#9;    js=d.createElement(s);&#10;&#9;    js.id=id;js.src=p+&#39;://platform.twitter.com/widgets.js&#39;;&#10;&#9;    fjs.parentNode.insertBefore(js,fjs);&#10;&#9;&#125;&#10;&#125;&#10;(document, &#39;script&#39;, &#39;twitter-wjs&#39;);&#10;&#60;/script&#62;</span><br></pre></td></tr></table></figure>
-<h3 id="方案二：ShareThis_定制">方案二：<a href="http://www.sharethis.com/" target="_blank" rel="external">ShareThis</a> 定制 </h3><p> 更加统一优美的解决方案，有个各种样式可选，非常方便。<br>稍后我再进行定制，最好是默认黑色，点击激活时恢复彩色。</p>
-<p>默认有添加后缀在你的网址，去除方法如下<code>doNotHash: ture</code>，详情参考：<a href="http://support.sharethis.com/customer/portal/articles/961937#sthash.QKAIxxCu.dpbs" target="_blank" rel="external">CopyNShare Settings</a>。</p>
-<pre><code>
-<span class="tag">&lt;<span class="title">script</span> <span class="attribute">type</span>=<span class="value">"text/javascript"</span>&gt;</span><span class="kotlin"><span class="variable"><span class="keyword">var</span> switchTo5x</span>=<span class="literal">true</span>;</span><span class="tag">&lt;/<span class="title">script</span>&gt;</span>
-<span class="tag">&lt;<span class="title">script</span> <span class="attribute">type</span>=<span class="value">"text/javascript"</span> <span class="attribute">src</span>=<span class="value">"http://w.sharethis.com/button/buttons.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="title">script</span>&gt;</span>
-<span class="tag">&lt;<span class="title">script</span> <span class="attribute">type</span>=<span class="value">"text/javascript"</span>&gt;</span><span class="less"><span class="tag">stLight</span><span class="class">.options</span>({<span class="attribute">publisher</span>: <span class="string">"7fb5f31a-b8e7-4aa1-a6eb-9aac8b9b13f0"</span>, <span class="attribute">doNotHash</span>: ture, <span class="attribute">doNotCopy</span>: false, <span class="attribute">hashAddressBar</span>: true});
-</span><span class="tag">&lt;/<span class="title">script</span>&gt;</span>
-
-<span class="tag">&lt;<span class="title">span</span> <span class="attribute">class</span>=<span class="value">'st_sina_large'</span> <span class="attribute">displayText</span>=<span class="value">'Sina'</span>&gt;</span><span class="tag">&lt;/<span class="title">span</span>&gt;</span>
-<span class="tag">&lt;<span class="title">span</span> <span class="attribute">class</span>=<span class="value">'st_twitter_large'</span> <span class="attribute">displayText</span>=<span class="value">'Tweet'</span>&gt;</span><span class="tag">&lt;/<span class="title">span</span>&gt;</span>
-<span class="tag">&lt;<span class="title">span</span> <span class="attribute">class</span>=<span class="value">'st_facebook_large'</span> <span class="attribute">displayText</span>=<span class="value">'Facebook'</span>&gt;</span><span class="tag">&lt;/<span class="title">span</span>&gt;</span>
-<span class="tag">&lt;<span class="title">span</span> <span class="attribute">class</span>=<span class="value">'st_googleplus_large'</span> <span class="attribute">displayText</span>=<span class="value">'Google +'</span>&gt;</span><span class="tag">&lt;/<span class="title">span</span>&gt;</span>
-<span class="tag">&lt;<span class="title">span</span> <span class="attribute">class</span>=<span class="value">'st_pinterest_large'</span> <span class="attribute">displayText</span>=<span class="value">'Pinterest'</span>&gt;</span><span class="tag">&lt;/<span class="title">span</span>&gt;</span>
-<span class="tag">&lt;<span class="title">span</span> <span class="attribute">class</span>=<span class="value">'st_tumblr_large'</span> <span class="attribute">displayText</span>=<span class="value">'Tumblr'</span>&gt;</span><span class="tag">&lt;/<span class="title">span</span>&gt;</span>
-<span class="tag">&lt;<span class="title">span</span> <span class="attribute">class</span>=<span class="value">'st_reddit_large'</span> <span class="attribute">displayText</span>=<span class="value">'Reddit'</span>&gt;</span><span class="tag">&lt;/<span class="title">span</span>&gt;</span>
-</code></pre><h2 id="不蒜子统计">不蒜子统计 </h2><p>“<a href="http://ibruce.info/2015/04/04/busuanzi/" target="_blank" rel="external"> 不蒜子</a>”与百度统计谷歌分析等有区别：“不蒜子”可直接将访问次数显示在您在网页上。</p>
-<p>添加统计代码， Hexo 文件夹下<code>/theme/next/layout/_partials/footer.swig</code>。 </p>
-
-        
-      
-    </div>
-
-    <div class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </div>
-  </div>
-
-
-    
   </div>
 
   
@@ -1033,7 +1021,7 @@
         <div class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">66</span>
+              <span class="site-state-item-count">67</span>
               <span class="site-state-item-name">posts</span>
             </a>
           </div>
