@@ -1,0 +1,905 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="en">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+  <meta name="google-site-verification" content="6p6MCt9mM7zNfEZF2HzE72sTOXJ8MC5frP4VNvYw1JU">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="Will's Blog" type="application/atom+xml">
+
+
+
+
+
+
+<meta name="description" content="网站添加 Tags，方便分类查找文章。 Medium 非常简洁优雅，可以借鉴。网站改版和文章排版比较耗费时间，以后要以内容输出优先。  关于课程中 Swift 语言的知识我只是简单浏览一遍，毕竟他说的也不详细，真正搞懂还是要系统学习。复习一下《疯狂 Swift 讲义》或者 Google 都是可行的。重要是 Demo 实践。今天微博看到的玩笑：Computer Programming To Be">
+<meta property="og:type" content="article">
+<meta property="og:title" content="CS193P 6. Protocols and Delegation, Gestures">
+<meta property="og:url" content="http://gewill.org/2015/07/20/CS193P-6-Protocols-and-Delegation-Gestures/index.html">
+<meta property="og:site_name" content="Will&#39;s Blog">
+<meta property="og:description" content="网站添加 Tags，方便分类查找文章。 Medium 非常简洁优雅，可以借鉴。网站改版和文章排版比较耗费时间，以后要以内容输出优先。  关于课程中 Swift 语言的知识我只是简单浏览一遍，毕竟他说的也不详细，真正搞懂还是要系统学习。复习一下《疯狂 Swift 讲义》或者 Google 都是可行的。重要是 Demo 实践。今天微博看到的玩笑：Computer Programming To Be">
+<meta property="og:locale" content="en">
+<meta property="og:image" content="http://i.imgur.com/OuW94mJ.png">
+<meta property="og:image" content="http://i.imgur.com/Zop3POa.png">
+<meta property="og:image" content="http://i.imgur.com/c1mSjmj.png">
+<meta property="og:updated_time" content="2019-03-17T09:30:36.099Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="CS193P 6. Protocols and Delegation, Gestures">
+<meta name="twitter:description" content="网站添加 Tags，方便分类查找文章。 Medium 非常简洁优雅，可以借鉴。网站改版和文章排版比较耗费时间，以后要以内容输出优先。  关于课程中 Swift 语言的知识我只是简单浏览一遍，毕竟他说的也不详细，真正搞懂还是要系统学习。复习一下《疯狂 Swift 讲义》或者 Google 都是可行的。重要是 Demo 实践。今天微博看到的玩笑：Computer Programming To Be">
+<meta name="twitter:image" content="http://i.imgur.com/OuW94mJ.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://gewill.org/2015/07/20/CS193P-6-Protocols-and-Delegation-Gestures/">
+
+
+
+
+
+  <title>CS193P 6. Protocols and Delegation, Gestures | Will's Blog</title>
+  
+
+
+
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-62118677-1', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Will's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            About
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            Archives
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="st-search-show-outputs">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
+            
+            Search
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <form class="site-search-form">
+  <input type="text" id="st-search-input" class="st-search-input st-default-search-input">
+</form>
+
+<script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+    (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+    e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+
+  _st('install', 'cxMVaJ4gCdzsgxLUHwRY','2.0.0');
+</script>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://gewill.org/2015/07/20/CS193P-6-Protocols-and-Delegation-Gestures/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Ge Will">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Will's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">CS193P 6. Protocols and Delegation, Gestures</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2015-07-20T22:05:05+08:00">
+                2015-07-20
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p> 网站添加 Tags，方便分类查找文章。 <a href="https://medium.com" target="_blank" rel="noopener">Medium</a> 非常简洁优雅，可以借鉴。网站改版和文章排版比较耗费时间，以后要以内容输出优先。</p>
+<p> 关于课程中 Swift 语言的知识我只是简单浏览一遍，毕竟他说的也不详细，真正搞懂还是要系统学习。复习一下《疯狂 Swift 讲义》或者 Google 都是可行的。重要是 Demo 实践。今天微博看到的玩笑：<a href="http://www.theallium.com/engineering/computer-programming-to-be-officially-renamed-googling-stackoverflow/" target="_blank" rel="noopener">Computer Programming To Be Officially Renamed “Googling Stackoverflow”
+</a>。</p>
+<h2 id="1-Interface-Builder"><a href="#1-Interface-Builder" class="headerlink" title="1. Interface Builder"></a>1. Interface Builder</h2><p>Demo: 自定义 UIViews in your storyboard (FaceView)</p>
+<blockquote>
+<p><a href="http://www.cocoachina.com/ios/20140619/8883.html" target="_blank" rel="noopener"> 如何在 iOS 8 中使用 Swift 和 Xcode 6 制作精美的 UI 组件 </a> 有个例子：苹果在 Xcode 6 中加入了两个新的 Interface Builder（下文用 IB 简称）属性声明:IBInspectable 和 IBDesignable。IBInspectable 在 IB 的 Attribute Inspector（属性检查器）中查看类的属性，而 IBDesignable 能实时更新视图，很厉害吧！</p>
+</blockquote>
+<h2 id="2-The-Happiness-MVC’s-Model"><a href="#2-The-Happiness-MVC’s-Model" class="headerlink" title="2. The Happiness MVC’s Model"></a>2. The Happiness MVC’s Model</h2><p> 是寄于 HappinessViewController 里的 happiness，不同于 smiliness。</p>
+<h2 id="3-Protocols-and-Delegation"><a href="#3-Protocols-and-Delegation" class="headerlink" title="3. Protocols and Delegation"></a>3. Protocols and Delegation</h2><p> 扩展 </p>
+<p> 协议也是一种数据类型 </p>
+<p> 代理是一种非常重要的协议的应用。<br> 代理是我们完成视图和控制器盲沟通的方式。</p>
+<p><img src="http://i.imgur.com/OuW94mJ.png" alt="Delegation"></p>
+<p> 通过代理模式 UIViews 可以控制 Model，虽然并不是真的拥有 Model。</p>
+<p><strong> 如何实现：</strong></p>
+<ol>
+<li> 视图中创建一个代理协议 (定义具体视图想要控制器关心的内容) </li>
+<li> 视图中创建一个代理的属性，其类型是代理协议 </li>
+<li> 视图中使用代理的属性去得到并不用的事，或做并不能控制的事 </li>
+<li> 控制器声明并完成代理协议 </li>
+<li> 控制器把自己作为视图的代理，通过设置设置代理的属性（上面 2 提到的）</li>
+<li> 控制器实施协议 </li>
+</ol>
+<p> 现在视图就勾住了控制器。不过视图仍不晓得控制器的内容，所以视图仍是通用 / 可重复使用的。</p>
+<p><strong>Demo:  Happiness MVC’s Model using generic FaceView in its View</strong></p>
+<blockquote>
+<p>Cmd + Shift + O 快速打开文档，有种 Xcode 内置 spotlight 的即视感。</p>
+</blockquote>
+<p>FaceView.swift 为自定义 UIView 的类，是 View。<br>HappinessViewController.swift 是继承自 UIViewController，是 Controller。</p>
+<p>View 中 dataSource 是 protocol FaceViewDataSource 的属性（代理或数据源），作为 dataSource?.smilinessForFaceView(self) 的形参。</p>
+<p>Controller 实现了该协议，并将自己作为代理的对象，并通过 happiness 变量来改变协议中 </p>
+<p>Controller 中的 faceView 通过 Outlet 监控 dataSource 值的改变（didSet），来控制 View 笑脸的变化（smiliness）。</p>
+<p><img src="http://i.imgur.com/Zop3POa.png" alt="Happiness MVC"><br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">//  FaceView.swift 部分代码 </span><br><span class="line"></span><br><span class="line"></span><br><span class="line">import UIKit</span><br><span class="line"></span><br><span class="line">protocol FaceViewDataSource: class &#123;</span><br><span class="line">    func smilinessForFaceView(sender: FaceView) -&gt; Double?</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">@IBDesignable</span><br><span class="line">class FaceView: UIView</span><br><span class="line">&#123;</span><br><span class="line">    @IBInspectable</span><br><span class="line">    var lineWidth: CGFloat = 3 &#123; didSet &#123; setNeedsDisplay() &#125; &#125;</span><br><span class="line">    @IBInspectable</span><br><span class="line">    var color: UIColor = UIColor.blueColor() &#123; didSet &#123; setNeedsDisplay() &#125; &#125;</span><br><span class="line">    @IBInspectable</span><br><span class="line">    var scale: CGFloat = 0.90 &#123; didSet &#123; setNeedsDisplay() &#125; &#125;</span><br><span class="line">    </span><br><span class="line">    var faceCenter: CGPoint &#123;</span><br><span class="line">        return convertPoint(center, fromView: superview)</span><br><span class="line">    &#125;</span><br><span class="line">    var faceRadius: CGFloat &#123;</span><br><span class="line">        return min(bounds.size.width, bounds.size.height) / 2 * scale</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    weak var dataSource: FaceViewDataSource?</span><br></pre></td></tr></table></figure></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">//  HappinessViewController.swift</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">import UIKit</span><br><span class="line"></span><br><span class="line">class HappinessViewController: UIViewController, FaceViewDataSource</span><br><span class="line">&#123;</span><br><span class="line"></span><br><span class="line">    @IBOutlet weak var faceView: FaceView! &#123;</span><br><span class="line">        didSet &#123;</span><br><span class="line">            faceView.dataSource = self</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    var happiness: Int = 99 &#123; // 0 = very sad, 100 = ecstatic</span><br><span class="line">        didSet &#123;</span><br><span class="line">            happiness = min(max(happiness, 0), 100)</span><br><span class="line">            print(&quot;happiness = \(happiness)&quot;)</span><br><span class="line">            updateUI()</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    func updateUI() &#123;</span><br><span class="line">        faceView.setNeedsDisplay()</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    func smilinessForFaceView(sender: FaceView) -&gt; Double? &#123;</span><br><span class="line">        return Double(happiness - 50) / 50</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="4-Gestures"><a href="#4-Gestures" class="headerlink" title="4. Gestures"></a>4. Gestures</h2><p> 手势识别分两步走：</p>
+<ol>
+<li>Adding a gesture recognizer to a UIView (asking the UIView to “recognize” that gesture)</li>
+<li>Providing a method to “handle” that gesture (not necessarily handled by the UIView)</li>
+</ol>
+<blockquote>
+<p>Usually the first is done by a Controller<br>Though occasionally a UIView will do this itself if the gesture is integral to its existence</p>
+</blockquote>
+<blockquote>
+<p>The second is provided either by the UIView or a Controller Depending on the situation. We’ll see an example of both in our demo.</p>
+</blockquote>
+<h3 id="第一步：Adding-a-gesture-recognizer-to-a-UIView"><a href="# 第一步：Adding-a-gesture-recognizer-to-a-UIView" class="headerlink" title="第一步：Adding a gesture recognizer to a UIView"></a> 第一步：Adding a gesture recognizer to a UIView</h3><p>Imagine we wanted a UIView in our Controller’s View to recognize a “pan” gesture …</p>
+<p><img src="http://i.imgur.com/c1mSjmj.png" alt="pannableView"></p>
+<blockquote>
+<p> 上面的代码造成排版错误，估计代码高亮产生的，先换成图片。</p>
+</blockquote>
+<p>This is just a normal outlet to the UIView we want to recognize the gesture</p>
+<p>We use its property observer to get involved when the outlet gets hooked up by iOS</p>
+<p>Here we are creating an instance of a concrete subclass of UIGestureRecognizer (for pans) </p>
+<p>The target gets notified when the gesture is recognized (in this case, the Controller itself) </p>
+<p>The action is the method invoked on recognition (the : means it has an argument)</p>
+<p>Here we ask the UIView to actually start trying to recognize this gesture in its bounds </p>
+<p>Let’s talk about how we implement the handler …</p>
+<h3 id="第二步：A-handler-for-a-gesture-needs-gesture-specific-information"><a href="# 第二步：A-handler-for-a-gesture-needs-gesture-specific-information" class="headerlink" title="第二步：A handler for a gesture needs gesture-specific information"></a> 第二步：A handler for a gesture needs gesture-specific information</h3><p>So each concrete subclass provides special methods for handling that type of gesture</p>
+<p><strong>For example, UIPanGestureRecognizer provides 3 methods</strong></p>
+<p><code>func translationInView(view: UIView) -&gt; CGPoint</code> // cumulative since start of recognition </p>
+<p><code>func velocityInView(view: UIView) -&gt; CGPoint</code> // how fast the finger is moving (points/s)</p>
+<p><code>func setTranslation(translation: CGPoint, inView: UIView)</code></p>
+<p>This last one is interesting because it allows you to reset the translation so far</p>
+<p>By resetting the translation to zero all the time, you end up getting “incremental” translation </p>
+<p><strong>The abstract superclass also provides state information</strong></p>
+<p><code>var state: UIGestureRecognizerState {get}</code><br>This sits around in <code>.Possible</code> until recognition starts<br>For a discrete gesture (e.g. a Swipe), it changes to <code>.Recognized</code> (Tap is not a normal discrete) For a continues gesture (e.g. a Pan), it moves from <code>.Began</code> thru repeated <code>.Changed</code> to <code>.Ended</code><br>It can go to <code>.Failed</code> or <code>.Cancelled</code> too, so watch out for those!</p>
+<p><strong>So, given this information, what would the pan handler look like?</strong></p>
+<pre><code>  func pan(gesture: UIPanGestureRecognizer) {
+      switch gesture.state {
+          case .Changed: fallthrough
+          case .Ended:
+              let translation = gesture.translationInView(pannableView)
+// update anything that depends on the pan gesture using translation.x and .y
+￼            gesture.setTranslation(CGPointZero, inView: pannableView)
+        default: break
+     }
+}
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">Remember that the action was “pan:” (if no colon, we would not get the gesture argument)</span><br><span class="line"></span><br><span class="line">We are only going to do anything when the finger moves or lifts up off the device’s surface </span><br><span class="line"></span><br><span class="line">fallthrough means “execute the code for the next case down”Here we get the location of the pan in the pannableView’s coordinate systemNow we do whatever we want with that informationBy resetting the translation, the next one we get will be how much it moved since this one### 常用手势：</span><br><span class="line">- UIPinchGestureRecognizer</span><br><span class="line">  var scale: CGFloat // not read-only (can reset)</span><br><span class="line">  </span><br><span class="line">  var   velocity: CGFloat &#123; get &#125; // scale factor per second</span><br><span class="line">  - UIRotationGestureRecognizer</span><br><span class="line">  var rotation: CGFloat // not read-only (can reset); in radians </span><br><span class="line">  </span><br><span class="line">  var velocity: CGFloat &#123; get &#125; // radians per second</span><br><span class="line">  - UISwipeGestureRecognizer  Set up the direction and number of fingers you want, then look for .Recognized</span><br><span class="line">  </span><br><span class="line">  var direction: UISwipeGestureRecoginzerDirection // which swipes you want </span><br><span class="line">  </span><br><span class="line">  var numberOfTouchesRequired: Int // finger count</span><br><span class="line">  - UITapGestureRecognizer</span><br><span class="line">  Set up the number of taps and fingers you want, then look for .Ended </span><br><span class="line">  </span><br><span class="line">  var numberOfTapsRequired: Int // single tap, double tap, etc. </span><br><span class="line">  </span><br><span class="line">  var numberOfTouchesRequired: Int // finger count</span><br><span class="line">  </span><br><span class="line">￼￼￼￼### Demo: Happiness pinch and pan</span><br><span class="line"></span><br><span class="line">**FaceView Gestures**</span><br><span class="line">Add a gesture recognizer (pinch) to the FaceView to zoom in and out (control its own scale) </span><br><span class="line"></span><br><span class="line">Add a gesture recognizer (pan) to the FaceView to control happiness (Model) in the Controller</span><br></pre></td></tr></table></figure>
+
+//  FaceView.swift 部分代码
+
+
+import UIKit
+
+protocol FaceViewDataSource: class {func smilinessForFaceView(sender: FaceView) -&gt; Double?
+}
+
+    // 2. handler
+    func scale(gestrue: UIPinchGestureRecognizer) {
+
+        if gestrue.state == .Changed {
+            scale *= gestrue.scale
+            gestrue.scale = 1
+        }
+    }
+
+
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+//  HappinessViewController.swift 部分代码
+
+
+import UIKit
+
+class HappinessViewController: UIViewController, FaceViewDataSource
+{
+
+    @IBOutlet weak var faceView: FaceView! {
+        didSet {
+            faceView.dataSource = self
+
+            // 1. Adding a gesture recognizer
+            faceView.addGestureRecognizer(UIPinchGestureRecognizer(target: faceView, action: &quot;scale:&quot;))
+            // try in storyboard
+            // faceView.addGestureRecognizer(UIPanGestureRecognizer(target: self, action: &quot;changeHapponess:&quot;))
+        }
+    }
+
+
+    // 通过 storyboard 添加 Pan Gesture Recognizer，然后 storyboard 添加 IBAction 到 Controller 中
+    private struct Constants {static let HappinessGestureScale: CGFloat = 4}
+
+    @IBAction func changeHappiness(gesture: UIPanGestureRecognizer) {
+        switch gesture.state {
+        case .Ended: fallthrough
+        case .Changed:
+            let translatrion = gesture.translationInView(faceView)
+            let happinessChange = -Int(translatrion.y / Constants.HappinessGestureScale)
+            if happinessChange != 0 {
+                happiness -= happinessChange
+                gesture.setTranslation(CGPointZero, inView: faceView)
+            }
+        default: break
+        }
+    }
+
+    var happiness: Int = 3 { // 0 = very sad, 100 = ecstatic
+        didSet {happiness = min(max(happiness, 0), 100)
+            print(&quot;happiness = \(happiness)&quot;)
+            updateUI()}
+    }
+
+    func updateUI() {faceView.setNeedsDisplay()
+    }
+
+    func smilinessForFaceView(sender: FaceView) -&gt; Double? {return Double(happiness - 50) / 50
+    }
+}
+
+</code></pre><blockquote>
+<p> 有待翻译 </p>
+</blockquote>
+<h2 id="5- 拓展阅读"><a href="#5- 拓展阅读" class="headerlink" title="5. 拓展阅读"></a>5. 拓展阅读 </h2><p><a href="http://www.raywenderlich.com/76020/using-uigesturerecognizer-with-swift-tutorial" target="_blank" rel="noopener">UIGestureRecognizer Tutorial: Getting Started</a></p>
+<h2 id="项目代码保存在我的 -GitHub-CS193P-2015"><a href="# 项目代码保存在我的 -GitHub-CS193P-2015" class="headerlink" title="项目代码保存在我的 GitHub: CS193P-2015"></a> 项目代码保存在我的 GitHub: <a href="https://github.com/gewill/CS193P-2015" target="_blank" rel="noopener">CS193P-2015</a></h2>
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2015/07/20/GeekBand-iOS-APP-Development-1/" rel="next" title="极客班 iOS 应用开发实战（一）">
+                <i class="fa fa-chevron-left"></i> 极客班 iOS 应用开发实战（一）
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2015/07/22/CS193P-7-Multiple-MVCs/" rel="prev" title="CS193P 7. Multiple MVCs">
+                CS193P 7. Multiple MVCs <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Ge Will</p>
+              <p class="site-description motion-element" itemprop="description">The people who are crazy enough to think they can change the world, are the ones who DO.</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">166</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/gewill" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:531sunlight@gmail.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://twitter.com/gewill_org" target="_blank" title="Twitter">
+                      
+                        <i class="fa fa-fw fa-twitter"></i>Twitter</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://weibo.com/gewei" target="_blank" title="Weibo">
+                      
+                        <i class="fa fa-fw fa-weibo"></i>Weibo</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+            <div class="cc-license motion-element" itemprop="license">
+              <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="cc-opacity" target="_blank">
+                <img src="/images/cc-by-nc-sa.svg" alt="Creative Commons">
+              </a>
+            </div>
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-Interface-Builder"><span class="nav-number">1.</span> <span class="nav-text">1. Interface Builder</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-The-Happiness-MVC’s-Model"><span class="nav-number">2.</span> <span class="nav-text">2. The Happiness MVC’s Model</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-Protocols-and-Delegation"><span class="nav-number">3.</span> <span class="nav-text">3. Protocols and Delegation</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-Gestures"><span class="nav-number">4.</span> <span class="nav-text">4. Gestures</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#第一步：Adding-a-gesture-recognizer-to-a-UIView"><span class="nav-number">4.1.</span> <span class="nav-text"> 第一步：Adding a gesture recognizer to a UIView</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#第二步：A-handler-for-a-gesture-needs-gesture-specific-information"><span class="nav-number">4.2.</span> <span class="nav-text"> 第二步：A handler for a gesture needs gesture-specific information</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5- 拓展阅读"><span class="nav-number">5.</span> <span class="nav-text">5. 拓展阅读 </span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#项目代码保存在我的 -GitHub-CS193P-2015"><span class="nav-number">6.</span> <span class="nav-text"> 项目代码保存在我的 GitHub: CS193P-2015</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Ge Will</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

@@ -1,0 +1,744 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="en">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+  <meta name="google-site-verification" content="6p6MCt9mM7zNfEZF2HzE72sTOXJ8MC5frP4VNvYw1JU">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="Will's Blog" type="application/atom+xml">
+
+
+
+
+
+
+<meta name="description" content="# 第五章：集合 ##5.1 数组 // 使用泛型语法声明数组var myArr : Array&amp;lt;String&amp;gt;// 使用简化语法声明数组var names : [String]var nums : [Int]// 创建一个空数组，并将该空数组赋值给 myArr 变量myArr = Array&amp;lt;String&amp;gt;()// 创建一个包含 10 个 &amp;quot;fki">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Crazy Swift Lecture Chapter 5">
+<meta property="og:url" content="http://gewill.org/2015/05/16/Crazy-Swift-Lecture-Chapter-5/index.html">
+<meta property="og:site_name" content="Will&#39;s Blog">
+<meta property="og:description" content="# 第五章：集合 ##5.1 数组 // 使用泛型语法声明数组var myArr : Array&amp;lt;String&amp;gt;// 使用简化语法声明数组var names : [String]var nums : [Int]// 创建一个空数组，并将该空数组赋值给 myArr 变量myArr = Array&amp;lt;String&amp;gt;()// 创建一个包含 10 个 &amp;quot;fki">
+<meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2019-03-17T09:30:36.101Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Crazy Swift Lecture Chapter 5">
+<meta name="twitter:description" content="# 第五章：集合 ##5.1 数组 // 使用泛型语法声明数组var myArr : Array&amp;lt;String&amp;gt;// 使用简化语法声明数组var names : [String]var nums : [Int]// 创建一个空数组，并将该空数组赋值给 myArr 变量myArr = Array&amp;lt;String&amp;gt;()// 创建一个包含 10 个 &amp;quot;fki">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://gewill.org/2015/05/16/Crazy-Swift-Lecture-Chapter-5/">
+
+
+
+
+
+  <title>Crazy Swift Lecture Chapter 5 | Will's Blog</title>
+  
+
+
+
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-62118677-1', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Will's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            About
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            Archives
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="st-search-show-outputs">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
+            
+            Search
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <form class="site-search-form">
+  <input type="text" id="st-search-input" class="st-search-input st-default-search-input">
+</form>
+
+<script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+    (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+    e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+
+  _st('install', 'cxMVaJ4gCdzsgxLUHwRY','2.0.0');
+</script>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://gewill.org/2015/05/16/Crazy-Swift-Lecture-Chapter-5/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Ge Will">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Will's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Crazy Swift Lecture Chapter 5</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2015-05-16T14:38:46+08:00">
+                2015-05-16
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p># 第五章：集合</p>
+<p>##5.1 数组</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">// 使用泛型语法声明数组var myArr : Array&lt;String&gt;// 使用简化语法声明数组var names : [String]var nums : [Int]// 创建一个空数组，并将该空数组赋值给 myArr 变量myArr = Array&lt;String&gt;()// 创建一个包含 10 个 &quot;fkit&quot; 元素的数组，并将该数组赋值给 names 变量names = Array&lt;String&gt;(count: 10, repeatedValue: &quot;fkit&quot;)// 创建一个包含 100 个数值 0 的数组，并将该数组赋值给 nums 变量nums = Array&lt;Int&gt;(count: 100, repeatedValue: 0)// 使用简化语法创建数组，并将数组赋值给 flowers 变量var flowers:[String] = [&quot;♦&quot; , &quot;♣&quot; , &quot;❤&quot; , &quot;♠&quot;]// 使用简化语法创建数组，并将数组赋值给 values 变量var values = [&quot;2&quot; , &quot;3&quot; , &quot;3&quot; , &quot;4&quot; , &quot;5&quot; , &quot;6&quot;,	&quot;7&quot; , &quot;8&quot; , &quot;9&quot; , &quot;10&quot; , &quot;J&quot; , &quot;Q&quot; , &quot;K&quot; , &quot;A&quot;]	// 输出 names 数组的第二个元素，将输出字符串 &quot;fkit&quot;println(names[1])// 为 names 的第一个数组元素赋值names[0] = &quot;Spring&quot;println(names)//println(names[10])// 使用循环输出 flowers 数组的每个数组元素的值for var i = 0; i &lt; flowers.count ; i++&#123;	println(flowers[i])&#125;// 对 names 数组的数组元素进行赋值names[1] = &quot;Lua&quot;names[2] = &quot;Ruby&quot;// 使用循环输出 names 数组的每个数组元素的值for var i = 0 ; i &lt; names.count ; i++&#123;	println(names[i])&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">var books:[String] = [&quot; 疯狂 Swift 讲义 &quot; , 	&quot; 疯狂 iOS 讲义 &quot;,	&quot; 疯狂 Android 讲义 &quot;]// 使用 for-in 循环来遍历数组// 其中 book 将会自动迭代每个数组元素for book in books&#123;	println(book)&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">// 下面尝试在 for-in 循环遍历时对循环常量赋值是错误的！！！</span><br><span class="line">var books:[String] = [&quot; 疯狂 Swift 讲义 &quot; , 	&quot; 疯狂 iOS 讲义 &quot;,	&quot; 疯狂 Android 讲义 &quot;]// book 常量将会自动迭代每个数组元素for book in books&#123;	book = &quot; 疯狂 Ajax 讲义 &quot;	println(book)&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">// 使用 var 定义一个可变数组var languages = [&quot;Swift&quot;]// 追加一个元素languages.append(&quot;Go&quot;)languages.append(&quot;Lua&quot;)// 输出 Swift, Go, Luaprintln(languages)println(languages.count) // 输出 3languages = languages + [&quot;Ruby&quot;]// 上面代码可简写为如下languages += [&quot;Ruby&quot;]// 输出 Swift, Go, Lua, Ruby, Rubyprintln(languages)println(languages.count) // 输出 5</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">// 使用 var 定义一个可变数组var languages = [&quot;Swift&quot;]// 插入一个元素languages.insert(&quot;Go&quot; , atIndex:0)// 插入一个元素，指定 atIndex:2，表明该元素插入数组的最后languages.insert(&quot;Lua&quot; , atIndex:2)// 输出 Go, Swift, Luaprintln(languages)println(languages.count) // 输出 3// 下面代码指定 atIndex 超过了数组长度，因此下面代码将会导致错误languages.insert(&quot;Ruby&quot; , atIndex:4)</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">var languages = [&quot;Swift&quot;, &quot;OC&quot;, &quot;PHP&quot;, &quot;Perl&quot; , &quot;Ruby&quot; , &quot;Go&quot;]// 获取 languages 中数组中索引为 1~4 的元素let subRange = languages[1..&lt;4]println(subRange)  // 输出[OC, PHP, Perl]// 将 languages 中数组中索引为 2~4 的元素替换成 &quot;C/C++&quot; , &quot;Python&quot;languages[2...4] = [&quot;C/C++&quot; , &quot;Python&quot;]println(languages)  // 输出[Swift, OC, C/C++, Python, Go]// 将 languages 中数组中索引为 1~2 的元素替换成 &quot;a&quot; , &quot;b&quot; , &quot;c&quot;languages[1...2] = [&quot;a&quot; , &quot;b&quot; , &quot;c&quot;]println(languages)  // 输出[Swift, a, b, c, Python, Go]// 清空数组languages[0..&lt;languages.count] = []println(languages)  // 输出[]</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">var languages = [&quot;Swift&quot;, &quot;OC&quot;, &quot;PHP&quot;, &quot;Perl&quot; , &quot;Ruby&quot; , &quot;Go&quot;]// 删除索引为 2 的元素，删除 &quot;PHP&quot;languages.removeAtIndex(2)// 再次删除索引为 2 的元素，删除 &quot;Perl&quot;languages.removeAtIndex(2)println(languages)  // 输出[Swift, OC, Ruby, Go]// 删除最后一个元素，删除 &quot;Go&quot;languages.removeLast()println(languages)  // 输出[Swift, OC, Ruby]// 删除所有元素languages.removeAll()println(languages)  // 输出[]println(languages.count)  // 输出 0</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">// 定义一个二维数组var a : [[Int]]// 把 a 当成一维数组进行初始化，初始化 a 是一个长度为 4 的数组// a 数组的数组元素又是引用类型a = Array&lt;Array&lt;Int&gt;&gt;(count:4 , repeatedValue:[])// 把 a 数组当成一维数组，遍历 a 数组的每个数组元素for var i = 0 , len = a.count; i &lt; len ; i++&#123;	println(a[i]);&#125;// 初始化 a 数组的第一个元素a[0] = Array&lt;Int&gt;(count: 2, repeatedValue:0)// 访问 a 数组的第一个元素（又是数组）的第二个元素a[0][1] = 6;// a 数组的第一个元素是一个一维数组，遍历这个一维数组for var i = 0 , len = a[0].count ; i &lt; len ; i++&#123;	println(a[0][i]);&#125;</span><br></pre></td></tr></table></figure>
+<p>##5.2 字典</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">// 使用泛型语法声明字典var myDict : Dictionary&lt;String, String&gt;// 使用简化语法声明字典var scores : [String:Int]var health : [String:String]// 创建一个 Dictionary 结构体，使用默认的参数myDict = Dictionary&lt;String, String&gt;()// 将 minimumCapacity 参数设为 5，创建 Dictionary 结构体scores = Dictionary&lt;String, Int&gt;(minimumCapacity:5)println(scores)// 使用简化语法创建字典health = [&quot; 身高 &quot;:&quot;178&quot; , &quot; 体重 &quot;:&quot;74&quot; , &quot; 血压 &quot;:&quot;86/113&quot;]println(health)var dict = [&quot;one&quot;: 1 , &quot;two&quot;: 2 , &quot;three&quot;: 3, &quot;four&quot;: 4]println(dict)// 使用简化语法创建不包含 key-value 对的字典var emptyDict:[String:Double] = [:]// isEmpty 属性可判断数组、字典是否不包含任何元素println(emptyDict.isEmpty)  // 输出 trueprintln(emptyDict) // 输出[:]var height = health[&quot; 身高 &quot;]println(&quot; 身高为：\(height)&quot;) // 输出 Optional(&quot;178&quot;)// 访问并不存在的 key 对应的 value 时，将会返回 nilvar noExist = health[&quot;no&quot;]println(noExist)  // 输出 nil// 修改指定 key 对应的 valuehealth[&quot; 血压 &quot;] = &quot;78/112&quot;println(health) // 输出[体重: 74, 血压: 78/112, 身高: 178]// 对不存在的 key 设置 value，该字典将会添加 key-value 对scores[&quot; 语文 &quot;] = 87scores[&quot; 数学 &quot;] = 92scores[&quot; 英文 &quot;] = 95println(scores)  // 输出[数学: 92, 语文: 87, 英文: 95]// 注意 englishScore 的类型是 Int?，而不是 Intvar englishScore: Int? =  scores[&quot; 英文 &quot;]if englishScore != nil&#123;	// 注意程序使用! 执行强制解析	println(&quot;scores 中包含的英文成绩为：\(englishScore!)&quot;)&#125;// 为 scores 添加新的 key-value 对var result = scores.updateValue(20, forKey:&quot;java&quot;)// 由于上面调用 updateValue()方法并未替换已有的 key-value 对，因此 result 为 nilprintln(result)  // 输出 nilprintln(scores)  // 输出[数学: 92, 语文: 87, 英文: 95]</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">var seasons = [&quot;spring&quot;:&quot; 春暖花开 &quot; ,	&quot;summer&quot;:&quot; 夏日炎炎 &quot; , 	&quot;autumn&quot;:&quot; 秋高气爽 &quot; , 	&quot;winter&quot;:&quot; 冬雪皑皑 &quot;]// 使用 for-in 循环来遍历字典// 其中 (season , desc) 元组将会自动迭代字典的 key-value 对for (season , desc) in seasons&#123;	println(&quot;\(season)--&gt;\(desc)&quot;)&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">var seasons = [&quot;spring&quot;:&quot; 春暖花开 &quot; ,	&quot;summer&quot;:&quot; 夏日炎炎 &quot; , 	&quot;autumn&quot;:&quot; 秋高气爽 &quot; , 	&quot;winter&quot;:&quot; 冬雪皑皑 &quot;]// 将所有 seasons 的所有 key 包装成 Array 集合var keys = Array(seasons.keys)// 将所有 seasons 的所有 value 包装成 Array 集合var values = Array(seasons.values)println(keys) // 输出[summer, spring, winter, autumn]// 下面输出[夏日炎炎, 春暖花开, 冬雪皑皑, 秋高气爽]println(values)</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">var languages = [&quot;Swift&quot;:9000, &quot;OC&quot;:8600, &quot;PHP&quot;:3400, 	&quot;Perl&quot;:4300 , &quot;Ruby&quot;:5600 , &quot;Go&quot;: 5600]// 删除 key 为 &quot;PHP&quot; 的 key-value 对languages.removeValueForKey(&quot;PHP&quot;)// 删除 key 为 &quot;Perl&quot; 的 key-value 对languages.removeValueForKey(&quot;Perl&quot;)// 下面输出：[Go: 5600, OC: 8600, Ruby: 5600, Swift: 9000]println(languages)println(languages.count)  // 输出 4// 删除 key 为 &quot;Go&quot; 的 key-value 对languages[&quot;Go&quot;] = nilprintln(languages)  // 输出[OC: 8600, Ruby: 5600, Swift: 9000]// 删除所有元素languages.removeAll()println(languages)  // 输出[:]println(languages.count)  // 输出 0</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">let str = &quot;fkit.orgabcxyz123crazyittianhijt&quot;// 定义一个 Dictionary，统计各字符的出现次数var status:[Character:Int] = [:]// 遍历 str 字符串中的字符，统计各字符的出现次数for ch in str&#123;	// 获取 ch 字符已经出现的次数	var num = status[ch]	// 如果之前从未出现过 ch 字符，那么 status 字典中并不包含 ch 字符的统计信息，	// num 将会等于 nil	if num != nil	&#123;		// 将 ch 的出现次数加 1		status[ch] = num! + 1	&#125;	else	&#123;		// 在 status 数组中设置 ch 字符出现了一次		status[ch] = 1	&#125;&#125;println(status)var maxOccurs = 0// 遍历 status 的 value 集合，找出字符的最大出现次数for occurs in Array(status.values)&#123;	if occurs &gt; maxOccurs	&#123;		maxOccurs = occurs	&#125;&#125;// 找出最多出现次数对应的字符for (ch, occurs) in status&#123;	if occurs == maxOccurs	&#123;		println(&quot; 出现最多的字符为 \(ch)，该字符出现 \(occurs)次 &quot;)	&#125;&#125;</span><br></pre></td></tr></table></figure>
+<p>#5.3 集合的复制</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">var names = [&quot; 孙悟空 &quot; , &quot; 猪八戒 &quot; , &quot; 唐僧 &quot;]// 将 names 赋值给 cp1、cp2 实际上会先复制数组的 2 个副本，// 然后分别将 2 个副本赋值给 cp1、 cp2var cp1 = names;var cp2 = names;// 由于 names 数组的元素是 String，也是值类型，// 因此程序会将数组元素也复制一份副本，// 因此程序对 cp1[0]、 cp2[0]的修改只是修改各自的副本，相互之间不会产生任何影响cp1[0] += &quot; 齐天大圣 &quot;cp2[0] += &quot; 弼马温 &quot;println(names[0])println(cp1[0])println(cp2[0])</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">// 定义一个 User 类，类是引用类型class User &#123;	var name: String	init(name:String)	&#123;		self.name = name	&#125;&#125;var users = [User(name:&quot; 孙悟空 &quot;), User(name:&quot; 猪八戒 &quot;) , User(name:&quot; 唐僧 &quot;)]// 将 users 赋值给 cp1、cp2 实际上会先复制数组的 2 个副本，// 然后分别将 2 个副本赋值给 cp1、 cp2var cp1 = users;var cp2 = users;// 由于 users 数组的元素是 User 对象，也就是引用类型，// 因此程序不会复制数组中各应用所引用的 User 对象。// 因此程序对 cp1[0]、 cp2[0]的修改对相互之间会产生任何影响cp1[0].name += &quot; 齐天大圣 &quot;cp2[0].name += &quot; 弼马温 &quot;println(users[0].name)println(cp1[0].name)println(cp2[0].name)</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">var scores = [&quot; 语文 &quot;:89 , &quot; 数学 &quot;:92 , &quot; 英语 &quot;:87]// 将 scores 赋值给 cp1、cp2 实际上会先复制字典的 2 个副本，// 然后分别将 2 个副本赋值给 cp1、 cp2var cp1 = scores;var cp2 = scores;// 由于 scores 的 value 是 Int 类型，也是值类型，// 因此程序会将 value 也复制一份副本，// 因此程序对 cp1[&quot; 语文 &quot;]、 cp2[&quot; 语文 &quot;]的修改只是修改各自的副本，相互之间不会产生任何影响cp1[&quot; 语文 &quot;] = 60cp2[&quot; 语文 &quot;] = 70println(scores[&quot; 语文 &quot;])println(cp1[&quot; 语文 &quot;])println(cp2[&quot; 语文 &quot;])</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">// 定义一个 Score 类，类是引用类型class Score&#123;	var mark: Int	init(mark:Int)	&#123;		self.mark = mark	&#125;&#125;var scores = [&quot; 语文 &quot;:Score(mark:89) , &quot; 数学 &quot;:Score(mark:92) , &quot; 英语 &quot;:Score(mark:87)]// 将 scores 赋值给 cp1、cp2 实际上会先复制字典的 2 个副本，// 然后分别将 2 个副本赋值给 cp1、 cp2var cp1 = scores;var cp2 = scores;// 由于 scores 的 value 是 Score 类型，属于引用类型，// 因此程序不会将 value 对应的对象复制副本// 因此程序对 cp1[&quot; 语文 &quot;]、 cp2[&quot; 语文 &quot;]的修改相互之间会产生任何影响cp1[&quot; 语文 &quot;]!.mark = 60cp2[&quot; 语文 &quot;]!.mark = 70println(scores[&quot; 语文 &quot;]!.mark)println(cp1[&quot; 语文 &quot;]!.mark)println(cp2[&quot; 语文 &quot;]!.mark)</span><br></pre></td></tr></table></figure>
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2015/05/16/Crazy-Swift-Lecture-Chapter-4/" rel="next" title="Crazy Swift Lecture Chapter 4">
+                <i class="fa fa-chevron-left"></i> Crazy Swift Lecture Chapter 4
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2015/05/16/Crazy-Swift-Lecture-Chapter-6/" rel="prev" title="Crazy Swift Lecture Chapter 6">
+                Crazy Swift Lecture Chapter 6 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+
+      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Ge Will</p>
+              <p class="site-description motion-element" itemprop="description">The people who are crazy enough to think they can change the world, are the ones who DO.</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">166</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/gewill" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:531sunlight@gmail.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://twitter.com/gewill_org" target="_blank" title="Twitter">
+                      
+                        <i class="fa fa-fw fa-twitter"></i>Twitter</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://weibo.com/gewei" target="_blank" title="Weibo">
+                      
+                        <i class="fa fa-fw fa-weibo"></i>Weibo</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+            <div class="cc-license motion-element" itemprop="license">
+              <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="cc-opacity" target="_blank">
+                <img src="/images/cc-by-nc-sa.svg" alt="Creative Commons">
+              </a>
+            </div>
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Ge Will</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

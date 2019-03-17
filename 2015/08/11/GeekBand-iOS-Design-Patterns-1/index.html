@@ -1,0 +1,805 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="en">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+  <meta name="google-site-verification" content="6p6MCt9mM7zNfEZF2HzE72sTOXJ8MC5frP4VNvYw1JU">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="Will's Blog" type="application/atom+xml">
+
+
+
+
+
+
+<meta name="description" content="总体感觉设计模式课程偏理论，操作起来可能要反复实践后，才会知道项目用哪个设计模式比较合适。 我目前还是学习了解的还是六大基本设计模式，希望以后开发过程中能够思考设计模式的选择。  @李建忠：设计模式是程序员从初阶往中阶迈进很重要的素养。关键在于要去思考设计的方案，为什么这么做？还有哪些设计方法？彼此的优劣？而不是功能跑通就了事。 在这样日积月累的思考和反复实践中，设计功力就会提高。  1. 设计">
+<meta property="og:type" content="article">
+<meta property="og:title" content="极客班 iOS 设计模式（一）">
+<meta property="og:url" content="http://gewill.org/2015/08/11/GeekBand-iOS-Design-Patterns-1/index.html">
+<meta property="og:site_name" content="Will&#39;s Blog">
+<meta property="og:description" content="总体感觉设计模式课程偏理论，操作起来可能要反复实践后，才会知道项目用哪个设计模式比较合适。 我目前还是学习了解的还是六大基本设计模式，希望以后开发过程中能够思考设计模式的选择。  @李建忠：设计模式是程序员从初阶往中阶迈进很重要的素养。关键在于要去思考设计的方案，为什么这么做？还有哪些设计方法？彼此的优劣？而不是功能跑通就了事。 在这样日积月累的思考和反复实践中，设计功力就会提高。  1. 设计">
+<meta property="og:locale" content="en">
+<meta property="og:image" content="https://developer.apple.com/library/ios/referencelibrary/GettingStarted/RoadMapiOSCh/Art/design_patterns_2x.png">
+<meta property="og:updated_time" content="2019-03-17T09:30:36.105Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="极客班 iOS 设计模式（一）">
+<meta name="twitter:description" content="总体感觉设计模式课程偏理论，操作起来可能要反复实践后，才会知道项目用哪个设计模式比较合适。 我目前还是学习了解的还是六大基本设计模式，希望以后开发过程中能够思考设计模式的选择。  @李建忠：设计模式是程序员从初阶往中阶迈进很重要的素养。关键在于要去思考设计的方案，为什么这么做？还有哪些设计方法？彼此的优劣？而不是功能跑通就了事。 在这样日积月累的思考和反复实践中，设计功力就会提高。  1. 设计">
+<meta name="twitter:image" content="https://developer.apple.com/library/ios/referencelibrary/GettingStarted/RoadMapiOSCh/Art/design_patterns_2x.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://gewill.org/2015/08/11/GeekBand-iOS-Design-Patterns-1/">
+
+
+
+
+
+  <title>极客班 iOS 设计模式（一） | Will's Blog</title>
+  
+
+
+
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-62118677-1', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Will's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            About
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            Archives
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="st-search-show-outputs">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
+            
+            Search
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <form class="site-search-form">
+  <input type="text" id="st-search-input" class="st-search-input st-default-search-input">
+</form>
+
+<script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+    (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+    e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+
+  _st('install', 'cxMVaJ4gCdzsgxLUHwRY','2.0.0');
+</script>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://gewill.org/2015/08/11/GeekBand-iOS-Design-Patterns-1/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Ge Will">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Will's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">极客班 iOS 设计模式（一）</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2015-08-11T11:42:01+08:00">
+                2015-08-11
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p><img src="https://developer.apple.com/library/ios/referencelibrary/GettingStarted/RoadMapiOSCh/Art/design_patterns_2x.png" alt="design_patterns"></p>
+<p>总体感觉设计模式课程偏理论，操作起来可能要反复实践后，才会知道项目用哪个设计模式比较合适。</p>
+<p>我目前还是学习了解的还是六大基本设计模式，希望以后开发过程中能够思考设计模式的选择。</p>
+<blockquote>
+<p>@李建忠：设计模式是程序员从初阶往中阶迈进很重要的素养。关键在于要去思考设计的方案，为什么这么做？还有哪些设计方法？彼此的优劣？而不是功能跑通就了事。 在这样日积月累的思考和反复实践中，设计功力就会提高。</p>
+</blockquote>
+<h2 id="1- 设计模式简介和 -MVC"><a href="#1- 设计模式简介和 -MVC" class="headerlink" title="1. 设计模式简介和 MVC"></a>1. 设计模式简介和 MVC</h2><p>简单介绍了设计模式的含义，和一些常用的 iOS 设计模式。</p>
+<p>xdrt81y 的 <a href="http://blog.csdn.net/xdrt81y/article/details/12128721" target="_blank" rel="noopener">关于 iOS 六大基本设计模式</a>，文章简单明了可以参考一下。</p>
+<p><a href="http://www.raywenderlich.com/86477/introducing-ios-design-patterns-in-swift-part-1" target="_blank" rel="noopener">Introducing iOS Design Patterns in Swift – Part 1/2</a> 结合项目介绍了 Swift 中的设计模式。</p>
+<p><a href="https://developer.apple.com/library/ios/referencelibrary/GettingStarted/RoadMapiOSCh/DesignPatterns.html" target="_blank" rel="noopener">使用设计模式</a>，苹果文档介绍。</p>
+<p>Wikipedia:</p>
+<blockquote>
+<p>In software engineering, a design pattern is a general reusable solution to a commonly occurring problem within a given context in software design.<br>It is a description or template for how to solve a problem that can be used in many different situations.<br>Patterns are formalized best practices that the programmer can use to solve common problems when designing an application or system.  </p>
+</blockquote>
+<h2 id="2-Target-Action、selector- 和 -Nib"><a href="#2-Target-Action、selector- 和 -Nib" class="headerlink" title="2. Target-Action、selector 和 Nib"></a>2. Target-Action、selector 和 Nib</h2><p>详细介绍了 Nib 加载</p>
+<h2 id="3-Storyboard- 和原型设计"><a href="#3-Storyboard- 和原型设计" class="headerlink" title="3. Storyboard 和原型设计"></a>3. Storyboard 和原型设计 </h2><h3 id="Storyboard"><a href="#Storyboard" class="headerlink" title="Storyboard"></a>Storyboard</h3><p> 我还是很喜欢 Storyboard，比代码直观高效，方便看到原型图和交互关系。</p>
+<p>拆分 Storyboard，避免多人同时修改。</p>
+<p>推荐：WWDC15 215 <a href="https://developer.apple.com/videos/wwdc/2015/?id=215" target="_blank" rel="noopener">What’s New in Storyboards</a></p>
+<p>参考：<a href="http://code.tutsplus.com/tutorials/ios-9-staying-organized-with-storyboard-references--cms-24226" target="_blank" rel="noopener">iOS 9: Staying Organized with Storyboard References</a>：</p>
+<ul>
+<li>instantiateInitialViewController()</li>
+<li>destination of a segue</li>
+</ul>
+<blockquote>
+<p>Storyboard references are powerful. Not only do they make storyboards manageable and modular, they make it very easy to reuse storyboards and even hook into storyboards at arbitrary places.</p>
+<p>Storyboard references are only available in iOS 9.</p>
+</blockquote>
+<p>代码见 <a href="https://github.com/gewill/test-projects/tree/master/test%20Storyboard%20References" target="_blank" rel="noopener">GitHub</a></p>
+<h2 id="4- 两步创建和模板方法"><a href="#4- 两步创建和模板方法" class="headerlink" title="4. 两步创建和模板方法"></a>4. 两步创建和模板方法</h2><blockquote class="blockquote-center">The best way to predict your future is to create it.<br><br>― Abraham Lincoln</blockquote>
+
+
+
+<h3 id="两步创建"><a href="# 两步创建" class="headerlink" title="两步创建"></a>两步创建 </h3><p> 对象两步创建：alloc init</p>
+<p>工厂方法：+ (instancetype)dateWithTimeIntervalSinceNow:(NSTimeInterval)seconds</p>
+<p>内省（Introspection）</p>
+<h3 id="模板方法"><a href="# 模板方法" class="headerlink" title="模板方法"></a>模板方法 </h3><p> 参考：lichwei1983 的文章 <a href="http://blog.csdn.net/lichwei1983/article/details/8435644" target="_blank" rel="noopener">模板方法–行为型模式之四</a></p>
+<p><strong>模板方法应用于下列情况:</strong></p>
+<ul>
+<li>一次性实现一个算法的不变的部分, 并将可变的行为留给子类来实现。</li>
+<li>各子类中公共的行为应被提取出来并集中到一个公共父类中以避免代码重复。这是 Opdyke 和 Johnson 所描述过的“重分解以一般化”的一个很好的例子。首先识别现有代码中的不同之处, 并且将不同之处分离为新的操作。最后, 用一个调用这些新的操作的模板方法来替换这些不同的代码。</li>
+<li>控制子类扩展。模板方法只在特定点调用“ h o o k”操作(参见效果一节), 这样就只允许在这些点进行扩展。</li>
+</ul>
+<p>模板方法是一种代码复用的基本技术。它们在类库中尤为重要, 它们提取了类库中的公共行为。模板方法导致一种反向的控制结构, 这种结构有时被称为“好莱坞法则”, 即“别找我们, 我们找你”。这指的是一个父类调用一个子类的操作, 而不是相反。</p>
+<h2 id="5- 单例模式"><a href="#5- 单例模式" class="headerlink" title="5. 单例模式"></a>5. 单例模式</h2><ul>
+<li>UIApplication</li>
+<li>NSNotificationCenter</li>
+<li>NSUserDefaults</li>
+<li>NSFileManager</li>
+<li>UIAccelerometer</li>
+<li>NSURLSession</li>
+</ul>
+<p>参考：刚刚在线的 <a href="http://www.superqq.com/blog/2015/06/13/ios-she-ji-mo-shi-xi-lie-:singleton-dan-li-mo-shi/" target="_blank" rel="noopener">iOS 设计模式系列：Singleton – 单例模式</a></p>
+<p>单例设计模式确切的说就是一个类只有一个实例，有一个全局的接口来访问这个实例。当第一次载入的时候，它通常使用延时加载的方法创建单一实例。</p>
+<p>在一些情况下，一个类只有一个实例是有意义的。例如，这里没有必要有多个登录实例，除非你一次想写入多个日志文件。或者，一个全局的配置类文件：它可以很容易的很安全的执行一个公共资源，这样的一个配置文件，要比同时修改多个配置类文件好很多。</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2015/08/11/Zen-and-the-Art-of-the-Objective-C-Craftsmanship/" rel="next" title="禅与 Objective-C 编程艺术 - 笔记">
+                <i class="fa fa-chevron-left"></i> 禅与 Objective-C 编程艺术 - 笔记
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2015/08/12/Show-and-Hide-Bottom-Toolbar-in-Swift-Xcode-6-iOS-8-Tutorial/" rel="prev" title="Show and Hide Bottom Toolbar in Swift - Xcode 6 iOS 8 Tutorial">
+                Show and Hide Bottom Toolbar in Swift - Xcode 6 iOS 8 Tutorial <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Ge Will</p>
+              <p class="site-description motion-element" itemprop="description">The people who are crazy enough to think they can change the world, are the ones who DO.</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">166</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/gewill" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:531sunlight@gmail.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://twitter.com/gewill_org" target="_blank" title="Twitter">
+                      
+                        <i class="fa fa-fw fa-twitter"></i>Twitter</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://weibo.com/gewei" target="_blank" title="Weibo">
+                      
+                        <i class="fa fa-fw fa-weibo"></i>Weibo</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+            <div class="cc-license motion-element" itemprop="license">
+              <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="cc-opacity" target="_blank">
+                <img src="/images/cc-by-nc-sa.svg" alt="Creative Commons">
+              </a>
+            </div>
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1- 设计模式简介和 -MVC"><span class="nav-number">1.</span> <span class="nav-text">1. 设计模式简介和 MVC</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-Target-Action、selector- 和 -Nib"><span class="nav-number">2.</span> <span class="nav-text">2. Target-Action、selector 和 Nib</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-Storyboard- 和原型设计"><span class="nav-number">3.</span> <span class="nav-text">3. Storyboard 和原型设计 </span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Storyboard"><span class="nav-number">3.1.</span> <span class="nav-text">Storyboard</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4- 两步创建和模板方法"><span class="nav-number">4.</span> <span class="nav-text">4. 两步创建和模板方法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#两步创建"><span class="nav-number">4.1.</span> <span class="nav-text">两步创建 </span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#模板方法"><span class="nav-number">4.2.</span> <span class="nav-text">模板方法 </span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5- 单例模式"><span class="nav-number">5.</span> <span class="nav-text">5. 单例模式</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Ge Will</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
