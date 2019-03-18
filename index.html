@@ -283,6 +283,152 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://gewill.org/2019/03/17/Hackintosh-Installation-with-MSI-Z390-and-i9-9900K/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Ge Will">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Will's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/03/17/Hackintosh-Installation-with-MSI-Z390-and-i9-9900K/" itemprop="url">黑苹果安装记录 MSI Z390 和 i9-9900K</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-03-17T23:12:36+08:00">
+                2019-03-17
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>微星 MSI Z390 GAMING PRO CARBON AC 华硕 Vega64 黑苹果</p>
+<h2 id="机器配置"><a href="# 机器配置" class="headerlink" title="机器配置"></a>机器配置 </h2><p> 主板：<a href="https://www.msi.com/Motherboard/MPG-Z390-GAMING-PRO-CARBON-AC" target="_blank" rel="noopener">微星 MSI MPG Z390 GAMING PRO CARBON AC</a></p>
+<p>CPU：<a href="https://ark.intel.com/content/www/us/en/ark/products/186605/intel-core-i9-9900k-processor-16m-cache-up-to-5-00-ghz.html" target="_blank" rel="noopener">Intel i9 9900K</a></p>
+<p>内存：Avexir DDR4 2400</p>
+<p>显卡：<a href="https://www.asus.com/us/Graphics-Cards/AREZ-STRIX-RXVEGA64-O8G-GAMING/" target="_blank" rel="noopener">华硕 ASUS AREZ-STRIX-RXVEGA64-O8G-GAMING</a></p>
+<p>电源：<a href="https://www.evga.com/products/product.aspx?pn=120-GP-0750-X1" target="_blank" rel="noopener">EVGA SuperNOVA 750 G+</a></p>
+<p>散热：<a href="http://www.coolermaster.com/cooling/cpu-liquid-cooler/masterliquid-ml240r-rgb/" target="_blank" rel="noopener">MASTERLIQUID ML240R RGB</a></p>
+<p>固态：三星 970 EVO 500G</p>
+<p>板载声卡：ALC S1220A</p>
+<p>板载有线网卡：Intel I219V7</p>
+<p>显示器：戴尔 P2715Q 4K 显示器</p>
+<p>机箱：<a href="http://www.phanteks.com/Enthoo-Evolv-ATX-TemperedGlass.html" target="_blank" rel="noopener">追风者 PK-515ETG</a></p>
+<h2 id="安装过程"><a href="# 安装过程" class="headerlink" title="安装过程"></a>安装过程 </h2><p><strong> 重要提示：已降 BIOS 至 <a href="https://www.msi.com/Motherboard/support/MPG-Z390-GAMING-PRO-CARBON-AC" target="_blank" rel="noopener">Version 7B17v10</a>，不在卡 no nvram variable。</strong></p>
+<ol>
+<li><a href="https://blog.daliansky.net/macOS-Mojave-10.14.3-18D42-official-version-with-Clover-4859-original-image.html" target="_blank" rel="noopener">【黑果小兵】<strong>macOS Mojave 10.14.3 18D42</strong> 正式版 <strong>with Clover 4859</strong>原版镜像</a></li>
+<li>执行：<strong>300</strong>系列主板请于 <strong>drivers64UEFI</strong> 目录中移除 <strong>AptioMemoryFix-64.efi</strong> 添加 <strong>OsxAptioFix2Drv-free2000.efi</strong> 该驱动位于 <strong>/EFI/CLOVER/drivers-off</strong> 目录下。顺利进入 <strong>macOS</strong> 安装界面</li>
+<li>系统后序安装和复制 <strong>EFI</strong> 到硬盘教程：<a href="https://blog.daliansky.net/Lenovo-Xiaoxin-Air-13-macOS-Mojave-installation-tutorial.html" target="_blank" rel="noopener">联想小新 <strong>Air 13</strong> 安装黑苹果兼 <strong>macOS Mojave</strong> 安装教程</a></li>
+<li>进入系统设置页面前：卡在 <strong>AppleUSBHostResources panic</strong>。解决方案是<strong>boot</strong> 添加 <strong>safe mode</strong></li>
+<li>合并 <strong>Windows</strong> 和 <strong>Clover</strong> 引导</li>
+<li>完善驱动</li>
+<li>结束</li>
+</ol>
+<h2 id="附图"><a href="# 附图" class="headerlink" title="附图"></a>附图 </h2><h2 id="总结"><a href="# 总结" class="headerlink" title="总结"></a><img src="../assets/Hackintosh-i9 2019-03-15.png" alt="Hackintosh-i9 2019-03-15"> 总结</h2><ol>
+<li>小兵教程很好用。</li>
+<li>就是一直卡在 BIOS 部分，所以无论做什么努力的都没有效果。所以购买主板一定要看 tonymacx86.com 的 <a href="https://www.tonymacx86.com/buyersguide/building-a-customac-hackintosh-the-ultimate-buyers-guide/" target="_blank" rel="noopener">Buyer’s Guide</a> 和网友的成功贴。我只之前微星 Z170A M3 安装黑苹果成功，就想当然的买了微星的这块主板。活活生生的因为 BIOS 问题，至少 1 个月的安装时间浪费了。</li>
+<li>买主板别买带无解的无线网卡，明明可以省 200 块，去买同系列的微星 MPG Z390 GAMING PRO CARBON。然后去买免驱的无线蓝牙网卡：Broadcom 94360CD。</li>
+</ol>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://gewill.org/2018/10/25/Add-sh-in-fastlane-to-slim-HyphenateSDK/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -3381,133 +3527,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://gewill.org/2017/02/05/PaintCode-Dynamic-Bezier-Shapes/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Ge Will">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Will's Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/02/05/PaintCode-Dynamic-Bezier-Shapes/" itemprop="url">PaintCode-Dynamic-Bezier-Shapes</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-02-05T12:30:38+08:00">
-                2017-02-05
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p> 官方教程地址：<a href="https://www.paintcodeapp.com/examples" target="_blank" rel="noopener">https://www.paintcodeapp.com/examples</a></p>
-<p>PaintCode 能够画出各种自定义的曲线图形（再也不怕设计师的各种曲线和细节实现不了），而且很方便的集成到 iOS 项目中，支持 Swift 和 Objective-C。尤其是 Dynamic Shapes 支持简单约束，可以保持大小变化时图形规则变化。</p>
-<h2 id="软件截图："><a href="# 软件截图：" class="headerlink" title="软件截图："></a> 软件截图：</h2><p> 操作很简单，和 Sketch 习惯差不多。</p>
-<p><img src="https://github.com/gewill/PaintCode-Dynamic-Bezier-Shapes-Demo/raw/master/Screen%20Shot/Screen%20Shot%202017-02-05%20at%2012.14.33.png" alt="Screen Shot 2017-02-05 at 12.14.33"></p>
-<h2 id="自定义视图代码："><a href="# 自定义视图代码：" class="headerlink" title="自定义视图代码："></a> 自定义视图代码：</h2><p> 实现一个带有箭头的圆形边框的图片视图 </p>
-<figure class="highlight swift"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> UIKit</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ButtonView</span>: <span class="title">UIView</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">var</span> image: <span class="type">UIImage?</span> &#123;</span><br><span class="line">        <span class="keyword">didSet</span> &#123;</span><br><span class="line">            <span class="keyword">if</span> imageView == <span class="literal">nil</span> &#123;</span><br><span class="line">                imageView = <span class="type">UIImageView</span>()</span><br><span class="line">                imageView?.backgroundColor = .clear</span><br><span class="line">                imageView?.layer.masksToBounds = <span class="literal">true</span></span><br><span class="line">                <span class="keyword">self</span>.insertSubview(imageView!, at: <span class="number">0</span>)</span><br><span class="line">            &#125;</span><br><span class="line">            imageView?.image = image</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">var</span> imageView: <span class="type">UIImageView?</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">func</span> <span class="title">draw</span><span class="params">(<span class="number">_</span> rect: CGRect)</span></span> &#123;</span><br><span class="line">		<span class="comment">// 重点代码，一行即可完成 </span></span><br><span class="line">        <span class="type">JLXStyleKit</span>.drawBubbleButton(frame: <span class="keyword">self</span>.bounds)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">func</span> <span class="title">layoutSubviews</span><span class="params">()</span></span> &#123;</span><br><span class="line">        <span class="keyword">super</span>.layoutSubviews()</span><br><span class="line"></span><br><span class="line">        imageView?.frame = <span class="type">CGRect</span>(x: <span class="keyword">self</span>.bounds.width * <span class="number">0.5</span> / <span class="number">38.0</span>, y: <span class="keyword">self</span>.bounds.width * <span class="number">0.5</span> / <span class="number">38.0</span>, width: <span class="keyword">self</span>.bounds.width * <span class="number">37</span> / <span class="number">38.0</span>, height: <span class="keyword">self</span>.bounds.width * <span class="number">37</span> / <span class="number">38.0</span>)</span><br><span class="line">        imageView?.layer.cornerRadius = bounds.width / <span class="number">2.0</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="运行截图："><a href="# 运行截图：" class="headerlink" title="运行截图："></a> 运行截图：</h2><p><img src="https://github.com/gewill/PaintCode-Dynamic-Bezier-Shapes-Demo/raw/master/Screen%20Shot/Simulator%20Screen%20Shot%20Feb%205,%202017,%2012.16.37.png" alt="Simulator Screen Shot Feb 5, 2017, 12.16.37"></p>
-<h2 id="Demo- 地址"><a href="#Demo- 地址" class="headerlink" title="Demo 地址"></a>Demo 地址 </h2><p><a href="https://github.com/gewill/PaintCode-Dynamic-Bezier-Shapes-Demo" target="_blank" rel="noopener">https://github.com/gewill/PaintCode-Dynamic-Bezier-Shapes-Demo</a></p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -3558,7 +3577,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">166</span>
+                  <span class="site-state-item-count">167</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>

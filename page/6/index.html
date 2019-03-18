@@ -283,6 +283,151 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://gewill.org/2015/08/08/GeekBand-Objective-C-Test1/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Ge Will">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Will's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2015/08/08/GeekBand-Objective-C-Test1/" itemprop="url">极客班《Objective-C 高级编程》测试题</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2015-08-08T22:24:20+08:00">
+                2015-08-08
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>##《Objective-C 高级编程》测试题</p>
+<ol>
+<li>设计一个动物基类。<br>要求: A、抽象出动物的基本属性(包括: 性别、名字、体重)。 B、抽象出动物的基本能力(包括: 发声)。 C、基本属性性别用枚举定义。</li>
+<li>由题目 1 设计好的动物基类继承, 设计一个新的鸟和鱼的子类。 要求:<br>A、鸟类需要扩展颜色属性。 B、鸟类需要扩展飞的方法(方法体输出打印出飞行状态即可)。 C、鱼类需要扩展颜色属性。 D、鱼类需要扩展出游的方法(方法体输出打印游的状态即可)。</li>
+<li>设计好 1、2 两个题目要求的类后, 创建一个数组。使用一个循环, 生成 10 只鸟、10 条鱼的对象, 并将 10 只鸟、10 条鱼的对象加入到创建好的数组中。 最后, 遍历这个数组对象, 遍历到鸟对象时调用鸟儿飞的方法, 遍历到鱼对象 时调用鱼儿游的方法。</li>
+<li>考虑游戏中捞鱼, 随机器捞到 n 条鱼, 纪录数量(被捞到的鱼认为对象的生 命周期结束, 需要从内存中释放)。打鸟同理。</li>
+</ol>
+<h2 id="我的实现"><a href="# 我的实现" class="headerlink" title="我的实现"></a>我的实现</h2><p><a href="https://github.com/GeekBand/GeekBand-IOS-1501-Homework/tree/master/G2015010176/Objective-C/BLTest1" target="_blank" rel="noopener">github 源码：BLTest1</a></p>
+<p>复习了类的定义，属性，实例方法，枚举，NSArray，随机数。<br>@孔祥波 老师点评了我的错误实现。自己回来改了很多，终于完成了，也加深了涉及知识点的应用。再次感觉 Google 真是个好东西。</p>
+<p>### 实现代码位置：</p>
+<ol>
+<li>一二题目定义类为：GWAnimal，GWBird，GWFish</li>
+<li>三四题对应代码在：ViewController.m 的 - (void)viewDidLoad {}中 <br> 分别添加 // MARK No.3 和 // MARK: No.4，方便定位。</li>
+</ol>
+<h3 id="注释文档"><a href="# 注释文档" class="headerlink" title="注释文档"></a>注释文档 </h3><p> 其他的 Headerdoc 为练习写注释文档，尤其是 // FIXME: Print a more readable result. 和 // TODO: Set a NSArray to init randomGWFish. 纯粹凑字数。测试 Swift 哪些可以用在 Objective-C 上。参看： <a href="http://nshipster.cn/swift-documentation/" target="_blank" rel="noopener">Swift Documentation</a>。</p>
+<p>其实这个实现是 Objective-C，应该看这一篇的 <a href="http://nshipster.com/documentation/" target="_blank" rel="noopener">Documentation</a>：</p>
+<ul>
+<li>@param [param] [Description]: Describes what value should be passed for this parameter</li>
+<li>@return [Description]: Describes the return value of the method</li>
+<li>@see [selector]: Provide “see also” reference to related method</li>
+<li>@warning [description]: Call out exceptional or potentially dangerous behavior</li>
+</ul>
+<blockquote>
+<p>To help speed up the process of documenting your project, you may want to check out the <a href="https://github.com/onevcat/VVDocumenter-Xcode" target="_blank" rel="noopener">VVDocumenter-Xcode project</a>, which automatically adds @param and @return labels for methods according to their signature.</p>
+</blockquote>
+<figure class="highlight obj-c"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment">// MARK: No.3</span></span><br><span class="line"><span class="built_in">NSMutableArray</span> *animal = [[<span class="built_in">NSMutableArray</span> alloc] init];</span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">10</span>; i++) &#123;</span><br><span class="line">    <span class="built_in">NSArray</span> *birdNames = @[<span class="string">@"Parrot"</span>, <span class="string">@"Pelican"</span>, <span class="string">@"Raptor"</span>, <span class="string">@"Ural"</span>, <span class="string">@"Owls"</span>, <span class="string">@"BABY BLUE"</span>, <span class="string">@"AIDEN"</span>, <span class="string">@"BB"</span>, <span class="string">@"DAVE"</span>, <span class="string">@"CHILI"</span>];</span><br><span class="line">    GWBird *randomGWBird = [[GWBird alloc] initWithName:birdNames[i] gender:(Gender)(arc4random() % <span class="number">2</span>) weight:(<span class="built_in">NSUInteger</span>)(arc4random() % <span class="number">100</span>)];</span><br><span class="line">    randomGWBird.color = [<span class="built_in">UIColor</span> whiteColor];</span><br><span class="line">    [animal addObject:randomGWBird];</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// <span class="doctag">TODO:</span> Set a NSArray to init randomGWFish.</span></span><br><span class="line">    GWFish *randomGWFish = [[GWFish alloc] initWithName:<span class="string">@"Fish"</span> gender:(Gender)(arc4random() % <span class="number">2</span>) weight:(<span class="built_in">NSUInteger</span>)(arc4random() % <span class="number">100</span>)];</span><br><span class="line">    randomGWFish.color = [<span class="built_in">UIColor</span> colorWithRed:<span class="number">0.0</span> green:<span class="number">1.0</span> blue:<span class="number">0.0</span> alpha:<span class="number">1.0</span>];</span><br><span class="line">    [animal addObject:randomGWFish];</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; [animal count]; i++) &#123;</span><br><span class="line">    <span class="keyword">if</span> ([animal[i] isKindOfClass:[GWBird <span class="keyword">class</span>]]) &#123;</span><br><span class="line">        [animal[i] fly];</span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> ([animal[i] isKindOfClass:[GWFish <span class="keyword">class</span>]]) &#123;</span><br><span class="line">        [animal[i] swim];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">// MARK: No.4</span></span><br><span class="line"><span class="keyword">int</span> fishCount = <span class="number">0</span>;</span><br><span class="line"><span class="keyword">int</span> birdCount = <span class="number">0</span>;</span><br><span class="line"><span class="built_in">NSUInteger</span> randomRemoveNumber = (<span class="built_in">NSUInteger</span>)(arc4random() % <span class="number">20</span>);</span><br><span class="line"><span class="keyword">for</span> (<span class="built_in">NSUInteger</span> i = randomRemoveNumber; i &gt; <span class="number">0</span>; i--) &#123;</span><br><span class="line">    </span><br><span class="line">    <span class="built_in">NSUInteger</span> randomIndex = (<span class="built_in">NSUInteger</span>)(arc4random() % i);</span><br><span class="line">    [animal removeObjectAtIndex:randomIndex];</span><br><span class="line">    <span class="keyword">if</span> ([animal[randomIndex] isKindOfClass:[GWBird <span class="keyword">class</span>]]) &#123;</span><br><span class="line">        birdCount++;</span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> ([animal[randomIndex] isKindOfClass:[GWFish <span class="keyword">class</span>]]) &#123;</span><br><span class="line">        fishCount++;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// <span class="doctag">FIXME:</span> Print a more readable result.</span></span><br><span class="line"><span class="built_in">NSLog</span>(<span class="string">@"fishCount:%d, birdCount:%d, randomRemoveNumber:%lu, [animal count]:%lu"</span>, fishCount, birdCount, (<span class="keyword">unsigned</span> <span class="keyword">long</span>)randomRemoveNumber, (<span class="keyword">unsigned</span> <span class="keyword">long</span>)[animal count]);</span><br></pre></td></tr></table></figure>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://gewill.org/2015/08/08/GeekBand-flip-classroom-week-4/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -2992,153 +3137,6 @@ pod &apos;AFNetworking&apos;, &apos;~&gt; 2.5&apos;
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://gewill.org/2015/07/23/iOS-Programming-4ed-2/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Ge Will">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Will's Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2015/07/23/iOS-Programming-4ed-2/" itemprop="url">《iOS 编程》2. Objective-C</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2015-07-23T15:44:27+08:00">
-                2015-07-23
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <blockquote>
-<p> 网站加了一个 <a href="https://github.com/hexojs/hexo-filter-auto-spacing" target="_blank" rel="noopener">hexo-filter-auto-spacing</a> 插件，中英文之间自动加空格😊</p>
-</blockquote>
-<h2 id="2-1- 类和对象"><a href="#2-1- 类和对象" class="headerlink" title="2.1 类和对象"></a>2.1 类和对象 </h2><ul>
-<li> 类和对象。对象通过实例变量保存属性的值。</li>
-<li><p> 类有方法，类似函数，调用对象的方法一般叫发消息。</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">[partyInstance addAttendee: somePerson</span><br><span class="line">                   withDish: deviledEggs]</span><br></pre></td></tr></table></figure>
-</li>
-<li><p> 方法的唯一性取决方法名。</p>
-</li>
-<li> 实例变量的存取方法：get 和 set</li>
-<li> 发消息的三种语法：<ul>
-<li> 发消息 []：调用方法 </li>
-<li> 点语法.：存取实例变量 </li>
-<li> 下标语法 []：访问数组 </li>
-</ul>
-</li>
-<li><p> 类方法和实例方法区别：</p>
-<ul>
-<li> 类方法通常用来创建对象，或者获取类的全局变量 </li>
-<li> 实例变量则是用来操作类的对象（对象就是类的实例），如存取方法 </li>
-</ul>
-</li>
-<li><p> 类方法的初始化 </p>
-<p> 必须选一个指定初始化方法，其他初始化方法可以调用指定初始化方法，形成一个初始化方法链 <br><img src="http://ww2.sinaimg.cn/large/5369602ejw1eudiggqtaej20go08adgf.jpg" alt="初始化方法链"></p>
-</li>
-</ul>
-<h2 id="2-5-NSArray 与 -NSMultableArray"><a href="#2-5-NSArray 与 -NSMultableArray" class="headerlink" title="2.5 NSArray 与 NSMultableArray"></a>2.5 NSArray 与 NSMultableArray</h2><p> 数组对象只能保存指向 Objective-C 对象的指针，不能保存基本类型和 C 结构加入数组对象。当然包装成 Objective-C 对象，就可以了，如 NSNumber、NSValue 和 NSDate。nil 包装成 NSNull 才能加入数组。</p>
-<h2 id="项目代码保存在我的 -GitHub-iOSProgramming4edSolutions"><a href="# 项目代码保存在我的 -GitHub-iOSProgramming4edSolutions" class="headerlink" title="项目代码保存在我的 GitHub: iOSProgramming4edSolutions"></a> 项目代码保存在我的 GitHub: <a href="https://github.com/gewill/iOSProgramming4edSolutions" target="_blank" rel="noopener">iOSProgramming4edSolutions</a></h2>
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -3189,7 +3187,7 @@ pod &apos;AFNetworking&apos;, &apos;~&gt; 2.5&apos;
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">166</span>
+                  <span class="site-state-item-count">167</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>

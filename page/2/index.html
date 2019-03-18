@@ -283,6 +283,133 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://gewill.org/2017/02/05/PaintCode-Dynamic-Bezier-Shapes/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Ge Will">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Will's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/02/05/PaintCode-Dynamic-Bezier-Shapes/" itemprop="url">PaintCode-Dynamic-Bezier-Shapes</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-02-05T12:30:38+08:00">
+                2017-02-05
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p> 官方教程地址：<a href="https://www.paintcodeapp.com/examples" target="_blank" rel="noopener">https://www.paintcodeapp.com/examples</a></p>
+<p>PaintCode 能够画出各种自定义的曲线图形（再也不怕设计师的各种曲线和细节实现不了），而且很方便的集成到 iOS 项目中，支持 Swift 和 Objective-C。尤其是 Dynamic Shapes 支持简单约束，可以保持大小变化时图形规则变化。</p>
+<h2 id="软件截图："><a href="# 软件截图：" class="headerlink" title="软件截图："></a> 软件截图：</h2><p> 操作很简单，和 Sketch 习惯差不多。</p>
+<p><img src="https://github.com/gewill/PaintCode-Dynamic-Bezier-Shapes-Demo/raw/master/Screen%20Shot/Screen%20Shot%202017-02-05%20at%2012.14.33.png" alt="Screen Shot 2017-02-05 at 12.14.33"></p>
+<h2 id="自定义视图代码："><a href="# 自定义视图代码：" class="headerlink" title="自定义视图代码："></a> 自定义视图代码：</h2><p> 实现一个带有箭头的圆形边框的图片视图 </p>
+<figure class="highlight swift"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> UIKit</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ButtonView</span>: <span class="title">UIView</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">var</span> image: <span class="type">UIImage?</span> &#123;</span><br><span class="line">        <span class="keyword">didSet</span> &#123;</span><br><span class="line">            <span class="keyword">if</span> imageView == <span class="literal">nil</span> &#123;</span><br><span class="line">                imageView = <span class="type">UIImageView</span>()</span><br><span class="line">                imageView?.backgroundColor = .clear</span><br><span class="line">                imageView?.layer.masksToBounds = <span class="literal">true</span></span><br><span class="line">                <span class="keyword">self</span>.insertSubview(imageView!, at: <span class="number">0</span>)</span><br><span class="line">            &#125;</span><br><span class="line">            imageView?.image = image</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">var</span> imageView: <span class="type">UIImageView?</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">func</span> <span class="title">draw</span><span class="params">(<span class="number">_</span> rect: CGRect)</span></span> &#123;</span><br><span class="line">		<span class="comment">// 重点代码，一行即可完成 </span></span><br><span class="line">        <span class="type">JLXStyleKit</span>.drawBubbleButton(frame: <span class="keyword">self</span>.bounds)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">func</span> <span class="title">layoutSubviews</span><span class="params">()</span></span> &#123;</span><br><span class="line">        <span class="keyword">super</span>.layoutSubviews()</span><br><span class="line"></span><br><span class="line">        imageView?.frame = <span class="type">CGRect</span>(x: <span class="keyword">self</span>.bounds.width * <span class="number">0.5</span> / <span class="number">38.0</span>, y: <span class="keyword">self</span>.bounds.width * <span class="number">0.5</span> / <span class="number">38.0</span>, width: <span class="keyword">self</span>.bounds.width * <span class="number">37</span> / <span class="number">38.0</span>, height: <span class="keyword">self</span>.bounds.width * <span class="number">37</span> / <span class="number">38.0</span>)</span><br><span class="line">        imageView?.layer.cornerRadius = bounds.width / <span class="number">2.0</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="运行截图："><a href="# 运行截图：" class="headerlink" title="运行截图："></a> 运行截图：</h2><p><img src="https://github.com/gewill/PaintCode-Dynamic-Bezier-Shapes-Demo/raw/master/Screen%20Shot/Simulator%20Screen%20Shot%20Feb%205,%202017,%2012.16.37.png" alt="Simulator Screen Shot Feb 5, 2017, 12.16.37"></p>
+<h2 id="Demo- 地址"><a href="#Demo- 地址" class="headerlink" title="Demo 地址"></a>Demo 地址 </h2><p><a href="https://github.com/gewill/PaintCode-Dynamic-Bezier-Shapes-Demo" target="_blank" rel="noopener">https://github.com/gewill/PaintCode-Dynamic-Bezier-Shapes-Demo</a></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://gewill.org/2016/10/18/Objective-C-id-as-Swift-Any-Notes/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -2922,130 +3049,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://gewill.org/2016/02/29/Swift-2-Subscripts/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Ge Will">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Will's Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2016/02/29/Swift-2-Subscripts/" itemprop="url">Swift Examples - Subscripts</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2016-02-29T22:00:00+08:00">
-                2016-02-29
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>The Swift Programming Language  Examples</p>
-<p> 源码在 GitHub：<a href="https://github.com/gewill/The-Swift-Programming-Language-2.1-Examples" target="_blank" rel="noopener">https://github.com/gewill/The-Swift-Programming-Language-2.1-Examples</a></p>
-<p> 写了一段时间的 Swift 后，又来恶补基础知识了。</p>
-<p>Playground -&gt;</p>
-<figure class="highlight swift"><table><tr><td class="code"><pre><span class="line"><span class="comment">// : Playground - noun: a place where people can play</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> UIKit</span><br><span class="line"></span><br><span class="line"><span class="comment">//: 下标（Subscripts）</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//: 下标允许你通过在实例名称后面的方括号中传入一个或者多个索引值来对实例进行存取。</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Matrix</span> </span>&#123;</span><br><span class="line">    <span class="keyword">let</span> rows: <span class="type">Int</span>, columns: <span class="type">Int</span></span><br><span class="line">    <span class="keyword">var</span> grid: [<span class="type">Double</span>]</span><br><span class="line"></span><br><span class="line">    <span class="keyword">init</span>(rows: <span class="type">Int</span>, columns: <span class="type">Int</span>) &#123;</span><br><span class="line">        <span class="keyword">self</span>.rows = rows</span><br><span class="line">        <span class="keyword">self</span>.columns = columns</span><br><span class="line">        grid = <span class="type">Array</span>(<span class="built_in">count</span>: rows * columns, repeatedValue: <span class="number">0.0</span>)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">func</span> <span class="title">indexIsValidForRow</span><span class="params">(row: Int, column: Int)</span></span> -&gt; <span class="type">Bool</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> row &gt;= <span class="number">0</span> &amp;&amp; row &lt; rows &amp;&amp; column &gt;= <span class="number">0</span> &amp;&amp; column &lt; columns</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">subscript</span>(row: <span class="type">Int</span>, column: <span class="type">Int</span>) -&gt; <span class="type">Double</span> &#123;</span><br><span class="line">        <span class="keyword">get</span> &#123;</span><br><span class="line">            <span class="built_in">precondition</span>(indexIsValidForRow(row, column: column), <span class="string">"Index out of range"</span>)</span><br><span class="line">            <span class="keyword">return</span> grid[(row * columns) + column]</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">set</span> &#123;</span><br><span class="line">            <span class="built_in">precondition</span>(indexIsValidForRow(row, column: column), <span class="string">"Index out of range"</span>)</span><br><span class="line">            grid[(row * columns) + column] = newValue</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> matrix = <span class="type">Matrix</span>(rows: <span class="number">2</span>, columns: <span class="number">3</span>)</span><br><span class="line"><span class="built_in">print</span>(matrix[<span class="number">1</span>, <span class="number">2</span>])</span><br><span class="line">matrix[<span class="number">1</span>, <span class="number">1</span>] = <span class="number">3</span></span><br><span class="line"><span class="built_in">print</span>(matrix)</span><br></pre></td></tr></table></figure>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -3096,7 +3099,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">166</span>
+                  <span class="site-state-item-count">167</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>

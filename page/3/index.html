@@ -283,6 +283,130 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://gewill.org/2016/02/29/Swift-2-Subscripts/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Ge Will">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Will's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2016/02/29/Swift-2-Subscripts/" itemprop="url">Swift Examples - Subscripts</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2016-02-29T22:00:00+08:00">
+                2016-02-29
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>The Swift Programming Language  Examples</p>
+<p> 源码在 GitHub：<a href="https://github.com/gewill/The-Swift-Programming-Language-2.1-Examples" target="_blank" rel="noopener">https://github.com/gewill/The-Swift-Programming-Language-2.1-Examples</a></p>
+<p> 写了一段时间的 Swift 后，又来恶补基础知识了。</p>
+<p>Playground -&gt;</p>
+<figure class="highlight swift"><table><tr><td class="code"><pre><span class="line"><span class="comment">// : Playground - noun: a place where people can play</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> UIKit</span><br><span class="line"></span><br><span class="line"><span class="comment">//: 下标（Subscripts）</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//: 下标允许你通过在实例名称后面的方括号中传入一个或者多个索引值来对实例进行存取。</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Matrix</span> </span>&#123;</span><br><span class="line">    <span class="keyword">let</span> rows: <span class="type">Int</span>, columns: <span class="type">Int</span></span><br><span class="line">    <span class="keyword">var</span> grid: [<span class="type">Double</span>]</span><br><span class="line"></span><br><span class="line">    <span class="keyword">init</span>(rows: <span class="type">Int</span>, columns: <span class="type">Int</span>) &#123;</span><br><span class="line">        <span class="keyword">self</span>.rows = rows</span><br><span class="line">        <span class="keyword">self</span>.columns = columns</span><br><span class="line">        grid = <span class="type">Array</span>(<span class="built_in">count</span>: rows * columns, repeatedValue: <span class="number">0.0</span>)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">func</span> <span class="title">indexIsValidForRow</span><span class="params">(row: Int, column: Int)</span></span> -&gt; <span class="type">Bool</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> row &gt;= <span class="number">0</span> &amp;&amp; row &lt; rows &amp;&amp; column &gt;= <span class="number">0</span> &amp;&amp; column &lt; columns</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">subscript</span>(row: <span class="type">Int</span>, column: <span class="type">Int</span>) -&gt; <span class="type">Double</span> &#123;</span><br><span class="line">        <span class="keyword">get</span> &#123;</span><br><span class="line">            <span class="built_in">precondition</span>(indexIsValidForRow(row, column: column), <span class="string">"Index out of range"</span>)</span><br><span class="line">            <span class="keyword">return</span> grid[(row * columns) + column]</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">set</span> &#123;</span><br><span class="line">            <span class="built_in">precondition</span>(indexIsValidForRow(row, column: column), <span class="string">"Index out of range"</span>)</span><br><span class="line">            grid[(row * columns) + column] = newValue</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> matrix = <span class="type">Matrix</span>(rows: <span class="number">2</span>, columns: <span class="number">3</span>)</span><br><span class="line"><span class="built_in">print</span>(matrix[<span class="number">1</span>, <span class="number">2</span>])</span><br><span class="line">matrix[<span class="number">1</span>, <span class="number">1</span>] = <span class="number">3</span></span><br><span class="line"><span class="built_in">print</span>(matrix)</span><br></pre></td></tr></table></figure>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://gewill.org/2016/02/27/Autolayout-in-Code/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -2918,129 +3042,6 @@ basePtr.memory = <span class="number">10</span>
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://gewill.org/2015/10/29/Swift-2-1-Examples-Closures/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Ge Will">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Will's Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2015/10/29/Swift-2-1-Examples-Closures/" itemprop="url">Swift 2.1 Examples - Closures</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2015-10-29T13:40:22+08:00">
-                2015-10-29
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>The Swift Programming Language 2.1 Examples</p>
-<p> 源码在 GitHub：<a href="https://github.com/gewill/The-Swift-Programming-Language-2.1-Examples" target="_blank" rel="noopener">https://github.com/gewill/The-Swift-Programming-Language-2.1-Examples</a></p>
-<p>Playground -&gt;</p>
-<figure class="highlight swift"><table><tr><td class="code"><pre><span class="line"><span class="comment">//: Playground - noun: a place where people can play</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> UIKit</span><br><span class="line"></span><br><span class="line"><span class="comment">//: 闭包是自包含的函数代码块 </span></span><br><span class="line"></span><br><span class="line"><span class="comment">//: Swift 的闭包表达式有简洁的风格，带来很多便利：利用上下文类型推断 / 隐式返回单表达式 / 参数名缩写 / 尾随 </span></span><br><span class="line"></span><br><span class="line"><span class="comment">//: 闭包表达式（Closure Expressions）</span></span><br><span class="line"><span class="comment">//: &#123; (parameters) -&gt; returnType in statements &#125;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> names = [<span class="string">"Chris"</span>, <span class="string">"Alex"</span>, <span class="string">"Ewa"</span>, <span class="string">"Barry"</span>, <span class="string">"Daniella"</span>]</span><br><span class="line"><span class="keyword">var</span> reversed = names.<span class="built_in">sort</span>(&#123; (s1: <span class="type">String</span>, s2: <span class="type">String</span>) -&gt; <span class="type">Bool</span> <span class="keyword">in</span> <span class="keyword">return</span> s1 &gt; s2 &#125; )</span><br><span class="line"><span class="built_in">print</span>(reversed)</span><br><span class="line"></span><br><span class="line"><span class="comment">//: 根据上下文推断类型（Inferring Type From Context）</span></span><br><span class="line">reversed = names.<span class="built_in">sort</span>(&#123; s1, s2 <span class="keyword">in</span> <span class="keyword">return</span> s1 &gt; s2 &#125; )</span><br><span class="line"><span class="built_in">print</span>(reversed)</span><br><span class="line"></span><br><span class="line"><span class="comment">//: 单表达式闭包隐式返回（Implicit Return From Single-Expression Closures），但是表达不够直接不建议 </span></span><br><span class="line">reversed = names.<span class="built_in">sort</span>(&#123; s1, s2 <span class="keyword">in</span> s1 &gt; s2 &#125; )</span><br><span class="line"><span class="built_in">print</span>(reversed)</span><br><span class="line"></span><br><span class="line"><span class="comment">//: 参数名缩写（shorthand Argument Names）, 简洁到这种形式还叫闭包？</span></span><br><span class="line">reversed = names.<span class="built_in">sort</span>(&#123; $<span class="number">0</span> &gt; $<span class="number">1</span> &#125; )</span><br><span class="line"><span class="built_in">print</span>(reversed)</span><br><span class="line"></span><br><span class="line"><span class="comment">//: 运算符函数（Operator Functions）, 到这个时候就完全是 Swift 来推断或者来猜了，而作为代码给人看过于抽象化了 </span></span><br><span class="line">reversed = names.<span class="built_in">sort</span>(&gt;)</span><br><span class="line"></span><br><span class="line"><span class="comment">//: 尾随闭包（Trailing Closures），就是把闭包的大括号放在小括号外面，形式上更像一个函数，或者结构上大段的闭包放在后面更符合一般的书写习惯而已，这个用法是一个语法糖，避免头重脚轻。让懂的人看的舒服，不懂的人可能莫名其妙。记得 Swfit 调用 AFNetworking 就会智能补全成尾随闭包。</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">someFunction</span><span class="params">(closure: <span class="params">()</span></span></span> -&gt; <span class="type">Void</span>) &#123;</span><br><span class="line">    <span class="comment">// function do something</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">someFunction (&#123;</span><br><span class="line">    <span class="comment">// closure do something</span></span><br><span class="line">&#125; )</span><br><span class="line"></span><br><span class="line"><span class="comment">// Magic Time</span></span><br><span class="line">someFunction() &#123;</span><br><span class="line">    <span class="comment">// closure can alse do something at here</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">reversed = names.<span class="built_in">sort</span>() &#123; $<span class="number">0</span> &gt; $<span class="number">1</span> &#125;</span><br><span class="line"><span class="built_in">print</span>(reversed)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">//: 捕获值（Capturing Values）</span></span><br><span class="line"><span class="comment">//: 闭包是引用类型（Closure Are Reference Types），函数和闭包都可以赋值给变量或常量 </span></span><br></pre></td></tr></table></figure>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -3091,7 +3092,7 @@ basePtr.memory = <span class="number">10</span>
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">166</span>
+                  <span class="site-state-item-count">167</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>

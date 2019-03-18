@@ -283,6 +283,129 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://gewill.org/2015/10/29/Swift-2-1-Examples-Closures/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Ge Will">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Will's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2015/10/29/Swift-2-1-Examples-Closures/" itemprop="url">Swift 2.1 Examples - Closures</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2015-10-29T13:40:22+08:00">
+                2015-10-29
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>The Swift Programming Language 2.1 Examples</p>
+<p> 源码在 GitHub：<a href="https://github.com/gewill/The-Swift-Programming-Language-2.1-Examples" target="_blank" rel="noopener">https://github.com/gewill/The-Swift-Programming-Language-2.1-Examples</a></p>
+<p>Playground -&gt;</p>
+<figure class="highlight swift"><table><tr><td class="code"><pre><span class="line"><span class="comment">//: Playground - noun: a place where people can play</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> UIKit</span><br><span class="line"></span><br><span class="line"><span class="comment">//: 闭包是自包含的函数代码块 </span></span><br><span class="line"></span><br><span class="line"><span class="comment">//: Swift 的闭包表达式有简洁的风格，带来很多便利：利用上下文类型推断 / 隐式返回单表达式 / 参数名缩写 / 尾随 </span></span><br><span class="line"></span><br><span class="line"><span class="comment">//: 闭包表达式（Closure Expressions）</span></span><br><span class="line"><span class="comment">//: &#123; (parameters) -&gt; returnType in statements &#125;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> names = [<span class="string">"Chris"</span>, <span class="string">"Alex"</span>, <span class="string">"Ewa"</span>, <span class="string">"Barry"</span>, <span class="string">"Daniella"</span>]</span><br><span class="line"><span class="keyword">var</span> reversed = names.<span class="built_in">sort</span>(&#123; (s1: <span class="type">String</span>, s2: <span class="type">String</span>) -&gt; <span class="type">Bool</span> <span class="keyword">in</span> <span class="keyword">return</span> s1 &gt; s2 &#125; )</span><br><span class="line"><span class="built_in">print</span>(reversed)</span><br><span class="line"></span><br><span class="line"><span class="comment">//: 根据上下文推断类型（Inferring Type From Context）</span></span><br><span class="line">reversed = names.<span class="built_in">sort</span>(&#123; s1, s2 <span class="keyword">in</span> <span class="keyword">return</span> s1 &gt; s2 &#125; )</span><br><span class="line"><span class="built_in">print</span>(reversed)</span><br><span class="line"></span><br><span class="line"><span class="comment">//: 单表达式闭包隐式返回（Implicit Return From Single-Expression Closures），但是表达不够直接不建议 </span></span><br><span class="line">reversed = names.<span class="built_in">sort</span>(&#123; s1, s2 <span class="keyword">in</span> s1 &gt; s2 &#125; )</span><br><span class="line"><span class="built_in">print</span>(reversed)</span><br><span class="line"></span><br><span class="line"><span class="comment">//: 参数名缩写（shorthand Argument Names）, 简洁到这种形式还叫闭包？</span></span><br><span class="line">reversed = names.<span class="built_in">sort</span>(&#123; $<span class="number">0</span> &gt; $<span class="number">1</span> &#125; )</span><br><span class="line"><span class="built_in">print</span>(reversed)</span><br><span class="line"></span><br><span class="line"><span class="comment">//: 运算符函数（Operator Functions）, 到这个时候就完全是 Swift 来推断或者来猜了，而作为代码给人看过于抽象化了 </span></span><br><span class="line">reversed = names.<span class="built_in">sort</span>(&gt;)</span><br><span class="line"></span><br><span class="line"><span class="comment">//: 尾随闭包（Trailing Closures），就是把闭包的大括号放在小括号外面，形式上更像一个函数，或者结构上大段的闭包放在后面更符合一般的书写习惯而已，这个用法是一个语法糖，避免头重脚轻。让懂的人看的舒服，不懂的人可能莫名其妙。记得 Swfit 调用 AFNetworking 就会智能补全成尾随闭包。</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">someFunction</span><span class="params">(closure: <span class="params">()</span></span></span> -&gt; <span class="type">Void</span>) &#123;</span><br><span class="line">    <span class="comment">// function do something</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">someFunction (&#123;</span><br><span class="line">    <span class="comment">// closure do something</span></span><br><span class="line">&#125; )</span><br><span class="line"></span><br><span class="line"><span class="comment">// Magic Time</span></span><br><span class="line">someFunction() &#123;</span><br><span class="line">    <span class="comment">// closure can alse do something at here</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">reversed = names.<span class="built_in">sort</span>() &#123; $<span class="number">0</span> &gt; $<span class="number">1</span> &#125;</span><br><span class="line"><span class="built_in">print</span>(reversed)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">//: 捕获值（Capturing Values）</span></span><br><span class="line"><span class="comment">//: 闭包是引用类型（Closure Are Reference Types），函数和闭包都可以赋值给变量或常量 </span></span><br></pre></td></tr></table></figure>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://gewill.org/2015/10/29/Swift-2-1-Examples-Collection-Types/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -3114,141 +3237,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://gewill.org/2015/08/20/Memory-Management-Attribute-of-Properties-in-Objective-C/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Ge Will">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Will's Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2015/08/20/Memory-Management-Attribute-of-Properties-in-Objective-C/" itemprop="url">Objective-C 属性的内存管理特性</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2015-08-20T22:16:21+08:00">
-                2015-08-20
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p> 当对象没有拥有者时，指针变量的内存就该被释放。故 ARC 就是为了解决什么时候释放内存的问题。对应的就是引用计数为零时。</p>
-<h3 id="ARC："><a href="#ARC：" class="headerlink" title="ARC："></a>ARC：</h3><ul>
-<li>strong：指针变量指向对象后，相应的对象多一个拥有者，引用计数加一。默认值，但通常会写出来。</li>
-<li>weak ：指针变量指向对象后，相应的对象拥有者个数不变，引用计数不变。相对 strong，避免循环引用问题。</li>
-<li>copy    ：属性指向的对象有可能修改的子类， 如 NSMutableString/NSMutbaleArray，这时使用 copy，引用计数为一。</li>
-<li>unsafe_unretained：与 weak 类似，但不会指针自动设置为 nil，适合非对象属性，不需要做内存管理，如 int，也是其默认值可不写。</li>
-</ul>
-<p><strong>ARC 四个特性的典型用法：</strong></p>
-<figure class="highlight objc"><table><tr><td class="code"><pre><span class="line"><span class="comment">//</span></span><br><span class="line"><span class="comment">//  GWItem.h</span></span><br><span class="line"><span class="comment">//  RandomItems</span></span><br><span class="line"><span class="comment">//</span></span><br><span class="line"><span class="comment">//  Created by Will Ge on 7/23/15.</span></span><br><span class="line"><span class="comment">//  Copyright © 2015 gewill.org. All rights reserved.</span></span><br><span class="line"><span class="comment">//</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#import <span class="meta-string">&lt;Foundation/Foundation.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">GWItem</span> : <span class="title">NSObject</span></span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">copy</span>) <span class="built_in">NSString</span> *itemName;</span><br><span class="line">    <span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">copy</span>) <span class="built_in">NSString</span> *serialNumber;</span><br><span class="line">    <span class="keyword">@property</span> (<span class="keyword">nonatomic</span>) <span class="keyword">int</span> valueInDollars;</span><br><span class="line">    <span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">readonly</span>, <span class="keyword">strong</span>) <span class="built_in">NSDate</span> *dateCreated;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">strong</span>) GWItem *containedItem;</span><br><span class="line">    <span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">weak</span>) GWItem *container;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">+ (<span class="keyword">instancetype</span>)randomItem;</span><br><span class="line"></span><br><span class="line"><span class="comment">// GWItem 类的指定初始化方法 </span></span><br><span class="line">- (<span class="keyword">instancetype</span>)initWithItemName:(<span class="built_in">NSString</span> *)name</span><br><span class="line">                  valueInDollars:(<span class="keyword">int</span>)value</span><br><span class="line">                    serialNumber:(<span class="built_in">NSString</span> *)sNumber;</span><br><span class="line"></span><br><span class="line">- (<span class="keyword">instancetype</span>)initWithItemName:(<span class="built_in">NSString</span> *)name;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">@end</span></span><br></pre></td></tr></table></figure>
-<h3 id="非 -ARC："><a href="# 非 -ARC：" class="headerlink" title="非 ARC："></a> 非 ARC：</h3><ul>
-<li>assign：使用基本数据类型，如 int，float，与 unsafe_unretained 类似 </li>
-<li>retain：非 ARC 版本 strong</li>
-</ul>
-<h3 id="参考："><a href="# 参考：" class="headerlink" title="参考："></a> 参考：</h3><ul>
-<li><a href="http://ios-blog.co.uk/tutorials/objective-c-property-attribute-reference-guide/" target="_blank" rel="noopener">Objective-C: Property Attribute Reference Guide</a></li>
-</ul>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -3299,7 +3287,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">166</span>
+                  <span class="site-state-item-count">167</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
