@@ -249,7 +249,7 @@
     e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
   })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
 
-  _st('install', 'cxMVaJ4gCdzsgxLUHwRY','2.0.0');
+  _st('install', 'ntcZFKy566gs4bTbpvHW','2.0.0');
 </script>
 
 
@@ -269,6 +269,139 @@
           <div id="content" class="content">
             
   <section id="posts" class="posts-expand">
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://gewill.org/2016/02/29/Swift-2-Inheritance/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Ge Will">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Will's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2016/02/29/Swift-2-Inheritance/" itemprop="url">Swift Examples - Inheritance</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2016-02-29T23:00:00+08:00">
+                2016-02-29
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2016/02/29/Swift-2-Inheritance/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2016/02/29/Swift-2-Inheritance/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>The Swift Programming Language  Examples</p>
+<p> 源码在 GitHub：<a href="https://github.com/gewill/The-Swift-Programming-Language-2.1-Examples" target="_blank" rel="noopener">https://github.com/gewill/The-Swift-Programming-Language-2.1-Examples</a></p>
+<p>Playground -&gt;</p>
+<figure class="highlight swift"><table><tr><td class="code"><pre><span class="line"><span class="comment">// : Playground - noun: a place where people can play</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> UIKit</span><br><span class="line"></span><br><span class="line"><span class="comment">//: 继承（Inheritance）</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//: Swift 中的类并不是从一个通用的基类继承而来。如果你不为你定义的类指定一个超类的话，这个类就自动成为基类。</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//: 子类可以为继承来的实例方法（instance method），类方法（class method），实例属性（instance property），或下标（subscript）提供自己定制的实现（implementation）。我们把这种行为叫重写（overriding）。</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Vehicle</span> </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> currentSpeed = <span class="number">0.0</span></span><br><span class="line">    <span class="keyword">var</span> description: <span class="type">String</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">"traveling at \(currentSpeed) miles per hour"</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">func</span> <span class="title">makeNoise</span><span class="params">()</span></span> &#123;</span><br><span class="line">        <span class="comment">// 什么也不做 - 因为车辆不一定会有噪音 </span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Car</span>: <span class="title">Vehicle</span> </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> gear = <span class="number">1</span></span><br><span class="line">    <span class="keyword">override</span> <span class="keyword">var</span> description: <span class="type">String</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">super</span>.description + <span class="string">"in gear \(gear)"</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">AutomaticCar</span>: <span class="title">Car</span> </span>&#123;</span><br><span class="line">    <span class="keyword">override</span> <span class="keyword">var</span> currentSpeed: <span class="type">Double</span> &#123;</span><br><span class="line">        <span class="keyword">didSet</span> &#123;</span><br><span class="line">            gear = <span class="type">Int</span>(currentSpeed / <span class="number">10.0</span>) + <span class="number">1</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">//: 你可以通过把方法，属性或下标标记为 final 来防止它们被重写，只需要在声明关键字前加上 final 修饰符即可（例如：final var，final func，final class func，以及 final subscript）。</span></span><br></pre></td></tr></table></figure>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
     
       
 
@@ -327,6 +460,16 @@
           
 
           
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2016/02/29/Swift-2-Subscripts/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2016/02/29/Swift-2-Subscripts/" itemprop="commentCount"></span>
+                </a>
+              </span>
             
           
 
@@ -451,6 +594,16 @@
           
 
           
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2016/02/27/Autolayout-in-Code/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2016/02/27/Autolayout-in-Code/" itemprop="commentCount"></span>
+                </a>
+              </span>
             
           
 
@@ -604,6 +757,16 @@
 
           
             
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2016/02/24/Effective-Objective-C-2-0-Notes/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2016/02/24/Effective-Objective-C-2-0-Notes/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
           
 
           
@@ -743,6 +906,16 @@
 
           
             
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2016/02/15/Before-Sunrise-Review/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2016/02/15/Before-Sunrise-Review/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
           
 
           
@@ -865,6 +1038,16 @@
           
 
           
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2016/01/21/Auto-Layout-Guide-Notes/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2016/01/21/Auto-Layout-Guide-Notes/" itemprop="commentCount"></span>
+                </a>
+              </span>
             
           
 
@@ -992,6 +1175,16 @@
 
           
             
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2015/12/25/Auto-Layout-Cell-Height/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2015/12/25/Auto-Layout-Cell-Height/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
           
 
           
@@ -1115,6 +1308,16 @@
           
 
           
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2015/12/14/Swift-Pointer/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2015/12/14/Swift-Pointer/" itemprop="commentCount"></span>
+                </a>
+              </span>
             
           
 
@@ -1252,6 +1455,16 @@ basePtr.memory = <span class="number">10</span>
 
           
             
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2015/12/14/Array-Copy/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2015/12/14/Array-Copy/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
           
 
           
@@ -1378,6 +1591,16 @@ basePtr.memory = <span class="number">10</span>
           
 
           
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2015/12/12/Swift-API-Design-Guidelines/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2015/12/12/Swift-API-Design-Guidelines/" itemprop="commentCount"></span>
+                </a>
+              </span>
             
           
 
@@ -1652,6 +1875,16 @@ basePtr.memory = <span class="number">10</span>
 
           
             
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2015/12/10/Feeyue/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2015/12/10/Feeyue/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
           
 
           
@@ -1791,6 +2024,16 @@ basePtr.memory = <span class="number">10</span>
 
           
             
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2015/11/26/Swift-2-1-Methods/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2015/11/26/Swift-2-1-Methods/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
           
 
           
@@ -1914,6 +2157,16 @@ basePtr.memory = <span class="number">10</span>
 
           
             
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2015/11/25/Swift-2-1-Properties/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2015/11/25/Swift-2-1-Properties/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
           
 
           
@@ -2036,6 +2289,16 @@ basePtr.memory = <span class="number">10</span>
           
 
           
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2015/11/25/Emerging-Best-Practices-•-Ash-Furrow-Notes/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2015/11/25/Emerging-Best-Practices-•-Ash-Furrow-Notes/" itemprop="commentCount"></span>
+                </a>
+              </span>
             
           
 
@@ -2206,6 +2469,16 @@ basePtr.memory = <span class="number">10</span>
 
           
             
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2015/11/24/Delegate/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2015/11/24/Delegate/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
           
 
           
@@ -2331,6 +2604,16 @@ basePtr.memory = <span class="number">10</span>
           
 
           
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2015/11/12/Git/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2015/11/12/Git/" itemprop="commentCount"></span>
+                </a>
+              </span>
             
           
 
@@ -2462,6 +2745,16 @@ basePtr.memory = <span class="number">10</span>
 
           
             
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2015/11/03/Swift-2-1-Examples-Classes-and-Structures/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2015/11/03/Swift-2-1-Examples-Classes-and-Structures/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
           
 
           
@@ -2585,6 +2878,16 @@ basePtr.memory = <span class="number">10</span>
 
           
             
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2015/11/03/VPS/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2015/11/03/VPS/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
           
 
           
@@ -2707,6 +3010,16 @@ basePtr.memory = <span class="number">10</span>
           
 
           
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2015/11/02/Swift-2-1-Examples-Enumerations/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2015/11/02/Swift-2-1-Examples-Enumerations/" itemprop="commentCount"></span>
+                </a>
+              </span>
             
           
 
@@ -2832,6 +3145,16 @@ basePtr.memory = <span class="number">10</span>
 
           
             
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2015/11/02/Check-Phone-Number-in-Real-Time/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2015/11/02/Check-Phone-Number-in-Real-Time/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
           
 
           
@@ -2878,135 +3201,6 @@ basePtr.memory = <span class="number">10</span>
  <figure class="highlight swift"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">UIControlEvents</span> : <span class="title">OptionSetType</span> </span>&#123;</span><br><span class="line">    <span class="keyword">init</span>(rawValue rawValue: <span class="type">UInt</span>)</span><br><span class="line">    <span class="keyword">static</span> <span class="keyword">var</span> <span class="type">TouchDown</span>: <span class="type">UIControlEvents</span> &#123; <span class="keyword">get</span> &#125;</span><br><span class="line">    <span class="keyword">static</span> <span class="keyword">var</span> <span class="type">TouchDownRepeat</span>: <span class="type">UIControlEvents</span> &#123; <span class="keyword">get</span> &#125;</span><br><span class="line">    <span class="keyword">static</span> <span class="keyword">var</span> <span class="type">TouchDragInside</span>: <span class="type">UIControlEvents</span> &#123; <span class="keyword">get</span> &#125;</span><br><span class="line">    <span class="keyword">static</span> <span class="keyword">var</span> <span class="type">TouchDragOutside</span>: <span class="type">UIControlEvents</span> &#123; <span class="keyword">get</span> &#125;</span><br><span class="line">    <span class="keyword">static</span> <span class="keyword">var</span> <span class="type">TouchDragEnter</span>: <span class="type">UIControlEvents</span> &#123; <span class="keyword">get</span> &#125;</span><br><span class="line">    <span class="keyword">static</span> <span class="keyword">var</span> <span class="type">TouchDragExit</span>: <span class="type">UIControlEvents</span> &#123; <span class="keyword">get</span> &#125;</span><br><span class="line">    <span class="keyword">static</span> <span class="keyword">var</span> <span class="type">TouchUpInside</span>: <span class="type">UIControlEvents</span> &#123; <span class="keyword">get</span> &#125;</span><br><span class="line">    <span class="keyword">static</span> <span class="keyword">var</span> <span class="type">TouchUpOutside</span>: <span class="type">UIControlEvents</span> &#123; <span class="keyword">get</span> &#125;</span><br><span class="line">    <span class="keyword">static</span> <span class="keyword">var</span> <span class="type">TouchCancel</span>: <span class="type">UIControlEvents</span> &#123; <span class="keyword">get</span> &#125;</span><br><span class="line">    <span class="keyword">static</span> <span class="keyword">var</span> <span class="type">ValueChanged</span>: <span class="type">UIControlEvents</span> &#123; <span class="keyword">get</span> &#125;</span><br><span class="line">    <span class="keyword">static</span> <span class="keyword">var</span> <span class="type">PrimaryActionTriggered</span>: <span class="type">UIControlEvents</span> &#123; <span class="keyword">get</span> &#125;</span><br><span class="line">    <span class="keyword">static</span> <span class="keyword">var</span> <span class="type">EditingDidBegin</span>: <span class="type">UIControlEvents</span> &#123; <span class="keyword">get</span> &#125;</span><br><span class="line">    <span class="keyword">static</span> <span class="keyword">var</span> <span class="type">EditingChanged</span>: <span class="type">UIControlEvents</span> &#123; <span class="keyword">get</span> &#125;</span><br><span class="line">    <span class="keyword">static</span> <span class="keyword">var</span> <span class="type">EditingDidEnd</span>: <span class="type">UIControlEvents</span> &#123; <span class="keyword">get</span> &#125;</span><br><span class="line">    <span class="keyword">static</span> <span class="keyword">var</span> <span class="type">EditingDidEndOnExit</span>: <span class="type">UIControlEvents</span> &#123; <span class="keyword">get</span> &#125;</span><br><span class="line">    <span class="keyword">static</span> <span class="keyword">var</span> <span class="type">AllTouchEvents</span>: <span class="type">UIControlEvents</span> &#123; <span class="keyword">get</span> &#125;</span><br><span class="line">    <span class="keyword">static</span> <span class="keyword">var</span> <span class="type">AllEditingEvents</span>: <span class="type">UIControlEvents</span> &#123; <span class="keyword">get</span> &#125;</span><br><span class="line">    <span class="keyword">static</span> <span class="keyword">var</span> <span class="type">ApplicationReserved</span>: <span class="type">UIControlEvents</span> &#123; <span class="keyword">get</span> &#125;</span><br><span class="line">    <span class="keyword">static</span> <span class="keyword">var</span> <span class="type">SystemReserved</span>: <span class="type">UIControlEvents</span> &#123; <span class="keyword">get</span> &#125;</span><br><span class="line">    <span class="keyword">static</span> <span class="keyword">var</span> <span class="type">AllEvents</span>: <span class="type">UIControlEvents</span> &#123; <span class="keyword">get</span> &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h2 id="4- 计时器实现延迟发送验证码"><a href="#4- 计时器实现延迟发送验证码" class="headerlink" title="4. 计时器实现延迟发送验证码"></a>4. 计时器实现延迟发送验证码 </h2><p> 延迟 60 秒后，可重发发送验证码。使用 NSTimer 来实现，有个小小的 bug，就是第一次按下发送键，界面卡顿，从 59 秒起算，以后是 60 秒起算。以下是完整的代码。</p>
 <figure class="highlight swift"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">import</span> UIKit</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">SignupViewController</span>: <span class="title">BaseViewController</span> </span>&#123;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">var</span> <span class="built_in">count</span> = <span class="number">60</span></span><br><span class="line">    <span class="keyword">var</span> myTimer: <span class="type">NSTimer?</span></span><br><span class="line">    </span><br><span class="line">    <span class="meta">@IBOutlet</span> <span class="keyword">weak</span> <span class="keyword">var</span> userNameTextField: <span class="type">UITextField!</span></span><br><span class="line">    <span class="meta">@IBOutlet</span> <span class="keyword">weak</span> <span class="keyword">var</span> phoneNumberTextField: <span class="type">UITextField!</span></span><br><span class="line">    <span class="meta">@IBOutlet</span> <span class="keyword">weak</span> <span class="keyword">var</span> <span class="type">VerificationCodeTextField</span>: <span class="type">UITextField!</span></span><br><span class="line">    <span class="meta">@IBOutlet</span> <span class="keyword">weak</span> <span class="keyword">var</span> password0TextField: <span class="type">UITextField!</span></span><br><span class="line">    <span class="meta">@IBOutlet</span> <span class="keyword">weak</span> <span class="keyword">var</span> password1TextField: <span class="type">UITextField!</span></span><br><span class="line">    </span><br><span class="line">    <span class="meta">@IBOutlet</span> <span class="keyword">weak</span> <span class="keyword">var</span> signupButton: <span class="type">UIButton!</span></span><br><span class="line">    <span class="meta">@IBOutlet</span> <span class="keyword">weak</span> <span class="keyword">var</span> sendVerificationCodeButton: <span class="type">UIButton!</span></span><br><span class="line"></span><br><span class="line">    <span class="meta">@IBAction</span> <span class="function"><span class="keyword">func</span> <span class="title">signupButtonClick</span><span class="params">(sender: AnyObject)</span></span> &#123;</span><br><span class="line">        </span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="meta">@IBAction</span> <span class="function"><span class="keyword">func</span> <span class="title">sendVerificationCodeButtonClick</span><span class="params">(sender: AnyObject)</span></span> &#123;</span><br><span class="line">        <span class="comment">//<span class="doctag">TODO:</span> - 添加发送验证码模块 </span></span><br><span class="line">        sendVerificationCodeButton.enabled = <span class="literal">false</span></span><br><span class="line">        </span><br><span class="line">        myTimer = <span class="type">NSTimer</span>.scheduledTimerWithTimeInterval(<span class="number">1.0</span>, target: <span class="keyword">self</span>, selector: <span class="string">"countDownTick"</span>, userInfo: <span class="literal">nil</span>, repeats: <span class="literal">true</span>)</span><br><span class="line">        <span class="built_in">count</span> = <span class="number">60</span></span><br><span class="line">        </span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">func</span> <span class="title">viewDidLoad</span><span class="params">()</span></span> &#123;</span><br><span class="line">        <span class="keyword">super</span>.viewDidLoad()</span><br><span class="line"></span><br><span class="line">        <span class="keyword">self</span>.navigationItem.title = <span class="string">"注册"</span></span><br><span class="line">        <span class="keyword">self</span>.setupBackButton()</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">self</span>.automaticallyAdjustsScrollViewInsets = <span class="literal">false</span></span><br><span class="line">        </span><br><span class="line">        signupButton.layer.cornerRadius = <span class="number">35.0</span> / <span class="number">2</span></span><br><span class="line">        signupButton.backgroundColor = <span class="type">Color</span>.colorWithHex(<span class="string">"#15C76D"</span>)</span><br><span class="line">        </span><br><span class="line"></span><br><span class="line">        <span class="type">NSNotificationCenter</span>.defaultCenter().addObserver(<span class="keyword">self</span>, selector: <span class="string">"phoneNumberDidChange:"</span>, name: <span class="type">UITextFieldTextDidChangeNotification</span>, object: <span class="literal">nil</span>)</span><br><span class="line">        </span><br><span class="line">        sendVerificationCodeButton.enabled = <span class="literal">false</span></span><br><span class="line">        sendVerificationCodeButton.setTitleColor(<span class="type">UIColor</span> (red: <span class="number">0.4</span>, green: <span class="number">0.4</span>, blue: <span class="number">0.4</span>, alpha: <span class="number">1.0</span> ), forState: <span class="type">UIControlState</span>.<span class="type">Disabled</span>)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">func</span> <span class="title">viewWillDisappear</span><span class="params">(animated: Bool)</span></span> &#123;</span><br><span class="line">        <span class="type">NSNotificationCenter</span>.defaultCenter().removeObserver(<span class="keyword">self</span>)</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">func</span> <span class="title">didReceiveMemoryWarning</span><span class="params">()</span></span> &#123;</span><br><span class="line">        <span class="keyword">super</span>.didReceiveMemoryWarning()</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//MARK: - 检测电话号码格式是非正确</span></span><br><span class="line">    <span class="function"><span class="keyword">func</span> <span class="title">isPhoneNumberAvailable</span><span class="params">()</span></span> -&gt; <span class="type">Bool</span> &#123;</span><br><span class="line">        <span class="keyword">let</span> phoneNumber = phoneNumberTextField.text</span><br><span class="line">        <span class="keyword">let</span> mobile = <span class="string">"^1(3[0-9]|5[0-35-9]|8[025-9])\\d&#123;8&#125;$"</span></span><br><span class="line">        <span class="keyword">let</span>  <span class="type">CM</span> = <span class="string">"^1(34[0-8]|(3[5-9]|5[017-9]|8[278])\\d)\\d&#123;7&#125;$"</span></span><br><span class="line">        <span class="keyword">let</span>  <span class="type">CU</span> = <span class="string">"^1(3[0-2]|5[256]|8[56])\\d&#123;8&#125;$"</span></span><br><span class="line">        <span class="keyword">let</span>  <span class="type">CT</span> = <span class="string">"^1((33|53|8[09])[0-9]|349)\\d&#123;7&#125;$"</span></span><br><span class="line">        <span class="keyword">let</span> regextestmobile = <span class="type">NSPredicate</span>(format: <span class="string">"SELF MATCHES %@"</span>,mobile)</span><br><span class="line">        <span class="keyword">let</span> regextestcm = <span class="type">NSPredicate</span>(format: <span class="string">"SELF MATCHES %@"</span>,<span class="type">CM</span> )</span><br><span class="line">        <span class="keyword">let</span> regextestcu = <span class="type">NSPredicate</span>(format: <span class="string">"SELF MATCHES %@"</span> ,<span class="type">CU</span>)</span><br><span class="line">        <span class="keyword">let</span> regextestct = <span class="type">NSPredicate</span>(format: <span class="string">"SELF MATCHES %@"</span> ,<span class="type">CT</span>)</span><br><span class="line">        <span class="keyword">if</span> ((regextestmobile.evaluateWithObject(phoneNumber) == <span class="literal">true</span>)</span><br><span class="line">            || (regextestcm.evaluateWithObject(phoneNumber)  == <span class="literal">true</span>)</span><br><span class="line">            || (regextestct.evaluateWithObject(phoneNumber) == <span class="literal">true</span>)</span><br><span class="line">            || (regextestcu.evaluateWithObject(phoneNumber) == <span class="literal">true</span>))</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">true</span></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">false</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="comment">//MARK: - 检测电话号码是否正确更改发送验证码状态</span></span><br><span class="line">    <span class="function"><span class="keyword">func</span> <span class="title">phoneNumberDidChange</span><span class="params">(aNotification: NSNotification)</span></span> &#123;</span><br><span class="line">        <span class="keyword">if</span> phoneNumberTextField.isFirstResponder() &#123;</span><br><span class="line">            <span class="keyword">if</span> isPhoneNumberAvailable() &#123;</span><br><span class="line">                sendVerificationCodeButton.enabled = <span class="literal">true</span></span><br><span class="line">                sendVerificationCodeButton.backgroundColor = <span class="type">Color</span>.colorWithHex(<span class="string">"#15C76D"</span>)</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                sendVerificationCodeButton.enabled = <span class="literal">false</span></span><br><span class="line">                <span class="keyword">self</span>.sendVerificationCodeButton.backgroundColor = <span class="type">UIColor</span>.lightGrayColor()</span><br><span class="line">                <span class="keyword">self</span>.sendVerificationCodeButton.titleLabel?.text = <span class="string">"发送验证码"</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//MARK: -</span></span><br><span class="line">    <span class="function"><span class="keyword">func</span> <span class="title">countDownTick</span><span class="params">()</span></span> &#123;</span><br><span class="line">       </span><br><span class="line">        <span class="keyword">if</span> <span class="built_in">count</span> == <span class="number">1</span> &#123;</span><br><span class="line">            myTimer?.invalidate()</span><br><span class="line">            <span class="keyword">self</span>.sendVerificationCodeButton.enabled = <span class="literal">true</span></span><br><span class="line">            <span class="keyword">self</span>.sendVerificationCodeButton.setTitle(<span class="string">"发送验证码"</span>, forState: <span class="type">UIControlState</span>.<span class="type">Normal</span>)</span><br><span class="line">            <span class="built_in">count</span> = <span class="number">61</span></span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="built_in">count</span>--</span><br><span class="line">        <span class="keyword">self</span>.sendVerificationCodeButton.setTitle(<span class="string">"\(count) 秒后重发"</span>, forState: <span class="type">UIControlState</span>.<span class="type">Disabled</span>)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://gewill.org/2015/10/29/UIStackView/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Ge Will">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Will's Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2015/10/29/UIStackView/" itemprop="url">UIStackView</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2015-10-29T14:15:00+08:00">
-                2015-10-29
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="参考文档"><a href="# 参考文档" class="headerlink" title="参考文档"></a>参考文档</h2><ul>
-<li>iOS9 Day-by-Day :: Day 4 :: UIStack View: <a href="https://www.shinobicontrols.com/blog/ios9-day-by-day-day4-uistack-view" target="_blank" rel="noopener">https://www.shinobicontrols.com/blog/ios9-day-by-day-day4-uistack-view</a></li>
-<li>中文翻译版：<a href="http://www.jianshu.com/p/1991e6c2881a" target="_blank" rel="noopener">http://www.jianshu.com/p/1991e6c2881a</a></li>
-<li>UIStackView 源码：最新学到的，比 Documentation 要更加直观简洁，更像一个 API 应该有的样子，而不是 Dash 梳理的结构</li>
-<li><a href="https://developer.apple.com/library/prerelease/ios/documentation/UIKit/Reference/UIStackView_Class_Reference/" target="_blank" rel="noopener">UIStackView Class Reference</a>：当然 Reference 有更多官方的介绍</li>
-<li><a href="https://www.udemy.com/ios9-swift" target="_blank" rel="noopener">iOS 9 and Swift 2: From Beginner to Paid Professional</a> - Lecture 33</li>
-</ul>
-<h2 id="我的总结"><a href="# 我的总结" class="headerlink" title="我的总结"></a>我的总结 </h2><p> 上面的文档都已经讲的问清楚了，也就几个属性可调。参考 Android 上的线性布局，更容易理解其含义。但是 iOS9 才支持有点坑，个人项目可以用一用。</p>
-<p>iOS9 Day-by-Day :: Day 4 :: UIStack View 里面的 Demo 非常直观的调试 UIStackView 的相关属性。更换图片为不同形状，效果会更好一些，代码在：<a href="https://github.com/gewill/iOS9-day-by-day" target="_blank" rel="noopener">https://github.com/gewill/iOS9-day-by-day</a>。</p>
-<p>步骤为：先设置 UIStack View 的位置，后设置 Auto Layout 的大小，基本上就能固定控件布局了。</p>
 
           
         
@@ -3092,7 +3286,7 @@ basePtr.memory = <span class="number">10</span>
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">167</span>
+                  <span class="site-state-item-count">168</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -3313,14 +3507,18 @@ basePtr.memory = <span class="number">10</span>
 
   
 
+    
+      <script id="dsq-count-scr" src="https://gewill.disqus.com/count.js" async></script>
+    
 
-
-
-
-
-
+    
 
   
+
+
+
+
+
 
 
 
