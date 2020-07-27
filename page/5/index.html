@@ -283,6 +283,815 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://gewill.org/2015/08/27/MVVM-Notes/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Ge Will">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Will's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2015/08/27/MVVM-Notes/" itemprop="url">MVVM - 笔记</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2015-08-27T23:46:43+08:00">
+                2015-08-27
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2015/08/27/MVVM-Notes/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2015/08/27/MVVM-Notes/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p> 一句话就是剥离或轻量化 Controller 中关于 View 和 Model 的部分。</p>
+<h2 id="MVVM- 介绍"><a href="#MVVM- 介绍" class="headerlink" title="MVVM 介绍"></a><a href="http://objccn.io/issue-13-1/" target="_blank" rel="noopener">MVVM 介绍 </a></h2><p>MVC 有人称之为 Massive View Controller。</p>
+<p>MVC 并没有做太多事情来解决 iOS 应用中日益增长的重量级视图控制器的问题。在典型的 MVC 应用里，许多逻辑被放在 View Controller 里。它们中的一些确实属于 View Controller，但更多的是所谓的“表示逻辑（<strong>presentation logic</strong>）”，以 MVVM 属术语来说，就是那些将 Model 数据转换为 View 可以呈现的东西的事情，例如将一个 NSDate 转换为一个格式化过的 NSString。根据 Model 属性设置 UILabel、UIButton text。 </p>
+<p><img src="http://img.objccn.io//issue-13/mvvm.png" alt="MVVM"></p>
+<p> 我们的图解里缺少某些东西，那些使我们可以把所有表示逻辑放进去的东西。我们打算将其称为 “View Model” —— 它位于 View/Controller 与 Model 之间：</p>
+<p>Model-View-ViewModel 可以：</p>
+<ul>
+<li>MVVM 可以兼容你当下使用的 MVC 架构。</li>
+<li>MVVM 增加你的应用的可测试性。</li>
+<li>MVVM 配合一个绑定机制效果最好。</li>
+</ul>
+<p><strong> 并没有对我们的 MVC 架构做太多改变。还是同样的代码，只不过移动了位置。它与 MVC 兼容，带来更轻量的 View Controllers。</strong></p>
+<p>Model 是不可变的，所以我们可以只在初始化的时候指定我们 View Model 的属性。对于可变 Model，我们还需要使用一些绑定机制，这样 View Model 就能在背后的 Model 改变时更新自身的属性。此外，一旦 View Model 上的 Model 发生改变，那 View 的属性也需要更新。Model 的改变应该级联向下通过 View Model 进入 View。</p>
+<h2 id="更轻量的 -View-Controllers"><a href="# 更轻量的 -View-Controllers" class="headerlink" title="更轻量的 View Controllers"></a><a href="http://objccn.io/issue-1-1/" target="_blank" rel="noopener"> 更轻量的 View Controllers</a></h2><ul>
+<li> 把 Data Source 和其他 Protocols 分离出来 </li>
+<li> 将 Domain Logic 移到 Model 中 </li>
+<li> 创建 Store 类 </li>
+<li> 把网络请求逻辑移到 Model 层 </li>
+<li> 把 View 代码移到 View 层 </li>
+</ul>
+<p> 我们已经看到一些用来创建更小巧的 view controllers 的技术。我们并不是想把这些技术应用到每一个可能的角落，只是我们有一个目标：写可维护的代码。知道这些模式后，我们就更有可能把那些笨重的 view controllers 变得更整洁。</p>
+<h2 id="延伸阅读："><a href="# 延伸阅读：" class="headerlink" title="延伸阅读："></a> 延伸阅读：</h2><ul>
+<li><a href="http://www.codeproject.com/Articles/100175/Model-View-ViewModel-MVVM-Explained" target="_blank" rel="noopener">Model-View-ViewModel (MVVM) Explained</a></li>
+<li><p><a href="https://www.wikiwand.com/en/Model_View_ViewModel" target="_blank" rel="noopener">Model View ViewModel</a></p>
+<blockquote>
+<p><img src="https://upload.wikimedia.org/wikipedia/commons/8/87/MVVMPattern.png?1440688827751" alt="MVVM"></p>
+</blockquote>
+</li>
+<li><a href="http://www.teehanlax.com/blog/model-view-viewmodel-for-ios/" target="_blank" rel="noopener">Model-View-ViewModel for iOS</a></li>
+<li><a href="http://www.teehanlax.com/blog/krush-ios-architecture/" target="_blank" rel="noopener">Krush iOS Architecture</a></li>
+<li><a href="http://developer.apple.com/library/ios/#featuredarticles/ViewControllerPGforiPhoneOS/BasicViewControllers/BasicViewControllers.html" target="_blank" rel="noopener">View Controller Programming Guide for iOS</a></li>
+<li><a href="http://developer.apple.com/library/mac/#documentation/General/Conceptual/DevPedia-CocoaCore/ControllerObject.html" target="_blank" rel="noopener">Cocoa Core Competencies: Controller Object</a></li>
+<li><a href="http://subjective-objective-c.blogspot.de/2011/08/writing-high-quality-view-controller.html" target="_blank" rel="noopener">Writing high quality view controllers</a></li>
+<li><p><a href="http://programmers.stackexchange.com/questions/184396/mvcs-model-view-controller-store" target="_blank" rel="noopener">Stack Overflow: Model View Controller Store</a></p>
+<blockquote>
+<p>I will often create a singleton manager class that handles setting up the Core Data stack, and deals with all of the fetching/saving that is involved with the stack. As the quote you mentioned says, this makes it very easy to not only call those methods, but to adjust them if needed, as opposed to having saving/fetching calls all over the place in different view controllers.</p>
+</blockquote>
+</li>
+<li><a href="https://speakerdeck.com/trianglecocoa/unburdened-viewcontrollers-by-jay-thrash" target="_blank" rel="noopener">Unburdened View Controllers</a></li>
+<li><a href="http://programmers.stackexchange.com/questions/177668/how-to-avoid-big-and-clumsy-uitableviewcontroller-on-ios" target="_blank" rel="noopener">Stack Overflow: How to avoid big and clumsy <code>UITableViewControllers</code> on iOS</a> </li>
+</ul>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://gewill.org/2015/08/24/CS193P-Fall-2013-11-Table-View-and-iPad/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Ge Will">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Will's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2015/08/24/CS193P-Fall-2013-11-Table-View-and-iPad/" itemprop="url">CS193P Fall 2013: 11.Table View and iPad</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2015-08-24T09:35:28+08:00">
+                2015-08-24
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2015/08/24/CS193P-Fall-2013-11-Table-View-and-iPad/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2015/08/24/CS193P-Fall-2013-11-Table-View-and-iPad/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p> 之前直接听英语单词不懂，基础概念也没有，很难真正明白。现在学习了许多中文课程，主要是概念有了，重新看一遍，容易理解的多。</p>
+<p> 所以最好是想看中文了解相关背景概念，熟悉一下其实的关键词对应的英文，然后再学习英文的课程。</p>
+<p> 项目驱动，习题驱动学习比较有劲头。</p>
+<h2 id="Table-View"><a href="#Table-View" class="headerlink" title="Table View"></a>Table View</h2><ul>
+<li>UITableView Segue: <code>NSIndexPath *indexPath = [self.tableView indexPathForCell:sender];</code></li>
+<li>UITableView Spinner: UITableViewController has an “activity indicator” built in</li>
+<li>What if your Model changes? <code>(void)reloadData;</code></li>
+</ul>
+<h2 id="Universal-Applications"><a href="#Universal-Applications" class="headerlink" title="Universal Applications"></a>Universal Applications</h2><p>Generally recommned use different storyboards.</p>
+<h2 id="UISplitViewController"><a href="#UISplitViewController" class="headerlink" title="UISplitViewController"></a>UISplitViewController</h2><ul>
+<li>UISplitViewControllerDelegate: <code>awakeFromNib</code></li>
+<li>Hide Master in portrait orientation only (the default)</li>
+</ul>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://gewill.org/2015/08/22/GeekBand-Test-2/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Ge Will">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Will's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2015/08/22/GeekBand-Test-2/" itemprop="url">GeekBand Test 2</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2015-08-22T22:00:00+08:00">
+                2015-08-22
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2015/08/22/GeekBand-Test-2/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2015/08/22/GeekBand-Test-2/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="做习题涉及和想到的点"><a href="# 做习题涉及和想到的点" class="headerlink" title="做习题涉及和想到的点"></a>做习题涉及和想到的点</h2><blockquote>
+<p>我的习题代码 <a href="https://github.com/gewill/GeekBand-IOS-1501-Homework/tree/new-branch/G2015010176/iOS%20APP%20Development" target="_blank" rel="noopener">Github</a></p>
+</blockquote>
+<ul>
+<li>Lazy load image in table view: Apple example<br><a href="https://developer.apple.com/library/ios/samplecode/LazyTableImages/Introduction/Intro.html" target="_blank" rel="noopener">LazyTableImagesor</a> or <a href="https://github.com/rs/SDWebImage" target="_blank" rel="noopener">SDWebImage</a></li>
+<li>Try NSURLSession </li>
+<li>望文生义的能力很重要</li>
+<li>拿到一个项目代码，start step into from initial view，了解了整个 app 的运行时的结构或循环，才能理解整个 app 的逻辑框架。</li>
+<li>框架 &gt; 目录 &gt; 类 &gt; 方法 &gt; 属性 / 实例变量，这样子下来整个一个 App 就跑起来了，入口就是 main.m，然后各种设置属性和发消息，基于事件驱动的这一层理解运行时是比较合适的颗粒。</li>
+<li>Lazy load iamge use AFNetworking</li>
+</ul>
+<pre><code class="objc">[cell.appImage setImageWithURL:[<span class="built_in">NSURL</span> URLWithString:[mediumImage valueForKeyPath:<span class="string">@"label"</span>]] placeholderImage:[<span class="built_in">UIImage</span> imageNamed:<span class="string">@"placeholder"</span>]];
+</code></pre>
+<h2 id="习题完成情况"><a href="# 习题完成情况" class="headerlink" title="习题完成情况"></a>习题完成情况 </h2><h3 id="第二题"><a href="# 第二题" class="headerlink" title="第二题"></a> 第二题 </h3><p> 完成 1.0:</p>
+<ul>
+<li>实现 table view 自带刷新</li>
+<li>添加 Cellular 开关，并能够检查网络连接方式，并提醒用户</li>
+<li>NSURLSession 下载 JSON</li>
+</ul>
+<blockquote>
+<p>2015-08-26</p>
+</blockquote>
+<p>进行中 1.1: </p>
+<ul>
+<li>Lazy load iamge use AFNetworking</li>
+</ul>
+<blockquote>
+<p>2015-09-03 11:36:32</p>
+</blockquote>
+<h3 id="Further-Reading"><a href="#Further-Reading" class="headerlink" title="Further Reading"></a>Further Reading</h3><ul>
+<li><p><a href="http://blog.ibireme.com/2015/05/18/runloop/#apple" target="_blank" rel="noopener">深入理解 RunLoop</a></p>
+<blockquote>
+<p>通过 Runloop 讲解了 NSURLConnection 的工作过程<br>iOS 中，关于网络请求的接口自下至上有如下几层:</p>
+</blockquote>
+</li>
+</ul>
+<pre><code class="objc"><span class="built_in">CFSocket</span>
+<span class="built_in">CFNetwork</span>       -&gt;ASIHttpRequest
+<span class="built_in">NSURLConnection</span> -&gt;AFNetworking
+<span class="built_in">NSURLSession</span>    -&gt;AFNetworking2, Alamofire
+</code></pre>
+<ul>
+<li>CFSocket 是最底层的接口，只负责 socket 通信。</li>
+<li>CFNetwork 是基于 CFSocket 等接口的上层封装，ASIHttpRequest 工作于这一层。</li>
+<li>NSURLConnection 是基于 CFNetwork 的更高层的封装，提供面向对象的接口，AFNetworking 工作于这一层。</li>
+<li><p>NSURLSession 是 iOS7 中新增的接口，表面上是和 NSURLConnection 并列的，但底层仍然用到了 NSURLConnection 的部分功能 (比如 com.apple.NSURLConnectionLoader 线程)，AFNetworking2 和 Alamofire 工作于这一层。</p>
+</li>
+<li><p><a href="http://cocoadocs.org/docsets/AFNetworking/2.6.0/index.html" target="_blank" rel="noopener">Network Reachability Manager</a></p>
+<blockquote>
+<p>AFNetworkReachabilityManager monitors the reachability of domains, and addresses for both WWAN and WiFi network interfaces.</p>
+</blockquote>
+<blockquote>
+<p>Do not use Reachability to determine if the original request should be sent.<br>You should try to send it.<br>You can use Reachability to determine when a request should be automatically retried.<br>Although it may still fail, a Reachability notification that the connectivity is available is a good time to retry something.<br>Network reachability is a useful tool for determining why a request might have failed.<br>After a network request has failed, telling the user they’re offline is better than giving them a more technical but accurate error, such as “request timed out.”</p>
+</blockquote>
+</li>
+<li>See also <a href="https://developer.apple.com/videos/wwdc/2012/#706&quot;" target="_blank" rel="noopener">WWDC 2012 session 706, “Networking Best Practices</a>.</li>
+<li><p><a href="https://github.com/rs/SDWebImage" target="_blank" rel="noopener">SDWebImage</a></p>
+<blockquote>
+<p>AFNetworking takes advantage of Foundation URL Loading System caching using NSURLCache, as well as a configurable in-memory cache for UIImageView and UIButton, which uses NSCache by default. Caching behavior can be further specified in the caching policy of a corresponding NSURLRequest. Other SDWebImage features, like background decompression of image data is also provided by AFNetworking.</p>
+</blockquote>
+<blockquote>
+<p>If you’re already using AFNetworking and just want an easy async image loading category, the built-in UIKit extensions will probably fit your needs.</p>
+</blockquote>
+</li>
+<li><p><a href="https://github.com/AFNetworking/AFNetworking" target="_blank" rel="noopener">AFNetworking</a> example</p>
+<blockquote>
+<p>iOS example 非常经典，包含了使用方法和一个 UITableView 实用框架。</p>
+</blockquote>
+</li>
+<li><a href="http://www.raywenderlich.com/59255/afnetworking-2-0-tutorial" target="_blank" rel="noopener">AFNetworking 2.0 Tutorial</a></li>
+</ul>
+<h2 id="测试题原文"><a href="# 测试题原文" class="headerlink" title="测试题原文"></a>测试题原文</h2><h3 id="1- 做一个类似微信的聊天的 -tableview-tablewviewcell- 自定义 -。只需要 - 显示文字内容和用户头像 - 不需要做输入部分 - 文字内容自己模拟"><a href="#1- 做一个类似微信的聊天的 -tableview-tablewviewcell- 自定义 -。只需要 - 显示文字内容和用户头像 - 不需要做输入部分 - 文字内容自己模拟" class="headerlink" title="1. 做一个类似微信的聊天的 tableview(tablewviewcell 自定义) 。只需要 显示文字内容和用户头像(不需要做输入部分, 文字内容自己模拟)"></a>1. 做一个类似微信的聊天的 tableview(tablewviewcell 自定义) 。只需要 显示文字内容和用户头像(不需要做输入部分, 文字内容自己模拟)</h3><p>1 必须实现文字内容背景<br>2 背景的长度和高度要合适<br>3 发生者和接受者左右布局区分  </p>
+<h3 id="2- 使用 -http-api- 请求解析 -json-or-xml- 数据 - 并且使用 -tableview- 展示出来 -http-ax-itunes-apple-com-WebObjects-MZStoreServices-woa-ws-RSS-toppaidapplications-limit-10-json-or-xml"><a href="#2- 使用 -http-api- 请求解析 -json-or-xml- 数据 - 并且使用 -tableview- 展示出来 -http-ax-itunes-apple-com-WebObjects-MZStoreServices-woa-ws-RSS-toppaidapplications-limit-10-json-or-xml" class="headerlink" title="2. 使用 http api 请求解析 json or xml 数据, 并且使用 tableview 展示出来 http://ax.itunes.apple.com/WebObjects/MZStoreServices.woa/ws/RSS/toppaidapplications/limit=10/json or xml"></a>2. 使用 http api 请求解析 json or xml 数据, 并且使用 tableview 展示出来 <a href="http://ax.itunes.apple.com/WebObjects/MZStoreServices.woa/ws/RSS/toppaidapplications/limit=10/json" target="_blank" rel="noopener">http://ax.itunes.apple.com/WebObjects/MZStoreServices.woa/ws/RSS/toppaidapplications/limit=10/json</a> or xml</h3><p><strong>提示</strong>:  </p>
+<ol>
+<li>可以使用第三方库, 也可以使用 SDK 基础库  </li>
+<li>显示网络下载数据时间  </li>
+<li>比较 xml or json 解析效率  </li>
+<li>tableviewcell 自定义  </li>
+</ol>
+<p>注:</p>
+<ul>
+<li>希望大家在一周内上传答案到极客班 github 个人的作业文件夹(以学生编 号命名)</li>
+<li>IOS 专业 Github 目录: <a href="https://github.com/GeekBand/GeekBand-IOS-1501-Homework" target="_blank" rel="noopener">https://github.com/GeekBand/GeekBand-IOS-1501-Homework</a></li>
+<li>老师会在直播环节点评此题</li>
+<li>作业的最终批改和成绩公布会在结业时进行。</li>
+</ul>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://gewill.org/2015/08/22/GeekBand-flip-classroom-week-6/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Ge Will">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Will's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2015/08/22/GeekBand-flip-classroom-week-6/" itemprop="url">极客班线下翻转课堂第六周</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2015-08-22T16:28:43+08:00">
+                2015-08-22
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2015/08/22/GeekBand-flip-classroom-week-6/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2015/08/22/GeekBand-flip-classroom-week-6/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="孔祥波"><a href="# 孔祥波" class="headerlink" title="孔祥波"></a> 孔祥波 </h2><p>iOS 测试题解答：</p>
+<ul>
+<li>Static cell or dynamic </li>
+<li>Different identifiers for cells</li>
+<li> 学习 iOS 开发的目标是提升工资，还是爱好，还是进入一个好的团队？</li>
+<li> 应聘 1-3 年工作经验要求时，就报极客班孔老师的名字😎</li>
+<li> 学习曲线摆在那里，一点点进步。</li>
+<li><a href="https://github.com/robovm/apple-ios-samples" target="_blank" rel="noopener">apple-ios-samples</a></li>
+<li><a href="https://github.com/Lax/iOS-Swift-Demos" target="_blank" rel="noopener">iOS-Swift-Demos</a></li>
+</ul>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://gewill.org/2015/08/21/Swift-Tutorial-Core-Data-Notes/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Ge Will">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Will's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2015/08/21/Swift-Tutorial-Core-Data-Notes/" itemprop="url">Swift Tutorial - Core Data - Notes</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2015-08-21T21:20:19+08:00">
+                2015-08-21
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2015/08/21/Swift-Tutorial-Core-Data-Notes/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2015/08/21/Swift-Tutorial-Core-Data-Notes/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="Swift-Tutorial-Core-Data"><a href="#Swift-Tutorial-Core-Data" class="headerlink" title="Swift Tutorial - Core Data"></a>Swift Tutorial - Core Data</h2><p>From <a href="https://www.youtube.com/watch?v=3IDfgATVqHw" target="_blank" rel="noopener">Swift Tutorial - Core Data</a> by rm2kdev</p>
+<iframe width="700" height="394" src="https://www.youtube.com/embed/3IDfgATVqHw?rel=0" frameborder="0" allowfullscreen></iframe>
+
+<p><a href="https://github.com/gewill/test-projects/tree/master/test%20Core%20Data" target="_blank" rel="noopener">Project on GitHub</a></p>
+<p>Add some comments into the project.</p>
+<figure class="highlight swift"><table><tr><td class="code"><pre><span class="line"><span class="comment">//</span></span><br><span class="line"><span class="comment">//  ViewController.swift</span></span><br><span class="line"><span class="comment">//  test Core Data</span></span><br><span class="line"><span class="comment">//</span></span><br><span class="line"><span class="comment">//  Created by Will Ge on 8/21/15.</span></span><br><span class="line"><span class="comment">//  Copyright (c) 2015 gewill.org. All rights reserved.</span></span><br><span class="line"><span class="comment">//</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> UIKit</span><br><span class="line"><span class="keyword">import</span> CoreData</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ViewController</span>: <span class="title">UIViewController</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">func</span> <span class="title">viewDidLoad</span><span class="params">()</span></span> &#123;</span><br><span class="line">        <span class="keyword">super</span>.viewDidLoad()</span><br><span class="line">        <span class="comment">// Do any additional setup after loading the view, typically from a nib.</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">func</span> <span class="title">didReceiveMemoryWarning</span><span class="params">()</span></span> &#123;</span><br><span class="line">        <span class="keyword">super</span>.didReceiveMemoryWarning()</span><br><span class="line">        <span class="comment">// Dispose of any resources that can be recreated.</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="meta">@IBOutlet</span> <span class="keyword">weak</span> <span class="keyword">var</span> textUserName: <span class="type">UITextField!</span></span><br><span class="line">    <span class="meta">@IBOutlet</span> <span class="keyword">weak</span> <span class="keyword">var</span> textPassword: <span class="type">UITextField!</span></span><br><span class="line">    </span><br><span class="line">    <span class="meta">@IBAction</span> <span class="function"><span class="keyword">func</span> <span class="title">saveButton</span><span class="params">(sender: AnyObject)</span></span> &#123;</span><br><span class="line">        </span><br><span class="line">        <span class="comment">// Cora Data already settled done in AppDelegate.swift</span></span><br><span class="line">        <span class="comment">// get the ManagedObjectContext</span></span><br><span class="line">        <span class="keyword">var</span> appDel = <span class="type">UIApplication</span> .sharedApplication().delegate <span class="keyword">as</span>! <span class="type">AppDelegate</span></span><br><span class="line">        <span class="keyword">var</span> context: <span class="type">NSManagedObjectContext</span> = appDel.managedObjectContext!</span><br><span class="line">        </span><br><span class="line">        <span class="comment">// get the ManagedObject</span></span><br><span class="line">        <span class="keyword">var</span> newUser = <span class="type">NSEntityDescription</span>.insertNewObjectForEntityForName(<span class="string">"Users"</span>, inManagedObjectContext: context) <span class="keyword">as</span>! <span class="type">NSManagedObject</span></span><br><span class="line">        </span><br><span class="line">        <span class="comment">// set value for key</span></span><br><span class="line">        newUser.setValue(<span class="string">""</span> + textUserName.text, forKey: <span class="string">"username"</span>)</span><br><span class="line">        newUser.setValue(<span class="string">""</span> + textPassword.text, forKey: <span class="string">"password"</span>)</span><br><span class="line">        </span><br><span class="line">        <span class="comment">// save</span></span><br><span class="line">        context.save(<span class="literal">nil</span>)</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">"New username: \(textPassword.text) and password: \(textPassword.text) saved successfully.\n"</span>)</span><br><span class="line">        </span><br><span class="line">        </span><br><span class="line">    &#125;</span><br><span class="line">  </span><br><span class="line">    <span class="meta">@IBAction</span> <span class="function"><span class="keyword">func</span> <span class="title">loadButton</span><span class="params">(sender: AnyObject)</span></span> &#123;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">var</span> appDel = <span class="type">UIApplication</span> .sharedApplication().delegate <span class="keyword">as</span>! <span class="type">AppDelegate</span></span><br><span class="line">        <span class="keyword">var</span> context: <span class="type">NSManagedObjectContext</span> = appDel.managedObjectContext!</span><br><span class="line">        </span><br><span class="line">        <span class="comment">// add FetchRequest and add Predicate/ SortDescriptor etc.</span></span><br><span class="line">        <span class="keyword">var</span> request = <span class="type">NSFetchRequest</span>(entityName: <span class="string">"Users"</span>)</span><br><span class="line">        request.returnsObjectsAsFaults = <span class="literal">false</span></span><br><span class="line">        request.predicate = <span class="type">NSPredicate</span>(format: <span class="string">"username = %@"</span>, <span class="string">""</span> + textUserName.text)</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">var</span> requests: <span class="type">NSArray</span> = context.executeFetchRequest(request, error: <span class="literal">nil</span>)!</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">if</span> (requests.<span class="built_in">count</span> &gt; <span class="number">0</span>) &#123;</span><br><span class="line">            </span><br><span class="line">            <span class="keyword">var</span> res = requests[<span class="number">0</span>] <span class="keyword">as</span>! <span class="type">NSManagedObject</span></span><br><span class="line">            textUserName.text = res.valueForKeyPath(<span class="string">"username"</span>) <span class="keyword">as</span>! <span class="type">String</span></span><br><span class="line">            textPassword.text = res.valueForKeyPath(<span class="string">"password"</span>) <span class="keyword">as</span>! <span class="type">String</span></span><br><span class="line">            </span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            </span><br><span class="line">            <span class="built_in">print</span>(<span class="string">"0 Results Returned... Poterial Error.\n"</span>)</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><img src="http://ww4.sinaimg.cn/large/5369602egw1evalz3mz5lj21kg0tqagy.jpg" alt="test_Core_Data.xcdatamodeld settings"></p>
+<h2 id="Discovry-Core-Data-stack"><a href="#Discovry-Core-Data-stack" class="headerlink" title="Discovry - Core Data stack"></a>Discovry - Core Data stack</h2><figure class="highlight swift"><table><tr><td class="code"><pre><span class="line"><span class="comment">//  AppDelegate.swift</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="comment">// MARK: - Core Data stack</span></span><br><span class="line"></span><br><span class="line">    <span class="built_in">lazy</span> <span class="keyword">var</span> applicationDocumentsDirectory: <span class="type">NSURL</span> = &#123;</span><br><span class="line">        <span class="comment">// The directory the application uses to store the Core Data store file. This code uses a directory named "org.gewill.test_Core_Data" in the application's documents Application Support directory.</span></span><br><span class="line">        <span class="keyword">let</span> urls = <span class="type">NSFileManager</span>.defaultManager().<span class="type">URLsForDirectory</span>(.<span class="type">DocumentDirectory</span>, inDomains: .<span class="type">UserDomainMask</span>)</span><br><span class="line">        <span class="keyword">return</span> urls[urls.<span class="built_in">count</span>-<span class="number">1</span>] <span class="keyword">as</span>! <span class="type">NSURL</span></span><br><span class="line">    &#125;()</span><br><span class="line"></span><br><span class="line">    <span class="built_in">lazy</span> <span class="keyword">var</span> managedObjectModel: <span class="type">NSManagedObjectModel</span> = &#123;</span><br><span class="line">        <span class="comment">// The managed object model for the application. This property is not optional. It is a fatal error for the application not to be able to find and load its model.</span></span><br><span class="line">        <span class="keyword">let</span> modelURL = <span class="type">NSBundle</span>.mainBundle().<span class="type">URLForResource</span>(<span class="string">"test_Core_Data"</span>, withExtension: <span class="string">"momd"</span>)!</span><br><span class="line">        <span class="keyword">return</span> <span class="type">NSManagedObjectModel</span>(contentsOfURL: modelURL)!</span><br><span class="line">    &#125;()</span><br><span class="line"></span><br><span class="line">    <span class="built_in">lazy</span> <span class="keyword">var</span> persistentStoreCoordinator: <span class="type">NSPersistentStoreCoordinator?</span> = &#123;</span><br><span class="line">        <span class="comment">// The persistent store coordinator for the application. This implementation creates and return a coordinator, having added the store for the application to it. This property is optional since there are legitimate error conditions that could cause the creation of the store to fail.</span></span><br><span class="line">        <span class="comment">// Create the coordinator and store</span></span><br><span class="line">        <span class="keyword">var</span> coordinator: <span class="type">NSPersistentStoreCoordinator?</span> = <span class="type">NSPersistentStoreCoordinator</span>(managedObjectModel: <span class="keyword">self</span>.managedObjectModel)</span><br><span class="line">        <span class="keyword">let</span> url = <span class="keyword">self</span>.applicationDocumentsDirectory.<span class="type">URLByAppendingPathComponent</span>(<span class="string">"test_Core_Data.sqlite"</span>)</span><br><span class="line">        <span class="keyword">var</span> error: <span class="type">NSError?</span> = <span class="literal">nil</span></span><br><span class="line">        <span class="keyword">var</span> failureReason = <span class="string">"There was an error creating or loading the application's saved data."</span></span><br><span class="line">        <span class="keyword">if</span> coordinator!.addPersistentStoreWithType(<span class="type">NSSQLiteStoreType</span>, configuration: <span class="literal">nil</span>, <span class="type">URL</span>: url, options: <span class="literal">nil</span>, error: &amp;error) == <span class="literal">nil</span> &#123;</span><br><span class="line">            coordinator = <span class="literal">nil</span></span><br><span class="line">            <span class="comment">// Report any error we got.</span></span><br><span class="line">            <span class="keyword">var</span> dict = [<span class="type">String</span>: <span class="type">AnyObject</span>]()</span><br><span class="line">            dict[<span class="type">NSLocalizedDescriptionKey</span>] = <span class="string">"Failed to initialize the application's saved data"</span></span><br><span class="line">            dict[<span class="type">NSLocalizedFailureReasonErrorKey</span>] = failureReason</span><br><span class="line">            dict[<span class="type">NSUnderlyingErrorKey</span>] = error</span><br><span class="line">            error = <span class="type">NSError</span>(domain: <span class="string">"YOUR_ERROR_DOMAIN"</span>, code: <span class="number">9999</span>, userInfo: dict)</span><br><span class="line">            <span class="comment">// Replace this with code to handle the error appropriately.</span></span><br><span class="line">            <span class="comment">// abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.</span></span><br><span class="line">            <span class="type">NSLog</span>(<span class="string">"Unresolved error \(error), \(error!.userInfo)"</span>)</span><br><span class="line">            abort()</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">return</span> coordinator</span><br><span class="line">    &#125;()</span><br><span class="line"></span><br><span class="line">    <span class="built_in">lazy</span> <span class="keyword">var</span> managedObjectContext: <span class="type">NSManagedObjectContext?</span> = &#123;</span><br><span class="line">        <span class="comment">// Returns the managed object context for the application (which is already bound to the persistent store coordinator for the application.) This property is optional since there are legitimate error conditions that could cause the creation of the context to fail.</span></span><br><span class="line">        <span class="keyword">let</span> coordinator = <span class="keyword">self</span>.persistentStoreCoordinator</span><br><span class="line">        <span class="keyword">if</span> coordinator == <span class="literal">nil</span> &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">nil</span></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">var</span> managedObjectContext = <span class="type">NSManagedObjectContext</span>()</span><br><span class="line">        managedObjectContext.persistentStoreCoordinator = coordinator</span><br><span class="line">        <span class="keyword">return</span> managedObjectContext</span><br><span class="line">    &#125;()</span><br><span class="line"></span><br><span class="line">    <span class="comment">// MARK: - Core Data Saving support</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">func</span> <span class="title">saveContext</span> <span class="params">()</span></span> &#123;</span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">let</span> moc = <span class="keyword">self</span>.managedObjectContext &#123;</span><br><span class="line">            <span class="keyword">var</span> error: <span class="type">NSError?</span> = <span class="literal">nil</span></span><br><span class="line">            <span class="keyword">if</span> moc.hasChanges &amp;&amp; !moc.save(&amp;error) &#123;</span><br><span class="line">                <span class="comment">// Replace this implementation with code to handle the error appropriately.</span></span><br><span class="line">                <span class="comment">// abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.</span></span><br><span class="line">                <span class="type">NSLog</span>(<span class="string">"Unresolved error \(error), \(error!.userInfo)"</span>)</span><br><span class="line">                abort()</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>Debug:</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">p applicationDocumentsDirectory</span><br><span class="line">(NSURL) $R0 = 0x00000001740a8b20 &quot;file:///var/mobile/Containers/Data/Application/601088B9-EB64-4E8D-9817-96E23D0D5D7E/Documents/&quot;</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">ssh root@192.168.0.101</span><br><span class="line"><span class="meta">root#</span><span class="bash"> <span class="built_in">cd</span> /var/mobile/Containers/Data/Application/601088B9-EB64-4E8D-9817-96E23D0D5D7E/Documents/</span></span><br><span class="line"><span class="meta">root#</span><span class="bash"> ls -la</span></span><br><span class="line">total 192</span><br><span class="line">drwxr-xr-x 2 mobile mobile    170 Aug 21 22:16 ./</span><br><span class="line">drwxr-xr-x 5 mobile mobile    204 Aug 21 22:16 ../</span><br><span class="line">-rw-r--r-- 1 mobile mobile  20480 Aug 21 22:16 test_Core_Data.sqlite</span><br><span class="line">-rw-r--r-- 1 mobile mobile  32768 Aug 21 22:24 test_Core_Data.sqlite-shm</span><br><span class="line">-rw-r--r-- 1 mobile mobile 140112 Aug 21 22:24 test_Core_Data.sqlite-wal</span><br></pre></td></tr></table></figure>
+<h3 id="Read-More"><a href="#Read-More" class="headerlink" title="Read More"></a>Read More</h3><ul>
+<li><a href="http://www.wikiwand.com/en/LLDB_(debugger" target="_blank" rel="noopener">LLDB (debugger)</a>)</li>
+</ul>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://gewill.org/2015/08/21/Design-Patterns-Delegation-Notes/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -2546,763 +3355,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://gewill.org/2015/08/12/Show-and-Hide-Bottom-Toolbar-in-Swift-Xcode-6-iOS-8-Tutorial/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Ge Will">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Will's Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2015/08/12/Show-and-Hide-Bottom-Toolbar-in-Swift-Xcode-6-iOS-8-Tutorial/" itemprop="url">Show and Hide Bottom Toolbar in Swift - Xcode 6 iOS 8 Tutorial</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2015-08-12T12:20:06+08:00">
-                2015-08-12
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2015/08/12/Show-and-Hide-Bottom-Toolbar-in-Swift-Xcode-6-iOS-8-Tutorial/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2015/08/12/Show-and-Hide-Bottom-Toolbar-in-Swift-Xcode-6-iOS-8-Tutorial/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <iframe width="700" height="393" src="https://www.youtube.com/embed/zlZLjQN-kTc?rel=0" frameborder="0" allowfullscreen></iframe>
-
-<h2 id="Video-Tutorial"><a href="#Video-Tutorial" class="headerlink" title="Video Tutorial"></a>Video Tutorial</h2><ol>
-<li>Add first View Controller Segue to new View Controller</li>
-<li>Add Bar Button Item on first View Controller and set target-action</li>
-<li>code in <code>action:</code>method add <code>self.porformSegueWithIdentifier</code></li>
-<li><code>setToolbarHidden(_ hidden: Bool, animated animated: Bool)</code> </li>
-<li>Or set in interface builder </li>
-</ol>
-<p><img src="http://i.imgur.com/4BnA20B.jpg" alt="Show and Hide Bottom by code"><br><img src="http://i.imgur.com/YLFy79G.jpg" alt="Show and Hide Bottom set in interface builder"></p>
-<p>Demo Project on <a href="https://github.com/gewill/test-projects/tree/master/test%20Show%20Toobar" target="_blank" rel="noopener">GitHub</a></p>
-<h2 id="More-in-Segue"><a href="#More-in-Segue" class="headerlink" title="More in Segue"></a>More in Segue</h2><p>Simpler way：</p>
-<p><a href="https://developer.apple.com/library/ios/recipes/xcode_help-IB_storyboard/chapters/StoryboardSegue.html" target="_blank" rel="noopener">Adding a Segue Between Scenes in a Storyboard</a></p>
-<p>Another way：View Controller segue to View Controller,<br>your can something more in target-action method.</p>
-<p><a href="http://stackoverflow.com/questions/21205485/ios7-segue-and-storyboards-how-to-create-without-a-button" target="_blank" rel="noopener">IOS7, Segue and storyboards - How to create without a button?</a></p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://gewill.org/2015/08/11/GeekBand-iOS-Design-Patterns-1/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Ge Will">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Will's Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2015/08/11/GeekBand-iOS-Design-Patterns-1/" itemprop="url">极客班 iOS 设计模式（一）</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2015-08-11T11:42:01+08:00">
-                2015-08-11
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2015/08/11/GeekBand-iOS-Design-Patterns-1/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2015/08/11/GeekBand-iOS-Design-Patterns-1/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p><img src="https://developer.apple.com/library/ios/referencelibrary/GettingStarted/RoadMapiOSCh/Art/design_patterns_2x.png" alt="design_patterns"></p>
-<p>总体感觉设计模式课程偏理论，操作起来可能要反复实践后，才会知道项目用哪个设计模式比较合适。</p>
-<p>我目前还是学习了解的还是六大基本设计模式，希望以后开发过程中能够思考设计模式的选择。</p>
-<blockquote>
-<p>@李建忠：设计模式是程序员从初阶往中阶迈进很重要的素养。关键在于要去思考设计的方案，为什么这么做？还有哪些设计方法？彼此的优劣？而不是功能跑通就了事。 在这样日积月累的思考和反复实践中，设计功力就会提高。</p>
-</blockquote>
-<h2 id="1- 设计模式简介和 -MVC"><a href="#1- 设计模式简介和 -MVC" class="headerlink" title="1. 设计模式简介和 MVC"></a>1. 设计模式简介和 MVC</h2><p>简单介绍了设计模式的含义，和一些常用的 iOS 设计模式。</p>
-<p>xdrt81y 的 <a href="http://blog.csdn.net/xdrt81y/article/details/12128721" target="_blank" rel="noopener">关于 iOS 六大基本设计模式</a>，文章简单明了可以参考一下。</p>
-<p><a href="http://www.raywenderlich.com/86477/introducing-ios-design-patterns-in-swift-part-1" target="_blank" rel="noopener">Introducing iOS Design Patterns in Swift – Part 1/2</a> 结合项目介绍了 Swift 中的设计模式。</p>
-<p><a href="https://developer.apple.com/library/ios/referencelibrary/GettingStarted/RoadMapiOSCh/DesignPatterns.html" target="_blank" rel="noopener">使用设计模式</a>，苹果文档介绍。</p>
-<p>Wikipedia:</p>
-<blockquote>
-<p>In software engineering, a design pattern is a general reusable solution to a commonly occurring problem within a given context in software design.<br>It is a description or template for how to solve a problem that can be used in many different situations.<br>Patterns are formalized best practices that the programmer can use to solve common problems when designing an application or system.  </p>
-</blockquote>
-<h2 id="2-Target-Action、selector- 和 -Nib"><a href="#2-Target-Action、selector- 和 -Nib" class="headerlink" title="2. Target-Action、selector 和 Nib"></a>2. Target-Action、selector 和 Nib</h2><p>详细介绍了 Nib 加载</p>
-<h2 id="3-Storyboard- 和原型设计"><a href="#3-Storyboard- 和原型设计" class="headerlink" title="3. Storyboard 和原型设计"></a>3. Storyboard 和原型设计 </h2><h3 id="Storyboard"><a href="#Storyboard" class="headerlink" title="Storyboard"></a>Storyboard</h3><p> 我还是很喜欢 Storyboard，比代码直观高效，方便看到原型图和交互关系。</p>
-<p>拆分 Storyboard，避免多人同时修改。</p>
-<p>推荐：WWDC15 215 <a href="https://developer.apple.com/videos/wwdc/2015/?id=215" target="_blank" rel="noopener">What’s New in Storyboards</a></p>
-<p>参考：<a href="http://code.tutsplus.com/tutorials/ios-9-staying-organized-with-storyboard-references--cms-24226" target="_blank" rel="noopener">iOS 9: Staying Organized with Storyboard References</a>：</p>
-<ul>
-<li>instantiateInitialViewController()</li>
-<li>destination of a segue</li>
-</ul>
-<blockquote>
-<p>Storyboard references are powerful. Not only do they make storyboards manageable and modular, they make it very easy to reuse storyboards and even hook into storyboards at arbitrary places.</p>
-<p>Storyboard references are only available in iOS 9.</p>
-</blockquote>
-<p>代码见 <a href="https://github.com/gewill/test-projects/tree/master/test%20Storyboard%20References" target="_blank" rel="noopener">GitHub</a></p>
-<h2 id="4- 两步创建和模板方法"><a href="#4- 两步创建和模板方法" class="headerlink" title="4. 两步创建和模板方法"></a>4. 两步创建和模板方法</h2><blockquote class="blockquote-center">The best way to predict your future is to create it.<br><br>― Abraham Lincoln</blockquote>
-
-
-
-<h3 id="两步创建"><a href="# 两步创建" class="headerlink" title="两步创建"></a>两步创建 </h3><p> 对象两步创建：alloc init</p>
-<p>工厂方法：+ (instancetype)dateWithTimeIntervalSinceNow:(NSTimeInterval)seconds</p>
-<p>内省（Introspection）</p>
-<h3 id="模板方法"><a href="# 模板方法" class="headerlink" title="模板方法"></a>模板方法 </h3><p> 参考：lichwei1983 的文章 <a href="http://blog.csdn.net/lichwei1983/article/details/8435644" target="_blank" rel="noopener">模板方法–行为型模式之四</a></p>
-<p><strong>模板方法应用于下列情况:</strong></p>
-<ul>
-<li>一次性实现一个算法的不变的部分, 并将可变的行为留给子类来实现。</li>
-<li>各子类中公共的行为应被提取出来并集中到一个公共父类中以避免代码重复。这是 Opdyke 和 Johnson 所描述过的“重分解以一般化”的一个很好的例子。首先识别现有代码中的不同之处, 并且将不同之处分离为新的操作。最后, 用一个调用这些新的操作的模板方法来替换这些不同的代码。</li>
-<li>控制子类扩展。模板方法只在特定点调用“ h o o k”操作(参见效果一节), 这样就只允许在这些点进行扩展。</li>
-</ul>
-<p>模板方法是一种代码复用的基本技术。它们在类库中尤为重要, 它们提取了类库中的公共行为。模板方法导致一种反向的控制结构, 这种结构有时被称为“好莱坞法则”, 即“别找我们, 我们找你”。这指的是一个父类调用一个子类的操作, 而不是相反。</p>
-<h2 id="5- 单例模式"><a href="#5- 单例模式" class="headerlink" title="5. 单例模式"></a>5. 单例模式</h2><ul>
-<li>UIApplication</li>
-<li>NSNotificationCenter</li>
-<li>NSUserDefaults</li>
-<li>NSFileManager</li>
-<li>UIAccelerometer</li>
-<li>NSURLSession</li>
-</ul>
-<p>参考：刚刚在线的 <a href="http://www.superqq.com/blog/2015/06/13/ios-she-ji-mo-shi-xi-lie-:singleton-dan-li-mo-shi/" target="_blank" rel="noopener">iOS 设计模式系列：Singleton – 单例模式</a></p>
-<p>单例设计模式确切的说就是一个类只有一个实例，有一个全局的接口来访问这个实例。当第一次载入的时候，它通常使用延时加载的方法创建单一实例。</p>
-<p>在一些情况下，一个类只有一个实例是有意义的。例如，这里没有必要有多个登录实例，除非你一次想写入多个日志文件。或者，一个全局的配置类文件：它可以很容易的很安全的执行一个公共资源，这样的一个配置文件，要比同时修改多个配置类文件好很多。</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://gewill.org/2015/08/11/Zen-and-the-Art-of-the-Objective-C-Craftsmanship/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Ge Will">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Will's Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2015/08/11/Zen-and-the-Art-of-the-Objective-C-Craftsmanship/" itemprop="url">禅与 Objective-C 编程艺术 - 笔记</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2015-08-11T10:26:15+08:00">
-                2015-08-11
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2015/08/11/Zen-and-the-Art-of-the-Objective-C-Craftsmanship/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2015/08/11/Zen-and-the-Art-of-the-Objective-C-Craftsmanship/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p><strong>转发整理一些我认为值得学习的小节。</strong></p>
-<p>-原文 <a href="https://github.com/objc-zen/objc-zen-book" target="_blank" rel="noopener">https://github.com/objc-zen/objc-zen-book</a></p>
-<p>-Gitbook 链接(包含 PDF, mobi, epub 格式): <a href="http://yourtion.gitbooks.io/objc-zen-book-cn/" target="_blank" rel="noopener">http://yourtion.gitbooks.io/objc-zen-book-cn/</a> (感谢 <a href="https://github.com/yourtion" target="_blank" rel="noopener">yourtion</a> 整理 )</p>
-<h2 id="nil-和-BOOL-检查"><a href="#nil-和-BOOL-检查" class="headerlink" title="nil 和 BOOL 检查"></a>nil 和 BOOL 检查</h2><p>类似于 Yoda 表达式，nil 检查的方式也是存在争议的。一些 notous 库像这样检查对象是否为 nil：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">if (nil == myValue) &#123; ...</span><br></pre></td></tr></table></figure>
-<p>或许有人会提出这是错的，因为在 nil 作为一个常量的情况下，这样做就像 Yoda 表达式了。 但是一些程序员这么做的原因是为了避免调试的困难，看下面的代码：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">if (myValue == nil) &#123; ...</span><br></pre></td></tr></table></figure>
-<p>如果程序员敲错成这样：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">if (myValue = nil) &#123; ...</span><br></pre></td></tr></table></figure>
-<p>这是合法的语句，但是即使你是一个丰富经验的程序员，即使盯着眼睛瞧上好多遍也很难调试出错误。但是如果把 nil 放在左边，因为它不能被赋值，所以就不会发生这样的错误。 如果程序员这样做，他/她就可以轻松检查出可能的原因，比一遍遍检查敲下的代码要好很多。</p>
-<p>为了避免这些奇怪的问题，可以用感叹号来作为运算符。因为 nil 是 解释到 NO，所以没必要在条件语句里面把它和其他值比较。同时，不要直接把它和 <code>YES</code> 比较，因为 <code>YES</code> 的定义是 1， 而 <code>BOOL</code> 是 8 bit的，实际上是 char 类型。</p>
-<p><strong>推荐:</strong></p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">if (someObject) &#123; ...</span><br><span class="line">if (![someObject boolValue]) &#123; ...</span><br><span class="line">if (!someObject) &#123; ...</span><br></pre></td></tr></table></figure>
-<p><strong>不推荐:</strong></p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">if (someObject == YES) &#123; ... // Wrong</span><br><span class="line">if (myRawValue == YES) &#123; ... // Never do this.</span><br><span class="line">if ([someObject boolValue] == NO) &#123; ...</span><br></pre></td></tr></table></figure>
-<p>同时这样也能提高一致性，以及提升可读性。</p>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2015/08/11/Zen-and-the-Art-of-the-Objective-C-Craftsmanship/#more" rel="contents">
-              Read more &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://gewill.org/2015/08/11/GeekBand-iOS-APP-Development-4/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Ge Will">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Will's Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2015/08/11/GeekBand-iOS-APP-Development-4/" itemprop="url">极客班 iOS 应用开发实战（四）</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2015-08-11T09:45:05+08:00">
-                2015-08-11
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2015/08/11/GeekBand-iOS-APP-Development-4/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2015/08/11/GeekBand-iOS-APP-Development-4/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="21-iOS 应用框架 - 上"><a href="#21-iOS 应用框架 - 上" class="headerlink" title="21. iOS 应用框架 (上)"></a>21. iOS 应用框架(上)</h2><p> 主要讲解了 Project 文件目录整理分类，Storyboard 和代码结合使用，Constraints 的使用。稍后在项目里面实践一下。</p>
-<p>有提到 [UIScreen mainScreen].bounds 的问题。</p>
-<p>我之前就研究过，见：<a href="http://gewill.org/2015/08/04/UIScreen-mainScreen-bounds-in-Xcode-7-Beta-4/">http://gewill.org/2015/08/04/UIScreen-mainScreen-bounds-in-Xcode-7-Beta-4/</a></p>
-<h2 id="23-iOS 应用框架 - 下"><a href="#23-iOS 应用框架 - 下" class="headerlink" title="23. iOS 应用框架 (下)"></a>23. iOS 应用框架(下)</h2><p> 主要演示 Storyboard 的自动布局和代码管理跳转和动画过度。但是总感觉有点基本上是在 AppDelegate 中管理 Storyboard 的跳转关系，实不如 Storyboard references 清晰明了，且不妨碍分工开发。</p>
-<p>代码如下：</p>
-<figure class="highlight objc"><table><tr><td class="code"><pre><span class="line"><span class="comment">//  AppDelegate.h</span></span><br><span class="line"><span class="comment">//  BLDemo05</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="meta">#import <span class="meta-string">&lt;UIKit/UIKit.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">AppDelegate</span> : <span class="title">UIResponder</span> &lt;<span class="title">UIApplicationDelegate</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">@property</span> (<span class="keyword">strong</span>, <span class="keyword">nonatomic</span>) <span class="built_in">UIWindow</span> *window;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> *  声明一个 UINavigationController 属性，作为 rootViewController</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">@property</span> (<span class="keyword">strong</span>, <span class="keyword">nonatomic</span>) <span class="built_in">UINavigationController</span> *loginNavigationVC;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> *  使用代码加载 Login.storyboard 的函数</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line">- (<span class="keyword">void</span>)loadLoginView;</span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> *  使用代码加载 Login.storyboard 的函数</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line">- (<span class="keyword">void</span>)loadMainView;</span><br><span class="line"></span><br><span class="line"><span class="keyword">@end</span></span><br></pre></td></tr></table></figure>
-<figure class="highlight objc"><table><tr><td class="code"><pre><span class="line"><span class="comment">//  AppDelegate.m</span></span><br><span class="line"><span class="comment">//  BLDemo05</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="meta">#import <span class="meta-string">"AppDelegate.h"</span></span></span><br><span class="line"><span class="meta">#import <span class="meta-string">"BLUserInfoViewController.h"</span></span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">AppDelegate</span> ()</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">@end</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">@implementation</span> <span class="title">AppDelegate</span></span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">- (<span class="keyword">void</span>)loadLoginView &#123;</span><br><span class="line">    <span class="comment">// 读取 Login.storyboard， 压入 rootViewController（loginNavigationVC）</span></span><br><span class="line">    <span class="built_in">UIStoryboard</span> *loginStoryboard</span><br><span class="line">    = [<span class="built_in">UIStoryboard</span> storyboardWithName:<span class="string">@"Login"</span></span><br><span class="line">                                bundle:[<span class="built_in">NSBundle</span> mainBundle]];</span><br><span class="line">    <span class="keyword">self</span>.loginNavigationVC = loginStoryboard.instantiateInitialViewController;</span><br><span class="line">    <span class="keyword">self</span>.window.rootViewController = <span class="keyword">self</span>.loginNavigationVC;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">- (<span class="keyword">void</span>)loadMainView &#123;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 1 - 读取 UserInfo.storyboard， 压入 BLUserInfoViewController（userInfoVC）， 一并压入 UINavigationController（navc）</span></span><br><span class="line">    <span class="built_in">UIStoryboard</span> *userInfoStoryboard</span><br><span class="line">    = [<span class="built_in">UIStoryboard</span> storyboardWithName:<span class="string">@"UserInfo"</span> bundle:[<span class="built_in">NSBundle</span> mainBundle]];</span><br><span class="line">    </span><br><span class="line">    BLUserInfoViewController *userInfoVC</span><br><span class="line">    = [userInfoStoryboard instantiateViewControllerWithIdentifier:<span class="string">@"BLUserInfoViewController"</span>];</span><br><span class="line">    </span><br><span class="line">    <span class="built_in">UINavigationController</span> *navc</span><br><span class="line">    = [[<span class="built_in">UINavigationController</span> alloc] initWithRootViewController:userInfoVC];</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 2 - 添加 UINavigationController 标题</span></span><br><span class="line">    navc.tabBarItem.title = <span class="string">@"userInfo"</span>;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 3 - 新建一个 UITabBarController（tabBarC），并设为 rootViewController</span></span><br><span class="line">    <span class="built_in">UITabBarController</span> *tabBarC = [[<span class="built_in">UITabBarController</span> alloc] init];</span><br><span class="line">    tabBarC.viewControllers = @[navc];</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">self</span>.window.rootViewController = tabBarC;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 4 - 添加过度效果</span></span><br><span class="line">    [<span class="keyword">self</span>.window addSubview:<span class="keyword">self</span>.loginNavigationVC.view];</span><br><span class="line">    </span><br><span class="line">    [<span class="built_in">UIView</span> animateWithDuration:<span class="number">0.3</span></span><br><span class="line">                     animations:^&#123;</span><br><span class="line">                         <span class="keyword">self</span>.loginNavigationVC.view.alpha = <span class="number">0</span>;</span><br><span class="line">                         <span class="keyword">self</span>.loginNavigationVC.view.frame = <span class="built_in">CGRectZero</span>;</span><br><span class="line">                         <span class="keyword">self</span>.loginNavigationVC.view.transform = <span class="built_in">CGAffineTransformMakeScale</span>(<span class="number">0.1</span>, <span class="number">0.1</span>);</span><br><span class="line">                     &#125; completion:^(<span class="built_in">BOOL</span> finished) &#123;</span><br><span class="line">                         <span class="keyword">self</span>.loginNavigationVC = <span class="literal">nil</span>;</span><br><span class="line">                     &#125;];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (<span class="built_in">BOOL</span>)application:(<span class="built_in">UIApplication</span> *)application didFinishLaunchingWithOptions:(<span class="built_in">NSDictionary</span> *)launchOptions &#123;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">self</span>.window = [[<span class="built_in">UIWindow</span> alloc] initWithFrame:[[<span class="built_in">UIScreen</span> mainScreen] bounds]];</span><br><span class="line">    <span class="keyword">self</span>.window.backgroundColor = [<span class="built_in">UIColor</span> whiteColor];</span><br><span class="line">    [<span class="keyword">self</span>.window makeKeyAndVisible];</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// App 启动，调用 loadLoginView 函数</span></span><br><span class="line">    [<span class="keyword">self</span> loadLoginView];</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> <span class="literal">YES</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (<span class="keyword">void</span>)applicationWillResignActive:(<span class="built_in">UIApplication</span> *)application &#123;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (<span class="keyword">void</span>)applicationDidEnterBackground:(<span class="built_in">UIApplication</span> *)application &#123;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (<span class="keyword">void</span>)applicationWillEnterForeground:(<span class="built_in">UIApplication</span> *)application &#123;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (<span class="keyword">void</span>)applicationDidBecomeActive:(<span class="built_in">UIApplication</span> *)application &#123;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (<span class="keyword">void</span>)applicationWillTerminate:(<span class="built_in">UIApplication</span> *)application &#123;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">@end</span></span><br></pre></td></tr></table></figure>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://gewill.org/2015/08/10/TestFlight-Apps-in-iTunes-Connect/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Ge Will">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Will's Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2015/08/10/TestFlight-Apps-in-iTunes-Connect/" itemprop="url">TestFlight Apps in iTunes Connect</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2015-08-10T11:56:18+08:00">
-                2015-08-10
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2015/08/10/TestFlight-Apps-in-iTunes-Connect/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2015/08/10/TestFlight-Apps-in-iTunes-Connect/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p><img src="https://developer.apple.com/library/ios/documentation/IDEs/Conceptual/AppDistributionGuide/Art/1_administration_tasks_2x.png" alt="App Distributio"></p>
-<ol>
-<li>iTunes Connet &gt; MyApps &gt; add App</li>
-<li>Xcode <ul>
-<li>Product &gt; Acrchive </li>
-<li>Window &gt; Organizer &gt; Submit to App Store</li>
-</ul>
-</li>
-<li>iTunes Connet &gt; MyApps &gt; Prerelease<ul>
-<li>Builds: Turn on <code>TestFlight Beta Testing</code></li>
-<li>Add Internal or External Testers</li>
-</ul>
-</li>
-<li>Click <code>Open in TestFlight</code> in email from iTunes Store on your iPhone</li>
-</ol>
-<p>More in <a href="https://developer.apple.com/library/ios/documentation/IDEs/Conceptual/AppDistributionGuide/Introduction/Introduction.html#//apple_ref/doc/uid/TP40012582-CH1-SW1" target="_blank" rel="noopener">App Distribution Guide</a></p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -3353,7 +3405,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">168</span>
+                  <span class="site-state-item-count">173</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -3435,7 +3487,7 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>

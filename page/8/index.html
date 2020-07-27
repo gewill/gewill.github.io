@@ -283,6 +283,738 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://gewill.org/2015/07/11/CS193P-3-Applying-MVC/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Ge Will">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Will's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2015/07/11/CS193P-3-Applying-MVC/" itemprop="url">CS193P 3. Applying MVC</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2015-07-11T16:17:07+08:00">
+                2015-07-11
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2015/07/11/CS193P-3-Applying-MVC/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2015/07/11/CS193P-3-Applying-MVC/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p> 看英文视频加中文字幕，效率也是蛮低的，下个星期六博览网的 iOS 极客班就开学了，希望能够认真高效投入更多时间去学习，一定要学好，找到开发的工作，圆毕业三年的一个梦。</p>
+<p>Swift 学习还算顺利，MVC 模式也有所熟悉，就是独自开发和想法实现有困难，暂时停留在看懂和自己写一遍的水平。</p>
+<p> 还有就是玩手机，刷微博啥的超级浪费时间，因为这个不费脑，玩的也高兴，能够一天不吃饭，也不困，也停不下来。<br><strong> 但是学习或看书，就很费神，容易犯困，这个一定要克服，实在困了就休息 10 分钟，再继续。</strong></p>
+<p>New Calculator Demo</p>
+<ul>
+<li>Applying MVC to the Calculator </li>
+<li>enum</li>
+<li>Simple initializer</li>
+<li>Returning an Optional</li>
+<li>Dicionary</li>
+<li>Tuples</li>
+</ul>
+<p> 源码如下，待修改：<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">//</span><br><span class="line">//  CalculatorBrain.swift</span><br><span class="line">//  Calculator</span><br><span class="line">//</span><br><span class="line">//  Created by Will Ge on 7/11/15.</span><br><span class="line">//  Copyright © 2015 gewill.org. All rights reserved.</span><br><span class="line">//</span><br><span class="line"></span><br><span class="line">import Foundation</span><br><span class="line"></span><br><span class="line">class CauculatorBrain</span><br><span class="line">&#123;</span><br><span class="line">    // 定义一个枚举类型，来分类表示输入的：运算数、一元运算和二元运算 </span><br><span class="line">    enum Op &#123;</span><br><span class="line">        case Operand(Double)</span><br><span class="line">        case UnaryOperation(String, Double -&gt; Double)</span><br><span class="line">        case BinaryOperation(String, (Double, Double) -&gt; Double)</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    // 定义一个数组来储存所有输入 </span><br><span class="line">    var opStack = [Op]()</span><br><span class="line">    </span><br><span class="line">    // 定义已知运算符 </span><br><span class="line">    var knownOps = [String:Op]()</span><br><span class="line">    </span><br><span class="line">    // 初始化已知运算符 </span><br><span class="line">    init() &#123;</span><br><span class="line">        knownOps[&quot;+&quot;] = Op.BinaryOperation(&quot;+&quot;, +)</span><br><span class="line">        knownOps[&quot;−&quot;] = Op.BinaryOperation(&quot;−&quot;) &#123;$1 - $0&#125;</span><br><span class="line">        knownOps[&quot;×&quot;] = Op.BinaryOperation(&quot;×&quot;, *)</span><br><span class="line">        knownOps[&quot;÷&quot;] = Op.BinaryOperation(&quot;÷&quot;) &#123;$1 / $0&#125;</span><br><span class="line">        knownOps[&quot;√&quot;] = Op.UnaryOperation(&quot;√&quot;, sqrt)</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    // 定义一个函数，把输入递归取出 </span><br><span class="line">    func evaluate(ops: [Op]) -&gt; (result: Double?, remainingOps:[Op]) &#123;</span><br><span class="line">        if !ops.isEmpty &#123;</span><br><span class="line">            var remainingOps = ops</span><br><span class="line">            let op = remainingOps.removeLast()</span><br><span class="line">            switch op &#123;</span><br><span class="line">            case.Operand(let operand):</span><br><span class="line">                return (operand, remainingOps)</span><br><span class="line">            case .UnaryOperation(_, let operation):</span><br><span class="line">                let operandEvaluation = evaluate(remainingOps)</span><br><span class="line">                if let operand = operandEvaluation.result &#123;</span><br><span class="line">                    return (operation(operand), operandEvaluation.remainingOps)</span><br><span class="line">                &#125;</span><br><span class="line">            case .BinaryOperation(_, let operation):</span><br><span class="line">                let op1Evaluation = evaluate(remainingOps)</span><br><span class="line">                if let operand1 = op1Evaluation.result &#123;</span><br><span class="line">                    let op2Evaluation = evaluate(remainingOps)</span><br><span class="line">                    if let operand2 = op2Evaluation.result &#123;</span><br><span class="line">                        return (operation(operand1, operand2), op2Evaluation.remainingOps)</span><br><span class="line">                    &#125;</span><br><span class="line"></span><br><span class="line">                    </span><br><span class="line">                &#125;</span><br><span class="line">                </span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        return (nil, ops)</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    func evaluate() -&gt; Double? &#123;</span><br><span class="line">        let (result, remainder) = evaluate(opStack)</span><br><span class="line">        print(&quot;\(opStack) = \(result) with \(remainder) left over&quot;)</span><br><span class="line">        return result</span><br><span class="line">        </span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    // 运算数 </span><br><span class="line">    func pushOperand(operand: Double) -&gt; Double? &#123;</span><br><span class="line">        opStack.append(Op.Operand(operand))</span><br><span class="line">        return evaluate()</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    // 运算符 </span><br><span class="line">    func performOperation(symbol: String) -&gt; Double? &#123;</span><br><span class="line">        if let operation = knownOps[symbol] &#123;</span><br><span class="line">            opStack.append(operation)</span><br><span class="line">        &#125;</span><br><span class="line">        return evaluate()</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">//</span><br><span class="line">//  ViewController.swift</span><br><span class="line">//  Calculator</span><br><span class="line">//</span><br><span class="line">//  Created by Will Ge on 6/28/15.</span><br><span class="line">//  Copyright © 2015 gewill.org. All rights reserved.</span><br><span class="line">//</span><br><span class="line"></span><br><span class="line">import UIKit</span><br><span class="line"></span><br><span class="line">class ViewController: UIViewController &#123;</span><br><span class="line">    </span><br><span class="line"></span><br><span class="line">    @IBOutlet weak var history: UILabel!</span><br><span class="line">    </span><br><span class="line">    @IBOutlet weak var display: UILabel!</span><br><span class="line">    </span><br><span class="line">    </span><br><span class="line">    var userIsInTheMiddleOfTypingANumber: Bool = false</span><br><span class="line">    </span><br><span class="line">    var brain = CauculatorBrain()</span><br><span class="line"></span><br><span class="line">    @IBAction func appendDigit(sender: UIButton) &#123;</span><br><span class="line">        let digit = sender.currentTitle!</span><br><span class="line">        if userIsInTheMiddleOfTypingANumber&#123;</span><br><span class="line">              display.text = display.text! + digit</span><br><span class="line">        &#125; else &#123;</span><br><span class="line">            display.text = digit</span><br><span class="line">            userIsInTheMiddleOfTypingANumber = true</span><br><span class="line">        &#125;</span><br><span class="line">    </span><br><span class="line">        print(&quot;digit = \(digit)&quot;)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    </span><br><span class="line">    </span><br><span class="line">    @IBAction func enter() &#123;</span><br><span class="line">        userIsInTheMiddleOfTypingANumber = false</span><br><span class="line">        if let result = brain.pushOperand(displayValue) &#123;</span><br><span class="line">            displayValue = result</span><br><span class="line">        &#125; else &#123;</span><br><span class="line">            displayValue = 0</span><br><span class="line">        &#125;</span><br><span class="line">        print(&quot;pushOperand = \(displayValue)&quot;)</span><br><span class="line">        </span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    @IBAction func operate(sender: UIButton) &#123;</span><br><span class="line">        </span><br><span class="line">        if userIsInTheMiddleOfTypingANumber &#123;</span><br><span class="line">            enter()</span><br><span class="line">        &#125;</span><br><span class="line">        if let operation = sender.currentTitle &#123;</span><br><span class="line">            print(&quot;\(operation)&quot;)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line"></span><br><span class="line">    </span><br><span class="line">    var displayValue: Double&#123;</span><br><span class="line">        get &#123;</span><br><span class="line">            return NSNumberFormatter().numberFromString(display.text!)!.doubleValue</span><br><span class="line">        &#125;</span><br><span class="line">        set &#123;</span><br><span class="line">            display.text = &quot;\(newValue)&quot;</span><br><span class="line">            userIsInTheMiddleOfTypingANumber = false</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://gewill.org/2015/07/07/new-DNS-setting/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Ge Will">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Will's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2015/07/07/new-DNS-setting/" itemprop="url">new DNS setting</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2015-07-07T23:48:24+08:00">
+                2015-07-07
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2015/07/07/new-DNS-setting/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2015/07/07/new-DNS-setting/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>我的需求： <a href="http://www.gewill.org" target="_blank" rel="noopener">www.gewill.org</a> 跳转到 gewill.org。</p>
+<p>使用 <a href="http://wan.wang" target="_blank" rel="noopener"> 万网 </a> 域名服务提供的 DNS 解析需要备案才能实现 301 跳转，所以之前使用 <a href="http://DNSPOD.COM" target="_blank" rel="noopener">DNSPOD</a> 的服务，但是不知为何竟失效了，gewill.org 能打开，<a href="http://www.gewill.org 打不开了。换了其他的也都不行，dig" target="_blank" rel="noopener">www.gewill.org 打不开了。换了其他的也都不行，dig</a> 也是对的。</p>
+<p>Google Github Pages 的相关信息，发现官方帮助文档就有简单是实现方案：</p>
+<blockquote>
+<p><a href="https://help.github.com/articles/tips-for-configuring-a-cname-record-with-your-dns-provider/" target="_blank" rel="noopener">Configuring a www subdomain</a></p>
+</blockquote>
+<blockquote>
+<p>If you configure both an apex domain (e.g. example.com) and a matching www subdomain (e.g. <a href="http://www.example.com)" target="_blank" rel="noopener">www.example.com)</a>, GitHub’s servers will automatically create redirects between the two.</p>
+</blockquote>
+<blockquote>
+<p>For example:</p>
+</blockquote>
+<blockquote>
+<p>If your CNAME file contains example.com, then <a href="http://www.example.com" target="_blank" rel="noopener">www.example.com</a> will redirect to example.com.<br>If your CNAME file contains <a href="http://www.example.com" target="_blank" rel="noopener">www.example.com</a>, then example.com will redirect to <a href="http://www.example.com.&quot;" target="_blank" rel="noopener">www.example.com.&quot;</a></p>
+</blockquote>
+<p><strong>DNS 同时 CNAME 顶级域名和 WWW，然后在 Github CNAME 文件中添加偏好的一个。</strong></p>
+<p>虽然之前有看过，一则英文看了只解一二，二则当时对于 DNS 和网站都刚刚接触。我学习新鲜东西节奏还是太慢，以后还要多思考，多与人交流。官方文档还是最简洁正确的。</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://gewill.org/2015/07/07/CS193P-2-More-Xcode-and-Swift-MVC/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Ge Will">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Will's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2015/07/07/CS193P-2-More-Xcode-and-Swift-MVC/" itemprop="url">CS193P 2. More Xcode and Swift, MVC</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2015-07-07T17:22:20+08:00">
+                2015-07-07
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2015/07/07/CS193P-2-More-Xcode-and-Swift-MVC/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2015/07/07/CS193P-2-More-Xcode-and-Swift-MVC/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p> 继续 DEMO: Calculator </p>
+<p>Swift 能类型推断 </p>
+<p> 自动布局：</p>
+<ul>
+<li>Pin: Spacing to nearest neighbor, Equal Widths, Equal Heights</li>
+<li>Resolve Auto Layout Issues: Clear Constraints</li>
+</ul>
+<p>87 果然是个神奇的数字，我之前没有对齐就开始 Pin，始终无法得到“Add 87 Constraints”，自然没有得到自动对齐的理想布局。</p>
+<p> 代码如下：<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">//</span><br><span class="line">//  ViewController.swift</span><br><span class="line">//  Calculator</span><br><span class="line">//</span><br><span class="line">//  Created by Will Ge on 6/28/15.</span><br><span class="line">//  Copyright © 2015 gewill.org. All rights reserved.</span><br><span class="line">//</span><br><span class="line"></span><br><span class="line">import UIKit</span><br><span class="line"></span><br><span class="line">class ViewController: UIViewController &#123;</span><br><span class="line">    </span><br><span class="line"></span><br><span class="line">    @IBOutlet weak var display: UILabel!</span><br><span class="line">    </span><br><span class="line">    var userIsInTheMiddleOfTypingANumber: Bool = false</span><br><span class="line"></span><br><span class="line">    @IBAction func appendDigit(sender: UIButton) &#123;</span><br><span class="line">        let digit = sender.currentTitle!</span><br><span class="line">        if userIsInTheMiddleOfTypingANumber&#123;</span><br><span class="line">              display.text = display.text! + digit</span><br><span class="line">        &#125; else &#123;</span><br><span class="line">            display.text = digit</span><br><span class="line">            userIsInTheMiddleOfTypingANumber = true</span><br><span class="line">        &#125;</span><br><span class="line">    </span><br><span class="line">        print(&quot;digit = \(digit)&quot;)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    var operandStack = Array&lt;Double&gt;()</span><br><span class="line">    </span><br><span class="line">    @IBAction func enter() &#123;</span><br><span class="line">        userIsInTheMiddleOfTypingANumber = false</span><br><span class="line">        operandStack.append(displayValue)</span><br><span class="line">        print(&quot;operandStack = \(operandStack)&quot;)</span><br><span class="line">        </span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    @IBAction func operate(sender: UIButton) &#123;</span><br><span class="line">        let operation = sender.currentTitle!</span><br><span class="line">        if userIsInTheMiddleOfTypingANumber &#123;</span><br><span class="line">            enter()</span><br><span class="line">        &#125;</span><br><span class="line">        switch operation &#123;</span><br><span class="line">        case &quot;×&quot;: performOperation &#123; $0 * $1 &#125;</span><br><span class="line">        case &quot;÷&quot;: performOperation &#123; $1 / $1 &#125;</span><br><span class="line">        case &quot;+&quot;: performOperation &#123; $0 + $1 &#125;</span><br><span class="line">        case &quot;−&quot;: performOperation &#123; $1 - $0 &#125;</span><br><span class="line">        case &quot;√&quot;: performOperation1 &#123; sqrt($0) &#125;</span><br><span class="line">        default: break</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    func performOperation(operation: (Double, Double) -&gt;Double) &#123;</span><br><span class="line">        if operandStack.count &gt;= 2 &#123;</span><br><span class="line">            displayValue = operation(operandStack.removeLast(), operandStack.removeLast())</span><br><span class="line">            enter()</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    func performOperation1(operation: Double -&gt;Double) &#123;</span><br><span class="line">        if operandStack.count &gt;= 2 &#123;</span><br><span class="line">            displayValue = operation(operandStack.removeLast())</span><br><span class="line">            enter()</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    </span><br><span class="line">    var displayValue: Double&#123;</span><br><span class="line">        get &#123;</span><br><span class="line">            return NSNumberFormatter().numberFromString(display.text!)!.doubleValue</span><br><span class="line">        &#125;</span><br><span class="line">        set &#123;</span><br><span class="line">            display.text = &quot;\(newValue)&quot;</span><br><span class="line">            userIsInTheMiddleOfTypingANumber = false</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>MVC:</p>
+<ul>
+<li> 各个模块之间的含义 </li>
+<li> 模块之间的通信有无 </li>
+<li> 模块之间的控制关系 </li>
+</ul>
+<p><img src="http://i.imgur.com/i8HTac7.png" alt="MVC"></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://gewill.org/2015/06/28/CS193P-1-Logistics-iOS-8-Overview/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Ge Will">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Will's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2015/06/28/CS193P-1-Logistics-iOS-8-Overview/" itemprop="url">CS193P 1.Logistics, iOS 8 Overview</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2015-06-28T15:28:11+08:00">
+                2015-06-28
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2015/06/28/CS193P-1-Logistics-iOS-8-Overview/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2015/06/28/CS193P-1-Logistics-iOS-8-Overview/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>iTunes U 课程地址：<a href="https://itunes.apple.com/us/course/developing-ios-8-apps-swift/id961180099" target="_blank" rel="noopener">iTunes U/Developing iOS 8 Apps Swift</a></p>
+<p>CS193P 课程地址：<a href="http://web.stanford.edu/class/cs193p/cgi-bin/drupal/" target="_blank" rel="noopener">CS193P iPhone Application Development</a></p>
+<p> 字幕下载：<a href="https://github.com/x140yu/Developing_iOS_8_Apps_With_Swift" target="_blank" rel="noopener">https://github.com/x140yu/Developing_iOS_8_Apps_With_Swift</a></p>
+<p> 课程不用多介绍，下面直接进入笔记：</p>
+<p>iOS 仍是一个 Unix 系统，添加了很多移动方面的模块和优化。</p>
+<p>Cocoa Touch 是本课的重点，如涉及 Media 等主题需要自行找资料深入学习。</p>
+<p><strong> 自己动手写代码，绝不复制粘贴别人的代码。</strong></p>
+<p> 接下来是 DEMO：Calculator </p>
+<p> 蓝线是自动布局时的好帮手。</p>
+<p>Storyboard 是正方形，自动布局就是实现对真实屏幕比例添加挤压效果或规则，已完成适配。</p>
+<p>Trailing Margin （尾部到边框）<br>Leading Margin （头部到边框）<br>Top （顶部）</p>
+<p>Outline mode （大纲模式）</p>
+<p>? 表示 Optional，有两种情况：</p>
+<ul>
+<li>nil ： 值缺失 </li>
+<li> 有值 </li>
+</ul>
+<p> 源码如下：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">//  ViewController.swift</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">import UIKit</span><br><span class="line"></span><br><span class="line">class ViewController: UIViewController &#123;</span><br><span class="line"></span><br><span class="line">    </span><br><span class="line">    @IBOutlet weak var display: UILabel!</span><br><span class="line">    </span><br><span class="line">    var userIsInTheMiddleOfTypingANumber: Bool = false</span><br><span class="line"></span><br><span class="line">    @IBAction func appendDigit(sender: UIButton) &#123;</span><br><span class="line">        let digit = sender.currentTitle!</span><br><span class="line">        if userIsInTheMiddleOfTypingANumber&#123;</span><br><span class="line">              display.text = display.text! + digit</span><br><span class="line">        &#125; else &#123;</span><br><span class="line">            display.text = digit</span><br><span class="line">            userIsInTheMiddleOfTypingANumber = true</span><br><span class="line">        &#125;</span><br><span class="line">    </span><br><span class="line">        print(&quot;digit = \(digit)&quot;)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://gewill.org/2015/06/20/Windows-Advanced-Learning-Methods/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Ge Will">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Will's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2015/06/20/Windows-Advanced-Learning-Methods/" itemprop="url">Windows 进阶的学习方法－笔记</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2015-06-20T10:31:57+08:00">
+                2015-06-20
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2015/06/20/Windows-Advanced-Learning-Methods/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2015/06/20/Windows-Advanced-Learning-Methods/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p><a href="http://boolan.com/course/section/1000001152" target="_blank" rel="noopener">Windows 进阶的学习方法 </a> 是<a href="http://boolan.com/" target="_blank" rel="noopener">博览网 </a> 的<a href="http://boolan.com/course/20" target="_blank" rel="noopener">Windows 专家管理与排错 </a> 第一讲，讲师彭爱华，其中关于学习方法，尤其是少下载，贪多嚼不烂，击中我要害。虽然讲的是 Windows，但方法还是通用的，以下为学习笔记。</p>
+<p>## 良好的学习习惯</p>
+<ul>
+<li>养成阅读英文资料的习惯</li>
+<li><strong>少下载</strong>、勤阅读、多动手</li>
+<li>知识的整理，善于写博客，多分享</li>
+<li>基础知识要扎实，平台和核心领域知识</li>
+</ul>
+<p>## 关于提问</p>
+<ul>
+<li>必须经过仔细思考，才提问，切忌不动脑子</li>
+<li>提问不是为了解决眼前问题，而是获得启发</li>
+<li>好的问题时带有启发性的，衍生性的</li>
+<li>能否整理经典的问题，沉淀下来？（写博客）</li>
+</ul>
+<p>## 常见弊病</p>
+<ul>
+<li>盲目的跟风式学习</li>
+<li>吃着碗里，想着锅里</li>
+<li>理论不联系实际</li>
+<li>不能高效利用资源</li>
+</ul>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://gewill.org/2015/06/08/Minimalism-in-Web-design-past-and-future/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -2534,744 +3266,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://gewill.org/2015/05/16/Crazy-Swift-Lecture-Chapter-4/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Ge Will">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Will's Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2015/05/16/Crazy-Swift-Lecture-Chapter-4/" itemprop="url">Crazy Swift Lecture Chapter 4</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2015-05-16T12:33:01+08:00">
-                2015-05-16
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2015/05/16/Crazy-Swift-Lecture-Chapter-4/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2015/05/16/Crazy-Swift-Lecture-Chapter-4/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <blockquote>
-<p>Code is a kind of document.</p>
-</blockquote>
-<p># 第四章：流程控制 </p>
-<p>##4.2 分支结构 </p>
- <figure class="highlight swift"><table><tr><td class="code"><pre><span class="line"> <span class="keyword">var</span> age = <span class="number">30</span><span class="keyword">if</span> age &gt; <span class="number">20</span><span class="comment">// 只有当 age &gt; 20 时，下面花括号括起来的语句块才会执行 </span><span class="comment">// 花括号括起来的语句是一个整体，要么一起执行，要么一起不会执行 </span>&#123;	<span class="built_in">println</span>(<span class="string">"年龄已经大于 20 岁了"</span>)	<span class="built_in">println</span>(<span class="string">"20 岁以上的人应该学会承担责任..."</span>)&#125;<span class="keyword">var</span> a : <span class="type">Int?</span> = <span class="number">5</span><span class="keyword">if</span> a != <span class="literal">nil</span><span class="comment">// 只要 a 为非零，系统都当其为真，执行下面的执行体，只有一行代码作为代码块 </span>&#123;	<span class="built_in">println</span>(<span class="string">"a 为非空"</span>)&#125;<span class="keyword">else</span><span class="comment">// 否则，执行下面的执行体，只有一行代码作为代码块 </span>&#123;	<span class="built_in">println</span>(<span class="string">"a 为空"</span>)&#125;</span><br></pre></td></tr></table></figure>
-<figure class="highlight swift"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 错误的用法 </span></span><br><span class="line"><span class="keyword">var</span> age = <span class="number">45</span><span class="keyword">if</span> age &gt; <span class="number">20</span>&#123;	<span class="built_in">println</span>(<span class="string">"青年人"</span>)&#125;<span class="keyword">else</span> <span class="keyword">if</span> age &gt; <span class="number">40</span>&#123;	<span class="built_in">println</span>(<span class="string">"中年人"</span>)&#125;<span class="keyword">else</span> <span class="keyword">if</span> age &gt; <span class="number">60</span>&#123;	<span class="built_in">println</span>(<span class="string">"老年人"</span>)&#125;</span><br></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">// 错误的用法 </span><br><span class="line">var age = 45if age &gt; 20&#123;	println(&quot; 青年人 &quot;)&#125;else if age &gt; 40 &amp;&amp; !(age &gt; 20)&#123;	println(&quot; 中年人 &quot;)&#125;else if age &gt; 60 &amp;&amp; !(age &gt; 20) &amp;&amp; !(age &gt; 40 &amp;&amp; !(age &gt; 20))&#123;	println(&quot; 老年人 &quot;)&#125;</span><br></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">var age = 45if age &gt; 60&#123;	println(&quot; 老年人 &quot;)&#125;else if age &gt; 40&#123;	println(&quot; 中年人 &quot;)&#125;else if age &gt; 20&#123;	println(&quot; 青年人 &quot;)&#125;</span><br></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">var age = 45if age &gt; 60&#123;	println(&quot; 老年人 &quot;)&#125;else if age &gt; 40 &amp;&amp; !(age &gt; 60)&#123;	println(&quot; 中年人 &quot;)&#125;else if age &gt; 20 &amp;&amp; !(age &gt; 60) &amp;&amp; !(age &gt; 40 &amp;&amp; !(age &gt; 60))&#123;	println(&quot; 青年人 &quot;)&#125;</span><br></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">// 错误的用法 </span><br><span class="line">var score = &quot;c&quot;// 执行 swicth 分支语句switch score&#123;	case &quot;A&quot;: 	case &quot;a&quot;:		println(&quot; 优秀.&quot;)	case &quot;B&quot;: 	case &quot;b&quot;:		println(&quot; 良好.&quot;)	case &quot;C&quot;: 	case &quot;c&quot;:		println(&quot; 中.&quot;)	case &quot;D&quot;: 	case &quot;d&quot;:		println(&quot; 及格.&quot;)	case &quot;E&quot;:	case &quot;e&quot;:		println(&quot; 不及格.&quot;)	default: 		println(&quot; 成绩输入错误 &quot;)&#125;</span><br></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">var score = &quot;c&quot;// 执行 swicth 分支语句switch score&#123;	case &quot;A&quot; , &quot;a&quot;: 		println(&quot; 优秀.&quot;)	case &quot;B&quot; , &quot;b&quot;: 		println(&quot; 良好.&quot;)	case &quot;C&quot; , &quot;c&quot;: 		println(&quot; 中.&quot;)	case &quot;D&quot; , &quot;d&quot;: 		println(&quot; 及格.&quot;)	case &quot;E&quot; , &quot;e&quot;:		println(&quot; 不及格.&quot;)	default: 		println(&quot; 成绩输入错误 &quot;)&#125;</span><br></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">var num = 5var description = &quot; 数值 \(num) 是 &quot;switch num&#123;	case 2, 3, 5, 7, 11, 13, 17, 19:		description += &quot;【质数】，而且还是 &quot;		// 使用 fallthrough 执行贯穿		fallthrough	default:		description += &quot;【整数】&quot;&#125;println(description)</span><br></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">// break 结束 swift</span><br><span class="line">var score = &quot;B&quot;// 执行 swicth 分支语句switch score&#123;	case &quot;B&quot;: 		println(&quot; 良好.&quot;)	case &quot;C&quot;: 		println(&quot; 中.&quot;)	case &quot;D&quot;: 		println(&quot; 及格.&quot;)	case &quot;E&quot;: 		println(&quot; 不及格.&quot;)	default: 		break&#125;</span><br></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">var score = 78// 执行 swicth 分支语句, 进行范围匹配switch score&#123;	case 91...100:		println(&quot; 优秀.&quot;)	case 81...90: 		println(&quot; 良好.&quot;)	case 71...80: 		println(&quot; 中.&quot;)	case 60...70: 		println(&quot; 及格.&quot;)	case 0..&lt;60: 		println(&quot; 不及格.&quot;)	default: 		break&#125;</span><br></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">// swift 的元组匹配 </span><br><span class="line">var somePoint = (x:0, y:0)switch somePoint &#123;	case (0, 0):		println(&quot;(0, 0) 位于原点 &quot;)	case (_, 0):		println(&quot;(\(somePoint.0), 0) 位于 X 轴上 &quot;)	case (0, _):		println(&quot;(0, \(somePoint.1)) 位于 Y 轴上 &quot;)	case (0...Int.max , 0...Int.max):		println(&quot;(\(somePoint.0), \(somePoint.1)) 位于第一象限 &quot;)	case (Int.min..&lt;0 , 0...Int.max):		println(&quot;(\(somePoint.0), \(somePoint.1)) 位于第二象限 &quot;)	case (Int.min..&lt;0 , Int.min..&lt;0):		println(&quot;(\(somePoint.0), \(somePoint.1)) 位于第三象限 &quot;)		case (0...Int.max , Int.min..&lt;0):		println(&quot;(\(somePoint.0), \(somePoint.1)) 位于第四象限 &quot;)	default:		break&#125;</span><br></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">// case 的值绑定 </span><br><span class="line">var score = 178// 执行 swicth 分支语句switch score&#123;	case 91...100:		println(&quot; 优秀.&quot;)	case 81...90: 		println(&quot; 良好.&quot;)	case 71...80: 		println(&quot; 中.&quot;)	case 60...70: 		println(&quot; 及格.&quot;)	case 0..&lt;60: 		println(&quot; 不及格.&quot;)	case let grade: 		println(&quot; 您的输入的成绩 \(grade) 不合法 &quot;)&#125;</span><br></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">// case 的值绑定, switch 表达式是元组，使用值绑定更加灵活 </span><br><span class="line">var somePoint = (x:0, y:2)switch somePoint &#123;	case (0, 0):		println(&quot;(0, 0) 位于原点 &quot;)	// 当 y 坐标为 0 时，进入该 case 块，并将元组的 x 成员绑定到临时变量 x	case (var x, 0):		println(&quot; 该点位于 X 轴上，其 x 值为：\(x)&quot;)	// 当 x 坐标为 0 时，进入该 case 块，并将元组的 y 成员绑定到临时变量 y	case (0, var y):		println(&quot; 该点位于 Y 轴上，其 x 值为：\(y)&quot;)	// 将元组的 x 成员绑定到临时变量 x，将元组的 y 成员绑定到临时变量 y		case var (x, y):		println(&quot; 该点位于其他位置：\(x),\(y)&quot;)&#125;</span><br></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">// case 的 where 子句 </span><br><span class="line">var somePoint = (x:-3, y:2)switch somePoint &#123;	case (0, 0):		println(&quot;(0, 0) 位于原点 &quot;)	// 当 y 坐标为 0 时，进入该 case 块，并将元组的 x 成员绑定到临时变量 x	case (var x, 0):		println(&quot; 该点位于 X 轴上，其 x 值为：\(x)&quot;)	// 当 x 坐标为 0 时，进入该 case 块，并将元组的 y 成员绑定到临时变量 y	case (0, var y):		println(&quot; 该点位于 Y 轴上，其 x 值为：\(y)&quot;)	// 将元组的 x 成员绑定到临时变量 x，将元组的 y 成员绑定到临时变量 y	case var (x, y) where x &gt; 0 &amp;&amp; y &gt; 0:		println(&quot;\(x),\(y) 点位于第一象限 &quot;)	case var (x, y) where x &lt; 0 &amp;&amp; y &gt; 0:		println(&quot;\(x),\(y) 点位于第二象限 &quot;)	case var (x, y) where x &lt; 0 &amp;&amp; y &lt; 0:		println(&quot;\(x),\(y) 点位于第三象限 &quot;)	case var (x, y) where x &gt; 0 &amp;&amp; y &lt; 0:		println(&quot;\(x),\(y) 点位于第四象限 &quot;)	default:		break&#125;</span><br></pre></td></tr></table></figure>
-<p>##4.3 循环结构 </p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">// 循环的初始化条件var count = 0// 当 count 小于 10 时，执行循环体while count &lt; 10&#123;	println(&quot;count:\(count)&quot;)	// 迭代语句	count++&#125;println(&quot; 循环结束!&quot;)// 下面是一个死循环var count2 = 0while count2 &lt; 10&#123;	println(&quot; 不停执行的死循环 \(count2)&quot;)	count2--&#125;println(&quot; 永远无法跳出的循环体 &quot;)// 下面是错误的示范var count3 = 0// 即使循环体只有一行代码，也不允许省略花括号while count3 &lt; 10 	println(&quot;count3: \(count3++)&quot;)</span><br></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">// 定义变量 countvar count = 1// 执行 do while 循环do&#123;	println(&quot;count: \(count)&quot;)	// 循环迭代语句	count++	// 循环条件紧跟 while 关键字&#125; while count &lt; 10println(&quot; 循环结束!&quot;)// 定义变量 count2var count2 = 20// 执行 do while 循环do&#123;	// 这行代码把循环体和迭代部分合并成了一行代码	println(&quot;count2: \(count2++)&quot;)&#125; while count2 &lt; 10println(&quot; 循环结束!&quot;)</span><br></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">// 循环的初始化条件, 循环条件，循环迭代语句都在下面一行for var count = 0 ; count &lt; 10 ; count++&#123;	println(&quot;count: \(count)&quot;)&#125;println(&quot; 循环结束!&quot;)</span><br></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">// 同时定义了三个初始化变量，使用 &amp;&amp; 来组合多个逻辑表达式for var b = 0, s = 0 , p = 0 	; b &lt; 10 &amp;&amp; s &lt; 4 &amp;&amp; p &lt; 10; p++&#123;	println(&quot;b:\(b++)&quot;)	println(&quot;s:\(++s), p:\(p)&quot;)&#125;</span><br></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">// 省略了 for 循环三个部分，循环条件将一直为真for ; ; &#123;	println(&quot;=============&quot;)&#125;</span><br></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">// 把 for 循环的初始化条件提出来独立定义var count = 0// for 循环里只放循环条件for ; count &lt; 10 ; &#123;	println(&quot;count: \(count)&quot;)	// 把循环迭代部分放在循环体之后定义	count++&#125;println(&quot; 循环结束!&quot;)// 此处将还可以访问 count 变量var tmp = 0// 循环的初始化条件, 循环条件，循环迭代语句都在下面一行for var i = 0 ; i &lt; 10 ; i++&#123;	println(&quot;i 的值: \(i)&quot;)	// 使用 tmp 来保存循环变量 i 的值。	tmp = i&#125;println(&quot; 循环结束!&quot;)// 此处还可通过 tmp 变量来访问 i 变量的值。</span><br></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">var domainName = &quot;fkit.org&quot;// 使用 for-in 循环遍历字符串for ch in domainName&#123;	println(ch)&#125;var crazyit = &quot;crazyit.org&quot;// 使用 for-in 循环遍历字符串, 忽略每次遍历的字符for _ in domainName&#123;	print(&quot; 🐻 &quot;)&#125;</span><br><span class="line">println()</span><br></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">var max = 7var result = 1// 使用 for-in 循环遍历范围for num in 1...max&#123;	result *= num&#125;println(result)</span><br></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">// 外层循环for var i = 0 ; i &lt; 5 ; i++&#123;	// 内层循环	for var j = 0; j &lt; 3 ; j++	&#123;		println(&quot;i 的值为: \(i) , j 的值为: \(j)&quot;)	&#125;&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="4-4- 控制循环结构"><a href="#4-4- 控制循环结构" class="headerlink" title="4.4 控制循环结构"></a>4.4 控制循环结构 </h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">// 一个简单的 for 循环for var i = 0; i &lt; 10 ; i++&#123;	println(&quot;i 的值是:\(i)&quot;)	if i == 2	&#123;		// 执行该语句时将结束循环		break	&#125;&#125;</span><br></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">// 外层循环，outer 作为标识符outer: for var i = 0 ; i &lt; 5 ; i++ &#123;	// 内层循环	for var j = 0; j &lt; 3 ; j++	&#123;		println(&quot;i 的值为:\(i), j 的值为:\(j)&quot;)		if j == 1		&#123;			// 跳出 outer 标签所标识的循环			break outer		&#125;	&#125;&#125;</span><br></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">// 一个简单的 for 循环for var i = 0; i &lt; 3 ; i++&#123;	println(&quot;i 的值是 \(i)&quot;)	if i == 1	&#123;		// 忽略本次循环的剩下语句		continue	&#125;	println(&quot;continue 后的输出语句 &quot;)&#125;</span><br></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">// 外层循环outer: for var i = 0 ; i &lt; 5 ; i++&#123;	// 内层循环	for var j = 0; j &lt; 3 ; j++ 	&#123;		println(&quot;i 的值为:\(i), j 的值为:\(j)&quot;)		if j == 1		&#123;			// 忽略 outer 标签所指定的循环中本次循环所剩下语句			continue outer		&#125;	&#125;&#125;</span><br></pre></td></tr></table></figure>
-<figure class="highlight swift"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">test</span><span class="params">()</span></span>&#123;	<span class="comment">// 一个简单的 for 循环 </span>	<span class="keyword">for</span> <span class="keyword">var</span> i = <span class="number">0</span>; i &lt; <span class="number">10</span> ; i++	&#123;		<span class="built_in">println</span>(<span class="string">"i 的值是:\(i)"</span>);		<span class="keyword">if</span> i == <span class="number">1</span>		&#123;			<span class="keyword">return</span>;		&#125;		<span class="built_in">println</span>(<span class="string">"return 后的输出语句"</span>)	&#125;&#125;test()</span><br></pre></td></tr></table></figure>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://gewill.org/2015/05/16/Crazy-Swift-Lecture-Chapter-3/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Ge Will">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Will's Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2015/05/16/Crazy-Swift-Lecture-Chapter-3/" itemprop="url">Crazy Swift Lecture Chapter 3</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2015-05-16T01:11:46+08:00">
-                2015-05-16
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2015/05/16/Crazy-Swift-Lecture-Chapter-3/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2015/05/16/Crazy-Swift-Lecture-Chapter-3/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <blockquote>
-<p>Code is a kind of document.</p>
-</blockquote>
-<p># 第三章：运算符与表达式 </p>
-<p>##3.1 赋值运算符 </p>
-<figure class="highlight swift"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 为变量 str 赋值为 Swift</span><span class="keyword">var</span> str = <span class="string">"Swift"</span><span class="comment">// 为变量 pi 赋值为 3.14</span><span class="keyword">var</span> pi:<span class="type">Double</span> = <span class="number">3.14</span><span class="comment">// 为变量 visited 赋值为 YES</span><span class="keyword">var</span> visited:<span class="type">Bool</span> = <span class="literal">true</span><span class="comment">// 将变量 str 的值赋给 str2</span><span class="keyword">var</span> str2 : <span class="type">String</span> = str<span class="keyword">var</span> a:<span class="type">Int</span><span class="comment">// 由于赋值表达式 a=20 实际上并没有值，因此编译器会对变量 b 发出警告 </span><span class="keyword">var</span> b = a = <span class="number">20</span><span class="keyword">var</span> d1: <span class="type">Double</span> = <span class="number">12.34</span><span class="comment">// 将表达式的值赋给 d2</span><span class="keyword">var</span> d2 = d1 + <span class="number">5</span><span class="comment">// 输出 d2 的值 </span><span class="built_in">println</span>(<span class="string">"d2 的值为：\(d2)"</span>)</span><br></pre></td></tr></table></figure>
-<p>##3.2 算数运算符 <br><figure class="highlight swift"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> a = <span class="number">5.2</span><span class="keyword">var</span> b = <span class="number">3.1</span><span class="keyword">var</span> sum = a + b<span class="comment">// sum 的值为 8.3</span><span class="built_in">println</span>(<span class="string">"sum 的值为：\(sum)"</span>)<span class="keyword">var</span> <span class="built_in">c</span> = <span class="number">5.2</span><span class="keyword">var</span> d = <span class="number">3.1</span><span class="keyword">var</span> sub = <span class="built_in">c</span> - d<span class="comment">// sub 的值为 2.1</span><span class="built_in">println</span>(<span class="string">"sub 的值为：\(sub)"</span>)<span class="keyword">var</span> e = <span class="number">5.2</span><span class="keyword">var</span> f = <span class="number">3.1</span><span class="keyword">var</span> multiply = e * f<span class="comment">// multiply 的值为 16.12</span><span class="built_in">println</span>(<span class="string">"multiply 的值为：\(multiply)"</span>)</span><br></pre></td></tr></table></figure></p>
-<figure class="highlight swift"><table><tr><td class="code"><pre><span class="line"><span class="built_in">println</span>(<span class="string">"19/4 的结果是:\(19/4)"</span>)<span class="keyword">var</span> a = <span class="number">5.2</span><span class="keyword">var</span> b = <span class="number">3.1</span><span class="keyword">var</span> div = a / b<span class="comment">// div 的值将是 1.67742</span><span class="built_in">println</span>(<span class="string">"div 的值是:\(div)"</span>)<span class="comment">// 输出正无穷大：inf</span><span class="built_in">println</span>(<span class="string">"5 除以 0.0 的结果是:\(5 / 0.0)"</span>)<span class="comment">// 输出负无穷大：-inf</span><span class="built_in">println</span>(<span class="string">"-5 除以 0.0 的结果是:\(-5.0 / 0)"</span>)<span class="comment">// 下面代码将导致编译错误 </span><span class="comment">//println("5 除以 0 的结果是:\(-5 / 0)")</span></span><br></pre></td></tr></table></figure>
-<figure class="highlight swift"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> Foundation<span class="comment">// 定义变量 a 为 3.2</span><span class="keyword">var</span> a = <span class="number">3.2</span><span class="comment">// 求 a 的 5 次方，并将计算结果赋为 b。</span><span class="keyword">var</span> b = pow(a , <span class="number">5</span>)<span class="comment">// 输出 b 的值 </span><span class="built_in">println</span>(<span class="string">"b 的值为：\(b)"</span>)<span class="comment">// 求 a 的平方根，并将结果赋给 c</span><span class="keyword">var</span> <span class="built_in">c</span> = sqrt(a)<span class="comment">// 输出 c 的值 </span><span class="built_in">println</span>(<span class="string">"c 的值为：\(c)"</span>)<span class="comment">// 计算随机数, 返回一个 0～10 之间的伪随机数。</span><span class="keyword">var</span> d = arc4random() % <span class="number">10</span><span class="comment">// 输出随机数 d 的值 </span><span class="built_in">println</span>(<span class="string">"d 的值为：\(d)"</span>)<span class="comment">// 求 1.57 的 sin 函数值：1.57 被当成弧度数 </span><span class="keyword">var</span> e = sin(<span class="number">1.57</span>)<span class="comment">// 输出接近 1</span><span class="built_in">println</span>(<span class="string">"e 的值为：\(e)"</span>)</span><br></pre></td></tr></table></figure>
-<figure class="highlight swift"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> Foundation</span><br><span class="line"><span class="keyword">var</span> a = <span class="number">5.2</span><span class="keyword">var</span> b = <span class="number">3.1</span><span class="keyword">var</span> mod = a % b<span class="built_in">println</span>(<span class="string">"mod 的值为：\(mod)"</span>) <span class="comment">// mod 的值为 2.1</span><span class="built_in">println</span>(<span class="string">"-5.2%-3.1 的值为：\(-5.2 % -3.1)"</span>) <span class="comment">// 输出 -2.1</span><span class="built_in">println</span>(<span class="string">"-5.2%3.1 的值为：\(-5.2 % 3.1)"</span>) <span class="comment">// 输出 -2.1</span><span class="built_in">println</span>(<span class="string">"5.2%3.1 的值为：\(5.2 % -3.1)"</span>) <span class="comment">// 输出 2.1</span><span class="built_in">println</span>(<span class="string">"5 对 0.0 求余的结果是:\(5 % 0.0)"</span>) <span class="comment">// 输出非数：nan</span><span class="built_in">println</span>(<span class="string">"-5.0 对 0 求余的结果是:\(-5.0 % 0)"</span>) <span class="comment">// 输出非数：nan</span><span class="built_in">println</span>(<span class="string">"0 对 5.0 求余的结果是:\(0 % 5.0)"</span>) <span class="comment">// 输出 0.0</span><span class="built_in">println</span>(<span class="string">"0 对 0.0 求余的结果是:\(0 % 0.0)"</span>) <span class="comment">// 输出非数：nan</span><span class="comment">// 下面代码将导致编译错误 </span><span class="comment">//println("-5 对 0 求余的结果是:\(-5 % 0)")</span></span><br></pre></td></tr></table></figure>
-<p>##3.3 溢出运算符 <br><figure class="highlight swift"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> a:<span class="type">Int16</span> = <span class="number">20222</span></span><br><span class="line">a = a &amp;* <span class="number">6</span></span><br><span class="line"><span class="built_in">println</span>(a)  <span class="comment">// 输出 -9740</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> b:<span class="type">UInt16</span> = <span class="number">20</span></span><br><span class="line">b = b &amp;- <span class="number">24</span></span><br><span class="line"><span class="built_in">println</span>(b)  <span class="comment">// 输出 65532</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> <span class="built_in">c</span> = <span class="type">Int8</span>.<span class="built_in">min</span></span><br><span class="line"><span class="built_in">c</span> = <span class="built_in">c</span> &amp;- <span class="number">1</span></span><br><span class="line"><span class="built_in">println</span>(<span class="built_in">c</span>)  <span class="comment">// 输出 127</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> x = <span class="number">20</span><span class="keyword">let</span> y = x &amp;/ <span class="number">0</span>  <span class="comment">// 得到 0</span><span class="keyword">let</span> z = x &amp;% <span class="number">0</span>  <span class="comment">// 得到 0</span></span><br><span class="line"><span class="built_in">println</span>(y) </span><br><span class="line"><span class="built_in">println</span>(z)</span><br></pre></td></tr></table></figure></p>
-<p>##3.4 位运算符 <br><figure class="highlight swift"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 将输出 1</span><span class="built_in">println</span>(<span class="number">5</span> &amp; <span class="number">9</span>)<span class="comment">// 将输出 13</span><span class="built_in">println</span>(<span class="number">5</span> | <span class="number">9</span>)<span class="keyword">var</span> a:<span class="type">Int32</span> = -<span class="number">5</span><span class="comment">// 将输出 4</span><span class="built_in">println</span>(~a)<span class="comment">// 将输出 12</span><span class="built_in">println</span>(<span class="number">5</span> ^ <span class="number">9</span>)<span class="comment">// 输出 20</span><span class="built_in">println</span>(<span class="string">"\(5 &lt;&lt; 2)"</span>)<span class="comment">// 输出 -20</span><span class="built_in">println</span>(<span class="string">"\(-5 &lt;&lt; 2)"</span>)<span class="keyword">var</span> b:<span class="type">Int32</span> = -<span class="number">5</span><span class="comment">// 输出 -2</span><span class="built_in">println</span>(<span class="string">"\(b &gt;&gt; 2)"</span>)</span><br></pre></td></tr></table></figure></p>
-<p>##3.6 范围运算符 <br><figure class="highlight swift"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 使用闭范围运算符定义范围 </span><span class="keyword">var</span> range1 = <span class="number">2</span>...<span class="number">6</span><span class="keyword">for</span> num <span class="keyword">in</span> range1&#123;	<span class="built_in">println</span>(<span class="string">"\(num) * 5 = \(num * 5)"</span>)&#125;<span class="built_in">println</span>(<span class="string">"----- 下面是半开范围 -----"</span>)<span class="comment">// 定义数组 </span><span class="keyword">let</span> books = [<span class="string">"Swift"</span> , <span class="string">"Objective-C"</span> , <span class="string">"C"</span> , <span class="string">"C++"</span>]<span class="comment">// 使用半开范围运算符定义范围 </span><span class="keyword">for</span> index <span class="keyword">in</span> <span class="number">0</span>..&lt;books.<span class="built_in">count</span>&#123;	<span class="built_in">println</span>(<span class="string">"第 \(index+1) 种语言是：\(books[index])"</span>)&#125;</span><br></pre></td></tr></table></figure></p>
-<p>##3.7 比较运算符 <br><figure class="highlight swift"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> Foundation<span class="comment">// 输出 true</span><span class="built_in">println</span>(<span class="string">"5 是否大于 4：\(5 &gt; 4)"</span>)<span class="comment">// 输出 false</span><span class="built_in">println</span>(<span class="string">"3 的 4 次方是否大于等于 90.0：\(pow(3, 4) &gt;= 90.0)"</span>)<span class="comment">// Swift 要求比较运算符两边的数值的类型完全一样，</span><span class="comment">// 因此必须把前面 Int 类型强转为 Double 之后再比较，输出 true</span><span class="built_in">println</span>(<span class="string">"20 是否大于等于 20.0：\(Double(20) &gt;= 20.0)"</span>)<span class="comment">// 输出 true</span><span class="built_in">println</span>(<span class="string">"5 和 5.0 是否相等：\(Double(5) == 5.0)"</span>)<span class="comment">// 输出 false</span><span class="built_in">println</span>(<span class="string">"true 和 false 是否相等：\(true == false)"</span>)<span class="comment">// 创建 2 个对象 </span><span class="keyword">var</span> d1 = <span class="type">NSMutableArray</span>()<span class="keyword">var</span> d2 = <span class="type">NSMutableArray</span>()<span class="comment">// 判断两个对象的内容是否相等，输出 true</span><span class="built_in">println</span>(d1 == d2)<span class="comment">// 判断 d1、d2 是否指向同一个对象，输出 false</span><span class="built_in">println</span>(d1 === d2)</span><br></pre></td></tr></table></figure></p>
-<p>##3.8 逻辑运算符 <br><figure class="highlight swift"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> bookName = <span class="string">"疯狂 Swifts"</span><span class="keyword">var</span> price = <span class="number">79</span><span class="keyword">var</span> version = <span class="string">"正式版"</span><span class="keyword">if</span> bookName.hasSuffix(<span class="string">"Swift"</span>) &amp;&amp; (price &lt; <span class="number">50</span> || version == <span class="string">"正式版"</span>)&#123;	<span class="built_in">println</span>(<span class="string">"打算购买这本 Swift 图书"</span>)&#125;<span class="keyword">else</span>&#123;	<span class="built_in">println</span>(<span class="string">"不购买！"</span>)&#125;</span><br></pre></td></tr></table></figure></p>
-<figure class="highlight swift"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 直接对 false 求非运算，将返回 true</span><span class="built_in">println</span>(!<span class="literal">false</span>)<span class="comment">// 5&gt;3 返回 true，20.0 大于 10，因此结果返回 true</span><span class="built_in">println</span>(<span class="number">5</span> &gt; <span class="number">3</span> &amp;&amp; <span class="number">20.0</span> &gt; <span class="type">Double</span>(<span class="number">10</span>))<span class="comment">// 4&gt;=5 返回 false，"c"&gt;"a" 返回 true。求或后返回 true</span><span class="built_in">println</span>(<span class="number">4</span> &gt;= <span class="number">5</span> || <span class="string">"c"</span> &gt; <span class="string">"a"</span>)<span class="comment">// 4&gt;=5 返回 false，"c"&gt;"a" 返回 true。两个不同的操作数求异或返回 true</span><span class="built_in">println</span>((<span class="number">4</span> &gt;= <span class="number">5</span>) ^ (<span class="string">"c"</span> &gt; <span class="string">"a"</span>))<span class="comment">// 定义变量 a,b，并为两个变量赋值 </span><span class="keyword">var</span> a = <span class="number">5</span><span class="keyword">var</span> b = <span class="number">10</span><span class="comment">// 对 a &gt; 4 和 b++ &gt; 10 求或运算 </span><span class="keyword">if</span> (a &gt; <span class="number">4</span>) | (b++ &gt; <span class="number">10</span>)&#123;	<span class="comment">// 输出 a 的值是 5，b 的值是 11</span>	<span class="built_in">println</span>(<span class="string">"a 的值是:\(a)，b 的值是:\(b)"</span>)&#125;<span class="comment">// 定义变量 c,d，并为两个变量赋值 </span><span class="keyword">var</span> <span class="built_in">c</span> = <span class="number">5</span><span class="keyword">var</span> d = <span class="number">10</span><span class="comment">// c &gt; 4 || d++ &gt; 10 求或运算 </span><span class="keyword">if</span> <span class="built_in">c</span> &gt; <span class="number">4</span> || d++ &gt; <span class="number">10</span>&#123;	<span class="comment">// 输出 c 的值是 5，d 的值是 10</span>	<span class="built_in">println</span>(<span class="string">"c 的值是:\(c)，d 的值是:\(d)"</span>)&#125;</span><br></pre></td></tr></table></figure>
-<p>##3.9 三目运算符 <br><figure class="highlight swift"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> a = <span class="number">5</span><span class="keyword">var</span> b = <span class="number">3</span><span class="keyword">var</span> str = a &gt; b ? <span class="string">"a 大于 b"</span> : <span class="string">"a 不大于 b"</span><span class="comment">// 输出 "a 大于 b"</span><span class="built_in">println</span>(str)<span class="keyword">var</span> str2: <span class="type">String!</span> = <span class="literal">nil</span><span class="keyword">if</span> a &gt; b&#123;	str2 = <span class="string">"a 大于 b"</span>&#125;<span class="keyword">else</span>&#123;	str2 = <span class="string">"a 不大于 b"</span>&#125;<span class="comment">// 输出 "a 大于 b"</span><span class="built_in">println</span>(str2)<span class="comment">// 输出 "a 大于 b"</span>a &gt; b ? <span class="built_in">println</span>(<span class="string">"a 大于 b"</span>) : <span class="built_in">println</span>(<span class="string">"a 不大于 b"</span>)<span class="keyword">var</span> <span class="built_in">c</span> = <span class="number">5</span><span class="keyword">var</span> d = <span class="number">5</span><span class="comment">// 下面将输出 c 等于 d</span><span class="built_in">c</span> &gt; d ? <span class="built_in">println</span>(<span class="string">"c 大于 d"</span>) : (<span class="built_in">c</span> &lt; d ? <span class="built_in">println</span>(<span class="string">"c 小于 d"</span>) : <span class="built_in">println</span>(<span class="string">"c 等于 d"</span>))</span><br></pre></td></tr></table></figure></p>
-<p>##3.10 nil 合并运算符 <br><figure class="highlight swift"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> defaultName = <span class="string">"孙悟空"</span><span class="comment">// 定义可选类型的变量，该变量不为 nil</span><span class="keyword">var</span> name1: <span class="type">String?</span> = <span class="string">"唐僧"</span><span class="built_in">println</span>(name1 ?? defaultName)  <span class="comment">// 输出 唐僧 </span><span class="comment">// 定义可选类型的的变量，不指定初始值 </span><span class="keyword">var</span> name2: <span class="type">String?</span>  <span class="comment">// 此时 name2 默认值为 nil</span><span class="built_in">println</span>(name2 ?? defaultName)  <span class="comment">// 输出 孙悟空 </span><span class="comment">// 使用三目运算符代替?? 运算符 </span><span class="built_in">println</span>(name1 != <span class="literal">nil</span> ? name1! : defaultName)  <span class="comment">// 输出 唐僧 </span><span class="built_in">println</span>(name2 != <span class="literal">nil</span> ? name2! : defaultName)  <span class="comment">// 输出 孙悟空 </span></span><br></pre></td></tr></table></figure></p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://gewill.org/2015/05/14/Crazy-Swift-Lecture-Chapter-2/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Ge Will">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Will's Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2015/05/14/Crazy-Swift-Lecture-Chapter-2/" itemprop="url">Crazy Swift Lecture Chapter 2</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2015-05-14T22:37:39+08:00">
-                2015-05-14
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2015/05/14/Crazy-Swift-Lecture-Chapter-2/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2015/05/14/Crazy-Swift-Lecture-Chapter-2/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <blockquote>
-<p>Code is a kind of document.</p>
-</blockquote>
-<p># 第二章：Swift 的基本数据类型</p>
-<p><code>let</code> <code>var</code> <code>nil</code> <code>?</code> <code>!</code> are different from Objective-C.</p>
-<p>##2.1 注释<br><figure class="highlight swift"><table><tr><td class="code"><pre><span class="line"><span class="comment">/*这里面的内容全部是多行注释Swift 语言真的很简单*/</span><span class="comment">// 这是一行简单的注释</span><span class="built_in">println</span>(<span class="string">"Hello World!"</span>)<span class="comment">// println(@"这行代码被注释了，将不会被编译、执行!")</span><span class="comment">/* 这是第一个多行注释的开头<span class="comment">/* 这是第二个被嵌套的多行注释 */</span>这是第一个多行注释的结尾 */</span></span><br></pre></td></tr></table></figure></p>
-<p>##2.2 变量和常量</p>
-<figure class="highlight swift"><table><tr><td class="code"><pre><span class="line">  <span class="comment">// 定义常量，没有显式指定类型，编译器根据初始值确定常量的类型</span><span class="keyword">let</span> maxAge = <span class="number">120</span><span class="comment">// 定义常量时，既显式指定常量的类型，也指定常量的初始值</span><span class="keyword">let</span> eduName : <span class="type">String</span> = <span class="string">"疯狂软件教育"</span><span class="comment">// 常量不允许重新赋值，因此下面代码是错误的</span><span class="comment">//maxAge = 12</span><span class="comment">// 同时定义多个变量</span><span class="keyword">let</span> myName = <span class="string">"fkit"</span> , myAge = <span class="number">8</span><span class="built_in">println</span>(<span class="string">"myName 的值为:\(myName) , myAge 的值为:\(myAge)"</span>)</span><br></pre></td></tr></table></figure>
-<figure class="highlight swift"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 声明变量时显式指定类型</span><span class="keyword">var</span> b : <span class="type">Int</span><span class="comment">// 声明变量时指定初始值，编译器会根据初始值确定该变量的类型为 String</span><span class="keyword">var</span> name = <span class="string">"crazyit.org"</span>b = <span class="number">20</span>  <span class="comment">// b 的类型是 Int（整型），赋值正确</span>name = <span class="string">"fkit.org"</span> <span class="comment">// name 类型为 String，赋值正确</span><span class="comment">//name = 12 // name 类型为 String，但 12 为 Int，赋值失败</span><span class="comment">// 声明变量时既显式指定类型，也指定初始值，</span><span class="comment">// 显式指定的类型与初始值的类型一致，声明变量正确</span><span class="keyword">var</span> age: <span class="type">Int</span> = <span class="number">25</span> age = <span class="number">12</span>  <span class="comment">// age 的类型是 Int，赋值正确</span><span class="comment">// 声明变量时既显式指定类型，也指定初始值，</span><span class="comment">// 显式指定的类型与初始值的类型不一致，声明变量失败</span><span class="comment">//var sun : String = 500 </span><span class="comment">// 同时声明多个变量，而且不需要变量具有相同的类型</span><span class="keyword">var</span> a = <span class="number">20</span> , d:<span class="type">String</span> , <span class="built_in">c</span> = <span class="string">"swift"</span><span class="comment">// 输出变量 name 的值</span><span class="built_in">println</span>(name)</span><br></pre></td></tr></table></figure>
-<p>##2.3 整型</p>
-<figure class="highlight swift"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 下面代码是正确的</span><span class="keyword">var</span> a:<span class="type">Int</span> = <span class="number">56</span><span class="comment">// 下面代码需要隐式地将 2999999999 转为 Int32 使用，因此编译器将会报错</span><span class="comment">//var bigValue : Int32 = 2999999999</span><span class="comment">// 下面代码是正确的</span><span class="keyword">var</span> bigValue2: <span class="type">Int64</span> = <span class="number">2999999999</span><span class="comment">//println(bigValue) </span><span class="built_in">println</span>(bigValue2) <span class="built_in">println</span>(<span class="type">Int16</span>.<span class="built_in">min</span>)<span class="built_in">println</span>(<span class="type">Int16</span>.<span class="built_in">max</span>)<span class="comment">// 无符号整数的最小值为 0，最大值比对应 Int16 的最大值大一倍</span><span class="built_in">println</span>(<span class="type">UInt16</span>.<span class="built_in">min</span>)<span class="built_in">println</span>(<span class="type">UInt16</span>.<span class="built_in">max</span>)<span class="keyword">var</span> binValue = <span class="number">0b10101110</span><span class="comment">// 以 0O 开头的整数数值是 8 进制的整数</span><span class="keyword">var</span> octalValue = <span class="number">0o13</span><span class="comment">// 以 0x 开头的整数数值是 16 进制的整数</span><span class="keyword">var</span> hexValue1 = <span class="number">0x13</span><span class="keyword">var</span> hexValue2 = <span class="number">0xaF</span><span class="built_in">println</span>(<span class="string">"binValue 的值为：\(binValue)"</span>)<span class="built_in">println</span>(<span class="string">"octalValue 的值为：\(octalValue)"</span>)<span class="built_in">println</span>(<span class="string">"hexValue1 的值为：\(hexValue1)"</span>)<span class="built_in">println</span>(<span class="string">"hexValue2 的值为：\(hexValue2)"</span>)<span class="keyword">let</span> oneMillion = <span class="number">1_000_000</span><span class="keyword">let</span> price = <span class="number">0079</span> <span class="comment">// price 实际的值为 79</span><span class="keyword">let</span> android = <span class="number">0109</span> <span class="comment">// android 实际的值为 109</span></span><br></pre></td></tr></table></figure>
-<p>##2.4 浮点型</p>
-<figure class="highlight swift"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> af: <span class="type">Float</span> = <span class="number">25.2345556</span><span class="comment">// 下面将看到 af 的值已经发生了改变,float 只能接受 6 位有效数值</span><span class="built_in">println</span>(<span class="string">"af 的值为：\(af)"</span>)<span class="comment">// f1 的类型被推断为 Double</span><span class="keyword">var</span> f1 = <span class="number">5.12e2</span><span class="built_in">println</span>(<span class="string">"f1 的值为:\(f1)"</span>)<span class="comment">// f2 的类型被推断为 Double，其值转为 10 进制的数为：22.53125</span><span class="keyword">var</span> f2 = <span class="number">0x5.a2p2</span><span class="built_in">println</span>(<span class="string">"f2 的值为:\(f2)"</span>)<span class="keyword">var</span> a = <span class="number">0.0</span><span class="comment">// 5.0 除以 0.0 将出现正无穷大</span><span class="built_in">println</span>(<span class="string">"5.0/a 的值为：\(5.0 / a)"</span>)<span class="comment">// 所有正无穷大都相等，所以下面将会输出 true</span><span class="built_in">println</span>(<span class="number">5.0</span> / a == <span class="number">50000</span> / <span class="number">0.0</span>) <span class="comment">// -5.0 除以 0.0 将出现负无穷大</span><span class="built_in">println</span>(<span class="string">"-5.0/a 的值为：\(-5.0 / a)"</span>)<span class="comment">// 所有负无穷大都相等，所以下面将会输出 true</span><span class="built_in">println</span>(-<span class="number">5.0</span> / a == -<span class="number">50000</span> / <span class="number">0.0</span>)<span class="comment">// 0.0 除以 0.0 将出现非数</span><span class="keyword">var</span> nan : <span class="type">Double</span> = a / a <span class="built_in">println</span>(<span class="string">"a/a 的值为：\(nan)"</span>)<span class="comment">// 非数与自己都不相等，所以下面将会输出 false</span><span class="built_in">println</span>(nan == nan)</span><br></pre></td></tr></table></figure>
-<figure class="highlight swift"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> width : <span class="type">Float</span> = <span class="number">2.3</span> <span class="keyword">var</span> height : <span class="type">Double</span> = <span class="number">4.5</span> <span class="comment">// width 必须显式强转为 Double 之后，才能赋值给变量 a。</span><span class="keyword">var</span> a: <span class="type">Double</span> = <span class="type">Double</span>(width)<span class="built_in">println</span>(<span class="string">"a 的值为:\(a)"</span>)<span class="comment">// 将 height 强转为 Float 之后再进行计算，整个表达式的类型都是 Float 类型，</span><span class="comment">// 因此 area1 的类型也被推断为 Float 类型</span><span class="keyword">var</span> area1 = width * <span class="type">Float</span>(height)<span class="comment">// 将 width 强转为 Double 之后再进行计算，整个表达式的类型都是 Double 类型，</span><span class="comment">// 因此 area2 的类型也被推断为 Double 类型</span><span class="keyword">var</span> area2 = <span class="type">Double</span>(width) * height<span class="keyword">let</span> multi : <span class="type">Int</span> = <span class="number">5</span><span class="comment">// 将 multi 强转为 Double 后进行计算，整个表达式的类型都是 Double 类型，</span><span class="comment">// 因此 totalHeight1 的类型也被推断为 Double 类型</span><span class="keyword">var</span> totalHeight1 = height * <span class="type">Double</span>(multi)  <span class="comment">// ①</span><span class="comment">// 将 height 强转为 Int 后进行计算，整个表达式的类型都是 height 类型，</span><span class="comment">// 因此 totalHeight2 的类型也被推断为 Int 类型</span><span class="keyword">var</span> totalHeight2 = <span class="type">Int</span>(height) * multi  <span class="comment">// ②</span></span><br></pre></td></tr></table></figure>
-<p>##2.5 数值型之间的类型转换<br><figure class="highlight swift"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> bookPrice : <span class="type">Int8</span> = <span class="number">79</span><span class="keyword">var</span> itemPrice : <span class="type">Int16</span> = <span class="number">120</span><span class="comment">// bookPrice 是 Int8 类型，但变量 a 是 Int16 类型，因此下面代码错误</span><span class="comment">//var a : UInt16 = bookPrice</span><span class="comment">// bookPrice 与 itemPrice 类型不同，不能进行加法运算</span><span class="comment">//var total = bookPrice + itemPrice</span><span class="comment">// 显式将 bookPrice 强转为 Int16 类型</span><span class="keyword">var</span> a : <span class="type">Int16</span> = <span class="type">Int16</span>(bookPrice)  <span class="comment">// ①</span><span class="comment">// 显式将 bookPrice 强转为 Int16 类型，整个表达式结果为 Int16 类型，</span><span class="comment">// 故 total 的类型为 Int16，计算出来的结果（199）位于 Int16 的取值范围之内，因此程序正确</span><span class="keyword">var</span> total = <span class="type">Int16</span>(bookPrice) + itemPrice  <span class="comment">// ②</span><span class="built_in">println</span>(<span class="string">"total 的值为:\(total)"</span>)<span class="comment">// 显式将 itemPrice 强转为 Int8 类型，整个表达式结果为 Int8 类型，</span><span class="comment">// 故 tot 的类型为 Int9，计算出来的结果（199）超过了 Int8 的取值范围之内，因此程序运行出错</span><span class="keyword">var</span> tot = bookPrice + <span class="type">Int8</span>(itemPrice)  <span class="comment">// ③</span><span class="built_in">println</span>(tot)</span><br></pre></td></tr></table></figure></p>
-<p>##2.6 布尔型 <br><code>`</code>swift<br>// 定义 b1 的值为 true<br>var b1 : Bool = true<br>// 定义 b2 的值为 false<br>var b2 : Bool = false<br>// 将 Bool 类型的变量插值到字符串中<br>var str :String = “(b1) 代表真”<br>println(str)<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">##2.7 元组（tuple）类型```swift</span><br><span class="line">// 定义元组变量，并指定初始值，// 系统推断该元组类型为(height:Int, 体重:Int, status:String)var health = (height:182 , 体重:78 , status:&quot; 良好 &quot;)// 使用元组类型来定义元组变量var score : (swift:Int , oc:Int , lua:String , ruby:Double)// 简单为每个元素指定值，此时必须按顺序为每个元素指定值score = (98 , 89 , &quot; 及格 &quot; , 20.4)  // ①// 通过 key 为元组的元素指定值，在这种方式下，元组内各元素的顺序可以调换score = (oc:89 , swift:98 , lua:&quot; 及格 &quot; , ruby:4.4)  // ②println(&quot;health 的身高为：\(health.height)&quot;)println(&quot;health 的体重为：\(health. 体重)&quot;)println(&quot;Swift 成绩：\(score.swift),OC 成绩：\(score.oc),&quot;	+ &quot;Lua 成绩：\(score.lua),Ruby 成绩：\(score.ruby)&quot;)</span><br></pre></td></tr></table></figure></p>
-<figure class="highlight swift"><table><tr><td class="code"><pre><span class="line">	<span class="comment">// 定义元组变量，并指定初始值，系统推断该元组类型为(Int, Int, String)</span><span class="keyword">var</span> health = (<span class="number">182</span> , <span class="number">78</span> , <span class="string">"良好"</span>)<span class="comment">// 使用元组类型来定义元组变量</span><span class="keyword">var</span> score : (<span class="type">Int</span> , <span class="type">Int</span> , <span class="type">String</span> , <span class="type">Double</span>)<span class="comment">// 为元组变量赋值时必须为所有成员都指定值</span>score = (<span class="number">98</span> , <span class="number">89</span> , <span class="string">"及格"</span> , <span class="number">20.4</span>)<span class="comment">// 元组的成员又是元组</span><span class="keyword">var</span> test : (<span class="type">Int</span> , (<span class="type">Int</span> , <span class="type">String</span>))test = (<span class="number">20</span> , (<span class="number">15</span> , <span class="string">"Swift"</span>))<span class="comment">// 输出元组</span><span class="built_in">println</span>(<span class="string">"health 元组的值为：\(health)"</span>)<span class="built_in">println</span>(<span class="string">"score 元组的值为：\(score)"</span>)<span class="built_in">println</span>(<span class="string">"test 元组的值为：\(test)"</span>)<span class="comment">// 根据索引访问元组的元素</span><span class="built_in">println</span>(<span class="string">"health 元组的身高元素为：\(health.0)"</span>)<span class="built_in">println</span>(<span class="string">"health 元组的体重元素为：\(health.1)"</span>)<span class="built_in">println</span>(<span class="string">"score 元组的 Swift 为：\(score.0)"</span>)<span class="built_in">println</span>(<span class="string">"score 元组的 Objective-C 为：\(score.2)"</span>)<span class="built_in">println</span>(<span class="string">"test 元组的第 2 个元素的第 1 个元素为：\(test.1.0)"</span>)<span class="comment">// 将元组拆分成多个变量</span><span class="keyword">var</span> (height ,weight, status) = health<span class="built_in">println</span>(<span class="string">"身高:\(height)、体重:\(weight)、身体状态:\(status)"</span>)<span class="comment">// 将元组拆分成多个常量， 忽略元组的第四个元素</span><span class="keyword">let</span> (swift, oc , lua, <span class="number">_</span>) = score<span class="built_in">println</span>(<span class="string">"Swift 成绩:\(swift)、OC 成绩:\(oc)、Lua 成绩:\(lua)"</span>)</span><br></pre></td></tr></table></figure>
-<p>#2.8 可选类型</p>
-<figure class="highlight swift"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> str : <span class="type">String?</span> = <span class="string">"crazyit.org"</span><span class="comment">// str 是 String? 类型的，不能赋值给 String 类型的 s 变量</span><span class="comment">//var s : String = str</span><span class="keyword">if</span> str != <span class="literal">nil</span>&#123;	<span class="comment">// 在 str 后添加!，即可获取 String? 类型变量实际存储的值，</span>	<span class="comment">// 该值是 String 类型，因此可赋值给 String 类型的 s 变量</span>	<span class="keyword">var</span> s : <span class="type">String</span> = str!&#125;<span class="keyword">else</span>&#123;	<span class="built_in">println</span>(<span class="string">"str 为 nil，不能强制解析"</span>)&#125;<span class="keyword">var</span> n1 : <span class="type">Int?</span> = <span class="number">20</span><span class="keyword">var</span> n2 : <span class="type">Int?</span> = <span class="number">15</span> <span class="keyword">if</span> n1 != <span class="literal">nil</span> &amp;&amp; n2 != <span class="literal">nil</span>&#123;	<span class="comment">// n1 和 n2 是 Int? 类型，因此不能参与加法运算</span>	<span class="comment">//let sum = n1 + n2</span>	<span class="comment">// 在变量后添加感叹号（!)即可强制解析可选类型的值</span>	<span class="keyword">let</span> sum = n1! + n2!	<span class="built_in">println</span>(sum)&#125;<span class="keyword">else</span>&#123;	<span class="built_in">println</span>(<span class="string">"n1 或 n2 为 nil，不能强制解析"</span>)&#125;</span><br></pre></td></tr></table></figure>
-<figure class="highlight swift"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> s1: <span class="type">String?</span> = <span class="string">"fkit.org"</span><span class="comment">// 对于 String? 可选类型，必须使用感叹号执行强制解析</span><span class="keyword">var</span> tmp : <span class="type">String</span> = s1!<span class="keyword">var</span> s2 : <span class="type">String!</span> = <span class="string">"crazyit.org"</span><span class="comment">// 对于 String! 隐式可选类型，无需使用感叹号执行强制解析</span><span class="keyword">var</span> tmp2 : <span class="type">String</span> = s2<span class="built_in">println</span>(<span class="string">"tmp 的值为：\(tmp)，tmp2 的值为：\(tmp2)"</span>)<span class="keyword">var</span> name: <span class="type">String!</span><span class="built_in">println</span>(name)name = <span class="string">"疯狂软件"</span><span class="comment">// 先判断隐式可选类型的 name 变量不为 nil，然后才获取该变量的值</span><span class="keyword">if</span> name != <span class="literal">nil</span>&#123;	<span class="keyword">var</span> tmp = name	<span class="built_in">println</span>(<span class="string">"name 变量有值，其值为：\(name)"</span>)&#125;<span class="comment">// 使用可选绑定来获取 name 变量的值</span><span class="keyword">if</span> <span class="keyword">let</span> temp = name&#123;	<span class="built_in">println</span>(<span class="string">"name 变量有值，其值为：\(name)"</span>)&#125;</span><br></pre></td></tr></table></figure>
-<figure class="highlight swift"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> str : <span class="type">String!</span> = <span class="string">"fkit.org"</span><span class="comment">// 如果可选变量 str 有值，将值赋值给 tmp 变量。</span><span class="keyword">if</span> <span class="keyword">var</span> tmp = str&#123;	<span class="built_in">println</span>(<span class="string">"str 的值为：\(tmp)"</span>)&#125;<span class="keyword">else</span>&#123;	<span class="built_in">println</span>(<span class="string">"str 的值为 nil，不能解析！"</span>)&#125;</span><br></pre></td></tr></table></figure>
-<figure class="highlight swift"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> str = <span class="string">"fkit"</span><span class="comment">// 由于 str 转换为 Int 有可能失败，故 num 有可能没有值</span><span class="comment">// 因此不能使用 Int 来声明 num 的类型</span><span class="comment">//var num :Int = str.toInt()</span><span class="keyword">var</span> num: <span class="type">Int?</span> = str.toInt()<span class="built_in">println</span>(num)<span class="comment">// 编译器推断 n 的类型为 Int?</span><span class="keyword">var</span> n = str.toInt() <span class="comment">// Int 类型的变量不接受 nil</span><span class="comment">//var age: Int = nil</span><span class="comment">// Int? 类型的变量才能接受 nil</span><span class="keyword">var</span> age: <span class="type">Int?</span> = <span class="literal">nil</span><span class="comment">// 定义 myName 变量，声明其类型为 String?，该变量将被自动设置为 nil</span><span class="keyword">var</span> myName : <span class="type">String?</span><span class="built_in">println</span>(myName)</span><br></pre></td></tr></table></figure>
-<p>#2.10 字符和字符串<br><figure class="highlight swift"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> s: <span class="type">Character</span> = <span class="string">"香"</span><span class="keyword">var</span> quote1 = <span class="string">"\""</span><span class="keyword">var</span> quote2 = <span class="string">"\u&#123;22&#125;"</span><span class="built_in">println</span>(<span class="string">"quote1 的值为：\(quote1), quote2 的值为：\(quote2)"</span>)<span class="comment">// 使用 Unicode 形式定义 4 个字符</span><span class="keyword">var</span> diamond : <span class="type">Character</span> = <span class="string">"\u&#123;2666&#125;"</span><span class="keyword">var</span> heart : <span class="type">Character</span> = <span class="string">"\u&#123;2663&#125;"</span><span class="keyword">var</span> club : <span class="type">Character</span> = <span class="string">"\u&#123;2665&#125;"</span><span class="keyword">var</span> spade : <span class="type">Character</span> = <span class="string">"\u&#123;2660&#125;"</span><span class="built_in">println</span>(<span class="string">"\(diamond) \(heart) \(club) \(spade)"</span>)</span><br></pre></td></tr></table></figure></p>
-<figure class="highlight swift"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> Foundation<span class="keyword">var</span> name = <span class="string">"fkit.org"</span><span class="keyword">var</span> myBook:<span class="type">String</span> = <span class="string">"疯狂软件教育"</span><span class="comment">// 调用构造器来创建字符串</span><span class="keyword">var</span> str2 = <span class="type">String</span>()  <span class="comment">// 创建空字符串</span><span class="comment">// 创建多个重复字符的字符串</span><span class="keyword">var</span> str3 = <span class="type">String</span>(<span class="built_in">count</span>:<span class="number">5</span>, repeatedValue: <span class="type">Character</span>(<span class="string">"f"</span>))<span class="built_in">println</span>(str3)<span class="comment">// 判断指定字符串是否为空</span><span class="built_in">println</span>(str2.isEmpty)<span class="keyword">let</span> <span class="keyword">prefix</span> = <span class="string">"fkit.org"</span><span class="comment">// 使用 + 拼接字符串</span><span class="keyword">var</span> info = <span class="keyword">prefix</span> + <span class="string">"is a good training center"</span><span class="built_in">println</span>(info)  <span class="comment">// 输出 fkit.org is a good training center</span><span class="comment">// 程序定义了一个 NSString 类型的变量，可以直接将 Swift 的字符串赋值给 s 变量</span><span class="keyword">var</span> s: <span class="type">NSString</span> = <span class="string">"crazyit.org"</span><span class="comment">// 调用 NSString 的 substringWithRange 方法</span><span class="keyword">var</span> subStr = s.substringWithRange(<span class="type">NSMakeRange</span>(<span class="number">2</span>, <span class="number">5</span>))<span class="built_in">println</span>(subStr) <span class="comment">// 输出 azyit</span></span><br></pre></td></tr></table></figure>
-<figure class="highlight swift"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> cn = <span class="string">"china,🇨🇳"</span></span><br><span class="line"><span class="comment">// 访问字符串底层的 UTF-8 编码</span></span><br><span class="line"><span class="keyword">for</span> codeUnit <span class="keyword">in</span> cn.utf8</span><br><span class="line">&#123;</span><br><span class="line">	<span class="built_in">print</span>(<span class="string">"\(codeUnit)"</span>)</span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">println</span>()</span><br><span class="line"><span class="comment">// 访问字符串底层的 UTF-16 编码</span></span><br><span class="line"><span class="keyword">for</span> codeUnit <span class="keyword">in</span> cn.utf16</span><br><span class="line">&#123;</span><br><span class="line">	<span class="built_in">print</span>(<span class="string">"\(codeUnit)"</span>)</span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">println</span>()</span><br><span class="line"><span class="comment">// 访问字符串底层的 Unicode 标量</span></span><br><span class="line"><span class="keyword">for</span> scalar <span class="keyword">in</span> cn.unicodeScalars</span><br><span class="line">&#123;</span><br><span class="line">	<span class="built_in">print</span>(<span class="string">"\(scalar.value)"</span>)</span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">println</span>()</span><br></pre></td></tr></table></figure>
-<figure class="highlight swift"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> str = <span class="string">"fkit.org"</span><span class="keyword">var</span> str2 = <span class="type">String</span>()<span class="comment">// 将 str2 与 str 拼接后赋值给 str2</span>str2 = str2 + str<span class="comment">// 判断 str 与 str2 是否相等，程序将会输出 true</span><span class="built_in">println</span>(str == str2)<span class="keyword">var</span> hasFkPrefix : <span class="type">Bool</span> = str.hasPrefix(<span class="string">"fk"</span>)<span class="keyword">var</span> hasOrgSuffix : <span class="type">Bool</span> = str.hasSuffix(<span class="string">"org"</span>)<span class="comment">// 判断 str 是否有特定前缀</span><span class="built_in">println</span>(<span class="string">"str 是否以 fk 开头:\(hasFkPrefix)"</span>)<span class="comment">// 判断 str 是否有特定后缀</span><span class="built_in">println</span>(<span class="string">"str 是否以 org 结尾:\(hasOrgSuffix)"</span>)</span><br></pre></td></tr></table></figure>
-<figure class="highlight swift"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> animals = <span class="string">"🐱🐶🐻🐷🐂🐴🐍🐑🐵🐔🐯🐰"</span></span><br><span class="line"><span class="built_in">println</span>(<span class="string">"animals 的包含的动物数：\(countElements(animals))"</span>)</span><br><span class="line"><span class="keyword">for</span> animal <span class="keyword">in</span> animals</span><br><span class="line">&#123;</span><br><span class="line">	<span class="built_in">println</span>(animal)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<figure class="highlight swift"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> mutableStr = <span class="string">"swift"</span><span class="comment">// var 声明的 String 是可变的</span>mutableStr += <span class="string">"is a good programming language"</span><span class="built_in">println</span>(mutableStr) <span class="comment">// 输出 swift is a good programming language"</span><span class="comment">// 清空 mutableStr 的所有字符</span>mutableStr.removeAll(keepCapacity:<span class="literal">false</span>)<span class="built_in">println</span>(mutableStr) <span class="comment">// 输出空</span><span class="keyword">let</span> immutableStr = <span class="string">"Objective-C"</span><span class="comment">// let 声明的 String 是不可变的，因此不能追加</span><span class="comment">//immutableStr += "is a classic programming language"</span><span class="comment">// 不可变字符串不允许改变字符串中字符序列，因此下面代码编译出错</span><span class="comment">//immutableStr.removeAll(keepCapacity:false)</span></span><br></pre></td></tr></table></figure>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://gewill.org/2015/05/14/Crazy-Swift-Lecture-Chapter-1/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Ge Will">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Will's Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2015/05/14/Crazy-Swift-Lecture-Chapter-1/" itemprop="url">Crazy Swift Lecture Chapter 1</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2015-05-14T22:14:00+08:00">
-                2015-05-14
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2015/05/14/Crazy-Swift-Lecture-Chapter-1/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2015/05/14/Crazy-Swift-Lecture-Chapter-1/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p># 第一章：Swift 语言与开发环境 </p>
-<p><img src="http://i.imgur.com/91p7B4U.png" alt="Imgur"></p>
-<figure class="highlight swift"><table><tr><td class="code"><pre><span class="line"><span class="built_in">println</span>(<span class="string">"Hello World"</span>)<span class="built_in">println</span>(<span class="string">"Hello"</span>); <span class="built_in">println</span>(<span class="string">"World"</span>)<span class="comment">// 定义一个 Person 类 </span><span class="class"><span class="keyword">class</span> <span class="title">Person</span> </span>&#123;&#125;<span class="comment">// 定义一个函数 </span><span class="function"><span class="keyword">func</span> <span class="title">info</span><span class="params">()</span></span>&#123;	<span class="built_in">println</span>(<span class="string">"Hello"</span>)&#125;</span><br></pre></td></tr></table></figure>
-<pre><code class="swift"><span class="keyword">import</span> Foundation
-
-<span class="built_in">println</span>(<span class="string">"Hello Swift!"</span>)  <span class="comment">// 执行输出 </span>
-
-</code></pre>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://gewill.org/2015/05/10/use-gitcafe-pages/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Ge Will">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Will's Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2015/05/10/use-gitcafe-pages/" itemprop="url">Use gitcafe pages</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2015-05-10T23:30:41+08:00">
-                2015-05-10
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2015/05/10/use-gitcafe-pages/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2015/05/10/use-gitcafe-pages/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p>Github pages is too slowly, today I use gitcafe host my website by default. And resolve github to overseas users. </p>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2015/05/10/use-gitcafe-pages/#more" rel="contents">
-              Read more &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -3322,7 +3316,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">168</span>
+                  <span class="site-state-item-count">173</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -3404,7 +3398,7 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>

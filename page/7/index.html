@@ -283,6 +283,742 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://gewill.org/2015/07/28/iOS-Programming-4ed-5/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Ge Will">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Will's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2015/07/28/iOS-Programming-4ed-5/" itemprop="url">《iOS 编程》5. 视图：重绘与 UIScrollView</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2015-07-28T10:27:23+08:00">
+                2015-07-28
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2015/07/28/iOS-Programming-4ed-5/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2015/07/28/iOS-Programming-4ed-5/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="5-1- 运行循环和重绘原理"><a href="#5-1- 运行循环和重绘原理" class="headerlink" title="5.1 运行循环和重绘原理"></a>5.1 运行循环和重绘原理 </h2><p>iOS 每次事件处理周期中只发送一次 <code>drawRect:</code> 消息。所以视图要重绘必须向其发送 <code>setNeedDisplay</code> 消息。</p>
+<h2 id="5-3- 使用 -UIScrollView"><a href="#5-3- 使用 -UIScrollView" class="headerlink" title="5.3 使用 UIScrollView"></a>5.3 使用 UIScrollView</h2><p> 添加子视图，设置大小即可。类似一张大的画布，可以方便移动局部查看。</p>
+<figure class="highlight objc"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line"><span class="built_in">CGRect</span> screenRect = <span class="keyword">self</span>.window.bounds;</span><br><span class="line"><span class="built_in">CGRect</span> bigRect = screenRect;</span><br><span class="line">bigRect.size.width *= <span class="number">2.0</span>;</span><br><span class="line"></span><br><span class="line"><span class="built_in">UIScrollView</span> *scrollView = [[<span class="built_in">UIScrollView</span> alloc] initWithFrame:screenRect];</span><br><span class="line">[scrollView setPagingEnabled:<span class="literal">YES</span>];</span><br><span class="line">[<span class="keyword">self</span>.window addSubview:scrollView];</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">GWHypnosisView *hypnosisView = [[GWHypnosisView alloc] initWithFrame:screenRect];</span><br><span class="line">[scrollView addSubview:hypnosisView];</span><br><span class="line"></span><br><span class="line">screenRect.origin.x += screenRect.size.width;</span><br><span class="line">GWHypnosisView *anotherView = [[GWHypnosisView alloc] initWithFrame:screenRect];</span><br><span class="line">[scrollView addSubview:anotherView];</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">scrollView.contentSize = bigRect.size;</span><br></pre></td></tr></table></figure>
+<h2 id="项目代码保存在我的 -GitHub-iOSProgramming4edSolutions"><a href="# 项目代码保存在我的 -GitHub-iOSProgramming4edSolutions" class="headerlink" title="项目代码保存在我的 GitHub: iOSProgramming4edSolutions"></a> 项目代码保存在我的 GitHub: <a href="https://github.com/gewill/iOSProgramming4edSolutions" target="_blank" rel="noopener">iOSProgramming4edSolutions</a></h2>
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://gewill.org/2015/07/27/iOS-Programming-4ed-4/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Ge Will">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Will's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2015/07/27/iOS-Programming-4ed-4/" itemprop="url">《iOS 编程》4. 视图层次结构</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2015-07-27T17:10:23+08:00">
+                2015-07-27
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2015/07/27/iOS-Programming-4ed-4/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2015/07/27/iOS-Programming-4ed-4/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>独立做练习的过程中学习和收获的很多，很多原本认为了解的知识变成了理解和会用的知识。官方文档还有待熟悉。</p>
+<p><img src="http://imgur.com/bdYyIqi.jpg" alt="frame vs bounds"></p>
+<h2 id="4-2- 视图层次结构"><a href="#4-2- 视图层次结构" class="headerlink" title="4.2 视图层次结构"></a>4.2 视图层次结构</h2><p><img src="http://i.imgur.com/m0Cjfz1.jpg" alt="View"></p>
+<h2 id="4-6- 初级练习：绘制图片"><a href="#4-6- 初级练习：绘制图片" class="headerlink" title="4.6 初级练习：绘制图片"></a>4.6 初级练习：绘制图片 </h2><p><code>GWHypnosisView.m</code> 的 <code>- (void)drawRect:(CGRect)rect{}</code> 添加以下代码：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">// 添加 logo，中心点为屏幕中心点</span><br><span class="line">CGRect logoFrame = CGRectMake(center.x - bounds.size.width / 4,  center.y - bounds.size.height / 4, bounds.size.width / 4 * 2, bounds.size.height / 4 * 2);</span><br><span class="line">UIImage *logoimage = [UIImage imageNamed:@&quot;logo.png&quot;];</span><br><span class="line">[logoimage drawInRect:logoFrame];</span><br><span class="line">UIView *logoView = [[UIView alloc]initWithFrame:logoFrame];</span><br><span class="line">[self.window addSubview:logoView];</span><br></pre></td></tr></table></figure>
+<h2 id="4-8- 高级练习：阴影和渐变"><a href="#4-8- 高级练习：阴影和渐变" class="headerlink" title="4.8 高级练习：阴影和渐变"></a>4.8 高级练习：阴影和渐变 </h2><p><code>GWHypnosisView.m</code> 的 <code>- (void)drawRect:(CGRect)rect{}</code> 添加以下代码：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">// 添加三角形，并添加渐变效果</span><br><span class="line"></span><br><span class="line">CGContextRef triangleContext = UIGraphicsGetCurrentContext();</span><br><span class="line"></span><br><span class="line">UIBezierPath *trianglePath = [[UIBezierPath alloc] init];</span><br><span class="line">[trianglePath moveToPoint:CGPointMake(center.x + bounds.size.width / 3, center.y + bounds.size.height / 3)];</span><br><span class="line">[trianglePath addLineToPoint:CGPointMake(center.x - bounds.size.width / 3, center.y + bounds.size.height / 3)];</span><br><span class="line">[trianglePath addLineToPoint:CGPointMake(center.x, center.y - bounds.size.height / 3)];</span><br><span class="line">[trianglePath addLineToPoint:CGPointMake(center.x + bounds.size.width / 3, center.y + bounds.size.height / 3)];</span><br><span class="line">[trianglePath stroke];</span><br><span class="line"></span><br><span class="line">CGContextSaveGState(triangleContext);</span><br><span class="line">[trianglePath addClip];</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">CGFloat locations[2] = &#123; 0.0, 1.0 &#125;;</span><br><span class="line">CGFloat components[8] = &#123; 1.0, 1.0, 0.0, 1.0,</span><br><span class="line">    0.0, 0.5, 0.0, 1.0 &#125;;</span><br><span class="line">CGColorSpaceRef colorspace = CGColorSpaceCreateDeviceRGB();</span><br><span class="line">CGGradientRef gradient = CGGradientCreateWithColorComponents(colorspace, components, locations, 2);</span><br><span class="line"></span><br><span class="line">CGPoint startPoint = CGPointMake(center.x, center.y + bounds.size.height / 3);</span><br><span class="line">CGPoint endPoint = CGPointMake(center.x, center.y - bounds.size.height / 3);</span><br><span class="line">CGContextDrawLinearGradient(triangleContext, gradient, startPoint, endPoint, 0);</span><br><span class="line"></span><br><span class="line">CGGradientRelease(gradient);</span><br><span class="line">CGColorSpaceRelease(colorspace);</span><br><span class="line"></span><br><span class="line">CGContextRestoreGState(triangleContext);</span><br><span class="line"></span><br><span class="line">// 添加阴影</span><br><span class="line">CGContextRef logoContext = UIGraphicsGetCurrentContext();</span><br><span class="line">CGContextSaveGState(logoContext);</span><br><span class="line">CGContextSetShadow(logoContext, CGSizeMake(4, 7), 3);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">// 添加 logo，中心点为屏幕中心点</span><br><span class="line">CGRect logoFrame = CGRectMake(center.x - bounds.size.width / 4,  center.y - bounds.size.height / 4, bounds.size.width / 4 * 2, bounds.size.height / 4 * 2);</span><br><span class="line">UIImage *logoimage = [UIImage imageNamed:@&quot;logo.png&quot;];</span><br><span class="line">[logoimage drawInRect:logoFrame];</span><br><span class="line">UIView *logoView = [[UIView alloc]initWithFrame:logoFrame];</span><br><span class="line">[self.window addSubview:logoView];</span><br><span class="line"></span><br><span class="line">CGContextRestoreGState(logoContext);</span><br></pre></td></tr></table></figure>
+<p>最终效果图：</p>
+<p><img src="http://i.imgur.com/zREns9p.png" alt="Hypnosister"></p>
+<h2 id="项目代码保存在我的 -GitHub-iOSProgramming4edSolutions"><a href="# 项目代码保存在我的 -GitHub-iOSProgramming4edSolutions" class="headerlink" title="项目代码保存在我的 GitHub: iOSProgramming4edSolutions"></a>项目代码保存在我的 GitHub: <a href="https://github.com/gewill/iOSProgramming4edSolutions" target="_blank" rel="noopener">iOSProgramming4edSolutions</a></h2>
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://gewill.org/2015/07/27/cocoapods-install/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Ge Will">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Will's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2015/07/27/cocoapods-install/" itemprop="url">CocoaPods 安装步骤</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2015-07-27T07:26:59+08:00">
+                2015-07-27
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2015/07/27/cocoapods-install/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2015/07/27/cocoapods-install/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>看到极客班同学 Kevin Wang 分享的 CocoaPods 笔记：<a href="http://www.jianshu.com/p/c1063c9017b0" target="_blank" rel="noopener">iOS 学习备忘录：CocoaPods 基本使用技巧</a>，我自己就试着一下。</p>
+<p>以下安装 <a href="https://github.com/AFNetworking/AFNetworking" target="_blank" rel="noopener">AFNetworking</a> 的过程，同时参考了：<a href="https://github.com/AFNetworking/AFNetworking/wiki/Getting-Started-with-AFNetworking" target="_blank" rel="noopener">Getting Started with AFNetworking</a> 和 唐巧的 <a href="http://book.douban.com/subject/26287173/" target="_blank" rel="noopener">《iOS 开发进阶》</a>。</p>
+<p>感觉 <a href="https://github.com/AFNetworking/AFNetworking/wiki/Getting-Started-with-AFNetworking" target="_blank" rel="noopener">Getting Started with AFNetworking</a>，写的非常好了。我已经没有地方修改，就加了我在安装 CocoaPods 遇到的一个坑。看样子还是要英文顺溜才行。</p>
+<p>CocoaPods 网络库加 Podfile 配置文件，一个可以方便添加第三方库，而是团队协作容易统一版本，真真一个好东西。</p>
+<h2 id="Step-1-Download-CocoaPods"><a href="#Step-1-Download-CocoaPods" class="headerlink" title="Step 1: Download CocoaPods"></a>Step 1: Download CocoaPods</h2><p>第一步开 VPN，不要问为什么。终端输入：</p>
+<pre><code>$ sudo gem install cocoapods
+$ pod setup
+</code></pre><blockquote>
+<p>我遇到没有安装没有如何进度和提示，重装 Ruby 和 RubyGems 就好了。</p>
+</blockquote>
+<pre><code>$ brew install ruby
+$ gem update --system
+</code></pre><h2 id="Step-2-Create-a-Podfile"><a href="#Step-2-Create-a-Podfile" class="headerlink" title="Step 2: Create a Podfile"></a>Step 2: Create a Podfile</h2><p>用 Xcode 或其他编辑器新建 <code>Podfile</code>，放在项目根目录下：</p>
+<pre><code>$ touch Podfile
+$ open -a Xcode Podfile
+</code></pre><p>并复制下面内容到 <code>Podfile</code>：</p>
+<pre><code>source &apos;https://github.com/CocoaPods/Specs.git&apos;
+platform :ios, &apos;7.0&apos;
+pod &apos;AFNetworking&apos;, &apos;~&gt; 2.5&apos;
+</code></pre><h2 id="Step-3-Install-Dependencies"><a href="#Step-3-Install-Dependencies" class="headerlink" title="Step 3: Install Dependencies"></a>Step 3: Install Dependencies</h2><pre><code>$ pod install
+</code></pre><p>以后只要打开 Xcode workspace (<code>.xcworkspace</code>)才行</p>
+<pre><code>$ open &lt;YourProjectName&gt;.xcworkspace
+</code></pre><h2 id="Step-4-Dive-In"><a href="#Step-4-Dive-In" class="headerlink" title="Step 4: Dive In!"></a>Step 4: Dive In!</h2><p>大功告成，至此就可以使用 AFNetworking 了。记得在需要的类中 <code>#import</code> 头文件。</p>
+<blockquote>
+<p>最后分享一个在 <a href="http://liqi.io" target="_blank" rel="noopener"> 利器 </a> 上看到的利器：<a href="https://www.pushbullet.com/" target="_blank" rel="noopener">Pushbullet</a> 是跨平台双向文件传输工具。如果你同时使用 Mac、ios 和 Android 又想要在设备间无线传输图片、文字，那么你一定需要这样的工具。</p>
+</blockquote>
+<blockquote>
+<p>其实还有隐藏功能共享剪切板，瞬间变成神器了，有没有？比微信和 Airdrop 方便多了。</p>
+</blockquote>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://gewill.org/2015/07/26/GeekBand-Objective-C-Programming-2/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Ge Will">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Will's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2015/07/26/GeekBand-Objective-C-Programming-2/" itemprop="url">极客班 Objective-C 高级编程（二）</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2015-07-26T21:53:50+08:00">
+                2015-07-26
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2015/07/26/GeekBand-Objective-C-Programming-2/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2015/07/26/GeekBand-Objective-C-Programming-2/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="课堂笔记"><a href="# 课堂笔记" class="headerlink" title="课堂笔记"></a> 课堂笔记 </h2><p><a href="http://weibo.com/songduan" target="_blank" rel="noopener">@段松 </a> 老师上课喜欢类比生活中的对象，还是比较容易理解的。</p>
+<p> 断点的使用可以帮助理解每一行的作用和追踪对象或属性的变化。</p>
+<p> 内存管理讲的挺详细，发现课程结构顺序和《iOS 编程》很像。</p>
+<h2 id="源码保存在我的 -GitHub-GeekBand-iOS-Demo"><a href="# 源码保存在我的 -GitHub-GeekBand-iOS-Demo" class="headerlink" title="源码保存在我的 GitHub: GeekBand-iOS-Demo"></a> 源码保存在我的 GitHub: <a href="https://github.com/gewill/GeekBand-iOS-Demo/tree/master/Objective-C%20Programming" target="_blank" rel="noopener">GeekBand-iOS-Demo</a></h2>
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://gewill.org/2015/07/25/GeekBand-flip-classroom-week-2/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Ge Will">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Will's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2015/07/25/GeekBand-flip-classroom-week-2/" itemprop="url">极客班线下翻转课堂第二周</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2015-07-25T17:30:12+08:00">
+                2015-07-25
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2015/07/25/GeekBand-flip-classroom-week-2/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2015/07/25/GeekBand-flip-classroom-week-2/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="李建忠：课程安排"><a href="# 李建忠：课程安排" class="headerlink" title="@李建忠：课程安排"></a><a href="http://weibo.com/jzli" target="_blank" rel="noopener">@李建忠</a>：课程安排</h2><p>startup：账号系统，登陆系统，setting，有时间的组员可以多做一点</p>
+<p>项目变化，很正常，确定人员分配，推动项目往前走。</p>
+<h2 id="袁店明：探讨产品"><a href="# 袁店明：探讨产品" class="headerlink" title="@袁店明：探讨产品"></a><a href="http://weibo.com/80yuandm" target="_blank" rel="noopener">@袁店明 </a>：探讨产品</h2><p> 我们小组的项目“一秒”：需求真实性，目的在哪里，目标用户为什么会用，解决什么问题。</p>
+<p>添加一个主题：亲子成长，空气环境变化。</p>
+<p>分享带有主题的视频，类似 iMovie 的手机版</p>
+<p>很多时候需求都是你自己猜想的，产品的使用场景，都是需要验证的！</p>
+<p><strong>言语表达要求很高。</strong></p>
+<p><strong>语言描述要准确</strong>，不一定要非常简练华丽。</p>
+<blockquote>
+<p><a href="http://weibo.com/jzli" target="_blank" rel="noopener">@李建忠</a>: A good thinker is a good talker.</p>
+</blockquote>
+<p>例子：上班很远，并不是所有人都是问题，并不是所有人都一样的界定。所以提供的解决方案都不一样，用户真实的上班方式开车自行车走路，又该如何解决？要面对面访谈用户，电话次之。</p>
+<p>产品探索过程中，要抛弃自己的创意和解决方法，重点在用户的需求和相应的解决方案，最后收敛（投票和排序重要性）成一个产品。</p>
+<p>所有人：销售运营开发测试产品经理坐在一起产品的逻辑推理，然后才能进行用户访谈。</p>
+<p>用户细分，不然找错人浪费了时间经理。</p>
+<p>这一套做产品思维，可以用工作中，如正在培训的创业公司敏捷开发。</p>
+<p>不要让天使用户看到你的访谈的问题。</p>
+<p>热点事件来分析，<strong>提高逻辑推理</strong>。推荐<a href="http://book.douban.com/subject/1137278/" target="_blank" rel="noopener">《系统化思维导论》</a>。</p>
+<p>最近在看<a href="http://book.douban.com/subject/26278639/" target="_blank" rel="noopener">《精益数据分析》</a>。</p>
+<p>用户群不要混合现有用户群来定义你的用户群，如：色影无忌和蜂鸟网</p>
+<p>用户发现问题 -&gt; 寻找解决方案 -&gt; 找到产品 -&gt; 愿意付费</p>
+<blockquote>
+<p>我是 iOS 学员，关于产品方面听来挺过瘾。多谢 Tele Deng 的笔记：<a href="http://note.youdao.com/share/?id=befe7cc6bef23e9f7d6ceb4fe4567590&amp;type=note" target="_blank" rel="noopener">【极客班 - 精益产品探索】第一周课堂笔记</a>。</p>
+</blockquote>
+<h2 id="段松：iOS- 大纲的梳理"><a href="# 段松：iOS- 大纲的梳理" class="headerlink" title="@段松：iOS 大纲的梳理"></a><a href="http://weibo.com/songduan" target="_blank" rel="noopener">@段松</a>：iOS 大纲的梳理</h2><blockquote>
+<p>说话真心快</p>
+</blockquote>
+<p>创业中：<a href="https://itunes.apple.com/us/app/jian-mei-le/id1001465884?mt=8" target="_blank" rel="noopener">健美乐</a></p>
+<p>过去培训经验：5 小时 * 12 天完成培训，走向职场。</p>
+<p>不是看了多少书，死记硬背了多少知识点，更多是写代码的能力，写的多了自然会用了。</p>
+<p>学习过程中类比现实生活中的东西，可能比较容易理解。</p>
+<p>代理就是委托，力有不逮时，联系朋友去完成。</p>
+<p>学习方法：就是梳理大纲知识点，掌握要点，理清楚后，自己写代码自然就会了。</p>
+<p>先学习整体框架，后学习细节。</p>
+<p>UITabBarViewController 90% 使用的框架。</p>
+<p>UITableView</p>
+<p>实战中的两种应用框架（后续课程）</p>
+<p>查看开源项目，删除多余的部分，只看自己关注的部分。最基本也要会用开源框架。</p>
+<p>iOS 数据结构用的不多。</p>
+<p>分享易庆晟的笔记：<a href="http://www.jianshu.com/p/8a24ffc1dd22" target="_blank" rel="noopener">GeekBand 第二周线下课堂</a>，总结的非常好。</p>
+<h2 id="李建忠：C- 辅导"><a href="# 李建忠：C- 辅导" class="headerlink" title="@李建忠：C++ 辅导"></a><a href="http://weibo.com/jzli" target="_blank" rel="noopener">@李建忠 </a>：C++ 辅导</h2><p> 分享 X-Lion 的 C++ 笔记：<a href="http://blog.csdn.net/lionpku/article/details/47059299?from=timeline&amp;isappinstalled=0" target="_blank" rel="noopener">极客班 GeekBand - C++ 第一次课程辅导 - 李建忠</a>，和于航的笔记：<a href="http://www.yhspy.com/blog/67.html" target="_blank" rel="noopener">GeekBank 极客班 C++ 线下班学习心得（二）</a>。</p>
+<h2 id="李建忠：确定项目"><a href="# 李建忠：确定项目" class="headerlink" title="@李建忠：确定项目"></a><a href="http://weibo.com/jzli" target="_blank" rel="noopener">@李建忠 </a>：确定项目</h2><p> 均衡组员分配，iOS/C++/PM，考虑到产品上线审核产生的延迟，要提前两周就要完成项目，约 9 月 12 日。</p>
+<p> <strong>基于 MVP，产品原型图和技术要点分解同步进行，快速迭代，让真实项目催促你前进。</strong></p>
+<p>一天下来，我们小组项目最终打磨为：“一秒变大人”，张诚 PM、我和易庆晟 iOS 方面、郭意亮 C++ 技术、还有新加入的沈秋艳 PM，希望尽快下周末前出第一个版本。</p>
+<p>我负责项目图片视频处理方面，TODO：</p>
+<p>- 阅读图片视频相关的文档<br>-objc.io 关于图片视频的小节<br>- 找几个相关开源的项目</p>
+<p>Swift or Objective-C？虽然两门课都有，但是我还是❤️Swift，并不仅仅因为❤️Taylor。</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://gewill.org/2015/07/24/iOS-Programming-4ed-3/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -2630,738 +3366,6 @@ class HappinessViewController: UIViewController, FaceViewDataSource
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://gewill.org/2015/07/11/CS193P-3-Applying-MVC/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Ge Will">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Will's Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2015/07/11/CS193P-3-Applying-MVC/" itemprop="url">CS193P 3. Applying MVC</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2015-07-11T16:17:07+08:00">
-                2015-07-11
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2015/07/11/CS193P-3-Applying-MVC/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2015/07/11/CS193P-3-Applying-MVC/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p> 看英文视频加中文字幕，效率也是蛮低的，下个星期六博览网的 iOS 极客班就开学了，希望能够认真高效投入更多时间去学习，一定要学好，找到开发的工作，圆毕业三年的一个梦。</p>
-<p>Swift 学习还算顺利，MVC 模式也有所熟悉，就是独自开发和想法实现有困难，暂时停留在看懂和自己写一遍的水平。</p>
-<p> 还有就是玩手机，刷微博啥的超级浪费时间，因为这个不费脑，玩的也高兴，能够一天不吃饭，也不困，也停不下来。<br><strong> 但是学习或看书，就很费神，容易犯困，这个一定要克服，实在困了就休息 10 分钟，再继续。</strong></p>
-<p>New Calculator Demo</p>
-<ul>
-<li>Applying MVC to the Calculator </li>
-<li>enum</li>
-<li>Simple initializer</li>
-<li>Returning an Optional</li>
-<li>Dicionary</li>
-<li>Tuples</li>
-</ul>
-<p> 源码如下，待修改：<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">//</span><br><span class="line">//  CalculatorBrain.swift</span><br><span class="line">//  Calculator</span><br><span class="line">//</span><br><span class="line">//  Created by Will Ge on 7/11/15.</span><br><span class="line">//  Copyright © 2015 gewill.org. All rights reserved.</span><br><span class="line">//</span><br><span class="line"></span><br><span class="line">import Foundation</span><br><span class="line"></span><br><span class="line">class CauculatorBrain</span><br><span class="line">&#123;</span><br><span class="line">    // 定义一个枚举类型，来分类表示输入的：运算数、一元运算和二元运算 </span><br><span class="line">    enum Op &#123;</span><br><span class="line">        case Operand(Double)</span><br><span class="line">        case UnaryOperation(String, Double -&gt; Double)</span><br><span class="line">        case BinaryOperation(String, (Double, Double) -&gt; Double)</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    // 定义一个数组来储存所有输入 </span><br><span class="line">    var opStack = [Op]()</span><br><span class="line">    </span><br><span class="line">    // 定义已知运算符 </span><br><span class="line">    var knownOps = [String:Op]()</span><br><span class="line">    </span><br><span class="line">    // 初始化已知运算符 </span><br><span class="line">    init() &#123;</span><br><span class="line">        knownOps[&quot;+&quot;] = Op.BinaryOperation(&quot;+&quot;, +)</span><br><span class="line">        knownOps[&quot;−&quot;] = Op.BinaryOperation(&quot;−&quot;) &#123;$1 - $0&#125;</span><br><span class="line">        knownOps[&quot;×&quot;] = Op.BinaryOperation(&quot;×&quot;, *)</span><br><span class="line">        knownOps[&quot;÷&quot;] = Op.BinaryOperation(&quot;÷&quot;) &#123;$1 / $0&#125;</span><br><span class="line">        knownOps[&quot;√&quot;] = Op.UnaryOperation(&quot;√&quot;, sqrt)</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    // 定义一个函数，把输入递归取出 </span><br><span class="line">    func evaluate(ops: [Op]) -&gt; (result: Double?, remainingOps:[Op]) &#123;</span><br><span class="line">        if !ops.isEmpty &#123;</span><br><span class="line">            var remainingOps = ops</span><br><span class="line">            let op = remainingOps.removeLast()</span><br><span class="line">            switch op &#123;</span><br><span class="line">            case.Operand(let operand):</span><br><span class="line">                return (operand, remainingOps)</span><br><span class="line">            case .UnaryOperation(_, let operation):</span><br><span class="line">                let operandEvaluation = evaluate(remainingOps)</span><br><span class="line">                if let operand = operandEvaluation.result &#123;</span><br><span class="line">                    return (operation(operand), operandEvaluation.remainingOps)</span><br><span class="line">                &#125;</span><br><span class="line">            case .BinaryOperation(_, let operation):</span><br><span class="line">                let op1Evaluation = evaluate(remainingOps)</span><br><span class="line">                if let operand1 = op1Evaluation.result &#123;</span><br><span class="line">                    let op2Evaluation = evaluate(remainingOps)</span><br><span class="line">                    if let operand2 = op2Evaluation.result &#123;</span><br><span class="line">                        return (operation(operand1, operand2), op2Evaluation.remainingOps)</span><br><span class="line">                    &#125;</span><br><span class="line"></span><br><span class="line">                    </span><br><span class="line">                &#125;</span><br><span class="line">                </span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        return (nil, ops)</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    func evaluate() -&gt; Double? &#123;</span><br><span class="line">        let (result, remainder) = evaluate(opStack)</span><br><span class="line">        print(&quot;\(opStack) = \(result) with \(remainder) left over&quot;)</span><br><span class="line">        return result</span><br><span class="line">        </span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    // 运算数 </span><br><span class="line">    func pushOperand(operand: Double) -&gt; Double? &#123;</span><br><span class="line">        opStack.append(Op.Operand(operand))</span><br><span class="line">        return evaluate()</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    // 运算符 </span><br><span class="line">    func performOperation(symbol: String) -&gt; Double? &#123;</span><br><span class="line">        if let operation = knownOps[symbol] &#123;</span><br><span class="line">            opStack.append(operation)</span><br><span class="line">        &#125;</span><br><span class="line">        return evaluate()</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">//</span><br><span class="line">//  ViewController.swift</span><br><span class="line">//  Calculator</span><br><span class="line">//</span><br><span class="line">//  Created by Will Ge on 6/28/15.</span><br><span class="line">//  Copyright © 2015 gewill.org. All rights reserved.</span><br><span class="line">//</span><br><span class="line"></span><br><span class="line">import UIKit</span><br><span class="line"></span><br><span class="line">class ViewController: UIViewController &#123;</span><br><span class="line">    </span><br><span class="line"></span><br><span class="line">    @IBOutlet weak var history: UILabel!</span><br><span class="line">    </span><br><span class="line">    @IBOutlet weak var display: UILabel!</span><br><span class="line">    </span><br><span class="line">    </span><br><span class="line">    var userIsInTheMiddleOfTypingANumber: Bool = false</span><br><span class="line">    </span><br><span class="line">    var brain = CauculatorBrain()</span><br><span class="line"></span><br><span class="line">    @IBAction func appendDigit(sender: UIButton) &#123;</span><br><span class="line">        let digit = sender.currentTitle!</span><br><span class="line">        if userIsInTheMiddleOfTypingANumber&#123;</span><br><span class="line">              display.text = display.text! + digit</span><br><span class="line">        &#125; else &#123;</span><br><span class="line">            display.text = digit</span><br><span class="line">            userIsInTheMiddleOfTypingANumber = true</span><br><span class="line">        &#125;</span><br><span class="line">    </span><br><span class="line">        print(&quot;digit = \(digit)&quot;)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    </span><br><span class="line">    </span><br><span class="line">    @IBAction func enter() &#123;</span><br><span class="line">        userIsInTheMiddleOfTypingANumber = false</span><br><span class="line">        if let result = brain.pushOperand(displayValue) &#123;</span><br><span class="line">            displayValue = result</span><br><span class="line">        &#125; else &#123;</span><br><span class="line">            displayValue = 0</span><br><span class="line">        &#125;</span><br><span class="line">        print(&quot;pushOperand = \(displayValue)&quot;)</span><br><span class="line">        </span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    @IBAction func operate(sender: UIButton) &#123;</span><br><span class="line">        </span><br><span class="line">        if userIsInTheMiddleOfTypingANumber &#123;</span><br><span class="line">            enter()</span><br><span class="line">        &#125;</span><br><span class="line">        if let operation = sender.currentTitle &#123;</span><br><span class="line">            print(&quot;\(operation)&quot;)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line"></span><br><span class="line">    </span><br><span class="line">    var displayValue: Double&#123;</span><br><span class="line">        get &#123;</span><br><span class="line">            return NSNumberFormatter().numberFromString(display.text!)!.doubleValue</span><br><span class="line">        &#125;</span><br><span class="line">        set &#123;</span><br><span class="line">            display.text = &quot;\(newValue)&quot;</span><br><span class="line">            userIsInTheMiddleOfTypingANumber = false</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://gewill.org/2015/07/07/new-DNS-setting/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Ge Will">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Will's Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2015/07/07/new-DNS-setting/" itemprop="url">new DNS setting</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2015-07-07T23:48:24+08:00">
-                2015-07-07
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2015/07/07/new-DNS-setting/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2015/07/07/new-DNS-setting/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>我的需求： <a href="http://www.gewill.org" target="_blank" rel="noopener">www.gewill.org</a> 跳转到 gewill.org。</p>
-<p>使用 <a href="http://wan.wang" target="_blank" rel="noopener"> 万网 </a> 域名服务提供的 DNS 解析需要备案才能实现 301 跳转，所以之前使用 <a href="http://DNSPOD.COM" target="_blank" rel="noopener">DNSPOD</a> 的服务，但是不知为何竟失效了，gewill.org 能打开，<a href="http://www.gewill.org 打不开了。换了其他的也都不行，dig" target="_blank" rel="noopener">www.gewill.org 打不开了。换了其他的也都不行，dig</a> 也是对的。</p>
-<p>Google Github Pages 的相关信息，发现官方帮助文档就有简单是实现方案：</p>
-<blockquote>
-<p><a href="https://help.github.com/articles/tips-for-configuring-a-cname-record-with-your-dns-provider/" target="_blank" rel="noopener">Configuring a www subdomain</a></p>
-</blockquote>
-<blockquote>
-<p>If you configure both an apex domain (e.g. example.com) and a matching www subdomain (e.g. <a href="http://www.example.com)" target="_blank" rel="noopener">www.example.com)</a>, GitHub’s servers will automatically create redirects between the two.</p>
-</blockquote>
-<blockquote>
-<p>For example:</p>
-</blockquote>
-<blockquote>
-<p>If your CNAME file contains example.com, then <a href="http://www.example.com" target="_blank" rel="noopener">www.example.com</a> will redirect to example.com.<br>If your CNAME file contains <a href="http://www.example.com" target="_blank" rel="noopener">www.example.com</a>, then example.com will redirect to <a href="http://www.example.com.&quot;" target="_blank" rel="noopener">www.example.com.&quot;</a></p>
-</blockquote>
-<p><strong>DNS 同时 CNAME 顶级域名和 WWW，然后在 Github CNAME 文件中添加偏好的一个。</strong></p>
-<p>虽然之前有看过，一则英文看了只解一二，二则当时对于 DNS 和网站都刚刚接触。我学习新鲜东西节奏还是太慢，以后还要多思考，多与人交流。官方文档还是最简洁正确的。</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://gewill.org/2015/07/07/CS193P-2-More-Xcode-and-Swift-MVC/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Ge Will">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Will's Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2015/07/07/CS193P-2-More-Xcode-and-Swift-MVC/" itemprop="url">CS193P 2. More Xcode and Swift, MVC</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2015-07-07T17:22:20+08:00">
-                2015-07-07
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2015/07/07/CS193P-2-More-Xcode-and-Swift-MVC/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2015/07/07/CS193P-2-More-Xcode-and-Swift-MVC/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p> 继续 DEMO: Calculator </p>
-<p>Swift 能类型推断 </p>
-<p> 自动布局：</p>
-<ul>
-<li>Pin: Spacing to nearest neighbor, Equal Widths, Equal Heights</li>
-<li>Resolve Auto Layout Issues: Clear Constraints</li>
-</ul>
-<p>87 果然是个神奇的数字，我之前没有对齐就开始 Pin，始终无法得到“Add 87 Constraints”，自然没有得到自动对齐的理想布局。</p>
-<p> 代码如下：<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">//</span><br><span class="line">//  ViewController.swift</span><br><span class="line">//  Calculator</span><br><span class="line">//</span><br><span class="line">//  Created by Will Ge on 6/28/15.</span><br><span class="line">//  Copyright © 2015 gewill.org. All rights reserved.</span><br><span class="line">//</span><br><span class="line"></span><br><span class="line">import UIKit</span><br><span class="line"></span><br><span class="line">class ViewController: UIViewController &#123;</span><br><span class="line">    </span><br><span class="line"></span><br><span class="line">    @IBOutlet weak var display: UILabel!</span><br><span class="line">    </span><br><span class="line">    var userIsInTheMiddleOfTypingANumber: Bool = false</span><br><span class="line"></span><br><span class="line">    @IBAction func appendDigit(sender: UIButton) &#123;</span><br><span class="line">        let digit = sender.currentTitle!</span><br><span class="line">        if userIsInTheMiddleOfTypingANumber&#123;</span><br><span class="line">              display.text = display.text! + digit</span><br><span class="line">        &#125; else &#123;</span><br><span class="line">            display.text = digit</span><br><span class="line">            userIsInTheMiddleOfTypingANumber = true</span><br><span class="line">        &#125;</span><br><span class="line">    </span><br><span class="line">        print(&quot;digit = \(digit)&quot;)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    var operandStack = Array&lt;Double&gt;()</span><br><span class="line">    </span><br><span class="line">    @IBAction func enter() &#123;</span><br><span class="line">        userIsInTheMiddleOfTypingANumber = false</span><br><span class="line">        operandStack.append(displayValue)</span><br><span class="line">        print(&quot;operandStack = \(operandStack)&quot;)</span><br><span class="line">        </span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    @IBAction func operate(sender: UIButton) &#123;</span><br><span class="line">        let operation = sender.currentTitle!</span><br><span class="line">        if userIsInTheMiddleOfTypingANumber &#123;</span><br><span class="line">            enter()</span><br><span class="line">        &#125;</span><br><span class="line">        switch operation &#123;</span><br><span class="line">        case &quot;×&quot;: performOperation &#123; $0 * $1 &#125;</span><br><span class="line">        case &quot;÷&quot;: performOperation &#123; $1 / $1 &#125;</span><br><span class="line">        case &quot;+&quot;: performOperation &#123; $0 + $1 &#125;</span><br><span class="line">        case &quot;−&quot;: performOperation &#123; $1 - $0 &#125;</span><br><span class="line">        case &quot;√&quot;: performOperation1 &#123; sqrt($0) &#125;</span><br><span class="line">        default: break</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    func performOperation(operation: (Double, Double) -&gt;Double) &#123;</span><br><span class="line">        if operandStack.count &gt;= 2 &#123;</span><br><span class="line">            displayValue = operation(operandStack.removeLast(), operandStack.removeLast())</span><br><span class="line">            enter()</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    func performOperation1(operation: Double -&gt;Double) &#123;</span><br><span class="line">        if operandStack.count &gt;= 2 &#123;</span><br><span class="line">            displayValue = operation(operandStack.removeLast())</span><br><span class="line">            enter()</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    </span><br><span class="line">    var displayValue: Double&#123;</span><br><span class="line">        get &#123;</span><br><span class="line">            return NSNumberFormatter().numberFromString(display.text!)!.doubleValue</span><br><span class="line">        &#125;</span><br><span class="line">        set &#123;</span><br><span class="line">            display.text = &quot;\(newValue)&quot;</span><br><span class="line">            userIsInTheMiddleOfTypingANumber = false</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>MVC:</p>
-<ul>
-<li> 各个模块之间的含义 </li>
-<li> 模块之间的通信有无 </li>
-<li> 模块之间的控制关系 </li>
-</ul>
-<p><img src="http://i.imgur.com/i8HTac7.png" alt="MVC"></p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://gewill.org/2015/06/28/CS193P-1-Logistics-iOS-8-Overview/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Ge Will">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Will's Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2015/06/28/CS193P-1-Logistics-iOS-8-Overview/" itemprop="url">CS193P 1.Logistics, iOS 8 Overview</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2015-06-28T15:28:11+08:00">
-                2015-06-28
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2015/06/28/CS193P-1-Logistics-iOS-8-Overview/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2015/06/28/CS193P-1-Logistics-iOS-8-Overview/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>iTunes U 课程地址：<a href="https://itunes.apple.com/us/course/developing-ios-8-apps-swift/id961180099" target="_blank" rel="noopener">iTunes U/Developing iOS 8 Apps Swift</a></p>
-<p>CS193P 课程地址：<a href="http://web.stanford.edu/class/cs193p/cgi-bin/drupal/" target="_blank" rel="noopener">CS193P iPhone Application Development</a></p>
-<p> 字幕下载：<a href="https://github.com/x140yu/Developing_iOS_8_Apps_With_Swift" target="_blank" rel="noopener">https://github.com/x140yu/Developing_iOS_8_Apps_With_Swift</a></p>
-<p> 课程不用多介绍，下面直接进入笔记：</p>
-<p>iOS 仍是一个 Unix 系统，添加了很多移动方面的模块和优化。</p>
-<p>Cocoa Touch 是本课的重点，如涉及 Media 等主题需要自行找资料深入学习。</p>
-<p><strong> 自己动手写代码，绝不复制粘贴别人的代码。</strong></p>
-<p> 接下来是 DEMO：Calculator </p>
-<p> 蓝线是自动布局时的好帮手。</p>
-<p>Storyboard 是正方形，自动布局就是实现对真实屏幕比例添加挤压效果或规则，已完成适配。</p>
-<p>Trailing Margin （尾部到边框）<br>Leading Margin （头部到边框）<br>Top （顶部）</p>
-<p>Outline mode （大纲模式）</p>
-<p>? 表示 Optional，有两种情况：</p>
-<ul>
-<li>nil ： 值缺失 </li>
-<li> 有值 </li>
-</ul>
-<p> 源码如下：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">//  ViewController.swift</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">import UIKit</span><br><span class="line"></span><br><span class="line">class ViewController: UIViewController &#123;</span><br><span class="line"></span><br><span class="line">    </span><br><span class="line">    @IBOutlet weak var display: UILabel!</span><br><span class="line">    </span><br><span class="line">    var userIsInTheMiddleOfTypingANumber: Bool = false</span><br><span class="line"></span><br><span class="line">    @IBAction func appendDigit(sender: UIButton) &#123;</span><br><span class="line">        let digit = sender.currentTitle!</span><br><span class="line">        if userIsInTheMiddleOfTypingANumber&#123;</span><br><span class="line">              display.text = display.text! + digit</span><br><span class="line">        &#125; else &#123;</span><br><span class="line">            display.text = digit</span><br><span class="line">            userIsInTheMiddleOfTypingANumber = true</span><br><span class="line">        &#125;</span><br><span class="line">    </span><br><span class="line">        print(&quot;digit = \(digit)&quot;)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://gewill.org/2015/06/20/Windows-Advanced-Learning-Methods/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Ge Will">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Will's Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2015/06/20/Windows-Advanced-Learning-Methods/" itemprop="url">Windows 进阶的学习方法－笔记</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2015-06-20T10:31:57+08:00">
-                2015-06-20
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2015/06/20/Windows-Advanced-Learning-Methods/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2015/06/20/Windows-Advanced-Learning-Methods/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p><a href="http://boolan.com/course/section/1000001152" target="_blank" rel="noopener">Windows 进阶的学习方法 </a> 是<a href="http://boolan.com/" target="_blank" rel="noopener">博览网 </a> 的<a href="http://boolan.com/course/20" target="_blank" rel="noopener">Windows 专家管理与排错 </a> 第一讲，讲师彭爱华，其中关于学习方法，尤其是少下载，贪多嚼不烂，击中我要害。虽然讲的是 Windows，但方法还是通用的，以下为学习笔记。</p>
-<p>## 良好的学习习惯</p>
-<ul>
-<li>养成阅读英文资料的习惯</li>
-<li><strong>少下载</strong>、勤阅读、多动手</li>
-<li>知识的整理，善于写博客，多分享</li>
-<li>基础知识要扎实，平台和核心领域知识</li>
-</ul>
-<p>## 关于提问</p>
-<ul>
-<li>必须经过仔细思考，才提问，切忌不动脑子</li>
-<li>提问不是为了解决眼前问题，而是获得启发</li>
-<li>好的问题时带有启发性的，衍生性的</li>
-<li>能否整理经典的问题，沉淀下来？（写博客）</li>
-</ul>
-<p>## 常见弊病</p>
-<ul>
-<li>盲目的跟风式学习</li>
-<li>吃着碗里，想着锅里</li>
-<li>理论不联系实际</li>
-<li>不能高效利用资源</li>
-</ul>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -3412,7 +3416,7 @@ class HappinessViewController: UIViewController, FaceViewDataSource
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">168</span>
+                  <span class="site-state-item-count">173</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -3494,7 +3498,7 @@ class HappinessViewController: UIViewController, FaceViewDataSource
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>

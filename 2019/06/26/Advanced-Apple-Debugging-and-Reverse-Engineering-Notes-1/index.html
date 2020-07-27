@@ -1,0 +1,1096 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="en">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+  <meta name="google-site-verification" content="6p6MCt9mM7zNfEZF2HzE72sTOXJ8MC5frP4VNvYw1JU">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="Will's Blog" type="application/atom+xml">
+
+
+
+
+
+
+<meta name="description" content="引言  写这本书的目的 每个开发人员都应该研究调试代码的艺术。 但是，有些人会从本书中获得更多。 本书是为：  希望更好地使用 LLDB 进行调试的开发人员  希望使用 LLDB 构建复杂调试命令的开发人员  希望深入了解 Swift 和 Objective-C 内部的开发人员  有兴趣了解：通过逆向工程，他们可以做些什么的开发人员  对现代主动逆向工程策略感兴趣的开发人员  希望在发现有关其计算">
+<meta property="og:type" content="article">
+<meta property="og:title" content="苹果调试和逆向工程进阶 - 笔记（一）">
+<meta property="og:url" content="http://gewill.org/2019/06/26/Advanced-Apple-Debugging-and-Reverse-Engineering-Notes-1/index.html">
+<meta property="og:site_name" content="Will&#39;s Blog">
+<meta property="og:description" content="引言  写这本书的目的 每个开发人员都应该研究调试代码的艺术。 但是，有些人会从本书中获得更多。 本书是为：  希望更好地使用 LLDB 进行调试的开发人员  希望使用 LLDB 构建复杂调试命令的开发人员  希望深入了解 Swift 和 Objective-C 内部的开发人员  有兴趣了解：通过逆向工程，他们可以做些什么的开发人员  对现代主动逆向工程策略感兴趣的开发人员  希望在发现有关其计算">
+<meta property="og:locale" content="en">
+<meta property="og:image" content="http://gewill.org/2019/06/26/assets/xcode_breakpoints.png">
+<meta property="og:image" content="http://gewill.org/2019/06/26/assets/image-20190628093457893.png">
+<meta property="og:image" content="http://gewill.org/2019/06/26/assets/image-20190628094640418.png">
+<meta property="og:image" content="http://gewill.org/Users/will/git/blog/source/assets/image-20190701112507258.png">
+<meta property="og:updated_time" content="2019-08-01T13:28:48.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="苹果调试和逆向工程进阶 - 笔记（一）">
+<meta name="twitter:description" content="引言  写这本书的目的 每个开发人员都应该研究调试代码的艺术。 但是，有些人会从本书中获得更多。 本书是为：  希望更好地使用 LLDB 进行调试的开发人员  希望使用 LLDB 构建复杂调试命令的开发人员  希望深入了解 Swift 和 Objective-C 内部的开发人员  有兴趣了解：通过逆向工程，他们可以做些什么的开发人员  对现代主动逆向工程策略感兴趣的开发人员  希望在发现有关其计算">
+<meta name="twitter:image" content="http://gewill.org/2019/06/26/assets/xcode_breakpoints.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://gewill.org/2019/06/26/Advanced-Apple-Debugging-and-Reverse-Engineering-Notes-1/">
+
+
+
+
+
+  <title>苹果调试和逆向工程进阶 - 笔记（一） | Will's Blog</title>
+  
+
+
+
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-62118677-1', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Will's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            About
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            Archives
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="st-search-show-outputs">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
+            
+            Search
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <form class="site-search-form">
+  <input type="text" id="st-search-input" class="st-search-input st-default-search-input">
+</form>
+
+<script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+    (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+    e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+
+  _st('install', 'ntcZFKy566gs4bTbpvHW','2.0.0');
+</script>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://gewill.org/2019/06/26/Advanced-Apple-Debugging-and-Reverse-Engineering-Notes-1/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Ge Will">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Will's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">苹果调试和逆向工程进阶 - 笔记（一）</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-06-26T10:32:44+08:00">
+                2019-06-26
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2019/06/26/Advanced-Apple-Debugging-and-Reverse-Engineering-Notes-1/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2019/06/26/Advanced-Apple-Debugging-and-Reverse-Engineering-Notes-1/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="引言"><a href="# 引言" class="headerlink" title="引言"></a>引言 </h2><p> 写这本书的目的</p>
+<p>每个开发人员都应该研究调试代码的艺术。 但是，有些人会从本书中获得更多。 本书是为：</p>
+<ol>
+<li><p>希望更好地使用 LLDB 进行调试的开发人员</p>
+</li>
+<li><p>希望使用 LLDB 构建复杂调试命令的开发人员</p>
+</li>
+<li><p>希望深入了解 Swift 和 Objective-C 内部的开发人员</p>
+</li>
+<li><p>有兴趣了解：通过逆向工程，他们可以做些什么的开发人员</p>
+</li>
+<li><p>对现代主动逆向工程策略感兴趣的开发人员</p>
+</li>
+<li><p>希望在发现有关其计算机或软件问题的答案时有所帮助的开发人员</p>
+</li>
+</ol>
+<p>自定义 LLDB 脚本 repo:</p>
+<p><a href="https://github.com/DerekSelander/LLDB" target="_blank" rel="noopener">https://github.com/DerekSelander/LLDB</a></p>
+<p>这些脚本将有助于您的调试 / 逆向工程，并为您自己的 LLDB 脚本提供新颖的想法。</p>
+<h2 id="第一节：开始 LLDB 命令"><a href="# 第一节：开始 LLDB 命令" class="headerlink" title="第一节：开始 LLDB 命令"></a>第一节：开始 LLDB 命令 </h2><p> 到本节结束时，您将能够使用调试器来执行调试所需的大多数基本任务，以及创建自己的简单自定义命令</p>
+<h3 id="第 1 章：入门"><a href="# 第 1 章：入门" class="headerlink" title="第 1 章：入门"></a>第 1 章：入门 </h3><p> 想知道为什么命令是 po？ po 代表打印对象。 还有 p，它只是打印 RDI 的内容。 po 通常更有用，因为它提供了 NSObject 的描述或 debugDescription 方法（如果可用）。</p>
+<p>如果您想将调试提升到一个新的水平，汇编（Assembly）是一项重要的技能。</p>
+<p>它可以让您深入了解 Apple 的代码 - 即使您没有任何源代码可供阅读。 它将使您更好地了解 Swift 编译器团队如何使用 Swift 在 Objective-C 中跳出，并且它将使您更好地了解 Apple 设备上的一切是如何工作的。</p>
+<p>如果可以，我将始终选择在调试器中使用 Objective-C，因为使用 Objective-C LLDB 比使用 Swift 更稳定。</p>
+<h3 id="第 2 章：Help 和 Apropos"><a href="# 第 2 章：Help 和 Apropos" class="headerlink" title="第 2 章：Help 和 Apropos"></a>第 2 章：Help 和 Apropos</h3><p><code>help</code>将转储 (dump) 所有可用的命令，包括从〜/ .lldbinit 加载的自定义命令。</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">(lldb) help breakpoint</span><br></pre></td></tr></table></figure>
+<p><code>apropos</code>命令可以为您执行此操作; 这有点像使用搜索引擎在网络上找到一些东西。</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">(lldb) apropos swift</span><br></pre></td></tr></table></figure>
+<h3 id="第 3 章：使用 LLDB-Attaching"><a href="# 第 3 章：使用 LLDB-Attaching" class="headerlink" title="第 3 章：使用 LLDB Attaching"></a>第 3 章：使用 LLDB Attaching</h3><p>LLDB“Attaching”的短语实际上有点误导。 名为 debugserver(位于 Xcode.app/Contents/SharedFrameworks/LLDB.framework/Resources/)的程序负责附加 (attaching) 到目标进程。</p>
+<p>如果它是远程进程，例如在远程设备上运行的 iOS，watchOS 或 tvOS 应用程序，则会在该远程设备上启动远程调试服务器。 LLDB 的工作是启动，连接和协调调试服务器，以处理调试应用程序时的所有交互。</p>
+<h4 id="附加到现有进程"><a href="# 附加到现有进程" class="headerlink" title="附加到现有进程"></a>附加到现有进程</h4><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">lldb -n Xcode</span><br></pre></td></tr></table></figure>
+<h4 id="附加到未来的进程"><a href="# 附加到未来的进程" class="headerlink" title="附加到未来的进程"></a>附加到未来的进程</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">lldb -n Finder -w</span><br></pre></td></tr></table></figure>
+<h4 id="launch 可选的参数"><a href="#launch 可选的参数" class="headerlink" title="launch 可选的参数"></a>launch 可选的参数 </h4><p> 这告诉 LLDB 使用<code>/bin/ls</code>（文件列表命令）作为目标可执行文件。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">lldb -f /bin/ls</span><br></pre></td></tr></table></figure>
+<p>使用 process 的选项 <code>-w</code> 更改工作目录</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">(lldb) process launch -w /Applications</span><br></pre></td></tr></table></figure>
+<p>直接传递参数给 <code> 程序</code>，也就是<code>/bin/ls</code></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">(lldb) process launch -- /Applications</span><br></pre></td></tr></table></figure>
+<p>等价于</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ ls /Applications</span><br></pre></td></tr></table></figure>
+<p><code>-X</code>选项可扩展您提供的任何 shell 参数，例如代字号。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">(lldb) process launch -X true -- ~/Desktop</span><br></pre></td></tr></table></figure>
+<p><code>run</code> 是 <code>process launch -X true —</code>的缩写，所以</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">run ~/Desktop</span><br></pre></td></tr></table></figure>
+<p>stdin 也有一个选项<code>-i</code>，用来处理标准的输入输出。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">(lldb) target delete</span><br><span class="line">(lldb) target create /usr/bin/wc</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ echo &quot;hello world&quot; &gt; /tmp/wc_input.txt</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">(lldb) process launch -i /tmp/wc_input.txt</span><br><span class="line">Process 24511 launched: &apos;/usr/bin/wc&apos; (x86_64)</span><br><span class="line">1 2 12 </span><br><span class="line">Process 24511 exited with status = 0 (0x00000000)</span><br></pre></td></tr></table></figure>
+<p>等同于</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ wc &lt; /tmp/wc_input.txt</span><br><span class="line"> 1  2 12</span><br></pre></td></tr></table></figure>
+<h3 id="第 4 章：在代码中停止"><a href="# 第 4 章：在代码中停止" class="headerlink" title="第 4 章：在代码中停止"></a>第 4 章：在代码中停止 </h3><p> 无论您是在技术堆栈中使用 Swift，Objective-C，C ++，C 还是完全不同的语言，您都需要学习如何创建断点。 可以轻松地在 Xcode 中单击侧面板以使用 GUI 创建断点，但 LLDB 控制台可以让您更好地控制断点。</p>
+<h4 id="Signals（信号）"><a href="#Signals（信号）" class="headerlink" title="Signals（信号）"></a>Signals（信号）</h4><p>Unix 信号是进程间通信的基本形式。</p>
+<p>例如，其中一个信号 SIGSTOP 可用于保存状态并暂停执行进程，而其对应的 SIGCONT 则被发送到程序以恢复执行。调试器可以使用这两个信号暂停并继续执行程序。</p>
+<h5 id="Xcode- 断点"><a href="#Xcode- 断点" class="headerlink" title="Xcode 断点"></a>Xcode 断点 </h5><p> 符号断点（Symbolic breakpoints）是 Xcode 的一个很好的调试功能。它们允许您在应用程序中的某个符号上设置断点。例如<code>[NSObject init]</code>，它引用 NSObject 实例的 init 方法。</p>
+<p><img src="../assets/xcode_breakpoints.png" alt></p>
+<blockquote>
+<p>您将学习如何在第 10 章“汇编，寄存器和调用约定”中正确使用和操作寄存器，但是现? 在，只需知道 <code>arg1</code> 与​<code>$rdi</code>寄存器同义，并且可以被认为是持有实例的调用 init 时的类。</p>
+</blockquote>
+<p>还有 Swift 错误断点，它通过在 swift_willThrow 方法上创建断点来随时停止 Swift 抛出错误。如果您正在处理任何容易出错的 API，这是一个很好的选择，因为它可以让您快速诊断情况，而不会对代码的正确性做出错误的假设。</p>
+<h4 id="LLDB 断点语法"><a href="#LLDB 断点语法" class="headerlink" title="LLDB 断点语法"></a>LLDB 断点语法 </h4><p><code>image</code> 命令是一个很好的工具，可以帮助内省对设置断点至关重要的细节。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">(lldb) image lookup -n &quot;-[UIViewController viewDidLoad]&quot;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">(lldb) image lookup -rn test</span><br></pre></td></tr></table></figure>
+<h5 id="Objective-C-properties"><a href="#Objective-C-properties" class="headerlink" title="Objective-C properties"></a>Objective-C properties</h5><figure class="highlight objc"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">TestClass</span> : <span class="title">NSObject</span> </span></span><br><span class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">strong</span>) <span class="built_in">NSString</span> *name; </span><br><span class="line"><span class="keyword">@end</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">(lldb) image lookup -n &quot;-[TestClass name]&quot;</span><br></pre></td></tr></table></figure>
+<h5 id="Objective-C-properties-and-dot-notation"><a href="#Objective-C-properties-and-dot-notation" class="headerlink" title="Objective-C properties and dot notation"></a>Objective-C properties and dot notation</h5><figure class="highlight objc"><table><tr><td class="code"><pre><span class="line">TestClass *a = [[TestClass alloc] init];</span><br><span class="line"></span><br><span class="line"><span class="comment">// Both equivalent for setters </span></span><br><span class="line">[a setName:<span class="string">@"hello, world"</span>]; </span><br><span class="line">a.name = <span class="string">@"hello, world"</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// Both equivalent for getters </span></span><br><span class="line"><span class="built_in">NSString</span> *b; </span><br><span class="line">b = [a name]; <span class="comment">// b = @"hello, world" </span></span><br><span class="line">b = a.name; <span class="comment">// b = @"hello, world"</span></span><br></pre></td></tr></table></figure>
+<p>重要的是要知道您是在处理 Objective-C 代码并尝试使用点表示法在 setter 和 getter 属性上创建断点。</p>
+<h5 id="Swift-properties"><a href="#Swift-properties" class="headerlink" title="Swift properties"></a>Swift properties</h5><figure class="highlight swift"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">SwiftTestClass</span>: <span class="title">NSObject</span> </span>&#123; </span><br><span class="line">	<span class="keyword">var</span> name: <span class="type">String!</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>In the LLDB console, type the following:</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">(lldb) image lookup -rn Signals.SwiftTestClass.name.setter</span><br></pre></td></tr></table></figure>
+<p>You’ll get output similar to below:</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">1 match found in /Users/derekselander/Library/Developer/Xcode/ DerivedData/Signals-atqcdyprrotlrvdanihoufkwzyqh/Build/Products/Debugiphonesimulator/Signals.app/Signals:</span><br><span class="line"></span><br><span class="line">Address: Signals[0x000000010000cc70] (Signals.__TEXT.__text + 44816)</span><br><span class="line"></span><br><span class="line">Summary: Signals`Signals.SwiftTestClass.name.setter : Swift.ImplicitlyUnwrappedOptional&lt;Swift.String&gt; at SwiftTestClass.swift: 28</span><br></pre></td></tr></table></figure>
+<p>使用以下正则表达式查询同时搜索 name 属性的 SwiftTestClass setter 和 getter：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">(lldb) image lookup -rn Signals.SwiftTestClass.name</span><br></pre></td></tr></table></figure>
+<h4 id="创建断点"><a href="# 创建断点" class="headerlink" title="创建断点"></a>创建断点 </h4><p> 有几种不同的方法可以创建断点。最基本的方法是只输入字母 b，后跟断点名称。这在 Objective-C 和 C 中相当容易，因为名称简短且易于键入（例如 - [NSObject init]或 - [UIView setAlpha:]）。输入 C ++ 和 Swift 非常棘手，因为编译器会将您的方法转换为具有相当长名称的符号。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">(lldb) b -[UIViewController viewDidLoad]</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>与许多速记命令一样，b 是另一个更长的 LLDB 命令的缩写。</p>
+</blockquote>
+<h5 id="正则表达式断点和范围"><a href="# 正则表达式断点和范围" class="headerlink" title="正则表达式断点和范围"></a>正则表达式断点和范围</h5><p>rb 命令将扩展到 rbreak（假设您没有任何以“rb”开头的其他 LLDB 命令）。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">(lldb) rb SwiftTestClass.name.setter</span><br></pre></td></tr></table></figure>
+<p>这将在包含短语 name.setter 的任何内容上生成断点:</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">(lldb) rb name\.setter</span><br></pre></td></tr></table></figure>
+<p>在 UIViewController 的每个 Objective-C 实例方法上创建一个断点:</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">(lldb) rb &apos;\-\[UIViewController\ &apos;</span><br></pre></td></tr></table></figure>
+<p>删除所有断点：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">(lldb) breakpoint delete</span><br></pre></td></tr></table></figure>
+<p>在断点中的 UIViewController 之后，这提供了带有一个或多个字母数字字符后跟空格的可选括号。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">(lldb) rb &apos;\-\[UIViewController(\(\w+\))?\ &apos;</span><br></pre></td></tr></table></figure>
+<p>使用正则表达式断点可以使用单个表达式捕获各种断点。</p>
+<p>您可以使用 -f 选项将断点的范围限制为特定文件。</p>
+<p>如果您正在调试 DetailViewController.swift，这将非常有用。它将在此文件中的所有属性 getter / setter，块 / 闭包，扩展 / 类别和函数 / 方法上设置断点。 -f 称为范围限制。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">(lldb) rb . -f DetailViewController.swift</span><br></pre></td></tr></table></figure>
+<p>使用 -s 可以限制此共享库中设置断点。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">(lldb) rb . -s UIKit</span><br></pre></td></tr></table></figure>
+<p>-o 选项为此提供了解决方案。它创造了所谓的“一次性”断点。当这些断点命中时，断点将被删除。所以它只会打一次。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">(lldb) breakpoint delete </span><br><span class="line">(lldb) rb . -s UIKit -o</span><br></pre></td></tr></table></figure>
+<h5 id="其他很酷的断点选项"><a href="# 其他很酷的断点选项" class="headerlink" title="其他很酷的断点选项"></a>其他很酷的断点选项</h5><p>-L 选项允许您按源代码的语言进行过滤。因此，如果您只想在 Signals 应用程序的 Commons 模块中使用 Swift 代码，则可以执行以下操作：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">(lldb) breakpoint set -L swift -r . -s Commons</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>这将在 Commons 模块中的每个 Swift 方法上设置断点。</p>
+</blockquote>
+<p>如果你想在 Swift 语句 <code>if let</code> 寻找一些有趣的东西，如果让它完全忘记你的应用程序在哪里，该怎么办？您可以使用源正则表达式断点来帮助确定感兴趣的位置！像这样：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">(lldb) breakpoint set -A -p &quot;if let&quot;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>这将在包含 <code>if let</code> 的每个源代码位置创建一个断点。 -A 选项表示搜索项目已知的所有源文件。</p>
+</blockquote>
+<p>如果想进一限制文件范围：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">(lldb) breakpoint set -p &quot;if let&quot; -f MasterViewController.swift -f DetailViewController.swift</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>这将获取所有源文件（-A），但只过滤那些属于 Signals 可执行文件（使用 -s Signals 选项）的文件。</p>
+</blockquote>
+<p>再来一个很酷的断点选项示例？好的。每当 viewDidLoad 被命中时，将创建一个打印 UIViewController 的断点，但是将通过 LLDB 控制台而不是符号断点窗口来执行此操作。然后将这个断点导出到文件中，这样就可以通过使用断点读取和断点写入命令展现给同事。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">(lldb) breakpoint delete // 清理断点</span><br><span class="line">(lldb) breakpoint set -n &quot;-[UIViewController viewDidLoad]&quot; -C &quot;po $arg1&quot; -G1 // 打印所有符合条件的实例对象</span><br><span class="line">(lldb) breakpoint write -f /tmp/br.json // 断点写入文件</span><br><span class="line">(lldb) platform shell cat /tmp/br.json //shell 读取文件</span><br><span class="line">(lldb) breakpoint delete // 清理断点</span><br><span class="line">(lldb) breakpoint read -f /tmp/br.json // 还能从文件中导入断点</span><br></pre></td></tr></table></figure>
+<h5 id="修改和移除断点"><a href="# 修改和移除断点" class="headerlink" title="修改和移除断点"></a>修改和移除断点 </h5><p> 断点会从 1 开始分配 ID</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">(lldb) b main</span><br><span class="line">(lldb) breakpoint list 1</span><br><span class="line">(lldb) breakpoint list 1 -b // 简洁：没有位置（location）</span><br><span class="line">(lldb) breakpoint list 1 3 // 多个</span><br><span class="line">(lldb) breakpoint list 1-3 // 范围</span><br><span class="line">(lldb) breakpoint delete 1 // 删除</span><br><span class="line">(lldb) breakpoint delete 1.1 // 仅删除第一个子断点</span><br></pre></td></tr></table></figure>
+<h3 id="第 5 章：表达式"><a href="# 第 5 章：表达式" class="headerlink" title="第 5 章：表达式"></a>第 5 章：表达式 </h3><h4 id="格式化 -p- 和 -po"><a href="# 格式化 -p- 和 -po" class="headerlink" title="格式化 p 和 po"></a> 格式化 p 和 po</h4><p>po 通常用于 Swift 和 Objective-C 代码中以打印出感兴趣的项目。这可以是对象中的实例变量，对象的本地引用或寄存器，如本书前面所述。它甚至可以是一个任意的内存引用 - 只要该地址有一个对象！</p>
+<p>po 实际上是<code>expression -O --</code> 的简写表达式。 -O 参数用于打印对象的描述。</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">(lldb) help po</span><br><span class="line">     Evaluate an expression on the current thread.  Displays any returned</span><br><span class="line">     value with formatting controlled by the type's author.  Expects'raw'</span><br><span class="line">     input (see'help raw-input'.)</span><br><span class="line"></span><br><span class="line">Syntax: po &lt;expr&gt;</span><br><span class="line"></span><br><span class="line">Command Options Usage:</span><br><span class="line">  po &lt;expr&gt;</span><br><span class="line"></span><br><span class="line">'po'is an abbreviation for'expression -O  --'</span><br></pre></td></tr></table></figure>
+<p>po 经常被忽视的兄弟 p, 是另一个省略 -O 选项的缩写，<code>expression --</code> 。打印出的 p 的格式更依赖于 LLDB 类型系统。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">(lldb) help p</span><br><span class="line">     Evaluate an expression on the current thread.  Displays any returned</span><br><span class="line">     value with LLDB&apos;s default formatting.  Expects &apos;raw&apos; input (see &apos;help</span><br><span class="line">     raw-input&apos;.)</span><br><span class="line"></span><br><span class="line">Syntax: p &lt;expr&gt;</span><br><span class="line"></span><br><span class="line">Command Options Usage:</span><br><span class="line">  p &lt;expr&gt;</span><br><span class="line"></span><br><span class="line">&apos;p&apos; is an abbreviation for &apos;expression --&apos;</span><br></pre></td></tr></table></figure>
+<p>例如：</p>
+<figure class="highlight swift"><table><tr><td class="code"><pre><span class="line"><span class="keyword">override</span> <span class="keyword">var</span> description: <span class="type">String</span> &#123; </span><br><span class="line">  <span class="keyword">return</span> <span class="string">"Yay! debugging"</span> + <span class="keyword">super</span>.description </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">override</span> <span class="keyword">var</span> debugDescription: <span class="type">String</span> &#123; </span><br><span class="line">  <span class="keyword">return</span> <span class="string">"debugDescription:"</span> + <span class="keyword">super</span>.debugDescription </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">override</span> <span class="function"><span class="keyword">func</span> <span class="title">viewDidLoad</span><span class="params">()</span></span> &#123;</span><br><span class="line">   <span class="keyword">super</span>.viewDidLoad()</span><br><span class="line">   <span class="built_in">print</span>(<span class="string">"\(self)"</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>在 viewDidLoad 中添加 Xcode 断点：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">(lldb) po self</span><br></pre></td></tr></table></figure>
+<p>输出：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">debugDescription: Yay! debugging &lt;Signals.MasterViewController: 0x7fb71fd04080&gt;</span><br></pre></td></tr></table></figure>
+<h4 id="Swift- 和 -Objective-C- 调试上下（文 contexts）"><a href="#Swift- 和 -Objective-C- 调试上下（文 contexts）" class="headerlink" title="Swift 和 Objective-C 调试上下（文 contexts）"></a>Swift 和 Objective-C 调试上下（文 contexts）</h4><p>重要的是要注意调试程序时有两个调试上下文：非 Swift 调试上下文和 Swift 上下文。默认情况下，当您停止使用 Objective-C 代码时，LLDB 将使用非 Swift（Objective-C）调试上下文，而如果您在 Swift 代码中停止，则 LLDB 将使用 Swift 上下文。听起来合乎逻辑，对吧？</p>
+<p>但是你也可以指定上下文：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">(lldb) expression -l objc -O -- [UIApplication sharedApplication]</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>在这里，您告诉 LLDB 使用 Objective-C 的 objc 语言。如有必要，您还可以使用 objc + + 作为 Objective-C ++。</p>
+</blockquote>
+<h4 id="用户定义变量"><a href="# 用户定义变量" class="headerlink" title="用户定义变量"></a>用户定义变量 </h4><p> 如前所述，LLDB 将在打印对象时代表您自动创建局部变量。您也可以创建自己的变量。</p>
+<p>但是记得名字前面加<code>$</code></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">(lldb) po id $test = [NSObject new] </span><br><span class="line">(lldb) po $test </span><br><span class="line">&lt;NSObject: 0x60000001d190&gt;</span><br><span class="line">(lldb) expression -l swift -O -- $test // 切换至 Swift 上下文，同样可用</span><br><span class="line">&lt;NSObject: 0x60000001d190&gt;</span><br><span class="line">(lldb) expression -l swift -O -- $test.description // 但是不能期待一切都正常</span><br><span class="line">error: &lt;EXPR&gt;:3:1: error: use of unresolved identifier &apos;$test&apos; $test.description ^~~~~</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>这是一个正在积极开发的领域，Objective-C 和 Swift 之间通过 LLDB 的桥梁可能会随着时间的推移而有所改善。</p>
+</blockquote>
+<p>在 Xcoode 创建符号断点：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">Signals.MasterContainerViewController.viewDidLoad() -&gt; ()</span><br></pre></td></tr></table></figure>
+<p>然后</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">(lldb) p self</span><br><span class="line">(lldb) po $R0.title //$R0 是上一步打印出来的 self 的变量的名字</span><br><span class="line">(lldb) expression -l swift -- $R0.title = &quot;new title&quot; // 还可以修改</span><br></pre></td></tr></table></figure>
+<p>通过键入 continue 或按 Xcode 中的播放按钮来恢复应用程序。就会发现标题已经更新为 ’new title‘</p>
+<h5 id="类型格式化（Type-formatting）"><a href="# 类型格式化（Type-formatting）" class="headerlink" title="类型格式化（Type formatting）"></a>类型格式化（Type formatting）</h5><p>LLDB 的一个不错的选择是能够格式化基本数据类型的输出。这使得 LLDB 成为了解编译器如何格式化基本 C 类型的绝佳工具。当你正在探索汇编部分时，这是必须知道的，你将在本书后面做。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">(lldb) expression -G x -- 10 // 指定十进制格式化输出</span><br><span class="line">(lldb) p/x 10 // 十进制</span><br><span class="line">(lldb) p/t 10 // 二进制</span><br><span class="line">(lldb) p/d &apos;D&apos; // 十进制</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">-G &lt;gdb-format&gt; (--gdb-format &lt;gdb-format&gt;)</span><br><span class="line">     Specify a format using a GDB format specifier string.</span><br></pre></td></tr></table></figure>
+<p>输出格式的完整列表如下（取自<a href="https://sourceware.org/gdb/" target="_blank" rel="noopener">https://sourceware.org/gdb/</a> onlinedocs / gdb / Output-Formats.html）：</p>
+<ul>
+<li>x：十六进制</li>
+<li>d：十进制</li>
+<li>u：无符号十进制</li>
+<li>o：八进制</li>
+<li>t：二进制</li>
+<li>a：地址</li>
+<li>c：字符常量</li>
+<li>f：浮点型</li>
+<li>s：字符串</li>
+</ul>
+<p>如果这些格式不够，您可以使用 LLDB 的额外格式化程序，但您将无法使用 GDB 格式化语法。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">(lldb) expression -f Y -- 1430672467</span><br><span class="line">(int) $0 = 53 54 46 55             STFU</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">-f &lt;format&gt; (--format &lt;format&gt;)</span><br><span class="line">     Specify a format to be used for display.</span><br></pre></td></tr></table></figure>
+<p>LLDB 具有以下格式化程序（摘自<a href="http://lldb.llvm.org/varformats.html）：" target="_blank" rel="noopener">http://lldb.llvm.org/varformats.html）：</a></p>
+<ul>
+<li><p>B：布尔值</p>
+</li>
+<li><p>b：二进制</p>
+</li>
+<li><p>y：字节</p>
+</li>
+<li><p>Y：ASCII 字节</p>
+</li>
+<li><p>c：字符</p>
+</li>
+<li><p>C：可打印字符</p>
+</li>
+<li><p>F：复杂的浮点型（包含实部和虚部）</p>
+</li>
+<li><p>s：c-string</p>
+</li>
+<li><p>i：十进制</p>
+</li>
+<li><p>E：枚举</p>
+</li>
+<li><p>x：十六进制</p>
+</li>
+<li><p>f：浮点型</p>
+</li>
+<li><p>o：八进制</p>
+</li>
+<li><p>O：MacOS OSType</p>
+</li>
+<li><p>U：UTF-16</p>
+</li>
+<li><p>u：无符号十进制</p>
+</li>
+<li><p>p：指针</p>
+</li>
+</ul>
+<h3 id="第 6 章：线程，帧和步进（Thread-Frame-amp-Stepping-Around）"><a href="# 第 6 章：线程，帧和步进（Thread-Frame-amp-Stepping-Around）" class="headerlink" title="第 6 章：线程，帧和步进（Thread, Frame &amp; Stepping Around）"></a>第 6 章：线程，帧和步进（Thread, Frame &amp; Stepping Around）</h3><p>您已经学习了如何创建断点，如何打印和修改值，以及如何在调试器中暂停时执行代码。但到目前为止，您已经处于高度干燥的状态，如何在调试器中移动并检查数据之外的数据。现在是时候了！</p>
+<p>在本章中，您将学习如何在 LLDB 当前暂停时将调试器移入和移出功能。</p>
+<p>这是一项关键技能，因为您经常需要在输入或退出代码片段时随时检查值。</p>
+<h4 id="（栈的第一课）Stack-101"><a href="#（栈的第一课）Stack-101" class="headerlink" title="（栈的第一课）Stack 101"></a>（栈的第一课）Stack 101</h4><p>当计算机程序执行时，它将值存储在堆和栈中。两者都有其优点。作为高级调试器，您需要充分了解这些工作原理。现在，让我们简要介绍一下这个栈。</p>
+<p>栈是 LIFO（后进先出）队列，用于存储对当前正在执行的代码的引用。这种 LIFO 排序意味着最近添加的任何内容都会被删除。想想一栈盘子。在顶部添加一个盘子，它将是你首先取下的盘子。</p>
+<p>栈指针指向栈的当前顶部。在板块类比中，栈指针指向顶板，告诉您从哪里取下一块板，或者在哪里放下一块板。</p>
+<p><img src="../assets/image-20190628093457893.png" alt="image-20190628093457893"></p>
+<p>在此图中，高地址显示在顶部（0xFFFFFFFF），低地址显示在底部（0x00000000），显示栈将向下增长。</p>
+<p>一些插图喜欢在底部具有高地址以与板类比匹配，因为栈将显示为向上增长。但是，我相信任何展示栈的图表都应显示从高地址向下增长，因为这会在以后讨论栈指针的偏移时引起较少的麻烦。</p>
+<h4 id="检查栈的帧"><a href="# 检查栈的帧" class="headerlink" title="检查栈的帧"></a>检查栈的帧 </h4><p> 这里我将使用 iPhone X Simulator。</p>
+<p>添加断点：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">Signals.MasterViewController.viewWillAppear(Swift.Bool) -&gt; ()</span><br></pre></td></tr></table></figure>
+<p><img src="../assets/image-20190628094640418.png" alt="image-20190628094640418"></p>
+<p>在 Debug Navigator 面板中，将显示栈跟踪，显示栈帧列表，第一个是<code>viewWillAppear(_ :)</code>。接下来是 Swift / Objective-C 桥接方法，<code>@objc MasterViewController.viewWillAppear(Bool) -&gt;():</code>。这个方法是自动生成的，所以 Objective-C 可以进入 Swift 代码。</p>
+<p>之后，有一些来自 UIKit 的 Objective-C 代码栈帧。深入挖掘一下，你会看到一些属于 CoreAnimation 的 C ++ 代码。更深入的是，你会看到一些方法都包含属于 CoreFoundation 的名称 CFRunLoop。最后，最重要的是，main 函数。</p>
+<p>下面进入 LLDB console：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">(lldb) thread backtrace</span><br></pre></td></tr></table></figure>
+<p>也可以使用<code>bt</code></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">(lldb) help bt</span><br><span class="line">     Show the current thread&apos;s call stack.  Any numeric argument displays at</span><br><span class="line">     most that many frames.  The argument &apos;all&apos; displays all threads.  Expects</span><br><span class="line">     &apos;raw&apos; input (see &apos;help raw-input&apos;.)</span><br><span class="line"></span><br><span class="line">Syntax: bt [&lt;digit&gt; | all]</span><br><span class="line"></span><br><span class="line">&apos;bt&apos; is an abbreviation for &apos;_regexp-bt&apos;</span><br><span class="line">(lldb) help thread backtrace</span><br><span class="line">     Show thread call stacks.  Defaults to the current thread, thread indexes</span><br><span class="line">     can be specified as arguments.</span><br><span class="line">     Use the thread-index &quot;all&quot; to see all threads.</span><br><span class="line">     Use the thread-index &quot;unique&quot; to see threads grouped by unique call stacks.</span><br><span class="line"></span><br><span class="line">Syntax: thread backtrace &lt;cmd-options&gt;</span><br><span class="line"></span><br><span class="line">Command Options Usage:</span><br><span class="line">  thread backtrace [-c &lt;count&gt;] [-s &lt;frame-index&gt;] [-e &lt;boolean&gt;]</span><br><span class="line"></span><br><span class="line">       -c &lt;count&gt; (--count &lt;count&gt;)</span><br><span class="line">            How many frames to display (-1 for all)</span><br><span class="line"></span><br><span class="line">       -e &lt;boolean&gt; (--extended &lt;boolean&gt;)</span><br><span class="line">            Show the extended backtrace, if available</span><br><span class="line"></span><br><span class="line">       -s &lt;frame-index&gt; (--start &lt;frame-index&gt;)</span><br><span class="line">            Frame in which to start the backtrace</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">(lldb) bt</span><br><span class="line">* thread #1, queue = &apos;com.apple.main-thread&apos;, stop reason = breakpoint 1.1</span><br><span class="line">  * frame #0: 0x0000000107044301 Signals`MasterViewController.viewWillAppear(animated=false, self=0x00007f9a26e0a670) at MasterViewController.swift:54:5</span><br><span class="line">    frame #1: 0x0000000107044993 Signals`@objc MasterViewController.viewWillAppear(_:) at &lt;compiler-generated&gt;:0</span><br><span class="line">    frame #2: 0x0000000110fc9437 UIKitCore`-[UIViewController _setViewAppearState:isAnimating:] + 687</span><br><span class="line">    frame #3: 0x0000000110fc9995 UIKitCore`__52-[UIViewController _setViewAppearState:isAnimating:]_block_invoke + 265</span><br><span class="line">    frame #4: 0x000000010957b33a CoreFoundation`-[__NSSingleObjectArrayI enumerateObjectsWithOptions:usingBlock:] + 58</span><br><span class="line">    frame #5: 0x0000000110fc9729 UIKitCore`-[UIViewController _setViewAppearState:isAnimating:] + 1441</span><br><span class="line">    frame #6: 0x0000000110fc9ba2 UIKitCore`-[UIViewController __viewWillAppear:] + 131</span><br><span class="line">    frame #7: 0x0000000110f275c9 UIKitCore`-[UINavigationController _startTransition:fromViewController:toViewController:] + 868</span><br><span class="line">    frame #8: 0x0000000110f283b5 UIKitCore`-[UINavigationController _startDeferredTransitionIfNeeded:] + 896</span><br><span class="line">    frame #9: 0x0000000110f296a7 UIKitCore`-[UINavigationController __viewWillLayoutSubviews] + 150</span><br><span class="line">    frame #10: 0x0000000110f0a38d UIKitCore`-[UILayoutContainerView layoutSubviews] + 217</span><br><span class="line">    frame #11: 0x0000000111a939c1 UIKitCore`-[UIView(CALayerDelegate) layoutSublayersOfLayer:] + 1417</span><br><span class="line">    frame #12: 0x000000010ea1feae QuartzCore`-[CALayer layoutSublayers] + 173</span><br><span class="line">    frame #13: 0x000000010ea24b88 QuartzCore`CA::Layer::layout_if_needed(CA::Transaction*) + 396</span><br><span class="line">    frame #14: 0x000000010ea30ee4 QuartzCore`CA::Layer::layout_and_display_if_needed(CA::Transaction*) + 72</span><br><span class="line">    frame #15: 0x000000010e9a03aa QuartzCore`CA::Context::commit_transaction(CA::Transaction*) + 328</span><br><span class="line">    frame #16: 0x000000010e9d7584 QuartzCore`CA::Transaction::commit() + 608</span><br><span class="line">    frame #17: 0x00000001115deccb UIKitCore`__34-[UIApplication _firstCommitBlock]_block_invoke_2 + 128</span><br><span class="line">    frame #18: 0x0000000109592aec CoreFoundation`__CFRUNLOOP_IS_CALLING_OUT_TO_A_BLOCK__ + 12</span><br><span class="line">    frame #19: 0x00000001095922b0 CoreFoundation`__CFRunLoopDoBlocks + 336</span><br><span class="line">    frame #20: 0x000000010958cb34 CoreFoundation`__CFRunLoopRun + 1252</span><br><span class="line">    frame #21: 0x000000010958c302 CoreFoundation`CFRunLoopRunSpecific + 626</span><br><span class="line">    frame #22: 0x000000010e8e22fe GraphicsServices`GSEventRunModal + 65</span><br><span class="line">    frame #23: 0x00000001115c5ba2 UIKitCore`UIApplicationMain + 140</span><br><span class="line">    frame #24: 0x000000010704b88b Signals`main at AppDelegate.swift:32:7</span><br><span class="line">    frame #25: 0x000000010af06541 libdyld.dylib`start + 1</span><br><span class="line">(lldb) frame info</span><br><span class="line">frame #0: 0x0000000107044301 Signals`MasterViewController.viewWillAppear(animated=false, self=0x00007f9a26e0a670) at MasterViewController.swift:54:5</span><br></pre></td></tr></table></figure>
+<p>如您所见，此输出与 Debug Navigator 中找到的内容相匹配。那么，如果您只是从 Debug Navigator 中看到所有内容，为什么这甚至很重要？好吧，使用 LLDB 控制台可以对您想要查看的信息进行细致的控制。此外，您将制作自定义 LLDB 脚本，其中这些命令将变得非常有用。知道 Xcode 从哪里获取信息也很好，对吧？</p>
+<p>然后：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">(lldb) frame select 1</span><br><span class="line">frame #1: 0x0000000107044993 Signals`@objc MasterViewController.viewWillAppear(_:) at &lt;compiler-generated&gt;:0</span><br></pre></td></tr></table></figure>
+<p>记下汇编中的绿线。在该行之前是负责执行 <code>viewWillAppear(_:)</code> 的<code>callq</code>指令，您在之前设置了断点。</p>
+<p>不要让汇编太模糊你的眼睛。你还没有走出汇编树林……</p>
+<h4 id="步进"><a href="# 步进" class="headerlink" title="步进"></a>步进 </h4><p> 掌握 LLDB 时，您可以在程序暂停时执行的三个最重要的导航操作围绕着逐步执行程序。通过 LLDB，您可以跳过（step over），单步执行（step in）或退出（step out）代码。</p>
+<h5 id="跳过"><a href="# 跳过" class="headerlink" title="跳过"></a>跳过</h5><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">(lldb) run //&apos;run&apos; is an abbreviation for &apos;process launch -X true --&apos;</span><br><span class="line">(lldb) next //&apos;next&apos; is an abbreviation for &apos;thread step-over&apos;</span><br></pre></td></tr></table></figure>
+<h5 id="单步执行"><a href="# 单步执行" class="headerlink" title="单步执行"></a>单步执行</h5><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">(lldb) step //&apos;step&apos; is an abbreviation for &apos;thread step-in&apos;</span><br></pre></td></tr></table></figure>
+<h5 id="退出"><a href="# 退出" class="headerlink" title="退出"></a>退出</h5><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">(lldb) finish //&apos;finish&apos; is an abbreviation for &apos;thread step-out&apos;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>请记住，只需按 Enter 键，LLDB 将执行您输入的最后一个命令。</p>
+</blockquote>
+<h5 id="Xcode- 界面中步进"><a href="#Xcode- 界面中步进" class="headerlink" title="Xcode 界面中步进"></a>Xcode 界面中步进 </h5><p> 虽然使用控制台可以获得更加精细的控制，但 Xcode 已经为 LLDB 控制台上方的按钮提供了这些选项。</p>
+<h4 id="检查栈中的数据"><a href="# 检查栈中的数据" class="headerlink" title="检查栈中的数据"></a>检查栈中的数据</h4><p><code>frame</code> 命令的一个非常有趣的选项是 <code>frame variable</code> 子命令。</p>
+<p>此命令将获取可执行文件头中的调试符号信息（如果您的应用程序被剥离，则为 dYSM …稍后会详细介绍）并转储该特定栈帧的信息。由于调试信息，frame variable 命令可以使用适当的选项轻松告诉您函数中所有变量的范围以及程序中的任何全局变量。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">(lldb) frame variable</span><br><span class="line">(lldb) frame variable -F self // 以平面格式打印结果</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">-F (--flat)</span><br><span class="line">      Display results in a flat format that uses expression paths for each variable or member.</span><br></pre></td></tr></table></figure>
+<p><img src="/Users/will/git/blog/source/assets/image-20190701112507258.png" alt="image-20190701112507258"></p>
+<blockquote>
+<p>提供有关 Apple 私有 API 的 ivars 的更多信息，而不是 Variables View。</p>
+</blockquote>
+<h3 id="第 7 章：镜像 -Image"><a href="# 第 7 章：镜像 -Image" class="headerlink" title="第 7 章：镜像 (Image)"></a> 第 7 章：镜像 (Image)</h3><p> 现在是时候探索通过 LLDB 的权力找到感兴趣代码的最佳工具之一。在本章中，您将深入了解 <code>image</code> 命令。</p>
+<p><code>image</code>命令是 <code>target modules</code> 子命令的别名。<code>image</code>命令专门查询 module 信息; 也就是说，代码在进程中加载和执行。Module 可以包含许多东西，包括主要的可执行文件 (main executables)，框架(framework) 或插件 (plugin)。但是，这些 module 中的大多数通常以动态库(dynamic libraries) 的形式出现。动态库的示例包括适用于 iOS 的 UIKit 或适用于 macOS 的 AppKit。</p>
+<h4 id="Module"><a href="#Module" class="headerlink" title="Module"></a>Module</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">(lldb) image list </span><br><span class="line">(lldb) image list Foundation</span><br><span class="line">[0] FD4BF3C6-63C9-3A30-BEEA-D39F6F8EEB13 0x0000000107d70000 /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/Library/CoreSimulator/Profiles/Runtimes/iOS.simruntime/Contents/Resources/RuntimeRoot/System/Library/Frameworks/Foundation.framework/Foundation</span><br></pre></td></tr></table></figure>
+<p>这是一种有用的方法，可以找到有关所需 module 的信息。</p>
+<p>让我们来探索这个输出。 那里有一些有趣的东西：</p>
+<ol>
+<li><p>首先打印 module 的 UUID（FD4BF3C6-63C9-3A30-BEEA-D39F6F8EEB13）。UUID 对于搜索符号信息和唯一标识 Foundation module 的版本非常重要。</p>
+</li>
+<li><p>在 UUID 之后是加载地址（0x0000000107d70000）。 这标识将 Foundation  module 加载到 Signals 可执行文件的进程空间中。</p>
+</li>
+<li><p>最后，您拥有 module 在磁盘上所在位置的完整路径。</p>
+</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">(lldb) image dump symtab UIKitCore -s address</span><br></pre></td></tr></table></figure>
+<p>这将转储 UIKitCore 可用的所有符号表信息。由于 <code>-s address</code> 参数，此命令按私有 UIKitCore 模块中实现函数的地址对输出进行排序。</p>
+<p>但是可读性不佳，需要另外一个命令来搜索：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">(lldb) image lookup -n &quot;-[UIViewController viewDidLoad]&quot;</span><br><span class="line">1 match found in /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/Library/CoreSimulator/Profiles/Runtimes/iOS.simruntime/Contents/Resources/RuntimeRoot/System/Library/PrivateFrameworks/UIKitCore.framework/UIKitCore:</span><br><span class="line">        Address: UIKitCore[0x000000000034adf9] (UIKitCore.__TEXT.__text + 3443497)</span><br><span class="line">        Summary: UIKitCore`-[UIViewController viewDidLoad]</span><br></pre></td></tr></table></figure>
+<p>这将转储与 UIViewController 的 viewDidLoad 实例方法相关的信息。</p>
+<p>如果想用正则来模糊搜索：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">(lldb) image lookup -rn UIViewController</span><br></pre></td></tr></table></figure>
+<p>但是这还不够，因为结果包含了<code>UIViewControllerBuiltinTransitionViewAnimator</code>，这并不是我们想要的，所改为：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">(lldb) image lookup -rn &apos;\[UIViewController\ &apos;</span><br><span class="line">(lldb) image lookup -rn \[UIViewController\s // 等价的</span><br></pre></td></tr></table></figure>
+<p>但是如果搜索 Category，命名规则：<code>UIViewController(CategoryName)</code>，改进如下：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">(lldb) image lookup -rn &apos;\[UIViewController\(\w+\)\ &apos;</span><br></pre></td></tr></table></figure>
+<p>当然这些都是参考正则表达式的规则，然后用在实际的需求中。</p>
+<h5 id="寻找代码"><a href="# 寻找代码" class="headerlink" title="寻找代码"></a>寻找代码 </h5><p> 您可以使用上面的 <code>image lookup</code> 命令找到 UIViewController 方法。您还使用它来寻找第 4 章“在代码中停止”中如何命名 Swift 属性 setter 和 getter。</p>
+<p>但是 Block 如何搜索呢？如下面例子</p>
+<figure class="highlight swift"><table><tr><td class="code"><pre><span class="line">dispatch_once(&amp;onceToken, ^&#123;</span><br><span class="line">  sharedSignalHandler = [[<span class="type">UnixSignalHandler</span> alloc] initPrivate];</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p>我们先在 Xcode 添加断点，然后：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">(lldb) frame info</span><br><span class="line">frame #0: 0x00000001048e1250 Commons`__34+[UnixSignalHandler sharedHandler]_block_invoke(.block_descriptor=0x00000001048e8230) at UnixSignalHandler.m:72:28</span><br></pre></td></tr></table></figure>
+<p>可以看到完整的函数名：<code>__34+[UnixSignalHandler sharedHandler]_block_invoke</code></p>
+<p>让我们先试试：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">(lldb) image lookup -rn _block_invoke</span><br></pre></td></tr></table></figure>
+<p>结果太多，添加范围限制：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">(lldb) image lookup -rn _block_invoke Commons</span><br></pre></td></tr></table></figure>
+<p>现在创建断点：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">(lldb) rb appendSignal.*_block_invoke -s Commons</span><br></pre></td></tr></table></figure>
+<p>之后我回到终端：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">pkill -SIGIO Signals</span><br></pre></td></tr></table></figure>
+<p>就会触发刚刚创建的断点：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">2019-07-01 14:16:15.922561+0800 Signals[7583:429444] Appending new signal: SIGIO</span><br><span class="line">(lldb) frame variable</span><br><span class="line">(__block_literal_5 *) .block_descriptor = 0x0000600002f1d580</span><br><span class="line">(int) sig = &lt;read memory from 0x41 failed (0 of 4 bytes read)&gt;</span><br><span class="line"></span><br><span class="line">(siginfo_t *) siginfo = &lt;read memory from 0x39 failed (0 of 8 bytes read)&gt;</span><br><span class="line"></span><br><span class="line">(UnixSignalHandler *const) self = &lt;read memory from 0x31 failed (0 of 8 bytes read)&gt;</span><br><span class="line"></span><br><span class="line">(lldb) next</span><br><span class="line">(lldb) frame variable</span><br><span class="line">(__block_literal_5 *) .block_descriptor = 0x0000600002f1d580</span><br><span class="line">(int) sig = 23</span><br><span class="line">(siginfo_t *) siginfo = 0x00007ffeecdd9e78</span><br><span class="line">(UnixSignalHandler *) self = 0x0000600002f091c0</span><br><span class="line">(UnixSignal *) unixSignal = 0x0000000106ca4454</span><br></pre></td></tr></table></figure>
+<p>您需要跳过一个语句，因此块执行了一些初始逻辑来设置函数，也称为函数序言（function prologue）。函数序言是与汇编相关的主题，您将在第 II 节中了解。</p>
+<p>这实际上非常有趣。首先，您会看到一个 block 的对象，正在调用的。然后有 sig 和 siginfo 参数传递给 Objective-C 方法，在该方法中调用此块。这些如何传递到 block 中？</p>
+<p>好吧，当创建一个 block 时，编译器足够聪明，可以确定它正在使用哪些参数。然后它创建一个将这些作为参数的函数。调用块时，调用此函数，并传入相关参数。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">(lldb) image lookup -t __block_literal_5</span><br><span class="line">Best match found in /Users/will/Library/Developer/Xcode/DerivedData/Signals-bgjklehkjddsnxcexztwhrufpsbn/Build/Products/Debug-iphonesimulator/Signals.app/Frameworks/Commons.framework/Commons:</span><br><span class="line">id = &#123;0x100000be1&#125;, name = &quot;__block_literal_5&quot;, byte-size = 52, decl = UnixSignalHandler.m:127, compiler_type = &quot;struct __block_literal_5 &#123;</span><br><span class="line">    void *__isa;</span><br><span class="line">    int __flags;</span><br><span class="line">    int __reserved;</span><br><span class="line">    void (*__FuncPtr)();</span><br><span class="line">    __block_descriptor_withcopydispose *__descriptor;</span><br><span class="line">    UnixSignalHandler *const self;</span><br><span class="line">    siginfo_t *siginfo;</span><br><span class="line">    int sig;</span><br><span class="line">&#125;&quot;</span><br></pre></td></tr></table></figure>
+<p>这是定义 block 的对象！</p>
+<p>正如您所看到的，这几乎与头文件一样好，可以告诉您如何在 block 中导航内存。如果将内存中的引用转换为 <code>__block_literal_5</code> 类型，则可以轻松打印出 block 引用的所有变量。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">(lldb) po ((__block_literal_5 *)0x0000600002f1d580)</span><br><span class="line">&lt;__NSMallocBlock__: 0x600002f1d580&gt;</span><br><span class="line">(lldb) p/x ((__block_literal_5 *)0x0000600002f1d580)-&gt;__FuncPtr</span><br><span class="line">(void (*)()) $1 = 0x0000000103143a80 (Commons`__38-[UnixSignalHandler appendSignal:sig:]_block_invoke_2 at UnixSignalHandler.m:127)</span><br><span class="line">(lldb) image lookup -a 0x0000000103143a80</span><br><span class="line">      Address: Commons[0x0000000000001a80] (Commons.__TEXT.__text + 2240)</span><br><span class="line">      Summary: Commons`__38-[UnixSignalHandler appendSignal:sig:]_block_invoke_2 at UnixSignalHandler.m:127</span><br><span class="line">(lldb) po ((__block_literal_5 *)0x0000600002f1d580)-&gt;sig // 打印出传递给 block 的所有参数</span><br><span class="line">23</span><br><span class="line">(lldb) p *(__block_literal_5 *)0x0000600002f1d580 // 可以使用 p 命令转储完整的结构并解除引用指针</span><br><span class="line">(__block_literal_5) $4 = &#123;</span><br><span class="line">  __isa = 0x0000000106d6e170</span><br><span class="line">  __flags = -1023410174</span><br><span class="line">  __reserved = 0</span><br><span class="line">  __FuncPtr = 0x0000000103143a80 (Commons`__38-[UnixSignalHandler appendSignal:sig:]_block_invoke_2 at UnixSignalHandler.m:127)</span><br><span class="line">  __descriptor = 0x000000010314a2c0</span><br><span class="line">  self = 0x0000600002f091c0</span><br><span class="line">  siginfo = 0x00007ffeecdd9e78</span><br><span class="line">  sig = 23</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="深入研究（Snooping-around）"><a href="# 深入研究（Snooping-around）" class="headerlink" title="深入研究（Snooping around）"></a>深入研究（Snooping around）</h4><p>好的，您已经发现了如何以静态方式检查私有类的实例变量，但是该块内存地址太过诱人而无法置之不理。 尝试将其打印出来并使用动态分析进行探索。</p>
+<p>直接打印 block 的内存地址：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">(lldb) po 0x0000600002f1d580</span><br><span class="line">&lt;__NSMallocBlock__: 0x600002f1d580&gt;</span><br><span class="line">(lldb) image lookup -rn __NSMallocBlock__ // 没有结果</span><br><span class="line">(lldb) po [__NSMallocBlock__ superclass]</span><br><span class="line">__NSMallocBlock</span><br><span class="line">(lldb) image lookup -rn __NSMallocBlock</span><br><span class="line">5 matches found in /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/Library/CoreSimulator/Profiles/Runtimes/iOS.simruntime/Contents/Resources/RuntimeRoot/System/Library/Frameworks/CoreFoundation.framework/CoreFoundation:</span><br><span class="line">        Address: CoreFoundation[0x000000000018b600] (CoreFoundation.__TEXT.__text + 1614448)</span><br><span class="line">        Summary: CoreFoundation`-[__NSMallocBlock retain]        Address: CoreFoundation[0x000000000018b620] (CoreFoundation.__TEXT.__text + 1614480)</span><br><span class="line">        Summary: CoreFoundation`-[__NSMallocBlock release]        Address: CoreFoundation[0x000000000018b630] (CoreFoundation.__TEXT.__text + 1614496)</span><br><span class="line">        Summary: CoreFoundation`-[__NSMallocBlock retainCount]        Address: CoreFoundation[0x000000000018b640] (CoreFoundation.__TEXT.__text + 1614512)</span><br><span class="line">        Summary: CoreFoundation`-[__NSMallocBlock _tryRetain]        Address: CoreFoundation[0x000000000018b650] (CoreFoundation.__TEXT.__text + 1614528)</span><br><span class="line">        Summary: CoreFoundation`-[__NSMallocBlock _isDeallocating]</span><br><span class="line">        </span><br><span class="line">(lldb) po [__NSMallocBlock superclass]</span><br><span class="line">NSBlock</span><br><span class="line"></span><br><span class="line">(lldb) image lookup -rn &apos;NSBlock\ &apos;</span><br><span class="line">6 matches found in /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/Library/CoreSimulator/Profiles/Runtimes/iOS.simruntime/Contents/Resources/RuntimeRoot/System/Library/Frameworks/CoreFoundation.framework/CoreFoundation:</span><br><span class="line">        Address: CoreFoundation[0x000000000018b4c0] (CoreFoundation.__TEXT.__text + 1614128)</span><br><span class="line">        Summary: CoreFoundation`+[NSBlock allocWithZone:]        Address: CoreFoundation[0x000000000018b4e0] (CoreFoundation.__TEXT.__text + 1614160)</span><br><span class="line">        Summary: CoreFoundation`+[NSBlock alloc]        Address: CoreFoundation[0x000000000018b500] (CoreFoundation.__TEXT.__text + 1614192)</span><br><span class="line">        Summary: CoreFoundation`-[NSBlock copy]        Address: CoreFoundation[0x000000000018b510] (CoreFoundation.__TEXT.__text + 1614208)</span><br><span class="line">        Summary: CoreFoundation`-[NSBlock copyWithZone:]        Address: CoreFoundation[0x000000000018b520] (CoreFoundation.__TEXT.__text + 1614224)</span><br><span class="line">        Summary: CoreFoundation`-[NSBlock invoke]        Address: CoreFoundation[0x000000000018b530] (CoreFoundation.__TEXT.__text + 1614240)</span><br><span class="line">        Summary: CoreFoundation`-[NSBlock performAfterDelay:]</span><br></pre></td></tr></table></figure>
+<p>您现在将尝试在 block 上调用此方法。但是，当保留此 block 的引用释放其控制时，您不希望块消失，从而降低 retainCount，并可能释放 block。</p>
+<p>有一种简单的方法来保持这个 block - 只需 <code>retain</code> 它！在 LLDB 中键入以下内容，将地址替换为 block 的地址：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">(lldb) po id $block = (id)0x0000600002f1d580</span><br><span class="line">(lldb) po [$block retain]</span><br><span class="line">&lt;__NSMallocBlock__: 0x600002f1d580&gt;</span><br><span class="line"></span><br><span class="line">(lldb) po [$block invoke]</span><br><span class="line">2019-07-01 16:05:33.855039+0800 Signals[7583:452921] Appending new signal: SIGIO</span><br><span class="line"> nil</span><br></pre></td></tr></table></figure>
+<p>这表明你已经再次调用了 block！</p>
+<p>这种用于探索公共和私有类，然后探索它们实现的方法的方法，是了解程序覆盖范围内的内容的好方法。稍后您将对方法使用相同的发现过程，然后分析这些方法执行的程序集，为您提供原始方法源代码的非常接近的近似值。</p>
+<h5 id="Private-debugging-methods"><a href="#Private-debugging-methods" class="headerlink" title="Private debugging methods"></a>Private debugging methods</h5><p><code>image lookup</code> 命令可以很好地搜索私有方法以及您在 Apple 开发职业生涯中看到的公共方法。</p>
+<p>但是，在调试自己的代码时，有一些隐藏的方法非常有用。</p>
+<p>例如，以 <code>_</code> 开头的方法通常表示自己是一个私有（也可能是重要的！）方法。</p>
+<p>让我们尝试在所有以下划线字符开头的模块中搜索任何 Objective-C 方法，并在其中包含单词“description”。</p>
+<p>如果您在阅读此行代码时有些迷惑不解，强烈建议您仔细阅读 <a href="https://docs.python.org/2/library/re.html" target="_blank" rel="noopener">https://docs.python.org/2/library/re.html</a> 以了解正则表达式查询; 从现在开始，它只会变得更加复杂。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">(lldb) image lookup -rn (?i)\ _\w+description\] // 不区分大小写</span><br><span class="line">(lldb) image lookup -rn NSObject\(IvarDescription\)</span><br><span class="line">(lldb) po [[UIApplication sharedApplication] _ivarDescription]</span><br><span class="line">(lldb) image lookup -rn &apos;\[UIStatusBar\ set&apos; // 查找所以 set 开头方法</span><br><span class="line">(lldb) po (BOOL)[[UIStatusBar class] isSubclassOfClass:[UIView class]]</span><br></pre></td></tr></table></figure>
+<p>通过地址调用对象：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">(lldb) po [[UIApplication sharedApplication] statusBar]</span><br><span class="line">&lt;UIStatusBar_Modern: 0x7f9965e03f00; frame = (0 0; 375 44); autoresize = W+BM; layer = &lt;CALayer: 0x6000025dd640&gt;&gt;</span><br><span class="line"></span><br><span class="line">(lldb) po [0x7f9965e03f00 setBackgroundColor:[UIColor purpleColor]]</span><br><span class="line">purpleColor</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>未完待续</p>
+</blockquote>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/06/14/SwiftUI-By-Example-Notes/" rel="next" title="SwiftUI By Example 笔记">
+                <i class="fa fa-chevron-left"></i> SwiftUI By Example 笔记
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/08/01/Data-Structures-and-Algorithms-in-Swift-Notes-1/" rel="prev" title="Swift 数据结构和算法（一）">
+                Swift 数据结构和算法（一） <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Ge Will</p>
+              <p class="site-description motion-element" itemprop="description">The people who are crazy enough to think they can change the world, are the ones who DO.</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">173</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/gewill" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:531sunlight@gmail.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://twitter.com/gewill_org" target="_blank" title="Twitter">
+                      
+                        <i class="fa fa-fw fa-twitter"></i>Twitter</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://weibo.com/gewei" target="_blank" title="Weibo">
+                      
+                        <i class="fa fa-fw fa-weibo"></i>Weibo</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+            <div class="cc-license motion-element" itemprop="license">
+              <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="cc-opacity" target="_blank">
+                <img src="/images/cc-by-nc-sa.svg" alt="Creative Commons">
+              </a>
+            </div>
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#引言"><span class="nav-number">1.</span> <span class="nav-text">引言 </span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第一节：开始 LLDB 命令"><span class="nav-number">2.</span> <span class="nav-text">第一节：开始 LLDB 命令 </span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#第 1 章：入门"><span class="nav-number">2.1.</span> <span class="nav-text">第 1 章：入门 </span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#第 2 章：Help 和 Apropos"><span class="nav-number">2.2.</span> <span class="nav-text">第 2 章：Help 和 Apropos</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#第 3 章：使用 LLDB-Attaching"><span class="nav-number">2.3.</span> <span class="nav-text">第 3 章：使用 LLDB Attaching</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#附加到现有进程"><span class="nav-number">2.3.1.</span> <span class="nav-text">附加到现有进程</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#附加到未来的进程"><span class="nav-number">2.3.2.</span> <span class="nav-text">附加到未来的进程</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#launch 可选的参数"><span class="nav-number">2.3.3.</span> <span class="nav-text">launch 可选的参数 </span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#第 4 章：在代码中停止"><span class="nav-number">2.4.</span> <span class="nav-text">第 4 章：在代码中停止 </span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Signals（信号）"><span class="nav-number">2.4.1.</span> <span class="nav-text">Signals（信号）</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#Xcode- 断点"><span class="nav-number">2.4.1.1.</span> <span class="nav-text">Xcode 断点 </span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#LLDB 断点语法"><span class="nav-number">2.4.2.</span> <span class="nav-text">LLDB 断点语法 </span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#Objective-C-properties"><span class="nav-number">2.4.2.1.</span> <span class="nav-text">Objective-C properties</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Objective-C-properties-and-dot-notation"><span class="nav-number">2.4.2.2.</span> <span class="nav-text">Objective-C properties and dot notation</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Swift-properties"><span class="nav-number">2.4.2.3.</span> <span class="nav-text">Swift properties</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#创建断点"><span class="nav-number">2.4.3.</span> <span class="nav-text">创建断点 </span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#正则表达式断点和范围"><span class="nav-number">2.4.3.1.</span> <span class="nav-text">正则表达式断点和范围</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#其他很酷的断点选项"><span class="nav-number">2.4.3.2.</span> <span class="nav-text">其他很酷的断点选项</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#修改和移除断点"><span class="nav-number">2.4.3.3.</span> <span class="nav-text">修改和移除断点 </span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#第 5 章：表达式"><span class="nav-number">2.5.</span> <span class="nav-text">第 5 章：表达式 </span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#格式化 -p- 和 -po"><span class="nav-number">2.5.1.</span> <span class="nav-text"> 格式化 p 和 po</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Swift- 和 -Objective-C- 调试上下（文 contexts）"><span class="nav-number">2.5.2.</span> <span class="nav-text">Swift 和 Objective-C 调试上下（文 contexts）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#用户定义变量"><span class="nav-number">2.5.3.</span> <span class="nav-text">用户定义变量 </span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#类型格式化（Type-formatting）"><span class="nav-number">2.5.3.1.</span> <span class="nav-text">类型格式化（Type formatting）</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#第 6 章：线程，帧和步进（Thread-Frame-amp-Stepping-Around）"><span class="nav-number">2.6.</span> <span class="nav-text">第 6 章：线程，帧和步进（Thread, Frame &amp; Stepping Around）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#（栈的第一课）Stack-101"><span class="nav-number">2.6.1.</span> <span class="nav-text">（栈的第一课）Stack 101</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#检查栈的帧"><span class="nav-number">2.6.2.</span> <span class="nav-text">检查栈的帧 </span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#步进"><span class="nav-number">2.6.3.</span> <span class="nav-text">步进 </span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#跳过"><span class="nav-number">2.6.3.1.</span> <span class="nav-text">跳过</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#单步执行"><span class="nav-number">2.6.3.2.</span> <span class="nav-text">单步执行</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#退出"><span class="nav-number">2.6.3.3.</span> <span class="nav-text">退出</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Xcode- 界面中步进"><span class="nav-number">2.6.3.4.</span> <span class="nav-text">Xcode 界面中步进 </span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#检查栈中的数据"><span class="nav-number">2.6.4.</span> <span class="nav-text">检查栈中的数据</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#第 7 章：镜像 -Image"><span class="nav-number">2.7.</span> <span class="nav-text"> 第 7 章：镜像 (Image)</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Module"><span class="nav-number">2.7.1.</span> <span class="nav-text">Module</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#寻找代码"><span class="nav-number">2.7.1.1.</span> <span class="nav-text">寻找代码 </span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#深入研究（Snooping-around）"><span class="nav-number">2.7.2.</span> <span class="nav-text">深入研究（Snooping around）</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#Private-debugging-methods"><span class="nav-number">2.7.2.1.</span> <span class="nav-text">Private debugging methods</span></a></li></ol></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Ge Will</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+    
+      <script id="dsq-count-scr" src="https://gewill.disqus.com/count.js" async></script>
+    
+
+    
+      <script type="text/javascript">
+        var disqus_config = function () {
+          this.page.url = 'http://gewill.org/2019/06/26/Advanced-Apple-Debugging-and-Reverse-Engineering-Notes-1/';
+          this.page.identifier = '2019/06/26/Advanced-Apple-Debugging-and-Reverse-Engineering-Notes-1/';
+          this.page.title = '苹果调试和逆向工程进阶 - 笔记（一）';
+        };
+        var d = document, s = d.createElement('script');
+        s.src = 'https://gewill.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+        (d.head || d.body).appendChild(s);
+      </script>
+    
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

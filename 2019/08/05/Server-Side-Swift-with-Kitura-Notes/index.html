@@ -1,0 +1,951 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="en">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+  <meta name="google-site-verification" content="6p6MCt9mM7zNfEZF2HzE72sTOXJ8MC5frP4VNvYw1JU">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="Will's Blog" type="application/atom+xml">
+
+
+
+
+
+
+<meta name="description" content="第一章：引言Kitura 是什么？ 在词源学上，Kitura 这个词松散地源于希伯来语 Keturah，字面意思是“香”。 为什么选择 Swift 写后端？ 支持为服务器编写 Swift 的核心论点是在应用程序的前端和后端之间共享代码和知识。如果你是一个团队，这种精简可以说是更加关键和赋权。这包括但不限于模型对象代码。 BFF（Backonnd for Frontend）是一种设计模式，很快就会成">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Kitura Swift 后端开发 - 笔记">
+<meta property="og:url" content="http://gewill.org/2019/08/05/Server-Side-Swift-with-Kitura-Notes/index.html">
+<meta property="og:site_name" content="Will&#39;s Blog">
+<meta property="og:description" content="第一章：引言Kitura 是什么？ 在词源学上，Kitura 这个词松散地源于希伯来语 Keturah，字面意思是“香”。 为什么选择 Swift 写后端？ 支持为服务器编写 Swift 的核心论点是在应用程序的前端和后端之间共享代码和知识。如果你是一个团队，这种精简可以说是更加关键和赋权。这包括但不限于模型对象代码。 BFF（Backonnd for Frontend）是一种设计模式，很快就会成">
+<meta property="og:locale" content="en">
+<meta property="og:image" content="http://gewill.org/2019/08/05/assets/image-20190806103823282.png">
+<meta property="og:image" content="https://gewill.org/assets/image-20190807140446505.png">
+<meta property="og:updated_time" content="2020-07-27T14:05:31.815Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Kitura Swift 后端开发 - 笔记">
+<meta name="twitter:description" content="第一章：引言Kitura 是什么？ 在词源学上，Kitura 这个词松散地源于希伯来语 Keturah，字面意思是“香”。 为什么选择 Swift 写后端？ 支持为服务器编写 Swift 的核心论点是在应用程序的前端和后端之间共享代码和知识。如果你是一个团队，这种精简可以说是更加关键和赋权。这包括但不限于模型对象代码。 BFF（Backonnd for Frontend）是一种设计模式，很快就会成">
+<meta name="twitter:image" content="http://gewill.org/2019/08/05/assets/image-20190806103823282.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://gewill.org/2019/08/05/Server-Side-Swift-with-Kitura-Notes/">
+
+
+
+
+
+  <title>Kitura Swift 后端开发 - 笔记 | Will's Blog</title>
+  
+
+
+
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-62118677-1', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Will's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            About
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            Archives
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="st-search-show-outputs">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
+            
+            Search
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <form class="site-search-form">
+  <input type="text" id="st-search-input" class="st-search-input st-default-search-input">
+</form>
+
+<script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+    (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+    e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+
+  _st('install', 'ntcZFKy566gs4bTbpvHW','2.0.0');
+</script>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://gewill.org/2019/08/05/Server-Side-Swift-with-Kitura-Notes/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Ge Will">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Will's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Kitura Swift 后端开发 - 笔记</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-08-05T15:49:35+08:00">
+                2019-08-05
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2019/08/05/Server-Side-Swift-with-Kitura-Notes/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2019/08/05/Server-Side-Swift-with-Kitura-Notes/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="第一章：引言"><a href="# 第一章：引言" class="headerlink" title="第一章：引言"></a>第一章：引言</h2><p><strong>Kitura 是什么？</strong></p>
+<p>在词源学上，Kitura 这个词松散地源于希伯来语 Keturah，字面意思是“香”。</p>
+<p><strong>为什么选择 Swift 写后端？</strong></p>
+<p>支持为服务器编写 Swift 的核心论点是在应用程序的前端和后端之间共享代码和知识。如果你是一个团队，这种精简可以说是更加关键和赋权。这包括但不限于模型对象代码。</p>
+<p>BFF（Backonnd for Frontend）是一种设计模式，很快就会成为你最好的朋友（永远？）。</p>
+<p>这个模式在这个特定用例中起作用的几个原因：</p>
+<ol>
+<li><p>你可以确定从此 API 发出请求的唯一设备将是 iOS 设备。这意味着你可以更少担心平衡请求负载。</p>
+</li>
+<li><p>你可以更好地控制对 iOS 设备的响应中的数据。在此之前，你可能已经等待后端开发人员最终帮助你，并根据 User-Agent 首部有条件地修剪响应数据。现在，你可以让后端开发人员不间断地工作，并通过将响应数据解析为你的 BFF 设备所需的内容来解决你的问题。</p>
+</li>
+<li><p>在我们的特定用例中，你可以在发送响应之前保存一个用户可能对数据库进行的查询的响应。这意味着，如果其他人在相同的位置请求餐馆信息（例子是请求包含地理位置的餐馆信息），并且存储的数据足够新以满足你的刷新策略，你甚至不必向主服务器发送查询！你只需发送缓存的数据，并相信它对你的用户来说足够新。</p>
+</li>
+<li><p>你可以使用你已经知道如何在 Swift 中编写代码的语言完成 1-3！</p>
+</li>
+</ol>
+<h2 id="第二章：Hello-World"><a href="# 第二章：Hello-World" class="headerlink" title="第二章：Hello, World!"></a>第二章：Hello, World!</h2><p>如何 Kitura 项目</p>
+<p>先安装 Kitura macOS App 和 Kitura CLI</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">brew tap ibm-swift/kitura</span><br><span class="line">brew install kitura</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">kitura</span><br><span class="line">Usage: kitura [options] [command]</span><br><span class="line"></span><br><span class="line">Kitura command-line interface</span><br><span class="line"></span><br><span class="line">Options:</span><br><span class="line">  -V, --version  output the version number</span><br><span class="line">  -h, --help     output usage information</span><br><span class="line"></span><br><span class="line">Commands:</span><br><span class="line">  build          build the project in a local container</span><br><span class="line">  create         interactively create a Kitura project</span><br><span class="line">  idt            install IBM Cloud Developer Tools</span><br><span class="line">  init           scaffold a bare-bones Kitura project</span><br><span class="line">  kit            print Cocoapods boilerplate for KituraKit</span><br><span class="line">  run            run the project in a local container</span><br><span class="line">  sdk            generate a client SDK from an OpenAPI/Swagger spec</span><br><span class="line">  help [cmd]     display help for [cmd]</span><br></pre></td></tr></table></figure>
+<p>创建的 Kitura 项目提供了一个开箱即用的全功能 Kitura 应用程序。 它提供了在生产环境中运行的任何应用程序可能需要的一些功能，包括：</p>
+<ul>
+<li><p>使用 HeliumLogger 记录信息，警告和错误消息。</p>
+</li>
+<li><p>使用 CloudEnvironment 进行动态配置查找和设置。</p>
+</li>
+<li><p>使用 Health 查看和报告应用程序健康状况。</p>
+</li>
+<li><p>使用 SwiftMetrics 进行 App 和 Kitura 框架指标和监控。</p>
+</li>
+</ul>
+<p>项目使用 SPM 管理依赖</p>
+<figure class="highlight swift"><table><tr><td class="code"><pre><span class="line"><span class="comment">// swift-tools-version:4.0</span></span><br><span class="line"><span class="keyword">import</span> PackageDescription</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> package = <span class="type">Package</span>(</span><br><span class="line">    name: <span class="string">"EmojiJournalServer"</span>,</span><br><span class="line">    dependencies: [</span><br><span class="line">      .package(url: <span class="string">"https://github.com/IBM-Swift/Kitura.git"</span>, .upToNextMinor(from: <span class="string">"2.5.0"</span>)),</span><br><span class="line">      .package(url: <span class="string">"https://github.com/IBM-Swift/HeliumLogger.git"</span>, from: <span class="string">"1.7.1"</span>),</span><br><span class="line">      .package(url: <span class="string">"https://github.com/IBM-Swift/CloudEnvironment.git"</span>, from: <span class="string">"9.0.0"</span>),</span><br><span class="line">      .package(url: <span class="string">"https://github.com/RuntimeTools/SwiftMetrics.git"</span>, from: <span class="string">"2.0.0"</span>),</span><br><span class="line">      .package(url: <span class="string">"https://github.com/IBM-Swift/Health.git"</span>, from: <span class="string">"1.0.0"</span>),</span><br><span class="line">    ],</span><br><span class="line">    targets: [</span><br><span class="line">      .target(name: <span class="string">"EmojiJournalServer"</span>, dependencies: [.target(name: <span class="string">"Application"</span>), <span class="string">"Kitura"</span> , <span class="string">"HeliumLogger"</span>]),</span><br><span class="line">      .target(name: <span class="string">"Application"</span>, dependencies: [<span class="string">"Kitura"</span>, <span class="string">"CloudEnvironment"</span>,<span class="string">"SwiftMetrics"</span>,<span class="string">"Health"</span>,      ]),</span><br><span class="line"></span><br><span class="line">      .testTarget(name: <span class="string">"ApplicationTests"</span> , dependencies: [.target(name: <span class="string">"Application"</span>), <span class="string">"Kitura"</span>,<span class="string">"HeliumLogger"</span> ])</span><br><span class="line">    ]</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+<p>Application.swift 包含应用程序的生命周期处理，提供 emojiJournalServer 目标中 main.swift 使用的核心 <code>init()</code> 和<code>run()</code>方法来启动应用程序。</p>
+<figure class="highlight swift"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> Foundation</span><br><span class="line"><span class="keyword">import</span> Kitura</span><br><span class="line"><span class="keyword">import</span> LoggerAPI</span><br><span class="line"><span class="keyword">import</span> Configuration</span><br><span class="line"><span class="keyword">import</span> CloudEnvironment</span><br><span class="line"><span class="keyword">import</span> KituraContracts</span><br><span class="line"><span class="keyword">import</span> Health</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">let</span> projectPath = <span class="type">ConfigurationManager</span>.<span class="type">BasePath</span>.project.path</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">let</span> health = <span class="type">Health</span>()</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">App</span> </span>&#123;</span><br><span class="line">  <span class="keyword">let</span> router = <span class="type">Router</span>()</span><br><span class="line">  <span class="keyword">let</span> cloudEnv = <span class="type">CloudEnv</span>()</span><br><span class="line">  </span><br><span class="line">  <span class="keyword">public</span> <span class="keyword">init</span>() <span class="keyword">throws</span> &#123;</span><br><span class="line">    <span class="comment">// Run the metrics initializer</span></span><br><span class="line">    initializeMetrics(router: router)</span><br><span class="line">  &#125;</span><br><span class="line">  </span><br><span class="line">  <span class="function"><span class="keyword">func</span> <span class="title">postInit</span><span class="params">()</span></span> <span class="keyword">throws</span> &#123;</span><br><span class="line">    <span class="comment">// Endpoints</span></span><br><span class="line">    initializeHealthRoutes(app: <span class="keyword">self</span>)</span><br><span class="line">    router.<span class="keyword">get</span>(<span class="string">"/"</span>, handler: helloWorldHandler)</span><br><span class="line">  &#125;</span><br><span class="line">  </span><br><span class="line">  <span class="function"><span class="keyword">func</span> <span class="title">helloWorldHandler</span><span class="params">(request: RouterRequest, response: RouterResponse, next: <span class="params">()</span></span></span>-&gt;()) &#123;</span><br><span class="line">    response.send(<span class="string">"Hello, World!"</span>)</span><br><span class="line">    next()</span><br><span class="line">  &#125;</span><br><span class="line">  </span><br><span class="line">  <span class="keyword">public</span> <span class="function"><span class="keyword">func</span> <span class="title">run</span><span class="params">()</span></span> <span class="keyword">throws</span> &#123;</span><br><span class="line">    <span class="keyword">try</span> postInit()</span><br><span class="line">    <span class="type">Kitura</span>.addHTTPServer(onPort: cloudEnv.port, with: router)</span><br><span class="line">    <span class="type">Kitura</span>.run()</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>运行后</p>
+<p>欢迎页：<a href="http://localhost:8090" target="_blank" rel="noopener">http://localhost:8090</a></p>
+<p>健康：<a href="http://localhost:8090/health" target="_blank" rel="noopener">http://localhost:8090/health</a></p>
+<p>监控仪表板：<a href="http://localhost:8090/swiftmetrics-dash" target="_blank" rel="noopener">http://localhost:8090/swiftmetrics-dash</a></p>
+<p>HTTP 吞吐量视图使用每秒请求（RPS）度量标准显示在任何时间点发生的请求量。</p>
+<p><a href="http://localhost:8090/metrics" target="_blank" rel="noopener">http://localhost:8090/metrics</a></p>
+<p><strong>使用 Docker 在 Linux 上运行应用程序</strong></p>
+<p>Docker 和 Kubernetes 是 Kitura 部署的核心，它们提供了重要的性能和扩展优势。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">kitura build</span><br><span class="line">kitura run</span><br></pre></td></tr></table></figure>
+<h2 id="第三章：RESTful-APIs"><a href="# 第三章：RESTful-APIs" class="headerlink" title="第三章：RESTful APIs"></a>第三章：RESTful APIs</h2><p>在开始构建这些 RESTful API 之前，将了解 RESTful API 本身，包括它们的架构方法和设计原则。</p>
+<h3 id="REpresentational-State-Transfer-REST"><a href="#REpresentational-State-Transfer-REST" class="headerlink" title="REpresentational State Transfer (REST)"></a>REpresentational State Transfer (REST)</h3><p>REpresentational State Transfer（REST）是一种架构风格或设计模式的 API。 如果一个 API 符合 Roy Fielding 博士在他的 2000 年论文“架构风格和基于网络的软件架构设计”中提出的一系列约束，那么它就是 RESTful。</p>
+<h4 id="Fielding 提出了以下六个限制："><a href="#Fielding 提出了以下六个限制：" class="headerlink" title="Fielding 提出了以下六个限制："></a>Fielding 提出了以下六个限制：</h4><ol>
+<li>客户端 - 服务器</li>
+</ol>
+<p>RESTful API 在客户端和服务器之间提供明确的分离，允许客户端和服务器彼此独立地开发。这种分离使得为同一服务器实现多个客户端成为可能，就像你为 EmojiJournal 创建 iOS 和 Web 应用程序客户端时所做的那样。</p>
+<ol start="2">
+<li>无状态</li>
+</ol>
+<p>RESTful API 应该是无状态的。每个请求都应该是自包含的，并且不应该依赖于存储在服务器上的先前请求的任何会话上下文。</p>
+<ol start="3">
+<li>可缓存</li>
+</ol>
+<p>由于 RESTful API 是无状态和自包含的，因此可以将请求的结果缓存到 RESTful API。这可以由客户端或诸如 web 代理之类的中介来完成。</p>
+<p>设计良好的 RESTful API 应该鼓励尽可能存储可缓存的数据，对请求的响应被隐式或显式标记为可缓存，可缓存到特定时间（expires-at）或不可缓存。</p>
+<ol start="4">
+<li>分层系统</li>
+</ol>
+<p>RESTful API 可以是分层的，因此客户端不知道它是直接连接到 API 本身还是通过代理或负载均衡器间接连接。另外，API 本身可以由服务器系统本身内的若干层或源组成和构建。</p>
+<ol start="5">
+<li>按需代码（可选）</li>
+</ol>
+<p>RESTful API 可以提供可以直接在客户端上运行的功能。实际上，这通常仅限于在浏览器中运行的 JavaScript 或 Java Applet。</p>
+<ol start="6">
+<li>统一界面</li>
+</ol>
+<p>RESTful API 最重要的概念之一是资源的使用。资源可以是 API 可以提供有关信息的任何对象，例如你将使用的 JournalEntry 资源。</p>
+<h4 id="提供统一接口的 RESTful-API 必须满足以下四个约束："><a href="# 提供统一接口的 RESTful-API 必须满足以下四个约束：" class="headerlink" title="提供统一接口的 RESTful API 必须满足以下四个约束："></a>提供统一接口的 RESTful API 必须满足以下四个约束：</h4><ul>
+<li>请求必须确定他们采取行动的资源。 </li>
+<li>请求和响应必须使用资源的表示。 </li>
+<li>消息必须是自描述的，自包含的，并且只能使用标准操作。</li>
+<li>资源必须通过链接连接到其他资源。</li>
+</ul>
+<p>另请注意，没有提及 HTTP 和 Web 请求。虽然 RESTful API 最常使用 HTTP 实现，但这不是必需的。也就是说，我们将仅介绍如何使用标准 HTTP 操作构建 RESTful API，我们接下来将简要介绍 HTTP 本身。</p>
+<h3 id="HyperText-Transfer-Protocol-HTTP"><a href="#HyperText-Transfer-Protocol-HTTP" class="headerlink" title="HyperText Transfer Protocol (HTTP)"></a>HyperText Transfer Protocol (HTTP)</h3><p>超文本传输协议（HTTP）是一种客户端 - 服务器，基于请求 - 响应的协议，是网站和基于 Web 的流量的基础。 因此，它受到客户端和服务器的普遍支持。</p>
+<h3 id="HTTP-based-RESTful-APIs"><a href="#HTTP-based-RESTful-APIs" class="headerlink" title="HTTP-based RESTful APIs"></a>HTTP-based RESTful APIs</h3><h4 id="URL 作为资源"><a href="#URL 作为资源" class="headerlink" title="URL 作为资源"></a>URL 作为资源 </h4><p> 统一接口的第一个要求是请求标识它们所依赖的资源。在 HTTP 中，这是通过 RESTful API 使用请求的 URL 实现的。</p>
+<p>例如：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">/entries</span><br></pre></td></tr></table></figure>
+<h4 id="特定资源的 URL 编码标识符"><a href="# 特定资源的 URL 编码标识符" class="headerlink" title="特定资源的 URL 编码标识符"></a>特定资源的 URL 编码标识符 </h4><p> 将提供这些 URL 以使客户端能够与所有日记帐分录和特定日记帐分录进行交互：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">/entries </span><br><span class="line">/entries/&lt;identifier&gt;</span><br></pre></td></tr></table></figure>
+<h4 id="用于资源组的 URL 编码查询参数"><a href="# 用于资源组的 URL 编码查询参数" class="headerlink" title="用于资源组的 URL 编码查询参数"></a>用于资源组的 URL 编码查询参数 </h4><p> 你可能还希望提供与资源子集的 API。 这再次通过 URL 完成，这次使用 URL 查询参数。</p>
+<p>URL 查询参数以 <code>?</code> 开头。 他们可以使用 <code>&lt;key&gt; = &lt;value&gt;</code> 格式的键值对传递有关资源的任何其他信息。 可以使用键值对之间的 <code>＆</code> 分隔符聚合和传递多个键值对。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">/entries </span><br><span class="line">/entries?emoji=&lt;emoji&gt;&amp;date=&lt;date&gt; </span><br><span class="line">/entries/&lt;idenfifier&gt;</span><br></pre></td></tr></table></figure>
+<h4 id="分层 API 的分层 URL"><a href="# 分层 API 的分层 URL" class="headerlink" title="分层 API 的分层 URL"></a>分层 API 的分层 URL</h4><p>RESTful URL 也可以是分层的。 在你的 EmojiJournal 应用程序中，你只会支持拥有单个 EmojiJournal 的用户。 但是，假设你希望支持拥有多个期刊的用户，每个期刊都有自己的日记帐分录。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">/journals </span><br><span class="line">/journals/&lt;identifier&gt; </span><br><span class="line">/journals/&lt;identifier&gt;/entries </span><br><span class="line">/journals/&lt;identifier&gt;/entries?emoji=&lt;emoji&gt;&amp;date=&lt;date&gt; /journals/&lt;identifier&gt;/entries/&lt;identifier&gt;</span><br></pre></td></tr></table></figure>
+<p>例如，对以下 URL 的客户端请求将与日记 2 中的条目 20 进行交互：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">/journals/2/entries/20</span><br></pre></td></tr></table></figure>
+<h4 id="资源表示"><a href="# 资源表示" class="headerlink" title="资源表示"></a>资源表示 </h4><p> 回想一下，统一接口的第二个概念是请求和响应应该使用资源的表示。 这是通过在 HTTP 正文数据中编码资源的表示，在基于 HTTP 的 RESTful API 中实现的。</p>
+<p>HTTP 消息，无论是请求还是响应，基本上由两部分组成：一组标题和正文数据。 为了完整性，响应还包含一个状态代码，用于报告请求的状态。</p>
+<h4 id="HTTP 首部和正文数据"><a href="#HTTP 首部和正文数据" class="headerlink" title="HTTP 首部和正文数据"></a>HTTP 首部和正文数据</h4><p>HTTP 首部为请求和响应提供了额外的元数据。 首部在请求或响应开始时传输，并存储为键值对，一些首部允许多个值。</p>
+<p>你可以使用 HTTP 首部存储你希望的任何其他信息。 你应该了解两个正式定义的标准标题，请参阅<a href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html" target="_blank" rel="noopener">https://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html</a>（由正式的核心 RFC 规范定义），以及不太正式但广泛使用的非标准的首部，请参阅<a href="https://en.wikipedia.org/wiki/List_of_HTTP_header_fields#Common_non-standard_request_fields" target="_blank" rel="noopener">https://en.wikipedia.org/wiki/List_of_HTTP_header_fields#Common_non-standard_request_fields</a>。</p>
+<p>标准头用于传递诸如 Cookie，授权，ContentType（描述正文数据的媒体类型）和 Content-Length（以字节为单位描述正文数据长度）等信息。</p>
+<p>HTTP 消息正文包含与请求或响应关联的数据。 在响应对网页的请求的情况下，正文数据包含网页本身的来源。 看一下对 Hello，World 的请求生成的 HTTP 响应！ 你在上一章中创建的应用程序。</p>
+<h4 id="正文数据中的资源表示"><a href="# 正文数据中的资源表示" class="headerlink" title="正文数据中的资源表示"></a>正文数据中的资源表示 </h4><p> 如前所述，RESTful API 对返回的 HTTP 正文数据中的资源表示进行编码。 身体通常由三部分组成：</p>
+<ol>
+<li>Content-Type 首部</li>
+</ol>
+<p>Content-Type 首部表示用于表示正文数据中的资源的编码。最常用的方法是使用 JavaScript Object Notation（JSON）对表示进行编码，并将 Content-Type 首部设置为<code>application/json</code>。有时与 RESTful API 一起使用的身体数据编码的其他示例包括 Protobuf，Thrift 和 Avro。</p>
+<ol start="2">
+<li>接受首部（仅限请求）</li>
+</ol>
+<p>接受首部指示客户端将接受响应的编码。这通常是<code>application/json</code>，但它也可以包含编码列表。例如，如果客户端在 JSON 和 Protobuf 中都接受了响应，则此值可能设置为：<code>application/json;application/protobuf</code>。</p>
+<ol start="3">
+<li>编码的正文数据</li>
+</ol>
+<p>最后，使用 Content-Type 首部中设置的编码将资源本身编码为正文数据。在最常见的 <code>application/json</code> 场景中，这是资源的 JSON 表示。 JSON 的细节取决于特定资源的模型。例如，在本书后面稍后，JournalEntry 的资源将包含 id，emoji 和 date，类似于：</p>
+<figure class="highlight json"><table><tr><td class="code"><pre><span class="line">&#123;</span><br><span class="line">	<span class="attr">"id"</span>:<span class="string">"1"</span>, </span><br><span class="line">	<span class="attr">"emoji"</span>:<span class="string">"😊"</span>, </span><br><span class="line">	<span class="attr">"date"</span>:<span class="string">"2018-09-18T00:07:01Z"</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="自我描述性的信息"><a href="# 自我描述性的信息" class="headerlink" title="自我描述性的信息"></a>自我描述性的信息 </h4><p> 你已经了解了资源的识别和表示，但你如何对这些资源进行操作？</p>
+<p>统一接口的第三个原则解决了这个问题。 它规定请求和响应都应该是自描述的，并且它们仅使用客户端和服务器都理解的标准操作。 在基于 HTML 的 RESTful API 中，这是通过使用特定的 HTTP 方法实现的。</p>
+<p>RFC 2616 概述了八种 HTTP 方法：OPTIONS，GET，HEAD，POST，PUT，DELETE，TRACE 和 CONNECT。</p>
+<h4 id="通过链接连接资源"><a href="# 通过链接连接资源" class="headerlink" title="通过链接连接资源"></a>通过链接连接资源 </h4><p> 统一接口的第四个也是最后一个概念是资源应该通过链接连接到其他资源。</p>
+<p>如你所见，基于 HTTP 的 RESTful API 使用 URL 和基于 URL 的标识符来提供对资源的访问并指定单个资源。 因此，资源之间的链接只是进一步的 RESTful URL 和链接到连接资源的基于 URL 的标识符。</p>
+<p>有两种常见的场景需要 URL 或标识资源：</p>
+<ul>
+<li>请求的资源引用另一个（子或相关）资源。</li>
+<li>你需要知道资源的标识符。</li>
+</ul>
+<h3 id="构建 RESTful-API"><a href="# 构建 RESTful-API" class="headerlink" title="构建 RESTful API"></a>构建 RESTful API</h3><p><img src="../assets/image-20190806103823282.png" alt="image-20190806103823282"></p>
+<p>到目前为止，你已经学会了所有基础知识。 当你了解有关设计和实现 RESTful API 的更多信息时，你会发现除了我们在此处介绍的范围之外还有其他最佳实践。 这包括设置正确的 Content-Type 和 Accepts 标头，为成功创建设置 Location 标头，并为请求中的任何故障设置正确的 HTTP 状态代码。</p>
+<p>此外，需要对请求和响应主体进行编码和解码，最常见的是来自 JSON。 这曾经是一项艰巨的任务。 由于强大的 Codable 协议，Swift 使 JSON 优雅且无痛。</p>
+<h2 id="第四章：Codable 简介"><a href="# 第四章：Codable 简介" class="headerlink" title="第四章：Codable 简介"></a>第四章：Codable 简介</h2><p>Codable 协议是 Swift 编程语言最强大的功能之一。 在一个句子中，当你扩展对象以符合 Codable 时，你可以使该对象自动序列化为任何外部可读格式，例如 JSON，XML 或协议缓冲区。</p>
+<h3 id="The-bare-necessities"><a href="#The-bare-necessities" class="headerlink" title="The bare necessities"></a>The bare necessities</h3><p>直接看一个例子</p>
+<figure class="highlight swift"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> Foundation</span><br><span class="line"></span><br><span class="line"><span class="comment">// 1 Cadabe 是一个组合的协议：Decodable &amp; Encodable</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">struct</span> <span class="title">Song</span>: <span class="title">Codable</span> </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> title: <span class="type">String</span></span><br><span class="line">  <span class="keyword">var</span> length: <span class="type">Int</span></span><br><span class="line">  </span><br><span class="line">  <span class="class"><span class="keyword">enum</span> <span class="title">CodingKeys</span>: <span class="title">String</span>, <span class="title">CodingKey</span> </span>&#123;</span><br><span class="line">    <span class="keyword">case</span> title = <span class="string">"songTitle"</span></span><br><span class="line">    <span class="keyword">case</span> length = <span class="string">"songLength"</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">struct</span> <span class="title">Animal</span>: <span class="title">Codable</span> </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> name: <span class="type">String</span></span><br><span class="line">  <span class="keyword">var</span> age: <span class="type">Int?</span></span><br><span class="line">  <span class="keyword">var</span> isFriendly: <span class="type">Bool</span></span><br><span class="line">  <span class="keyword">var</span> birthday: <span class="type">Date</span></span><br><span class="line">  <span class="keyword">var</span> songs: [<span class="type">Song</span>]</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 2 嵌套</span></span><br><span class="line"><span class="keyword">let</span> baloo = <span class="type">Animal</span>(name: <span class="string">"Baloo"</span>,</span><br><span class="line">                   age: <span class="number">5</span>,</span><br><span class="line">                   isFriendly: <span class="literal">true</span>,</span><br><span class="line">                   birthday: <span class="type">Date</span>(),</span><br><span class="line">                   songs: [<span class="type">Song</span>(title: <span class="string">"The Bare Necessities"</span>, length: <span class="number">180</span>)])</span><br><span class="line"><span class="keyword">let</span> bagheera = <span class="type">Animal</span>(name: <span class="string">"Bagheera"</span>,</span><br><span class="line">                      age: <span class="literal">nil</span>,</span><br><span class="line">                      isFriendly: <span class="literal">true</span>,</span><br><span class="line">                      birthday: <span class="type">Date</span>(),</span><br><span class="line">                      songs: [<span class="type">Song</span>(title: <span class="string">"Jungle's No Place For A Boy"</span>, length: <span class="number">95</span>)])</span><br><span class="line"></span><br><span class="line"><span class="comment">// 3 处理日期格式，驼峰式与蛇式转换</span></span><br><span class="line"><span class="keyword">let</span> encoder = <span class="type">JSONEncoder</span>()</span><br><span class="line">encoder.keyEncodingStrategy = .convertToSnakeCase</span><br><span class="line">encoder.dateEncodingStrategy = .iso8601</span><br><span class="line"><span class="keyword">let</span> decoder = <span class="type">JSONDecoder</span>()</span><br><span class="line">decoder.keyDecodingStrategy = .convertFromSnakeCase</span><br><span class="line">decoder.dateDecodingStrategy = .iso8601</span><br><span class="line"></span><br><span class="line"><span class="keyword">do</span> &#123;</span><br><span class="line">  <span class="comment">// 4</span></span><br><span class="line">  <span class="keyword">let</span> encodedBaloo = <span class="keyword">try</span> encoder.encode(baloo)</span><br><span class="line">  <span class="keyword">if</span> <span class="keyword">let</span> balooString = <span class="type">String</span>(data: encodedBaloo, encoding: .utf8) &#123;</span><br><span class="line">    <span class="built_in">print</span>(balooString)</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">let</span> encodedBagheera = <span class="keyword">try</span> encoder.encode(bagheera)</span><br><span class="line">  <span class="keyword">if</span> <span class="keyword">let</span> bagheeraString = <span class="type">String</span>(data: encodedBagheera, encoding: .utf8) &#123;</span><br><span class="line">    <span class="built_in">print</span>(bagheeraString)</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="comment">// 5</span></span><br><span class="line">  <span class="keyword">let</span> decodedBaloo = <span class="keyword">try</span> decoder.decode(<span class="type">Animal</span>.<span class="keyword">self</span>, from: encodedBaloo)</span><br><span class="line">  <span class="built_in">print</span>(decodedBaloo)</span><br><span class="line">  <span class="keyword">let</span> decodedBagheera = <span class="keyword">try</span> decoder.decode(<span class="type">Animal</span>.<span class="keyword">self</span>, from: encodedBagheera)</span><br><span class="line">  <span class="built_in">print</span>(decodedBagheera)</span><br><span class="line">&#125; <span class="keyword">catch</span> <span class="keyword">let</span> error &#123;</span><br><span class="line">  <span class="built_in">print</span>(<span class="string">"Error occurred: \(error.localizedDescription)"</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="第五章：Codable-Routing"><a href="# 第五章：Codable-Routing" class="headerlink" title="第五章：Codable Routing"></a>第五章：Codable Routing</h2><p>Codable Routing 支持以完全类型安全的方式在你的应用程序的结构和类以及 HTTP 请求和响应中使用的正文数据之间自动转换。 它大大减少了构建路由处理程序时需要编写的代码，并使 Kitura 能够代表你执行数据验证和错误处理。</p>
+<p>看 Model 和 Route 的实现：</p>
+<figure class="highlight swift"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> Foundation</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">JournalEntry</span>: <span class="title">Codable</span> </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> id: <span class="type">String?</span></span><br><span class="line">  <span class="keyword">var</span> emoji: <span class="type">String</span></span><br><span class="line">  <span class="keyword">var</span> date: <span class="type">Date</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight swift"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> Foundation</span><br><span class="line"><span class="keyword">import</span> LoggerAPI</span><br><span class="line"><span class="keyword">import</span> Kitura</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> entries: [<span class="type">JournalEntry</span>] = []</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">initializeEntryRoutes</span><span class="params">(app: App)</span></span> &#123;</span><br><span class="line">  app.router.<span class="keyword">get</span>(<span class="string">"/entries"</span>, handler: getAllEntries)</span><br><span class="line">  app.router.post(<span class="string">"/entries"</span>, handler: addEntry)</span><br><span class="line">  app.router.delete(<span class="string">"/entries"</span>, handler: deleteEntry)</span><br><span class="line">  <span class="type">Log</span>.info(<span class="string">"Journal entry routes created"</span>)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">addEntry</span><span class="params">(entry: JournalEntry, completion: @escaping <span class="params">(JournalEntry?, RequestError?)</span></span></span> -&gt; <span class="type">Void</span>) &#123;</span><br><span class="line">  <span class="keyword">var</span> storedEntry = entry</span><br><span class="line">  storedEntry.id = entries.<span class="built_in">count</span>.value</span><br><span class="line">  entries.append(storedEntry)</span><br><span class="line">  completion(storedEntry, <span class="literal">nil</span>)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">getAllEntries</span><span class="params">(completion: @escaping <span class="params">([JournalEntry]?, RequestError?)</span></span></span> -&gt; <span class="type">Void</span>) -&gt; <span class="type">Void</span> &#123;</span><br><span class="line">  completion(entries, <span class="literal">nil</span>)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">deleteEntry</span><span class="params">(id: String, completion: @escaping <span class="params">(RequestError?)</span></span></span> -&gt; <span class="type">Void</span>) &#123;</span><br><span class="line">  <span class="keyword">guard</span> <span class="keyword">let</span> index = entries.index(<span class="keyword">where</span>: &#123; $<span class="number">0</span>.id == id &#125;) <span class="keyword">else</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> completion(.notFound)</span><br><span class="line">  &#125;</span><br><span class="line">  entries.remove(at: index)</span><br><span class="line">  completion(<span class="literal">nil</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>Codable Routing 的一个独特功能是它只需要你在处理函数中定义你希望从请求中接收的值，以及你将通过完成处理程序添加到响应中的值。</p>
+<blockquote>
+<p>目前，Kitura 仅支持从 <code>application/json</code> 解码。 这意味着，实际上，Content-Type 当前必须始终设置为<code>application/json</code>。 但是，Kitura 团队计划在即将发布的版本中支持其他编码类型。</p>
+</blockquote>
+<h2 id="第六章：OpenAPI 规范"><a href="# 第六章：OpenAPI 规范" class="headerlink" title="第六章：OpenAPI 规范"></a>第六章：OpenAPI 规范 </h2><h3 id="Swagger 的目标"><a href="#Swagger 的目标" class="headerlink" title="Swagger 的目标"></a>Swagger 的目标</h3><p> 在 Tony Tam 开创性的开源项目的基础上，其他公司开始做出贡献。 最终，Linux 基金会承担了该项目的赞助，并将其名称更改为 OpenAPI Initiative。 这种广泛的支持使 OpenAPI 规范在开源软件开发中占据了非常突出的位置。</p>
+<p>当 Tony 开始研究 Swagger API 项目时，他确定了三个关键目标：</p>
+<ul>
+<li>API 开发</li>
+<li>API 文档</li>
+<li>API 交互</li>
+</ul>
+<h3 id="生成你的规格"><a href="# 生成你的规格" class="headerlink" title="生成你的规格"></a>生成你的规格 </h3><p> 通过添加 <code>Kitura-OpenAPI</code> 依赖</p>
+<figure class="highlight swift"><table><tr><td class="code"><pre><span class="line">.package(url: <span class="string">"https://github.com/IBM-Swift/Kitura-OpenAPI.git"</span>, from: <span class="string">"1.1.1"</span>),</span><br></pre></td></tr></table></figure>
+<p> 运行后</p>
+<p><a href="http://localhost:8080/openapi" target="_blank" rel="noopener">http://localhost:8080/openapi</a></p>
+<figure class="highlight json"><table><tr><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="attr">"schemes"</span> : [</span><br><span class="line">    <span class="string">"http"</span></span><br><span class="line">  ],</span><br><span class="line">  <span class="attr">"swagger"</span> : <span class="string">"2.0"</span>,</span><br><span class="line">  <span class="attr">"info"</span> : &#123;</span><br><span class="line">    <span class="attr">"version"</span> : <span class="string">"1.0"</span>,</span><br><span class="line">    <span class="attr">"title"</span> : <span class="string">"Kitura Project"</span>,</span><br><span class="line">    <span class="attr">"description"</span> : <span class="string">"Generated by Kitura"</span></span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="attr">"paths"</span> : &#123;</span><br><span class="line">    <span class="attr">"\/entries"</span> : &#123;</span><br><span class="line">      <span class="attr">"get"</span> : &#123;</span><br><span class="line">        <span class="attr">"responses"</span> : &#123;</span><br><span class="line">          <span class="attr">"200"</span> : &#123;</span><br><span class="line">            <span class="attr">"schema"</span> : &#123;</span><br><span class="line">              <span class="attr">"type"</span> : <span class="string">"array"</span>,</span><br><span class="line">              <span class="attr">"items"</span> : &#123;</span><br><span class="line">                <span class="attr">"$ref"</span> : <span class="string">"#\/definitions\/JournalEntry"</span></span><br><span class="line">              &#125;</span><br><span class="line">            &#125;,</span><br><span class="line">            <span class="attr">"description"</span> : <span class="string">"successful response"</span></span><br><span class="line">          &#125;</span><br><span class="line">        &#125;,</span><br><span class="line">        <span class="attr">"consumes"</span> : [</span><br><span class="line">          <span class="string">"application\/json"</span></span><br><span class="line">        ],</span><br><span class="line">        <span class="attr">"produces"</span> : [</span><br><span class="line">          <span class="string">"application\/json"</span></span><br><span class="line">        ]</span><br><span class="line">      &#125;,</span><br><span class="line">      <span class="attr">"post"</span> : &#123;</span><br><span class="line">        <span class="attr">"consumes"</span> : [</span><br><span class="line">          <span class="string">"application\/json"</span></span><br><span class="line">        ],</span><br><span class="line">        <span class="attr">"produces"</span> : [</span><br><span class="line">          <span class="string">"application\/json"</span></span><br><span class="line">        ],</span><br><span class="line">        <span class="attr">"responses"</span> : &#123;</span><br><span class="line">          <span class="attr">"200"</span> : &#123;</span><br><span class="line">            <span class="attr">"schema"</span> : &#123;</span><br><span class="line">              <span class="attr">"$ref"</span> : <span class="string">"#\/definitions\/JournalEntry"</span></span><br><span class="line">            &#125;,</span><br><span class="line">            <span class="attr">"description"</span> : <span class="string">"successful response"</span></span><br><span class="line">          &#125;</span><br><span class="line">        &#125;,</span><br><span class="line">        <span class="attr">"parameters"</span> : [</span><br><span class="line">          &#123;</span><br><span class="line">            <span class="attr">"in"</span> : <span class="string">"body"</span>,</span><br><span class="line">            <span class="attr">"name"</span> : <span class="string">"input"</span>,</span><br><span class="line">            <span class="attr">"required"</span> : <span class="literal">true</span>,</span><br><span class="line">            <span class="attr">"schema"</span> : &#123;</span><br><span class="line">              <span class="attr">"$ref"</span> : <span class="string">"#\/definitions\/JournalEntry"</span></span><br><span class="line">            &#125;</span><br><span class="line">          &#125;</span><br><span class="line">        ]</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="attr">"\/health"</span> : &#123;</span><br><span class="line">      <span class="attr">"get"</span> : &#123;</span><br><span class="line">        <span class="attr">"responses"</span> : &#123;</span><br><span class="line">          <span class="attr">"200"</span> : &#123;</span><br><span class="line">            <span class="attr">"schema"</span> : &#123;</span><br><span class="line">              <span class="attr">"$ref"</span> : <span class="string">"#\/definitions\/Status"</span></span><br><span class="line">            &#125;,</span><br><span class="line">            <span class="attr">"description"</span> : <span class="string">"successful response"</span></span><br><span class="line">          &#125;</span><br><span class="line">        &#125;,</span><br><span class="line">        <span class="attr">"consumes"</span> : [</span><br><span class="line">          <span class="string">"application\/json"</span></span><br><span class="line">        ],</span><br><span class="line">        <span class="attr">"produces"</span> : [</span><br><span class="line">          <span class="string">"application\/json"</span></span><br><span class="line">        ]</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="attr">"\/entries\/&#123;id&#125;"</span> : &#123;</span><br><span class="line">      <span class="attr">"delete"</span> : &#123;</span><br><span class="line">        <span class="attr">"consumes"</span> : [</span><br><span class="line">          <span class="string">"application\/json"</span></span><br><span class="line">        ],</span><br><span class="line">        <span class="attr">"produces"</span> : [</span><br><span class="line">          <span class="string">"application\/json"</span></span><br><span class="line">        ],</span><br><span class="line">        <span class="attr">"responses"</span> : &#123;</span><br><span class="line">          <span class="attr">"200"</span> : &#123;</span><br><span class="line">            <span class="attr">"description"</span> : <span class="string">"successful response"</span></span><br><span class="line">          &#125;</span><br><span class="line">        &#125;,</span><br><span class="line">        <span class="attr">"parameters"</span> : [</span><br><span class="line">          &#123;</span><br><span class="line">            <span class="attr">"in"</span> : <span class="string">"path"</span>,</span><br><span class="line">            <span class="attr">"name"</span> : <span class="string">"id"</span>,</span><br><span class="line">            <span class="attr">"required"</span> : <span class="literal">true</span>,</span><br><span class="line">            <span class="attr">"type"</span> : <span class="string">"string"</span></span><br><span class="line">          &#125;</span><br><span class="line">        ]</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="attr">"basePath"</span> : <span class="string">"\/"</span>,</span><br><span class="line">  <span class="attr">"definitions"</span>: &#123;</span><br><span class="line">    <span class="attr">"JournalEntry"</span>: &#123;</span><br><span class="line">      <span class="attr">"type"</span>: <span class="string">"object"</span>,</span><br><span class="line">      <span class="attr">"required"</span>: [<span class="string">"date"</span>,<span class="string">"emoji"</span>],</span><br><span class="line">      <span class="attr">"properties"</span>: &#123;</span><br><span class="line">        <span class="attr">"id"</span>: &#123;<span class="attr">"type"</span>:<span class="string">"string"</span>&#125;,</span><br><span class="line">        <span class="attr">"emoji"</span>: &#123;<span class="attr">"type"</span>:<span class="string">"string"</span>&#125;,</span><br><span class="line">        <span class="attr">"date"</span>: &#123;<span class="attr">"type"</span>:<span class="string">"number"</span>&#125;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="attr">"Status"</span>: &#123;</span><br><span class="line">      <span class="attr">"type"</span>: <span class="string">"object"</span>,</span><br><span class="line">      <span class="attr">"required"</span>: [<span class="string">"status"</span>,<span class="string">"details"</span>,<span class="string">"timestamp"</span>],</span><br><span class="line">      <span class="attr">"properties"</span>: &#123;</span><br><span class="line">        <span class="attr">"status"</span>: &#123;<span class="attr">"type"</span>:<span class="string">"string"</span>&#125;,</span><br><span class="line">        <span class="attr">"details"</span>: &#123;<span class="attr">"items"</span>:&#123;<span class="attr">"type"</span>:<span class="string">"string"</span>&#125;,<span class="attr">"type"</span>:<span class="string">"array"</span>&#125;,</span><br><span class="line">        <span class="attr">"timestamp"</span>: &#123;<span class="attr">"type"</span>:<span class="string">"string"</span>&#125;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>此代码段的顶部表示你正在查看路径 <code>/entries</code> 的 GET 路由。 三个子节点描述了这条路线：</p>
+<ul>
+<li><p>“responses”提供用户可以接收的一系列响应。</p>
+</li>
+<li><p>“consumes”指定必须给出此方法的数据类型。</p>
+</li>
+<li><p>“produces”描述响应将包含的数据类型。</p>
+</li>
+</ul>
+<h3 id="使用 Kitura-OpenAPI-UI"><a href="# 使用 Kitura-OpenAPI-UI" class="headerlink" title="使用 Kitura OpenAPI UI"></a>使用 Kitura OpenAPI UI</h3><p>同步生成的还有 UI 调试界面</p>
+<p><a href="http://localhost:8080/openapi/ui" target="_blank" rel="noopener">http://localhost:8080/openapi/ui</a></p>
+<p><img src="https://gewill.org/assets/image-20190807140446505.png" alt="image-20190807140446505"></p>
+<p>这对于你需要进行快速而肮脏的测试的情况非常有用 - 或者如果你无法让顽固的队友相信这个模块真的有用！</p>
+<h3 id="为你的 iOS 应用生成 SDK"><a href="# 为你的 iOS 应用生成 SDK" class="headerlink" title="为你的 iOS 应用生成 SDK"></a>为你的 iOS 应用生成 SDK</h3><p>终端运行，即可生成 SDK，一个功能齐全的 Swift SDK，可以处理与此特定服务器的所有网络通信。</p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">docker pull swaggerapi/swagger-codegen-cli</span><br><span class="line">docker run --rm -v <span class="variable">$&#123;PWD&#125;</span>:/<span class="built_in">local</span> swaggerapi/swagger-codegen-cli langs</span><br><span class="line">mkdir GeneratedSDK </span><br><span class="line">touch specification.json </span><br><span class="line">//  复制 http://localhost:8080/openapi 的内容到 specification.json</span><br><span class="line">docker run --rm -v <span class="variable">$&#123;PWD&#125;</span>:/<span class="built_in">local</span> swaggerapi/swagger-codegen-cli generate -i /<span class="built_in">local</span>/specification.json -l swift -o /<span class="built_in">local</span>/GeneratedSDK</span><br></pre></td></tr></table></figure>
+<p>在实践中，这不仅可以节省时间并让你快速启动和运行，还可以节省错误，并且对于那些没有（喘气）在 Swift 工作的人来说尤其有用！</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/08/01/Data-Structures-and-Algorithms-in-Swift-Notes-1/" rel="next" title="Swift 数据结构和算法（一）">
+                <i class="fa fa-chevron-left"></i> Swift 数据结构和算法（一）
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/11/18/Data-Structures-and-Algorithms-in-Swift-Notes-2/" rel="prev" title="Swift 数据结构和算法（二）">
+                Swift 数据结构和算法（二） <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Ge Will</p>
+              <p class="site-description motion-element" itemprop="description">The people who are crazy enough to think they can change the world, are the ones who DO.</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">173</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/gewill" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:531sunlight@gmail.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://twitter.com/gewill_org" target="_blank" title="Twitter">
+                      
+                        <i class="fa fa-fw fa-twitter"></i>Twitter</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://weibo.com/gewei" target="_blank" title="Weibo">
+                      
+                        <i class="fa fa-fw fa-weibo"></i>Weibo</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+            <div class="cc-license motion-element" itemprop="license">
+              <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="cc-opacity" target="_blank">
+                <img src="/images/cc-by-nc-sa.svg" alt="Creative Commons">
+              </a>
+            </div>
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#第一章：引言"><span class="nav-number">1.</span> <span class="nav-text">第一章：引言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第二章：Hello-World"><span class="nav-number">2.</span> <span class="nav-text">第二章：Hello, World!</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第三章：RESTful-APIs"><span class="nav-number">3.</span> <span class="nav-text">第三章：RESTful APIs</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#REpresentational-State-Transfer-REST"><span class="nav-number">3.1.</span> <span class="nav-text">REpresentational State Transfer (REST)</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Fielding 提出了以下六个限制："><span class="nav-number">3.1.1.</span> <span class="nav-text">Fielding 提出了以下六个限制：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#提供统一接口的 RESTful-API 必须满足以下四个约束："><span class="nav-number">3.1.2.</span> <span class="nav-text">提供统一接口的 RESTful API 必须满足以下四个约束：</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#HyperText-Transfer-Protocol-HTTP"><span class="nav-number">3.2.</span> <span class="nav-text">HyperText Transfer Protocol (HTTP)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#HTTP-based-RESTful-APIs"><span class="nav-number">3.3.</span> <span class="nav-text">HTTP-based RESTful APIs</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#URL 作为资源"><span class="nav-number">3.3.1.</span> <span class="nav-text">URL 作为资源 </span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#特定资源的 URL 编码标识符"><span class="nav-number">3.3.2.</span> <span class="nav-text">特定资源的 URL 编码标识符 </span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#用于资源组的 URL 编码查询参数"><span class="nav-number">3.3.3.</span> <span class="nav-text">用于资源组的 URL 编码查询参数 </span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#分层 API 的分层 URL"><span class="nav-number">3.3.4.</span> <span class="nav-text">分层 API 的分层 URL</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#资源表示"><span class="nav-number">3.3.5.</span> <span class="nav-text">资源表示 </span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#HTTP 首部和正文数据"><span class="nav-number">3.3.6.</span> <span class="nav-text">HTTP 首部和正文数据</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#正文数据中的资源表示"><span class="nav-number">3.3.7.</span> <span class="nav-text">正文数据中的资源表示 </span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#自我描述性的信息"><span class="nav-number">3.3.8.</span> <span class="nav-text">自我描述性的信息 </span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#通过链接连接资源"><span class="nav-number">3.3.9.</span> <span class="nav-text">通过链接连接资源 </span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#构建 RESTful-API"><span class="nav-number">3.4.</span> <span class="nav-text">构建 RESTful API</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第四章：Codable 简介"><span class="nav-number">4.</span> <span class="nav-text">第四章：Codable 简介</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#The-bare-necessities"><span class="nav-number">4.1.</span> <span class="nav-text">The bare necessities</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第五章：Codable-Routing"><span class="nav-number">5.</span> <span class="nav-text">第五章：Codable Routing</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第六章：OpenAPI 规范"><span class="nav-number">6.</span> <span class="nav-text">第六章：OpenAPI 规范 </span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Swagger 的目标"><span class="nav-number">6.1.</span> <span class="nav-text">Swagger 的目标</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#生成你的规格"><span class="nav-number">6.2.</span> <span class="nav-text">生成你的规格 </span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用 Kitura-OpenAPI-UI"><span class="nav-number">6.3.</span> <span class="nav-text">使用 Kitura OpenAPI UI</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#为你的 iOS 应用生成 SDK"><span class="nav-number">6.4.</span> <span class="nav-text">为你的 iOS 应用生成 SDK</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Ge Will</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+    
+      <script id="dsq-count-scr" src="https://gewill.disqus.com/count.js" async></script>
+    
+
+    
+      <script type="text/javascript">
+        var disqus_config = function () {
+          this.page.url = 'http://gewill.org/2019/08/05/Server-Side-Swift-with-Kitura-Notes/';
+          this.page.identifier = '2019/08/05/Server-Side-Swift-with-Kitura-Notes/';
+          this.page.title = 'Kitura Swift 后端开发 - 笔记';
+        };
+        var d = document, s = d.createElement('script');
+        s.src = 'https://gewill.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+        (d.head || d.body).appendChild(s);
+      </script>
+    
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

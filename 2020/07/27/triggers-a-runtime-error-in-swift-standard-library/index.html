@@ -1,0 +1,804 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="en">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+  <meta name="google-site-verification" content="6p6MCt9mM7zNfEZF2HzE72sTOXJ8MC5frP4VNvYw1JU">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="Will's Blog" type="application/atom+xml">
+
+
+
+
+
+
+<meta name="description" content="Array.swiftUsing a negative number or an index equal to or greater than count triggers a runtime error. print(emptyDoubles[0]) ClosedRange.swiftAn equivalent range must be representable as a closed ra">
+<meta property="og:type" content="article">
+<meta property="og:title" content="在 Swift 标准库中触发运行时错误">
+<meta property="og:url" content="http://gewill.org/2020/07/27/triggers-a-runtime-error-in-swift-standard-library/index.html">
+<meta property="og:site_name" content="Will&#39;s Blog">
+<meta property="og:description" content="Array.swiftUsing a negative number or an index equal to or greater than count triggers a runtime error. print(emptyDoubles[0]) ClosedRange.swiftAn equivalent range must be representable as a closed ra">
+<meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2020-07-27T16:11:21.476Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="在 Swift 标准库中触发运行时错误">
+<meta name="twitter:description" content="Array.swiftUsing a negative number or an index equal to or greater than count triggers a runtime error. print(emptyDoubles[0]) ClosedRange.swiftAn equivalent range must be representable as a closed ra">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://gewill.org/2020/07/27/triggers-a-runtime-error-in-swift-standard-library/">
+
+
+
+
+
+  <title>在 Swift 标准库中触发运行时错误 | Will's Blog</title>
+  
+
+
+
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-62118677-1', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Will's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            About
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            Archives
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="st-search-show-outputs">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
+            
+            Search
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <form class="site-search-form">
+  <input type="text" id="st-search-input" class="st-search-input st-default-search-input">
+</form>
+
+<script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+    (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+    e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+
+  _st('install', 'ntcZFKy566gs4bTbpvHW','2.0.0');
+</script>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://gewill.org/2020/07/27/triggers-a-runtime-error-in-swift-standard-library/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Ge Will">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Will's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">在 Swift 标准库中触发运行时错误</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-07-27T22:06:26+08:00">
+                2020-07-27
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2020/07/27/triggers-a-runtime-error-in-swift-standard-library/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2020/07/27/triggers-a-runtime-error-in-swift-standard-library/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="Array-swift"><a href="#Array-swift" class="headerlink" title="Array.swift"></a>Array.swift</h1><p>Using a negative number or an index equal to or greater than <code>count</code> triggers a runtime error.</p>
+<figure class="highlight swift"><table><tr><td class="code"><pre><span class="line"><span class="built_in">print</span>(emptyDoubles[<span class="number">0</span>])</span><br></pre></td></tr></table></figure>
+<h1 id="ClosedRange-swift"><a href="#ClosedRange-swift" class="headerlink" title="ClosedRange.swift"></a>ClosedRange.swift</h1><p>An equivalent range must be representable as a closed range.  For example, passing an empty range as <code>other</code> triggers a runtime error,  because an empty range cannot be represented by a closed range instance.</p>
+<figure class="highlight swift"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> emptyRange = <span class="number">0</span>..&lt;<span class="number">0</span></span><br><span class="line"><span class="type">ClosedRange</span>(emptyRange)</span><br></pre></td></tr></table></figure>
+<h1 id="Dictionary-swift"><a href="#Dictionary-swift" class="headerlink" title="Dictionary.swift"></a>Dictionary.swift</h1><p>Passing a sequence with duplicate keys to this initializer results in a runtime error. If your sequence might have duplicate keys, use the <code>Dictionary(_:uniquingKeysWith:)</code> initializer instead.</p>
+<figure class="highlight swift"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> digitWords = [<span class="string">"one"</span>, <span class="string">"two"</span>, <span class="string">"three"</span>, <span class="string">"four"</span>, <span class="string">"five"</span>]</span><br><span class="line"><span class="keyword">let</span> wordToValue = <span class="type">Dictionary</span>(uniqueKeysWithValues: <span class="built_in">zip</span>(digitWords, <span class="number">1</span> ... <span class="number">5</span>))</span><br><span class="line"><span class="keyword">let</span> wordToValueAndRemoveDuplicateKeys = <span class="type">Dictionary</span>(<span class="built_in">zip</span>([<span class="string">"one"</span>, <span class="string">"one"</span>, <span class="string">"three"</span>, <span class="string">"four"</span>, <span class="string">"five"</span>], <span class="number">1</span> ... <span class="number">5</span>)) &#123; <span class="built_in">max</span>($<span class="number">0</span>, $<span class="number">1</span>) &#125;</span><br></pre></td></tr></table></figure>
+<h1 id="DictionaryCasting-swift"><a href="#DictionaryCasting-swift" class="headerlink" title="DictionaryCasting.swift"></a>DictionaryCasting.swift</h1><figure class="highlight swift"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> dic: [<span class="type">String</span>: <span class="type">String?</span>] = [<span class="string">"name"</span>: <span class="literal">nil</span>]</span><br><span class="line">dic <span class="keyword">as</span>! [<span class="type">String</span>: <span class="type">String</span>]</span><br></pre></td></tr></table></figure>
+<h1 id="Integers-swift"><a href="#Integers-swift" class="headerlink" title="Integers.swift"></a>Integers.swift</h1><p>When the additive inverse of a value is unrepresentable in a conforming type, the operation should either trap or return an exceptional value. For example, using the negation operator (prefix <code>-</code>) with <code>Int.min</code> results in a runtime error.</p>
+<figure class="highlight swift"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> x = <span class="type">Int</span>.<span class="built_in">min</span></span><br><span class="line"><span class="keyword">let</span> y = -x</span><br><span class="line"><span class="comment">// Overflow error</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> z = -<span class="type">Int8</span>.<span class="built_in">min</span></span><br><span class="line"><span class="comment">// Overflow error</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> y = <span class="type">Int8</span>.<span class="built_in">min</span></span><br><span class="line">y.negate()</span><br><span class="line"><span class="comment">// Overflow error</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> z = <span class="type">UInt32</span>(-<span class="number">500</span>)</span><br><span class="line"><span class="comment">// Error</span></span><br></pre></td></tr></table></figure>
+<h1 id="Optional-swift"><a href="#Optional-swift" class="headerlink" title="Optional.swift"></a>Optional.swift</h1><p>In debug builds (<code>-Onone</code>), the <code>unsafelyUnwrapped</code> property has the same behavior as using the postfix <code>!</code> operator and triggers a runtime error if the instance is <code>nil</code>.</p>
+<figure class="highlight swift"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> optionalInt: <span class="type">Int</span> = <span class="literal">nil</span></span><br><span class="line">optionalInt!</span><br></pre></td></tr></table></figure>
+<h1 id="Policy-swift"><a href="#Policy-swift" class="headerlink" title="Policy.swift"></a>Policy.swift</h1><p>If you have prior knowledge that an <code>AnyObject</code> instance has a particular type, you can use the unconditional downcast operator (<code>as!</code>). Performing an invalid cast triggers a runtime error.</p>
+<figure class="highlight swift"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> message = s <span class="keyword">as</span>! <span class="type">String</span></span><br><span class="line"><span class="built_in">print</span>(<span class="string">"Successful cast to String: \(message)"</span>)</span><br><span class="line"><span class="comment">// Prints "Successful cast to String: This is a bridged string."</span></span><br><span class="line"><span class="keyword">let</span> badCase = v <span class="keyword">as</span>! <span class="type">String</span></span><br><span class="line"><span class="comment">// Runtime error</span></span><br></pre></td></tr></table></figure>
+<h1 id="Range-swift"><a href="#Range-swift" class="headerlink" title="Range.swift"></a>Range.swift</h1><p>An equivalent range must be representable as an instance of Range<bound>. For example, passing a closed range with an upper bound of <code>Int.max</code> triggers a runtime error, because the resulting half-open range would require an upper bound of <code>Int.max + 1</code>, which is not representable as</bound></p>
+<figure class="highlight swift"><table><tr><td class="code"><pre><span class="line"><span class="type">Range</span>(<span class="number">0</span> ... <span class="type">Int</span>.<span class="built_in">max</span>)</span><br></pre></td></tr></table></figure>
+<p>Always use the slice’s <code>startIndex</code> property instead of assuming that its indices start at a particular value. Attempting to access an element by using an index outside the bounds of the slice’s indices may result in a runtime error, even if that index is valid for the original collection.</p>
+<figure class="highlight swift"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> streets = [<span class="string">"Adams"</span>, <span class="string">"Bryant"</span>, <span class="string">"Channing"</span>, <span class="string">"Douglas"</span>, <span class="string">"Evarts"</span>]</span><br><span class="line"><span class="keyword">let</span> streetsSlice = streets[<span class="number">2</span>...]</span><br><span class="line"><span class="built_in">print</span>(streetsSlice)</span><br><span class="line"><span class="comment">// ["Channing", "Douglas", "Evarts"]</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(streetsSlice.startIndex)</span><br><span class="line"><span class="comment">// 2</span></span><br><span class="line"><span class="built_in">print</span>(streetsSlice[<span class="number">2</span>])</span><br><span class="line"><span class="comment">// "Channing"</span></span><br><span class="line"><span class="built_in">print</span>(streetsSlice[<span class="number">0</span>])</span><br><span class="line"><span class="comment">// error: Index out of bounds</span></span><br></pre></td></tr></table></figure>
+<h1 id="RangeReplaceableCollection-swift"><a href="#RangeReplaceableCollection-swift" class="headerlink" title="RangeReplaceableCollection.swift"></a>RangeReplaceableCollection.swift</h1><p>Attempting to remove more elements than exist in the collection triggers a runtime error.</p>
+<figure class="highlight swift"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> array = <span class="type">Array</span>(<span class="number">0</span> ..&lt; <span class="number">5</span>)</span><br><span class="line">array.removeFirst(<span class="number">6</span>)</span><br><span class="line">array.removeLast(<span class="number">6</span>)</span><br></pre></td></tr></table></figure>
+<h1 id="SetCasting-swift"><a href="#SetCasting-swift" class="headerlink" title="SetCasting.swift"></a>SetCasting.swift</h1><p> We can’t just delegate to _setDownCastConditional here because we rely on  <code>as!</code> to generate nice runtime errors when the downcast fails.</p>
+<figure class="highlight swift"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> s: <span class="type">Set</span>&lt;<span class="type">Int?</span>&gt; = [<span class="number">1</span>, <span class="number">2</span>, <span class="literal">nil</span>]</span><br><span class="line">s <span class="keyword">as</span>! <span class="type">Set</span>&lt;<span class="type">Int</span>&gt;</span><br></pre></td></tr></table></figure>
+<h1 id="StaticString-swift"><a href="#StaticString-swift" class="headerlink" title="StaticString.swift"></a>StaticString.swift</h1><figure class="highlight swift"><table><tr><td class="code"><pre><span class="line"><span class="comment">// * a pointer to a null-terminated sequence of UTF-8 code units:</span></span><br><span class="line"><span class="keyword">let</span> emoji: <span class="type">StaticString</span> = <span class="string">"\u&#123;1F600&#125;"</span></span><br><span class="line">emoji.hasPointerRepresentation <span class="comment">// -&gt; true</span></span><br><span class="line">emoji.isASCII <span class="comment">// -&gt; false</span></span><br><span class="line"><span class="comment">// emoji.unicodeScalar // -&gt; Fatal error!</span></span><br><span class="line">emoji.utf8CodeUnitCount <span class="comment">// -&gt; 4</span></span><br><span class="line">emoji.utf8Start[<span class="number">0</span>] <span class="comment">// -&gt; 0xF0</span></span><br><span class="line">emoji.utf8Start[<span class="number">1</span>] <span class="comment">// -&gt; 0x9F</span></span><br><span class="line">emoji.utf8Start[<span class="number">2</span>] <span class="comment">// -&gt; 0x98</span></span><br><span class="line">emoji.utf8Start[<span class="number">3</span>] <span class="comment">// -&gt; 0x80</span></span><br><span class="line">emoji.utf8Start[<span class="number">4</span>] <span class="comment">// -&gt; 0x00</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight swift"><table><tr><td class="code"><pre><span class="line"><span class="comment">// * a single Unicode scalar value, under very limited circumstances:</span></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">MyStaticScalar</span>: <span class="title">ExpressibleByUnicodeScalarLiteral</span> </span>&#123;</span><br><span class="line">    <span class="keyword">typealias</span> <span class="type">UnicodeScalarLiteralType</span> = <span class="type">StaticString</span></span><br><span class="line">    <span class="keyword">let</span> value: <span class="type">StaticString</span></span><br><span class="line">    <span class="keyword">init</span>(unicodeScalarLiteral value: <span class="type">StaticString</span>) &#123;</span><br><span class="line">        <span class="keyword">self</span>.value = value</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> emoji: <span class="type">StaticString</span> = <span class="type">MyStaticScalar</span>(<span class="string">"\u&#123;1F600&#125;"</span>).value</span><br><span class="line">emoji.hasPointerRepresentation <span class="comment">// -&gt; false</span></span><br><span class="line">emoji.isASCII <span class="comment">// -&gt; false</span></span><br><span class="line">emoji.unicodeScalar.value <span class="comment">// -&gt; 0x1F600</span></span><br><span class="line">emoji.utf8CodeUnitCount <span class="comment">// -&gt; Fatal error!</span></span><br><span class="line">emoji.utf8Start <span class="comment">// -&gt; Fatal error!</span></span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/11/18/Data-Structures-and-Algorithms-in-Swift-Notes-2/" rel="next" title="Swift 数据结构和算法（二）">
+                <i class="fa fa-chevron-left"></i> Swift 数据结构和算法（二）
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Ge Will</p>
+              <p class="site-description motion-element" itemprop="description">The people who are crazy enough to think they can change the world, are the ones who DO.</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">173</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/gewill" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:531sunlight@gmail.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://twitter.com/gewill_org" target="_blank" title="Twitter">
+                      
+                        <i class="fa fa-fw fa-twitter"></i>Twitter</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://weibo.com/gewei" target="_blank" title="Weibo">
+                      
+                        <i class="fa fa-fw fa-weibo"></i>Weibo</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+            <div class="cc-license motion-element" itemprop="license">
+              <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="cc-opacity" target="_blank">
+                <img src="/images/cc-by-nc-sa.svg" alt="Creative Commons">
+              </a>
+            </div>
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Array-swift"><span class="nav-number">1.</span> <span class="nav-text">Array.swift</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#ClosedRange-swift"><span class="nav-number">2.</span> <span class="nav-text">ClosedRange.swift</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Dictionary-swift"><span class="nav-number">3.</span> <span class="nav-text">Dictionary.swift</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#DictionaryCasting-swift"><span class="nav-number">4.</span> <span class="nav-text">DictionaryCasting.swift</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Integers-swift"><span class="nav-number">5.</span> <span class="nav-text">Integers.swift</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Optional-swift"><span class="nav-number">6.</span> <span class="nav-text">Optional.swift</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Policy-swift"><span class="nav-number">7.</span> <span class="nav-text">Policy.swift</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Range-swift"><span class="nav-number">8.</span> <span class="nav-text">Range.swift</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#RangeReplaceableCollection-swift"><span class="nav-number">9.</span> <span class="nav-text">RangeReplaceableCollection.swift</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#SetCasting-swift"><span class="nav-number">10.</span> <span class="nav-text">SetCasting.swift</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#StaticString-swift"><span class="nav-number">11.</span> <span class="nav-text">StaticString.swift</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Ge Will</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+    
+      <script id="dsq-count-scr" src="https://gewill.disqus.com/count.js" async></script>
+    
+
+    
+      <script type="text/javascript">
+        var disqus_config = function () {
+          this.page.url = 'http://gewill.org/2020/07/27/triggers-a-runtime-error-in-swift-standard-library/';
+          this.page.identifier = '2020/07/27/triggers-a-runtime-error-in-swift-standard-library/';
+          this.page.title = '在 Swift 标准库中触发运行时错误';
+        };
+        var d = document, s = d.createElement('script');
+        s.src = 'https://gewill.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+        (d.head || d.body).appendChild(s);
+      </script>
+    
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
