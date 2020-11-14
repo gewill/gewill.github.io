@@ -283,6 +283,166 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://gewill.org/2015/07/28/iOS-Programming-4ed-6/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Ge Will">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Will's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2015/07/28/iOS-Programming-4ed-6/" itemprop="url">《iOS 编程》6. 视图控制器</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2015-07-28T16:27:23+08:00">
+                2015-07-28
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2015/07/28/iOS-Programming-4ed-6/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2015/07/28/iOS-Programming-4ed-6/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="6-5- 添加本地通知"><a href="#6-5- 添加本地通知" class="headerlink" title="6.5 添加本地通知"></a>6.5 添加本地通知 </h2><p> 书中没有提到申请通知权限，方法如下</p>
+<p><a href="http://stackoverflow.com/questions/24203066/ask-user-for-permission-to-show-alert-when-firing-local-notification" target="_blank" rel="noopener">add this code, it will show a alert view to ask user for permission.</a></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">if ([UIApplication instancesRespondToSelector:@selector(registerUserNotificationSettings:)]) &#123;</span><br><span class="line">    [[UIApplication sharedApplication] registerUserNotificationSettings:[UIUserNotificationSettings settingsForTypes:UIUserNotificationTypeAlert|UIUserNotificationTypeSound|UIUserNotificationTypeBadge</span><br><span class="line">                                                                                                          categories:nil]];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="6-7- 与视图控制器及其视图进行交互"><a href="#6-7- 与视图控制器及其视图进行交互" class="headerlink" title="6.7 与视图控制器及其视图进行交互"></a>6.7 与视图控制器及其视图进行交互 </h2><p><strong> 视图控制器的生命周期方法（lifecycle method）：</strong></p>
+<ul>
+<li><p>application:didFinishLaunchingWithOptions: 在该方法中设置和初始化应用窗口的根视图控制器。该方法只会在应用启动完毕后调用一次。</p>
+</li>
+<li><p>initWithNibName:bundle: 该方法是 UIViewController 的指定初始化方法，创建视图控制器时，就会调用该方法。请注意，某些情况下，需要在同一个应用中创建多个相同的 UIViewController 子类对象，每次创建一个该类的对象时，都会调用一次该类的 initWithNibName:bundle: 方法。</p>
+</li>
+</ul>
+<ul>
+<li>loadView: 可以覆盖该方法，使用代码方式设置视图控制器的 view 属性。</li>
+</ul>
+<ul>
+<li>viewDidLoad 可以覆盖该方法，设置使用 NIB 文件创建的视图对象。该方法会在视图控制器加载完视图后被调用。</li>
+</ul>
+<ul>
+<li>viewWillAppear: 可以覆盖该方法，设置使用 NIB 文件创建的视图对象。该方法和</li>
+<li>viewDidAppear: 会在每次视图控制器的 view 显示在屏幕上时被调用；相反，</li>
+<li>viewWillDisappear: 和 viewDidDisappear: 方法会在每次视图控制器的 view 从屏幕上消失时被调用。</li>
+</ul>
+<h2 id="6-9- 中级练习：控制逻辑"><a href="#6-9- 中级练习：控制逻辑" class="headerlink" title="6.9 中级练习：控制逻辑"></a>6.9 中级练习：控制逻辑 </h2><p> 查文档不懂，这是个大问题，有待提高看文档具体怎么组织的能力。<a href="http://stackoverflow.com/questions/6688160/how-to-programmatically-add-a-uisegmentedcontrol-to-a-container-view" target="_blank" rel="noopener">Stack Overflow</a> 的答案运行崩溃，没有理解原理，<code>mainSegmentControl:</code> 方法没有声明。最后还是去 <a href="http://forums.bignerdranch.com/viewtopic.php?f=487&amp;t=9844" target="_blank" rel="noopener">BNR 论坛</a> 找到了答案。</p>
+<blockquote>
+<p>熟悉文档浏览 UIColor，其实也是不很精通颜色，但是还是大部分看懂了，也了解了目录结构和对应文本的样式。</p>
+</blockquote>
+<p>GWHypnosisViewController.m </p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">- (void)viewDidLoad &#123;</span><br><span class="line">    [super viewDidLoad];</span><br><span class="line">    // Do any additional setup after loading the view.</span><br><span class="line">    NSLog(@&quot;GWHypnosisViewController loaded its view.&quot;);</span><br><span class="line"></span><br><span class="line">    // 初始化 UISegmentedControl，设置大小和颜色</span><br><span class="line">    UISegmentedControl *segmentedControl = [[UISegmentedControl alloc] initWithItems:@[@&quot;Red&quot;, @&quot;Green&quot;, @&quot;Blue&quot;]];</span><br><span class="line">    segmentedControl.frame = CGRectMake(0, 0, 250, 50);</span><br><span class="line">    segmentedControl.tintColor = [UIColor blackColor];</span><br><span class="line">    </span><br><span class="line">    // 注册 UISegmentedControl</span><br><span class="line">    [segmentedControl addTarget:self.view</span><br><span class="line">                         action:@selector(mainSegmentControl:)</span><br><span class="line">               forControlEvents: UIControlEventValueChanged];</span><br><span class="line">    // 添加到视图</span><br><span class="line">    [self.view addSubview:segmentedControl];</span><br><span class="line">    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>GWHypnosisView.h</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">- (void)mainSegmentControl:(UISegmentedControl *)segment;</span><br></pre></td></tr></table></figure>
+<p>GWHypnosisView.m</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">// mainSegmentControl: 方法用来接受 UISegmentedControl 发的消息</span><br><span class="line">- (void)mainSegmentControl:(UISegmentedControl *)segment</span><br><span class="line">&#123;</span><br><span class="line">    </span><br><span class="line">    if(segment.selectedSegmentIndex == 0)</span><br><span class="line">    &#123;</span><br><span class="line">        // action for the first button (Current or Default)</span><br><span class="line">        self.circleColor = [UIColor redColor];</span><br><span class="line">    &#125;</span><br><span class="line">    else if(segment.selectedSegmentIndex == 1)</span><br><span class="line">    &#123;</span><br><span class="line">        // action for the second button</span><br><span class="line">        self.circleColor = [UIColor greenColor];</span><br><span class="line">    &#125;</span><br><span class="line">    else if(segment.selectedSegmentIndex == 2)</span><br><span class="line">    &#123;</span><br><span class="line">        // action for the third button</span><br><span class="line">        self.circleColor = [UIColor blueColor];</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="项目代码保存在我的 -GitHub-iOSProgramming4edSolutions"><a href="# 项目代码保存在我的 -GitHub-iOSProgramming4edSolutions" class="headerlink" title="项目代码保存在我的 GitHub: iOSProgramming4edSolutions"></a>项目代码保存在我的 GitHub: <a href="https://github.com/gewill/iOSProgramming4edSolutions" target="_blank" rel="noopener">iOSProgramming4edSolutions</a></h2>
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://gewill.org/2015/07/28/iOS-Programming-4ed-5/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -3184,188 +3344,6 @@ class HappinessViewController: UIViewController, FaceViewDataSource
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://gewill.org/2015/07/15/Crazy-Swift-Lecture-Chapter-8/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Ge Will">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Will's Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2015/07/15/Crazy-Swift-Lecture-Chapter-8/" itemprop="url">Crazy Swift Lecture Chapter 8</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2015-07-15T09:16:41+08:00">
-                2015-07-15
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2015/07/15/Crazy-Swift-Lecture-Chapter-8/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2015/07/15/Crazy-Swift-Lecture-Chapter-8/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="第八章 - 面向对象（下）"><a href="# 第八章 - 面向对象（下）" class="headerlink" title="第八章 面向对象（下）"></a>第八章 面向对象（下）</h1><p>Swift 学习了一段时间，还算熟悉了其语法，有待开发 APP 练习提高。</p>
-<p>Swift 面向对象的三大特性：封装、继承、多态。还提供 private、internal 和 public 等访问控制符来实现封装。</p>
-<h2 id="8-1- 继承"><a href="#8-1- 继承" class="headerlink" title="8.1 继承"></a>8.1 继承</h2><p>Swift 不支持多继承。</p>
-<p>如果没有指定父类，他将没有父类，并没有 Objective-C 的基类如 NSObject 或 Object 之类。</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">class Fruit</span><br><span class="line">&#123;</span><br><span class="line">    var weight = 0.0</span><br><span class="line">    func info()</span><br><span class="line">    &#123;</span><br><span class="line">        print(&quot; 我是一个水果，重 \(weight)g。&quot;)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">class Apple: Fruit &#123;</span><br><span class="line">    var name: String!</span><br><span class="line">    func taste()</span><br><span class="line">    &#123;</span><br><span class="line">        print(&quot;\(name)吃起来很好吃。&quot;)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">var a = Apple()</span><br><span class="line">a.name = &quot; 红富士 &quot;</span><br><span class="line">a.weight = 56</span><br><span class="line"></span><br><span class="line">a.info()  // 输出：我是一个水果，重 56.0g。</span><br><span class="line">a.taste() // 输出：红富士吃起来很好吃。</span><br></pre></td></tr></table></figure>
-<p>重写父类的方法</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">class Bird &#123;</span><br><span class="line">    func fly()</span><br><span class="line">    &#123;</span><br><span class="line">        print(&quot;I can fly in the blue sky.&quot;)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">class Ostrich: Bird &#123;</span><br><span class="line">    override func fly() &#123;</span><br><span class="line">        print(&quot;I only run on the groud.&quot;)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">var os = Ostrich()</span><br><span class="line"></span><br><span class="line">os.fly() // 输出：I only run on the groud.</span><br></pre></td></tr></table></figure>
-<p>重写父类的属性</p>
-<p>super 用于限定调用它从父类继承得到的属性、方法。</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">class Bird &#123;</span><br><span class="line">    var speed: Double = 0</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">class Ostrich: Bird &#123;</span><br><span class="line">    override var speed: Double&#123;</span><br><span class="line">        get&#123;</span><br><span class="line">            print(&quot; 正在访问被重写的属性。&quot;)</span><br><span class="line">            return super.speed</span><br><span class="line">        &#125;</span><br><span class="line">        set&#123;</span><br><span class="line">            super.speed = newValue * newValue</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">var os = Ostrich()</span><br><span class="line"></span><br><span class="line">os.speed = 20</span><br><span class="line"></span><br><span class="line">print(&quot;os 的速度为：\(os.speed)。&quot;)</span><br></pre></td></tr></table></figure>
-<p>还可以重写读写观察者、父类的下标，使用 final 防止重写。</p>
-<h2 id="8-2- 类的构造和析构"><a href="#8-2- 类的构造和析构" class="headerlink" title="8.2 类的构造和析构"></a>8.2 类的构造和析构 </h2><p> 类的构造器链调用规则：</p>
-<ul>
-<li>指定构造器总是必须向上代理（调用父类构造器）</li>
-<li>便利构造器总是必须横向代理（调用当前类的其他构造器）</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">class Apple &#123;</span><br><span class="line">    var name: String!</span><br><span class="line">    var weight: Double</span><br><span class="line">    </span><br><span class="line">    // 定义指定构造器</span><br><span class="line">    init(name: String, weight: Double)</span><br><span class="line">    &#123;</span><br><span class="line">        self.name = name</span><br><span class="line">        self.weight = weight</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    // 定义便利构造器</span><br><span class="line">    convenience init(n name: String, w weight: Double)</span><br><span class="line">    &#123;</span><br><span class="line">        // 便利构造器必须调用同一个类中的其他构造器</span><br><span class="line">        self.init(name: name, weight: weight)</span><br><span class="line">        self.name = name</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">var app1 = Apple(n: &quot; 红富士 &quot;, w: 1.2)</span><br><span class="line">var app2 = Apple(name: &quot; 指定 &quot;, weight: 8.8)</span><br></pre></td></tr></table></figure>
-<h2 id="8-3- 多态"><a href="#8-3- 多态" class="headerlink" title="8.3 多态"></a>8.3 多态 </h2><p> 相同类型的变量、调用同一个方法时呈现出多种不同的行为特征，就叫多态。</p>
-<p>is 运算符可以判断前面的引用变量是否引用后面的类，或其子类、实现的类的实例。</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">@objc protocol TestProtocol&#123;&#125;</span><br><span class="line"></span><br><span class="line">let hello: NSObject = &quot;Hello&quot;</span><br><span class="line">print(&quot; 字符串是否是 NSString 类的实例：\(hello is NSString)&quot;) // 返回 true</span><br><span class="line">print(&quot; 字符串是否是 NSDate 类的实例：\(hello is NSDate)&quot;) // 返回 false</span><br><span class="line">print(&quot; 字符串是否是 TestProtocol 协议的实例：\(hello is TestProtocol)&quot;) // 返回 false</span><br><span class="line">let a: NSString = &quot;Hello&quot;</span><br><span class="line">print(&quot; 字符串是否是 NSDate 类的实例：\(a is NSDate)&quot;) // 返回 false</span><br></pre></td></tr></table></figure>
-<p>as 运算符向下转型为引用变量的实际类型：</p>
-<ul>
-<li>as：强制转换，失败则运行错误</li>
-<li>as?：可选形式的向下转换，返回一个可选值，成功则包含转换结果，失败则包含 nil</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">class Fruit &#123;</span><br><span class="line">    var name: String</span><br><span class="line">    var weight: Double</span><br><span class="line">    init(name: String, weight: Double)</span><br><span class="line">    &#123;</span><br><span class="line">        self.weight = weight</span><br><span class="line">        self.name = name</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">class Apple: Fruit &#123;</span><br><span class="line">    var color: String</span><br><span class="line">    init(name: String, weight: Double, color:String)</span><br><span class="line">    &#123;</span><br><span class="line">        self.color = color</span><br><span class="line">        super.init(name: name, weight: weight)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">class Grape: Fruit &#123;</span><br><span class="line">    var sugarRate: Double</span><br><span class="line">    init(name: String, weight: Double, sugarRate: Double)</span><br><span class="line">    &#123;</span><br><span class="line">        self.sugarRate = sugarRate</span><br><span class="line">        super.init(name: name, weight: weight)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">var fruits: [Fruit] = [</span><br><span class="line">    Apple(name: &quot;Red Fuji&quot;, weight: 1.8, color: &quot;Pink&quot;),</span><br><span class="line">    Apple(name: &quot;Cattle Fruit&quot;, weight: 2.2, color: &quot;Pink&quot;),</span><br><span class="line">    Grape(name: &quot;California Raisins&quot;, weight: 1.4, sugarRate: 0.34),</span><br><span class="line">    Grape(name: &quot;Xinjiang Grape&quot;, weight: 2.3, sugarRate: 0.45)</span><br><span class="line">]</span><br><span class="line"></span><br><span class="line">for f in fruits &#123;</span><br><span class="line">    if let ap = f as? Apple &#123;</span><br><span class="line">        print(&quot;\(ap.name)&apos;s color is \(ap.color).&quot;)</span><br><span class="line">    &#125;</span><br><span class="line">    else if let gp = f as? Grape &#123;</span><br><span class="line">        print(&quot;\(gp.name)&apos;s suagr rate is \(gp.sugarRate).&quot;)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">/* output:</span><br><span class="line"></span><br><span class="line">Red Fuji&apos;s color is Pink.</span><br><span class="line">Cattle Fruit&apos;s color is Pink.</span><br><span class="line">California Raisins&apos;s suagr rate is 0.34.</span><br><span class="line">Xinjiang Grape&apos;s suagr rate is 0.45.</span><br><span class="line"></span><br><span class="line">*/</span><br></pre></td></tr></table></figure>
-<p>不确定类型：</p>
-<ul>
-<li>AnyObject：可代表任何类的实例</li>
-<li>Any：可代表任何类型，包括 Int、Double 等值类型</li>
-</ul>
-<h2 id="8-4- 嵌套类型"><a href="#8-4- 嵌套类型" class="headerlink" title="8.4 嵌套类型"></a>8.4 嵌套类型 </h2><p> 程序外部使用嵌套类型需要添加被嵌套类型的前缀。</p>
-<h2 id="8-5- 扩展"><a href="#8-5- 扩展" class="headerlink" title="8.5 扩展"></a>8.5 扩展</h2><p>Swift 的扩展和 Objective-C 的分类比较相似，可以提高如下功能：</p>
-<ul>
-<li>添加属性</li>
-<li>添加方法</li>
-<li>添加新的构造器</li>
-<li>添加下标</li>
-<li>定义和使用新的嵌套类型</li>
-<li>使用一个类型符合一个或多个协议</li>
-</ul>
-<h2 id="8-6- 协议"><a href="#8-6- 协议" class="headerlink" title="8.6 协议"></a>8.6 协议 </h2><h2 id="8-7- 隐藏和封装"><a href="#8-7- 隐藏和封装" class="headerlink" title="8.7 隐藏和封装"></a>8.7 隐藏和封装</h2><p> 对于开发通用性架构时使用，可实现该隐藏的隐藏，该暴漏的暴漏。<br>Swift 提供 3 中访问控制符：</p>
-<ul>
-<li>public</li>
-<li>internal：internal 实体可以被同一个模块或应用的其他实体使用</li>
-<li>private：只能在当前源文件中使用</li>
-</ul>
-<p>Swift 默认的访问控制符： internal</p>
-<p>所有的实体只能指定比它所依赖的实体更低或相等的访问权限，如：</p>
-<ul>
-<li>不能在 internal 和 private 的类型中定义 public 访问权限的属性、方法、下标、构造器等</li>
-<li>函数的访问权限不能高于它的参数。返回值的访问权限</li>
-</ul>
-<h2 id="8-8-Swift- 内存管理"><a href="#8-8-Swift- 内存管理" class="headerlink" title="8.8 Swift 内存管理"></a>8.8 Swift 内存管理</h2>
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -3416,7 +3394,7 @@ class HappinessViewController: UIViewController, FaceViewDataSource
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">173</span>
+                  <span class="site-state-item-count">174</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>

@@ -283,6 +283,142 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://gewill.org/2015/11/24/Delegate/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Ge Will">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Will's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2015/11/24/Delegate/" itemprop="url">Delegate</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2015-11-24T15:30:52+08:00">
+                2015-11-24
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2015/11/24/Delegate/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2015/11/24/Delegate/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="1- 前言"><a href="#1- 前言" class="headerlink" title="1.  前言"></a>1.  前言 </h2><p> 以前只知道怎么用 Delegate，能够传值和回传值。<strong>最近写代码封装一个 UIPickerView+UIButton</strong>，时候需要传值，就想到了 Delegate。但是自己写一个却把我难住了。最后看了还是看了一个 Demo, 单步调试才算真正理解的 Delegate 整个流程和原理。</p>
+<p>简单来说就是声明 Protocol，添加触发 调用 Protocol 方法的条件，被委托者设置 Delegate = self，就会在触发条件下调用 Protocol 方法（参数和返回值可实现双向传值）。</p>
+<p>主要看了这个教程：<br><a href="http://sledgedev.com/create-custom-delegate-and-protocol-ios-swift-objective-c/" target="_blank" rel="noopener">CREATE CUSTOM DELEGATE AND PROTOCOL IOS | SWIFT &amp; OBJECTIVE-C</a>，下面是作者提供的源码<a href="https://github.com/barrettbreshears/objective-c-protocol" target="_blank" rel="noopener">Objective-C  Project</a>，<a href="https://github.com/barrettbreshears/swift-protocol" target="_blank" rel="noopener">Swift Project</a>。</p>
+<p>教材中 MyTimer 是 Custom ViewController，我实际工作中是 UIView，也是参考了另外一篇 Apple 的教程：<a href="https://developer.apple.com/library/prerelease/ios/referencelibrary/GettingStarted/DevelopiOSAppsSwift/Lesson5.html" target="_blank" rel="noopener">Implement a Custom Control</a>。发现开发真的离不开 Google，但是前提是要有思路，或者对一个项目或者难题，要有整体的框架和可用的知识点熟悉。</p>
+<h2 id="2- 源码"><a href="#2- 源码" class="headerlink" title="2. 源码"></a>2. 源码 </h2><p> 下面是 UIPickerView+UIButton 封装后的源码：</p>
+<figure class="highlight swift"><table><tr><td class="code"><pre><span class="line"><span class="comment">//  GenderPickerView.swift</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> UIKit</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">protocol</span> <span class="title">GenderPickerViewDelegate</span>: <span class="title">NSObjectProtocol</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">func</span> <span class="title">genderPickerDidSelectItem</span><span class="params">(row: Int)</span></span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">GenderPickerView</span>: <span class="title">UIView</span>, <span class="title">UIPickerViewDataSource</span>, <span class="title">UIPickerViewDelegate</span> </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> delegate: <span class="type">GenderPickerViewDelegate!</span></span><br><span class="line">    <span class="keyword">var</span> toolbar: <span class="type">UIToolbar!</span></span><br><span class="line">    <span class="keyword">var</span> picker: <span class="type">UIPickerView!</span></span><br><span class="line">    <span class="keyword">var</span> genderPickerViewData = [<span class="string">"不告诉你"</span>, <span class="string">"男"</span>, <span class="string">"女"</span>]</span><br><span class="line">    <span class="keyword">var</span> genderSelectedRow = <span class="number">0</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">override</span> <span class="keyword">init</span>(frame: <span class="type">CGRect</span>) &#123;</span><br><span class="line">        <span class="keyword">super</span>.<span class="keyword">init</span>(frame: frame)</span><br><span class="line">        toolbar = <span class="type">UIToolbar</span>.<span class="keyword">init</span>(frame: <span class="type">CGRectMake</span>(<span class="number">0</span>, <span class="number">0</span>, <span class="type">UIScreen</span>.mainScreen().bounds.width, <span class="number">20</span>))</span><br><span class="line">        toolbar.barStyle = .<span class="type">Default</span></span><br><span class="line">        toolbar.sizeToFit()</span><br><span class="line"></span><br><span class="line">        <span class="keyword">let</span> cancelButton = <span class="type">UIBarButtonItem</span>.<span class="keyword">init</span>(title: <span class="string">"取消"</span>, style: <span class="type">UIBarButtonItemStyle</span>.<span class="type">Done</span>,  target: <span class="keyword">self</span>, action: <span class="string">"genderPickerDidCancel"</span>)</span><br><span class="line">        <span class="keyword">let</span> flexibleButton = <span class="type">UIBarButtonItem</span>.<span class="keyword">init</span>(barButtonSystemItem: <span class="type">UIBarButtonSystemItem</span>.<span class="type">FlexibleSpace</span>, target: <span class="keyword">self</span>, action: <span class="literal">nil</span>)</span><br><span class="line">        <span class="keyword">let</span> doneButton = <span class="type">UIBarButtonItem</span>.<span class="keyword">init</span>(title: <span class="string">"确定"</span>, style: <span class="type">UIBarButtonItemStyle</span>.<span class="type">Done</span>,  target: <span class="keyword">self</span>, action: <span class="string">"genderPickerDidSelect"</span>)</span><br><span class="line">        toolbar.setItems([cancelButton, flexibleButton, doneButton], animated: <span class="literal">true</span>)</span><br><span class="line"></span><br><span class="line">        picker = <span class="type">UIPickerView</span>.<span class="keyword">init</span>(frame: <span class="type">CGRectMake</span>(<span class="number">0</span>, <span class="number">44</span>, <span class="type">UIScreen</span>.mainScreen().bounds.width, <span class="number">120</span>))</span><br><span class="line">        picker.dataSource = <span class="keyword">self</span></span><br><span class="line">        picker.delegate = <span class="keyword">self</span></span><br><span class="line"></span><br><span class="line">        addSubview(toolbar)</span><br><span class="line">        addSubview(picker)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">convenience</span> <span class="keyword">init</span>() &#123;</span><br><span class="line">        <span class="keyword">self</span>.<span class="keyword">init</span>(frame: <span class="type">CGRectMake</span>(<span class="number">0</span>, <span class="type">UIScreen</span>.mainScreen().bounds.height - <span class="number">164</span>, <span class="type">UIScreen</span>.mainScreen().bounds.width, <span class="number">164</span>))</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">required</span>  <span class="keyword">init</span>?(coder aDecoder: <span class="type">NSCoder</span>) &#123;</span><br><span class="line">        <span class="built_in">fatalError</span>(<span class="string">"init(coder:) has not been implemented"</span>)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="comment">//MARK: - 性别选择视图</span></span><br><span class="line">    <span class="function"><span class="keyword">func</span> <span class="title">numberOfComponentsInPickerView</span><span class="params">(pickerView: UIPickerView)</span></span> -&gt; <span class="type">Int</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">1</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">func</span> <span class="title">pickerView</span><span class="params">(pickerView: UIPickerView, numberOfRowsInComponent component: Int)</span></span> -&gt; <span class="type">Int</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">3</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">func</span> <span class="title">pickerView</span><span class="params">(pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int)</span></span> -&gt; <span class="type">String?</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> genderPickerViewData[row]</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">func</span> <span class="title">pickerView</span><span class="params">(pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int)</span></span> &#123;</span><br><span class="line">        genderSelectedRow = row</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">func</span> <span class="title">genderPickerDidSelect</span><span class="params">()</span></span> &#123;</span><br><span class="line">        delegate?.genderPickerDidSelectItem(genderSelectedRow)</span><br><span class="line">        removeFromSuperview()</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">func</span> <span class="title">genderPickerDidCancel</span><span class="params">()</span></span> &#123;</span><br><span class="line">        removeFromSuperview()</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight swift"><table><tr><td class="code"><pre><span class="line"><span class="comment">//  PersonalInfoViewController.swift</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> UIKit</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ViewController</span>: <span class="title">UIViewController</span>, <span class="title">GenderPickerViewDelegate</span> </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> genderPicker: <span class="type">GenderPickerView!</span></span><br><span class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">func</span> <span class="title">viewDidLoad</span><span class="params">()</span></span> &#123;</span><br><span class="line">        <span class="keyword">super</span>.viewDidLoad()</span><br><span class="line">        genderPicker = <span class="type">GenderPickerView</span>.<span class="keyword">init</span>()</span><br><span class="line">        genderPicker.delegate = <span class="keyword">self</span></span><br><span class="line">        <span class="keyword">self</span>.view.addSubview(genderPicker)&#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//MARK: - GenderPickerViewDelegate</span></span><br><span class="line">    <span class="function"><span class="keyword">func</span> <span class="title">genderPickerDidSelectItem</span><span class="params">(row: Int)</span></span> &#123;</span><br><span class="line">        <span class="comment">// Do something</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://gewill.org/2015/11/12/Git/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -3118,188 +3254,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://gewill.org/2015/08/28/GeekBand-iOS-Design-Patterns-3/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Ge Will">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Will's Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2015/08/28/GeekBand-iOS-Design-Patterns-3/" itemprop="url">极客班 iOS 设计模式（三）</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2015-08-28T22:17:21+08:00">
-                2015-08-28
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2015/08/28/GeekBand-iOS-Design-Patterns-3/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2015/08/28/GeekBand-iOS-Design-Patterns-3/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>设计模式课程给我的感受是：理清各种平时固定用的 API 的背后的原理或思路，尤其是写代码时候反复去审视开发框架和思路都有一定的帮助。</p>
-<p>课件下载：<a href="https://github.com/gewill/GeekBand-iOS-Demo/tree/master/Design%20Patterns" target="_blank" rel="noopener">https://github.com/gewill/GeekBand-iOS-Demo/tree/master/Design%20Patterns</a></p>
-<h2 id="11- 层次结构"><a href="#11- 层次结构" class="headerlink" title="11. 层次结构"></a>11. 层次结构 </h2><h3 id="动机："><a href="# 动机：" class="headerlink" title="动机："></a> 动机：</h3><ul>
-<li>对象之间关系</li>
-<li>允许一组相互协作的对象当成单⼀对象处理</li>
-<li>无需⼦类化, 实现⾃定义</li>
-<li>降低 parents class 复杂度</li>
-<li>使用 tree 结构,⽅便数据的存储, 操作和搜索</li>
-</ul>
-<p><img src="http://i.imgur.com/9bGOm2k.png" alt="Layers associated with a window"></p>
-<p><img src="http://i.imgur.com/R7XAflX.jpg" alt="View Hierarchy in Xcode"></p>
-<blockquote>
-<p>其实还有更强大的工具：<a href="http://revealapp.com" target="_blank" rel="noopener">Reveal</a>，附 <a href="http://gewill.org/2015/08/03/Reveal/"> 使用方法</a>。</p>
-</blockquote>
-<p>节选自<code>UIView.h</code>：</p>
-<figure class="highlight objc"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">UIView</span>(<span class="title">UIViewHierarchy</span>)</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">@property</span>(<span class="keyword">nonatomic</span>,<span class="keyword">readonly</span>) <span class="built_in">UIView</span>       *superview;</span><br><span class="line"><span class="keyword">@property</span>(<span class="keyword">nonatomic</span>,<span class="keyword">readonly</span>,<span class="keyword">copy</span>) <span class="built_in">NSArray</span> *subviews;</span><br><span class="line"><span class="keyword">@property</span>(<span class="keyword">nonatomic</span>,<span class="keyword">readonly</span>) <span class="built_in">UIWindow</span>     *window;</span><br><span class="line"></span><br><span class="line">- (<span class="keyword">void</span>)removeFromSuperview;</span><br><span class="line">- (<span class="keyword">void</span>)insertSubview:(<span class="built_in">UIView</span> *)view atIndex:(<span class="built_in">NSInteger</span>)index;</span><br><span class="line">- (<span class="keyword">void</span>)exchangeSubviewAtIndex:(<span class="built_in">NSInteger</span>)index1 withSubviewAtIndex:(<span class="built_in">NSInteger</span>)index2;</span><br><span class="line"></span><br><span class="line">- (<span class="keyword">void</span>)addSubview:(<span class="built_in">UIView</span> *)view;</span><br><span class="line">- (<span class="keyword">void</span>)insertSubview:(<span class="built_in">UIView</span> *)view belowSubview:(<span class="built_in">UIView</span> *)siblingSubview;</span><br><span class="line">- (<span class="keyword">void</span>)insertSubview:(<span class="built_in">UIView</span> *)view aboveSubview:(<span class="built_in">UIView</span> *)siblingSubview;</span><br><span class="line"></span><br><span class="line">- (<span class="keyword">void</span>)bringSubviewToFront:(<span class="built_in">UIView</span> *)view;</span><br><span class="line">- (<span class="keyword">void</span>)sendSubviewToBack:(<span class="built_in">UIView</span> *)view;</span><br><span class="line"></span><br><span class="line">- (<span class="keyword">void</span>)didAddSubview:(<span class="built_in">UIView</span> *)subview;</span><br><span class="line">- (<span class="keyword">void</span>)willRemoveSubview:(<span class="built_in">UIView</span> *)subview;</span><br><span class="line"></span><br><span class="line">- (<span class="keyword">void</span>)willMoveToSuperview:(<span class="built_in">UIView</span> *)newSuperview;</span><br><span class="line">- (<span class="keyword">void</span>)didMoveToSuperview;</span><br><span class="line">- (<span class="keyword">void</span>)willMoveToWindow:(<span class="built_in">UIWindow</span> *)newWindow;</span><br><span class="line">- (<span class="keyword">void</span>)didMoveToWindow;</span><br><span class="line"></span><br><span class="line">- (<span class="built_in">BOOL</span>)isDescendantOfView:(<span class="built_in">UIView</span> *)view;  <span class="comment">// returns YES for self.</span></span><br><span class="line">- (<span class="built_in">UIView</span> *)viewWithTag:(<span class="built_in">NSInteger</span>)tag;     <span class="comment">// recursive search. includes self</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// Allows you to perform layout before the drawing cycle happens. -layoutIfNeeded forces layout early</span></span><br><span class="line">- (<span class="keyword">void</span>)setNeedsLayout;</span><br><span class="line">- (<span class="keyword">void</span>)layoutIfNeeded;</span><br></pre></td></tr></table></figure>
-<h3 id="iOS-rendering-tree"><a href="#iOS-rendering-tree" class="headerlink" title="iOS rendering tree:"></a>iOS rendering tree:</h3><ul>
-<li>UIView 负责界⾯显示和事件处理</li>
-<li>CALayer 负责屏幕渲染(Layer Tree)</li>
-<li>View/Layer 的变化需要通过渲染器实时渲染到屏幕上</li>
-<li>layer.presentationLayer</li>
-</ul>
-<p><img src="http://i.imgur.com/W3RoHiP.png" alt="The layer trees for a window"></p>
-<h3 id="延伸阅读："><a href="# 延伸阅读：" class="headerlink" title="延伸阅读："></a>延伸阅读：</h3><ul>
-<li><a href="https://developer.apple.com/library/ios/documentation/WindowsViews/Conceptual/ViewPG_iPhoneOS/Introduction/Introduction.html" target="_blank" rel="noopener">View Programming Guide for iOS</a></li>
-<li><a href="https://developer.apple.com/library/ios/recipes/xcode_help-debugger/using_view_debugger/using_view_debugger.html" target="_blank" rel="noopener">Debug View Hierarchy</a></li>
-<li><a href="https://developer.apple.com/library/mac/documentation/Cocoa/Conceptual/CoreAnimation_guide/CoreAnimationBasics/CoreAnimationBasics.html" target="_blank" rel="noopener">Core Animation Basics</a></li>
-</ul>
-<h2 id="12- 响应链（Responder-Chain）"><a href="#12- 响应链（Responder-Chain）" class="headerlink" title="12. 响应链（Responder Chain）"></a>12. 响应链（Responder Chain）</h2><p><img src="https://developer.apple.com/library/prerelease/ios/documentation/EventHandling/Conceptual/EventHandlingiPhoneOS/Art/iOS_responder_chain_2x.png" alt="The responder chain on iOS"></p>
-<p>节选自 <code>UIResponder.h</code>：</p>
-<figure class="highlight objc"><table><tr><td class="code"><pre><span class="line"><span class="built_in">NS_CLASS_AVAILABLE_IOS</span>(<span class="number">2</span>_0) <span class="class"><span class="keyword">@interface</span> <span class="title">UIResponder</span> : <span class="title">NSObject</span> </span>&#123;</span><br><span class="line">  <span class="keyword">@private</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (<span class="built_in">UIResponder</span>*)nextResponder;</span><br><span class="line"></span><br><span class="line">- (<span class="built_in">BOOL</span>)canBecomeFirstResponder;    <span class="comment">// default is NO</span></span><br><span class="line">- (<span class="built_in">BOOL</span>)becomeFirstResponder;</span><br><span class="line"></span><br><span class="line">- (<span class="built_in">BOOL</span>)canResignFirstResponder;    <span class="comment">// default is YES</span></span><br><span class="line">- (<span class="built_in">BOOL</span>)resignFirstResponder;</span><br><span class="line"></span><br><span class="line">- (<span class="built_in">BOOL</span>)isFirstResponder;</span><br><span class="line"></span><br><span class="line"><span class="comment">// Generally, all responders which do custom touch handling should override all four of these methods.</span></span><br><span class="line"><span class="comment">// Your responder will receive either touchesEnded:withEvent: or touchesCancelled:withEvent: for each</span></span><br><span class="line"><span class="comment">// touch it is handling (those touches it received in touchesBegan:withEvent:).</span></span><br><span class="line"><span class="comment">// *** You must handle cancelled touches to ensure correct behavior in your application.  Failure to</span></span><br><span class="line"><span class="comment">// do so is very likely to lead to incorrect behavior or crashes.</span></span><br><span class="line">- (<span class="keyword">void</span>)touchesBegan:(<span class="built_in">NSSet</span> *)touches withEvent:(<span class="built_in">UIEvent</span> *)event;</span><br><span class="line">- (<span class="keyword">void</span>)touchesMoved:(<span class="built_in">NSSet</span> *)touches withEvent:(<span class="built_in">UIEvent</span> *)event;</span><br><span class="line">- (<span class="keyword">void</span>)touchesEnded:(<span class="built_in">NSSet</span> *)touches withEvent:(<span class="built_in">UIEvent</span> *)event;</span><br><span class="line">- (<span class="keyword">void</span>)touchesCancelled:(<span class="built_in">NSSet</span> *)touches withEvent:(<span class="built_in">UIEvent</span> *)event;</span><br><span class="line"></span><br><span class="line">- (<span class="keyword">void</span>)motionBegan:(<span class="built_in">UIEventSubtype</span>)motion withEvent:(<span class="built_in">UIEvent</span> *)event <span class="built_in">NS_AVAILABLE_IOS</span>(<span class="number">3</span>_0);</span><br><span class="line">- (<span class="keyword">void</span>)motionEnded:(<span class="built_in">UIEventSubtype</span>)motion withEvent:(<span class="built_in">UIEvent</span> *)event <span class="built_in">NS_AVAILABLE_IOS</span>(<span class="number">3</span>_0);</span><br><span class="line">- (<span class="keyword">void</span>)motionCancelled:(<span class="built_in">UIEventSubtype</span>)motion withEvent:(<span class="built_in">UIEvent</span> *)event <span class="built_in">NS_AVAILABLE_IOS</span>(<span class="number">3</span>_0);</span><br><span class="line"></span><br><span class="line">- (<span class="keyword">void</span>)remoteControlReceivedWithEvent:(<span class="built_in">UIEvent</span> *)event <span class="built_in">NS_AVAILABLE_IOS</span>(<span class="number">4</span>_0);</span><br><span class="line"></span><br><span class="line">- (<span class="built_in">BOOL</span>)canPerformAction:(SEL)action withSender:(<span class="keyword">id</span>)sender <span class="built_in">NS_AVAILABLE_IOS</span>(<span class="number">3</span>_0);</span><br><span class="line"><span class="comment">// Allows an action to be forwarded to another target. By default checks -canPerformAction:withSender: to either return self, or go up the responder chain.</span></span><br><span class="line">- (<span class="keyword">id</span>)targetForAction:(SEL)action withSender:(<span class="keyword">id</span>)sender <span class="built_in">NS_AVAILABLE_IOS</span>(<span class="number">7</span>_0);</span><br></pre></td></tr></table></figure>
-<p><img src="http://i.imgur.com/iHPA7mx.png" alt="UIKit Inheritance"></p>
-<h3 id="延伸阅读：-1"><a href="# 延伸阅读：-1" class="headerlink" title="延伸阅读："></a>延伸阅读：</h3><ul>
-<li><a href="https://developer.apple.com/library/ios/documentation/EventHandling/Conceptual/EventHandlingiPhoneOS/Introduction/Introduction.html" target="_blank" rel="noopener">Event Handling Guide for iOS</a></li>
-</ul>
-<h2 id="13-Prototype"><a href="#13-Prototype" class="headerlink" title="13. Prototype"></a>13. Prototype</h2><p>如 UITableView 的 Prototype Cells：</p>
-<ul>
-<li>原型对象的基本特征是可以被复制 NSCopy 和 NSCoding 协议</li>
-<li>可以利用界面⼯具和支持复制的类确保互操作性</li>
-<li>原型对象使用深复制</li>
-<li>利用 NSKeyedArchiver 和 NSKeyedUnarchiver 实现深复制</li>
-</ul>
-<h2 id="总结"><a href="# 总结" class="headerlink" title="总结"></a>总结</h2><ul>
-<li>MVC,target-action</li>
-<li>￼两步创建，模版模式 </li>
-<li>委托模式，观察者模式，消息通知，KVC/KVO</li>
-<li>归档和解档(Serialization)，复制模式 </li>
-<li>层次结构，响应链</li>
-<li>prototype</li>
-</ul>
-<blockquote>
-<p>完</p>
-</blockquote>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -3350,7 +3304,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">173</span>
+                  <span class="site-state-item-count">174</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>

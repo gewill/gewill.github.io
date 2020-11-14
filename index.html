@@ -283,6 +283,162 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://gewill.org/2020/11/14/Update-Hackintosh-to-Big-Sur-with-Open-Core/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Ge Will">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Will's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2020/11/14/Update-Hackintosh-to-Big-Sur-with-Open-Core/" itemprop="url">使用 Open Core 黑苹果升级至 Big Sur</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-11-14T14:59:53+08:00">
+                2020-11-14
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2020/11/14/Update-Hackintosh-to-Big-Sur-with-Open-Core/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2020/11/14/Update-Hackintosh-to-Big-Sur-with-Open-Core/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="机器配置"><a href="# 机器配置" class="headerlink" title="机器配置"></a>机器配置 </h2><p> 主板：<a href="https://www.msi.com/Motherboard/MPG-Z390-GAMING-PRO-CARBON-AC" target="_blank" rel="noopener">微星 MSI MPG Z390 GAMING PRO CARBON AC</a></p>
+<p>CPU：<a href="https://ark.intel.com/content/www/us/en/ark/products/186605/intel-core-i9-9900k-processor-16m-cache-up-to-5-00-ghz.html" target="_blank" rel="noopener">Intel i9 9900K</a></p>
+<p>内存：科赋 DDR4 3200  16G*4</p>
+<p>显卡：<a href="https://www.asus.com/us/Graphics-Cards/AREZ-STRIX-RXVEGA64-O8G-GAMING/" target="_blank" rel="noopener">华硕 ASUS AREZ-STRIX-RXVEGA64-O8G-GAMING</a></p>
+<p>电源：<a href="https://www.evga.com/products/product.aspx?pn=120-GP-0750-X1" target="_blank" rel="noopener">EVGA SuperNOVA 750 G+</a></p>
+<p>散热：<a href="http://www.coolermaster.com/cooling/cpu-liquid-cooler/masterliquid-ml240r-rgb/" target="_blank" rel="noopener">MASTERLIQUID ML240R RGB</a></p>
+<p>固态：三星 970 EVO 500G</p>
+<p>板载声卡：ALC S1220A</p>
+<p>板载有线网卡：Intel I219V7</p>
+<p>无线网卡和蓝牙：BCM94360CD</p>
+<p>显示器：戴尔 P2715Q 4K 显示器</p>
+<p>机箱：<a href="http://www.phanteks.com/Enthoo-Evolv-ATX-TemperedGlass.html" target="_blank" rel="noopener">追风者 PK-515ETG</a></p>
+<h2 id="具体步骤"><a href="# 具体步骤" class="headerlink" title="具体步骤"></a>具体步骤</h2><ol>
+<li>替换 Clover 为 Open Core v0.6.2，感谢 <a href="https://github.com/pOH7" target="_blank" rel="noopener">pOH7</a>/<strong><a href="https://github.com/pOH7/hackintosh-z390-h-9700k" target="_blank" rel="noopener">hackintosh-z390-h-9700kuzh</a></strong> 的 EFI。</li>
+<li>下载并升级 Big Sur，重启几次后，无法进入 Big Sur 的安装界面。</li>
+<li>升级 Open Core v0.6.3，感谢 <a href="https://www.youtube.com/watch?v=QK9Kmvmnp0A" target="_blank" rel="noopener">Ryzentosh Big Sur Updating OpenCore From 0.6.2 to 0.6.3</a><ol>
+<li>打开<a href="https://opencore.slowgeek.com/，拖进 `config.plist`，根据建议修改。" target="_blank" rel="noopener">https://opencore.slowgeek.com/，拖进 `config.plist`，根据建议修改。</a></li>
+<li>下载<a href="https://github.com/acidanthera/OpenCorePkg" target="_blank" rel="noopener">OpenCorePkg</a>、 <a href="https://github.com/acidanthera/WhateverGreen" target="_blank" rel="noopener">WhateverGreen</a>、<a href="https://github.com/acidanthera/VirtualSMC" target="_blank" rel="noopener">VirtualSMC</a>、<a href="https://github.com/acidanthera/Lilu" target="_blank" rel="noopener">Lilu</a> 并替换。其中 OpenCore 只需要替换<code>EFI/OC/OpenCore.efi</code> 和 <code>EFI/BOOT/BOOTx64.efi</code>。</li>
+</ol>
+</li>
+<li>顺利进入 Big Sur 的安装界面，升级成功🎉</li>
+</ol>
+<p><img src="https://gewill.org/assets/Hackintosh-Big-Sur.jpg" alt="Hackintosh-Big-Sur"></p>
+<h2 id="已知问题"><a href="# 已知问题" class="headerlink" title="已知问题"></a>已知问题</h2><ol>
+<li>USB 2.0 不可用，稍后进行 USB 定制。</li>
+<li>硬件加速不可用</li>
+</ol>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://gewill.org/2020/07/27/triggers-a-runtime-error-in-swift-standard-library/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -4328,145 +4484,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://gewill.org/2017/07/03/Whats-New-in-Cocoa-Touch-Notes/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Ge Will">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Will's Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/07/03/Whats-New-in-Cocoa-Touch-Notes/" itemprop="url">What’s New in Cocoa Touch - 笔记</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-07-03T22:14:52+08:00">
-                2017-07-03
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2017/07/03/Whats-New-in-Cocoa-Touch-Notes/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2017/07/03/Whats-New-in-Cocoa-Touch-Notes/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>WWDC 2017 Session 201 地址：<a href="https://developer.apple.com/videos/play/wwdc2017/201/" target="_blank" rel="noopener">https://developer.apple.com/videos/play/wwdc2017/201/</a></p>
-<p> 主要是新的 API 概述，所以简单听一下，主要感兴趣的点：</p>
-<ul>
-<li> 自动变化的大标题栏（Large Titles）</li>
-<li>Safe Area Insets</li>
-<li> 屏蔽系统边缘手势：<code>preferredScreenEdgesDeferringSystemGestures</code></li>
-<li>UIScrollView：<code>contentLayoutGuide</code> 和 <code>frameLayoutGuide</code></li>
-<li> 闭包式 KVO</li>
-<li> 通过 Keychain 自动填写密码（Password AutoFill for Apps ）</li>
-</ul>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -4517,7 +4534,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">173</span>
+                  <span class="site-state-item-count">174</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
