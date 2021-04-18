@@ -1,778 +1,0 @@
-<!DOCTYPE html>
-
-
-
-  
-
-
-<html class="theme-next pisces use-motion" lang="en">
-<head><meta name="generator" content="Hexo 3.8.0">
-  <meta charset="UTF-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-<meta name="theme-color" content="#222">
-
-
-
-
-
-
-
-
-
-<meta http-equiv="Cache-Control" content="no-transform">
-<meta http-equiv="Cache-Control" content="no-siteapp">
-
-
-
-  <meta name="google-site-verification" content="6p6MCt9mM7zNfEZF2HzE72sTOXJ8MC5frP4VNvYw1JU">
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  
-  
-  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
-
-
-
-
-
-
-
-<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
-
-<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
-
-
-  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
-
-
-  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
-
-
-  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
-
-
-  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
-
-
-
-
-
-
-
-
-
-  <link rel="alternate" href="/atom.xml" title="Will's Blog" type="application/atom+xml">
-
-
-
-
-
-
-<meta name="description" content="Code is a kind of document.  # 第三章：运算符与表达式  ##3.1 赋值运算符  // 为变量 str 赋值为 Swiftvar str = &quot;Swift&quot;// 为变量 pi 赋值为 3.14var pi:Double = 3.14// 为变量 visited 赋值为 YESvar visited:Bool = true// 将变量 str 的值赋给">
-<meta property="og:type" content="article">
-<meta property="og:title" content="Crazy Swift Lecture Chapter 3">
-<meta property="og:url" content="http://gewill.org/2015/05/16/Crazy-Swift-Lecture-Chapter-3/index.html">
-<meta property="og:site_name" content="Will&#39;s Blog">
-<meta property="og:description" content="Code is a kind of document.  # 第三章：运算符与表达式  ##3.1 赋值运算符  // 为变量 str 赋值为 Swiftvar str = &quot;Swift&quot;// 为变量 pi 赋值为 3.14var pi:Double = 3.14// 为变量 visited 赋值为 YESvar visited:Bool = true// 将变量 str 的值赋给">
-<meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2019-03-17T09:30:36.000Z">
-<meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Crazy Swift Lecture Chapter 3">
-<meta name="twitter:description" content="Code is a kind of document.  # 第三章：运算符与表达式  ##3.1 赋值运算符  // 为变量 str 赋值为 Swiftvar str = &quot;Swift&quot;// 为变量 pi 赋值为 3.14var pi:Double = 3.14// 为变量 visited 赋值为 YESvar visited:Bool = true// 将变量 str 的值赋给">
-
-
-
-<script type="text/javascript" id="hexo.configurations">
-  var NexT = window.NexT || {};
-  var CONFIG = {
-    root: '/',
-    scheme: 'Pisces',
-    version: '5.1.4',
-    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
-    fancybox: true,
-    tabs: true,
-    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
-    duoshuo: {
-      userId: '0',
-      author: 'Author'
-    },
-    algolia: {
-      applicationID: '',
-      apiKey: '',
-      indexName: '',
-      hits: {"per_page":10},
-      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
-    }
-  };
-</script>
-
-
-
-  <link rel="canonical" href="http://gewill.org/2015/05/16/Crazy-Swift-Lecture-Chapter-3/">
-
-
-
-
-
-  <title>Crazy Swift Lecture Chapter 3 | Will's Blog</title>
-  
-
-
-
-
-<script>
-  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
-  ga('create', 'UA-62118677-1', 'auto');
-  ga('send', 'pageview');
-</script>
-
-
-
-
-
-</head>
-
-<body itemscope itemtype="http://schema.org/WebPage" lang="en">
-
-  
-  
-    
-  
-
-  <div class="container sidebar-position-left page-post-detail">
-    <div class="headband"></div>
-
-    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
-      <div class="header-inner"><div class="site-brand-wrapper">
-  <div class="site-meta ">
-    
-
-    <div class="custom-logo-site-title">
-      <a href="/" class="brand" rel="start">
-        <span class="logo-line-before"><i></i></span>
-        <span class="site-title">Will's Blog</span>
-        <span class="logo-line-after"><i></i></span>
-      </a>
-    </div>
-      
-        <p class="site-subtitle"></p>
-      
-  </div>
-
-  <div class="site-nav-toggle">
-    <button>
-      <span class="btn-bar"></span>
-      <span class="btn-bar"></span>
-      <span class="btn-bar"></span>
-    </button>
-  </div>
-</div>
-
-<nav class="site-nav">
-  
-
-  
-    <ul id="menu" class="menu">
-      
-        
-        <li class="menu-item menu-item-home">
-          <a href="/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
-            
-            Home
-          </a>
-        </li>
-      
-        
-        <li class="menu-item menu-item-about">
-          <a href="/about/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
-            
-            About
-          </a>
-        </li>
-      
-        
-        <li class="menu-item menu-item-archives">
-          <a href="/archives/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
-            
-            Archives
-          </a>
-        </li>
-      
-
-      
-        <li class="menu-item menu-item-search">
-          
-            <a href="javascript:;" class="st-search-show-outputs">
-          
-            
-              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
-            
-            Search
-          </a>
-        </li>
-      
-    </ul>
-  
-
-  
-    <div class="site-search">
-      
-  <form class="site-search-form">
-  <input type="text" id="st-search-input" class="st-search-input st-default-search-input">
-</form>
-
-<script type="text/javascript">
-  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
-    (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
-    e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
-  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
-
-  _st('install', 'ntcZFKy566gs4bTbpvHW','2.0.0');
-</script>
-
-
-
-    </div>
-  
-</nav>
-
-
-
- </div>
-    </header>
-
-    <main id="main" class="main">
-      <div class="main-inner">
-        <div class="content-wrap">
-          <div id="content" class="content">
-            
-
-  <div id="posts" class="posts-expand">
-    
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://gewill.org/2015/05/16/Crazy-Swift-Lecture-Chapter-3/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Ge Will">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Will's Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">Crazy Swift Lecture Chapter 3</h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2015-05-16T01:11:46+08:00">
-                2015-05-16
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2015/05/16/Crazy-Swift-Lecture-Chapter-3/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2015/05/16/Crazy-Swift-Lecture-Chapter-3/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        <blockquote>
-<p>Code is a kind of document.</p>
-</blockquote>
-<p># 第三章：运算符与表达式 </p>
-<p>##3.1 赋值运算符 </p>
-<figure class="highlight swift"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 为变量 str 赋值为 Swift</span><span class="keyword">var</span> str = <span class="string">"Swift"</span><span class="comment">// 为变量 pi 赋值为 3.14</span><span class="keyword">var</span> pi:<span class="type">Double</span> = <span class="number">3.14</span><span class="comment">// 为变量 visited 赋值为 YES</span><span class="keyword">var</span> visited:<span class="type">Bool</span> = <span class="literal">true</span><span class="comment">// 将变量 str 的值赋给 str2</span><span class="keyword">var</span> str2 : <span class="type">String</span> = str<span class="keyword">var</span> a:<span class="type">Int</span><span class="comment">// 由于赋值表达式 a=20 实际上并没有值，因此编译器会对变量 b 发出警告 </span><span class="keyword">var</span> b = a = <span class="number">20</span><span class="keyword">var</span> d1: <span class="type">Double</span> = <span class="number">12.34</span><span class="comment">// 将表达式的值赋给 d2</span><span class="keyword">var</span> d2 = d1 + <span class="number">5</span><span class="comment">// 输出 d2 的值 </span><span class="built_in">println</span>(<span class="string">"d2 的值为：\(d2)"</span>)</span><br></pre></td></tr></table></figure>
-<p>##3.2 算数运算符 <br><figure class="highlight swift"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> a = <span class="number">5.2</span><span class="keyword">var</span> b = <span class="number">3.1</span><span class="keyword">var</span> sum = a + b<span class="comment">// sum 的值为 8.3</span><span class="built_in">println</span>(<span class="string">"sum 的值为：\(sum)"</span>)<span class="keyword">var</span> <span class="built_in">c</span> = <span class="number">5.2</span><span class="keyword">var</span> d = <span class="number">3.1</span><span class="keyword">var</span> sub = <span class="built_in">c</span> - d<span class="comment">// sub 的值为 2.1</span><span class="built_in">println</span>(<span class="string">"sub 的值为：\(sub)"</span>)<span class="keyword">var</span> e = <span class="number">5.2</span><span class="keyword">var</span> f = <span class="number">3.1</span><span class="keyword">var</span> multiply = e * f<span class="comment">// multiply 的值为 16.12</span><span class="built_in">println</span>(<span class="string">"multiply 的值为：\(multiply)"</span>)</span><br></pre></td></tr></table></figure></p>
-<figure class="highlight swift"><table><tr><td class="code"><pre><span class="line"><span class="built_in">println</span>(<span class="string">"19/4 的结果是:\(19/4)"</span>)<span class="keyword">var</span> a = <span class="number">5.2</span><span class="keyword">var</span> b = <span class="number">3.1</span><span class="keyword">var</span> div = a / b<span class="comment">// div 的值将是 1.67742</span><span class="built_in">println</span>(<span class="string">"div 的值是:\(div)"</span>)<span class="comment">// 输出正无穷大：inf</span><span class="built_in">println</span>(<span class="string">"5 除以 0.0 的结果是:\(5 / 0.0)"</span>)<span class="comment">// 输出负无穷大：-inf</span><span class="built_in">println</span>(<span class="string">"-5 除以 0.0 的结果是:\(-5.0 / 0)"</span>)<span class="comment">// 下面代码将导致编译错误 </span><span class="comment">//println("5 除以 0 的结果是:\(-5 / 0)")</span></span><br></pre></td></tr></table></figure>
-<figure class="highlight swift"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> Foundation<span class="comment">// 定义变量 a 为 3.2</span><span class="keyword">var</span> a = <span class="number">3.2</span><span class="comment">// 求 a 的 5 次方，并将计算结果赋为 b。</span><span class="keyword">var</span> b = pow(a , <span class="number">5</span>)<span class="comment">// 输出 b 的值 </span><span class="built_in">println</span>(<span class="string">"b 的值为：\(b)"</span>)<span class="comment">// 求 a 的平方根，并将结果赋给 c</span><span class="keyword">var</span> <span class="built_in">c</span> = sqrt(a)<span class="comment">// 输出 c 的值 </span><span class="built_in">println</span>(<span class="string">"c 的值为：\(c)"</span>)<span class="comment">// 计算随机数, 返回一个 0～10 之间的伪随机数。</span><span class="keyword">var</span> d = arc4random() % <span class="number">10</span><span class="comment">// 输出随机数 d 的值 </span><span class="built_in">println</span>(<span class="string">"d 的值为：\(d)"</span>)<span class="comment">// 求 1.57 的 sin 函数值：1.57 被当成弧度数 </span><span class="keyword">var</span> e = sin(<span class="number">1.57</span>)<span class="comment">// 输出接近 1</span><span class="built_in">println</span>(<span class="string">"e 的值为：\(e)"</span>)</span><br></pre></td></tr></table></figure>
-<figure class="highlight swift"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> Foundation</span><br><span class="line"><span class="keyword">var</span> a = <span class="number">5.2</span><span class="keyword">var</span> b = <span class="number">3.1</span><span class="keyword">var</span> mod = a % b<span class="built_in">println</span>(<span class="string">"mod 的值为：\(mod)"</span>) <span class="comment">// mod 的值为 2.1</span><span class="built_in">println</span>(<span class="string">"-5.2%-3.1 的值为：\(-5.2 % -3.1)"</span>) <span class="comment">// 输出 -2.1</span><span class="built_in">println</span>(<span class="string">"-5.2%3.1 的值为：\(-5.2 % 3.1)"</span>) <span class="comment">// 输出 -2.1</span><span class="built_in">println</span>(<span class="string">"5.2%3.1 的值为：\(5.2 % -3.1)"</span>) <span class="comment">// 输出 2.1</span><span class="built_in">println</span>(<span class="string">"5 对 0.0 求余的结果是:\(5 % 0.0)"</span>) <span class="comment">// 输出非数：nan</span><span class="built_in">println</span>(<span class="string">"-5.0 对 0 求余的结果是:\(-5.0 % 0)"</span>) <span class="comment">// 输出非数：nan</span><span class="built_in">println</span>(<span class="string">"0 对 5.0 求余的结果是:\(0 % 5.0)"</span>) <span class="comment">// 输出 0.0</span><span class="built_in">println</span>(<span class="string">"0 对 0.0 求余的结果是:\(0 % 0.0)"</span>) <span class="comment">// 输出非数：nan</span><span class="comment">// 下面代码将导致编译错误 </span><span class="comment">//println("-5 对 0 求余的结果是:\(-5 % 0)")</span></span><br></pre></td></tr></table></figure>
-<p>##3.3 溢出运算符 <br><figure class="highlight swift"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> a:<span class="type">Int16</span> = <span class="number">20222</span></span><br><span class="line">a = a &amp;* <span class="number">6</span></span><br><span class="line"><span class="built_in">println</span>(a)  <span class="comment">// 输出 -9740</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> b:<span class="type">UInt16</span> = <span class="number">20</span></span><br><span class="line">b = b &amp;- <span class="number">24</span></span><br><span class="line"><span class="built_in">println</span>(b)  <span class="comment">// 输出 65532</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> <span class="built_in">c</span> = <span class="type">Int8</span>.<span class="built_in">min</span></span><br><span class="line"><span class="built_in">c</span> = <span class="built_in">c</span> &amp;- <span class="number">1</span></span><br><span class="line"><span class="built_in">println</span>(<span class="built_in">c</span>)  <span class="comment">// 输出 127</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> x = <span class="number">20</span><span class="keyword">let</span> y = x &amp;/ <span class="number">0</span>  <span class="comment">// 得到 0</span><span class="keyword">let</span> z = x &amp;% <span class="number">0</span>  <span class="comment">// 得到 0</span></span><br><span class="line"><span class="built_in">println</span>(y) </span><br><span class="line"><span class="built_in">println</span>(z)</span><br></pre></td></tr></table></figure></p>
-<p>##3.4 位运算符 <br><figure class="highlight swift"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 将输出 1</span><span class="built_in">println</span>(<span class="number">5</span> &amp; <span class="number">9</span>)<span class="comment">// 将输出 13</span><span class="built_in">println</span>(<span class="number">5</span> | <span class="number">9</span>)<span class="keyword">var</span> a:<span class="type">Int32</span> = -<span class="number">5</span><span class="comment">// 将输出 4</span><span class="built_in">println</span>(~a)<span class="comment">// 将输出 12</span><span class="built_in">println</span>(<span class="number">5</span> ^ <span class="number">9</span>)<span class="comment">// 输出 20</span><span class="built_in">println</span>(<span class="string">"\(5 &lt;&lt; 2)"</span>)<span class="comment">// 输出 -20</span><span class="built_in">println</span>(<span class="string">"\(-5 &lt;&lt; 2)"</span>)<span class="keyword">var</span> b:<span class="type">Int32</span> = -<span class="number">5</span><span class="comment">// 输出 -2</span><span class="built_in">println</span>(<span class="string">"\(b &gt;&gt; 2)"</span>)</span><br></pre></td></tr></table></figure></p>
-<p>##3.6 范围运算符 <br><figure class="highlight swift"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 使用闭范围运算符定义范围 </span><span class="keyword">var</span> range1 = <span class="number">2</span>...<span class="number">6</span><span class="keyword">for</span> num <span class="keyword">in</span> range1&#123;	<span class="built_in">println</span>(<span class="string">"\(num) * 5 = \(num * 5)"</span>)&#125;<span class="built_in">println</span>(<span class="string">"----- 下面是半开范围 -----"</span>)<span class="comment">// 定义数组 </span><span class="keyword">let</span> books = [<span class="string">"Swift"</span> , <span class="string">"Objective-C"</span> , <span class="string">"C"</span> , <span class="string">"C++"</span>]<span class="comment">// 使用半开范围运算符定义范围 </span><span class="keyword">for</span> index <span class="keyword">in</span> <span class="number">0</span>..&lt;books.<span class="built_in">count</span>&#123;	<span class="built_in">println</span>(<span class="string">"第 \(index+1) 种语言是：\(books[index])"</span>)&#125;</span><br></pre></td></tr></table></figure></p>
-<p>##3.7 比较运算符 <br><figure class="highlight swift"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> Foundation<span class="comment">// 输出 true</span><span class="built_in">println</span>(<span class="string">"5 是否大于 4：\(5 &gt; 4)"</span>)<span class="comment">// 输出 false</span><span class="built_in">println</span>(<span class="string">"3 的 4 次方是否大于等于 90.0：\(pow(3, 4) &gt;= 90.0)"</span>)<span class="comment">// Swift 要求比较运算符两边的数值的类型完全一样，</span><span class="comment">// 因此必须把前面 Int 类型强转为 Double 之后再比较，输出 true</span><span class="built_in">println</span>(<span class="string">"20 是否大于等于 20.0：\(Double(20) &gt;= 20.0)"</span>)<span class="comment">// 输出 true</span><span class="built_in">println</span>(<span class="string">"5 和 5.0 是否相等：\(Double(5) == 5.0)"</span>)<span class="comment">// 输出 false</span><span class="built_in">println</span>(<span class="string">"true 和 false 是否相等：\(true == false)"</span>)<span class="comment">// 创建 2 个对象 </span><span class="keyword">var</span> d1 = <span class="type">NSMutableArray</span>()<span class="keyword">var</span> d2 = <span class="type">NSMutableArray</span>()<span class="comment">// 判断两个对象的内容是否相等，输出 true</span><span class="built_in">println</span>(d1 == d2)<span class="comment">// 判断 d1、d2 是否指向同一个对象，输出 false</span><span class="built_in">println</span>(d1 === d2)</span><br></pre></td></tr></table></figure></p>
-<p>##3.8 逻辑运算符 <br><figure class="highlight swift"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> bookName = <span class="string">"疯狂 Swifts"</span><span class="keyword">var</span> price = <span class="number">79</span><span class="keyword">var</span> version = <span class="string">"正式版"</span><span class="keyword">if</span> bookName.hasSuffix(<span class="string">"Swift"</span>) &amp;&amp; (price &lt; <span class="number">50</span> || version == <span class="string">"正式版"</span>)&#123;	<span class="built_in">println</span>(<span class="string">"打算购买这本 Swift 图书"</span>)&#125;<span class="keyword">else</span>&#123;	<span class="built_in">println</span>(<span class="string">"不购买！"</span>)&#125;</span><br></pre></td></tr></table></figure></p>
-<figure class="highlight swift"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 直接对 false 求非运算，将返回 true</span><span class="built_in">println</span>(!<span class="literal">false</span>)<span class="comment">// 5&gt;3 返回 true，20.0 大于 10，因此结果返回 true</span><span class="built_in">println</span>(<span class="number">5</span> &gt; <span class="number">3</span> &amp;&amp; <span class="number">20.0</span> &gt; <span class="type">Double</span>(<span class="number">10</span>))<span class="comment">// 4&gt;=5 返回 false，"c"&gt;"a" 返回 true。求或后返回 true</span><span class="built_in">println</span>(<span class="number">4</span> &gt;= <span class="number">5</span> || <span class="string">"c"</span> &gt; <span class="string">"a"</span>)<span class="comment">// 4&gt;=5 返回 false，"c"&gt;"a" 返回 true。两个不同的操作数求异或返回 true</span><span class="built_in">println</span>((<span class="number">4</span> &gt;= <span class="number">5</span>) ^ (<span class="string">"c"</span> &gt; <span class="string">"a"</span>))<span class="comment">// 定义变量 a,b，并为两个变量赋值 </span><span class="keyword">var</span> a = <span class="number">5</span><span class="keyword">var</span> b = <span class="number">10</span><span class="comment">// 对 a &gt; 4 和 b++ &gt; 10 求或运算 </span><span class="keyword">if</span> (a &gt; <span class="number">4</span>) | (b++ &gt; <span class="number">10</span>)&#123;	<span class="comment">// 输出 a 的值是 5，b 的值是 11</span>	<span class="built_in">println</span>(<span class="string">"a 的值是:\(a)，b 的值是:\(b)"</span>)&#125;<span class="comment">// 定义变量 c,d，并为两个变量赋值 </span><span class="keyword">var</span> <span class="built_in">c</span> = <span class="number">5</span><span class="keyword">var</span> d = <span class="number">10</span><span class="comment">// c &gt; 4 || d++ &gt; 10 求或运算 </span><span class="keyword">if</span> <span class="built_in">c</span> &gt; <span class="number">4</span> || d++ &gt; <span class="number">10</span>&#123;	<span class="comment">// 输出 c 的值是 5，d 的值是 10</span>	<span class="built_in">println</span>(<span class="string">"c 的值是:\(c)，d 的值是:\(d)"</span>)&#125;</span><br></pre></td></tr></table></figure>
-<p>##3.9 三目运算符 <br><figure class="highlight swift"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> a = <span class="number">5</span><span class="keyword">var</span> b = <span class="number">3</span><span class="keyword">var</span> str = a &gt; b ? <span class="string">"a 大于 b"</span> : <span class="string">"a 不大于 b"</span><span class="comment">// 输出 "a 大于 b"</span><span class="built_in">println</span>(str)<span class="keyword">var</span> str2: <span class="type">String!</span> = <span class="literal">nil</span><span class="keyword">if</span> a &gt; b&#123;	str2 = <span class="string">"a 大于 b"</span>&#125;<span class="keyword">else</span>&#123;	str2 = <span class="string">"a 不大于 b"</span>&#125;<span class="comment">// 输出 "a 大于 b"</span><span class="built_in">println</span>(str2)<span class="comment">// 输出 "a 大于 b"</span>a &gt; b ? <span class="built_in">println</span>(<span class="string">"a 大于 b"</span>) : <span class="built_in">println</span>(<span class="string">"a 不大于 b"</span>)<span class="keyword">var</span> <span class="built_in">c</span> = <span class="number">5</span><span class="keyword">var</span> d = <span class="number">5</span><span class="comment">// 下面将输出 c 等于 d</span><span class="built_in">c</span> &gt; d ? <span class="built_in">println</span>(<span class="string">"c 大于 d"</span>) : (<span class="built_in">c</span> &lt; d ? <span class="built_in">println</span>(<span class="string">"c 小于 d"</span>) : <span class="built_in">println</span>(<span class="string">"c 等于 d"</span>))</span><br></pre></td></tr></table></figure></p>
-<p>##3.10 nil 合并运算符 <br><figure class="highlight swift"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> defaultName = <span class="string">"孙悟空"</span><span class="comment">// 定义可选类型的变量，该变量不为 nil</span><span class="keyword">var</span> name1: <span class="type">String?</span> = <span class="string">"唐僧"</span><span class="built_in">println</span>(name1 ?? defaultName)  <span class="comment">// 输出 唐僧 </span><span class="comment">// 定义可选类型的的变量，不指定初始值 </span><span class="keyword">var</span> name2: <span class="type">String?</span>  <span class="comment">// 此时 name2 默认值为 nil</span><span class="built_in">println</span>(name2 ?? defaultName)  <span class="comment">// 输出 孙悟空 </span><span class="comment">// 使用三目运算符代替?? 运算符 </span><span class="built_in">println</span>(name1 != <span class="literal">nil</span> ? name1! : defaultName)  <span class="comment">// 输出 唐僧 </span><span class="built_in">println</span>(name2 != <span class="literal">nil</span> ? name2! : defaultName)  <span class="comment">// 输出 孙悟空 </span></span><br></pre></td></tr></table></figure></p>
-
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-      
-      
-
-      
-        <div class="post-nav">
-          <div class="post-nav-next post-nav-item">
-            
-              <a href="/2015/05/14/Crazy-Swift-Lecture-Chapter-2/" rel="next" title="Crazy Swift Lecture Chapter 2">
-                <i class="fa fa-chevron-left"></i> Crazy Swift Lecture Chapter 2
-              </a>
-            
-          </div>
-
-          <span class="post-nav-divider"></span>
-
-          <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2015/05/16/Crazy-Swift-Lecture-Chapter-4/" rel="prev" title="Crazy Swift Lecture Chapter 4">
-                Crazy Swift Lecture Chapter 4 <i class="fa fa-chevron-right"></i>
-              </a>
-            
-          </div>
-        </div>
-      
-
-      
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-
-    <div class="post-spread">
-      
-    </div>
-  </div>
-
-
-          </div>
-          
-
-
-          
-
-  
-    <div class="comments" id="comments">
-      <div id="disqus_thread">
-        <noscript>
-          Please enable JavaScript to view the
-          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
-        </noscript>
-      </div>
-    </div>
-
-  
-
-
-
-        </div>
-        
-          
-  
-  <div class="sidebar-toggle">
-    <div class="sidebar-toggle-line-wrap">
-      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
-      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
-      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
-    </div>
-  </div>
-
-  <aside id="sidebar" class="sidebar">
-    
-    <div class="sidebar-inner">
-
-      
-
-      
-
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
-        <div class="site-overview">
-          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
-            
-              <p class="site-author-name" itemprop="name">Ge Will</p>
-              <p class="site-description motion-element" itemprop="description">The people who are crazy enough to think they can change the world, are the ones who DO.</p>
-          </div>
-
-          <nav class="site-state motion-element">
-
-            
-              <div class="site-state-item site-state-posts">
-              
-                <a href="/archives/">
-              
-                  <span class="site-state-item-count">174</span>
-                  <span class="site-state-item-name">posts</span>
-                </a>
-              </div>
-            
-
-            
-
-            
-
-          </nav>
-
-          
-            <div class="feed-link motion-element">
-              <a href="/atom.xml" rel="alternate">
-                <i class="fa fa-rss"></i>
-                RSS
-              </a>
-            </div>
-          
-
-          
-            <div class="links-of-author motion-element">
-                
-                  <span class="links-of-author-item">
-                    <a href="https://github.com/gewill" target="_blank" title="GitHub">
-                      
-                        <i class="fa fa-fw fa-github"></i>GitHub</a>
-                  </span>
-                
-                  <span class="links-of-author-item">
-                    <a href="mailto:531sunlight@gmail.com" target="_blank" title="E-Mail">
-                      
-                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
-                  </span>
-                
-                  <span class="links-of-author-item">
-                    <a href="https://twitter.com/gewill_org" target="_blank" title="Twitter">
-                      
-                        <i class="fa fa-fw fa-twitter"></i>Twitter</a>
-                  </span>
-                
-                  <span class="links-of-author-item">
-                    <a href="https://weibo.com/gewei" target="_blank" title="Weibo">
-                      
-                        <i class="fa fa-fw fa-weibo"></i>Weibo</a>
-                  </span>
-                
-            </div>
-          
-
-          
-          
-            <div class="cc-license motion-element" itemprop="license">
-              <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="cc-opacity" target="_blank">
-                <img src="/images/cc-by-nc-sa.svg" alt="Creative Commons">
-              </a>
-            </div>
-          
-
-          
-          
-
-          
-
-        </div>
-      </section>
-
-      
-
-      
-
-    </div>
-  </aside>
-
-
-        
-      </div>
-    </main>
-
-    <footer id="footer" class="footer">
-      <div class="footer-inner">
-        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
-  <span class="with-love">
-    <i class="fa fa-user"></i>
-  </span>
-  <span class="author" itemprop="copyrightHolder">Ge Will</span>
-
-  
-</div>
-
-
-  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
-
-
-
-  <span class="post-meta-divider">|</span>
-
-
-
-  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
-
-
-
-
-        
-
-
-
-
-
-
-
-        
-      </div>
-    </footer>
-
-    
-      <div class="back-to-top">
-        <i class="fa fa-arrow-up"></i>
-        
-      </div>
-    
-
-    
-
-  </div>
-
-  
-
-<script type="text/javascript">
-  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
-    window.Promise = null;
-  }
-</script>
-
-
-
-
-
-
-
-
-
-  
-
-
-
-
-
-
-
-
-
-
-
-
-  
-  
-    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
-  
-
-
-  
-
-
-  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
-
-  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
-
-
-
-  
-  
-
-
-  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
-
-  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
-
-
-
-  
-  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
-<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
-
-
-
-  
-
-
-  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
-
-
-
-  
-
-
-  
-
-    
-      <script id="dsq-count-scr" src="https://gewill.disqus.com/count.js" async></script>
-    
-
-    
-      <script type="text/javascript">
-        var disqus_config = function () {
-          this.page.url = 'http://gewill.org/2015/05/16/Crazy-Swift-Lecture-Chapter-3/';
-          this.page.identifier = '2015/05/16/Crazy-Swift-Lecture-Chapter-3/';
-          this.page.title = 'Crazy Swift Lecture Chapter 3';
-        };
-        var d = document, s = d.createElement('script');
-        s.src = 'https://gewill.disqus.com/embed.js';
-        s.setAttribute('data-timestamp', '' + +new Date());
-        (d.head || d.body).appendChild(s);
-      </script>
-    
-
-  
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  
-
-
-
-
-
-  
-
-  
-
-  
-
-  
-  
-
-  
-
-  
-
-  
-
-</body>
-</html>
