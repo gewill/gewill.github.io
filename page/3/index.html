@@ -283,6 +283,137 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://gewill.org/2016/03/09/Avoid-Weibo-API-30-limits/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Ge Will">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Will's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2016/03/09/Avoid-Weibo-API-30-limits/" itemprop="url">Avoid Weibo API 30% limits</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2016-03-09T12:18:55+08:00">
+                2016-03-09
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2016/03/09/Avoid-Weibo-API-30-limits/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2016/03/09/Avoid-Weibo-API-30-limits/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>Use resursion to get more 90% data, still can’t upto 100%.</p>
+<figure class="highlight swift"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">import</span> Foundation</span><br><span class="line"><span class="keyword">import</span> Alamofire</span><br><span class="line"><span class="keyword">import</span> SwiftyJSON</span><br><span class="line"><span class="keyword">import</span> Alamofire-SwiftyJSON</span><br><span class="line"><span class="keyword">import</span> RealmSwift</span><br><span class="line"></span><br><span class="line">	<span class="comment">// MARK: -  friendships</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">// Weibo 30% more or less limits how to aovid this.</span></span><br><span class="line">    <span class="comment">// Thus count each response json user nubmer, to calculate true next cursor.</span></span><br><span class="line">    <span class="comment">// But Weibo return much fewer than 30%, fanially we got 93% data.</span></span><br><span class="line">    <span class="comment">// http://open.weibo.com/wiki/2/friendships/friends</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">static</span> <span class="function"><span class="keyword">func</span> <span class="title">allFriends</span><span class="params">(uid uid: Int?, cursor: Int?, completionHandler: <span class="params">(stateCode: WeiboServiceError, error: String?, nextCursor: Int?)</span></span></span> -&gt; <span class="type">Void</span>) &#123;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">let</span> pageNumber: <span class="type">Int</span> = <span class="number">200</span></span><br><span class="line">        <span class="keyword">var</span> parameters: [<span class="type">String</span>: <span class="type">AnyObject</span>] = [<span class="string">"count"</span>: pageNumber]</span><br><span class="line"></span><br><span class="line">        <span class="type">AccountManager</span>.currentAcvtiveWeiboAccount &#123; (stateCode, error, weiboAccount) -&gt; <span class="type">Void</span> <span class="keyword">in</span></span><br><span class="line">            <span class="keyword">if</span> <span class="keyword">let</span> weiboAccount = weiboAccount &#123;</span><br><span class="line">                parameters.updateValue(weiboAccount.accessToken, forKey: <span class="string">"access_token"</span>)</span><br><span class="line">                parameters.updateValue(weiboAccount.accountId, forKey: <span class="string">"uid"</span>)</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">let</span> uid = uid &#123;</span><br><span class="line">            parameters.updateValue(uid, forKey: <span class="string">"uid"</span>)</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">let</span> cursor = cursor &#123;</span><br><span class="line">            parameters.updateValue(cursor, forKey: <span class="string">"cursor"</span>)</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="type">Alamofire</span>.request(.<span class="type">GET</span>, <span class="type">WeiboApi</span>.<span class="type">FriendshipsFriends</span>, parameters: parameters)</span><br><span class="line">            .responseSwiftyJSON(&#123; (request, response, json, error) <span class="keyword">in</span></span><br><span class="line">            <span class="keyword">if</span> error != <span class="literal">nil</span> &#123;</span><br><span class="line">                completionHandler(stateCode: .<span class="type">Error</span>, error: <span class="string">"Please check internet connection."</span>, nextCursor: <span class="literal">nil</span>)</span><br><span class="line">            &#125; <span class="keyword">else</span> <span class="keyword">if</span> json[<span class="string">"error"</span>] != <span class="type">JSON</span>.null &#123;</span><br><span class="line">                completionHandler(stateCode: .<span class="type">Error</span>, error: json[<span class="string">"error"</span>].stringValue, nextCursor: <span class="literal">nil</span>)</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                <span class="type">WeiboStore</span>.friendsJSONToUserAndSave(json: json, completionHandler: &#123; (stateCode, error, <span class="built_in">count</span>) -&gt; <span class="type">Void</span> <span class="keyword">in</span></span><br><span class="line">                    <span class="keyword">if</span> stateCode == .<span class="type">Error</span> &#123;</span><br><span class="line">                        completionHandler(stateCode: .<span class="type">Error</span>, error: error, nextCursor: <span class="literal">nil</span>)</span><br><span class="line">                    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line"></span><br><span class="line">                        <span class="keyword">let</span> previousCursor = json[<span class="string">"previous_cursor"</span>].intValue</span><br><span class="line">                        <span class="keyword">let</span> nextCursor = previousCursor + <span class="built_in">count</span>!</span><br><span class="line"></span><br><span class="line">                        <span class="keyword">if</span> <span class="built_in">count</span> &gt; <span class="number">0</span> &#123;</span><br><span class="line"></span><br><span class="line">                            <span class="keyword">self</span>.allFriends(uid: uid, cursor: nextCursor, completionHandler: &#123; (stateCode, error, nextCursor) -&gt; <span class="type">Void</span> <span class="keyword">in</span></span><br><span class="line">                            &#125;)</span><br><span class="line">                        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line"></span><br><span class="line">                            completionHandler(stateCode: .<span class="type">Success</span>, error: <span class="literal">nil</span>, nextCursor: nextCursor)</span><br><span class="line">                        &#125;</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;)</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">	</span><br><span class="line">    <span class="comment">// Model</span></span><br><span class="line">    <span class="keyword">static</span> <span class="function"><span class="keyword">func</span> <span class="title">friendsJSONToUserAndSave</span><span class="params">(json json: JSON, completionHandler: <span class="params">(stateCode: WeiboStoreError, error: String?, <span class="built_in">count</span>: Int?)</span></span></span> -&gt; <span class="type">Void</span>) &#123;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">var</span> <span class="built_in">count</span> = <span class="number">0</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">let</span> queue = dispatch_get_global_queue(<span class="type">DISPATCH_QUEUE_PRIORITY_DEFAULT</span>, <span class="number">0</span>)</span><br><span class="line">        dispatch_async(queue) &#123;</span><br><span class="line"></span><br><span class="line">            <span class="keyword">let</span> realm = <span class="keyword">try</span>! <span class="type">Realm</span>()</span><br><span class="line">            realm.beginWrite()</span><br><span class="line"></span><br><span class="line">            <span class="keyword">if</span> json[<span class="string">"users"</span>] != <span class="type">JSON</span>.null &#123;</span><br><span class="line"></span><br><span class="line">                <span class="keyword">for</span> (<span class="number">_</span>, subJson): (<span class="type">String</span>, <span class="type">JSON</span>) <span class="keyword">in</span> json[<span class="string">"users"</span>] &#123;</span><br><span class="line">                    <span class="keyword">let</span> friend = <span class="keyword">self</span>.<span class="type">JSONToUserModel</span>(subJson)</span><br><span class="line">                    friend.isFriend = <span class="literal">true</span></span><br><span class="line">                    realm.add(friend, update: <span class="literal">true</span>)</span><br><span class="line">                    </span><br><span class="line">                    <span class="built_in">count</span> += <span class="number">1</span></span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            <span class="keyword">do</span> &#123;</span><br><span class="line">                <span class="keyword">try</span> realm.commitWrite()</span><br><span class="line">                dispatch_async(dispatch_get_main_queue(), &#123; () -&gt; <span class="type">Void</span> <span class="keyword">in</span></span><br><span class="line">                    completionHandler(stateCode: .<span class="type">Success</span>, error: <span class="literal">nil</span>, <span class="built_in">count</span>: <span class="built_in">count</span>)</span><br><span class="line">                &#125;)</span><br><span class="line">            &#125; <span class="keyword">catch</span> &#123;</span><br><span class="line">                dispatch_async(dispatch_get_main_queue(), &#123; () -&gt; <span class="type">Void</span> <span class="keyword">in</span></span><br><span class="line">                    completionHandler(stateCode: .<span class="type">Error</span>, error: <span class="string">"Realm Database save error."</span>, <span class="built_in">count</span>: <span class="literal">nil</span>)</span><br><span class="line">                &#125;)</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://gewill.org/2016/03/04/Swift-2-Nested-Types/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -3030,185 +3161,6 @@ basePtr.memory = <span class="number">10</span>
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://gewill.org/2015/11/25/Emerging-Best-Practices-•-Ash-Furrow-Notes/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Ge Will">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Will's Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2015/11/25/Emerging-Best-Practices-•-Ash-Furrow-Notes/" itemprop="url">Emerging Best Practices • Ash Furrow -Notes</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2015-11-25T11:10:20+08:00">
-                2015-11-25
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2015/11/25/Emerging-Best-Practices-•-Ash-Furrow-Notes/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2015/11/25/Emerging-Best-Practices-•-Ash-Furrow-Notes/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>Watch video here: <a href="https://youtu.be/YsUTuwpbURA" target="_blank" rel="noopener">https://youtu.be/YsUTuwpbURA</a>  </p>
-<p>It’s much clear to understand what’s the Ash talk about by list the outlines</p>
-<h2 id="1-Agenda"><a href="#1-Agenda" class="headerlink" title="1. Agenda"></a>1. Agenda</h2><ul>
-<li>We’ve been here before </li>
-<li>Learning is forever, deal with it </li>
-<li>Never throw ideas away</li>
-<li>How to force yourself to think </li>
-<li>Always be abstracting</li>
-</ul>
-<h2 id="2-Ideas-vs-Syntax"><a href="#2-Ideas-vs-Syntax" class="headerlink" title="2. Ideas vs Syntax"></a>2. Ideas vs Syntax</h2><p>Object Literals/Blocks &amp; GCD/Swift 2: Guard/Currying/Enums</p>
-<p>New syntax lets us do new things<br>However! Syntax is only a tool<br>Like blocks, Swift 2 syntax is most useful when it enables new ideas</p>
-<p>That’s all just syntax. What matters are ideas.</p>
-<h2 id="3-Benefits-of-Testing"><a href="#3-Benefits-of-Testing" class="headerlink" title="3. Benefits of Testing"></a>3. Benefits of Testing</h2><ul>
-<li>Limited object scope is good<ul>
-<li>High cohesion, low coupling </li>
-</ul>
-</li>
-<li>How to limit scope?<ul>
-<li>Controlling public interface and dependencies</li>
-</ul>
-</li>
-</ul>
-<p>Things to never throw away:Code &amp; Ideas</p>
-<p>Changing a unit test?</p>
-<ul>
-<li>No -&gt; Refactoring</li>
-<li>Yes -&gt; Rewriting</li>
-</ul>
-<h2 id="4-Dependency-Injection"><a href="#4-Dependency-Injection" class="headerlink" title="4. Dependency Injection"></a>4. Dependency Injection</h2><p>Your things shouldn’t create the things they need</p>
-<figure class="highlight swift"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ViewController</span>: <span class="title">UIViewController</span> </span>&#123;<span class="keyword">let</span> networkController = <span class="type">NetworkController</span>()    <span class="function"><span class="keyword">func</span> <span class="title">viewDidLoad</span><span class="params">()</span></span> &#123;        <span class="keyword">super</span>.viewDidLoad()        networkController.fetchStuff &#123;            <span class="keyword">self</span>.showStuff()        &#125;&#125; &#125;</span><br></pre></td></tr></table></figure>
-<figure class="highlight swift"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ViewController</span>: <span class="title">UIViewController</span> </span>&#123;<span class="keyword">var</span> networkController: <span class="type">NetworkController?</span>    <span class="function"><span class="keyword">func</span> <span class="title">viewDidLoad</span><span class="params">()</span></span> &#123;        <span class="keyword">super</span>.viewDidLoad()        networkController?.fetchStuff &#123;            <span class="keyword">self</span>.showStuff()        &#125;&#125; &#125;</span><br></pre></td></tr></table></figure>
-<h2 id="5-Unit-Testing"><a href="#5-Unit-Testing" class="headerlink" title="5. Unit Testing"></a>5. Unit Testing</h2><ul>
-<li>Don’t test private functions<ul>
-<li>Also, start marking functions as private </li>
-</ul>
-</li>
-<li>Remember, we want to avoid rewriting </li>
-<li>Don’t test the implementation</li>
-<li>Don’t use “partial mocks”<ul>
-<li>See @searls post on partial mocks</li>
-</ul>
-</li>
-</ul>
-<h2 id="6-Wrap-Up"><a href="#6-Wrap-Up" class="headerlink" title="6. Wrap Up"></a>6. Wrap Up</h2><ul>
-<li>We have a history of being awesome, let’s keep it up</li>
-<li>Learning isn’t just for when Xcode is in beta</li>
-<li>Ideas are more valuable than code, but throwing away either is dangerous </li>
-<li>Effective unit tests make it easy to change code</li>
-<li>Operate at the highest level of abstraction you can at any given time</li>
-</ul>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -3259,7 +3211,7 @@ basePtr.memory = <span class="number">10</span>
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">174</span>
+                  <span class="site-state-item-count">175</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>

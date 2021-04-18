@@ -283,6 +283,217 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://gewill.org/2015/08/28/GeekBand-iOS-APP-Development-6/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Ge Will">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Will's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2015/08/28/GeekBand-iOS-APP-Development-6/" itemprop="url">极客班 iOS 应用开发实战（六）</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2015-08-28T23:07:28+08:00">
+                2015-08-28
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2015/08/28/GeekBand-iOS-APP-Development-6/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2015/08/28/GeekBand-iOS-APP-Development-6/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>段老师的视频教程，采用都是比较通用是 Demo，方便以后代码复用。也是从项目实践经验来教授相关知识如 FMDB，这几节课获益匪浅。</p>
+<blockquote>
+<p>Demo 源码见 <a href="https://github.com/gewill/GeekBand-iOS-Demo/tree/master/iOS%20APP%20Development" target="_blank" rel="noopener">Github</a>，并添加了相关注释。</p>
+</blockquote>
+<h2 id="28- 沙盒机制"><a href="#28- 沙盒机制" class="headerlink" title="28. 沙盒机制"></a>28. 沙盒机制 </h2><p> 介绍几种数据持久化的方案，选择合适项目的方案：</p>
+<ul>
+<li>沙盒机制</li>
+<li>NSFileManager</li>
+<li>Plist、Archive 数据归档 *  SQLite3 应用</li>
+<li>NSUserDefaults</li>
+</ul>
+<p>沙盒目录结构 <code>NSDocumentDirectory</code>：</p>
+<ul>
+<li>Application Bundle/</li>
+<li>Documents/</li>
+<li>Library/Caches/</li>
+<li>Library/Perferences/</li>
+<li>tmp/</li>
+</ul>
+<h2 id="29-NSFileManager-amp-Plist"><a href="#29-NSFileManager-amp-Plist" class="headerlink" title="29. NSFileManager &amp; Plist"></a>29. NSFileManager &amp; Plist</h2><p><strong>存取文档的方法 </strong> 封装一个通用的类<code>BLUtility.h/m</code>，方便调用。以下代码是测试保存文本文档。</p>
+<figure class="highlight objc"><table><tr><td class="code"><pre><span class="line"><span class="comment">//</span></span><br><span class="line"><span class="comment">//  BLUtility.m</span></span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> *  创建目录</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> *  @param dirPath 待创建的目录</span></span><br><span class="line"><span class="comment"> *  @param isDir   结尾是否是目录</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> *  @return 是否创建成功</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line">+ (<span class="built_in">NSString</span>*) getPathWithinDocumentDir:(<span class="built_in">NSString</span>*)aPath &#123;</span><br><span class="line">	<span class="built_in">NSString</span> *fullPath = <span class="literal">nil</span>;</span><br><span class="line">	<span class="built_in">NSArray</span> *paths = <span class="built_in">NSSearchPathForDirectoriesInDomains</span>(<span class="built_in">NSDocumentDirectory</span>, <span class="built_in">NSUserDomainMask</span>, <span class="literal">YES</span>);</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">if</span> ([paths count] &gt; <span class="number">0</span>) &#123;</span><br><span class="line">		fullPath = (<span class="built_in">NSString</span> *)[paths objectAtIndex:<span class="number">0</span>];</span><br><span class="line">		<span class="keyword">if</span> ([aPath length] &gt; <span class="number">0</span>) &#123;</span><br><span class="line">			fullPath = [fullPath stringByAppendingPathComponent:aPath];</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> fullPath;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight objc"><table><tr><td class="code"><pre><span class="line"><span class="comment">//</span></span><br><span class="line"><span class="comment">//  BLArchiveViewController.m</span></span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> *  测试保存文档和 plist 的按钮关联的 Action 方法</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> *  @param sender &lt;#sender description#&gt;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line">- (<span class="keyword">void</span>)writeFileButtonClicked:(<span class="keyword">id</span>)sender &#123;</span><br><span class="line">    <span class="comment">// 1 - 测试字符串文档，保存到 Documents</span></span><br><span class="line">    <span class="comment">// 1.1 - 生成并保存</span></span><br><span class="line">    <span class="built_in">NSString</span> *string = <span class="string">@"ABC 副经理"</span>;</span><br><span class="line">    <span class="built_in">NSString</span> *stringFilePath = [BLUtility getPathWithinDocumentDir:<span class="string">@"string.text"</span>];</span><br><span class="line">    [BLUtility createDirectory:stringFilePath lastComponentIsDirectory:<span class="literal">NO</span>];</span><br><span class="line">    [string writeToFile:stringFilePath atomically:<span class="literal">YES</span> encoding:<span class="built_in">NSUTF8StringEncoding</span> error:<span class="literal">nil</span>];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="30-Archive- 数据归档和 -NSUserDefaults"><a href="#30-Archive- 数据归档和 -NSUserDefaults" class="headerlink" title="30. Archive 数据归档和 NSUserDefaults"></a>30. Archive 数据归档和 NSUserDefaults</h3><p><strong>转化为 NSData，二进制的数据，利于存储和传输。</strong></p>
+<p>遵循 NSCoding 协议，即可实现编码和解码的类，进一步对其归档和解档。也用到了封装的类<code>BLUtility.h/m</code>。本例中文档保存到 NSUserDefaults：</p>
+<figure class="highlight objc"><table><tr><td class="code"><pre><span class="line"><span class="comment">//</span></span><br><span class="line"><span class="comment">//  BLUser.m</span></span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> *  解码</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> *  @param aDecoder 编码类型</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> *  @return 解码得到的对象</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line">- (<span class="keyword">id</span>)initWithCoder:(<span class="built_in">NSCoder</span> *)aDecoder &#123;</span><br><span class="line">	<span class="keyword">self</span> = [<span class="keyword">super</span> init];</span><br><span class="line">	<span class="keyword">if</span> (<span class="keyword">self</span>) &#123;</span><br><span class="line">		<span class="keyword">self</span>.userName	= [aDecoder decodeObjectForKey:<span class="string">@"userName"</span>];</span><br><span class="line">		<span class="keyword">self</span>.email		= [aDecoder decodeObjectForKey:<span class="string">@"email"</span>];</span><br><span class="line">		<span class="keyword">self</span>.password	= [aDecoder decodeObjectForKey:<span class="string">@"password"</span>];</span><br><span class="line">		<span class="keyword">self</span>.age		= [aDecoder decodeIntForKey:<span class="string">@"age"</span>];</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> <span class="keyword">self</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight objc"><table><tr><td class="code"><pre><span class="line"><span class="comment">//</span></span><br><span class="line"><span class="comment">//  BLUtility.m</span></span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> *  解档</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> *  @param archivedData 待解档的 NSData</span></span><br><span class="line"><span class="comment"> *  @param key           key</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> *  @return  解档完成的对象</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line">+ (<span class="built_in">NSObject</span> *) unarchiverObject:(<span class="built_in">NSData</span> *)archivedData withKey:(<span class="built_in">NSString</span> *)key &#123;</span><br><span class="line">	<span class="keyword">if</span>(archivedData == <span class="literal">nil</span>) &#123;</span><br><span class="line">		<span class="keyword">return</span> <span class="literal">nil</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="built_in">NSKeyedUnarchiver</span> *unarchiver = [[<span class="built_in">NSKeyedUnarchiver</span> alloc] initForReadingWithData:archivedData];</span><br><span class="line">	<span class="built_in">NSObject</span> *object = [unarchiver decodeObjectForKey:key];</span><br><span class="line">	[unarchiver finishDecoding];</span><br><span class="line">	<span class="keyword">return</span> object;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight objc"><table><tr><td class="code"><pre><span class="line"><span class="comment">//</span></span><br><span class="line"><span class="comment">//  BLArchiveViewController.m</span></span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> *  读取按钮关联的 Action 方法</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> *  @param sender &lt;#sender description#&gt;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line">- (<span class="keyword">void</span>) readButtonClicked:(<span class="keyword">id</span>)sender &#123;</span><br><span class="line">    <span class="built_in">NSUserDefaults</span> *userDefaults = [<span class="built_in">NSUserDefaults</span> standardUserDefaults];</span><br><span class="line">    <span class="built_in">NSInteger</span> test = [userDefaults integerForKey:<span class="string">@"integer"</span>];</span><br><span class="line">    <span class="built_in">NSLog</span>(<span class="string">@"test = %li"</span>, test);</span><br><span class="line">    </span><br><span class="line">	<span class="built_in">NSString</span> *userDataPath = [BLUtility getPathWithinDocumentDir:UserDataName];</span><br><span class="line">	<span class="keyword">if</span> ([userDataPath length] &gt; <span class="number">0</span> &amp;&amp; [[<span class="built_in">NSFileManager</span> defaultManager] fileExistsAtPath:userDataPath]) &#123;</span><br><span class="line">        <span class="built_in">NSData</span> *userData = [<span class="built_in">NSData</span> dataWithContentsOfFile:userDataPath];</span><br><span class="line">		BLUser *user = (BLUser *)[BLUtility unarchiverObject:userData withKey:<span class="string">@"UserData"</span>];</span><br><span class="line">		_userNameTextField.text = user.userName;</span><br><span class="line">		_emailTextField.text = user.email;</span><br><span class="line">		_passwordTextField.text = user.password;</span><br><span class="line">		_ageTextField.text = [<span class="built_in">NSString</span> stringWithFormat:<span class="string">@"%ld"</span>, user.age];</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>### 延伸阅读：</p>
+<ul>
+<li><a href="http://nshipster.cn/nscoding/" target="_blank" rel="noopener">NSCoding / NSKeyed​Archiver</a></li>
+<li><a href="http://nshipster.cn/nsfilemanager/" target="_blank" rel="noopener">NSFile​Manager</a></li>
+</ul>
+<h2 id="31-SQLite3"><a href="#31-SQLite3" class="headerlink" title="31. SQLite3"></a>31. SQLite3</h2><p>通过 FMDB 封装，得以 OBjective-C 访问 SQLite，完成常用增删改查。从语法和数据体积实现轻量级存储方案。这个方案稍后用在习题“同学录”上实践一下。</p>
+<figure class="highlight objc"><table><tr><td class="code"><pre><span class="line"><span class="comment">//</span></span><br><span class="line"><span class="comment">//  BLPoemDB.h</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="meta">#import <span class="meta-string">&lt;Foundation/Foundation.h&gt;</span></span></span><br><span class="line"><span class="meta">#import <span class="meta-string">"FMDatabase.h"</span></span></span><br><span class="line"><span class="meta">#import <span class="meta-string">"BLPoem.h"</span></span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">BLPoemDB</span> : <span class="title">NSObject</span> </span>&#123;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     *  创建一个 FMDatabase 实例</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">	FMDatabase		*_db;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> *  创建一个表</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> *  @return 是否创建成功</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line">- (<span class="built_in">BOOL</span>) createPoemTable;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> *  增加一首诗到表</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> *  @param poem 待添加的诗</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> *  @return 是否添加成功</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line">- (<span class="built_in">BOOL</span>) addPoem:(BLPoem *)poem;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> *  查询所有诗</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> *  @return 查询到的包含所有诗的数组</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line">- (<span class="built_in">NSMutableArray</span> *) getAllPoems;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> *  查询被收藏的诗</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> *  @return 查询到的包含所有收藏的诗的数组</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line">- (<span class="built_in">NSMutableArray</span> *) getFavoritesPoems;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> *  更改是非收藏这一首诗</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> *  @param favorite 是否收藏</span></span><br><span class="line"><span class="comment"> *  @param poemId   待更改的诗的 ID</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> *  @return 是否更改收藏成功</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line">- (<span class="built_in">BOOL</span>) setFavorite:(<span class="built_in">BOOL</span>)favorite favoriteId:(<span class="built_in">NSInteger</span>)poemId;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> *  删除指定 ID 的一首诗</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> *  @param poemId 待删除的诗的 ID</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> *  @return  是否删除成功</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line">- (<span class="built_in">BOOL</span>) deletePoemWithPoemId:(<span class="built_in">NSInteger</span>)poemId;</span><br><span class="line"></span><br><span class="line"><span class="keyword">@end</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight objc"><table><tr><td class="code"><pre><span class="line"><span class="comment">//</span></span><br><span class="line"><span class="comment">//  BLPoemDB.m</span></span><br><span class="line"><span class="comment">//  BLDataSaveDemo</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="meta">#import <span class="meta-string">"BLPoemDB.h"</span></span></span><br><span class="line"><span class="meta">#import <span class="meta-string">"BLUtility.h"</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#define BLPOEMDBNAME @<span class="meta-string">"BLPoemDB.sqlite"</span></span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">@implementation</span> <span class="title">BLPoemDB</span></span></span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> *  初始化数据库 FMDatabase 实例</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> *  @return 初始化得到的 FMDatabase 实例</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line">-(<span class="keyword">id</span>) init &#123;</span><br><span class="line">	<span class="keyword">self</span> = [<span class="keyword">super</span> init];</span><br><span class="line">	<span class="keyword">if</span> (<span class="keyword">self</span>) &#123;</span><br><span class="line">		<span class="built_in">NSString</span> *dbPath = [BLUtility getPathWithinDocumentDir:BLPOEMDBNAME];</span><br><span class="line">		<span class="built_in">NSFileManager</span> *fileManager = [<span class="built_in">NSFileManager</span> defaultManager];</span><br><span class="line">		<span class="built_in">BOOL</span> existFile = [fileManager fileExistsAtPath:dbPath];</span><br><span class="line">		<span class="keyword">if</span> (existFile == <span class="literal">NO</span>) &#123;</span><br><span class="line">			<span class="built_in">NSString</span> *poemDBPath = [[[<span class="built_in">NSBundle</span> mainBundle] resourcePath] stringByAppendingPathComponent:BLPOEMDBNAME];</span><br><span class="line">			[fileManager copyItemAtPath:poemDBPath toPath:dbPath error:<span class="literal">nil</span>];</span><br><span class="line">		&#125;</span><br><span class="line">		_db	 = [[FMDatabase alloc] initWithPath:dbPath];</span><br><span class="line">		<span class="keyword">if</span> ([_db open] == <span class="literal">NO</span>) &#123;</span><br><span class="line">			<span class="keyword">return</span> <span class="literal">nil</span>;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> <span class="keyword">self</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">- (<span class="built_in">BOOL</span>) createPoemTable &#123;</span><br><span class="line">	[_db beginTransaction];</span><br><span class="line">	<span class="built_in">BOOL</span> success = [_db executeUpdate:<span class="string">@"CREATE TABLE IF NOT EXISTS POEMTABLE ("</span></span><br><span class="line">					<span class="string">@"ID INTEGER PRIMARY KEY NOT NULL,"</span></span><br><span class="line">					<span class="string">@"POEMNAME TEXT NOT NULL,"</span></span><br><span class="line">					<span class="string">@"POETNAME TEXT NOT NULL,"</span></span><br><span class="line">					<span class="string">@"POEMCONTENT TEXT NOT NULL,"</span></span><br><span class="line">					<span class="string">@"WHETHERFAVORITE BOOL NOT NULL);"</span>];</span><br><span class="line">	[_db commit];</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">if</span>(!success || [_db hadError]) &#123;</span><br><span class="line">		[_db rollback];</span><br><span class="line">		<span class="keyword">return</span> <span class="literal">NO</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> <span class="literal">YES</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (<span class="built_in">BOOL</span>) addPoem:(BLPoem *)poem &#123;</span><br><span class="line">	FMResultSet *rs = [_db executeQuery:<span class="string">@"SELECT ID FROM POEMTABLE WHERE ID=?"</span>, [<span class="built_in">NSNumber</span> numberWithInteger:poem.poemId]];</span><br><span class="line">	<span class="keyword">if</span>(rs &amp;&amp; [rs next]) &#123;</span><br><span class="line">		[rs close];</span><br><span class="line">		<span class="keyword">return</span> <span class="literal">YES</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	[rs close];</span><br><span class="line">	</span><br><span class="line">	[_db beginTransaction];</span><br><span class="line">	<span class="built_in">NSString</span> *bookMark = <span class="literal">nil</span>;		</span><br><span class="line">	<span class="built_in">BOOL</span> success =  [_db executeUpdate:<span class="string">@"INSERT OR IGNORE INTO POEMTABLE (ID,POEMNAME,POETNAME,POEMCONTENT,WHETHERFAVORITE) VALUES (?,?,?,?,?);"</span>,</span><br><span class="line">					 [<span class="built_in">NSNumber</span> numberWithInteger:poem.poemId],</span><br><span class="line">					 poem.poemName,</span><br><span class="line">					 poem.poetName,</span><br><span class="line">					 poem.poemContent,</span><br><span class="line">					 [<span class="built_in">NSNumber</span> numberWithBool:poem.whetherFavorite],</span><br><span class="line">					 bookMark];</span><br><span class="line">	[_db commit];</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">if</span>(!success || [_db hadError]) &#123;</span><br><span class="line">		[_db rollback];</span><br><span class="line">		<span class="keyword">return</span> <span class="literal">NO</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> <span class="literal">YES</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (<span class="built_in">NSMutableArray</span> *) getAllPoems &#123;	</span><br><span class="line">	<span class="built_in">NSMutableArray</span> *result = [[<span class="built_in">NSMutableArray</span> alloc] init];</span><br><span class="line"><span class="comment">//	FMResultSet *rs = [_db executeQuery:@"SELECT * FROM POEMTABLE WHERE ID=? AND WHETHERFAVORITE=?", [NSNumber numberWithInt:poem.poemId], [NSNumber numberWithBool:poem.whetherFavorite]];</span></span><br><span class="line">	FMResultSet *rs = [_db executeQuery:<span class="string">@"SELECT * FROM POEMTABLE"</span>];</span><br><span class="line">	<span class="keyword">while</span>([rs next]) &#123;</span><br><span class="line">		BLPoem *poem = [[BLPoem alloc] init];</span><br><span class="line">		poem.poemId = [rs intForColumn:<span class="string">@"ID"</span>];</span><br><span class="line">		poem.poemName = [rs	stringForColumn:<span class="string">@"POEMNAME"</span>];</span><br><span class="line">		poem.poetName = [rs stringForColumn:<span class="string">@"POETNAME"</span>];</span><br><span class="line">		poem.poemContent = [rs stringForColumn:<span class="string">@"POEMCONTENT"</span>];</span><br><span class="line">		poem.whetherFavorite = [rs boolForColumn:<span class="string">@"WHETHERFAVORITE"</span>];</span><br><span class="line">		[result addObject:poem];</span><br><span class="line">	&#125;</span><br><span class="line">	[rs close];</span><br><span class="line">	<span class="keyword">return</span> result;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (<span class="built_in">NSMutableArray</span> *) getFavoritesPoems &#123;</span><br><span class="line">	<span class="built_in">NSMutableArray</span> *result = [[<span class="built_in">NSMutableArray</span> alloc] init];	</span><br><span class="line">	FMResultSet *rs = [_db executeQuery:<span class="string">@"SELECT * FROM POEMTABLE WHERE WHETHERFAVORITE=?"</span>, [<span class="built_in">NSNumber</span> numberWithBool:<span class="literal">YES</span>]];</span><br><span class="line">	<span class="keyword">while</span>([rs next]) &#123;</span><br><span class="line">		BLPoem *poem = [[BLPoem alloc] init];</span><br><span class="line">		poem.poemId = [rs intForColumn:<span class="string">@"ID"</span>];</span><br><span class="line">		poem.poemName = [rs	stringForColumn:<span class="string">@"POEMNAME"</span>];</span><br><span class="line">		poem.poetName = [rs stringForColumn:<span class="string">@"POETNAME"</span>];</span><br><span class="line">		poem.poemContent = [rs stringForColumn:<span class="string">@"POEMCONTENT"</span>];</span><br><span class="line">		poem.whetherFavorite = [rs boolForColumn:<span class="string">@"WHETHERFAVORITE"</span>];</span><br><span class="line">		[result addObject:poem];</span><br><span class="line">	&#125;</span><br><span class="line">	[rs close];</span><br><span class="line">	<span class="keyword">return</span> result;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (<span class="built_in">BOOL</span>) setFavorite:(<span class="built_in">BOOL</span>)favorite favoriteId:(<span class="built_in">NSInteger</span>)poemId &#123;</span><br><span class="line">	<span class="keyword">if</span> (_db == <span class="literal">nil</span>) &#123;</span><br><span class="line">		<span class="keyword">return</span> <span class="literal">NO</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	[_db beginTransaction];</span><br><span class="line">	<span class="built_in">BOOL</span> result = [_db executeUpdate:<span class="string">@"UPDATE POEMTABLE SET WHETHERFAVORITE=? WHERE ID=?"</span>, [<span class="built_in">NSNumber</span> numberWithBool:favorite], [<span class="built_in">NSNumber</span> numberWithInteger:poemId]];</span><br><span class="line">	[_db commit];</span><br><span class="line">	<span class="keyword">return</span> result;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (<span class="built_in">BOOL</span>) deletePoemWithPoemId:(<span class="built_in">NSInteger</span>)poemId &#123;</span><br><span class="line">	[_db beginTransaction];</span><br><span class="line">	<span class="built_in">BOOL</span> success = [_db executeUpdate:<span class="string">@"DELETE FROM POEMTABLE WHERE ID=?"</span>, [<span class="built_in">NSNumber</span> numberWithInteger:poemId]];</span><br><span class="line">	[_db commit];</span><br><span class="line">	<span class="keyword">if</span>(!success || [_db hadError]) &#123;</span><br><span class="line">		[_db rollback];</span><br><span class="line">		<span class="keyword">return</span> <span class="literal">NO</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> <span class="literal">YES</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (<span class="keyword">void</span>) dealloc &#123;</span><br><span class="line">	[_db	close];</span><br><span class="line">	_db		= <span class="literal">nil</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">@end</span></span><br></pre></td></tr></table></figure>
+<h3 id="延伸阅读："><a href="# 延伸阅读：" class="headerlink" title="延伸阅读："></a>延伸阅读：</h3><ul>
+<li><a href="http://www.sqlite.org/" target="_blank" rel="noopener">SQLite</a></li>
+<li><a href="https://github.com/ccgus/fmdb" target="_blank" rel="noopener">FMDB</a></li>
+<li><a href="https://www.objc.io/issues/4-core-data/SQLite-instead-of-core-data/" target="_blank" rel="noopener">On Using SQLite and FMDB Instead of Core Data</a></li>
+<li><a href="https://realm.io" target="_blank" rel="noopener">Realm</a></li>
+<li><a href="http://sqlitebrowser.org/" target="_blank" rel="noopener">DB Browser for SQLite</a></li>
+</ul>
+<h2 id="32- 多线程和多媒体"><a href="#32- 多线程和多媒体" class="headerlink" title="32. 多线程和多媒体"></a>32. 多线程和多媒体 </h2><p> 简单介绍了常见多媒体的播放：</p>
+<ul>
+<li>UIImagePickerViewController</li>
+<li>UIActionSheet （👈名字谐音）</li>
+<li>AVAudioPlayer</li>
+<li>SystenSounID</li>
+<li>MPMoviePlayerViewController</li>
+</ul>
+<figure class="highlight objc"><table><tr><td class="code"><pre><span class="line"><span class="meta">#import <span class="meta-string">&lt;AVFoundation/AVFoundation.h&gt;</span></span></span><br><span class="line"><span class="meta">#import <span class="meta-string">&lt;AudioToolbox/AudioToolbox.h&gt;</span></span></span><br><span class="line"><span class="meta">#import <span class="meta-string">&lt;MediaPlayer/MediaPlayer.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">BLOneViewController</span> ()&lt;<span class="title">UIAlertViewDelegate</span>, <span class="title">UIActionSheetDelegate</span>, <span class="title">UIImagePickerControllerDelegate</span>, <span class="title">UINavigationControllerDelegate</span>&gt; </span>&#123;</span><br><span class="line">    <span class="built_in">AVAudioPlayer</span>           *audioPlayer;</span><br><span class="line">    SystemSoundID           systemSoundId;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="meta">#pragma mark - Play Music button action</span></span><br><span class="line"></span><br><span class="line">- (<span class="keyword">IBAction</span>)palyMusic:(<span class="built_in">UIButton</span> *)sender &#123;</span><br><span class="line">    </span><br><span class="line"></span><br><span class="line">    </span><br><span class="line">    <span class="keyword">if</span> (!audioPlayer) &#123;</span><br><span class="line">        <span class="built_in">NSString</span> *mp3Path = [[<span class="built_in">NSBundle</span> mainBundle] pathForResource:<span class="string">@"yishengsuoai"</span> ofType:<span class="string">@"mp3"</span>];</span><br><span class="line">        <span class="built_in">NSURL</span> *mp3Url = [[<span class="built_in">NSURL</span> alloc] initFileURLWithPath:mp3Path];</span><br><span class="line">        audioPlayer = [[<span class="built_in">AVAudioPlayer</span> alloc] initWithContentsOfURL:mp3Url error:<span class="literal">NULL</span>];</span><br><span class="line">        audioPlayer.numberOfLoops = <span class="number">-1</span>;</span><br><span class="line">        [audioPlayer prepareToPlay];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> ([audioPlayer isPlaying]) &#123;</span><br><span class="line">        [audioPlayer stop];</span><br><span class="line">        sender.titleLabel.text = <span class="string">@"Play Music"</span>;</span><br><span class="line">        </span><br><span class="line">    &#125;<span class="keyword">else</span> &#123;</span><br><span class="line">        [audioPlayer play];</span><br><span class="line">        sender.titleLabel.text = <span class="string">@"Pasue Music"</span>;</span><br><span class="line">        </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="33- 硬件访问、CALayer-amp-Core-Graphics"><a href="#33- 硬件访问、CALayer-amp-Core-Graphics" class="headerlink" title="33. 硬件访问、CALayer &amp; Core Graphics"></a>33. 硬件访问、CALayer &amp; Core Graphics</h2><h3 id="33-1-gravity-and-user-acceleration"><a href="#33-1-gravity-and-user-acceleration" class="headerlink" title="33.1. gravity and user acceleration"></a>33.1. gravity and user acceleration</h3><p>Useage: shaking device to feedback or 360° image</p>
+<figure class="highlight objc"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 4 - Start update divice motion and print them</span></span><br><span class="line">   <span class="comment">// The accelerometer measures the sum of two acceleration vectors: gravity and user acceleration.</span></span><br><span class="line">   <span class="built_in">NSOperationQueue</span> *diviceMotionQueue = [[<span class="built_in">NSOperationQueue</span> alloc] init];</span><br><span class="line">   [<span class="keyword">self</span>.motionManager startDeviceMotionUpdatesToQueue:diviceMotionQueue</span><br><span class="line">                                           withHandler:^(<span class="built_in">CMDeviceMotion</span> *motion, <span class="built_in">NSError</span> *error) &#123;</span><br><span class="line">                                               </span><br><span class="line">                                               <span class="built_in">NSLog</span>(<span class="string">@"\n \n--------------------------------------------------------------------------&gt;\n \n 1 - attitude: %@ \n 2 - rotation rate x: %f, y: %f, z: %f,\n  \n 3 - gravity x: %f, y: %f, z: %f \n \n 4 - user acceleration x: %f, y: %f, z: %f \n \n 5 - magnetic field accuracy: %d, x: %f, y: %f, z: %f \n \n &lt;--------------------------------------------------------------------------\n \n"</span> ,</span><br><span class="line">                                                     motion.attitude,</span><br><span class="line">                                                     motion.rotationRate.x, motion.rotationRate.y, motion.rotationRate.z,</span><br><span class="line">                                                     motion.gravity.x, motion.gravity.y, motion.gravity.z,</span><br><span class="line">                                                     motion.userAcceleration.x, motion.userAcceleration.y, motion.userAcceleration.z,</span><br><span class="line">                                                     motion.magneticField.accuracy, motion.magneticField.field.x, motion.magneticField.field.y, motion.magneticField.field.z);</span><br><span class="line">                                           &#125;];</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>Search the definiton of each new word, really 😄😄😄. </p>
+<p>Do you believe that, At least I don’t think so.    </p>
+</blockquote>
+<p>Output:</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">--------------------------------------------------------------------------&gt;</span><br><span class="line"> </span><br><span class="line"> 1 - attitude: CMAttitude Pitch: 0.751292, Roll: 0.555726, Yaw: 22.198534</span><br><span class="line"> </span><br><span class="line"> 2 - rotation rate x: 0.001511, y: -0.000795, z: 0.002454,</span><br><span class="line">  </span><br><span class="line"> 3 - gravity x: 0.009698, y: -0.013112, z: -0.999867 </span><br><span class="line"> </span><br><span class="line"> 4 - user acceleration x: -0.002603, y: 0.000783, z: -0.014095 </span><br><span class="line"> </span><br><span class="line"> 5 - magnetic field accuracy: -1, x: 0.000000, y: 0.000000, z: 0.000000 </span><br><span class="line"> </span><br><span class="line"> &lt;--------------------------------------------------------------------------</span><br></pre></td></tr></table></figure>
+<h3 id="33-2-CALayer"><a href="#33-2-CALayer" class="headerlink" title="33.2. CALayer"></a>33.2. CALayer</h3><p>Modifying the Layer’s Appearance Properties.<br>Lots of properties really similar to Sketch.</p>
+<h3 id="33-3-Core-Graphics"><a href="#33-3-Core-Graphics" class="headerlink" title="33.3. Core Graphics"></a>33.3. Core Graphics</h3><p>CGContextRef: An opaque type that represents a Quartz 2D drawing environment.</p>
+<p>Path on CGContextRef vs Vector on Artboard in Sketch, by learn Sketch really make sense of those abstract concepts.</p>
+<h2 id="34- 自定义手势、Block-amp-GCD"><a href="#34- 自定义手势、Block-amp-GCD" class="headerlink" title="34. 自定义手势、Block &amp; GCD"></a>34. 自定义手势、Block &amp; GCD</h2><h3 id="34-1- 手势"><a href="#34-1- 手势" class="headerlink" title="34.1. 手势"></a>34.1. 手势 </h3><p> 尽量设计使用常用的手势</p>
+<blockquote>
+<p>设计一个小 Demo，实现：Shake Your iPhone To Send Feedback Email To Me😄</p>
+</blockquote>
+<h3 id="34-2-Block"><a href="#34-2-Block" class="headerlink" title="34.2. Block"></a>34.2. Block</h3><p>比较简洁的函数，就在当前就可以调用。</p>
+<h3 id="34-3-GCD"><a href="#34-3-GCD" class="headerlink" title="34.3. GCD"></a>34.3. GCD</h3><p>Group queue：并行执行多任务比较牛。</p>
+<h2 id="35-APNS、Core-Date、URL-Scheme、单元测试、APP 发布流"><a href="#35-APNS、Core-Date、URL-Scheme、单元测试、APP 发布流" class="headerlink" title="35. APNS、Core Date、URL Scheme、单元测试、APP 发布流"></a>35. APNS、Core Date、URL Scheme、单元测试、APP 发布流</h2><h3 id="35-1-APNS"><a href="#35-1-APNS" class="headerlink" title="35.1. APNS"></a>35.1. APNS</h3><p><img src="http://i.imgur.com/2iItYMd.jpg" alt="Remote Notification"></p>
+<figure class="highlight objc"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 1 - Register Remote Notification</span></span><br><span class="line"><span class="comment">// 2 - Register deviceToken</span></span><br><span class="line"><span class="comment">// 3 - Receive Remote Notification</span></span><br><span class="line"><span class="comment">// 4 - Update Icon Badge Number</span></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>稍后添加到 Classmates</p>
+</blockquote>
+<h3 id="35-2-Core-Data"><a href="#35-2-Core-Data" class="headerlink" title="35.2. Core Data"></a>35.2. Core Data</h3><p>核心概念：</p>
+<figure class="highlight objc"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 程序员和管理对象模式之间的桥梁，做数据库的增删改查等操作</span></span><br><span class="line"><span class="keyword">@property</span> (<span class="keyword">readonly</span>, <span class="keyword">strong</span>, <span class="keyword">nonatomic</span>) <span class="built_in">NSManagedObjectContext</span> *managedObjectContext;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 数据库里的不同管理对象类型</span></span><br><span class="line"><span class="keyword">@property</span> (<span class="keyword">readonly</span>, <span class="keyword">strong</span>, <span class="keyword">nonatomic</span>) <span class="built_in">NSManagedObjectModel</span> *managedObjectModel;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 数据库文件和程序之间的联系桥梁</span></span><br><span class="line"><span class="keyword">@property</span> (<span class="keyword">readonly</span>, <span class="keyword">strong</span>, <span class="keyword">nonatomic</span>) <span class="built_in">NSPersistentStoreCoordinator</span> *persistentStoreCoordinator;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>稍后把 Classmate 整个 Core Data 的版本</p>
+</blockquote>
+<h3 id="35-3-URL-Scheme"><a href="#35-3-URL-Scheme" class="headerlink" title="35.3. URL Scheme"></a>35.3. URL Scheme</h3><p>就是一个通过个地址访问系统软件或第三方软件，如地图和 Launch Center Pro。iOS 9 之后估计有更多可能性。</p>
+<ul>
+<li><a href="https://developer.apple.com/library/ios/featuredarticles/iPhoneURLScheme_Reference/Introduction/Introduction.html" target="_blank" rel="noopener">About Apple URL Schemes</a></li>
+</ul>
+<h3 id="35-4- 单元测试或断点测试"><a href="#35-4- 单元测试或断点测试" class="headerlink" title="35.4. 单元测试或断点测试"></a>35.4. 单元测试或断点测试</h3><h3 id="35-5-App- 发布流程"><a href="#35-5-App- 发布流程" class="headerlink" title="35.5. App 发布流程"></a>35.5. App 发布流程</h3>
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://gewill.org/2015/08/28/GeekBand-iOS-Design-Patterns-3/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -3204,192 +3415,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://gewill.org/2015/08/13/CS193P-8-View-Controller-Lifecycle-Autolayout/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Ge Will">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Will's Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2015/08/13/CS193P-8-View-Controller-Lifecycle-Autolayout/" itemprop="url">CS193P 8. View Controller Lifecycle, Autolayout</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2015-08-13T10:48:04+08:00">
-                2015-08-13
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2015/08/13/CS193P-8-View-Controller-Lifecycle-Autolayout/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2015/08/13/CS193P-8-View-Controller-Lifecycle-Autolayout/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="View-Controller-Lifecycle"><a href="#View-Controller-Lifecycle" class="headerlink" title="View Controller Lifecycle"></a>View Controller Lifecycle</h2><ul>
-<li>Instantiated (from storyboard usually) </li>
-<li>awakeFromNib</li>
-<li>segue preparation happens </li>
-<li>outlets get set </li>
-<li>viewDidLoad</li>
-</ul>
-<p>These pairs will be called each time your Controller’s view goes on/off screen … </p>
-<ul>
-<li>viewWillAppear and viewDidAppear</li>
-<li>viewWillDisappear and viewDidDisappear</li>
-</ul>
-<p>These “geometry changed” methods might be called at any time after viewDidLoad … </p>
-<ul>
-<li>viewWillLayoutSubviews (… then autolayout happens, then …) viewDidLayoutSubviews</li>
-</ul>
-<p>If memory gets low, you might get …</p>
-<ul>
-<li>didReceiveMemoryWarning</li>
-</ul>
-<h2 id="Autolayout"><a href="#Autolayout" class="headerlink" title="Autolayout"></a>Autolayout</h2><h3 id="You’ve-seen-a-lot-of-Autolayout-already"><a href="#You’ve-seen-a-lot-of-Autolayout-already" class="headerlink" title="You’ve seen a lot of Autolayout already"></a>You’ve seen a lot of Autolayout already</h3><ul>
-<li>Using the dashed blue lines to try to tell Xcode what you intend</li>
-<li>Ctrl-Dragging between views to create relationships (spacing, etc.)</li>
-<li>The “Pin” and “Arrange” popovers in the lower right of the storyboard</li>
-<li>Reset to Suggested Constraints (if the blue lines were enough to unambiguously set constraints) </li>
-<li>Document Outline (see all constraints, resolve misplacements and even conflicts)</li>
-<li>Size Inspector (look at (and edit!) the details of the constraints on the selected view)</li>
-<li>Clicking on a constraint to select it then bring up Attributes Inspector (to edit its details)</li>
-</ul>
-<h3 id="￼Mastering-Autolayout-requires-experience"><a href="#￼Mastering-Autolayout-requires-experience" class="headerlink" title="￼Mastering Autolayout requires experience"></a>￼Mastering Autolayout requires experience</h3><p>You just have to do it to learn it</p>
-<h3 id="Autolayout-can-be-done-from-code-too"><a href="#Autolayout-can-be-done-from-code-too" class="headerlink" title="Autolayout can be done from code too"></a>Autolayout can be done from code too</h3><p>Though you’re probably better off doing it in the storyboard wherever possible The demo today will show a simple case of doing Autolayout from code</p>
-<h3 id="Demo"><a href="#Demo" class="headerlink" title="Demo:"></a>Demo:</h3><ul>
-<li>Notice auto layout issues and resove them.</li>
-<li>Preview Storyboard in assistant editor</li>
-<li>Remove magic nubmers in constraints of size inspector: such as use standard value or 0.</li>
-</ul>
-<h3 id="More"><a href="#More" class="headerlink" title="More:"></a>More:</h3><p> <a href="http://stackoverflow.com/questions/29705747/what-does-use-standard-value-and-constrain-to-margins-mean-in-auto-layout" target="_blank" rel="noopener">What does “Use standard value and Constrain to Margins” mean in Auto Layout?</a></p>
-<p> <a href="https://developer.apple.com/library/ios/documentation/UserExperience/Conceptual/AutolayoutPG/AutoLayoutConcepts/AutoLayoutConcepts.html#//apple_ref/doc/uid/TP40010853-CH14-SW1" target="_blank" rel="noopener">Auto Layout Concepts</a></p>
-<blockquote>
-<p>The fundamental building block in Auto Layout is the constraint. Constraints express rules for the layout of elements in your interface; </p>
-</blockquote>
-<blockquote>
-<p>Constraint Basics</p>
-</blockquote>
-<blockquote>
-<p>You can think of a constraint as a mathematical representation of a human-expressable statement. If you’re defining the position of a button, for example, you might want to say “the left edge should be 20 points from the left edge of its containing view.” More formally, this translates to button.left = (container.left + 20), which in turn is an expression of the form y = m*x + b, where:</p>
-</blockquote>
-<blockquote>
-<p>y and x are attributes of views.</p>
-</blockquote>
-<blockquote>
-<p>m and b are floating point values.</p>
-</blockquote>
-<blockquote>
-<p>An attribute is one of left, right, top, bottom, leading, trailing, width, height, centerX, centerY, and baseline.</p>
-</blockquote>
-<p><a href="http://www.raywenderlich.com/83129/beginning-auto-layout-tutorial-swift-part-1" target="_blank" rel="noopener">Auto Layout Tutorial Part 1: Getting Started</a></p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -3440,7 +3465,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">174</span>
+                  <span class="site-state-item-count">175</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>

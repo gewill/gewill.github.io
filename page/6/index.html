@@ -283,6 +283,192 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://gewill.org/2015/08/13/CS193P-8-View-Controller-Lifecycle-Autolayout/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Ge Will">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Will's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2015/08/13/CS193P-8-View-Controller-Lifecycle-Autolayout/" itemprop="url">CS193P 8. View Controller Lifecycle, Autolayout</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2015-08-13T10:48:04+08:00">
+                2015-08-13
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2015/08/13/CS193P-8-View-Controller-Lifecycle-Autolayout/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2015/08/13/CS193P-8-View-Controller-Lifecycle-Autolayout/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="View-Controller-Lifecycle"><a href="#View-Controller-Lifecycle" class="headerlink" title="View Controller Lifecycle"></a>View Controller Lifecycle</h2><ul>
+<li>Instantiated (from storyboard usually) </li>
+<li>awakeFromNib</li>
+<li>segue preparation happens </li>
+<li>outlets get set </li>
+<li>viewDidLoad</li>
+</ul>
+<p>These pairs will be called each time your Controller’s view goes on/off screen … </p>
+<ul>
+<li>viewWillAppear and viewDidAppear</li>
+<li>viewWillDisappear and viewDidDisappear</li>
+</ul>
+<p>These “geometry changed” methods might be called at any time after viewDidLoad … </p>
+<ul>
+<li>viewWillLayoutSubviews (… then autolayout happens, then …) viewDidLayoutSubviews</li>
+</ul>
+<p>If memory gets low, you might get …</p>
+<ul>
+<li>didReceiveMemoryWarning</li>
+</ul>
+<h2 id="Autolayout"><a href="#Autolayout" class="headerlink" title="Autolayout"></a>Autolayout</h2><h3 id="You’ve-seen-a-lot-of-Autolayout-already"><a href="#You’ve-seen-a-lot-of-Autolayout-already" class="headerlink" title="You’ve seen a lot of Autolayout already"></a>You’ve seen a lot of Autolayout already</h3><ul>
+<li>Using the dashed blue lines to try to tell Xcode what you intend</li>
+<li>Ctrl-Dragging between views to create relationships (spacing, etc.)</li>
+<li>The “Pin” and “Arrange” popovers in the lower right of the storyboard</li>
+<li>Reset to Suggested Constraints (if the blue lines were enough to unambiguously set constraints) </li>
+<li>Document Outline (see all constraints, resolve misplacements and even conflicts)</li>
+<li>Size Inspector (look at (and edit!) the details of the constraints on the selected view)</li>
+<li>Clicking on a constraint to select it then bring up Attributes Inspector (to edit its details)</li>
+</ul>
+<h3 id="￼Mastering-Autolayout-requires-experience"><a href="#￼Mastering-Autolayout-requires-experience" class="headerlink" title="￼Mastering Autolayout requires experience"></a>￼Mastering Autolayout requires experience</h3><p>You just have to do it to learn it</p>
+<h3 id="Autolayout-can-be-done-from-code-too"><a href="#Autolayout-can-be-done-from-code-too" class="headerlink" title="Autolayout can be done from code too"></a>Autolayout can be done from code too</h3><p>Though you’re probably better off doing it in the storyboard wherever possible The demo today will show a simple case of doing Autolayout from code</p>
+<h3 id="Demo"><a href="#Demo" class="headerlink" title="Demo:"></a>Demo:</h3><ul>
+<li>Notice auto layout issues and resove them.</li>
+<li>Preview Storyboard in assistant editor</li>
+<li>Remove magic nubmers in constraints of size inspector: such as use standard value or 0.</li>
+</ul>
+<h3 id="More"><a href="#More" class="headerlink" title="More:"></a>More:</h3><p> <a href="http://stackoverflow.com/questions/29705747/what-does-use-standard-value-and-constrain-to-margins-mean-in-auto-layout" target="_blank" rel="noopener">What does “Use standard value and Constrain to Margins” mean in Auto Layout?</a></p>
+<p> <a href="https://developer.apple.com/library/ios/documentation/UserExperience/Conceptual/AutolayoutPG/AutoLayoutConcepts/AutoLayoutConcepts.html#//apple_ref/doc/uid/TP40010853-CH14-SW1" target="_blank" rel="noopener">Auto Layout Concepts</a></p>
+<blockquote>
+<p>The fundamental building block in Auto Layout is the constraint. Constraints express rules for the layout of elements in your interface; </p>
+</blockquote>
+<blockquote>
+<p>Constraint Basics</p>
+</blockquote>
+<blockquote>
+<p>You can think of a constraint as a mathematical representation of a human-expressable statement. If you’re defining the position of a button, for example, you might want to say “the left edge should be 20 points from the left edge of its containing view.” More formally, this translates to button.left = (container.left + 20), which in turn is an expression of the form y = m*x + b, where:</p>
+</blockquote>
+<blockquote>
+<p>y and x are attributes of views.</p>
+</blockquote>
+<blockquote>
+<p>m and b are floating point values.</p>
+</blockquote>
+<blockquote>
+<p>An attribute is one of left, right, top, bottom, leading, trailing, width, height, centerX, centerY, and baseline.</p>
+</blockquote>
+<p><a href="http://www.raywenderlich.com/83129/beginning-auto-layout-tutorial-swift-part-1" target="_blank" rel="noopener">Auto Layout Tutorial Part 1: Getting Started</a></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://gewill.org/2015/08/13/fastlane/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -3179,155 +3365,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://gewill.org/2015/07/28/GeekBand-iOS-APP-Development-2/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Ge Will">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Will's Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2015/07/28/GeekBand-iOS-APP-Development-2/" itemprop="url">极客班 iOS 应用开发实战（二）</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2015-07-28T22:29:38+08:00">
-                2015-07-28
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2015/07/28/GeekBand-iOS-APP-Development-2/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2015/07/28/GeekBand-iOS-APP-Development-2/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="7- 经典 -UI- 应用框架"><a href="#7- 经典 -UI- 应用框架" class="headerlink" title="7. 经典 UI 应用框架"></a>7. 经典 UI 应用框架</h2><p>UITabBarController + UINavigationController 基本上就可以完成一个 APP。</p>
-<p>删除多余注释，不是强迫症而是要保证代码简洁干净。</p>
-<p>有了 BLDemo03 就有了一个基础 UI 框架 ，就可以快速开发一个 APP，很给力。</p>
-<h2 id="9- 应用界面的切换"><a href="#9- 应用界面的切换" class="headerlink" title="9. 应用界面的切换"></a>9. 应用界面的切换 </h2><p> 添加按钮，push/modal 到自定义子视图</p>
-<h2 id="10-UI- 界面编程基础"><a href="#10-UI- 界面编程基础" class="headerlink" title="10. UI 界面编程基础"></a>10. UI 界面编程基础</h2><figure class="highlight objc"><table><tr><td class="code"><pre><span class="line"><span class="comment">// add an UIImageView and an image in it</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">UIImageView</span> *imageView = [[<span class="built_in">UIImageView</span> alloc] initWithFrame:<span class="built_in">CGRectMake</span>(<span class="number">10</span>, <span class="number">212</span>, <span class="number">200</span>, <span class="number">200</span>)];</span><br><span class="line"></span><br><span class="line"><span class="built_in">UIImage</span> *image = [<span class="built_in">UIImage</span> imageNamed:<span class="string">@"bg5.png"</span>];</span><br><span class="line"></span><br><span class="line">[imageView initWithImage:image];</span><br><span class="line"></span><br><span class="line">[<span class="keyword">self</span>.view addSubview:imageView];</span><br></pre></td></tr></table></figure>
-<p>感觉代码添加 UI 很简单，设置大小属性内容，添加到 view。</p>
-<p>完成相应地代理，可以实现视图“控制” model。</p>
-<h2 id="13-UIView- 和常用的组件"><a href="#13-UIView- 和常用的组件" class="headerlink" title="13.UIView 和常用的组件"></a>13.UIView 和常用的组件 </h2><p> 类似画画上色过程，自底向上以此上色。</p>
-<p>Views 自上到下的层次关系：</p>
-<ul>
-<li>UIImage</li>
-<li>UIImageView</li>
-<li>UIView </li>
-<li>UIScrollView 和 UIPagecontrol </li>
-<li>self.view</li>
-</ul>
-<figure class="highlight objc"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment">//</span></span><br><span class="line"><span class="comment">//  BLThreeViewController.h</span></span><br><span class="line"><span class="comment">//  BLDemo03</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="meta">#import <span class="meta-string">&lt;UIKit/UIKit.h&gt;</span></span></span><br><span class="line"><span class="meta">#import <span class="meta-string">"BLBaseViewController.h"</span></span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">BLThreeViewController</span> : <span class="title">BLBaseViewController</span> &lt;<span class="title">UIScrollViewDelegate</span>&gt;</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="built_in">UIScrollView</span>  *_scrollView;</span><br><span class="line">    <span class="built_in">UIPageControl</span> *_pageControl;</span><br><span class="line">    <span class="built_in">UIView</span>        *_contentView;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">@end</span></span><br></pre></td></tr></table></figure>
-<blockquote>
-<p>BLDemo01 L13 课开始集成了 Reveal，很直观看懂层次关系</p>
-</blockquote>
-<h2 id="源码保存在我的 -GitHub-GeekBand-iOS-Demo"><a href="# 源码保存在我的 -GitHub-GeekBand-iOS-Demo" class="headerlink" title="源码保存在我的 GitHub: GeekBand-iOS-Demo"></a>源码保存在我的 GitHub: <a href="https://github.com/gewill/GeekBand-iOS-Demo/tree/master/iOS%20APP%20Development" target="_blank" rel="noopener">GeekBand-iOS-Demo</a></h2>
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -3378,7 +3415,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">174</span>
+                  <span class="site-state-item-count">175</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
