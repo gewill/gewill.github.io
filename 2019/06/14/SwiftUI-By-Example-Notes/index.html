@@ -1,0 +1,1014 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="en">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+  <meta name="google-site-verification" content="6p6MCt9mM7zNfEZF2HzE72sTOXJ8MC5frP4VNvYw1JU">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="Will's Blog" type="application/atom+xml">
+
+
+
+
+
+
+<meta name="description" content="原文为 @twostraws 的 SwiftUI By Example，就是简单记录一些主要内容。 IntroductionA brief explanation of the basics of SwiftUI What is SwiftUI? 声明式对比命令式，能够更好地处理不同状态的 UI 跨平台：支持 iOS, macOS, tvOS, watchOS  SwiftUI vs Interf">
+<meta property="og:type" content="article">
+<meta property="og:title" content="SwiftUI By Example 笔记">
+<meta property="og:url" content="http://gewill.org/2019/06/14/SwiftUI-By-Example-Notes/index.html">
+<meta property="og:site_name" content="Will&#39;s Blog">
+<meta property="og:description" content="原文为 @twostraws 的 SwiftUI By Example，就是简单记录一些主要内容。 IntroductionA brief explanation of the basics of SwiftUI What is SwiftUI? 声明式对比命令式，能够更好地处理不同状态的 UI 跨平台：支持 iOS, macOS, tvOS, watchOS  SwiftUI vs Interf">
+<meta property="og:locale" content="en">
+<meta property="og:image" content="https://www.hackingwithswift.com/img/quick-start/swiftui/profiling-1.jpg">
+<meta property="og:image" content="https://www.hackingwithswift.com/img/quick-start/swiftui/profiling-2.jpg">
+<meta property="og:image" content="https://www.hackingwithswift.com/img/quick-start/swiftui/profiling-3.jpg">
+<meta property="og:image" content="https://www.hackingwithswift.com/img/quick-start/swiftui/profiling-4.jpg">
+<meta property="og:image" content="https://www.hackingwithswift.com/img/quick-start/swiftui/profiling-5.jpg">
+<meta property="og:updated_time" content="2021-04-18T12:34:17.609Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="SwiftUI By Example 笔记">
+<meta name="twitter:description" content="原文为 @twostraws 的 SwiftUI By Example，就是简单记录一些主要内容。 IntroductionA brief explanation of the basics of SwiftUI What is SwiftUI? 声明式对比命令式，能够更好地处理不同状态的 UI 跨平台：支持 iOS, macOS, tvOS, watchOS  SwiftUI vs Interf">
+<meta name="twitter:image" content="https://www.hackingwithswift.com/img/quick-start/swiftui/profiling-1.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://gewill.org/2019/06/14/SwiftUI-By-Example-Notes/">
+
+
+
+
+
+  <title>SwiftUI By Example 笔记 | Will's Blog</title>
+  
+
+
+
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-62118677-1', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Will's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            About
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            Archives
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="st-search-show-outputs">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
+            
+            Search
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <form class="site-search-form">
+  <input type="text" id="st-search-input" class="st-search-input st-default-search-input">
+</form>
+
+<script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+    (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+    e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+
+  _st('install', 'ntcZFKy566gs4bTbpvHW','2.0.0');
+</script>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://gewill.org/2019/06/14/SwiftUI-By-Example-Notes/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Ge Will">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Will's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">SwiftUI By Example 笔记</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-06-14T22:40:57+08:00">
+                2019-06-14
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2019/06/14/SwiftUI-By-Example-Notes/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2019/06/14/SwiftUI-By-Example-Notes/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>原文为 <a href="https://click.pg.mlsend.com/link/c/YT0xMTc1OTUxMzkxNzkzODc4OTYyJmM9djB0OCZlPTE5MjgmYj0yNTYyNzIyMDImZD1xMWs3eDlr.F1niXtzxMJPvGR0n5OkwVQKdeuMBcqaV_PH83g6F9CQ" target="_blank" rel="noopener">@twostraws</a> 的 <a href="https://click.pg.mlsend.com/link/c/YT0xMTc1OTUxMzkxNzkzODc4OTYyJmM9djB0OCZlPTE5MjgmYj0yNTYyNzIyMDYmZD12NmowZzZl.r3cdqNyvWJ5dIgoCiFs_1q8hUT3njlEH6fEv1rWAXGo" target="_blank" rel="noopener">SwiftUI By Example</a>，就是简单记录一些主要内容。</p>
+<h2 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h2><p><strong>A brief explanation of the basics of SwiftUI</strong></p>
+<h3 id="What-is-SwiftUI"><a href="#What-is-SwiftUI" class="headerlink" title="What is SwiftUI?"></a>What is SwiftUI?</h3><ol>
+<li>声明式对比命令式，能够更好地处理不同状态的 UI</li>
+<li>跨平台：支持 iOS, macOS, tvOS, watchOS</li>
+</ol>
+<h3 id="SwiftUI-vs-Interface-Builder-and-storyboards"><a href="#SwiftUI-vs-Interface-Builder-and-storyboards" class="headerlink" title="SwiftUI vs Interface Builder and storyboards"></a>SwiftUI vs Interface Builder and storyboards</h3><ol>
+<li>IB 难以阅读和修改</li>
+<li>IB 难以看出修改了内容</li>
+<li>IB 和 Swift 交互不够友好，充满了 Objective-C 设计</li>
+<li>SwiftUI 是个仅支持 Swift 的库，这样才可以充分利用 Swift 的特性</li>
+</ol>
+<p>Anyway, we’ll get onto exactly how SwiftUI works soon. For now, the least you need to know is that SwiftUI fixes many problems people had with the old Swift + Interface Builder approach:</p>
+<ul>
+<li>We no longer have to argue about programmatic or storyboard-based design, because SwiftUI gives us both at the same time.</li>
+<li>We no longer have to worry about creating source control problems when committing user interface work, because code is much easier to read and manage than storyboard XML.</li>
+<li>We no longer need to worry so much about stringly typed APIs – there are still some, but significantly fewer.</li>
+<li>We no longer need to worry about calling functions that don’t exist, because our user interface gets checked by the Swift compiler.</li>
+</ul>
+<p>So, I hope you’ll agree there are lots of benefits to be had from moving to SwiftUI!</p>
+<h3 id="Frequently-asked-questions-about-SwiftUI"><a href="#Frequently-asked-questions-about-SwiftUI" class="headerlink" title="Frequently asked questions about SwiftUI"></a>Frequently asked questions about SwiftUI</h3><h4 id="Does-SwiftUI-replace-UIKit"><a href="#Does-SwiftUI-replace-UIKit" class="headerlink" title="Does SwiftUI replace UIKit?"></a>Does SwiftUI replace UIKit?</h4><p>No. Many parts of SwiftUI directly build on top of existing UIKit components, such as UITableView. Of course, many other parts don’t – they are new controls rendered by SwiftUI and not UIKit.</p>
+<p>But the point isn’t to what extent UIKit is involved. Instead, the point is that we don’t <em>care</em>. SwiftUI more or less completely masks UIKit’s behavior, so if you write your app for SwiftUI and Apple replaces UIKit with a singing elephant in two years you don’t have to care – as long as Apple makes the elephant compatible with the same methods and properties that UIKit exposed to SwiftUI, your code doesn’t change.</p>
+<h4 id="Is-SwiftUI-fast"><a href="#Is-SwiftUI-fast" class="headerlink" title="Is SwiftUI fast?"></a>Is SwiftUI fast?</h4><p>SwiftUI is <em>screamingly</em> fast – in all my tests so far it seems to outpace UIKit. Having spoken to the team who made it I’m starting to get an idea why: first, they aggressively flatten their layer hierarchy so the system has to do less drawing, but second many operations bypass Core Animation entirely and go straight to Metal for extra speed.</p>
+<p>So, yes: SwiftUI is incredibly fast, and all without us having to do any extra work.</p>
+<h3 id="How-to-follow-this-quick-start-guide"><a href="#How-to-follow-this-quick-start-guide" class="headerlink" title="How to follow this quick start guide"></a>How to follow this quick start guide</h3><p>最好顺序阅读该教程</p>
+<h3 id="Migrating-from-UIKit-to-SwiftUI"><a href="#Migrating-from-UIKit-to-SwiftUI" class="headerlink" title="Migrating from UIKit to SwiftUI"></a>Migrating from UIKit to SwiftUI</h3><p>如果你用过 UIKit，不难发现 SwiftUI 就是把 UI 前缀去掉既是对应的组件。</p>
+<p>Here’s a list to get you started, with UIKit class names followed by SwiftUI names:</p>
+<ul>
+<li><code>UITableView</code>: <code>List</code></li>
+<li><code>UICollectionView</code>: No SwiftUI equivalent</li>
+<li><code>UILabel</code>: <code>Text</code></li>
+<li><code>UITextField</code>: <code>TextField</code></li>
+<li><code>UITextField</code> with <code>isSecureTextEntry</code> set to true: <code>SecureField</code></li>
+<li><code>UITextView</code>: No SwiftUI equivalent</li>
+<li><code>UISwitch</code>: <code>Toggle</code></li>
+<li><code>UISlider</code>: <code>Slider</code></li>
+<li><code>UIButton</code>: <code>Button</code></li>
+<li><code>UINavigationController</code>: <code>NavigationView</code></li>
+<li><code>UIAlertController</code> with style <code>.alert</code>: <code>Alert</code></li>
+<li><code>UIAlertController</code> with style <code>.actionSheet</code>: <code>ActionSheet</code></li>
+<li><code>UIStackView</code> with horizontal axis: <code>HStack</code></li>
+<li><code>UIStackView</code> with vertical axis: <code>VStack</code></li>
+<li><code>UIImageView</code>: <code>Image</code></li>
+<li><code>UISegmentedControl</code>: <code>SegmentedControl</code></li>
+<li><code>UIStepper</code>: <code>Stepper</code></li>
+<li><code>UIDatePicker</code>: <code>DatePicker</code></li>
+<li><code>NSAttributedString</code>: Incompatible with SwiftUI; use <code>Text</code> instead.</li>
+</ul>
+<h2 id="Text-and-images"><a href="#Text-and-images" class="headerlink" title="Text and images"></a>Text and images</h2><p><strong>Getting started with basic controls</strong></p>
+<h3 id="What’s-in-the-basic-template"><a href="#What’s-in-the-basic-template" class="headerlink" title="What’s in the basic template?"></a><a href="https://www.hackingwithswift.com/quick-start/swiftui/whats-in-the-basic-template" target="_blank" rel="noopener">What’s in the basic template?</a></h3><p>SceneDelegate.swift is responsible for managing the way your app is shown.</p>
+<figure class="highlight swift"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> window = <span class="type">UIWindow</span>(frame: <span class="type">UIScreen</span>.main.bounds)</span><br><span class="line">window.rootViewController = <span class="type">UIHostingController</span>(rootView: <span class="type">ContentView</span>())</span><br><span class="line"><span class="keyword">self</span>.window = window</span><br><span class="line">window.makeKeyAndVisible()</span><br></pre></td></tr></table></figure>
+<p>Open ContentView.swift and let’s look at some actual SwiftUI code.</p>
+<figure class="highlight swift"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> SwiftUI</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">ContentView</span> : <span class="title">View</span> </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> body: some <span class="type">View</span> &#123;</span><br><span class="line">        <span class="type">Text</span>(<span class="string">"Hello World"</span>)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">#<span class="keyword">if</span> <span class="type">DEBUG</span></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">ContentView_Previews</span> : <span class="title">PreviewProvider</span> </span>&#123;</span><br><span class="line">    <span class="keyword">static</span> <span class="keyword">var</span> previews: some <span class="type">View</span> &#123;</span><br><span class="line">        <span class="type">ContentView</span>()</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">#endif</span><br></pre></td></tr></table></figure>
+<p>First, notice how <code>ContentView</code> is a struct.</p>
+<p>Second, <code>ContentView</code> conforms to the <code>View</code> protocol.</p>
+<p>第三，<code>body</code>的返回类型是 <code>some view</code>。 <code>some</code> 关键字是 Swift 5.1 中的新关键字，是名为 <a href="https://www.youtube.com/watch?v=DvHkeUxiwYY" target="_blank" rel="noopener">opaque return types</a> 的功能的一部分，在这种情况下，就是字面意思：”这将返回某种<code>View</code>，但 SwiftUI 不需要知道（或关心）什么。”</p>
+<p>Finally, below <code>ContentView</code> is a similar-but-different struct called <code>ContentView_Previews</code>.</p>
+<h3 id="How-to-create-static-labels-with-a-Text-view"><a href="#How-to-create-static-labels-with-a-Text-view" class="headerlink" title="How to create static labels with a Text view"></a><a href="https://www.hackingwithswift.com/quick-start/swiftui/how-to-create-static-labels-with-a-text-view" target="_blank" rel="noopener">How to create static labels with a Text view</a></h3><figure class="highlight swift"><table><tr><td class="code"><pre><span class="line"><span class="type">Text</span>(<span class="string">"Hello World"</span>)</span><br><span class="line">    .lineLimit(<span class="number">3</span>)</span><br></pre></td></tr></table></figure>
+<figure class="highlight swift"><table><tr><td class="code"><pre><span class="line"><span class="type">Text</span>(<span class="string">"This is an extremely long string that will never fit even the widest of Phones"</span>)</span><br><span class="line">    .truncationMode(.middle)</span><br></pre></td></tr></table></figure>
+<h3 id="How-to-style-text-views-with-fonts-colors-line-spacing-and-more"><a href="#How-to-style-text-views-with-fonts-colors-line-spacing-and-more" class="headerlink" title="How to style text views with fonts, colors, line spacing, and more"></a><a href="https://www.hackingwithswift.com/quick-start/swiftui/how-to-style-text-views-with-fonts-colors-line-spacing-and-more" target="_blank" rel="noopener">How to style text views with fonts, colors, line spacing, and more</a></h3><figure class="highlight swift"><table><tr><td class="code"><pre><span class="line"><span class="type">Text</span>(<span class="string">"This is an extremely long string that will never fit even the widest of Phones"</span>)</span><br><span class="line">        .truncationMode(.middle)</span><br><span class="line">        .font(<span class="type">Font</span>.body)</span><br><span class="line">        .foregroundColor(<span class="type">Color</span>.green)</span><br><span class="line">        .background(<span class="type">Color</span>.gray)</span><br><span class="line">        .lineLimit(<span class="literal">nil</span>)</span><br><span class="line">        .lineSpacing(<span class="number">30</span>)</span><br></pre></td></tr></table></figure>
+<h3 id="How-to-format-text-inside-text-views"><a href="#How-to-format-text-inside-text-views" class="headerlink" title="How to format text inside text views"></a><a href="https://www.hackingwithswift.com/quick-start/swiftui/how-to-format-text-inside-text-views" target="_blank" rel="noopener">How to format text inside text views</a></h3><figure class="highlight swift"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">ContentView</span>: <span class="title">View</span> </span>&#123;</span><br><span class="line">    <span class="keyword">static</span> <span class="keyword">let</span> taskDateFormat: <span class="type">DateFormatter</span> = &#123;</span><br><span class="line">        <span class="keyword">let</span> formatter = <span class="type">DateFormatter</span>()</span><br><span class="line">        formatter.dateStyle = .long</span><br><span class="line">        <span class="keyword">return</span> formatter</span><br><span class="line">    &#125;()</span><br><span class="line"></span><br><span class="line">    <span class="keyword">var</span> dueDate = <span class="type">Date</span>()</span><br><span class="line"></span><br><span class="line">    <span class="keyword">var</span> body: some <span class="type">View</span> &#123;</span><br><span class="line">        <span class="type">Text</span>(<span class="string">"Task due date: \(dueDate, formatter: Self.taskDateFormat)"</span>)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="How-to-draw-images-using-Image-views"><a href="#How-to-draw-images-using-Image-views" class="headerlink" title="How to draw images using Image views"></a><a href="https://www.hackingwithswift.com/quick-start/swiftui/how-to-draw-images-using-image-views" target="_blank" rel="noopener">How to draw images using Image views</a></h3><figure class="highlight swift"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> body: some <span class="type">View</span> &#123;</span><br><span class="line">    <span class="type">Image</span>(<span class="string">"example-image"</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight swift"><table><tr><td class="code"><pre><span class="line"><span class="type">Image</span>(systemName: <span class="string">"cloud.heavyrain.fill"</span>)</span><br><span class="line">    .foregroundColor(.red)</span><br><span class="line">		.font(.largeTitle)</span><br></pre></td></tr></table></figure>
+<h3 id="How-to-adjust-the-way-an-image-is-fitted-to-its-space"><a href="#How-to-adjust-the-way-an-image-is-fitted-to-its-space" class="headerlink" title="How to adjust the way an image is fitted to its space"></a><a href="https://www.hackingwithswift.com/quick-start/swiftui/how-to-adjust-the-way-an-image-is-fitted-to-its-space" target="_blank" rel="noopener">How to adjust the way an image is fitted to its space</a></h3><figure class="highlight swift"><table><tr><td class="code"><pre><span class="line"><span class="type">Image</span>(<span class="string">"example-image"</span>)</span><br><span class="line">    .resizable()</span><br><span class="line">    .aspectRatio(contentMode: .fill)</span><br></pre></td></tr></table></figure>
+<h3 id="How-to-render-a-gradient"><a href="#How-to-render-a-gradient" class="headerlink" title="How to render a gradient"></a><a href="https://www.hackingwithswift.com/quick-start/swiftui/how-to-render-a-gradient" target="_blank" rel="noopener">How to render a gradient</a></h3><figure class="highlight swift"><table><tr><td class="code"><pre><span class="line"><span class="type">Text</span>(<span class="string">"Hello World"</span>)</span><br><span class="line">    .padding()</span><br><span class="line">    .foregroundColor(.white)</span><br><span class="line">    .background(<span class="type">LinearGradient</span>(gradient: <span class="type">Gradient</span>(colors: [.white, .black]), startPoint: .top, endPoint: .bottom), cornerRadius: <span class="number">0</span>)</span><br></pre></td></tr></table></figure>
+<p>支持更多颜色的渐变</p>
+<figure class="highlight swift"><table><tr><td class="code"><pre><span class="line"><span class="type">Text</span>(<span class="string">"Hello World"</span>)</span><br><span class="line">    .padding()</span><br><span class="line">    .foregroundColor(.white)</span><br><span class="line">    .background(<span class="type">LinearGradient</span>(gradient: <span class="type">Gradient</span>(colors: [.white, .red, .black]), startPoint: .leading, endPoint: .trailing), cornerRadius: <span class="number">0</span>)</span><br></pre></td></tr></table></figure>
+<h3 id="How-to-display-solid-shapes"><a href="#How-to-display-solid-shapes" class="headerlink" title="How to display solid shapes"></a><a href="https://www.hackingwithswift.com/quick-start/swiftui/how-to-display-solid-shapes" target="_blank" rel="noopener">How to display solid shapes</a></h3><figure class="highlight swift"><table><tr><td class="code"><pre><span class="line"><span class="type">Rectangle</span>()</span><br><span class="line">    .fill(<span class="type">Color</span>.red)</span><br><span class="line">    .frame(width: <span class="number">200</span>, height: <span class="number">200</span>)</span><br></pre></td></tr></table></figure>
+<h3 id="How-to-use-images-and-other-views-as-a-backgrounds"><a href="#How-to-use-images-and-other-views-as-a-backgrounds" class="headerlink" title="How to use images and other views as a backgrounds"></a><a href="https://www.hackingwithswift.com/quick-start/swiftui/how-to-use-images-and-other-views-as-a-backgrounds" target="_blank" rel="noopener">How to use images and other views as a backgrounds</a></h3><figure class="highlight swift"><table><tr><td class="code"><pre><span class="line"><span class="type">Text</span>(<span class="string">"Hacking with Swift"</span>)</span><br><span class="line">    .font(.largeTitle)</span><br><span class="line">    .background(</span><br><span class="line">        <span class="type">Image</span>(<span class="string">"example-image"</span>)</span><br><span class="line">            .resizable()</span><br><span class="line">            .frame(width: <span class="number">100</span>, height: <span class="number">100</span>))</span><br></pre></td></tr></table></figure>
+<h2 id="View-layout"><a href="#View-layout" class="headerlink" title="View layout"></a>View layout</h2><p><strong>Position views in a grid structure and more</strong></p>
+<h3 id="How-to-create-stacks-using-VStack-and-HStack"><a href="#How-to-create-stacks-using-VStack-and-HStack" class="headerlink" title="How to create stacks using VStack and HStack"></a><a href="https://www.hackingwithswift.com/quick-start/swiftui/how-to-create-stacks-using-vstack-and-hstack" target="_blank" rel="noopener">How to create stacks using VStack and HStack</a></h3><figure class="highlight swift"><table><tr><td class="code"><pre><span class="line"><span class="type">VStack</span> &#123;</span><br><span class="line">    <span class="type">Text</span>(<span class="string">"SwiftUI"</span>)</span><br><span class="line">    <span class="type">Text</span>(<span class="string">"rocks"</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="How-to-customize-stack-layouts-with-alignment-and-spacing"><a href="#How-to-customize-stack-layouts-with-alignment-and-spacing" class="headerlink" title="How to customize stack layouts with alignment and spacing"></a><a href="https://www.hackingwithswift.com/quick-start/swiftui/how-to-customize-stack-layouts-with-alignment-and-spacing" target="_blank" rel="noopener">How to customize stack layouts with alignment and spacing</a></h3><figure class="highlight swift"><table><tr><td class="code"><pre><span class="line"><span class="type">VStack</span>(alignment: .leading, spacing: <span class="number">20</span>) &#123;</span><br><span class="line">    <span class="type">Text</span>(<span class="string">"SwiftUI"</span>)</span><br><span class="line">    <span class="type">Text</span>(<span class="string">"rocks"</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="How-to-control-spacing-around-individual-views-using-padding"><a href="#How-to-control-spacing-around-individual-views-using-padding" class="headerlink" title="How to control spacing around individual views using padding"></a><a href="https://www.hackingwithswift.com/quick-start/swiftui/how-to-control-spacing-around-individual-views-using-padding" target="_blank" rel="noopener">How to control spacing around individual views using padding</a></h3><figure class="highlight swift"><table><tr><td class="code"><pre><span class="line"><span class="type">Text</span>(<span class="string">"SwiftUI"</span>)</span><br><span class="line">    .padding(.bottom, <span class="number">100</span>)</span><br></pre></td></tr></table></figure>
+<h3 id="How-to-layer-views-on-top-of-each-other-using-ZStack"><a href="#How-to-layer-views-on-top-of-each-other-using-ZStack" class="headerlink" title="How to layer views on top of each other using ZStack"></a><a href="https://www.hackingwithswift.com/quick-start/swiftui/how-to-layer-views-on-top-of-each-other-using-zstack" target="_blank" rel="noopener">How to layer views on top of each other using ZStack</a></h3><figure class="highlight swift"><table><tr><td class="code"><pre><span class="line"><span class="type">ZStack</span> &#123;</span><br><span class="line">           <span class="type">Rectangle</span>()</span><br><span class="line">               .fill(<span class="type">Color</span>.red)</span><br><span class="line">           <span class="type">Text</span>(<span class="string">"Hacking with Swift"</span>)</span><br><span class="line">       &#125;</span><br></pre></td></tr></table></figure>
+<h3 id="How-to-return-different-view-types"><a href="#How-to-return-different-view-types" class="headerlink" title="How to return different view types"></a><a href="https://www.hackingwithswift.com/quick-start/swiftui/how-to-return-different-view-types" target="_blank" rel="noopener">How to return different view types</a></h3><p>第一种方案</p>
+<figure class="highlight swift"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> body: some <span class="type">View</span> &#123;</span><br><span class="line">    <span class="type">Group</span> &#123;</span><br><span class="line">        <span class="keyword">if</span> <span class="type">Bool</span>.random() &#123;</span><br><span class="line">            <span class="type">Image</span>(<span class="string">"example-image"</span>)</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="type">Text</span>(<span class="string">"Better luck next time"</span>)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>第二种方案</p>
+<p>If you haven’t heard of this concept, it effectively forces Swift to forget about what specific type is inside the <code>AnyView</code>, allowing them to look like they are the same thing. This has a performance cost, though, so don’t use it often.</p>
+<figure class="highlight swift"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> body: <span class="type">AnyView</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> <span class="type">Bool</span>.random() &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="type">AnyView</span>(<span class="type">Image</span>(<span class="string">"example-image"</span>))</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="type">AnyView</span>(<span class="type">Text</span>(<span class="string">"Better luck next time"</span>))</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="How-to-create-views-in-a-loop-using-ForEach"><a href="#How-to-create-views-in-a-loop-using-ForEach" class="headerlink" title="How to create views in a loop using ForEach"></a><a href="https://www.hackingwithswift.com/quick-start/swiftui/how-to-create-views-in-a-loop-using-foreach" target="_blank" rel="noopener">How to create views in a loop using ForEach</a></h3><figure class="highlight swift"><table><tr><td class="code"><pre><span class="line"><span class="type">VStack</span>(alignment: .leading) &#123;</span><br><span class="line">    <span class="type">ForEach</span>((<span class="number">1</span>...<span class="number">10</span>).reversed()) &#123;</span><br><span class="line">        <span class="type">Text</span>(<span class="string">"\($0)…"</span>)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="type">Text</span>(<span class="string">"Ready or not, here I come!"</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight swift"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">ContentView</span> : <span class="title">View</span> </span>&#123;</span><br><span class="line">    <span class="keyword">let</span> colors: [<span class="type">Color</span>] = [.red, .green, .blue]</span><br><span class="line"></span><br><span class="line">    <span class="keyword">var</span> body: some <span class="type">View</span> &#123;</span><br><span class="line">        <span class="type">VStack</span> &#123;</span><br><span class="line">            <span class="type">ForEach</span>(colors.identified(by: \.<span class="keyword">self</span>)) &#123; color <span class="keyword">in</span></span><br><span class="line">                <span class="type">Text</span>(color.description.capitalized)</span><br><span class="line">                    .padding()</span><br><span class="line">                    .background(color)</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="How-to-create-different-layouts-using-size-classes"><a href="#How-to-create-different-layouts-using-size-classes" class="headerlink" title="How to create different layouts using size classes"></a><a href="https://www.hackingwithswift.com/quick-start/swiftui/how-to-create-different-layouts-using-size-classes" target="_blank" rel="noopener">How to create different layouts using size classes</a></h3><figure class="highlight swift"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">ContentView</span> : <span class="title">View</span> </span>&#123;</span><br><span class="line">    @<span class="type">Environment</span>(\.horizontalSizeClass) <span class="keyword">var</span> horizontalSizeClass: <span class="type">UserInterfaceSizeClass?</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">var</span> body: some <span class="type">View</span> &#123;</span><br><span class="line">        <span class="keyword">if</span> horizontalSizeClass == .compact &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="type">Text</span>(<span class="string">"Compact"</span>)</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="type">Text</span>(<span class="string">"Regular"</span>)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="How-to-place-content-outside-the-safe-area"><a href="#How-to-place-content-outside-the-safe-area" class="headerlink" title="How to place content outside the safe area"></a><a href="https://www.hackingwithswift.com/quick-start/swiftui/how-to-place-content-outside-the-safe-area" target="_blank" rel="noopener">How to place content outside the safe area</a></h3><figure class="highlight swift"><table><tr><td class="code"><pre><span class="line"><span class="type">Text</span>(<span class="string">"Hello World"</span>)</span><br><span class="line">    .frame(minWidth: <span class="number">0</span>, maxWidth: .infinity, minHeight: <span class="number">0</span>, maxHeight: .infinity)</span><br><span class="line">    .background(<span class="type">Color</span>.red)</span><br><span class="line">    .edgesIgnoringSafeArea(.all)</span><br></pre></td></tr></table></figure>
+<h2 id="Reading-input"><a href="#Reading-input" class="headerlink" title="Reading input"></a>Reading input</h2><p><strong>Respond to interaction and control your program state</strong></p>
+<h3 id="Working-with-state"><a href="#Working-with-state" class="headerlink" title="Working with state"></a><a href="https://www.hackingwithswift.com/quick-start/swiftui/working-with-state" target="_blank" rel="noopener">Working with state</a></h3><p>SwiftUI solves this problem by removing state from our control. When we add properties to our views they are effectively inert – they have values, sure, but changing them doesn’t do anything. But if we added the special <code>@State</code> attribute before them, SwiftUI will automatically watch for changes and update any parts of our views that use that state.</p>
+<h3 id="How-to-create-a-toggle-switch"><a href="#How-to-create-a-toggle-switch" class="headerlink" title="How to create a toggle switch"></a><a href="https://www.hackingwithswift.com/quick-start/swiftui/how-to-create-a-toggle-switch" target="_blank" rel="noopener">How to create a toggle switch</a></h3><p>相反，我们应该定义一个 <code>@State</code> 布尔属性，用于存储切换的当前值。</p>
+<figure class="highlight swift"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">ContentView</span> : <span class="title">View</span> </span>&#123;</span><br><span class="line">    @<span class="type">State</span> <span class="keyword">var</span> showGreeting = <span class="literal">true</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">var</span> body: some <span class="type">View</span> &#123;</span><br><span class="line">        <span class="type">VStack</span> &#123;</span><br><span class="line">            <span class="type">Toggle</span>(isOn: $showGreeting) &#123;</span><br><span class="line">                <span class="type">Text</span>(<span class="string">"Show welcome message"</span>)</span><br><span class="line">            &#125;.padding()</span><br><span class="line"></span><br><span class="line">            <span class="keyword">if</span> showGreeting &#123;</span><br><span class="line">                <span class="type">Text</span>(<span class="string">"Hello World!"</span>)</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="How-to-create-a-tappable-button"><a href="#How-to-create-a-tappable-button" class="headerlink" title="How to create a tappable button"></a><a href="https://www.hackingwithswift.com/quick-start/swiftui/how-to-create-a-tappable-button" target="_blank" rel="noopener">How to create a tappable button</a></h3><figure class="highlight swift"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">ContentView</span> : <span class="title">View</span> </span>&#123;</span><br><span class="line">    @<span class="type">State</span> <span class="keyword">var</span> showDetails = <span class="literal">false</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">var</span> body: some <span class="type">View</span> &#123;</span><br><span class="line">        <span class="type">VStack</span> &#123;</span><br><span class="line">            <span class="type">Button</span>(action: &#123;</span><br><span class="line">                <span class="keyword">self</span>.showDetails.toggle()</span><br><span class="line">            &#125;) &#123;</span><br><span class="line">                <span class="type">Text</span>(<span class="string">"Show details"</span>)</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            <span class="keyword">if</span> showDetails &#123;</span><br><span class="line">                <span class="type">Text</span>(<span class="string">"You should follow me on Twitter: @twostraws"</span>)</span><br><span class="line">                    .font(.largeTitle)</span><br><span class="line">                    .lineLimit(<span class="literal">nil</span>)</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="How-to-read-text-from-a-TextField"><a href="#How-to-read-text-from-a-TextField" class="headerlink" title="How to read text from a TextField"></a><a href="https://www.hackingwithswift.com/quick-start/swiftui/how-to-read-text-from-a-textfield" target="_blank" rel="noopener">How to read text from a TextField</a></h3><figure class="highlight swift"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">ContentView</span> : <span class="title">View</span> </span>&#123;</span><br><span class="line">    @<span class="type">State</span> <span class="keyword">var</span> name: <span class="type">String</span> = <span class="string">"Tim"</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">var</span> body: some <span class="type">View</span> &#123;</span><br><span class="line">        <span class="type">VStack</span> &#123;</span><br><span class="line">            <span class="type">TextField</span>($name)</span><br><span class="line">            <span class="type">Text</span>(<span class="string">"Hello, \(name)!"</span>)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="How-to-add-a-border-to-a-TextField"><a href="#How-to-add-a-border-to-a-TextField" class="headerlink" title="How to add a border to a TextField"></a><a href="https://www.hackingwithswift.com/quick-start/swiftui/how-to-add-a-border-to-a-textfield" target="_blank" rel="noopener">How to add a border to a TextField</a></h3><figure class="highlight swift"><table><tr><td class="code"><pre><span class="line"><span class="type">TextField</span>($yourBindingHere)</span><br><span class="line">    .textFieldStyle(.roundedBorder)</span><br></pre></td></tr></table></figure>
+<h3 id="How-to-create-secure-text-fields-using-SecureField"><a href="#How-to-create-secure-text-fields-using-SecureField" class="headerlink" title="How to create secure text fields using SecureField"></a><a href="https://www.hackingwithswift.com/quick-start/swiftui/how-to-create-secure-text-fields-using-securefield" target="_blank" rel="noopener">How to create secure text fields using SecureField</a></h3><figure class="highlight swift"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">ContentView</span> : <span class="title">View</span> </span>&#123;</span><br><span class="line">    @<span class="type">State</span> <span class="keyword">var</span> password: <span class="type">String</span> = <span class="string">""</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">var</span> body: some <span class="type">View</span> &#123;</span><br><span class="line">        <span class="type">VStack</span> &#123;</span><br><span class="line">            <span class="type">SecureField</span>($password)</span><br><span class="line">            <span class="type">Text</span>(<span class="string">"You entered: \(password)"</span>)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="How-to-create-a-Slider-and-read-values-from-it"><a href="#How-to-create-a-Slider-and-read-values-from-it" class="headerlink" title="How to create a Slider and read values from it"></a><a href="https://www.hackingwithswift.com/quick-start/swiftui/how-to-create-a-slider-and-read-values-from-it" target="_blank" rel="noopener">How to create a Slider and read values from it</a></h3><figure class="highlight swift"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">ContentView</span> : <span class="title">View</span> </span>&#123;</span><br><span class="line">    @<span class="type">State</span> <span class="keyword">var</span> celsius: <span class="type">Double</span> = <span class="number">0</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">var</span> body: some <span class="type">View</span> &#123;</span><br><span class="line">        <span class="type">VStack</span> &#123;</span><br><span class="line">            <span class="type">Slider</span>(value: $celsius, from: -<span class="number">100</span>, through: <span class="number">100</span>, by: <span class="number">0.1</span>)</span><br><span class="line">            <span class="type">Text</span>(<span class="string">"\(celsius) Celsius is \(celsius * 9 / 5 + 32) Fahrenheit"</span>)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="How-to-create-a-date-picker-and-read-values-from-it"><a href="#How-to-create-a-date-picker-and-read-values-from-it" class="headerlink" title="How to create a date picker and read values from it"></a><a href="https://www.hackingwithswift.com/quick-start/swiftui/how-to-create-a-date-picker-and-read-values-from-it" target="_blank" rel="noopener">How to create a date picker and read values from it</a></h3><figure class="highlight swift"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">ContentView</span> : <span class="title">View</span> </span>&#123;</span><br><span class="line">   <span class="keyword">var</span> colors = [<span class="string">"Red"</span>, <span class="string">"Green"</span>, <span class="string">"Blue"</span>, <span class="string">"Tartan"</span>]</span><br><span class="line">   @<span class="type">State</span> <span class="keyword">var</span> selectedColor = <span class="number">0</span></span><br><span class="line"></span><br><span class="line">   <span class="keyword">var</span> body: some <span class="type">View</span> &#123;</span><br><span class="line">      <span class="type">VStack</span> &#123;</span><br><span class="line">         <span class="type">Picker</span>(selection: $selectedColor, label: <span class="type">Text</span>(<span class="string">"Please choose a color"</span>)) &#123;</span><br><span class="line">            <span class="type">ForEach</span>(<span class="number">0</span> ..&lt; colors.<span class="built_in">count</span>) &#123;</span><br><span class="line">               <span class="type">Text</span>(<span class="keyword">self</span>.colors[$<span class="number">0</span>]).tag($<span class="number">0</span>)</span><br><span class="line">            &#125;</span><br><span class="line">         &#125;</span><br><span class="line">         <span class="type">Text</span>(<span class="string">"You selected: \(colors[selectedColor])"</span>)</span><br><span class="line">      &#125;</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="How-to-create-a-segmented-control-and-read-values-from-it"><a href="#How-to-create-a-segmented-control-and-read-values-from-it" class="headerlink" title="How to create a segmented control and read values from it"></a><a href="https://www.hackingwithswift.com/quick-start/swiftui/how-to-create-a-segmented-control-and-read-values-from-it" target="_blank" rel="noopener">How to create a segmented control and read values from it</a></h3><figure class="highlight swift"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">ContentView</span> : <span class="title">View</span> </span>&#123;</span><br><span class="line">    @<span class="type">State</span> <span class="keyword">var</span> favoriteColor = <span class="number">0</span></span><br><span class="line">    <span class="keyword">var</span> colors = [<span class="string">"Red"</span>, <span class="string">"Green"</span>, <span class="string">"Blue"</span>]</span><br><span class="line"></span><br><span class="line">    <span class="keyword">var</span> body: some <span class="type">View</span> &#123;</span><br><span class="line">        <span class="type">VStack</span> &#123;</span><br><span class="line">            <span class="type">SegmentedControl</span>(selection: $favoriteColor) &#123;</span><br><span class="line">                <span class="type">ForEach</span>(<span class="number">0</span>..&lt;colors.<span class="built_in">count</span>) &#123; index <span class="keyword">in</span></span><br><span class="line">                    <span class="type">Text</span>(<span class="keyword">self</span>.colors[index]).tag(index)</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            <span class="type">Text</span>(<span class="string">"Value: \(colors[favoriteColor])"</span>)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="How-to-read-tap-and-double-tap-gestures"><a href="#How-to-read-tap-and-double-tap-gestures" class="headerlink" title="How to read tap and double-tap gestures"></a><a href="https://www.hackingwithswift.com/quick-start/swiftui/how-to-read-tap-and-double-tap-gestures" target="_blank" rel="noopener">How to read tap and double-tap gestures</a></h3><figure class="highlight swift"><table><tr><td class="code"><pre><span class="line"><span class="type">Image</span>(<span class="string">"example-image"</span>)</span><br><span class="line">    .tapAction(<span class="built_in">count</span>: <span class="number">2</span>) &#123;</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">"Double tapped!"</span>)</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<h3 id="How-to-add-a-gesture-recognizer-to-a-view"><a href="#How-to-add-a-gesture-recognizer-to-a-view" class="headerlink" title="How to add a gesture recognizer to a view"></a><a href="https://www.hackingwithswift.com/quick-start/swiftui/how-to-add-a-gesture-recognizer-to-a-view" target="_blank" rel="noopener">How to add a gesture recognizer to a view</a></h3><figure class="highlight swift"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">ContentView</span> : <span class="title">View</span> </span>&#123;</span><br><span class="line">    @<span class="type">State</span> <span class="keyword">var</span> scale: <span class="type">Length</span> = <span class="number">1.0</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">var</span> body: some <span class="type">View</span> &#123;</span><br><span class="line">        <span class="type">Image</span>(<span class="string">"example-image"</span>)</span><br><span class="line">            .scaleEffect(scale)</span><br><span class="line"></span><br><span class="line">            .gesture(</span><br><span class="line">                <span class="type">TapGesture</span>()</span><br><span class="line">                    .onEnded &#123; <span class="number">_</span> <span class="keyword">in</span></span><br><span class="line">                        <span class="keyword">self</span>.scale += <span class="number">0.1</span></span><br><span class="line">                    &#125;</span><br><span class="line">            )</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="Lists"><a href="#Lists" class="headerlink" title="Lists"></a>Lists</h2><p><strong>Create scrolling tables of data</strong></p>
+<h3 id="Working-with-lists"><a href="#Working-with-lists" class="headerlink" title="Working with lists"></a><a href="https://www.hackingwithswift.com/quick-start/swiftui/working-with-lists" target="_blank" rel="noopener">Working with lists</a></h3><p>SwiftUI’s <code>List</code> view is similar to <code>UITableView</code> in that it can show static or dynamic table view cells based on your needs.</p>
+<h3 id="How-to-create-a-list-of-static-items"><a href="#How-to-create-a-list-of-static-items" class="headerlink" title="How to create a list of static items"></a><a href="https://www.hackingwithswift.com/quick-start/swiftui/how-to-create-a-list-of-static-items" target="_blank" rel="noopener">How to create a list of static items</a></h3><figure class="highlight swift"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">RestaurantRow</span>: <span class="title">View</span> </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> name: <span class="type">String</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">var</span> body: some <span class="type">View</span> &#123;</span><br><span class="line">        <span class="type">Text</span>(<span class="string">"Restaurant: \(name)"</span>)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">ContentView</span>: <span class="title">View</span> </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> body: some <span class="type">View</span> &#123;</span><br><span class="line">        <span class="type">List</span> &#123;</span><br><span class="line">            <span class="type">RestaurantRow</span>(name: <span class="string">"Joe's Original"</span>)</span><br><span class="line">            <span class="type">RestaurantRow</span>(name: <span class="string">"The Real Joe's Original"</span>)</span><br><span class="line">            <span class="type">RestaurantRow</span>(name: <span class="string">"Original Joe's"</span>)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="How-to-create-a-list-of-dynamic-items"><a href="#How-to-create-a-list-of-dynamic-items" class="headerlink" title="How to create a list of dynamic items"></a><a href="https://www.hackingwithswift.com/quick-start/swiftui/how-to-create-a-list-of-dynamic-items" target="_blank" rel="noopener">How to create a list of dynamic items</a></h3><p>In order to handle dynamic items, you must first tell SwiftUI how it can identify which item is which. This is done using the <code>Identifiable</code> protocol, which has only one requirement: some sort of <code>id</code> value that SwiftUI can use to see which item is which.</p>
+<p>和 <code>ForEach</code> 一样，可以使用符合<code>Identifiable</code> 协议的 Model</p>
+<figure class="highlight swift"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Restaurant</span>: <span class="title">Identifiable</span> </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> id = <span class="type">UUID</span>()</span><br><span class="line">    <span class="keyword">var</span> name: <span class="type">String</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">RestaurantRow</span>: <span class="title">View</span> </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> restaurant: <span class="type">Restaurant</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">var</span> body: some <span class="type">View</span> &#123;</span><br><span class="line">        <span class="type">Text</span>(<span class="string">"Come and eat at \(restaurant.name)"</span>)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">ContentView</span>: <span class="title">View</span> </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> body: some <span class="type">View</span> &#123;</span><br><span class="line">        <span class="keyword">let</span> first = <span class="type">Restaurant</span>(name: <span class="string">"Joe's Original"</span>)</span><br><span class="line">        <span class="keyword">let</span> second = <span class="type">Restaurant</span>(name: <span class="string">"The Real Joe's Original"</span>)</span><br><span class="line">        <span class="keyword">let</span> third = <span class="type">Restaurant</span>(name: <span class="string">"Original Joe's"</span>)</span><br><span class="line">        <span class="keyword">let</span> restaurants = [first, second, third]</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> <span class="type">List</span>(restaurants) &#123; restaurant <span class="keyword">in</span></span><br><span class="line">            <span class="type">RestaurantRow</span>(restaurant: restaurant)</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// return List(restaurants, rowContent: RestaurantRow.init)</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="How-to-add-sections-to-a-list"><a href="#How-to-add-sections-to-a-list" class="headerlink" title="How to add sections to a list"></a><a href="https://www.hackingwithswift.com/quick-start/swiftui/how-to-add-sections-to-a-list" target="_blank" rel="noopener">How to add sections to a list</a></h3><figure class="highlight swift"><table><tr><td class="code"><pre><span class="line"><span class="type">Section</span>(header: <span class="type">Text</span>(<span class="string">"Other tasks"</span>), footer: <span class="type">Text</span>(<span class="string">"End"</span>)) &#123;</span><br><span class="line">    <span class="type">TaskRow</span>()</span><br><span class="line">    <span class="type">TaskRow</span>()</span><br><span class="line">    <span class="type">TaskRow</span>()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="How-to-make-a-grouped-list"><a href="#How-to-make-a-grouped-list" class="headerlink" title="How to make a grouped list"></a><a href="https://www.hackingwithswift.com/quick-start/swiftui/how-to-make-a-grouped-list" target="_blank" rel="noopener">How to make a grouped list</a></h3><figure class="highlight swift"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">ExampleRow</span>: <span class="title">View</span> </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> body: some <span class="type">View</span> &#123;</span><br><span class="line">        <span class="type">Text</span>(<span class="string">"Example Row"</span>)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">ContentView</span> : <span class="title">View</span> </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> body: some <span class="type">View</span> &#123;</span><br><span class="line">        <span class="type">List</span> &#123;</span><br><span class="line">            <span class="type">Section</span>(header: <span class="type">Text</span>(<span class="string">"Examples"</span>)) &#123;</span><br><span class="line">                <span class="type">ExampleRow</span>()</span><br><span class="line">                <span class="type">ExampleRow</span>()</span><br><span class="line">                <span class="type">ExampleRow</span>()</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;.listStyle(.grouped)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="Working-with-implicit-stacking"><a href="#Working-with-implicit-stacking" class="headerlink" title="Working with implicit stacking"></a><a href="https://www.hackingwithswift.com/quick-start/swiftui/working-with-implicit-stacking" target="_blank" rel="noopener">Working with implicit stacking</a></h3><p>What happens if you create a dynamic list and put more than one thing in each row? SwiftUI’s solution is simple, flexible, and gives us great behavior by default: it creates an implicit <code>HStack</code> to hold your items, so they automatically get laid out horizontally.</p>
+<p>List 会隐式的创建一个<code>HStack</code> 封装所有元素到 Row 中。</p>
+<figure class="highlight swift"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">ExampleRow</span>: <span class="title">View</span> </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> body: some <span class="type">View</span> &#123;</span><br><span class="line">        <span class="type">Text</span>(<span class="string">"Example Row"</span>)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">ContentView</span> : <span class="title">View</span> </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> body: some <span class="type">View</span> &#123;</span><br><span class="line">        <span class="type">List</span> &#123;</span><br><span class="line">            <span class="type">Section</span>(header: <span class="type">Text</span>(<span class="string">"Examples"</span>)) &#123;</span><br><span class="line">                <span class="type">ExampleRow</span>()</span><br><span class="line">                <span class="type">ExampleRow</span>()</span><br><span class="line">                <span class="type">ExampleRow</span>()</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;.listStyle(.grouped)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="Containers"><a href="#Containers" class="headerlink" title="Containers"></a>Containers</h2><p><strong>Place your views inside a navigation controller</strong></p>
+<h3 id="Working-with-containers"><a href="#Working-with-containers" class="headerlink" title="Working with containers"></a><a href="https://www.hackingwithswift.com/quick-start/swiftui/working-with-containers" target="_blank" rel="noopener">Working with containers</a></h3><p>SwiftUI is designed to be composed right out of the box, which means you can place one view inside another as much as you need.</p>
+<p>常见的容器有：  <code>NavigationView</code>, <code>TabbedView</code>, <code>Group</code></p>
+<h3 id="How-to-embed-a-view-in-a-navigation-view"><a href="#How-to-embed-a-view-in-a-navigation-view" class="headerlink" title="How to embed a view in a navigation view"></a><a href="https://www.hackingwithswift.com/quick-start/swiftui/how-to-embed-a-view-in-a-navigation-view" target="_blank" rel="noopener">How to embed a view in a navigation view</a></h3><figure class="highlight swift"><table><tr><td class="code"><pre><span class="line"><span class="type">NavigationView</span> &#123;</span><br><span class="line">    <span class="type">Text</span>(<span class="string">"SwiftUI"</span>)</span><br><span class="line">        .navigationBarTitle(<span class="type">Text</span>(<span class="string">"Welcome"</span>))</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="How-to-add-bar-items-to-a-navigation-view"><a href="#How-to-add-bar-items-to-a-navigation-view" class="headerlink" title="How to add bar items to a navigation view"></a><a href="https://www.hackingwithswift.com/quick-start/swiftui/how-to-add-bar-items-to-a-navigation-view" target="_blank" rel="noopener">How to add bar items to a navigation view</a></h3><figure class="highlight swift"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> body: some <span class="type">View</span> &#123;</span><br><span class="line">    <span class="type">NavigationView</span> &#123;</span><br><span class="line">        <span class="type">Text</span>(<span class="string">"SwiftUI"</span>)</span><br><span class="line">            .navigationBarTitle(<span class="type">Text</span>(<span class="string">"Welcome"</span>))</span><br><span class="line">            .navigationBarItems(trailing:</span><br><span class="line">                <span class="type">Button</span>(action: &#123;</span><br><span class="line">                    <span class="built_in">print</span>(<span class="string">"Help tapped!"</span>)</span><br><span class="line">                &#125;) &#123;</span><br><span class="line">                    <span class="type">Text</span>(<span class="string">"Help"</span>)</span><br><span class="line">                &#125;)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="How-to-group-views-together"><a href="#How-to-group-views-together" class="headerlink" title="How to group views together"></a><a href="https://www.hackingwithswift.com/quick-start/swiftui/how-to-group-views-together" target="_blank" rel="noopener">How to group views together</a></h3><p><code>Stack</code> 不能超过 10 个元素</p>
+<figure class="highlight swift"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> body: some <span class="type">View</span> &#123;</span><br><span class="line">    <span class="type">VStack</span> &#123;</span><br><span class="line">        <span class="type">Group</span> &#123;</span><br><span class="line">            <span class="type">Text</span>(<span class="string">"Line"</span>)</span><br><span class="line">            <span class="type">Text</span>(<span class="string">"Line"</span>)</span><br><span class="line">            <span class="type">Text</span>(<span class="string">"Line"</span>)</span><br><span class="line">            <span class="type">Text</span>(<span class="string">"Line"</span>)</span><br><span class="line">            <span class="type">Text</span>(<span class="string">"Line"</span>)</span><br><span class="line">            <span class="type">Text</span>(<span class="string">"Line"</span>)</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="type">Group</span> &#123;</span><br><span class="line">            <span class="type">Text</span>(<span class="string">"Line"</span>)</span><br><span class="line">            <span class="type">Text</span>(<span class="string">"Line"</span>)</span><br><span class="line">            <span class="type">Text</span>(<span class="string">"Line"</span>)</span><br><span class="line">            <span class="type">Text</span>(<span class="string">"Line"</span>)</span><br><span class="line">            <span class="type">Text</span>(<span class="string">"Line"</span>)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="Alerts-and-action-sheets"><a href="#Alerts-and-action-sheets" class="headerlink" title="Alerts and action sheets"></a>Alerts and action sheets</h2><p><strong>Show modal notifications when something happens</strong></p>
+<h3 id="Working-with-presentations"><a href="#Working-with-presentations" class="headerlink" title="Working with presentations"></a><a href="https://www.hackingwithswift.com/quick-start/swiftui/working-with-presentations" target="_blank" rel="noopener">Working with presentations</a></h3><p>SwiftUI’s declarative approach to programming means that we don’t create and present alert and action sheets in the same way as we did in UIKit. Instead, we define the conditions in which they should be shown, tell it what they should look like, then leave it to figure the rest out for itself.</p>
+<h3 id="How-to-show-an-alert"><a href="#How-to-show-an-alert" class="headerlink" title="How to show an alert"></a><a href="https://www.hackingwithswift.com/quick-start/swiftui/how-to-show-an-alert" target="_blank" rel="noopener">How to show an alert</a></h3><figure class="highlight swift"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">ContentView</span> : <span class="title">View</span> </span>&#123;</span><br><span class="line">    @<span class="type">State</span> <span class="keyword">var</span> showingAlert = <span class="literal">false</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">var</span> body: some <span class="type">View</span> &#123;</span><br><span class="line">        <span class="type">Button</span>(action: &#123;</span><br><span class="line">            <span class="keyword">self</span>.showingAlert = <span class="literal">true</span></span><br><span class="line">        &#125;) &#123;</span><br><span class="line">            <span class="type">Text</span>(<span class="string">"Show Alert"</span>)</span><br><span class="line">        &#125;</span><br><span class="line">        .presentation($showingAlert) &#123;</span><br><span class="line">            <span class="type">Alert</span>(title: <span class="type">Text</span>(<span class="string">"Important message"</span>), message: <span class="type">Text</span>(<span class="string">"Wear sunscreen"</span>), dismissButton: .<span class="keyword">default</span>(<span class="type">Text</span>(<span class="string">"Got it!"</span>)))</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="How-to-add-actions-to-alert-buttons"><a href="#How-to-add-actions-to-alert-buttons" class="headerlink" title="How to add actions to alert buttons"></a><a href="https://www.hackingwithswift.com/quick-start/swiftui/how-to-add-actions-to-alert-buttons" target="_blank" rel="noopener">How to add actions to alert buttons</a></h3><figure class="highlight swift"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">ContentView</span> : <span class="title">View</span> </span>&#123;</span><br><span class="line">    @<span class="type">State</span> <span class="keyword">var</span> showingAlert = <span class="literal">false</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">var</span> body: some <span class="type">View</span> &#123;</span><br><span class="line">        <span class="type">Button</span>(action: &#123;</span><br><span class="line">            <span class="keyword">self</span>.showingAlert = <span class="literal">true</span></span><br><span class="line">        &#125;) &#123;</span><br><span class="line">            <span class="type">Text</span>(<span class="string">"Show Alert"</span>)</span><br><span class="line">        &#125;</span><br><span class="line">            .presentation($showingAlert) &#123;</span><br><span class="line">                <span class="type">Alert</span>(title: <span class="type">Text</span>(<span class="string">"Are you sure you want to delete this?"</span>), message: <span class="type">Text</span>(<span class="string">"There is no undo"</span>), primaryButton: .destructive(<span class="type">Text</span>(<span class="string">"Delete"</span>)) &#123;</span><br><span class="line">                        <span class="built_in">print</span>(<span class="string">"Deleting..."</span>)</span><br><span class="line">                &#125;, secondaryButton: .cancel())</span><br><span class="line">            &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="How-to-show-an-action-sheet"><a href="#How-to-show-an-action-sheet" class="headerlink" title="How to show an action sheet"></a><a href="https://www.hackingwithswift.com/quick-start/swiftui/how-to-show-an-action-sheet" target="_blank" rel="noopener">How to show an action sheet</a></h3><figure class="highlight swift"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">ContentView</span> : <span class="title">View</span> </span>&#123;</span><br><span class="line">    @<span class="type">State</span> <span class="keyword">var</span> showingSheet = <span class="literal">false</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">var</span> sheet: <span class="type">ActionSheet</span> &#123;</span><br><span class="line">        <span class="type">ActionSheet</span>(title: <span class="type">Text</span>(<span class="string">"Action"</span>), message: <span class="type">Text</span>(<span class="string">"Quote mark"</span>), buttons: [.<span class="keyword">default</span>(<span class="type">Text</span>(<span class="string">"Woo"</span>), onTrigger: &#123;</span><br><span class="line">            <span class="keyword">self</span>.showingSheet = <span class="literal">false</span></span><br><span class="line">        &#125;)])</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">var</span> body: some <span class="type">View</span> &#123;</span><br><span class="line">        <span class="type">Button</span>(action: &#123;</span><br><span class="line">            <span class="keyword">self</span>.showingSheet = <span class="literal">true</span></span><br><span class="line">        &#125;) &#123;</span><br><span class="line">            <span class="type">Text</span>(<span class="string">"Woo"</span>)</span><br><span class="line">        &#125;</span><br><span class="line">            .presentation(showingSheet ? sheet : <span class="literal">nil</span>)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="Presenting-views"><a href="#Presenting-views" class="headerlink" title="Presenting views"></a>Presenting views</h2><p><strong>Move your user from one view to another</strong></p>
+<h3 id="How-to-push-a-new-view-using-NavigationButton"><a href="#How-to-push-a-new-view-using-NavigationButton" class="headerlink" title="How to push a new view using NavigationButton"></a><a href="https://www.hackingwithswift.com/quick-start/swiftui/how-to-push-a-new-view-using-navigationbutton" target="_blank" rel="noopener">How to push a new view using NavigationButton</a></h3><figure class="highlight swift"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">DetailView</span>: <span class="title">View</span> </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> body: some <span class="type">View</span> &#123;</span><br><span class="line">        <span class="type">Text</span>(<span class="string">"Detail"</span>)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">ContentView</span> : <span class="title">View</span> </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> body: some <span class="type">View</span> &#123;</span><br><span class="line">        <span class="type">NavigationView</span> &#123;</span><br><span class="line">            <span class="type">NavigationButton</span>(destination: <span class="type">DetailView</span>()) &#123;</span><br><span class="line">                <span class="type">Text</span>(<span class="string">"Click"</span>)</span><br><span class="line">            &#125;.navigationBarTitle(<span class="type">Text</span>(<span class="string">"Navigation"</span>))</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="How-to-push-a-new-view-when-a-list-row-is-tapped"><a href="#How-to-push-a-new-view-when-a-list-row-is-tapped" class="headerlink" title="How to push a new view when a list row is tapped"></a><a href="https://www.hackingwithswift.com/quick-start/swiftui/how-to-push-a-new-view-when-a-list-row-is-tapped" target="_blank" rel="noopener">How to push a new view when a list row is tapped</a></h3><p>SwiftUI doesn’t have a direct equivalent of the <code>didSelectRowAt</code> method of <code>UITableView</code>, but it doesn’t need one because we can combine <code>NavigationButton</code>with a list row and get the behavior for free.</p>
+<figure class="highlight swift"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Restaurant</span>: <span class="title">Identifiable</span> </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> id = <span class="type">UUID</span>()</span><br><span class="line">    <span class="keyword">var</span> name: <span class="type">String</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">RestaurantRow</span>: <span class="title">View</span> </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> restaurant: <span class="type">Restaurant</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">var</span> body: some <span class="type">View</span> &#123;</span><br><span class="line">        <span class="type">Text</span>(restaurant.name)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">RestaurantView</span>: <span class="title">View</span> </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> restaurant: <span class="type">Restaurant</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">var</span> body: some <span class="type">View</span> &#123;</span><br><span class="line">        <span class="type">Text</span>(<span class="string">"Come and eat at \(restaurant.name)"</span>)</span><br><span class="line">            .font(.largeTitle)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">ContentView</span>: <span class="title">View</span> </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> body: some <span class="type">View</span> &#123;</span><br><span class="line">        <span class="keyword">let</span> first = <span class="type">Restaurant</span>(name: <span class="string">"Joe's Original"</span>)</span><br><span class="line">        <span class="keyword">let</span> restaurants = [first]</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> <span class="type">NavigationView</span> &#123;</span><br><span class="line">            <span class="type">List</span>(restaurants) &#123; restaurant <span class="keyword">in</span></span><br><span class="line">                <span class="type">NavigationButton</span>(destination: <span class="type">RestaurantView</span>(restaurant: restaurant)) &#123;</span><br><span class="line">                    <span class="type">RestaurantRow</span>(restaurant: restaurant)</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;.navigationBarTitle(<span class="type">Text</span>(<span class="string">"Select a restaurant"</span>))</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="How-to-present-a-new-view-using-PresentationButton"><a href="#How-to-present-a-new-view-using-PresentationButton" class="headerlink" title="How to present a new view using PresentationButton"></a><a href="https://www.hackingwithswift.com/quick-start/swiftui/how-to-present-a-new-view-using-presentationbutton" target="_blank" rel="noopener">How to present a new view using PresentationButton</a></h3><figure class="highlight swift"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">DetailView</span>: <span class="title">View</span> </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> body: some <span class="type">View</span> &#123;</span><br><span class="line">        <span class="type">Text</span>(<span class="string">"Detail"</span>)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">ContentView</span> : <span class="title">View</span> </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> body: some <span class="type">View</span> &#123;</span><br><span class="line">        <span class="type">PresentationButton</span>(<span class="type">Text</span>(<span class="string">"Click to show"</span>), destination: <span class="type">DetailView</span>())</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="Transforming-views"><a href="#Transforming-views" class="headerlink" title="Transforming views"></a>Transforming views</h2><p><strong>Clip, size, scale, spin, and more</strong></p>
+<h3 id="How-to-give-a-view-a-custom-frame"><a href="#How-to-give-a-view-a-custom-frame" class="headerlink" title="How to give a view a custom frame"></a><a href="https://www.hackingwithswift.com/quick-start/swiftui/how-to-give-a-view-a-custom-frame" target="_blank" rel="noopener">How to give a view a custom frame</a></h3><figure class="highlight swift"><table><tr><td class="code"><pre><span class="line"><span class="type">Button</span>(action: &#123;</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">"Button tapped"</span>)</span><br><span class="line">&#125;) &#123;</span><br><span class="line">    <span class="type">Text</span>(<span class="string">"Welcome"</span>)</span><br><span class="line">        .frame(minWidth: <span class="number">0</span>, maxWidth: <span class="number">200</span>, minHeight: <span class="number">0</span>, maxHeight: <span class="number">200</span>)</span><br><span class="line">        .font(.largeTitle)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="type">Text</span>(<span class="string">"Please log in"</span>)</span><br><span class="line">.frame(minWidth: <span class="number">0</span>, maxWidth: .infinity, minHeight: <span class="number">0</span>, maxHeight: .infinity)</span><br><span class="line">    .font(.largeTitle)</span><br><span class="line">    .foregroundColor(.white)</span><br><span class="line">    .background(<span class="type">Color</span>.red)</span><br></pre></td></tr></table></figure>
+<h3 id="How-to-adjust-the-position-of-a-view"><a href="#How-to-adjust-the-position-of-a-view" class="headerlink" title="How to adjust the position of a view"></a><a href="https://www.hackingwithswift.com/quick-start/swiftui/how-to-adjust-the-position-of-a-view" target="_blank" rel="noopener">How to adjust the position of a view</a></h3><figure class="highlight swift"><table><tr><td class="code"><pre><span class="line"><span class="type">VStack</span> &#123;</span><br><span class="line">    <span class="type">Text</span>(<span class="string">"Home"</span>)</span><br><span class="line">    <span class="type">Text</span>(<span class="string">"Options"</span>)</span><br><span class="line">        .offset(y: <span class="number">15</span>)</span><br><span class="line">        .padding(.bottom, <span class="number">15</span>)</span><br><span class="line">    <span class="type">Text</span>(<span class="string">"Help"</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="How-to-color-the-padding-around-a-view"><a href="#How-to-color-the-padding-around-a-view" class="headerlink" title="How to color the padding around a view"></a><a href="https://www.hackingwithswift.com/quick-start/swiftui/how-to-color-the-padding-around-a-view" target="_blank" rel="noopener">How to color the padding around a view</a></h3><p>Padding 的先后顺序影响结果，因为代码是顺序执行的。</p>
+<figure class="highlight swift"><table><tr><td class="code"><pre><span class="line"><span class="type">Text</span>(<span class="string">"Hacking with Swift"</span>)</span><br><span class="line">    .background(<span class="type">Color</span>.black)</span><br><span class="line">    .foregroundColor(.white)</span><br><span class="line">    .padding()</span><br><span class="line"></span><br><span class="line"><span class="type">Text</span>(<span class="string">"Hacking with Swift"</span>)</span><br><span class="line">    .padding()</span><br><span class="line">    .background(<span class="type">Color</span>.black)</span><br><span class="line">    .foregroundColor(.white)</span><br></pre></td></tr></table></figure>
+<h3 id="How-to-stack-modifiers-to-create-more-advanced-effects"><a href="#How-to-stack-modifiers-to-create-more-advanced-effects" class="headerlink" title="How to stack modifiers to create more advanced effects"></a><a href="https://www.hackingwithswift.com/quick-start/swiftui/how-to-stack-modifiers-to-create-more-advanced-effects" target="_blank" rel="noopener">How to stack modifiers to create more advanced effects</a></h3><figure class="highlight swift"><table><tr><td class="code"><pre><span class="line"><span class="type">Text</span>(<span class="string">"Forecast: Sun"</span>)</span><br><span class="line">    .font(.largeTitle)</span><br><span class="line">    .foregroundColor(.white)</span><br><span class="line">    .padding()</span><br><span class="line">    .background(<span class="type">Color</span>.red)</span><br><span class="line">    .padding()</span><br><span class="line">    .background(<span class="type">Color</span>.orange)</span><br><span class="line">    .padding()</span><br><span class="line">    .background(<span class="type">Color</span>.yellow)</span><br></pre></td></tr></table></figure>
+<h3 id="How-to-draw-a-border-around-a-view"><a href="#How-to-draw-a-border-around-a-view" class="headerlink" title="How to draw a border around a view"></a><a href="https://www.hackingwithswift.com/quick-start/swiftui/how-to-draw-a-border-around-a-view" target="_blank" rel="noopener">How to draw a border around a view</a></h3><figure class="highlight swift"><table><tr><td class="code"><pre><span class="line"><span class="type">Text</span>(<span class="string">"Hacking with Swift"</span>)</span><br><span class="line">    .padding()</span><br><span class="line">    .border(<span class="type">Color</span>.red, width: <span class="number">4</span>, cornerRadius: <span class="number">16</span>)</span><br></pre></td></tr></table></figure>
+<h3 id="How-to-draw-a-shadow-around-a-view"><a href="#How-to-draw-a-shadow-around-a-view" class="headerlink" title="How to draw a shadow around a view"></a><a href="https://www.hackingwithswift.com/quick-start/swiftui/how-to-draw-a-shadow-around-a-view" target="_blank" rel="noopener">How to draw a shadow around a view</a></h3><figure class="highlight swift"><table><tr><td class="code"><pre><span class="line"><span class="type">Text</span>(<span class="string">"Hacking with Swift"</span>)</span><br><span class="line">    .padding()</span><br><span class="line">    .border(<span class="type">Color</span>.red, width: <span class="number">4</span>)</span><br><span class="line">    .shadow(color: .red, radius: <span class="number">5</span>, x: <span class="number">20</span>, y: <span class="number">20</span>)</span><br></pre></td></tr></table></figure>
+<h3 id="How-to-clip-a-view-so-only-part-is-visible"><a href="#How-to-clip-a-view-so-only-part-is-visible" class="headerlink" title="How to clip a view so only part is visible"></a><a href="https://www.hackingwithswift.com/quick-start/swiftui/how-to-clip-a-view-so-only-part-is-visible" target="_blank" rel="noopener">How to clip a view so only part is visible</a></h3><figure class="highlight swift"><table><tr><td class="code"><pre><span class="line"><span class="type">Button</span>(action: &#123;</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">"Button tapped"</span>)</span><br><span class="line">&#125;) &#123;</span><br><span class="line">    <span class="type">Image</span>(systemName: <span class="string">"bolt.fill"</span>)</span><br><span class="line">        .foregroundColor(.white)</span><br><span class="line">        .padding()</span><br><span class="line">        .background(<span class="type">Color</span>.green)</span><br><span class="line">        .clipShape(<span class="type">Circle</span>())</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="How-to-rotate-a-view"><a href="#How-to-rotate-a-view" class="headerlink" title="How to rotate a view"></a><a href="https://www.hackingwithswift.com/quick-start/swiftui/how-to-rotate-a-view" target="_blank" rel="noopener">How to rotate a view</a></h3><figure class="highlight swift"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">ContentView</span>: <span class="title">View</span> </span>&#123;</span><br><span class="line">    @<span class="type">State</span> <span class="keyword">var</span> rotation: <span class="type">Double</span> = <span class="number">0</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">var</span> body: some <span class="type">View</span> &#123;</span><br><span class="line">        <span class="type">VStack</span> &#123;</span><br><span class="line">            <span class="type">Slider</span>(value: $rotation, from: <span class="number">0.0</span>, through: <span class="number">360.0</span>, by: <span class="number">1.0</span>)</span><br><span class="line">            <span class="type">Text</span>(<span class="string">"Up we go"</span>)</span><br><span class="line">                .rotationEffect(.degrees(rotation))</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="How-to-rotate-a-view-in-3D"><a href="#How-to-rotate-a-view-in-3D" class="headerlink" title="How to rotate a view in 3D"></a><a href="https://www.hackingwithswift.com/quick-start/swiftui/how-to-rotate-a-view-in-3d" target="_blank" rel="noopener">How to rotate a view in 3D</a></h3><p>SwiftUI’s <code>rotation3DEffect()</code> modifier lets us rotate views in 3D space to create beautiful effects in almost no code.</p>
+<figure class="highlight swift"><table><tr><td class="code"><pre><span class="line"><span class="type">Text</span>(<span class="string">"EPISODE LLVM"</span>)</span><br><span class="line">    .font(.largeTitle)</span><br><span class="line">    .foregroundColor(.yellow)</span><br><span class="line">    .rotation3DEffect(.degrees(<span class="number">45</span>), axis: (x: <span class="number">1</span>, y: <span class="number">0</span>, z: <span class="number">0</span>))</span><br></pre></td></tr></table></figure>
+<h3 id="How-to-scale-a-view-up-or-down"><a href="#How-to-scale-a-view-up-or-down" class="headerlink" title="How to scale a view up or down"></a><a href="https://www.hackingwithswift.com/quick-start/swiftui/how-to-scale-a-view-up-or-down" target="_blank" rel="noopener">How to scale a view up or down</a></h3><figure class="highlight swift"><table><tr><td class="code"><pre><span class="line"><span class="type">Text</span>(<span class="string">"Up we go"</span>)</span><br><span class="line">    .scaleEffect(<span class="number">5</span>)</span><br></pre></td></tr></table></figure>
+<h3 id="How-to-round-the-corners-of-a-view"><a href="#How-to-round-the-corners-of-a-view" class="headerlink" title="How to round the corners of a view"></a><a href="https://www.hackingwithswift.com/quick-start/swiftui/how-to-round-the-corners-of-a-view" target="_blank" rel="noopener">How to round the corners of a view</a></h3><figure class="highlight swift"><table><tr><td class="code"><pre><span class="line"><span class="type">Text</span>(<span class="string">"Round Me"</span>)</span><br><span class="line">    .padding()</span><br><span class="line">    .background(<span class="type">Color</span>.red)</span><br><span class="line">    .cornerRadius(<span class="number">25</span>)</span><br></pre></td></tr></table></figure>
+<h3 id="How-to-adjust-the-opacity-of-a-view"><a href="#How-to-adjust-the-opacity-of-a-view" class="headerlink" title="How to adjust the opacity of a view"></a><a href="https://www.hackingwithswift.com/quick-start/swiftui/how-to-adjust-the-opacity-of-a-view" target="_blank" rel="noopener">How to adjust the opacity of a view</a></h3><figure class="highlight swift"><table><tr><td class="code"><pre><span class="line"><span class="type">Text</span>(<span class="string">"Now you see me"</span>)</span><br><span class="line">    .padding()</span><br><span class="line">    .background(<span class="type">Color</span>.red)</span><br><span class="line">    .opacity(<span class="number">0.3</span>)</span><br></pre></td></tr></table></figure>
+<h3 id="How-to-adjust-the-accent-color-of-a-view"><a href="#How-to-adjust-the-accent-color-of-a-view" class="headerlink" title="How to adjust the accent color of a view"></a><a href="https://www.hackingwithswift.com/quick-start/swiftui/how-to-adjust-the-accent-color-of-a-view" target="_blank" rel="noopener">How to adjust the accent color of a view</a></h3><p>iOS uses tint colors to give apps a coordinated theme, and the same functionality is available in SwiftUI under the name <em>accent colors</em>.</p>
+<h3 id="How-to-mask-one-view-with-another"><a href="#How-to-mask-one-view-with-another" class="headerlink" title="How to mask one view with another"></a><a href="https://www.hackingwithswift.com/quick-start/swiftui/how-to-mask-one-view-with-another" target="_blank" rel="noopener">How to mask one view with another</a></h3><figure class="highlight swift"><table><tr><td class="code"><pre><span class="line"><span class="type">Image</span>(<span class="string">"stripes"</span>)</span><br><span class="line">    .resizable()</span><br><span class="line">    .frame(width: <span class="number">300</span>, height: <span class="number">300</span>)</span><br><span class="line">    .mask(<span class="type">Text</span>(<span class="string">"SWIFT!"</span>)</span><br><span class="line">        .font(<span class="type">Font</span>.system(size: <span class="number">72</span>).weight(.black)))</span><br></pre></td></tr></table></figure>
+<h3 id="How-to-blur-a-view"><a href="#How-to-blur-a-view" class="headerlink" title="How to blur a view"></a><a href="https://www.hackingwithswift.com/quick-start/swiftui/how-to-blur-a-view" target="_blank" rel="noopener">How to blur a view</a></h3><figure class="highlight swift"><table><tr><td class="code"><pre><span class="line"><span class="type">Text</span>(<span class="string">"Welcome to my SwiftUI app"</span>)</span><br><span class="line">    .blur(radius: <span class="number">2</span>)</span><br></pre></td></tr></table></figure>
+<h3 id="How-to-blend-views-together"><a href="#How-to-blend-views-together" class="headerlink" title="How to blend views together"></a><a href="https://www.hackingwithswift.com/quick-start/swiftui/how-to-blend-views-together" target="_blank" rel="noopener">How to blend views together</a></h3><figure class="highlight swift"><table><tr><td class="code"><pre><span class="line"><span class="type">ZStack</span> &#123;</span><br><span class="line">    <span class="type">Image</span>(<span class="string">"paul-hudson"</span>)</span><br><span class="line">    <span class="type">Image</span>(<span class="string">"example-image"</span>)</span><br><span class="line">        .blendMode(.multiply)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="How-to-adjust-views-by-tinting-and-desaturating-and-more"><a href="#How-to-adjust-views-by-tinting-and-desaturating-and-more" class="headerlink" title="How to adjust views by tinting, and desaturating, and more"></a><a href="https://www.hackingwithswift.com/quick-start/swiftui/how-to-adjust-views-by-tinting-and-desaturating-and-more" target="_blank" rel="noopener">How to adjust views by tinting, and desaturating, and more</a></h3><figure class="highlight swift"><table><tr><td class="code"><pre><span class="line"><span class="type">Image</span>(<span class="string">"paul-hudson"</span>)</span><br><span class="line">    .contrast(<span class="number">0.5</span>)</span><br></pre></td></tr></table></figure>
+<h2 id="Animation"><a href="#Animation" class="headerlink" title="Animation"></a>Animation</h2><p><strong>Bring your views to life with movement</strong></p>
+<h3 id="How-to-create-a-basic-animation"><a href="#How-to-create-a-basic-animation" class="headerlink" title="How to create a basic animation"></a><a href="https://www.hackingwithswift.com/quick-start/swiftui/how-to-create-a-basic-animation" target="_blank" rel="noopener">How to create a basic animation</a></h3><figure class="highlight swift"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">ContentView</span>: <span class="title">View</span> </span>&#123;</span><br><span class="line">    @<span class="type">State</span> <span class="keyword">var</span> angle: <span class="type">Double</span> = <span class="number">0</span></span><br><span class="line">    @<span class="type">State</span> <span class="keyword">var</span> borderThickness: <span class="type">Length</span> = <span class="number">1</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">var</span> body: some <span class="type">View</span> &#123;</span><br><span class="line">        <span class="type">Button</span>(action: &#123;</span><br><span class="line">            <span class="keyword">self</span>.angle += <span class="number">45</span></span><br><span class="line">            <span class="keyword">self</span>.borderThickness += <span class="number">1</span></span><br><span class="line">        &#125;) &#123;</span><br><span class="line">            <span class="type">Text</span>(<span class="string">"Tap here"</span>)</span><br><span class="line">                .padding()</span><br><span class="line">                .border(<span class="type">Color</span>.red, width: borderThickness)</span><br><span class="line">                .rotationEffect(.degrees(angle))</span><br><span class="line">                .animation(.basic())</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="How-to-create-a-spring-animation"><a href="#How-to-create-a-spring-animation" class="headerlink" title="How to create a spring animation"></a><a href="https://www.hackingwithswift.com/quick-start/swiftui/how-to-create-a-spring-animation" target="_blank" rel="noopener">How to create a spring animation</a></h3><figure class="highlight swift"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">ContentView</span>: <span class="title">View</span> </span>&#123;</span><br><span class="line">    @<span class="type">State</span> <span class="keyword">var</span> angle: <span class="type">Double</span> = <span class="number">0</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">var</span> body: some <span class="type">View</span> &#123;</span><br><span class="line">        <span class="type">Button</span>(action: &#123;</span><br><span class="line">            <span class="keyword">self</span>.angle += <span class="number">45</span></span><br><span class="line">        &#125;) &#123;</span><br><span class="line">            <span class="type">Text</span>(<span class="string">"Tap here"</span>)</span><br><span class="line">                .padding()</span><br><span class="line">                .rotationEffect(.degrees(angle))</span><br><span class="line">                .animation(.spring())</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="How-to-create-an-explicit-animation"><a href="#How-to-create-an-explicit-animation" class="headerlink" title="How to create an explicit animation"></a><a href="https://www.hackingwithswift.com/quick-start/swiftui/how-to-create-an-explicit-animation" target="_blank" rel="noopener">How to create an explicit animation</a></h3><p>Explicit animations are often helpful because they cause every affected view to animation, not just those that have implicit animations attached. For example, if view A has to make room for view B as part of the animation, but only view B has an animation attached, then view A will jump to its new position without animating unless you use explicit animations.</p>
+<figure class="highlight swift"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">ContentView</span>: <span class="title">View</span> </span>&#123;</span><br><span class="line">    @<span class="type">State</span> <span class="keyword">var</span> opacity: <span class="type">Double</span> = <span class="number">1</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">var</span> body: some <span class="type">View</span> &#123;</span><br><span class="line">        <span class="type">Button</span>(action: &#123;</span><br><span class="line">            withAnimation &#123;</span><br><span class="line">                <span class="keyword">self</span>.opacity -= <span class="number">0.2</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;) &#123;</span><br><span class="line">            <span class="type">Text</span>(<span class="string">"Tap here"</span>)</span><br><span class="line">                .padding()</span><br><span class="line">                .opacity(opacity)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="How-to-add-and-remove-views-with-a-transition"><a href="#How-to-add-and-remove-views-with-a-transition" class="headerlink" title="How to add and remove views with a transition"></a><a href="https://www.hackingwithswift.com/quick-start/swiftui/how-to-add-and-remove-views-with-a-transition" target="_blank" rel="noopener">How to add and remove views with a transition</a></h3><figure class="highlight swift"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">ContentView</span>: <span class="title">View</span> </span>&#123;</span><br><span class="line">    @<span class="type">State</span> <span class="keyword">var</span> showDetails = <span class="literal">false</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">var</span> body: some <span class="type">View</span> &#123;</span><br><span class="line">        <span class="type">VStack</span> &#123;</span><br><span class="line">            <span class="type">Button</span>(action: &#123;</span><br><span class="line">                withAnimation &#123;</span><br><span class="line">                    <span class="keyword">self</span>.showDetails.toggle()</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;) &#123;</span><br><span class="line">                <span class="type">Text</span>(<span class="string">"Tap to show details"</span>)</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            <span class="keyword">if</span> showDetails &#123;</span><br><span class="line">                <span class="type">Text</span>(<span class="string">"Details go here."</span>)</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>By default, SwiftUI uses a fade animation to insert or remove views, but you can change that if you want by attaching a <code>transition()</code> modifier to a view.</p>
+<figure class="highlight swift"><table><tr><td class="code"><pre><span class="line"><span class="type">Text</span>(<span class="string">"Details go here."</span>)</span><br><span class="line">    .transition(.move(edge: .bottom))</span><br></pre></td></tr></table></figure>
+<h3 id="How-to-combine-transitions"><a href="#How-to-combine-transitions" class="headerlink" title="How to combine transitions"></a><a href="https://www.hackingwithswift.com/quick-start/swiftui/how-to-combine-transitions" target="_blank" rel="noopener">How to combine transitions</a></h3><figure class="highlight swift"><table><tr><td class="code"><pre><span class="line"><span class="type">Text</span>(<span class="string">"Details go here."</span>).transition(<span class="type">AnyTransition</span>.opacity.combined(with: .slide))</span><br></pre></td></tr></table></figure>
+<p>或者使用拓展来封装常用的过渡效果</p>
+<figure class="highlight swift"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">extension</span> <span class="title">AnyTransition</span> </span>&#123;</span><br><span class="line">    <span class="keyword">static</span> <span class="keyword">var</span> moveAndScale: <span class="type">AnyTransition</span> &#123;</span><br><span class="line">        <span class="type">AnyTransition</span>.move(edge: .bottom).combined(with: .scale())</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// Usage</span></span><br><span class="line"><span class="type">Text</span>(<span class="string">"Details go here."</span>).transition(.moveAndScale)</span><br></pre></td></tr></table></figure>
+<h3 id="How-to-create-asymmetric-transitions"><a href="#How-to-create-asymmetric-transitions" class="headerlink" title="How to create asymmetric transitions"></a><a href="https://www.hackingwithswift.com/quick-start/swiftui/how-to-create-asymmetric-transitions" target="_blank" rel="noopener">How to create asymmetric transitions</a></h3><p>SwiftUI lets us specify one transition when adding a view and another when removing it, all done using the <code>asymmetric()</code> transition type.</p>
+<figure class="highlight swift"><table><tr><td class="code"><pre><span class="line"><span class="type">Text</span>(<span class="string">"Details go here."</span>).transition(.asymmetric(insertion: .move(edge: .leading), removal: .move(edge: .bottom)))</span><br></pre></td></tr></table></figure>
+<h2 id="Composing-views"><a href="#Composing-views" class="headerlink" title="Composing views"></a>Composing views</h2><p><strong>Make your UI structure easier to understand</strong></p>
+<h3 id="How-to-create-and-compose-custom-views"><a href="#How-to-create-and-compose-custom-views" class="headerlink" title="How to create and compose custom views"></a><a href="https://www.hackingwithswift.com/quick-start/swiftui/how-to-create-and-compose-custom-views" target="_blank" rel="noopener">How to create and compose custom views</a></h3><p>都是基于数据驱动 UI，所以每一级封装都是传 Model：<code>User</code></p>
+<figure class="highlight swift"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">User</span> </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> name: <span class="type">String</span></span><br><span class="line">    <span class="keyword">var</span> jobTitle: <span class="type">String</span></span><br><span class="line">    <span class="keyword">var</span> emailAddress: <span class="type">String</span></span><br><span class="line">    <span class="keyword">var</span> profilePicture: <span class="type">String</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">ProfilePicture</span>: <span class="title">View</span> </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> imageName: <span class="type">String</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">var</span> body: some <span class="type">View</span> &#123;</span><br><span class="line">        <span class="type">Image</span>(imageName)</span><br><span class="line">            .resizable()</span><br><span class="line">            .frame(width: <span class="number">100</span>, height: <span class="number">100</span>)</span><br><span class="line">            .clipShape(<span class="type">Circle</span>())</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">EmailAddress</span>: <span class="title">View</span> </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> address: <span class="type">String</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">var</span> body: some <span class="type">View</span> &#123;</span><br><span class="line">        <span class="type">HStack</span> &#123;</span><br><span class="line">            <span class="type">Image</span>(systemName: <span class="string">"envelope"</span>)</span><br><span class="line">            <span class="type">Text</span>(address)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">UserDetails</span>: <span class="title">View</span> </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> user: <span class="type">User</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">var</span> body: some <span class="type">View</span> &#123;</span><br><span class="line">        <span class="type">VStack</span>(alignment: .leading) &#123;</span><br><span class="line">            <span class="type">Text</span>(user.name)</span><br><span class="line">                .font(.largeTitle)</span><br><span class="line">                .foregroundColor(.primary)</span><br><span class="line">            <span class="type">Text</span>(user.jobTitle)</span><br><span class="line">                .foregroundColor(.secondary)</span><br><span class="line">            <span class="type">EmailAddress</span>(address: user.emailAddress)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">UserView</span>: <span class="title">View</span> </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> user: <span class="type">User</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">var</span> body: some <span class="type">View</span> &#123;</span><br><span class="line">        <span class="type">HStack</span> &#123;</span><br><span class="line">            <span class="type">ProfilePicture</span>(imageName: user.profilePicture)</span><br><span class="line">            <span class="type">UserDetails</span>(user: user)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">ContentView</span>: <span class="title">View</span> </span>&#123;</span><br><span class="line">    <span class="keyword">let</span> user = <span class="type">User</span>(name: <span class="string">"Paul Hudson"</span>, jobTitle: <span class="string">"Editor, Hacking with Swift"</span>, emailAddress: <span class="string">"paul@hackingwithswift.com"</span>, profilePicture: <span class="string">"paul-hudson"</span>)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">var</span> body: some <span class="type">View</span> &#123;</span><br><span class="line">        <span class="type">UserView</span>(user: user)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="How-to-combine-text-views-together"><a href="#How-to-combine-text-views-together" class="headerlink" title="How to combine text views together"></a><a href="https://www.hackingwithswift.com/quick-start/swiftui/how-to-combine-text-views-together" target="_blank" rel="noopener">How to combine text views together</a></h3><p>这样子拼接文本很方便</p>
+<figure class="highlight swift"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> body: some <span class="type">View</span> &#123;</span><br><span class="line">    <span class="type">Text</span>(<span class="string">"SwiftUI"</span>)</span><br><span class="line">        .font(.largeTitle)</span><br><span class="line">    + <span class="type">Text</span>(<span class="string">"is"</span>)</span><br><span class="line">        .font(.headline)</span><br><span class="line">    + <span class="type">Text</span>(<span class="string">"awesome"</span>)</span><br><span class="line">        .font(.footnote)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>但是有个修改器不适合拼接如：<code>foregroundColor</code></p>
+<p>这时候就需要换成能够使用 <code>+</code> 的修改器，如<code>color</code></p>
+<figure class="highlight swift"><table><tr><td class="code"><pre><span class="line"><span class="type">Text</span>(<span class="string">"SwiftUI"</span>)</span><br><span class="line">    .color(.red)</span><br><span class="line">+ <span class="type">Text</span>(<span class="string">"is"</span>)</span><br><span class="line">    .color(.orange)</span><br><span class="line">+ <span class="type">Text</span>(<span class="string">"awesome"</span>)</span><br><span class="line">    .color(.blue)</span><br></pre></td></tr></table></figure>
+<h3 id="How-to-store-views-as-properties"><a href="#How-to-store-views-as-properties" class="headerlink" title="How to store views as properties"></a><a href="https://www.hackingwithswift.com/quick-start/swiftui/how-to-store-views-as-properties" target="_blank" rel="noopener">How to store views as properties</a></h3><figure class="highlight swift"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">ContentView</span> : <span class="title">View</span> </span>&#123;</span><br><span class="line">    <span class="keyword">let</span> title = <span class="type">Text</span>(<span class="string">"Paul Hudson"</span>)</span><br><span class="line">        .font(.largeTitle)</span><br><span class="line">    <span class="keyword">let</span> subtitle = <span class="type">Text</span>(<span class="string">"Author"</span>)</span><br><span class="line">        .foregroundColor(.secondary)</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">var</span> body: some <span class="type">View</span> &#123;</span><br><span class="line">        <span class="type">VStack</span> &#123;</span><br><span class="line">            title</span><br><span class="line">            .color(.red)</span><br><span class="line">            subtitle</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="How-to-create-custom-modifiers"><a href="#How-to-create-custom-modifiers" class="headerlink" title="How to create custom modifiers"></a><a href="https://www.hackingwithswift.com/quick-start/swiftui/how-to-create-custom-modifiers" target="_blank" rel="noopener">How to create custom modifiers</a></h3><figure class="highlight swift"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">PrimaryLabel</span>: <span class="title">ViewModifier</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">func</span> <span class="title">body</span><span class="params">(content: Content)</span></span> -&gt; some <span class="type">View</span> &#123;</span><br><span class="line">        content</span><br><span class="line">            .padding()</span><br><span class="line">            .background(<span class="type">Color</span>.red)</span><br><span class="line">            .foregroundColor(<span class="type">Color</span>.white)</span><br><span class="line">            .font(.largeTitle)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">ContentView</span>: <span class="title">View</span> </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> body: some <span class="type">View</span> &#123;</span><br><span class="line">        <span class="type">Text</span>(<span class="string">"Hello, SwiftUI"</span>)</span><br><span class="line">            .modifier(<span class="type">PrimaryLabel</span>())</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="Tooling"><a href="#Tooling" class="headerlink" title="Tooling"></a>Tooling</h2><p><strong>Build better apps with help from Xcode</strong></p>
+<h3 id="How-to-preview-your-layout-at-different-Dynamic-Type-sizes"><a href="#How-to-preview-your-layout-at-different-Dynamic-Type-sizes" class="headerlink" title="How to preview your layout at different Dynamic Type sizes"></a><a href="https://www.hackingwithswift.com/quick-start/swiftui/how-to-preview-your-layout-at-different-dynamic-type-sizes" target="_blank" rel="noopener">How to preview your layout at different Dynamic Type sizes</a></h3><figure class="highlight swift"><table><tr><td class="code"><pre><span class="line">#<span class="keyword">if</span> <span class="type">DEBUG</span></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">ContentView_Previews</span> : <span class="title">PreviewProvider</span> </span>&#123;</span><br><span class="line">   <span class="keyword">static</span> <span class="keyword">var</span> previews: some <span class="type">View</span> &#123;</span><br><span class="line">      <span class="type">Group</span> &#123;</span><br><span class="line">         <span class="type">ContentView</span>()</span><br><span class="line">            .environment(\.colorScheme, .dark)</span><br><span class="line">      &#125;</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br><span class="line">#endif</span><br></pre></td></tr></table></figure>
+<h3 id="How-to-preview-your-layout-in-light-and-dark-mode"><a href="#How-to-preview-your-layout-in-light-and-dark-mode" class="headerlink" title="How to preview your layout in light and dark mode"></a><a href="https://www.hackingwithswift.com/quick-start/swiftui/how-to-preview-your-layout-in-light-and-dark-mode" target="_blank" rel="noopener">How to preview your layout in light and dark mode</a></h3><p>If you want to see both light and dark mode side by side, place multiple previews in a group, like this:</p>
+<figure class="highlight swift"><table><tr><td class="code"><pre><span class="line">#<span class="keyword">if</span> <span class="type">DEBUG</span></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">ContentView_Previews</span> : <span class="title">PreviewProvider</span> </span>&#123;</span><br><span class="line">   <span class="keyword">static</span> <span class="keyword">var</span> previews: some <span class="type">View</span> &#123;</span><br><span class="line">      <span class="type">Group</span> &#123;</span><br><span class="line">         <span class="type">ContentView</span>()</span><br><span class="line">            .environment(\.colorScheme, .light)</span><br><span class="line"></span><br><span class="line">         <span class="type">ContentView</span>()</span><br><span class="line">            .environment(\.colorScheme, .dark)</span><br><span class="line">      &#125;</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br><span class="line">#endif</span><br></pre></td></tr></table></figure>
+<h3 id="How-to-preview-your-layout-in-different-devices"><a href="#How-to-preview-your-layout-in-different-devices" class="headerlink" title="How to preview your layout in different devices"></a><a href="https://www.hackingwithswift.com/quick-start/swiftui/how-to-preview-your-layout-in-different-devices" target="_blank" rel="noopener">How to preview your layout in different devices</a></h3><figure class="highlight swift"><table><tr><td class="code"><pre><span class="line"><span class="type">ContentView</span>()</span><br><span class="line">    .previewDevice(<span class="type">PreviewDevice</span>(rawValue: <span class="string">"iPhone SE"</span>))</span><br></pre></td></tr></table></figure>
+<h3 id="How-to-preview-your-layout-in-a-navigation-view"><a href="#How-to-preview-your-layout-in-a-navigation-view" class="headerlink" title="How to preview your layout in a navigation view"></a><a href="https://www.hackingwithswift.com/quick-start/swiftui/how-to-preview-your-layout-in-a-navigation-view" target="_blank" rel="noopener">How to preview your layout in a navigation view</a></h3><figure class="highlight swift"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">ContentView</span> : <span class="title">View</span> </span>&#123;</span><br><span class="line">   <span class="keyword">var</span> body: some <span class="type">View</span> &#123;</span><br><span class="line">      <span class="type">Text</span>(<span class="string">"Hello World"</span>)</span><br><span class="line">         .navigationBarTitle(<span class="type">Text</span>(<span class="string">"Welcome"</span>))</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">#<span class="keyword">if</span> <span class="type">DEBUG</span></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">ContentView_Previews</span> : <span class="title">PreviewProvider</span> </span>&#123;</span><br><span class="line">   <span class="keyword">static</span> <span class="keyword">var</span> previews: some <span class="type">View</span> &#123;</span><br><span class="line">      <span class="type">NavigationView</span> &#123;</span><br><span class="line">         <span class="type">ContentView</span>()</span><br><span class="line">      &#125;</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br><span class="line">#endif</span><br></pre></td></tr></table></figure>
+<h3 id="How-to-use-Instruments-to-profile-your-SwiftUI-code-and-identify-slow-layouts"><a href="#How-to-use-Instruments-to-profile-your-SwiftUI-code-and-identify-slow-layouts" class="headerlink" title="How to use Instruments to profile your SwiftUI code and identify slow layouts"></a><a href="https://www.hackingwithswift.com/quick-start/swiftui/how-to-use-instruments-to-profile-your-swiftui-code-and-identify-slow-layouts" target="_blank" rel="noopener">How to use Instruments to profile your SwiftUI code and identify slow layouts</a></h3><p>示例代码</p>
+<figure class="highlight swift"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> Combine</span><br><span class="line"><span class="keyword">import</span> SwiftUI</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">FrequentUpdater</span>: <span class="title">BindableObject</span> </span>&#123;</span><br><span class="line">   <span class="keyword">var</span> didChange = <span class="type">PassthroughSubject</span>&lt;<span class="type">Void</span>, <span class="type">Never</span>&gt;()</span><br><span class="line">   <span class="keyword">var</span> timer: <span class="type">Timer?</span></span><br><span class="line"></span><br><span class="line">   <span class="keyword">init</span>() &#123;</span><br><span class="line">      timer = <span class="type">Timer</span>.scheduledTimer(</span><br><span class="line">         withTimeInterval: <span class="number">0.01</span>,</span><br><span class="line">         repeats: <span class="literal">true</span></span><br><span class="line">      ) &#123; <span class="number">_</span> <span class="keyword">in</span></span><br><span class="line">         <span class="keyword">self</span>.didChange.send(())</span><br><span class="line">      &#125;</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">ContentView</span> : <span class="title">View</span> </span>&#123;</span><br><span class="line">   @<span class="type">ObjectBinding</span> <span class="keyword">var</span> updater = <span class="type">FrequentUpdater</span>()</span><br><span class="line">   @<span class="type">State</span> <span class="keyword">var</span> tapCount = <span class="number">0</span></span><br><span class="line"></span><br><span class="line">   <span class="keyword">var</span> body: some <span class="type">View</span> &#123;</span><br><span class="line">      <span class="type">VStack</span> &#123;</span><br><span class="line">         <span class="type">Text</span>(<span class="string">"\(UUID().uuidString)"</span>)</span><br><span class="line"></span><br><span class="line">         <span class="type">Button</span>(action: &#123;</span><br><span class="line">            <span class="keyword">self</span>.tapCount += <span class="number">1</span></span><br><span class="line">         &#125;) &#123;</span><br><span class="line">            <span class="type">Text</span>(<span class="string">"Tap count: \(tapCount)"</span>)</span><br><span class="line">         &#125;</span><br><span class="line">      &#125;</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="检测我们的代码"><a href="# 检测我们的代码" class="headerlink" title="检测我们的代码"></a>检测我们的代码 </h4><p> 默认情况下，SwiftUI 工具告诉我们各种各样的事情：</p>
+<p>1. 在此期间创建了多少视图以及创建它们需要多长时间（“View Body”）<br>2. 视图的属性是什么以及它们如何随时间变化（“View Properties”）<br>3. 发生了多少次 Core Animation 提交（“Core Animation Commits”）<br>4. 每个函数调用的确切时间（“Time Profiler”）</p>
+<p><img src="https://www.hackingwithswift.com/img/quick-start/swiftui/profiling-1.jpg" alt></p>
+<h4 id="监视 body 调用"><a href="# 监视 body 调用" class="headerlink" title="监视 body 调用"></a>监视 <code>body</code> 调用 </h4><p> 如果您选择 <code>View Body</code> 轨道 - 这是 instrument 列表中的第一行 - 您应该能够看到乐器将结果分解为 SwiftUI 和您的项目，前者是原始类型，如文本视图和按钮，以及后者包含您的自定义视图类型。在我们的例子中，这意味着“ContentView”应该出现在自定义视图中，因为这是我们视图的名称。</p>
+<p>现在，您在这里看不到的是您的代码与 SwiftUI 视图的完美一对一映射，因为 SwiftUI 积极地折叠其视图层次结构以尽可能少地完成工作。所以，不要指望在代码中看到任何 VStack 创建 - 这个应用程序实际上是免费的。</p>
+<p>在这个屏幕上，重要的数字是计数和平均持续时间 - 每件事创建的次数，以及花费的时间。因为这是一个压力测试你应该看到非常高的数字，但我们的布局是微不足道的，所以平均持续时间可能是几十微秒。</p>
+<p><img src="https://www.hackingwithswift.com/img/quick-start/swiftui/profiling-2.jpg" alt="img"></p>
+<h4 id="跟踪状态（state）变化"><a href="# 跟踪状态（state）变化" class="headerlink" title="跟踪状态（state）变化"></a>跟踪状态（state）变化 </h4><p> 接下来，选择“View Properties”轨道，这是仪器列表中的第二行。这将显示所有视图的所有属性，包括其当前值和所有先前值。</p>
+<p>我们的示例应用程序有一个按钮，通过在数字中添加一个来更改其标签，并且在此工具中可见 - 请查看视图类型 ContentView 和属性类型<code>State</code>。</p>
+<p>可悲的是，Instruments 还没有（还能）向我们展示那里的确切属性名称，如果你跟踪了几个整数状态，这可能会更加令人困惑。然而，它确实有一个不同的技巧：在记录窗口的顶部是一个标记当前视图位置的箭头，如果你拖动它，你会看到应用程序状态随时间的变化 - 每次你点击按钮，你会看到状态整数上升一个，你可以前进和后退来看它发生。</p>
+<p>这可以释放巨大的能力，因为它可以让我们直接看到状态变化导致慢速重绘或其他工作 - 这几乎就像是在时间机器中，您可以在运行期间的每个点检查应用程序的确切状态。</p>
+<p><img src="https://www.hackingwithswift.com/img/quick-start/swiftui/profiling-3.jpg" alt="img"></p>
+<h4 id="识别慢速绘图"><a href="# 识别慢速绘图" class="headerlink" title="识别慢速绘图"></a>识别慢速绘图 </h4><p> 虽然 SwiftUI 能够直接调用 Metal 以提高性能，但大多数情况下它更喜欢使用 Core Animation 进行渲染。这意味着我们会自动从 Instruments 获取内置的 Core Animation 分析工具，包括检测昂贵提交（expensive commits）的能力。</p>
+<p>当多个更改放在一个组中时，Core Animation 的效果最佳，称为 <code>transaction</code>。我们在一个事务中有效地堆叠了一系列工作，然后要求 CA 继续渲染工作 - 称为<em> 提交 </em> 事务。</p>
+<p>因此，当 Instruments 向我们展示昂贵的 Core Animation 提交时，它真正向我们展示的是 SwiftUI 因为更新而被迫重绘屏幕上的像素的次数。理论上，这应该只在我们的应用程序的实际状态导致不同的视图层次结构时发生，因为 SwiftUI 应该能够将我们的 <code>body</code> 属性的新输出与先前的输出进行比较。</p>
+<p><img src="https://www.hackingwithswift.com/img/quick-start/swiftui/profiling-4.jpg" alt="img"></p>
+<h4 id="寻找缓慢的函数调用"><a href="# 寻找缓慢的函数调用" class="headerlink" title="寻找缓慢的函数调用"></a>寻找缓慢的函数调用</h4><p>Time Profiler，它向我们展示了在代码的每个部分花费了多少时间。这与乐器中的常规时间分析器完全相同，但如果您之前没有尝试过，那么您至少需要知道：</p>
+<ol>
+<li><p>右侧的扩展详细信息窗口默认显示最重的堆栈跟踪，这是运行时间最长的代码段。明亮的代码（白色或黑色，取决于您的 macOS 配色方案）是您编写的代码; 昏暗代码（灰色）是系统库代码。</p>
+</li>
+<li><p>在左侧，您可以看到创建的所有线程，以及公开指示器，让您深入了解它们调用的函数以及这些函数调用的函数等。大多数工作将在“start”内部进行。</p>
+</li>
+<li><p>为避免混乱，您可能需要单击底部的“调用树”按钮，然后选择“隐藏系统库”。这只会显示您编写的代码，但是如果您的问题是您使用的系统库很糟糕，这可能没有帮助。</p>
+</li>
+<li><p>要直接了解具体细节，您还可以单击“调用树”并选择“反转调用树”以翻转事物，以便叶子功能（树末端的功能）显示在顶部，现在可以向下钻取公开指示器（向上钻取？）到调用它们的函数。</p>
+<p><img src="https://www.hackingwithswift.com/img/quick-start/swiftui/profiling-5.jpg" alt></p>
+</li>
+</ol>
+<h4 id="最后一些提示"><a href="# 最后一些提示" class="headerlink" title="最后一些提示"></a>最后一些提示 </h4><p> 在您收取配置自己的代码之前，有一些事情需要注意：</p>
+<ol>
+<li>在检查应用程序性能的一小部分时，您应该单击并拖动相关范围，以便仅查看该应用程序部分的统计信息。这使您可以专注于特定操作的性能，例如响应按下按钮。</li>
+<li>即使你在仪器中看到纯色条，它们只是从远处看起来那样 - 你可以通过按住 Cmd 并按 - 和 + 来查看更多细节</li>
+<li>要获得最准确的数字，请始终在真实设备上进行配置。</li>
+<li>如果要通过分析代码进行更改，请始终一次进行一次更改。如果你进行两次更改，可能会使你的性能提高 20％而另一种会降低 10％，但是将它们合在一起意味着你可能会认为它们整体性能提高了 10％。</li>
+<li>Instruments 在 release 模式下运行您的代码，从而实现 Swift 的所有优化。这也会影响您添加到代码中的任何调试标志，因此请小心。</li>
+</ol>
+<h2 id="What-now"><a href="#What-now" class="headerlink" title="What now?"></a>What now?</h2><p><strong>How to continue learning SwiftUI after the basics</strong></p>
+<h3 id="SwiftUI-tips-and-tricks"><a href="#SwiftUI-tips-and-tricks" class="headerlink" title="SwiftUI tips and tricks"></a><a href="https://www.hackingwithswift.com/quick-start/swiftui/swiftui-tips-and-tricks" target="_blank" rel="noopener">SwiftUI tips and tricks</a></h3><p>SwiftUI 拥有强大的标题功能，但也有许多较小的提示和技巧可以帮助您编写更好的应用程序。</p>
+<h4 id="State- 设为私有"><a href="#State- 设为私有" class="headerlink" title="@State 设为私有"></a>@State 设为私有</h4><figure class="highlight swift"><table><tr><td class="code"><pre><span class="line">@<span class="type">State</span> <span class="keyword">private</span> <span class="keyword">var</span> score = <span class="number">0</span></span><br></pre></td></tr></table></figure>
+<h4 id="具有常量绑定的原型"><a href="# 具有常量绑定的原型" class="headerlink" title="具有常量绑定的原型"></a>具有常量绑定的原型</h4><figure class="highlight swift"><table><tr><td class="code"><pre><span class="line"><span class="type">TextField</span>(.constant(<span class="string">"Hello"</span>))</span><br><span class="line">    .textFieldStyle(.roundedBorder)</span><br></pre></td></tr></table></figure>
+<h4 id="使用语义颜色"><a href="# 使用语义颜色" class="headerlink" title="使用语义颜色"></a>使用语义颜色</h4><figure class="highlight swift"><table><tr><td class="code"><pre><span class="line"><span class="type">Color</span>.red</span><br></pre></td></tr></table></figure>
+<h4 id="依靠自适应填充"><a href="# 依靠自适应填充" class="headerlink" title="依靠自适应填充"></a>依靠自适应填充</h4><figure class="highlight swift"><table><tr><td class="code"><pre><span class="line"><span class="type">Text</span>(<span class="string">"Row 1"</span>)</span><br><span class="line">    .padding(<span class="number">10</span>)</span><br></pre></td></tr></table></figure>
+<h4 id="合并文本视图"><a href="# 合并文本视图" class="headerlink" title="合并文本视图"></a>合并文本视图</h4><figure class="highlight swift"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">ContentView</span> : <span class="title">View</span> </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> body: some <span class="type">View</span> &#123;</span><br><span class="line">        <span class="type">Text</span>(<span class="string">"Colored"</span>)</span><br><span class="line">            .color(.red)</span><br><span class="line">        +</span><br><span class="line">        <span class="type">Text</span>(<span class="string">"SwifUI"</span>)</span><br><span class="line">                .color(.green)</span><br><span class="line">        +</span><br><span class="line">        <span class="type">Text</span>(<span class="string">"Text"</span>)</span><br><span class="line">            .color(.blue)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="如何使 print- 工作"><a href="# 如何使 print- 工作" class="headerlink" title="如何使 print()工作"></a>如何使 <code>print()</code> 工作 </h4><p> 右键单击预览画布（preview canvas）中的播放按钮，然后选择“调试预览（Debug Preview）”。</p>
+<h4 id="依靠隐式 HStack"><a href="# 依靠隐式 HStack" class="headerlink" title="依靠隐式 HStack"></a>依靠隐式<code>HStack</code></h4><figure class="highlight swift"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">ContentView</span> : <span class="title">View</span> </span>&#123;</span><br><span class="line">    <span class="keyword">let</span> imageNames = [<span class="string">"paul-hudson"</span>, <span class="string">"swiftui"</span>]</span><br><span class="line"></span><br><span class="line">    <span class="keyword">var</span> body: some <span class="type">View</span> &#123;</span><br><span class="line">        <span class="type">List</span>(imageNames.identified(by: \.<span class="keyword">self</span>)) &#123; image <span class="keyword">in</span></span><br><span class="line">            <span class="type">Image</span>(image).resizable().frame(width: <span class="number">40</span>)</span><br><span class="line">            <span class="type">Text</span>(image)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="分割大视图"><a href="# 分割大视图" class="headerlink" title="分割大视图"></a>分割大视图</h4><figure class="highlight swift"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">ContentView</span> : <span class="title">View</span> </span>&#123;</span><br><span class="line">    <span class="keyword">let</span> users = [<span class="string">"Paul Hudson"</span>, <span class="string">"Taylor Swift"</span>]</span><br><span class="line"></span><br><span class="line">    <span class="keyword">var</span> body: some <span class="type">View</span> &#123;</span><br><span class="line">        <span class="type">NavigationView</span> &#123;</span><br><span class="line">            <span class="type">List</span>(users.identified(by: \.<span class="keyword">self</span>)) &#123; user <span class="keyword">in</span></span><br><span class="line">                <span class="type">NavigationButton</span>(destination: <span class="type">Text</span>(<span class="string">"Detail View"</span>)) &#123;</span><br><span class="line">                    <span class="type">Image</span>(<span class="string">"example-image"</span>).resizable().frame(width: <span class="number">50</span>, height: <span class="number">50</span>)</span><br><span class="line"></span><br><span class="line">                    <span class="type">VStack</span>(alignment: .leading) &#123;</span><br><span class="line">                        <span class="type">Text</span>(<span class="string">"Johnny Appleseed"</span>).font(.headline)</span><br><span class="line">                        <span class="type">Text</span>(<span class="string">"Occupation: Programmer"</span>)</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;.navigationBarTitle(<span class="type">Text</span>(<span class="string">"Users"</span>))</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="更好的预览"><a href="# 更好的预览" class="headerlink" title="更好的预览"></a>更好的预览</h4><figure class="highlight swift"><table><tr><td class="code"><pre><span class="line">#<span class="keyword">if</span> <span class="type">DEBUG</span></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">ContentView_Previews</span> : <span class="title">PreviewProvider</span> </span>&#123;</span><br><span class="line">    <span class="keyword">static</span> <span class="keyword">var</span> previews: some <span class="type">View</span> &#123;</span><br><span class="line">        <span class="type">Group</span> &#123;</span><br><span class="line">            <span class="type">ContentView</span>()</span><br><span class="line">                .environment(\.sizeCategory, .accessibilityExtraExtraExtraLarge)</span><br><span class="line">            <span class="type">ContentView</span>()</span><br><span class="line">                .environment(\.colorScheme, .dark)</span><br><span class="line">            <span class="type">NavigationView</span> &#123;</span><br><span class="line">                <span class="type">ContentView</span>()</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">#endif</span><br></pre></td></tr></table></figure>
+<h4 id="创建自定义修改器"><a href="# 创建自定义修改器" class="headerlink" title="创建自定义修改器"></a>创建自定义修改器</h4><figure class="highlight swift"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">PrimaryLabel</span>: <span class="title">ViewModifier</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">func</span> <span class="title">body</span><span class="params">(content: Content)</span></span> -&gt; some <span class="type">View</span> &#123;</span><br><span class="line">        content</span><br><span class="line">            .padding()</span><br><span class="line">            .background(<span class="type">Color</span>.black)</span><br><span class="line">            .foregroundColor(<span class="type">Color</span>.white)</span><br><span class="line">            .font(.largeTitle)</span><br><span class="line">            .cornerRadius(<span class="number">10</span>)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">ContentView</span> : <span class="title">View</span> </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> body: some <span class="type">View</span> &#123;</span><br><span class="line">        <span class="type">Text</span>(<span class="string">"Hello World"</span>)</span><br><span class="line">            .modifier(<span class="type">PrimaryLabel</span>())</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="动画变化很容易"><a href="# 动画变化很容易" class="headerlink" title="动画变化很容易"></a>动画变化很容易</h4><figure class="highlight swift"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">ContentView</span> : <span class="title">View</span> </span>&#123;</span><br><span class="line">    @<span class="type">State</span> <span class="keyword">var</span> showingWelcome = <span class="literal">false</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">var</span> body: some <span class="type">View</span> &#123;</span><br><span class="line">        <span class="type">VStack</span> &#123;</span><br><span class="line">            <span class="type">Toggle</span>(isOn: $showingWelcome.animation(.spring())) &#123;</span><br><span class="line">                <span class="type">Text</span>(<span class="string">"Toggle label"</span>)</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            <span class="keyword">if</span> showingWelcome &#123;</span><br><span class="line">                <span class="type">Text</span>(<span class="string">"Hello World"</span>)</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/03/17/Hackintosh-Installation-with-MSI-Z390-and-i9-9900K/" rel="next" title="黑苹果安装记录 MSI Z390 和 i9-9900K">
+                <i class="fa fa-chevron-left"></i> 黑苹果安装记录 MSI Z390 和 i9-9900K
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/06/26/Advanced-Apple-Debugging-and-Reverse-Engineering-Notes-1/" rel="prev" title="苹果调试和逆向工程进阶 - 笔记（一）">
+                苹果调试和逆向工程进阶 - 笔记（一） <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Ge Will</p>
+              <p class="site-description motion-element" itemprop="description">The people who are crazy enough to think they can change the world, are the ones who DO.</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">174</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/gewill" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:531sunlight@gmail.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://twitter.com/gewill_org" target="_blank" title="Twitter">
+                      
+                        <i class="fa fa-fw fa-twitter"></i>Twitter</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://weibo.com/gewei" target="_blank" title="Weibo">
+                      
+                        <i class="fa fa-fw fa-weibo"></i>Weibo</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+            <div class="cc-license motion-element" itemprop="license">
+              <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="cc-opacity" target="_blank">
+                <img src="/images/cc-by-nc-sa.svg" alt="Creative Commons">
+              </a>
+            </div>
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Introduction"><span class="nav-number">1.</span> <span class="nav-text">Introduction</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#What-is-SwiftUI"><span class="nav-number">1.1.</span> <span class="nav-text">What is SwiftUI?</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#SwiftUI-vs-Interface-Builder-and-storyboards"><span class="nav-number">1.2.</span> <span class="nav-text">SwiftUI vs Interface Builder and storyboards</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Frequently-asked-questions-about-SwiftUI"><span class="nav-number">1.3.</span> <span class="nav-text">Frequently asked questions about SwiftUI</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Does-SwiftUI-replace-UIKit"><span class="nav-number">1.3.1.</span> <span class="nav-text">Does SwiftUI replace UIKit?</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Is-SwiftUI-fast"><span class="nav-number">1.3.2.</span> <span class="nav-text">Is SwiftUI fast?</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#How-to-follow-this-quick-start-guide"><span class="nav-number">1.4.</span> <span class="nav-text">How to follow this quick start guide</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Migrating-from-UIKit-to-SwiftUI"><span class="nav-number">1.5.</span> <span class="nav-text">Migrating from UIKit to SwiftUI</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Text-and-images"><span class="nav-number">2.</span> <span class="nav-text">Text and images</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#What’s-in-the-basic-template"><span class="nav-number">2.1.</span> <span class="nav-text">What’s in the basic template?</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#How-to-create-static-labels-with-a-Text-view"><span class="nav-number">2.2.</span> <span class="nav-text">How to create static labels with a Text view</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#How-to-style-text-views-with-fonts-colors-line-spacing-and-more"><span class="nav-number">2.3.</span> <span class="nav-text">How to style text views with fonts, colors, line spacing, and more</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#How-to-format-text-inside-text-views"><span class="nav-number">2.4.</span> <span class="nav-text">How to format text inside text views</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#How-to-draw-images-using-Image-views"><span class="nav-number">2.5.</span> <span class="nav-text">How to draw images using Image views</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#How-to-adjust-the-way-an-image-is-fitted-to-its-space"><span class="nav-number">2.6.</span> <span class="nav-text">How to adjust the way an image is fitted to its space</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#How-to-render-a-gradient"><span class="nav-number">2.7.</span> <span class="nav-text">How to render a gradient</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#How-to-display-solid-shapes"><span class="nav-number">2.8.</span> <span class="nav-text">How to display solid shapes</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#How-to-use-images-and-other-views-as-a-backgrounds"><span class="nav-number">2.9.</span> <span class="nav-text">How to use images and other views as a backgrounds</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#View-layout"><span class="nav-number">3.</span> <span class="nav-text">View layout</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#How-to-create-stacks-using-VStack-and-HStack"><span class="nav-number">3.1.</span> <span class="nav-text">How to create stacks using VStack and HStack</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#How-to-customize-stack-layouts-with-alignment-and-spacing"><span class="nav-number">3.2.</span> <span class="nav-text">How to customize stack layouts with alignment and spacing</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#How-to-control-spacing-around-individual-views-using-padding"><span class="nav-number">3.3.</span> <span class="nav-text">How to control spacing around individual views using padding</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#How-to-layer-views-on-top-of-each-other-using-ZStack"><span class="nav-number">3.4.</span> <span class="nav-text">How to layer views on top of each other using ZStack</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#How-to-return-different-view-types"><span class="nav-number">3.5.</span> <span class="nav-text">How to return different view types</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#How-to-create-views-in-a-loop-using-ForEach"><span class="nav-number">3.6.</span> <span class="nav-text">How to create views in a loop using ForEach</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#How-to-create-different-layouts-using-size-classes"><span class="nav-number">3.7.</span> <span class="nav-text">How to create different layouts using size classes</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#How-to-place-content-outside-the-safe-area"><span class="nav-number">3.8.</span> <span class="nav-text">How to place content outside the safe area</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Reading-input"><span class="nav-number">4.</span> <span class="nav-text">Reading input</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Working-with-state"><span class="nav-number">4.1.</span> <span class="nav-text">Working with state</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#How-to-create-a-toggle-switch"><span class="nav-number">4.2.</span> <span class="nav-text">How to create a toggle switch</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#How-to-create-a-tappable-button"><span class="nav-number">4.3.</span> <span class="nav-text">How to create a tappable button</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#How-to-read-text-from-a-TextField"><span class="nav-number">4.4.</span> <span class="nav-text">How to read text from a TextField</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#How-to-add-a-border-to-a-TextField"><span class="nav-number">4.5.</span> <span class="nav-text">How to add a border to a TextField</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#How-to-create-secure-text-fields-using-SecureField"><span class="nav-number">4.6.</span> <span class="nav-text">How to create secure text fields using SecureField</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#How-to-create-a-Slider-and-read-values-from-it"><span class="nav-number">4.7.</span> <span class="nav-text">How to create a Slider and read values from it</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#How-to-create-a-date-picker-and-read-values-from-it"><span class="nav-number">4.8.</span> <span class="nav-text">How to create a date picker and read values from it</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#How-to-create-a-segmented-control-and-read-values-from-it"><span class="nav-number">4.9.</span> <span class="nav-text">How to create a segmented control and read values from it</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#How-to-read-tap-and-double-tap-gestures"><span class="nav-number">4.10.</span> <span class="nav-text">How to read tap and double-tap gestures</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#How-to-add-a-gesture-recognizer-to-a-view"><span class="nav-number">4.11.</span> <span class="nav-text">How to add a gesture recognizer to a view</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Lists"><span class="nav-number">5.</span> <span class="nav-text">Lists</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Working-with-lists"><span class="nav-number">5.1.</span> <span class="nav-text">Working with lists</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#How-to-create-a-list-of-static-items"><span class="nav-number">5.2.</span> <span class="nav-text">How to create a list of static items</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#How-to-create-a-list-of-dynamic-items"><span class="nav-number">5.3.</span> <span class="nav-text">How to create a list of dynamic items</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#How-to-add-sections-to-a-list"><span class="nav-number">5.4.</span> <span class="nav-text">How to add sections to a list</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#How-to-make-a-grouped-list"><span class="nav-number">5.5.</span> <span class="nav-text">How to make a grouped list</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Working-with-implicit-stacking"><span class="nav-number">5.6.</span> <span class="nav-text">Working with implicit stacking</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Containers"><span class="nav-number">6.</span> <span class="nav-text">Containers</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Working-with-containers"><span class="nav-number">6.1.</span> <span class="nav-text">Working with containers</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#How-to-embed-a-view-in-a-navigation-view"><span class="nav-number">6.2.</span> <span class="nav-text">How to embed a view in a navigation view</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#How-to-add-bar-items-to-a-navigation-view"><span class="nav-number">6.3.</span> <span class="nav-text">How to add bar items to a navigation view</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#How-to-group-views-together"><span class="nav-number">6.4.</span> <span class="nav-text">How to group views together</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Alerts-and-action-sheets"><span class="nav-number">7.</span> <span class="nav-text">Alerts and action sheets</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Working-with-presentations"><span class="nav-number">7.1.</span> <span class="nav-text">Working with presentations</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#How-to-show-an-alert"><span class="nav-number">7.2.</span> <span class="nav-text">How to show an alert</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#How-to-add-actions-to-alert-buttons"><span class="nav-number">7.3.</span> <span class="nav-text">How to add actions to alert buttons</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#How-to-show-an-action-sheet"><span class="nav-number">7.4.</span> <span class="nav-text">How to show an action sheet</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Presenting-views"><span class="nav-number">8.</span> <span class="nav-text">Presenting views</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#How-to-push-a-new-view-using-NavigationButton"><span class="nav-number">8.1.</span> <span class="nav-text">How to push a new view using NavigationButton</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#How-to-push-a-new-view-when-a-list-row-is-tapped"><span class="nav-number">8.2.</span> <span class="nav-text">How to push a new view when a list row is tapped</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#How-to-present-a-new-view-using-PresentationButton"><span class="nav-number">8.3.</span> <span class="nav-text">How to present a new view using PresentationButton</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Transforming-views"><span class="nav-number">9.</span> <span class="nav-text">Transforming views</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#How-to-give-a-view-a-custom-frame"><span class="nav-number">9.1.</span> <span class="nav-text">How to give a view a custom frame</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#How-to-adjust-the-position-of-a-view"><span class="nav-number">9.2.</span> <span class="nav-text">How to adjust the position of a view</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#How-to-color-the-padding-around-a-view"><span class="nav-number">9.3.</span> <span class="nav-text">How to color the padding around a view</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#How-to-stack-modifiers-to-create-more-advanced-effects"><span class="nav-number">9.4.</span> <span class="nav-text">How to stack modifiers to create more advanced effects</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#How-to-draw-a-border-around-a-view"><span class="nav-number">9.5.</span> <span class="nav-text">How to draw a border around a view</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#How-to-draw-a-shadow-around-a-view"><span class="nav-number">9.6.</span> <span class="nav-text">How to draw a shadow around a view</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#How-to-clip-a-view-so-only-part-is-visible"><span class="nav-number">9.7.</span> <span class="nav-text">How to clip a view so only part is visible</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#How-to-rotate-a-view"><span class="nav-number">9.8.</span> <span class="nav-text">How to rotate a view</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#How-to-rotate-a-view-in-3D"><span class="nav-number">9.9.</span> <span class="nav-text">How to rotate a view in 3D</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#How-to-scale-a-view-up-or-down"><span class="nav-number">9.10.</span> <span class="nav-text">How to scale a view up or down</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#How-to-round-the-corners-of-a-view"><span class="nav-number">9.11.</span> <span class="nav-text">How to round the corners of a view</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#How-to-adjust-the-opacity-of-a-view"><span class="nav-number">9.12.</span> <span class="nav-text">How to adjust the opacity of a view</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#How-to-adjust-the-accent-color-of-a-view"><span class="nav-number">9.13.</span> <span class="nav-text">How to adjust the accent color of a view</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#How-to-mask-one-view-with-another"><span class="nav-number">9.14.</span> <span class="nav-text">How to mask one view with another</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#How-to-blur-a-view"><span class="nav-number">9.15.</span> <span class="nav-text">How to blur a view</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#How-to-blend-views-together"><span class="nav-number">9.16.</span> <span class="nav-text">How to blend views together</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#How-to-adjust-views-by-tinting-and-desaturating-and-more"><span class="nav-number">9.17.</span> <span class="nav-text">How to adjust views by tinting, and desaturating, and more</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Animation"><span class="nav-number">10.</span> <span class="nav-text">Animation</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#How-to-create-a-basic-animation"><span class="nav-number">10.1.</span> <span class="nav-text">How to create a basic animation</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#How-to-create-a-spring-animation"><span class="nav-number">10.2.</span> <span class="nav-text">How to create a spring animation</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#How-to-create-an-explicit-animation"><span class="nav-number">10.3.</span> <span class="nav-text">How to create an explicit animation</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#How-to-add-and-remove-views-with-a-transition"><span class="nav-number">10.4.</span> <span class="nav-text">How to add and remove views with a transition</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#How-to-combine-transitions"><span class="nav-number">10.5.</span> <span class="nav-text">How to combine transitions</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#How-to-create-asymmetric-transitions"><span class="nav-number">10.6.</span> <span class="nav-text">How to create asymmetric transitions</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Composing-views"><span class="nav-number">11.</span> <span class="nav-text">Composing views</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#How-to-create-and-compose-custom-views"><span class="nav-number">11.1.</span> <span class="nav-text">How to create and compose custom views</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#How-to-combine-text-views-together"><span class="nav-number">11.2.</span> <span class="nav-text">How to combine text views together</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#How-to-store-views-as-properties"><span class="nav-number">11.3.</span> <span class="nav-text">How to store views as properties</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#How-to-create-custom-modifiers"><span class="nav-number">11.4.</span> <span class="nav-text">How to create custom modifiers</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Tooling"><span class="nav-number">12.</span> <span class="nav-text">Tooling</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#How-to-preview-your-layout-at-different-Dynamic-Type-sizes"><span class="nav-number">12.1.</span> <span class="nav-text">How to preview your layout at different Dynamic Type sizes</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#How-to-preview-your-layout-in-light-and-dark-mode"><span class="nav-number">12.2.</span> <span class="nav-text">How to preview your layout in light and dark mode</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#How-to-preview-your-layout-in-different-devices"><span class="nav-number">12.3.</span> <span class="nav-text">How to preview your layout in different devices</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#How-to-preview-your-layout-in-a-navigation-view"><span class="nav-number">12.4.</span> <span class="nav-text">How to preview your layout in a navigation view</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#How-to-use-Instruments-to-profile-your-SwiftUI-code-and-identify-slow-layouts"><span class="nav-number">12.5.</span> <span class="nav-text">How to use Instruments to profile your SwiftUI code and identify slow layouts</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#检测我们的代码"><span class="nav-number">12.5.1.</span> <span class="nav-text">检测我们的代码 </span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#监视 body 调用"><span class="nav-number">12.5.2.</span> <span class="nav-text">监视 body 调用 </span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#跟踪状态（state）变化"><span class="nav-number">12.5.3.</span> <span class="nav-text">跟踪状态（state）变化 </span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#识别慢速绘图"><span class="nav-number">12.5.4.</span> <span class="nav-text">识别慢速绘图 </span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#寻找缓慢的函数调用"><span class="nav-number">12.5.5.</span> <span class="nav-text">寻找缓慢的函数调用</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#最后一些提示"><span class="nav-number">12.5.6.</span> <span class="nav-text">最后一些提示 </span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#What-now"><span class="nav-number">13.</span> <span class="nav-text">What now?</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#SwiftUI-tips-and-tricks"><span class="nav-number">13.1.</span> <span class="nav-text">SwiftUI tips and tricks</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#State- 设为私有"><span class="nav-number">13.1.1.</span> <span class="nav-text">@State 设为私有</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#具有常量绑定的原型"><span class="nav-number">13.1.2.</span> <span class="nav-text">具有常量绑定的原型</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#使用语义颜色"><span class="nav-number">13.1.3.</span> <span class="nav-text">使用语义颜色</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#依靠自适应填充"><span class="nav-number">13.1.4.</span> <span class="nav-text">依靠自适应填充</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#合并文本视图"><span class="nav-number">13.1.5.</span> <span class="nav-text">合并文本视图</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#如何使 print- 工作"><span class="nav-number">13.1.6.</span> <span class="nav-text">如何使 print() 工作 </span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#依靠隐式 HStack"><span class="nav-number">13.1.7.</span> <span class="nav-text">依靠隐式HStack</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#分割大视图"><span class="nav-number">13.1.8.</span> <span class="nav-text">分割大视图</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#更好的预览"><span class="nav-number">13.1.9.</span> <span class="nav-text">更好的预览</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#创建自定义修改器"><span class="nav-number">13.1.10.</span> <span class="nav-text">创建自定义修改器</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#动画变化很容易"><span class="nav-number">13.1.11.</span> <span class="nav-text">动画变化很容易</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Ge Will</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+    
+      <script id="dsq-count-scr" src="https://gewill.disqus.com/count.js" async></script>
+    
+
+    
+      <script type="text/javascript">
+        var disqus_config = function () {
+          this.page.url = 'http://gewill.org/2019/06/14/SwiftUI-By-Example-Notes/';
+          this.page.identifier = '2019/06/14/SwiftUI-By-Example-Notes/';
+          this.page.title = 'SwiftUI By Example 笔记';
+        };
+        var d = document, s = d.createElement('script');
+        s.src = 'https://gewill.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+        (d.head || d.body).appendChild(s);
+      </script>
+    
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

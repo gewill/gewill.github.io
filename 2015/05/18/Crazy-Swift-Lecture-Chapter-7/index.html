@@ -1,0 +1,847 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="en">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+  <meta name="google-site-verification" content="6p6MCt9mM7zNfEZF2HzE72sTOXJ8MC5frP4VNvYw1JU">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="Will's Blog" type="application/atom+xml">
+
+
+
+
+
+
+<meta name="description" content="# 第七章：面向对象（上） 为了让我多说话，多表达，多交流，以后博客还是中文为主。英文还是看看新闻，写日记好了。 回到开发，最近学了 6 章 Swift 的基础语法，可是基本上和其他语言一致，稍微学习一下，没有什么理解的障碍。只有一点，我又想入了之前学习的问题（或者是我一直以来的了解世界的最大问题），总是过目就忘，不去思考，总结，反思，实践。所谓，纸上得来终觉浅，绝知此事要躬行，先说学习开发这一件">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Crazy Swift Lecture Chapter 7">
+<meta property="og:url" content="http://gewill.org/2015/05/18/Crazy-Swift-Lecture-Chapter-7/index.html">
+<meta property="og:site_name" content="Will&#39;s Blog">
+<meta property="og:description" content="# 第七章：面向对象（上） 为了让我多说话，多表达，多交流，以后博客还是中文为主。英文还是看看新闻，写日记好了。 回到开发，最近学了 6 章 Swift 的基础语法，可是基本上和其他语言一致，稍微学习一下，没有什么理解的障碍。只有一点，我又想入了之前学习的问题（或者是我一直以来的了解世界的最大问题），总是过目就忘，不去思考，总结，反思，实践。所谓，纸上得来终觉浅，绝知此事要躬行，先说学习开发这一件">
+<meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2019-03-17T09:30:36.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Crazy Swift Lecture Chapter 7">
+<meta name="twitter:description" content="# 第七章：面向对象（上） 为了让我多说话，多表达，多交流，以后博客还是中文为主。英文还是看看新闻，写日记好了。 回到开发，最近学了 6 章 Swift 的基础语法，可是基本上和其他语言一致，稍微学习一下，没有什么理解的障碍。只有一点，我又想入了之前学习的问题（或者是我一直以来的了解世界的最大问题），总是过目就忘，不去思考，总结，反思，实践。所谓，纸上得来终觉浅，绝知此事要躬行，先说学习开发这一件">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://gewill.org/2015/05/18/Crazy-Swift-Lecture-Chapter-7/">
+
+
+
+
+
+  <title>Crazy Swift Lecture Chapter 7 | Will's Blog</title>
+  
+
+
+
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-62118677-1', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Will's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            About
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            Archives
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="st-search-show-outputs">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
+            
+            Search
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <form class="site-search-form">
+  <input type="text" id="st-search-input" class="st-search-input st-default-search-input">
+</form>
+
+<script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+    (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+    e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+
+  _st('install', 'ntcZFKy566gs4bTbpvHW','2.0.0');
+</script>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://gewill.org/2015/05/18/Crazy-Swift-Lecture-Chapter-7/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Ge Will">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Will's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Crazy Swift Lecture Chapter 7</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2015-05-18T21:17:55+08:00">
+                2015-05-18
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2015/05/18/Crazy-Swift-Lecture-Chapter-7/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2015/05/18/Crazy-Swift-Lecture-Chapter-7/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p># 第七章：面向对象（上）</p>
+<p>为了让我多说话，多表达，多交流，以后博客还是中文为主。英文还是看看新闻，写日记好了。</p>
+<p>回到开发，最近学了 6 章 Swift 的基础语法，可是基本上和其他语言一致，稍微学习一下，没有什么理解的障碍。只有一点，我又想入了之前学习的问题（或者是我一直以来的了解世界的最大问题），总是过目就忘，不去思考，总结，反思，实践。所谓，纸上得来终觉浅，绝知此事要躬行，先说学习开发这一件，以后要多思考，反复尝试验证，自己编写代码运行。可以试着先把书上的示例，改一改。</p>
+<p>复制代码还是太费事，就本地编译运行好了，能改就改，看看会有什么变化和规律。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">➜ swiftc *.swift</span><br><span class="line">➜ ./main</span><br></pre></td></tr></table></figure>
+<p>#7.1 Swift 的面向对象支持<br>Swift 的 5 种面向对象的程序单元为：</p>
+<ul>
+<li>类</li>
+<li>结构体</li>
+<li>枚举</li>
+<li>扩展</li>
+<li>协议</li>
+</ul>
+<p>Swift 定义任意类型后，以下几个方面使用该类型：</p>
+<ul>
+<li>声明变量</li>
+<li>创建实例</li>
+<li>访问类型属性</li>
+<li>调用类型方法</li>
+<li>派生子类</li>
+</ul>
+<p>##7.2 枚举 <br> 枚举定义示例如下，可与 switch 配合使用：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">enum Weekday&#123;	// 使用一个 case 列出 7 个枚举实例	case Monday, Tuesday, Wednesday , Thursday, Friday, Saturday, Sunday&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">// 使用枚举声明变量var day : Weekday// 使用已有的枚举实例赋值day = Weekday.Sunday// 由于程序可以推断 day 是 Weekday 的实例，因此可以省略枚举名前缀day = .Wednesdayprintln(day)var chooseDay = Weekday.Saturday// 使用 switch 语句判断枚举switch(chooseDay)&#123;	case .Monday:		println(&quot; 星期一，准备上班 &quot;)	case .Tuesday, .Wednesday:		println(&quot; 星期二、三，放假还很远 &quot;)	case .Thursday:		println(&quot; 星期四，再坚持一天 &quot;)	case .Friday:		println(&quot; 星期五，准备放假 &quot;)		case .Saturday:		println(&quot; 星期六，快乐的一天 &quot;)	case .Sunday:		println(&quot; 星期天，这么快就过了一天？&quot;)&#125;// 使用 switch 语句判断枚举switch(chooseDay)&#123;	case .Monday:		println(&quot; 星期一，准备上班 &quot;)	case .Tuesday, .Wednesday:		println(&quot; 星期二、三，放假还很远 &quot;)	default:		println(&quot; 要么在放假，要么在准备放假 &quot;)&#125;</span><br></pre></td></tr></table></figure>
+<p>枚举支持原始值和关联值，见下面的代码：<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">// 定义枚举enum Planet&#123;	static var weightx: Double = 2.3	// 不同枚举值可以携带数量不等、类型不等的关联值	case Mercury(weight:Double , density: Double , name:String)	case Venus(Double , Double)	case Earth(Double , String)	case Mars(density:Double , name:String)	case Jupiter	case Saturn	case Uranus	case Nepturn&#125;var p1 = Planet.Mercury(weight:0.05 , density:5.43 , name:&quot; 水星 &quot;)var p2 = Planet.Venus(0.815 , 5.25)var p3 = Planet.Earth(1.0 , &quot; 地球 &quot;)var p4 = Planet.Mars(density:3.95 , name:&quot; 火星 &quot;)switch(p3)&#123;	case Planet.Earth(var weight , var name):		println(&quot; 该行星的名字为：\(name)，质量相当于：\(weight)个地球 &quot;)	default:		break&#125;switch(p1)&#123;	// 将 Planet.Venus 的关联值绑定到 weight、density 常量	case let .Venus(weight , density):		println(&quot; 该行星的质量相当于：\(weight)个地球，密度为 \(density)&quot;)	// 将 Planet.Mercury 的关联值绑定到 w、d、n 常量	case let .Mercury(weight:w , density:d , name:n):		println(&quot; 该行星的名字为：\(n)，质量相当于：\(w)个地球，密度为 \(d)&quot;)	default:		break&#125;</span><br></pre></td></tr></table></figure></p>
+<p>##7.3 类和结构体</p>
+<p>类和结构体主要区别：</p>
+<ol>
+<li>结构体不支持继承</li>
+<li>结构体不支持定义析构器</li>
+<li>结构体是值类型，而类是引用类型</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">class Person &#123;</span><br><span class="line">    var name: String = &quot;&quot;</span><br><span class="line">    var age: Int = 0</span><br><span class="line">    </span><br><span class="line">    func say(content:String)&#123;</span><br><span class="line">        print(content)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">var p: Person</span><br><span class="line">p = Person()</span><br><span class="line"></span><br><span class="line">var q = Person()</span><br><span class="line"></span><br><span class="line">p.name = &quot;Wll&quot;</span><br><span class="line">q.age = 23</span><br><span class="line">q.say(&quot;Hi, \(p.name)&quot;)</span><br><span class="line"></span><br><span class="line">var p2 = p</span><br><span class="line"></span><br><span class="line">p2.name = &quot;Bruce Li&quot;</span><br><span class="line">print(p.name)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">struct Dog &#123;</span><br><span class="line">    var name: String</span><br><span class="line">    var age: Int</span><br><span class="line">    </span><br><span class="line">    func run()&#123;</span><br><span class="line">        print(&quot;\(name) run quickly.&quot;)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">var poppy = Dog(name: &quot;Wang&quot;, age: 2)</span><br><span class="line">print(poppy.name)</span><br><span class="line">poppy.run()</span><br><span class="line"></span><br><span class="line">var poppy2 = poppy</span><br><span class="line">poppy2.name = &quot;Cai🐶&quot;</span><br><span class="line">print(poppy2.name)</span><br><span class="line">print(poppy.name)</span><br></pre></td></tr></table></figure>
+<p>引用类型的比较：</p>
+<ul>
+<li>===</li>
+<li>!== </li>
+</ul>
+<p>结构体是值类型的引用，不适用此运算符。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">class User &#123;</span><br><span class="line">    var name: String</span><br><span class="line">    var age: Int</span><br><span class="line">    </span><br><span class="line">    init (name:String, age:Int)</span><br><span class="line">    &#123;</span><br><span class="line">        self.name = name</span><br><span class="line">        self.age = age</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">var u1 = User(name: &quot;Li&quot;, age: 18)</span><br><span class="line">var u2 = User(name: &quot;Li&quot;, age: 18)</span><br><span class="line"></span><br><span class="line">print(u1 === u2) // false</span><br><span class="line">print(u1 !== u2) // true</span><br><span class="line"></span><br><span class="line">var u3 = u1</span><br><span class="line">print(u1 === u3) // true</span><br><span class="line">print(u1 !== u3) // false</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">struct Level&#123;</span><br><span class="line">    var grade: Int</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">var lv1 = Level(grade: 20)</span><br><span class="line">var lv2 = Level(grade: 20)</span><br><span class="line"></span><br><span class="line">// print(lv1 === lv2)</span><br></pre></td></tr></table></figure>
+<p>self 关键字：</p>
+<ul>
+<li>构造器中 self 代表该构造器正在进行初始化的实例</li>
+<li>方法中 self 代表该方法的调用者</li>
+</ul>
+<p>类和结构体的选择</p>
+<ul>
+<li>结构体的主要目的是用于封装少量相关的简单数据值</li>
+<li>程序需要让该实例在赋值或参数传递时会自动复制副本</li>
+<li>程序明确该类型无需继承</li>
+</ul>
+<h2 id="7-4- 存储属性"><a href="#7-4- 存储属性" class="headerlink" title="7.4 存储属性"></a>7.4 存储属性 </h2><p> 使用 lazy 关键字修饰 var 实现延迟加载机制</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">import Foundation</span><br><span class="line"></span><br><span class="line">class Dept &#123;</span><br><span class="line">    var id : Int</span><br><span class="line">    var info: String</span><br><span class="line">    </span><br><span class="line">    init(id: Int)</span><br><span class="line">    &#123;</span><br><span class="line">        self.id = id</span><br><span class="line">        // 暂停 10 秒，模拟耗时操作</span><br><span class="line">        NSThread.sleepForTimeInterval(10)</span><br><span class="line">        self.info = &quot; 模拟读取数据库    😎&quot;</span><br><span class="line">        </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">class User &#123;</span><br><span class="line">    var id: Int = 0</span><br><span class="line">    lazy var dept = Dept(id: 20)</span><br><span class="line">    var nicks = [String]()</span><br><span class="line">    </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">var user1 = User()</span><br><span class="line"></span><br><span class="line">user1.nicks.append(&quot; Bruce Li&quot;)</span><br><span class="line">user1.nicks.append(&quot;Li Bai&quot;)</span><br><span class="line">print(user1.nicks)</span><br></pre></td></tr></table></figure>
+<h2 id="7-5- 计算属性"><a href="#7-5- 计算属性" class="headerlink" title="7.5 计算属性"></a>7.5 计算属性 </h2><p> 计算属性相当于 Objective-C、Java 等语言通过 getter、setter 合成的属性。</p>
+<p>set 部分的形参可以省略，Swift 提供一个隐式的形参名：newValue<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">import Foundation</span><br><span class="line"></span><br><span class="line">class User &#123;</span><br><span class="line">    var first: String = &quot;&quot;</span><br><span class="line">    var last: String = &quot;&quot;</span><br><span class="line">    </span><br><span class="line">    var fullName: String &#123;</span><br><span class="line">        get &#123;</span><br><span class="line">    </span><br><span class="line">         return first + &quot;-&quot; + last</span><br><span class="line">     &#125;</span><br><span class="line">        set &#123;</span><br><span class="line">            var names = newValue.componentsSeparatedByString(&quot;-&quot;)</span><br><span class="line">            </span><br><span class="line">            self.first = names[0]</span><br><span class="line">            self.last = names[1]</span><br><span class="line">     &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    init(first:String, last:String)</span><br><span class="line">    &#123;</span><br><span class="line">        self.first = first</span><br><span class="line">        self.last = last</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">let s = User(first: &quot;Long&quot;, last: &quot;Lee&quot;)</span><br><span class="line">print(s.fullName) // 输出：Long-Lee</span><br><span class="line">s.fullName = &quot;Sam-Zhang&quot;</span><br><span class="line">print(s.first) // 输出 Sam</span><br></pre></td></tr></table></figure></p>
+<p>只有 get，没有 set 的计算属性称之为只读的计算属性。<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">import Foundation</span><br><span class="line"></span><br><span class="line">class User &#123;</span><br><span class="line">    var first: String = &quot;&quot;</span><br><span class="line">    var last: String = &quot;&quot;</span><br><span class="line">     // 定义一个只读的计算属性，只有 get，省略 get 和花括号</span><br><span class="line">    var fullName: String &#123;</span><br><span class="line">        return first + &quot;-&quot; + last</span><br><span class="line">    &#125;</span><br><span class="line">    init(first:String, last:String)</span><br><span class="line">    &#123;</span><br><span class="line">        self.first = first</span><br><span class="line">        self.last = last</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">let s = User(first: &quot;Long&quot;, last: &quot;Lee&quot;)</span><br><span class="line">print(s.fullName) // 输出：Long-Lee</span><br></pre></td></tr></table></figure></p>
+<h2 id="7-9- 可选链"><a href="#7-9- 可选链" class="headerlink" title="7.9 可选链"></a>7.9 可选链</h2><p>Swift 所有类型默认都不可接受 nil 值，如果想接受 nil，可使用以下两种方法：</p>
+<ul>
+<li>原有类型后添加？后缀，这种可选类型必须强制解析才能获取被包装的值</li>
+<li>原有类型后添加！后缀，这种可选类型可有 Swift 隐式解析被包装的值 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">class Customer</span><br><span class="line">&#123;</span><br><span class="line">    var name = &quot;&quot;</span><br><span class="line">    var emp: Employee?</span><br><span class="line">    init(name: String)</span><br><span class="line">    &#123;</span><br><span class="line">        self.name = name</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">class Employee &#123;</span><br><span class="line">    var name = &quot;Bai&quot;</span><br><span class="line">    var title = &quot;service&quot;</span><br><span class="line">    var company: Company!</span><br><span class="line">    init(name: String, title: String)</span><br><span class="line">    &#123;</span><br><span class="line">        self.name = name</span><br><span class="line">        self.title = title</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">class Company &#123;</span><br><span class="line">    var name = &quot;whoDO&quot;</span><br><span class="line">    var addr = &quot;Shanghai&quot;</span><br><span class="line">    init(name: String, addr: String)</span><br><span class="line">    &#123;</span><br><span class="line">        self.name = name</span><br><span class="line">        self.addr = addr</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">var c = Customer(name: &quot;Sam&quot;)</span><br><span class="line">var emp = Employee(name: &quot;Ken&quot;, title: &quot;Manage&quot;)</span><br><span class="line">c.emp = emp</span><br><span class="line">emp.company = Company(name: &quot;Googl&quot;, addr: &quot;LV&quot;)</span><br><span class="line">print(&quot; 为 \(c.name) 服务的是：\(c.emp!.company.name)公司的 \(c.emp!.name)。&quot;)</span><br><span class="line">// 输出：为 Sam 服务的是：Googl 公司的 Ken。</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2015/05/17/MUST-CODE/" rel="next" title="MUST CODE">
+                <i class="fa fa-chevron-left"></i> MUST CODE
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2015/05/21/Self-learning-is-so-hard/" rel="prev" title="Self-learning is so hard">
+                Self-learning is so hard <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Ge Will</p>
+              <p class="site-description motion-element" itemprop="description">The people who are crazy enough to think they can change the world, are the ones who DO.</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">174</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/gewill" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:531sunlight@gmail.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://twitter.com/gewill_org" target="_blank" title="Twitter">
+                      
+                        <i class="fa fa-fw fa-twitter"></i>Twitter</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://weibo.com/gewei" target="_blank" title="Weibo">
+                      
+                        <i class="fa fa-fw fa-weibo"></i>Weibo</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+            <div class="cc-license motion-element" itemprop="license">
+              <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="cc-opacity" target="_blank">
+                <img src="/images/cc-by-nc-sa.svg" alt="Creative Commons">
+              </a>
+            </div>
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#7-4- 存储属性"><span class="nav-number">1.</span> <span class="nav-text">7.4 存储属性 </span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#7-5- 计算属性"><span class="nav-number">2.</span> <span class="nav-text">7.5 计算属性 </span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#7-9- 可选链"><span class="nav-number">3.</span> <span class="nav-text">7.9 可选链</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Ge Will</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+    
+      <script id="dsq-count-scr" src="https://gewill.disqus.com/count.js" async></script>
+    
+
+    
+      <script type="text/javascript">
+        var disqus_config = function () {
+          this.page.url = 'http://gewill.org/2015/05/18/Crazy-Swift-Lecture-Chapter-7/';
+          this.page.identifier = '2015/05/18/Crazy-Swift-Lecture-Chapter-7/';
+          this.page.title = 'Crazy Swift Lecture Chapter 7';
+        };
+        var d = document, s = d.createElement('script');
+        s.src = 'https://gewill.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+        (d.head || d.body).appendChild(s);
+      </script>
+    
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

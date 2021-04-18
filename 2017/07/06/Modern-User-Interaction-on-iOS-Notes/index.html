@@ -1,0 +1,820 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="en">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+  <meta name="google-site-verification" content="6p6MCt9mM7zNfEZF2HzE72sTOXJ8MC5frP4VNvYw1JU">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="Will's Blog" type="application/atom+xml">
+
+
+
+
+
+
+<meta name="description" content="WWDC 2017 Session 219 地址：[https://developer.apple.com/videos/play/wwdc2017/219/ 目录：  手势 The UIGestureRecognizer system 系统手势 System gesture interaction 拖拽 Drag and Drop  1. 手势  基础： UIGestureRecognizer">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Modern User Interaction on iOS - 笔记">
+<meta property="og:url" content="http://gewill.org/2017/07/06/Modern-User-Interaction-on-iOS-Notes/index.html">
+<meta property="og:site_name" content="Will&#39;s Blog">
+<meta property="og:description" content="WWDC 2017 Session 219 地址：[https://developer.apple.com/videos/play/wwdc2017/219/ 目录：  手势 The UIGestureRecognizer system 系统手势 System gesture interaction 拖拽 Drag and Drop  1. 手势  基础： UIGestureRecognizer">
+<meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2019-03-17T09:30:36.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Modern User Interaction on iOS - 笔记">
+<meta name="twitter:description" content="WWDC 2017 Session 219 地址：[https://developer.apple.com/videos/play/wwdc2017/219/ 目录：  手势 The UIGestureRecognizer system 系统手势 System gesture interaction 拖拽 Drag and Drop  1. 手势  基础： UIGestureRecognizer">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://gewill.org/2017/07/06/Modern-User-Interaction-on-iOS-Notes/">
+
+
+
+
+
+  <title>Modern User Interaction on iOS - 笔记 | Will's Blog</title>
+  
+
+
+
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-62118677-1', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Will's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            About
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            Archives
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="st-search-show-outputs">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
+            
+            Search
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <form class="site-search-form">
+  <input type="text" id="st-search-input" class="st-search-input st-default-search-input">
+</form>
+
+<script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+    (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+    e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+
+  _st('install', 'ntcZFKy566gs4bTbpvHW','2.0.0');
+</script>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://gewill.org/2017/07/06/Modern-User-Interaction-on-iOS-Notes/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Ge Will">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Will's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Modern User Interaction on iOS - 笔记</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-07-06T22:31:48+08:00">
+                2017-07-06
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2017/07/06/Modern-User-Interaction-on-iOS-Notes/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2017/07/06/Modern-User-Interaction-on-iOS-Notes/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>WWDC 2017 Session 219 地址：[<a href="https://developer.apple.com/videos/play/wwdc2017/219/" target="_blank" rel="noopener">https://developer.apple.com/videos/play/wwdc2017/219/</a></p>
+<p>目录：</p>
+<ul>
+<li>手势 The UIGestureRecognizer system</li>
+<li>系统手势 System gesture interaction</li>
+<li>拖拽 Drag and Drop</li>
+</ul>
+<h3 id="1- 手势"><a href="#1- 手势" class="headerlink" title="1. 手势"></a>1. 手势 </h3><h4 id="基础："><a href="# 基础：" class="headerlink" title="基础："></a> 基础：</h4><ul>
+<li><p>UIGestureRecognizer 比 UITouch 优先级高</p>
+<figure class="highlight swift"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">UIGestureRecognizer</span>: <span class="title">NSObject</span> </span>&#123;</span><br><span class="line">    <span class="keyword">open</span> <span class="keyword">var</span> delaysTouchesEnded: <span class="type">Bool</span> <span class="comment">// default is true.</span></span><br><span class="line">    <span class="keyword">open</span> <span class="keyword">var</span> cancelsTouchesInView: <span class="type">Bool</span> <span class="comment">// default is true.</span></span><br><span class="line">    <span class="keyword">open</span> <span class="keyword">var</span> delaysTouchesBegan: <span class="type">Bool</span> <span class="comment">// default is false.</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>​</p>
+</li>
+<li><p>UIGestureRecognizer 只有一个的胜出相应手势</p>
+</li>
+<li><p>UIGestureRecognizer 是否允许同时响应其他手势：在 delegate 可控制</p>
+<figure class="highlight swift"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">protocol</span> <span class="title">UIGestureRecognizerDelegate</span>: <span class="title">NSObjectProtocol</span> </span>&#123;</span><br><span class="line">       </span><br><span class="line">       <span class="keyword">optional</span> <span class="function"><span class="keyword">func</span> <span class="title">gestureRecognizer</span><span class="params">(<span class="number">_</span> gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer)</span></span> -&gt; <span class="type">Bool</span></span><br><span class="line">       </span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
+<p>​</p>
+</li>
+<li><p>UIGestureRecognizer 是否让其他手势失效</p>
+<figure class="highlight swift"><table><tr><td class="code"><pre><span class="line"><span class="keyword">open</span> <span class="class"><span class="keyword">class</span> <span class="title">UIGestureRecognizer</span>: <span class="title">NSObject</span> </span>&#123;</span><br><span class="line">    <span class="keyword">open</span> <span class="function"><span class="keyword">func</span> <span class="title">shouldRequireFailure</span><span class="params">(of otherGestureRecognizer: UIGestureRecognizer)</span></span> -&gt; <span class="type">Bool</span></span><br><span class="line">    <span class="keyword">open</span> <span class="function"><span class="keyword">func</span> <span class="title">shouldBeRequiredToFail</span><span class="params">(by otherGestureRecognizer: UIGestureRecognizer)</span></span> -&gt; <span class="type">Bool</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Hit Testing</p>
+</li>
+<li><p>新属性 name，便于调试</p>
+</li>
+</ul>
+<h4 id="手势系统的注意事项："><a href="# 手势系统的注意事项：" class="headerlink" title="手势系统的注意事项："></a>手势系统的注意事项：</h4><ul>
+<li>复查你的构建步骤（Revisit your setups ）</li>
+<li>排除和失效的标准（Exclusion and failure requirements）</li>
+<li>手势是否在正确的视图上？（ Are your gesture recognizers on the right views?）</li>
+</ul>
+<h3 id="2- 系统手势"><a href="#2- 系统手势" class="headerlink" title="2. 系统手势"></a>2. 系统手势 </h3><p> 应用手势和系统手势之争！如非沉浸式的游戏或画画的应用，别推迟系统手势。</p>
+<figure class="highlight swift"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyViewController</span>: <span class="title">UIViewController</span> </span>&#123;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// override to return which screen edges to defer system gestures</span></span><br><span class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">func</span> <span class="title">preferredScreenEdgesDeferringSystemGestures</span><span class="params">()</span></span> -&gt; <span class="type">UIRectEdge</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> deferControlCenter ? .bottom : <span class="type">UIRectEdge</span>()</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// call whenever your method would return a different screen edge</span></span><br><span class="line">    <span class="keyword">var</span> deferControlCenter: <span class="type">Bool</span> &#123;</span><br><span class="line">        <span class="keyword">didSet</span> &#123; setNeedsUpdateOfScreenEdgesDeferringSystemGestures() &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="3- 拖拽"><a href="#3- 拖拽" class="headerlink" title="3. 拖拽"></a>3. 拖拽</h3><figure class="highlight swift"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> dragInteraction = <span class="type">UIDragInteraction</span>(delegate: myDelegate) myView.addInteraction(dragInteraction)</span><br></pre></td></tr></table></figure>
+<h3 id="总结"><a href="# 总结" class="headerlink" title="总结"></a>总结 </h3><p> 手势部分关于同时兼容或禁止其他的应该都很熟悉，尤其是分页加 table view 经常处理。iOS 可以延迟系统边缘手势很不错的选择，很多 app 手势经常与系统同步调出。拖拽的话，主要在 iPad 上应用，就不深入学习了。</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/07/06/Introducing-Password-AutoFill-for-Apps-Notes/" rel="next" title="Introducing Password AutoFill for Apps - 笔记">
+                <i class="fa fa-chevron-left"></i> Introducing Password AutoFill for Apps - 笔记
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/07/10/inch-per-point-on-different-of-iPhones/" rel="prev" title="iPhone 点与物理尺寸的关系">
+                iPhone 点与物理尺寸的关系 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Ge Will</p>
+              <p class="site-description motion-element" itemprop="description">The people who are crazy enough to think they can change the world, are the ones who DO.</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">174</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/gewill" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:531sunlight@gmail.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://twitter.com/gewill_org" target="_blank" title="Twitter">
+                      
+                        <i class="fa fa-fw fa-twitter"></i>Twitter</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://weibo.com/gewei" target="_blank" title="Weibo">
+                      
+                        <i class="fa fa-fw fa-weibo"></i>Weibo</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+            <div class="cc-license motion-element" itemprop="license">
+              <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="cc-opacity" target="_blank">
+                <img src="/images/cc-by-nc-sa.svg" alt="Creative Commons">
+              </a>
+            </div>
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#1- 手势"><span class="nav-number">1.</span> <span class="nav-text">1. 手势 </span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#基础："><span class="nav-number">1.1.</span> <span class="nav-text"> 基础：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#手势系统的注意事项："><span class="nav-number">1.2.</span> <span class="nav-text">手势系统的注意事项：</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2- 系统手势"><span class="nav-number">2.</span> <span class="nav-text">2. 系统手势 </span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3- 拖拽"><span class="nav-number">3.</span> <span class="nav-text">3. 拖拽</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#总结"><span class="nav-number">4.</span> <span class="nav-text">总结 </span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Ge Will</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+    
+      <script id="dsq-count-scr" src="https://gewill.disqus.com/count.js" async></script>
+    
+
+    
+      <script type="text/javascript">
+        var disqus_config = function () {
+          this.page.url = 'http://gewill.org/2017/07/06/Modern-User-Interaction-on-iOS-Notes/';
+          this.page.identifier = '2017/07/06/Modern-User-Interaction-on-iOS-Notes/';
+          this.page.title = 'Modern User Interaction on iOS - 笔记';
+        };
+        var d = document, s = d.createElement('script');
+        s.src = 'https://gewill.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+        (d.head || d.body).appendChild(s);
+      </script>
+    
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
