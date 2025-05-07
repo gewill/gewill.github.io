@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 6.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha256-HtsXJanqjKTc8vVQjO4YMhiqFoXkfBsjBWcX91T1jr8=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Pisces","darkmode":true,"version":"8.17.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":true,"style":"mac"},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"},"path":"/search.json","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="极客班iOS应用开发实战测试题二（8月31日） 习题：同学录  项目源码见 GitHub。 v1.5以后使用 CocoaPods，.gitignore包含&#x2F;pod，下载后请 pod install。  1. 题目要求： 实现一个同学录列表，包含姓名、简介和头像等信息。 可以添加新的同学，支持拍照添加头像。 可以查看每一个的同学详情页。 实现存储所有同学的信息。   2. 实际开发遇到的点： Add">
+<meta property="og:type" content="article">
+<meta property="og:title" content="GeekBand Test 3: Classmates">
+<meta property="og:url" content="http://example.com/2015/09/01/GeekBand-Test-3-Classmates/index.html">
+<meta property="og:site_name" content="Will&#39;s Blog">
+<meta property="og:description" content="极客班iOS应用开发实战测试题二（8月31日） 习题：同学录  项目源码见 GitHub。 v1.5以后使用 CocoaPods，.gitignore包含&#x2F;pod，下载后请 pod install。  1. 题目要求： 实现一个同学录列表，包含姓名、简介和头像等信息。 可以添加新的同学，支持拍照添加头像。 可以查看每一个的同学详情页。 实现存储所有同学的信息。   2. 实际开发遇到的点： Add">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://i.imgur.com/kdKYL12.png">
+<meta property="og:image" content="http://ww2.sinaimg.cn/large/5369602ejw1evo9v2ahltj20ts15p43r.jpg">
+<meta property="og:image" content="http://i.imgur.com/2lEu3Og.jpg">
+<meta property="article:published_time" content="2015-08-31T23:51:54.000Z">
+<meta property="article:modified_time" content="2025-01-13T03:01:04.062Z">
+<meta property="article:author" content="Ge Will">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://i.imgur.com/kdKYL12.png">
+
+
+<link rel="canonical" href="http://example.com/2015/09/01/GeekBand-Test-3-Classmates/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"en","comments":true,"permalink":"http://example.com/2015/09/01/GeekBand-Test-3-Classmates/","path":"2015/09/01/GeekBand-Test-3-Classmates/","title":"GeekBand Test 3: Classmates"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>GeekBand Test 3: Classmates | Will's Blog</title>
+  
+
+
+
+
+
+
+
+<head>
+    <!-- 霞鹜文楷字体 -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lxgw-wenkai-webfont@1.7.0/style.css"/>
+
+    <!-- datapulse统计 -->
+    <script defer type="text/javascript" src="https://datapulse.app/datapulse.min.js" id="datapulse" data-endpoint="https://datapulse.app/api/v1/event" data-workspace="cljxqml5q0y0f8j37d4futnbl"></script>
+
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-DR0FC9YJLH"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() {
+            dataLayer.push(arguments);
+        }
+        gtag('js', new Date());
+
+        gtag('config', 'G-DR0FC9YJLH');
+    </script>
+</head>
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Will's Blog</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="Search" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives<span class="badge">198</span></a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags<span class="badge">17</span></a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories<span class="badge">1</span></a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="Searching..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-%E9%A2%98%E7%9B%AE%E8%A6%81%E6%B1%82%EF%BC%9A"><span class="nav-number">1.</span> <span class="nav-text">1. 题目要求：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-%E5%AE%9E%E9%99%85%E5%BC%80%E5%8F%91%E9%81%87%E5%88%B0%E7%9A%84%E7%82%B9%EF%BC%9A"><span class="nav-number">2.</span> <span class="nav-text">2. 实际开发遇到的点：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-%E9%A1%B9%E7%9B%AE%E5%AE%8C%E6%88%90%E6%83%85%E5%86%B5%EF%BC%9A"><span class="nav-number">3.</span> <span class="nav-text">3. 项目完成情况：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-BUG"><span class="nav-number">4.</span> <span class="nav-text">4. BUG</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-Further-Reading"><span class="nav-number">5.</span> <span class="nav-text">5. Further Reading</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Ge Will"
+      src="/images/avatar.jpeg">
+  <p class="site-author-name" itemprop="name">Ge Will</p>
+  <div class="site-description" itemprop="description">The people who are crazy enough to think they can change the world, are the ones who DO.</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">198</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">17</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/gewill" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;gewill" rel="noopener me" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:531sunlight@gmail.com" title="E-Mail → mailto:531sunlight@gmail.com" rel="noopener me" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://weibo.com/gewei" title="Weibo → https:&#x2F;&#x2F;weibo.com&#x2F;gewei" rel="noopener me" target="_blank"><i class="fab fa-weibo fa-fw"></i>Weibo</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://twitter.com/BoJack_D" title="Twitter → https:&#x2F;&#x2F;twitter.com&#x2F;BoJack_D" rel="noopener me" target="_blank"><i class="fab fa-twitter fa-fw"></i>Twitter</a>
+      </span>
+  </div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2015/09/01/GeekBand-Test-3-Classmates/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpeg">
+      <meta itemprop="name" content="Ge Will">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Will's Blog">
+      <meta itemprop="description" content="The people who are crazy enough to think they can change the world, are the ones who DO.">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="GeekBand Test 3: Classmates | Will's Blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          GeekBand Test 3: Classmates
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2015-09-01 07:51:54" itemprop="dateCreated datePublished" datetime="2015-09-01T07:51:54+08:00">2015-09-01</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">Edited on</span>
+      <time title="Modified: 2025-01-13 11:01:04" itemprop="dateModified" datetime="2025-01-13T11:01:04+08:00">2025-01-13</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><p>极客班iOS应用开发实战测试题二（8月31日）</p>
+<p>习题：同学录</p>
+<blockquote>
+<p>项目源码见 <a target="_blank" rel="noopener" href="https://github.com/gewill/GeekBand-IOS-1501-Homework/tree/new-branch/G2015010176/%E6%9E%81%E5%AE%A2%E7%8F%ADiOS%E5%BA%94%E7%94%A8%E5%BC%80%E5%8F%91%E5%AE%9E%E6%88%98%E6%B5%8B%E8%AF%95%E9%A2%98%E4%BA%8C%EF%BC%888%E6%9C%8831%E6%97%A5%EF%BC%89">GitHub</a>。</p>
+<p>v1.5以后使用 CocoaPods，<code>.gitignore</code>包含<code>/pod</code>，下载后请 <code>pod install</code>。</p>
+</blockquote>
+<h2 id="1-题目要求："><a href="#1-题目要求：" class="headerlink" title="1. 题目要求："></a>1. 题目要求：</h2><ul>
+<li>实现一个同学录列表，包含姓名、简介和头像等信息。</li>
+<li>可以添加新的同学，支持拍照添加头像。</li>
+<li>可以查看每一个的同学详情页。</li>
+<li>实现存储所有同学的信息。</li>
+</ul>
+<p><img src="http://i.imgur.com/kdKYL12.png" alt="Classmates"></p>
+<h2 id="2-实际开发遇到的点："><a href="#2-实际开发遇到的点：" class="headerlink" title="2. 实际开发遇到的点："></a>2. 实际开发遇到的点：</h2><ul>
+<li>Add Parse</li>
+<li>Add iCloud</li>
+<li>input view : <a target="_blank" rel="noopener" href="https://github.com/slackhq/SlackTextViewController">https://github.com/slackhq/SlackTextViewController</a></li>
+<li>统一的属性命名，vc，db，object</li>
+<li>各种输入框的逻辑处理和键盘跳出前后 UI 自动调整：<a target="_blank" rel="noopener" href="http://code.tutsplus.com/tutorials/ios-sdk-keeping-content-from-underneath-the-keyboard--mobile-6103">http://code.tutsplus.com/tutorials/ios-sdk-keeping-content-from-underneath-the-keyboard--mobile-6103</a></li>
+<li>添加删除，编辑功能</li>
+<li>Search</li>
+<li>Sort</li>
+<li>清晰的项目目录结构</li>
+<li>Dash 集成了 Cocoa Docsets： 如 Realm、FFDB &amp; AFNetworking etc.</li>
+<li>Dash Bookmark 有点用，可惜不能同步到 iOS</li>
+<li>Use Realm</li>
+<li>学习新的框架或知识点：一看 API，二看 Examples</li>
+<li>Realm query 还需熟悉提高</li>
+<li>Debug 尤其需要提高，思路要清晰，断点可以下多几个，查值要玩转。</li>
+<li>The Realm Browser is <a target="_blank" rel="noopener" href="https://itunes.apple.com/app/realm-browser/id1007457278">available on the Mac App Store</a>.</li>
+<li><a target="_blank" rel="noopener" href="http://www.runoob.com/sqlite/sqlite-data-types.html">SQLite 数据类型</a></li>
+<li>Updating Objects</li>
+</ul>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Updating Objects with primary keys</span></span><br><span class="line"><span class="comment">// This will make properties no settled be NULL</span></span><br><span class="line">[GWClassmate createOrUpdateInDefaultRealmWithValue:newClassmate];</span><br></pre></td></tr></table></figure>
+<ul>
+<li><p>两种编辑保存界面: 微信进入编辑的界面，Back 有个Alert确认保存; Phone.app 则是禁用右滑和 Back，显示 Cancel &amp; Done，也是完善的方案。<br><img src="http://ww2.sinaimg.cn/large/5369602ejw1evo9v2ahltj20ts15p43r.jpg" alt="Edit View"></p>
+</li>
+<li><p>Estimating default values for properties of Classmate</p>
+<ul>
+<li>In <code>Domain Logic</code>: ClassmateDB.h&#x2F;m (BEST Solution)</li>
+<li>In <code>Model</code>: Classmate.h&#x2F;m, Specify default values. BUT Realm isn’t support nil property.</li>
+<li>In <code>View Controller</code>: if&#x2F;esle</li>
+<li>In <code>Interface Builder</code>: Setting a default value. Especially giving a default avatar is a nice solution for user.</li>
+</ul>
+<blockquote>
+<p><a target="_blank" rel="noopener" href="http://cocoadocs.org/docsets/Realm/0.95.0/Constants/RLMPropertyType.html">RLMPropertyType Constants Reference</a>
+  </p>
+</blockquote>
+</li>
+<li><p>“To use AVAsset to extract metadata informations, this post is useful.” <a target="_blank" rel="noopener" href="http://stackoverflow.com/questions/16318821/extracting-mp3-album-artwork-in-ios">http://stackoverflow.com/questions/16318821/extracting-mp3-album-artwork-in-ios</a></p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="http://jacopretorius.net/2013/02/playing-video-in-ios.html">Playing video in iOS</a></p>
+</li>
+<li><p>Use Clang-Format -&gt; LLVM (default)</p>
+</li>
+</ul>
+<h2 id="3-项目完成情况："><a href="#3-项目完成情况：" class="headerlink" title="3. 项目完成情况："></a>3. 项目完成情况：</h2><p>完成1.0: </p>
+<ul>
+<li>基本功能完成</li>
+<li>列表使用了缩略图，待优化直接保存数据库</li>
+<li>输入键盘时，View 自动升降一个键盘高度，以保持可见</li>
+<li>保存是检验用户名，不能为空</li>
+<li>使用 Realm 数据库</li>
+<li>classmate.h&#x2F;m 为 Model，四个属性分别为：uuid、name、info &amp; avator</li>
+<li>Using GWDetailViewController as super class to GWShowDetailViewController can easy to create a new view.</li>
+</ul>
+<blockquote>
+<p>2015-08-31 20:17:00</p>
+</blockquote>
+<p>完成1.1:</p>
+<ul>
+<li>使用 FMDB</li>
+</ul>
+<blockquote>
+<p>把习题同学录的存储 Realm 换成 FMDB，午饭到16：00还没吃，我的学习新的知识的能力还比较低的。需要投入更多时间来学习了。</p>
+</blockquote>
+<blockquote>
+<p>2015-09-01 16:09:00</p>
+</blockquote>
+<p>完成1.2:</p>
+<ul>
+<li>换回 Realm</li>
+<li>增加编辑和删除功能</li>
+</ul>
+<blockquote>
+<p>2015-09-01 20:00:00</p>
+</blockquote>
+<p>完成1.3:</p>
+<ul>
+<li>随机添加修改和删除10000个classmate，以测试性能</li>
+<li>Add a tab bar view as root view </li>
+<li>UI layout like Wechat </li>
+<li>Set UUID as parimary key </li>
+<li>Updating Objects With Primary Keys</li>
+<li>把取消按钮改为 Button，并把 Segue to GWDetailViewController &amp; GWShowDetailViewController， 改为 Modle</li>
+<li>New a manaager class: GWClassmateDB, to abstract most useful SUQD methods and testing methods.</li>
+</ul>
+<blockquote>
+<p>2015-09-02 18:20:47</p>
+</blockquote>
+<p>完成1.4:</p>
+<ul>
+<li>Change cell’s Accessory form Detail to Disclosure Indicator</li>
+<li>Specify default values for properties of Classmate.h&#x2F;m</li>
+<li>Add Music Tab</li>
+<li>Add a “red dot badge” on avatars’ view for test. </li>
+<li>Change the classmates display style. Just looks like WeChat.app.</li>
+</ul>
+<blockquote>
+<p>2015-09-06 11:43:19</p>
+</blockquote>
+<p><img src="http://i.imgur.com/2lEu3Og.jpg" alt="Classmates v1.4"></p>
+<p>进行中1.5:</p>
+<ul>
+<li>Adapting to MVVM</li>
+<li><a target="_blank" rel="noopener" href="http://objccn.io/issue-15-2/">XCTest</a></li>
+<li>Add a ‘Edit’ Button, and after taped the ‘back’ button in navigation change to “cancel”, add a “Done” in right. Just looks like Phone.app.</li>
+<li>Add Sort by name, and index by initial</li>
+<li>Add Search</li>
+</ul>
+<h2 id="4-BUG"><a href="#4-BUG" class="headerlink" title="4. BUG"></a>4. BUG</h2><p>以下的代码提示越界错误：Terminating app due to uncaught exception ‘RLMException’, reason: ‘Index is out of bounds.’可能的原因：</p>
+<blockquote>
+<p>需要注意的是，写入操作会相互阻塞，而且其相对应的进程也会受到影响。这和其他的永久数据存储解决方案是一样的，所以我们建议你使用常用的，也是最有效的方案， 将所有写入放到一个单独的进程中。<a target="_blank" rel="noopener" href="https://realm.io/cn/docs/objc/latest/">https://realm.io/cn/docs/objc/latest/</a></p>
+</blockquote>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="type">void</span>)prepareForSegue:(<span class="built_in">UIStoryboardSegue</span> *)segue sender:(<span class="type">id</span>)sender</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">if</span> ([segue.identifier isEqualToString:<span class="string">@&quot;showDetail&quot;</span>]) &#123;</span><br><span class="line">        </span><br><span class="line">        <span class="built_in">NSIndexPath</span> *indexPath = [<span class="keyword">self</span>.tableView indexPathForCell:sender];</span><br><span class="line">        GWCustomTableViewCell *cell = (GWCustomTableViewCell *)[<span class="keyword">self</span>.tableView cellForRowAtIndexPath:indexPath];</span><br><span class="line">        </span><br><span class="line">        GWDetailViewController *vc = (GWDetailViewController *)segue.destinationViewController;</span><br><span class="line">        </span><br><span class="line"><span class="comment">//        vc.userid       = cell.userid;</span></span><br><span class="line">        vc.name.text    = cell.name.text;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>最终解决方法是修改 Custom Cell 中添加一个 UILabel 的 text 来存储 UUID，并设置为隐藏。并添加使用 Detail Disclosure 测试 NSLog UUID。具体的越界问题，还需要在研究。</p>
+<h2 id="5-Further-Reading"><a href="#5-Further-Reading" class="headerlink" title="5. Further Reading"></a>5. Further Reading</h2><ul>
+<li><a target="_blank" rel="noopener" href="http://nshipster.com/random/">rand(3) &#x2F; random(3) &#x2F; arc4random(3) &#x2F; et al.</a></li>
+<li><a target="_blank" rel="noopener" href="http://blog.ibireme.com/2015/05/18/runloop/#apple">深入理解 RunLoop</a></li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2015/09/01/iOS-Map/" rel="prev" title="iOS Map">
+                  <i class="fa fa-chevron-left"></i> iOS Map
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2015/09/04/Delete-the-extra-separator-of-UITableView-with-pain-style/" rel="next" title="Delete the extra separator of UITableView with pain style">
+                  Delete the extra separator of UITableView with pain style <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2025</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">Ge Will</span>
+  </div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/pisces/" rel="noopener" target="_blank">NexT.Pisces</a>
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="back-to-top" role="button" aria-label="Back to top">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.1/search.js" integrity="sha256-1kfA5uHPf65M5cphT2dvymhkuyHPQp5A53EGZOnOLmc=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>

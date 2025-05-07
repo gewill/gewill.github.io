@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 6.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha256-HtsXJanqjKTc8vVQjO4YMhiqFoXkfBsjBWcX91T1jr8=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Pisces","darkmode":true,"version":"8.17.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":true,"style":"mac"},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"},"path":"/search.json","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="做习题涉及和想到的点 我的习题代码 Github   Lazy load image in table view: Apple exampleLazyTableImagesor or SDWebImage Try NSURLSession  望文生义的能力很重要 拿到一个项目代码，start step into from initial view，了解了整个 app 的运行时的结构或循环，才能理解">
+<meta property="og:type" content="article">
+<meta property="og:title" content="GeekBand Test 2">
+<meta property="og:url" content="http://example.com/2015/08/22/GeekBand-Test-2/index.html">
+<meta property="og:site_name" content="Will&#39;s Blog">
+<meta property="og:description" content="做习题涉及和想到的点 我的习题代码 Github   Lazy load image in table view: Apple exampleLazyTableImagesor or SDWebImage Try NSURLSession  望文生义的能力很重要 拿到一个项目代码，start step into from initial view，了解了整个 app 的运行时的结构或循环，才能理解">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2015-08-22T14:00:00.000Z">
+<meta property="article:modified_time" content="2025-01-13T03:01:04.062Z">
+<meta property="article:author" content="Ge Will">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="http://example.com/2015/08/22/GeekBand-Test-2/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"en","comments":true,"permalink":"http://example.com/2015/08/22/GeekBand-Test-2/","path":"2015/08/22/GeekBand-Test-2/","title":"GeekBand Test 2"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>GeekBand Test 2 | Will's Blog</title>
+  
+
+
+
+
+
+
+
+<head>
+    <!-- 霞鹜文楷字体 -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lxgw-wenkai-webfont@1.7.0/style.css"/>
+
+    <!-- datapulse统计 -->
+    <script defer type="text/javascript" src="https://datapulse.app/datapulse.min.js" id="datapulse" data-endpoint="https://datapulse.app/api/v1/event" data-workspace="cljxqml5q0y0f8j37d4futnbl"></script>
+
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-DR0FC9YJLH"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() {
+            dataLayer.push(arguments);
+        }
+        gtag('js', new Date());
+
+        gtag('config', 'G-DR0FC9YJLH');
+    </script>
+</head>
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Will's Blog</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="Search" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives<span class="badge">198</span></a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags<span class="badge">17</span></a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories<span class="badge">1</span></a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="Searching..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%81%9A%E4%B9%A0%E9%A2%98%E6%B6%89%E5%8F%8A%E5%92%8C%E6%83%B3%E5%88%B0%E7%9A%84%E7%82%B9"><span class="nav-number">1.</span> <span class="nav-text">做习题涉及和想到的点</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B9%A0%E9%A2%98%E5%AE%8C%E6%88%90%E6%83%85%E5%86%B5"><span class="nav-number">2.</span> <span class="nav-text">习题完成情况</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AC%AC%E4%BA%8C%E9%A2%98"><span class="nav-number">2.1.</span> <span class="nav-text">第二题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Further-Reading"><span class="nav-number">2.2.</span> <span class="nav-text">Further Reading</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%B5%8B%E8%AF%95%E9%A2%98%E5%8E%9F%E6%96%87"><span class="nav-number">3.</span> <span class="nav-text">测试题原文</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-%E5%81%9A%E4%B8%80%E4%B8%AA%E7%B1%BB%E4%BC%BC%E5%BE%AE%E4%BF%A1%E7%9A%84%E8%81%8A%E5%A4%A9%E7%9A%84-tableview-tablewviewcell-%E8%87%AA%E5%AE%9A%E4%B9%89-%E3%80%82%E5%8F%AA%E9%9C%80%E8%A6%81-%E6%98%BE%E7%A4%BA%E6%96%87%E5%AD%97%E5%86%85%E5%AE%B9%E5%92%8C%E7%94%A8%E6%88%B7%E5%A4%B4%E5%83%8F-%E4%B8%8D%E9%9C%80%E8%A6%81%E5%81%9A%E8%BE%93%E5%85%A5%E9%83%A8%E5%88%86-%E6%96%87%E5%AD%97%E5%86%85%E5%AE%B9%E8%87%AA%E5%B7%B1%E6%A8%A1%E6%8B%9F"><span class="nav-number">3.1.</span> <span class="nav-text">1. 做一个类似微信的聊天的 tableview(tablewviewcell 自定义) 。只需要 显示文字内容和用户头像(不需要做输入部分,文字内容自己模拟)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-%E4%BD%BF%E7%94%A8-http-api-%E8%AF%B7%E6%B1%82%E8%A7%A3%E6%9E%90-json-or-xml-%E6%95%B0%E6%8D%AE-%E5%B9%B6%E4%B8%94%E4%BD%BF%E7%94%A8-tableview-%E5%B1%95%E7%A4%BA%E5%87%BA%E6%9D%A5-http-ax-itunes-apple-com-WebObjects-MZStoreServices-woa-ws-RSS-toppaidapplications-limit-10-json-or-xml"><span class="nav-number">3.2.</span> <span class="nav-text">2. 使用 http api 请求解析 json or xml 数据,并且使用 tableview 展示出来 http:&#x2F;&#x2F;ax.itunes.apple.com&#x2F;WebObjects&#x2F;MZStoreServices.woa&#x2F;ws&#x2F;RSS&#x2F;toppaidapplications&#x2F;limit&#x3D;10&#x2F;json or xml</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Ge Will"
+      src="/images/avatar.jpeg">
+  <p class="site-author-name" itemprop="name">Ge Will</p>
+  <div class="site-description" itemprop="description">The people who are crazy enough to think they can change the world, are the ones who DO.</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">198</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">17</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/gewill" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;gewill" rel="noopener me" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:531sunlight@gmail.com" title="E-Mail → mailto:531sunlight@gmail.com" rel="noopener me" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://weibo.com/gewei" title="Weibo → https:&#x2F;&#x2F;weibo.com&#x2F;gewei" rel="noopener me" target="_blank"><i class="fab fa-weibo fa-fw"></i>Weibo</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://twitter.com/BoJack_D" title="Twitter → https:&#x2F;&#x2F;twitter.com&#x2F;BoJack_D" rel="noopener me" target="_blank"><i class="fab fa-twitter fa-fw"></i>Twitter</a>
+      </span>
+  </div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2015/08/22/GeekBand-Test-2/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpeg">
+      <meta itemprop="name" content="Ge Will">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Will's Blog">
+      <meta itemprop="description" content="The people who are crazy enough to think they can change the world, are the ones who DO.">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="GeekBand Test 2 | Will's Blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          GeekBand Test 2
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2015-08-22 22:00:00" itemprop="dateCreated datePublished" datetime="2015-08-22T22:00:00+08:00">2015-08-22</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">Edited on</span>
+      <time title="Modified: 2025-01-13 11:01:04" itemprop="dateModified" datetime="2025-01-13T11:01:04+08:00">2025-01-13</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><h2 id="做习题涉及和想到的点"><a href="#做习题涉及和想到的点" class="headerlink" title="做习题涉及和想到的点"></a>做习题涉及和想到的点</h2><blockquote>
+<p>我的习题代码 <a target="_blank" rel="noopener" href="https://github.com/gewill/GeekBand-IOS-1501-Homework/tree/new-branch/G2015010176/iOS%20APP%20Development">Github</a></p>
+</blockquote>
+<ul>
+<li>Lazy load image in table view: Apple example<br><a target="_blank" rel="noopener" href="https://developer.apple.com/library/ios/samplecode/LazyTableImages/Introduction/Intro.html">LazyTableImagesor</a> or <a target="_blank" rel="noopener" href="https://github.com/rs/SDWebImage">SDWebImage</a></li>
+<li>Try NSURLSession </li>
+<li>望文生义的能力很重要</li>
+<li>拿到一个项目代码，start step into from initial view，了解了整个 app 的运行时的结构或循环，才能理解整个 app 的逻辑框架。</li>
+<li>框架&gt;目录&gt;类&gt;方法&gt;属性&#x2F;实例变量，这样子下来整个一个 App 就跑起来了，入口就是 main.m，然后各种设置属性和发消息，基于事件驱动的这一层理解运行时是比较合适的颗粒。</li>
+<li>Lazy load iamge use AFNetworking</li>
+</ul>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[cell.appImage setImageWithURL:[<span class="built_in">NSURL</span> URLWithString:[mediumImage valueForKeyPath:<span class="string">@&quot;label&quot;</span>]] placeholderImage:[<span class="built_in">UIImage</span> imageNamed:<span class="string">@&quot;placeholder&quot;</span>]];</span><br></pre></td></tr></table></figure>
+
+<h2 id="习题完成情况"><a href="#习题完成情况" class="headerlink" title="习题完成情况"></a>习题完成情况</h2><h3 id="第二题"><a href="#第二题" class="headerlink" title="第二题"></a>第二题</h3><p>完成 1.0:</p>
+<ul>
+<li>实现 table view 自带刷新</li>
+<li>添加 Cellular 开关，并能够检查网络连接方式，并提醒用户</li>
+<li>NSURLSession 下载 JSON</li>
+</ul>
+<blockquote>
+<p>2015-08-26</p>
+</blockquote>
+<p>进行中 1.1: </p>
+<ul>
+<li>Lazy load iamge use AFNetworking</li>
+</ul>
+<blockquote>
+<p>2015-09-03 11:36:32</p>
+</blockquote>
+<h3 id="Further-Reading"><a href="#Further-Reading" class="headerlink" title="Further Reading"></a>Further Reading</h3><ul>
+<li><p><a target="_blank" rel="noopener" href="http://blog.ibireme.com/2015/05/18/runloop/#apple">深入理解 RunLoop</a></p>
+<blockquote>
+<p>通过 Runloop 讲解了 NSURLConnection 的工作过程<br>iOS 中，关于网络请求的接口自下至上有如下几层:</p>
+</blockquote>
+</li>
+</ul>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">CFSocket</span></span><br><span class="line"><span class="built_in">CFNetwork</span>       -&gt;ASIHttpRequest</span><br><span class="line"><span class="built_in">NSURLConnection</span> -&gt;AFNetworking</span><br><span class="line"><span class="built_in">NSURLSession</span>    -&gt;AFNetworking2, Alamofire</span><br></pre></td></tr></table></figure>
+<ul>
+<li><p>CFSocket 是最底层的接口，只负责 socket 通信。</p>
+</li>
+<li><p>CFNetwork 是基于 CFSocket 等接口的上层封装，ASIHttpRequest 工作于这一层。</p>
+</li>
+<li><p>NSURLConnection 是基于 CFNetwork 的更高层的封装，提供面向对象的接口，AFNetworking 工作于这一层。</p>
+</li>
+<li><p>NSURLSession 是 iOS7 中新增的接口，表面上是和 NSURLConnection 并列的，但底层仍然用到了 NSURLConnection 的部分功能 (比如 com.apple.NSURLConnectionLoader 线程)，AFNetworking2 和 Alamofire 工作于这一层。</p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="http://cocoadocs.org/docsets/AFNetworking/2.6.0/index.html">Network Reachability Manager</a></p>
+<blockquote>
+<p>AFNetworkReachabilityManager monitors the reachability of domains, and addresses for both WWAN and WiFi network interfaces.</p>
+</blockquote>
+<blockquote>
+<p>Do not use Reachability to determine if the original request should be sent.</p>
+</blockquote>
+</li>
+</ul>
+<p>You should try to send it.<br>You can use Reachability to determine when a request should be automatically retried.<br>Although it may still fail, a Reachability notification that the connectivity is available is a good time to retry something.<br>Network reachability is a useful tool for determining why a request might have failed.<br>After a network request has failed, telling the user they’re offline is better than giving them a more technical but accurate error, such as “request timed out.”</p>
+<ul>
+<li><p>See also <a target="_blank" rel="noopener" href="https://developer.apple.com/videos/wwdc/2012/#706%22">WWDC 2012 session 706, “Networking Best Practices</a>.</p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://github.com/rs/SDWebImage">SDWebImage</a></p>
+<blockquote>
+<p>AFNetworking takes advantage of Foundation URL Loading System caching using NSURLCache, as well as a configurable in-memory cache for UIImageView and UIButton, which uses NSCache by default. Caching behavior can be further specified in the caching policy of a corresponding NSURLRequest. Other SDWebImage features, like background decompression of image data is also provided by AFNetworking.</p>
+</blockquote>
+<blockquote>
+<p>If you’re already using AFNetworking and just want an easy async image loading category, the built-in UIKit extensions will probably fit your needs.
+  </p>
+</blockquote>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://github.com/AFNetworking/AFNetworking">AFNetworking</a> example</p>
+<blockquote>
+<p>iOS example 非常经典，包含了使用方法和一个 UITableView实用框架。</p>
+</blockquote>
+</li>
+<li><p><a target="_blank" rel="noopener" href="http://www.raywenderlich.com/59255/afnetworking-2-0-tutorial">AFNetworking 2.0 Tutorial</a></p>
+</li>
+</ul>
+<h2 id="测试题原文"><a href="#测试题原文" class="headerlink" title="测试题原文"></a>测试题原文</h2><h3 id="1-做一个类似微信的聊天的-tableview-tablewviewcell-自定义-。只需要-显示文字内容和用户头像-不需要做输入部分-文字内容自己模拟"><a href="#1-做一个类似微信的聊天的-tableview-tablewviewcell-自定义-。只需要-显示文字内容和用户头像-不需要做输入部分-文字内容自己模拟" class="headerlink" title="1. 做一个类似微信的聊天的 tableview(tablewviewcell 自定义) 。只需要 显示文字内容和用户头像(不需要做输入部分,文字内容自己模拟)"></a>1. 做一个类似微信的聊天的 tableview(tablewviewcell 自定义) 。只需要 显示文字内容和用户头像(不需要做输入部分,文字内容自己模拟)</h3><p>1 必须实现文字内容背景<br>2 背景的长度和高度要合适<br>3 发生者和接受者左右布局区分  </p>
+<h3 id="2-使用-http-api-请求解析-json-or-xml-数据-并且使用-tableview-展示出来-http-ax-itunes-apple-com-WebObjects-MZStoreServices-woa-ws-RSS-toppaidapplications-limit-10-json-or-xml"><a href="#2-使用-http-api-请求解析-json-or-xml-数据-并且使用-tableview-展示出来-http-ax-itunes-apple-com-WebObjects-MZStoreServices-woa-ws-RSS-toppaidapplications-limit-10-json-or-xml" class="headerlink" title="2. 使用 http api 请求解析 json or xml 数据,并且使用 tableview 展示出来 http://ax.itunes.apple.com/WebObjects/MZStoreServices.woa/ws/RSS/toppaidapplications/limit=10/json or xml"></a>2. 使用 http api 请求解析 json or xml 数据,并且使用 tableview 展示出来 <a target="_blank" rel="noopener" href="http://ax.itunes.apple.com/WebObjects/MZStoreServices.woa/ws/RSS/toppaidapplications/limit=10/json">http://ax.itunes.apple.com/WebObjects/MZStoreServices.woa/ws/RSS/toppaidapplications/limit=10/json</a> or xml</h3><p><strong>提示</strong>:  </p>
+<ol>
+<li>可以使用第三方库,也可以使用 SDK 基础库  </li>
+<li>显示网络下载数据时间  </li>
+<li>比较 xml or json 解析效率  </li>
+<li>tableviewcell自定义</li>
+</ol>
+<p>注:</p>
+<ul>
+<li>希望大家在一周内上传答案到极客班 github 个人的作业文件夹(以学生编 号命名)</li>
+<li>IOS 专业 Github 目录: <a target="_blank" rel="noopener" href="https://github.com/GeekBand/GeekBand-IOS-1501-Homework">https://github.com/GeekBand/GeekBand-IOS-1501-Homework</a></li>
+<li>老师会在直播环节点评此题</li>
+<li>作业的最终批改和成绩公布会在结业时进行。</li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2015/08/22/GeekBand-flip-classroom-week-6/" rel="prev" title="极客班线下翻转课堂第六周">
+                  <i class="fa fa-chevron-left"></i> 极客班线下翻转课堂第六周
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2015/08/24/CS193P-Fall-2013-11-Table-View-and-iPad/" rel="next" title="CS193P Fall 2013: 11.Table View and iPad">
+                  CS193P Fall 2013: 11.Table View and iPad <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2025</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">Ge Will</span>
+  </div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/pisces/" rel="noopener" target="_blank">NexT.Pisces</a>
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="back-to-top" role="button" aria-label="Back to top">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.1/search.js" integrity="sha256-1kfA5uHPf65M5cphT2dvymhkuyHPQp5A53EGZOnOLmc=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>

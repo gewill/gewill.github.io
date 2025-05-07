@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 6.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha256-HtsXJanqjKTc8vVQjO4YMhiqFoXkfBsjBWcX91T1jr8=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Pisces","darkmode":true,"version":"8.17.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":true,"style":"mac"},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"},"path":"/search.json","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="6.5 添加本地通知书中没有提到申请通知权限，方法如下 add this code, it will show a alert view to ask user for permission. 1234567if ([UIApplication instancesRespondToSelector:@selector(registerUserNotificationSettings:)]) &amp;#1">
+<meta property="og:type" content="article">
+<meta property="og:title" content="《iOS 编程》6. 视图控制器">
+<meta property="og:url" content="http://example.com/2015/07/28/iOS-Programming-4ed-6/index.html">
+<meta property="og:site_name" content="Will&#39;s Blog">
+<meta property="og:description" content="6.5 添加本地通知书中没有提到申请通知权限，方法如下 add this code, it will show a alert view to ask user for permission. 1234567if ([UIApplication instancesRespondToSelector:@selector(registerUserNotificationSettings:)]) &amp;#1">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2015-07-28T08:27:23.000Z">
+<meta property="article:modified_time" content="2025-01-13T03:01:04.071Z">
+<meta property="article:author" content="Ge Will">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="http://example.com/2015/07/28/iOS-Programming-4ed-6/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"en","comments":true,"permalink":"http://example.com/2015/07/28/iOS-Programming-4ed-6/","path":"2015/07/28/iOS-Programming-4ed-6/","title":"《iOS 编程》6. 视图控制器"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>《iOS 编程》6. 视图控制器 | Will's Blog</title>
+  
+
+
+
+
+
+
+
+<head>
+    <!-- 霞鹜文楷字体 -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lxgw-wenkai-webfont@1.7.0/style.css"/>
+
+    <!-- datapulse统计 -->
+    <script defer type="text/javascript" src="https://datapulse.app/datapulse.min.js" id="datapulse" data-endpoint="https://datapulse.app/api/v1/event" data-workspace="cljxqml5q0y0f8j37d4futnbl"></script>
+
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-DR0FC9YJLH"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() {
+            dataLayer.push(arguments);
+        }
+        gtag('js', new Date());
+
+        gtag('config', 'G-DR0FC9YJLH');
+    </script>
+</head>
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Will's Blog</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="Search" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives<span class="badge">198</span></a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags<span class="badge">17</span></a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories<span class="badge">1</span></a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="Searching..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#6-5-%E6%B7%BB%E5%8A%A0%E6%9C%AC%E5%9C%B0%E9%80%9A%E7%9F%A5"><span class="nav-number">1.</span> <span class="nav-text">6.5 添加本地通知</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#6-7-%E4%B8%8E%E8%A7%86%E5%9B%BE%E6%8E%A7%E5%88%B6%E5%99%A8%E5%8F%8A%E5%85%B6%E8%A7%86%E5%9B%BE%E8%BF%9B%E8%A1%8C%E4%BA%A4%E4%BA%92"><span class="nav-number">2.</span> <span class="nav-text">6.7 与视图控制器及其视图进行交互</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#6-9-%E4%B8%AD%E7%BA%A7%E7%BB%83%E4%B9%A0%EF%BC%9A%E6%8E%A7%E5%88%B6%E9%80%BB%E8%BE%91"><span class="nav-number">3.</span> <span class="nav-text">6.9 中级练习：控制逻辑</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%A1%B9%E7%9B%AE%E4%BB%A3%E7%A0%81%E4%BF%9D%E5%AD%98%E5%9C%A8%E6%88%91%E7%9A%84-GitHub-iOSProgramming4edSolutions"><span class="nav-number">4.</span> <span class="nav-text">项目代码保存在我的 GitHub: iOSProgramming4edSolutions</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Ge Will"
+      src="/images/avatar.jpeg">
+  <p class="site-author-name" itemprop="name">Ge Will</p>
+  <div class="site-description" itemprop="description">The people who are crazy enough to think they can change the world, are the ones who DO.</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">198</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">17</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/gewill" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;gewill" rel="noopener me" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:531sunlight@gmail.com" title="E-Mail → mailto:531sunlight@gmail.com" rel="noopener me" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://weibo.com/gewei" title="Weibo → https:&#x2F;&#x2F;weibo.com&#x2F;gewei" rel="noopener me" target="_blank"><i class="fab fa-weibo fa-fw"></i>Weibo</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://twitter.com/BoJack_D" title="Twitter → https:&#x2F;&#x2F;twitter.com&#x2F;BoJack_D" rel="noopener me" target="_blank"><i class="fab fa-twitter fa-fw"></i>Twitter</a>
+      </span>
+  </div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2015/07/28/iOS-Programming-4ed-6/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpeg">
+      <meta itemprop="name" content="Ge Will">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Will's Blog">
+      <meta itemprop="description" content="The people who are crazy enough to think they can change the world, are the ones who DO.">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="《iOS 编程》6. 视图控制器 | Will's Blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          《iOS 编程》6. 视图控制器
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2015-07-28 16:27:23" itemprop="dateCreated datePublished" datetime="2015-07-28T16:27:23+08:00">2015-07-28</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">Edited on</span>
+      <time title="Modified: 2025-01-13 11:01:04" itemprop="dateModified" datetime="2025-01-13T11:01:04+08:00">2025-01-13</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><h2 id="6-5-添加本地通知"><a href="#6-5-添加本地通知" class="headerlink" title="6.5 添加本地通知"></a>6.5 添加本地通知</h2><p>书中没有提到申请通知权限，方法如下</p>
+<p><a target="_blank" rel="noopener" href="http://stackoverflow.com/questions/24203066/ask-user-for-permission-to-show-alert-when-firing-local-notification">add this code, it will show a alert view to ask user for permission.</a></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">if ([UIApplication instancesRespondToSelector:@selector(registerUserNotificationSettings:)]) &#123;</span><br><span class="line">    [[UIApplication sharedApplication] registerUserNotificationSettings:[UIUserNotificationSettings settingsForTypes:UIUserNotificationTypeAlert|UIUserNotificationTypeSound|UIUserNotificationTypeBadge</span><br><span class="line">                                                                                                          categories:nil]];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">    </span><br></pre></td></tr></table></figure>
+
+<h2 id="6-7-与视图控制器及其视图进行交互"><a href="#6-7-与视图控制器及其视图进行交互" class="headerlink" title="6.7 与视图控制器及其视图进行交互"></a>6.7 与视图控制器及其视图进行交互</h2><p><strong>视图控制器的生命周期方法（lifecycle method）：</strong></p>
+<ul>
+<li><p>application:didFinishLaunchingWithOptions:在该方法中设置和初始化应用窗口的根视图控制器。该方法只会在应用启动完毕后调用一次。</p>
+</li>
+<li><p>initWithNibName:bundle:该方法是UIViewController的指定初始化方法，创建视图控制器时，就会调用该方法。请注意，某些情况下，需要在同一个应用中创建多个相同的UIViewController子类对象，每次创建一个该类的对象时，都会调用一次该类的initWithNibName:bundle:方法。</p>
+</li>
+<li><p>loadView:可以覆盖该方法，使用代码方式设置视图控制器的view属性。</p>
+</li>
+<li><p>viewDidLoad可以覆盖该方法，设置使用NIB文件创建的视图对象。该方法会在视图控制器加载完视图后被调用。</p>
+</li>
+<li><p>viewWillAppear:可以覆盖该方法，设置使用NIB文件创建的视图对象。该方法和</p>
+</li>
+<li><p>viewDidAppear:会在每次视图控制器的view显示在屏幕上时被调用；相反，</p>
+</li>
+<li><p>viewWillDisappear:和viewDidDisappear:方法会在每次视图控制器的view从屏幕上消失时被调用。</p>
+</li>
+</ul>
+<h2 id="6-9-中级练习：控制逻辑"><a href="#6-9-中级练习：控制逻辑" class="headerlink" title="6.9 中级练习：控制逻辑"></a>6.9 中级练习：控制逻辑</h2><p>查文档不懂，这是个大问题，有待提高看文档具体怎么组织的能力。<a target="_blank" rel="noopener" href="http://stackoverflow.com/questions/6688160/how-to-programmatically-add-a-uisegmentedcontrol-to-a-container-view">Stack Overflow</a> 的答案运行崩溃，没有理解原理，<code>mainSegmentControl:</code> 方法没有声明。最后还是去 <a target="_blank" rel="noopener" href="http://forums.bignerdranch.com/viewtopic.php?f=487&t=9844">BNR论坛</a> 找到了答案。</p>
+<blockquote>
+<p>熟悉文档浏览 UIColor，其实也是不很精通颜色，但是还是大部分看懂了，也了解了目录结构和对应文本的样式。</p>
+</blockquote>
+<p>GWHypnosisViewController.m </p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">- (void)viewDidLoad &#123;</span><br><span class="line">    [super viewDidLoad];</span><br><span class="line">    // Do any additional setup after loading the view.</span><br><span class="line">    NSLog(@&quot;GWHypnosisViewController loaded its view.&quot;);</span><br><span class="line"></span><br><span class="line">    // 初始化UISegmentedControl，设置大小和颜色</span><br><span class="line">    UISegmentedControl *segmentedControl = [[UISegmentedControl alloc] initWithItems:@[@&quot;Red&quot;, @&quot;Green&quot;, @&quot;Blue&quot;]];</span><br><span class="line">    segmentedControl.frame = CGRectMake(0, 0, 250, 50);</span><br><span class="line">    segmentedControl.tintColor = [UIColor blackColor];</span><br><span class="line">    </span><br><span class="line">    // 注册UISegmentedControl</span><br><span class="line">    [segmentedControl addTarget:self.view</span><br><span class="line">                         action:@selector(mainSegmentControl:)</span><br><span class="line">               forControlEvents: UIControlEventValueChanged];</span><br><span class="line">    // 添加到视图</span><br><span class="line">    [self.view addSubview:segmentedControl];</span><br><span class="line">    </span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>GWHypnosisView.h</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">- (void)mainSegmentControl:(UISegmentedControl *)segment;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>GWHypnosisView.m</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">// mainSegmentControl: 方法用来接受 UISegmentedControl 发的消息</span><br><span class="line">- (void)mainSegmentControl:(UISegmentedControl *)segment</span><br><span class="line">&#123;</span><br><span class="line">    </span><br><span class="line">    if(segment.selectedSegmentIndex == 0)</span><br><span class="line">    &#123;</span><br><span class="line">        // action for the first button (Current or Default)</span><br><span class="line">        self.circleColor = [UIColor redColor];</span><br><span class="line">    &#125;</span><br><span class="line">    else if(segment.selectedSegmentIndex == 1)</span><br><span class="line">    &#123;</span><br><span class="line">        // action for the second button</span><br><span class="line">        self.circleColor = [UIColor greenColor];</span><br><span class="line">    &#125;</span><br><span class="line">    else if(segment.selectedSegmentIndex == 2)</span><br><span class="line">    &#123;</span><br><span class="line">        // action for the third button</span><br><span class="line">        self.circleColor = [UIColor blueColor];</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="项目代码保存在我的-GitHub-iOSProgramming4edSolutions"><a href="#项目代码保存在我的-GitHub-iOSProgramming4edSolutions" class="headerlink" title="项目代码保存在我的 GitHub: iOSProgramming4edSolutions"></a>项目代码保存在我的 GitHub: <a target="_blank" rel="noopener" href="https://github.com/gewill/iOSProgramming4edSolutions">iOSProgramming4edSolutions</a></h2>
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2015/07/28/iOS-Programming-4ed-5/" rel="prev" title="《iOS 编程》5. 视图：重绘与 UIScrollView">
+                  <i class="fa fa-chevron-left"></i> 《iOS 编程》5. 视图：重绘与 UIScrollView
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2015/07/28/GeekBand-iOS-APP-Development-2/" rel="next" title="极客班 iOS 应用开发实战（二）">
+                  极客班 iOS 应用开发实战（二） <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2025</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">Ge Will</span>
+  </div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/pisces/" rel="noopener" target="_blank">NexT.Pisces</a>
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="back-to-top" role="button" aria-label="Back to top">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.1/search.js" integrity="sha256-1kfA5uHPf65M5cphT2dvymhkuyHPQp5A53EGZOnOLmc=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>

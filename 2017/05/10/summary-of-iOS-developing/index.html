@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 6.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha256-HtsXJanqjKTc8vVQjO4YMhiqFoXkfBsjBWcX91T1jr8=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Pisces","darkmode":true,"version":"8.17.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":true,"style":"mac"},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"},"path":"/search.json","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="自从学习iOS开发以来，断断续续加起来也有2年时间了。最近离职，是时候做一下总结，梳理一下知识点。 iOS开发最开始入门是 Stanford University Developing iOS 7 Apps，虽然是英语，但是最基本的概念也是那时候一点点学的。当然后来离职参加培训班，是进步最快速的一段时间，也培养了真正自学的能力。到后来参加iOS的工作，一直以来引以为好的就是自学能力。因为对于iOS">
+<meta property="og:type" content="article">
+<meta property="og:title" content="iOS开发总结">
+<meta property="og:url" content="http://example.com/2017/05/10/summary-of-iOS-developing/index.html">
+<meta property="og:site_name" content="Will&#39;s Blog">
+<meta property="og:description" content="自从学习iOS开发以来，断断续续加起来也有2年时间了。最近离职，是时候做一下总结，梳理一下知识点。 iOS开发最开始入门是 Stanford University Developing iOS 7 Apps，虽然是英语，但是最基本的概念也是那时候一点点学的。当然后来离职参加培训班，是进步最快速的一段时间，也培养了真正自学的能力。到后来参加iOS的工作，一直以来引以为好的就是自学能力。因为对于iOS">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2017-05-09T19:31:17.000Z">
+<meta property="article:modified_time" content="2025-01-13T03:01:04.074Z">
+<meta property="article:author" content="Ge Will">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="http://example.com/2017/05/10/summary-of-iOS-developing/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"en","comments":true,"permalink":"http://example.com/2017/05/10/summary-of-iOS-developing/","path":"2017/05/10/summary-of-iOS-developing/","title":"iOS开发总结"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>iOS开发总结 | Will's Blog</title>
+  
+
+
+
+
+
+
+
+<head>
+    <!-- 霞鹜文楷字体 -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lxgw-wenkai-webfont@1.7.0/style.css"/>
+
+    <!-- datapulse统计 -->
+    <script defer type="text/javascript" src="https://datapulse.app/datapulse.min.js" id="datapulse" data-endpoint="https://datapulse.app/api/v1/event" data-workspace="cljxqml5q0y0f8j37d4futnbl"></script>
+
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-DR0FC9YJLH"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() {
+            dataLayer.push(arguments);
+        }
+        gtag('js', new Date());
+
+        gtag('config', 'G-DR0FC9YJLH');
+    </script>
+</head>
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Will's Blog</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="Search" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives<span class="badge">198</span></a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags<span class="badge">17</span></a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories<span class="badge">1</span></a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="Searching..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%A1%86%E6%9E%B6"><span class="nav-number">1.</span> <span class="nav-text">框架</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%AF%AD%E8%A8%80"><span class="nav-number">2.</span> <span class="nav-text">语言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F"><span class="nav-number">3.</span> <span class="nav-text">设计模式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Cocoa-Touch"><span class="nav-number">4.</span> <span class="nav-text">Cocoa Touch</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AD%A6%E4%B9%A0%E8%B5%84%E6%BA%90"><span class="nav-number">5.</span> <span class="nav-text">学习资源</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B8%B8%E7%94%A8%E5%BA%93"><span class="nav-number">6.</span> <span class="nav-text">常用库</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Ge Will"
+      src="/images/avatar.jpeg">
+  <p class="site-author-name" itemprop="name">Ge Will</p>
+  <div class="site-description" itemprop="description">The people who are crazy enough to think they can change the world, are the ones who DO.</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">198</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">17</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/gewill" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;gewill" rel="noopener me" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:531sunlight@gmail.com" title="E-Mail → mailto:531sunlight@gmail.com" rel="noopener me" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://weibo.com/gewei" title="Weibo → https:&#x2F;&#x2F;weibo.com&#x2F;gewei" rel="noopener me" target="_blank"><i class="fab fa-weibo fa-fw"></i>Weibo</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://twitter.com/BoJack_D" title="Twitter → https:&#x2F;&#x2F;twitter.com&#x2F;BoJack_D" rel="noopener me" target="_blank"><i class="fab fa-twitter fa-fw"></i>Twitter</a>
+      </span>
+  </div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2017/05/10/summary-of-iOS-developing/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpeg">
+      <meta itemprop="name" content="Ge Will">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Will's Blog">
+      <meta itemprop="description" content="The people who are crazy enough to think they can change the world, are the ones who DO.">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="iOS开发总结 | Will's Blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          iOS开发总结
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2017-05-10 03:31:17" itemprop="dateCreated datePublished" datetime="2017-05-10T03:31:17+08:00">2017-05-10</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">Edited on</span>
+      <time title="Modified: 2025-01-13 11:01:04" itemprop="dateModified" datetime="2025-01-13T11:01:04+08:00">2025-01-13</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><p>自从学习iOS开发以来，断断续续加起来也有2年时间了。最近离职，是时候做一下总结，梳理一下知识点。</p>
+<p>iOS开发最开始入门是 Stanford University Developing iOS 7 Apps，虽然是英语，但是最基本的概念也是那时候一点点学的。当然后来离职参加培训班，是进步最快速的一段时间，也培养了真正自学的能力。到后来参加iOS的工作，一直以来引以为好的就是自学能力。因为对于iOS开发来说：语言、设计模式、框架、文档、调试和测试等都已经掌握了，实际开发工作中，无非是一些实际的问题或者新的框架和系统特性，只要查询文档或者Google一下都能解决了。</p>
+<h2 id="框架"><a href="#框架" class="headerlink" title="框架"></a>框架</h2><p>谈到iOS框架，必须是MVC，工作以来的项目一直都是MVC。足够简单的分层和经久验证的良好设计。对于其他的如：MVVM，只是了解，实际项目中未曾应用。比较简单的业务逻辑和团队人数少的情况下，MVC足够好用。</p>
+<h2 id="语言"><a href="#语言" class="headerlink" title="语言"></a>语言</h2><p>Objective-C是入门语言，其语言复杂性足够新手望而却步，但是也就属性特性和方法调用比较难。后来工作中一直使用Swift，才感觉到现代语言的简单和强大。尤其是Swift多范式，支持函数式编程，尤为方便。由于对Swift的偏爱，我也逐渐把第三方库都替换成了Swift对应的版本。Cocoapods对于Framework的支持也比较好， 添加<code>use_frameworks!</code>，即可调用Objective-C的库也很Swifty。</p>
+<h2 id="设计模式"><a href="#设计模式" class="headerlink" title="设计模式"></a>设计模式</h2><p>Delegate、通知、KVO、Target-Action、Block(Closure)、工厂方法、单例等就不一一介绍，更具实际需求选择合适且喜欢的就行。特别推荐这篇文章：<a target="_blank" rel="noopener" href="https://www.objccn.io/issue-7-4/">消息传递机制</a></p>
+<h2 id="Cocoa-Touch"><a href="#Cocoa-Touch" class="headerlink" title="Cocoa Touch"></a>Cocoa Touch</h2><p>iOS渲染层次树、view、layer、响应链、Core Animation、自定义view、常见UIKit的控件的继承关系，table view、collection view等都应该熟练使用。</p>
+<h2 id="学习资源"><a href="#学习资源" class="headerlink" title="学习资源"></a>学习资源</h2><p>微博、Twitter、博客、书、视频教程都是很好的。列几个对我影响比较的：</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="http://web.stanford.edu/class/cs193p/cgi-bin/drupal/">CS 193P iPhone Application Development</a></li>
+<li><a target="_blank" rel="noopener" href="http://limboy.me/">limboy</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.objccn.io/">ObjC中国</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.objccn.io/products/advanced-swift/">Swift 进阶</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.amazon.com/Programming-iOS-Views-Controllers-Frameworks/dp/1491936851">Programming iOS 9</a></li>
+<li><a target="_blank" rel="noopener" href="https://item.jd.com/11598468.html">iOS开发进阶</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.amazon.cn/%E5%9B%BE%E4%B9%A6/dp/B00IDSGY06/ref=sr_1_1">Effective Objective-C 2.0</a></li>
+</ul>
+<h2 id="常用库"><a href="#常用库" class="headerlink" title="常用库"></a>常用库</h2><p>这里是最为推荐的几个库：</p>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">pod <span class="string">&#x27;SwiftyJSON&#x27;</span></span><br><span class="line">pod <span class="string">&#x27;SnapKit&#x27;</span></span><br><span class="line">pod <span class="string">&#x27;IGListKit&#x27;</span></span><br><span class="line">pod <span class="string">&#x27;Kanna&#x27;</span></span><br><span class="line">pod <span class="string">&#x27;URLNavigator&#x27;</span></span><br><span class="line">pod <span class="string">&#x27;MXSegmentedPager&#x27;</span></span><br><span class="line">pod <span class="string">&#x27;QMUIKit&#x27;</span></span><br><span class="line">pod <span class="string">&#x27;IBAnimatable&#x27;</span></span><br><span class="line">pod <span class="string">&#x27;Ruler&#x27;</span></span><br><span class="line">pod <span class="string">&#x27;DZNEmptyDataSet&#x27;</span></span><br><span class="line">pod <span class="string">&#x27;CYLTabBarController&#x27;</span></span><br><span class="line">pod <span class="string">&#x27;FDFullscreenPopGesture&#x27;</span></span><br><span class="line">pod <span class="string">&#x27;MJRefresh&#x27;</span></span><br><span class="line">pod <span class="string">&#x27;SwiftyUserDefaults&#x27;</span></span><br><span class="line">pod <span class="string">&#x27;YYKit&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Test tools</span></span><br><span class="line">pod <span class="string">&#x27;MLeaksFinder&#x27;</span></span><br><span class="line">pod <span class="string">&#x27;FLEX&#x27;</span>, <span class="string">&#x27;~&gt; 2.0&#x27;</span>, <span class="symbol">:configurations</span> =&gt; [<span class="string">&#x27;Debug&#x27;</span>]</span><br><span class="line">pod <span class="string">&#x27;Reveal-SDK&#x27;</span>, <span class="string">&#x27;~&gt; 4.0&#x27;</span>, <span class="symbol">:configurations</span> =&gt; [<span class="string">&#x27;Debug&#x27;</span>]</span><br></pre></td></tr></table></figure>
+
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2017/04/04/Video-Auto-Play-List/" rel="prev" title="视频列表自动播放方案">
+                  <i class="fa fa-chevron-left"></i> 视频列表自动播放方案
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2017/06/09/Whats-New-in-Swift-4-Notes/" rel="next" title="What's New in Swift 4 - 笔记">
+                  What's New in Swift 4 - 笔记 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2025</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">Ge Will</span>
+  </div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/pisces/" rel="noopener" target="_blank">NexT.Pisces</a>
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="back-to-top" role="button" aria-label="Back to top">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.1/search.js" integrity="sha256-1kfA5uHPf65M5cphT2dvymhkuyHPQp5A53EGZOnOLmc=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>

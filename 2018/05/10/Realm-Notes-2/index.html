@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 6.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha256-HtsXJanqjKTc8vVQjO4YMhiqFoXkfBsjBWcX91T1jr8=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Pisces","darkmode":true,"version":"8.17.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":true,"style":"mac"},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"},"path":"/search.json","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="系列文章目录：  Realm 笔记 (一) Realm 笔记 (二)  第七章：Realm配置打开一个Realm:let realm &#x3D; try! Realm() Realm没有使用单例，而是每次直接尝试新建一个Realm实例，有以下几个运行时优化：  调用Realm()返回同一个共享实例，而不受创建该Realm实例的线程限制。而Object和Realm实例被限制在创建的线程中，所以不能跨线程分">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Realm 笔记(二)">
+<meta property="og:url" content="http://example.com/2018/05/10/Realm-Notes-2/index.html">
+<meta property="og:site_name" content="Will&#39;s Blog">
+<meta property="og:description" content="系列文章目录：  Realm 笔记 (一) Realm 笔记 (二)  第七章：Realm配置打开一个Realm:let realm &#x3D; try! Realm() Realm没有使用单例，而是每次直接尝试新建一个Realm实例，有以下几个运行时优化：  调用Realm()返回同一个共享实例，而不受创建该Realm实例的线程限制。而Object和Realm实例被限制在创建的线程中，所以不能跨线程分">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://cdn-images-1.medium.com/max/1600/1*s1KQFE3IHyzb_PKF-q_wHA@2x.png">
+<meta property="og:image" content="https://cdn-images-1.medium.com/max/1600/1*W8tnptm39Ixw0gvV-ub4FA.jpeg">
+<meta property="og:image" content="https://cdn-images-1.medium.com/max/1600/1*PQoGupwjm1ZNHXXRjQysUA.jpeg">
+<meta property="og:image" content="https://cdn-images-1.medium.com/max/1600/1*vhkdTdhoOoY1dQW3yPescA.jpeg">
+<meta property="og:image" content="https://cdn-images-1.medium.com/max/1600/1*dmF8jn3bhAwCz7kzsys2cw.jpeg">
+<meta property="og:image" content="https://cdn-images-1.medium.com/max/1600/1*gfi15_iu5vDJ-u7YgZ6dcQ.jpeg">
+<meta property="og:image" content="https://cdn-images-1.medium.com/max/1600/1*xnR1I5wQ3laa3dVpLMqPoQ.jpeg">
+<meta property="og:image" content="https://cdn-images-1.medium.com/max/1600/1*dTCJ1PW8lPGR6l3_W5GBnQ.jpeg">
+<meta property="og:image" content="https://cdn-images-1.medium.com/max/1600/1*FDEM3iDyXtpv-Yqp3iRIIA.jpeg">
+<meta property="og:image" content="https://cdn-images-1.medium.com/max/1600/1*Sae-yNE-Z8AiShY1NJPY9A.jpeg">
+<meta property="og:image" content="https://cdn-images-1.medium.com/max/1600/1*vJX_oPQhAAXBeFCDHFyIfQ.jpeg">
+<meta property="og:image" content="https://cdn-images-1.medium.com/max/1600/1*qdG-8dAadridla-Oztjq5w.jpeg">
+<meta property="og:image" content="https://cdn-images-1.medium.com/max/1600/1*yaxbDhdgZUPxzFNbAIEozA.jpeg">
+<meta property="article:published_time" content="2018-05-10T12:46:38.000Z">
+<meta property="article:modified_time" content="2025-01-13T03:01:04.065Z">
+<meta property="article:author" content="Ge Will">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn-images-1.medium.com/max/1600/1*s1KQFE3IHyzb_PKF-q_wHA@2x.png">
+
+
+<link rel="canonical" href="http://example.com/2018/05/10/Realm-Notes-2/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"en","comments":true,"permalink":"http://example.com/2018/05/10/Realm-Notes-2/","path":"2018/05/10/Realm-Notes-2/","title":"Realm 笔记(二)"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>Realm 笔记(二) | Will's Blog</title>
+  
+
+
+
+
+
+
+
+<head>
+    <!-- 霞鹜文楷字体 -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lxgw-wenkai-webfont@1.7.0/style.css"/>
+
+    <!-- datapulse统计 -->
+    <script defer type="text/javascript" src="https://datapulse.app/datapulse.min.js" id="datapulse" data-endpoint="https://datapulse.app/api/v1/event" data-workspace="cljxqml5q0y0f8j37d4futnbl"></script>
+
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-DR0FC9YJLH"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() {
+            dataLayer.push(arguments);
+        }
+        gtag('js', new Date());
+
+        gtag('config', 'G-DR0FC9YJLH');
+    </script>
+</head>
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Will's Blog</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="Search" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives<span class="badge">198</span></a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags<span class="badge">17</span></a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories<span class="badge">1</span></a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="Searching..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AC%AC%E4%B8%83%E7%AB%A0%EF%BC%9ARealm%E9%85%8D%E7%BD%AE"><span class="nav-number">1.</span> <span class="nav-text">第七章：Realm配置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AC%AC%E5%85%AB%E7%AB%A0%EF%BC%9A%E5%A4%9A%E4%B8%AARealm%E5%92%8C%E5%85%B1%E4%BA%ABRealm"><span class="nav-number">2.</span> <span class="nav-text">第八章：多个Realm和共享Realm</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AC%AC%E4%B9%9D%E7%AB%A0%EF%BC%9A%E4%BE%9D%E8%B5%96%E6%B3%A8%E5%85%A5%E5%92%8C%E6%B5%8B%E8%AF%95"><span class="nav-number">3.</span> <span class="nav-text">第九章：依赖注入和测试</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%B5%8B%E8%AF%95-cards-%E5%9C%BA%E6%99%AF-Scene"><span class="nav-number">3.1.</span> <span class="nav-text">测试 cards 场景(Scene)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%B5%8B%E8%AF%95-sets-%E5%9C%BA%E6%99%AF"><span class="nav-number">3.2.</span> <span class="nav-text">测试 sets 场景</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%B5%8B%E8%AF%95-Word-of-Today-%E5%9C%BA%E6%99%AF"><span class="nav-number">3.3.</span> <span class="nav-text">测试 Word of Today 场景</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%B0%8F%E7%BB%93%EF%BC%9A"><span class="nav-number">3.4.</span> <span class="nav-text">小结：</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AC%AC%E5%8D%81%E7%AB%A0%EF%BC%9A%E9%AB%98%E6%95%88%E7%8E%87%E7%9A%84%E5%A4%9A%E7%BA%BF%E7%A8%8B"><span class="nav-number">4.</span> <span class="nav-text">第十章：高效率的多线程</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Ge Will"
+      src="/images/avatar.jpeg">
+  <p class="site-author-name" itemprop="name">Ge Will</p>
+  <div class="site-description" itemprop="description">The people who are crazy enough to think they can change the world, are the ones who DO.</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">198</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">17</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/gewill" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;gewill" rel="noopener me" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:531sunlight@gmail.com" title="E-Mail → mailto:531sunlight@gmail.com" rel="noopener me" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://weibo.com/gewei" title="Weibo → https:&#x2F;&#x2F;weibo.com&#x2F;gewei" rel="noopener me" target="_blank"><i class="fab fa-weibo fa-fw"></i>Weibo</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://twitter.com/BoJack_D" title="Twitter → https:&#x2F;&#x2F;twitter.com&#x2F;BoJack_D" rel="noopener me" target="_blank"><i class="fab fa-twitter fa-fw"></i>Twitter</a>
+      </span>
+  </div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2018/05/10/Realm-Notes-2/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpeg">
+      <meta itemprop="name" content="Ge Will">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Will's Blog">
+      <meta itemprop="description" content="The people who are crazy enough to think they can change the world, are the ones who DO.">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="Realm 笔记(二) | Will's Blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Realm 笔记(二)
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2018-05-10 20:46:38" itemprop="dateCreated datePublished" datetime="2018-05-10T20:46:38+08:00">2018-05-10</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">Edited on</span>
+      <time title="Modified: 2025-01-13 11:01:04" itemprop="dateModified" datetime="2025-01-13T11:01:04+08:00">2025-01-13</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><p><img src="https://cdn-images-1.medium.com/max/1600/1*s1KQFE3IHyzb_PKF-q_wHA@2x.png" alt="RealmsSchema"></p>
+<p><strong>系列文章目录：</strong></p>
+<ol>
+<li><a target="_blank" rel="noopener" href="http://gewill.org/2018/04/26/Realm-Notes-1/">Realm 笔记 (一)</a></li>
+<li><a target="_blank" rel="noopener" href="http://gewill.org/2018/05/10/Realm-Notes-2/">Realm 笔记 (二)</a></li>
+</ol>
+<h3 id="第七章：Realm配置"><a href="#第七章：Realm配置" class="headerlink" title="第七章：Realm配置"></a>第七章：<strong>Realm</strong>配置</h3><p>打开一个Realm:<code>let realm = try! Realm()</code></p>
+<p>Realm没有使用单例，而是每次直接尝试新建一个Realm实例，有以下几个运行时优化：</p>
+<ol>
+<li>调用Realm()返回同一个共享实例，而不受创建该Realm实例的线程限制。而Object和Realm实例被限制在创建的线程中，所以不能跨线程分享。</li>
+<li>Realm也提供了多个安全措施，如：使用不同的密钥或文件不存在均会报错。</li>
+</ol>
+<blockquote>
+<p>书中均使用 try! ，但实际生产环境你可以进行错误处理。</p>
+</blockquote>
+<p><code>deleteRealmIfMigrationNeeded</code> 新版直接删除Realm文件，不做迁移处理。</p>
+<p>存在文件在Documents文件夹有几个好处：自动备份到用户的iCloud storage，方便用户使用iTunes备份和访问。当然苹果推荐存储文件在Library文件夹。</p>
+<p>App Bundle 文件夹是只读的，所以该目录中的Realm是能作为只读数据库。</p>
+<p>加密在Realm极为简单，只要在配置中添加一个64位的密钥即可。</p>
+<h3 id="第八章：多个Realm和共享Realm"><a href="#第八章：多个Realm和共享Realm" class="headerlink" title="第八章：多个Realm和共享Realm"></a>第八章：多个<strong>Realm</strong>和共享<strong>Realm</strong></h3><p>创建一个RealmProvider以方便操作Realm，尤其是涉及多个Realm或加密等情况。</p>
+<p><img src="https://cdn-images-1.medium.com/max/1600/1*W8tnptm39Ixw0gvV-ub4FA.jpeg" alt="img"></p>
+<p>如需转换JSON、CSV或纯文本为Realm，并内置到App Bundle。此时可以创建一个Target和来Tools.swift，自动生成Realm文件。把生成的Realm文件拖入Xcode即可。</p>
+<p><img src="https://cdn-images-1.medium.com/max/1600/1*PQoGupwjm1ZNHXXRjQysUA.jpeg" alt="img"></p>
+<h3 id="第九章：依赖注入和测试"><a href="#第九章：依赖注入和测试" class="headerlink" title="第九章：依赖注入和测试"></a>第九章：依赖注入和测试</h3><p>在本章中，您将学习两个重要主题：如何使用依赖注入来改进 Flash Cards 应用的架构，以及如何编写由Realm支持的同步和异步测试。</p>
+<p>本章不会深入研究诸如测试驱动开发等主题，而是专注测试使用 Realm Object的类的技巧，并且依赖于特定于Realm的功能，例如更改通知。</p>
+<h4 id="测试-cards-场景-Scene"><a href="#测试-cards-场景-Scene" class="headerlink" title="测试 cards 场景(Scene)"></a><strong>测试 cards 场景(Scene)</strong></h4><ul>
+<li>CardsViewController：设置所需的手势识别器并根据用户的输入更新UI。本章不会介绍UI测试。</li>
+<li>CardsModel：从Realm中抽象查询对象的简单封装。为它编写测试将意味着在测试中重复相同的代码并比较输出，而不提供实际值。除此之外，你真正要在这里测试的将是Realm的底层实现，它已经经过了充分测试。</li>
+<li>CardsViewModel：实现此场景的业务逻辑。它格式化Model的输出，以显示在屏幕上，并提供与模型交互的方法。这将是一些单元测试的完美候选！</li>
+</ul>
+<p><img src="https://cdn-images-1.medium.com/max/1600/1*vhkdTdhoOoY1dQW3yPescA.jpeg" alt="img"></p>
+<p>这里只是简单测试 ViewModel 初始化和更新状态。</p>
+<p><img src="https://cdn-images-1.medium.com/max/1600/1*dmF8jn3bhAwCz7kzsys2cw.jpeg" alt="img"></p>
+<h4 id="测试-sets-场景"><a href="#测试-sets-场景" class="headerlink" title="测试 sets 场景"></a>测试 sets 场景</h4><p>在显示列表的场景中，您的视图模型依赖于Realm通知来动态更新数据。你必须：</p>
+<ul>
+<li>模拟Realm框架以测试依赖通知的 ViewModel 和其他高级Realm功能。</li>
+<li>编写依赖Realm通知的测试</li>
+</ul>
+<p>为了使测试有效，您需要稍微更改代码以提供一个方法将测试的 Realm providers 注入到Model和ViewModel中。</p>
+<p><img src="https://cdn-images-1.medium.com/max/1600/1*gfi15_iu5vDJ-u7YgZ6dcQ.jpeg" alt="img"></p>
+<p><img src="https://cdn-images-1.medium.com/max/1600/1*xnR1I5wQ3laa3dVpLMqPoQ.jpeg" alt="img"></p>
+<p>异步测试需要使用XCTestExpectation，这个期望类将帮助你等待某些条件在您的测试中得到满足，然后再转到您测试断言的部分。</p>
+<p>在使用XCTWaiter类来持有测试的执行，直到满足期望为止。 XCTWaiter是Apple的XCTest框架中的一个便捷类，它暂时停止当前代码的执行，而不会阻塞当前线程。 XCTWaiter定期检查期望的状态，因此当异步代码将执行计数增加到3时，XCTWaiter将负责恢复执行测试。</p>
+<p>步骤如下：</p>
+<ul>
+<li>初始化XCTestExpectation和expectedFulfillmentCount</li>
+<li>在异步回调中fulfill，</li>
+<li>最后添加定期检查结果的帮助类XCTWaiter。</li>
+</ul>
+<p><img src="https://cdn-images-1.medium.com/max/1600/1*dTCJ1PW8lPGR6l3_W5GBnQ.jpeg" alt="img"></p>
+<h4 id="测试-Word-of-Today-场景"><a href="#测试-Word-of-Today-场景" class="headerlink" title="测试 Word of Today 场景"></a>测试 Word of Today 场景</h4><p><img src="https://cdn-images-1.medium.com/max/1600/1*FDEM3iDyXtpv-Yqp3iRIIA.jpeg" alt="img"></p>
+<h4 id="小结："><a href="#小结：" class="headerlink" title="小结："></a>小结：</h4><p>在本章中，你将亲身体验用Realm编写同步和异步测试的简易性。本章中重点是：</p>
+<ul>
+<li>测试自己的逻辑，而不是Realm，因为它已经在全球数百万用户中得到了充分测试和使用。</li>
+<li>“哑”模型和视图控制器可以更轻松地测试视图模型，您通常可以在其中放置MVVM应用程序的逻辑。</li>
+<li>编写需要这些依赖项的特定测试版本的测试时，使用中央provider结构来抽取某些依赖项的检索很有用。</li>
+</ul>
+<p>通常，测试基于Realm的代码可能不会改变您构建自己的测试套件的方式。借助本章的经验，您应该能够为您的Realm项目编写可靠的测试，无论你心意哪一种架构。</p>
+<blockquote>
+<p>注意：对于单元测试，模拟Realm本身是一个偏爱的问题。如果你想模拟Realm并从测试套件中删除Realm依赖关系，你可以模拟关键的方法，比如对象（^）、过滤器（^）等等。风险是你必须增加和保持的代码量，以保持与Realm自己行为的一致，尤其是已经有了基于内存的Realm这个特别棒的方案。</p>
+</blockquote>
+<blockquote>
+<p>笔者觉得模拟Realm的唯一好处是，Realm依赖增加了CI服务器需要安装，构建和测试应用程序的时间。</p>
+</blockquote>
+<h3 id="第十章：高效率的多线程"><a href="#第十章：高效率的多线程" class="headerlink" title="第十章：高效率的多线程"></a>第十章：高效率的多线程</h3><p>Realm线程：多线程访问同一个Realm总是可以读写到最新的数据。</p>
+<p>线程间传递Object，有以下两个替代方法：</p>
+<ul>
+<li>传递Object的主键</li>
+<li>使用ThreadSafeReference：<code>let ref = ThreadSafeReference(to: myRealmObject)</code> 和 <code>let myRealmobject = realm.resolve(ref)</code></li>
+</ul>
+<p>主线程：访问带主键合适数量的数据时，无需担心性能问题。如在View Controller lifecycle 和 UIKit delegate 中直接读取Object，和更新UI。因为总是在同一个Realm文件的快照中工作，所以速度最快。</p>
+<p><img src="https://cdn-images-1.medium.com/max/1600/1*Sae-yNE-Z8AiShY1NJPY9A.jpeg" alt="img"></p>
+<p>后台线程：（不推荐）由于是异步并发执行，会因为Realm 快照之间同步问题，产生性能和体积大的问题。</p>
+<p>专用线程：（推荐）可以解决主线程影响UI，后台线程性能问题。使用Thread，自己维护一个线程的生命周期，所有读写都在该线程操作。还可以缓存任务批量提交读写事务，进一步提高性能。</p>
+<p><img src="https://cdn-images-1.medium.com/max/1600/1*vJX_oPQhAAXBeFCDHFyIfQ.jpeg" alt="img"></p>
+<p><img src="https://cdn-images-1.medium.com/max/1600/1*qdG-8dAadridla-Oztjq5w.jpeg" alt="img"></p>
+<p>简版（无缓冲机制）</p>
+<p><img src="https://cdn-images-1.medium.com/max/1600/1*yaxbDhdgZUPxzFNbAIEozA.jpeg" alt="img"></p>
+<blockquote>
+<p><em>未完待续…</em></p>
+</blockquote>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2018/04/26/Realm-Notes-1/" rel="prev" title="Realm 笔记 (一)">
+                  <i class="fa fa-chevron-left"></i> Realm 笔记 (一)
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2018/05/18/RxSwift-I/" rel="next" title="RxSwift I：开始学习 RxSwift">
+                  RxSwift I：开始学习 RxSwift <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2025</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">Ge Will</span>
+  </div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/pisces/" rel="noopener" target="_blank">NexT.Pisces</a>
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="back-to-top" role="button" aria-label="Back to top">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.1/search.js" integrity="sha256-1kfA5uHPf65M5cphT2dvymhkuyHPQp5A53EGZOnOLmc=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>

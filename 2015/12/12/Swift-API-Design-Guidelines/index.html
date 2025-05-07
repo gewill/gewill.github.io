@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 6.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha256-HtsXJanqjKTc8vVQjO4YMhiqFoXkfBsjBWcX91T1jr8=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Pisces","darkmode":true,"version":"8.17.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":true,"style":"mac"},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"},"path":"/search.json","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="原文地址：https:&#x2F;&#x2F;swift.org&#x2F;documentation&#x2F;api-design-guidelines.html  These are draft API guidelines being developed as part of the Swift 3.0 effort. 这些 API 指南草稿将作为 Swift 3.0的成果的一部分。  1. Fundamentals 最基本的1">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Swift API Design Guidelines｜Swift API设计指南">
+<meta property="og:url" content="http://example.com/2015/12/12/Swift-API-Design-Guidelines/index.html">
+<meta property="og:site_name" content="Will&#39;s Blog">
+<meta property="og:description" content="原文地址：https:&#x2F;&#x2F;swift.org&#x2F;documentation&#x2F;api-design-guidelines.html  These are draft API guidelines being developed as part of the Swift 3.0 effort. 这些 API 指南草稿将作为 Swift 3.0的成果的一部分。  1. Fundamentals 最基本的1">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2015-12-12T10:25:57.000Z">
+<meta property="article:modified_time" content="2025-01-13T03:01:04.068Z">
+<meta property="article:author" content="Ge Will">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="http://example.com/2015/12/12/Swift-API-Design-Guidelines/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"en","comments":true,"permalink":"http://example.com/2015/12/12/Swift-API-Design-Guidelines/","path":"2015/12/12/Swift-API-Design-Guidelines/","title":"Swift API Design Guidelines｜Swift API设计指南"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>Swift API Design Guidelines｜Swift API设计指南 | Will's Blog</title>
+  
+
+
+
+
+
+
+
+<head>
+    <!-- 霞鹜文楷字体 -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lxgw-wenkai-webfont@1.7.0/style.css"/>
+
+    <!-- datapulse统计 -->
+    <script defer type="text/javascript" src="https://datapulse.app/datapulse.min.js" id="datapulse" data-endpoint="https://datapulse.app/api/v1/event" data-workspace="cljxqml5q0y0f8j37d4futnbl"></script>
+
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-DR0FC9YJLH"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() {
+            dataLayer.push(arguments);
+        }
+        gtag('js', new Date());
+
+        gtag('config', 'G-DR0FC9YJLH');
+    </script>
+</head>
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Will's Blog</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="Search" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives<span class="badge">198</span></a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags<span class="badge">17</span></a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories<span class="badge">1</span></a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="Searching..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-Fundamentals-%E6%9C%80%E5%9F%BA%E6%9C%AC%E7%9A%84"><span class="nav-number">1.</span> <span class="nav-text">1. Fundamentals 最基本的</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-1"><span class="nav-number">1.1.</span> <span class="nav-text">1.1.</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-2"><span class="nav-number">1.2.</span> <span class="nav-text">1.2.</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-3"><span class="nav-number">1.3.</span> <span class="nav-text">1.3.</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-Naming-%E5%91%BD%E5%90%8D"><span class="nav-number">2.</span> <span class="nav-text">2. Naming 命名</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-Promote-Clear-Usage-%E6%8F%90%E9%AB%98%E6%B8%85%E6%99%B0%E7%9A%84%E4%BD%BF%E7%94%A8%E6%96%B9%E6%B3%95"><span class="nav-number">2.1.</span> <span class="nav-text">2.1. Promote Clear Usage 提高清晰的使用方法</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#2-1-1-Include-all-the-words-needed-to-avoid-ambiguity-for-a-person-reading-code-where-the-name-is-used-%E5%8C%85%E5%90%AB%E6%89%80%E6%9C%89%E5%BF%85%E9%9C%80%E7%9A%84%E5%8D%95%E8%AF%8D%E4%BB%A5%E9%81%BF%E5%85%8D%E6%AD%A7%E4%B9%89%EF%BC%8C%E5%BD%93%E8%AF%BB%E8%80%85%E7%9C%8B%E5%88%B0%E5%90%8D%E5%AD%97%E6%97%B6%E3%80%82"><span class="nav-number">2.1.1.</span> <span class="nav-text">2.1.1. Include all the words needed to avoid ambiguity for a person reading code where the name is used. 包含所有必需的单词以避免歧义，当读者看到名字时。</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-1-2-Omit-Needless-Words-Every-word-in-a-name-should-convey-salient-information-at-the-use-site-%E5%88%A0%E9%99%A4%E5%A4%9A%E4%BD%99%E7%9A%84%E5%8D%95%E8%AF%8D%E3%80%82%E5%90%8D%E5%AD%97%E4%B8%AD%E6%AF%8F%E4%B8%80%E4%B8%AA%E5%8D%95%E8%AF%8D%E9%83%BD%E8%A1%A8%E8%BE%BE%E5%87%BA%E4%BD%BF%E7%94%A8%E6%97%B6%E7%9A%84%E4%B8%BB%E8%A6%81%E4%BF%A1%E6%81%AF%E3%80%82"><span class="nav-number">2.1.2.</span> <span class="nav-text">2.1.2.  Omit Needless Words. Every word in a name should convey salient information at the use site. 删除多余的单词。名字中每一个单词都表达出使用时的主要信息。</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-1-3-Compensate-For-Weak-Type-Information-as-needed-to-clarify-a-parameter%E2%80%99s-role-%E5%AF%B9%E5%BC%B1%E7%B1%BB%E5%9E%8B%E7%9A%84%E8%A1%A5%E5%85%85%E8%AF%B4%E6%98%8E%E5%8F%82%E6%95%B0%E7%9A%84%E4%BD%9C%E7%94%A8%E6%8F%8F%E8%BF%B0%E4%BF%A1%E6%81%AF%E3%80%82"><span class="nav-number">2.1.3.</span> <span class="nav-text">2.1.3.  Compensate For Weak Type Information as needed to clarify a parameter’s role. 对弱类型的补充说明参数的作用描述信息。</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2-Be-Grammatical-%E9%81%B5%E5%BE%AA%E8%AF%AD%E6%B3%95%E8%A7%84%E5%88%99"><span class="nav-number">2.2.</span> <span class="nav-text">2.2. Be Grammatical 遵循语法规则</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#2-2-1-Uses-of-mutating-methods-should-read-as-imperative-verb-phrases-e-g-x-reverse-x-sort-x-append-y-%E5%8F%98%E5%BC%82%E7%9A%84%E6%96%B9%E6%B3%95%E5%BA%94%E8%AF%A5%E4%BD%BF%E7%94%A8%E5%91%BD%E4%BB%A4%E5%BC%8F%E7%9A%84%E5%8A%A8%E8%AF%8D%E7%9F%AD%E8%AF%AD%E3%80%82"><span class="nav-number">2.2.1.</span> <span class="nav-text">2.2.1. Uses of mutating methods should read as imperative verb phrases, e.g.,x.reverse(), x.sort(), x.append(y). 变异的方法应该使用命令式的动词短语。</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-2-2-Uses-of-non-mutating-methods-should-read-as-noun-phrases-when-possible-e-g-x-distanceTo-y-i-successor-%E9%9D%9E%E5%8F%98%E5%BC%82%E7%9A%84%E6%96%B9%E6%B3%95%E5%B0%BD%E5%8F%AF%E8%83%BD%E7%9A%84%E4%BD%BF%E7%94%A8%E5%90%8D%E8%AF%8D%E7%9F%AD%E8%AF%AD%E3%80%82"><span class="nav-number">2.2.2.</span> <span class="nav-text">2.2.2. Uses of non-mutating methods should read as noun phrases when possible, e.g. x.distanceTo(y), i.successor(). 非变异的方法尽可能的使用名词短语。</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-2-3-When-a-mutating-method-is-described-by-a-verb-name-its-non-mutating-counterpart-according-to-the-%E2%80%9Ced-x2F-ing%E2%80%9D-rule-e-g-the-non-mutating-versions-ofx-sort-and-x-append-y-are-x-sorted-and-x-appending-y-%E4%B8%8E%E5%8F%98%E5%BC%82%E4%B9%8B%E5%AF%B9%E5%BA%94%E7%9A%84%E9%9D%9E%E5%8F%98%E5%BC%82%E8%87%AA%E5%B7%B1%E7%9A%84%E5%8F%98%E5%BC%82%E6%96%B9%E6%B3%95%E9%80%9A%E5%B8%B8%E6%98%AF%E5%8A%A8%E8%AF%8D%E5%8A%A0%E2%80%9Ced-x2F-ing%E2%80%9D"><span class="nav-number">2.2.3.</span> <span class="nav-text">2.2.3. When a mutating method is described by a verb, name its non-mutating counterpart according to the “ed&#x2F;ing” rule, e.g. the non-mutating versions ofx.sort() and x.append(y) are x.sorted() and x.appending(y). 与变异之对应的非变异自己的变异方法通常是动词加“ed&#x2F;ing”</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-2-4-Uses-of-non-mutating-Boolean-methods-and-properties-should-read-as-assertions-about-the-receiver-e-g-x-isEmpty-line1-intersects-line2-%E9%9D%9E%E5%8F%98%E5%BC%82%E7%9A%84%E5%B8%83%E5%B0%94%E6%96%B9%E6%B3%95%E5%92%8C%E5%B1%9E%E6%80%A7%E5%BA%94%E4%BD%BF%E7%94%A8%E6%96%AD%E8%A8%80%E4%BD%9C%E4%B8%BA%E6%8E%A5%E6%94%B6%E5%99%A8%E3%80%82"><span class="nav-number">2.2.4.</span> <span class="nav-text">2.2.4.  Uses of non-mutating Boolean methods and properties should read as assertions about the receiver, e.g. x.isEmpty, line1.intersects(line2). 非变异的布尔方法和属性应使用断言作为接收器。</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-2-5-Protocols-that-describe-what-something-is-should-read-as-nouns-e-g-Collection-Protocols-that-describe-a-capability-should-be-named-using-the-suffixes-able-ible-or-ing-e-g-Equatable-ProgressReporting-%E6%8F%8F%E8%BF%B0%E6%98%AF%E4%BB%80%E4%B9%88%E7%9A%84%E5%8D%8F%E8%AE%AE%E7%94%A8%E5%90%8D%E8%AF%8D%E3%80%82%E6%8F%8F%E8%BF%B0%E8%83%BD%E5%8A%9B%E7%9A%84%E7%94%A8-able-ible-or-ing-%E7%AD%89%E5%90%8E%E7%BC%80%E3%80%82"><span class="nav-number">2.2.5.</span> <span class="nav-text">2.2.5.  Protocols that describe what something is should read as nouns (e.g. Collection). Protocols that describe a capability should be named using the suffixes able,ible, or ing (e.g. Equatable, ProgressReporting). 描述是什么的协议用名词。描述能力的用 able,ible, or ing 等后缀。</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-2-6-The-names-of-other-types-properties-variables-and-constants-should-read-as-nouns-%E5%85%B6%E4%BD%99%E7%B1%BB%E5%9E%8B%EF%BC%8C%E5%B1%9E%E6%80%A7%EF%BC%8C%E5%8F%98%E9%87%8F%E5%92%8C%E5%B8%B8%E9%87%8F%E7%94%A8%E5%90%8D%E8%AF%8D%E3%80%82"><span class="nav-number">2.2.6.</span> <span class="nav-text">2.2.6. The names of other types, properties, variables, and constants should read as nouns. 其余类型，属性，变量和常量用名词。</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-3-Use-Terminology-Well-%E6%81%B0%E5%BD%93%E5%9C%B0%E4%BD%BF%E7%94%A8%E6%9C%AF%E8%AF%AD"><span class="nav-number">2.3.</span> <span class="nav-text">2.3. Use Terminology Well 恰当地使用术语</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#2-3-1-Avoid-obscure-terms-if-a-more-common-word-conveys-meaning-just-as-well-Don%E2%80%99t-say-%E2%80%9Cepidermis%E2%80%9D-if-%E2%80%9Cskin%E2%80%9D-will-serve-your-purpose-Terms-of-art-are-an-essential-communication-tool-but-should-only-be-used-to-capture-crucial-meaning-that-would-otherwise-be-lost-%E9%81%BF%E5%85%8D%E4%BD%BF%E7%94%A8%E7%94%9F%E5%83%BB%E8%AF%8D%E3%80%82"><span class="nav-number">2.3.1.</span> <span class="nav-text">2.3.1. Avoid obscure terms if a more common word conveys meaning just as well. Don’t say “epidermis” if “skin” will serve your purpose. Terms of art are an essential communication tool, but should only be used to capture crucial meaning that would otherwise be lost. 避免使用生僻词。</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-3-2-Stick-to-the-established-meaning-if-you-do-use-a-term-of-art-Avoid-abbreviations-Abbreviations-especially-non-standard-ones-are-effectively-terms-of-art-because-understanding-depends-on-correctly-translating-them-into-their-non-abbreviated-forms-%E5%9D%9A%E6%8C%81%E4%BD%BF%E7%94%A8%E6%98%8E%E7%A1%AE%E7%9A%84%E5%8D%95%E8%AF%8D%E3%80%82%E9%81%BF%E5%85%8D%E7%BC%A9%E5%86%99%EF%BC%8C%E9%99%A4%E9%9D%9E%E5%BE%88%E5%AE%B9%E6%98%93%E6%90%9C%E7%B4%A2%E5%88%B0%E5%8E%9F%E6%84%8F%E3%80%82"><span class="nav-number">2.3.2.</span> <span class="nav-text">2.3.2. Stick to the established meaning if you do use a term of art.Avoid abbreviations. Abbreviations, especially non-standard ones, are effectively terms-of-art, because understanding depends on correctly translating them into their non-abbreviated forms. 坚持使用明确的单词。避免缩写，除非很容易搜索到原意。</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-3-3-Embrace-precedent-Don%E2%80%99t-optimize-terms-for-the-total-beginner-at-the-expense-of-conformance-to-existing-culture-%E6%8B%A5%E6%8A%B1%E5%85%88%E4%BE%8B%EF%BC%9A%E4%B8%8D%E8%A6%81%E4%B8%BA%E4%BA%86%E6%96%B0%E6%89%8B%EF%BC%8C%E4%BB%A5%E9%A1%BA%E5%BA%94%E5%85%88%E5%89%8D%E7%9A%84%E6%96%87%E5%8C%96%E4%B8%BA%E4%BB%A3%E4%BB%B7%E5%8E%BB%E4%BC%98%E5%8C%96%E6%9C%AF%E8%AF%AD%E3%80%82"><span class="nav-number">2.3.3.</span> <span class="nav-text">2.3.3. Embrace precedent: Don’t optimize terms for the total beginner at the expense of conformance to existing culture. 拥抱先例：不要为了新手，以顺应先前的文化为代价去优化术语。</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-Conventions-%E7%BA%A6%E5%AE%9A"><span class="nav-number">3.</span> <span class="nav-text">3. Conventions 约定</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#3-1-General-Conventions-%E4%B8%80%E8%88%AC%E7%BA%A6%E5%AE%9A"><span class="nav-number">3.1.</span> <span class="nav-text">3.1. General Conventions 一般约定</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-2-Parameters"><span class="nav-number">3.2.</span> <span class="nav-text">3.2. Parameters</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-Special-Instructions-%E7%89%B9%E5%88%AB%E8%AF%B4%E6%98%8E"><span class="nav-number">4.</span> <span class="nav-text">4. Special Instructions 特别说明</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#4-1-Take-extra-care-with-unconstrained-polymorphism-e-g-Any-AnyObject-and-unconstrained-generic-parameters-to-avoid-ambiguities-in-overload-sets-%E7%89%B9%E5%88%AB%E6%B3%A8%E6%84%8F%E4%B8%8D%E5%8F%97%E7%BA%A6%E6%9D%9F%E7%B1%BB%E5%9E%8B%E7%9A%84%E5%A4%9A%E6%80%81%E3%80%82"><span class="nav-number">4.1.</span> <span class="nav-text">4.1. Take extra care with unconstrained polymorphism (e.g. Any, AnyObject, and unconstrained generic parameters) to avoid ambiguities in overload sets. 特别注意不受约束类型的多态。</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-2-Make-documentation-comments-tool-friendly-they-will-be-automatically-extracted-to-generate-richly-formatted-public-documentation-and-they-appear-in-Xcode-in-generated-interfaces-quick-help-and-code-completion-%E6%96%87%E6%A1%A3%E6%B3%A8%E9%87%8A%E5%AF%B9%E5%B7%A5%E5%85%B7%E4%BC%98%E5%8C%96%EF%BC%8C%E6%96%B9%E4%BE%BF%E5%9C%B0%E8%87%AA%E5%8A%A8%E6%8F%90%E5%8F%96%E5%AF%8C%E6%96%87%E6%9C%AC%E7%9A%84%E6%96%87%E6%A1%A3%EF%BC%8C%E8%87%AA%E5%8A%A8%E6%98%BE%E7%A4%BA%E5%9C%A8-Xcode%EF%BC%8C%E7%94%9F%E6%88%90%E7%95%8C%E9%9D%A2%EF%BC%8C%E5%BF%AB%E9%80%9F%E5%B8%AE%E5%8A%A9%EF%BC%8C%E4%BB%A3%E7%A0%81%E8%A1%A5%E5%85%A8%E4%B8%AD%E3%80%82"><span class="nav-number">4.2.</span> <span class="nav-text">4.2. Make documentation comments tool-friendly; they will be automatically extracted to generate richly-formatted public documentation, and they appear in Xcode, in generated interfaces, quick help, and code completion. 文档注释对工具优化，方便地自动提取富文本的文档，自动显示在 Xcode，生成界面，快速帮助，代码补全中。</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Ge Will"
+      src="/images/avatar.jpeg">
+  <p class="site-author-name" itemprop="name">Ge Will</p>
+  <div class="site-description" itemprop="description">The people who are crazy enough to think they can change the world, are the ones who DO.</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">198</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">17</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/gewill" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;gewill" rel="noopener me" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:531sunlight@gmail.com" title="E-Mail → mailto:531sunlight@gmail.com" rel="noopener me" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://weibo.com/gewei" title="Weibo → https:&#x2F;&#x2F;weibo.com&#x2F;gewei" rel="noopener me" target="_blank"><i class="fab fa-weibo fa-fw"></i>Weibo</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://twitter.com/BoJack_D" title="Twitter → https:&#x2F;&#x2F;twitter.com&#x2F;BoJack_D" rel="noopener me" target="_blank"><i class="fab fa-twitter fa-fw"></i>Twitter</a>
+      </span>
+  </div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2015/12/12/Swift-API-Design-Guidelines/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpeg">
+      <meta itemprop="name" content="Ge Will">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Will's Blog">
+      <meta itemprop="description" content="The people who are crazy enough to think they can change the world, are the ones who DO.">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="Swift API Design Guidelines｜Swift API设计指南 | Will's Blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Swift API Design Guidelines｜Swift API设计指南
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2015-12-12 18:25:57" itemprop="dateCreated datePublished" datetime="2015-12-12T18:25:57+08:00">2015-12-12</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">Edited on</span>
+      <time title="Modified: 2025-01-13 11:01:04" itemprop="dateModified" datetime="2025-01-13T11:01:04+08:00">2025-01-13</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><p>原文地址：<a target="_blank" rel="noopener" href="https://swift.org/documentation/api-design-guidelines.html">https://swift.org/documentation/api-design-guidelines.html</a></p>
+<blockquote>
+<p>These are draft API guidelines being developed as part of the <a target="_blank" rel="noopener" href="https://github.com/apple/swift-evolution">Swift 3.0 effort</a>. 这些 API 指南草稿将作为 Swift 3.0的成果的一部分。</p>
+</blockquote>
+<h2 id="1-Fundamentals-最基本的"><a href="#1-Fundamentals-最基本的" class="headerlink" title="1. Fundamentals 最基本的"></a>1. Fundamentals 最基本的</h2><h3 id="1-1"><a href="#1-1" class="headerlink" title="1.1."></a>1.1.</h3><p><strong>Clarity at the point of use</strong> is your most important goal. Code is read far more than it is written. 用法的清晰是最重要的目标。阅读代码远远比写重要。</p>
+<h3 id="1-2"><a href="#1-2" class="headerlink" title="1.2."></a>1.2.</h3><p><strong>Clarity is more important than brevity</strong>. Although Swift code can be compact, it is a<em>non-goal</em> to enable the smallest possible code with the fewest characters. Brevity in Swift code, where it occurs, is a side-effect of the strong type system and features that naturally reduce boilerplate. 清晰比简洁更重要。尽管 Swift 代码可以很简洁，但是目标却不是以最可能少的单词完成尽少量的代码。Swift 代码中，简洁它是存在的，但也仅仅是强类型系统和特性自然而然产生的意外效果。</p>
+<h3 id="1-3"><a href="#1-3" class="headerlink" title="1.3."></a>1.3.</h3><p><strong>Write a Documentation Comment</strong> for every method or property in Swift’s <a target="_blank" rel="noopener" href="https://developer.apple.com/library/mac/documentation/Xcode/Reference/xcode_markup_formatting_ref/">dialect of Markdown</a>. Ideally, the API’s meaning can be understood from its signature and its one- or two-sentence summary: 为每个方法和属性书写注释，并符合<a target="_blank" rel="noopener" href="https://developer.apple.com/library/mac/documentation/Xcode/Reference/xcode_markup_formatting_ref/Headings.html#//apple_ref/doc/uid/TP40016497-CH8-SW1">Swift 版的Markdown语法</a>，通过签名和一两句概要即可理解 API 的含义。</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/// Returns the first index where `element` appears in `self`, </span></span><br><span class="line"><span class="comment">/// or `nil` if `element` is not found. </span></span><br><span class="line"><span class="comment">/// </span></span><br><span class="line"><span class="comment">/// - Complexity: O(`self.count`). </span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">func</span> <span class="title function_">indexOf</span>(<span class="params">element</span>: <span class="type">Generator</span>.<span class="type">Element</span>) -&gt; <span class="type">Index</span>? &#123; </span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>Insights gained by writing documentation can have such a profound impact on your API’s design that it’s a good idea to do it early on. 通过写文档获得的洞察力，可以对你设计 API 产生巨大的影响，因此最好今早的开始做。</p>
+<blockquote>
+<p>If you are having trouble describing your API’s functionality in simple terms, you may have designed the wrong API. 如果你尝试用简单的术语来描述的你的 API 的功能时都有问题，可能你设计的错误的 API。</p>
+</blockquote>
+<h2 id="2-Naming-命名"><a href="#2-Naming-命名" class="headerlink" title="2. Naming 命名"></a>2. Naming 命名</h2><h3 id="2-1-Promote-Clear-Usage-提高清晰的使用方法"><a href="#2-1-Promote-Clear-Usage-提高清晰的使用方法" class="headerlink" title="2.1. Promote Clear Usage 提高清晰的使用方法"></a>2.1. Promote Clear Usage 提高清晰的使用方法</h3><h4 id="2-1-1-Include-all-the-words-needed-to-avoid-ambiguity-for-a-person-reading-code-where-the-name-is-used-包含所有必需的单词以避免歧义，当读者看到名字时。"><a href="#2-1-1-Include-all-the-words-needed-to-avoid-ambiguity-for-a-person-reading-code-where-the-name-is-used-包含所有必需的单词以避免歧义，当读者看到名字时。" class="headerlink" title="2.1.1. Include all the words needed to avoid ambiguity for a person reading code where the name is used. 包含所有必需的单词以避免歧义，当读者看到名字时。"></a>2.1.1. <strong>Include all the words needed to avoid ambiguity</strong> for a person reading code where the name is used. 包含所有必需的单词以避免歧义，当读者看到名字时。</h4><p>For example, consider a method that removes the element at a given position within a collection 例如，考虑一个方法用来删除集合类的指定位置的元素</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">mutating</span> <span class="keyword">func</span> <span class="title function_">removeAt</span>(<span class="params">position</span>: <span class="type">Index</span>) -&gt; <span class="type">Element</span></span><br></pre></td></tr></table></figure>
+<p>used as follows: 用法如下</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">empliyees.removeAt(x)</span><br></pre></td></tr></table></figure>
+<p>If we were to omit the word <code>At</code> from the method name, it could imply to the reader that the method searches for and removes an element equal to <code>x</code>, rather than using <code>x</code> to indicate the position of the element to remove. 如果省略方法名中的单词<code>At</code>，对于读者将意味着这个方法可以搜索并移除一个等于<code>x</code>的元素，而非表示使用<code>x</code>定位将要移除的元素的位置。</p>
+  <figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">employees.remove(x) <span class="comment">// unclear: are we removing x?</span></span><br></pre></td></tr></table></figure>
+<h4 id="2-1-2-Omit-Needless-Words-Every-word-in-a-name-should-convey-salient-information-at-the-use-site-删除多余的单词。名字中每一个单词都表达出使用时的主要信息。"><a href="#2-1-2-Omit-Needless-Words-Every-word-in-a-name-should-convey-salient-information-at-the-use-site-删除多余的单词。名字中每一个单词都表达出使用时的主要信息。" class="headerlink" title="2.1.2.  Omit Needless Words. Every word in a name should convey salient information at the use site. 删除多余的单词。名字中每一个单词都表达出使用时的主要信息。"></a>2.1.2.  <a href="undefined"><strong>Omit Needless Words</strong></a>. Every word in a name should convey salient information at the use site. 删除多余的单词。名字中每一个单词都表达出使用时的主要信息。</h4><p>More words may be needed to clarify intent or disambiguate meaning, but those that are redundant with information the reader already possesses should be omitted. In particular, omit words that merely repeat type information: 可能需要更多单词来明确意图或消除歧义，但是多余的信息读者可能会忽略。尤其要删除那些仅仅指明类型信息的单词。</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">mutating</span> <span class="keyword">func</span> <span class="title function_">removeElement</span>(<span class="params">member</span>: <span class="type">Element</span>) -&gt; <span class="type">Element</span>?  allViews.removeElement(cancelButton) </span><br></pre></td></tr></table></figure>
+
+
+<p>In this case, the word Element adds nothing salient at the call site. This API would be better: 本例中，Element 这个单词在调用时并没有显著的作用。下面这个 API 可能更好。</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">mutating</span> <span class="keyword">func</span> <span class="title function_">remove</span>(<span class="params">member</span>: <span class="type">Element</span>) -&gt; <span class="type">Element</span>?  allViews.remove(cancelButton) <span class="comment">// clearer </span></span><br></pre></td></tr></table></figure>
+
+
+<p>Occasionally, repeating type information is necessary to avoid ambiguity, but in general it is better to use a word that describes a parameter’s role rather than its type. See the next item for details. 个别情况下，重复类型信息室必要的，以避免歧义。但通常来说，使用表示参数的作用单词要比类型信息的单词的更好。下一条项目将会详细讲解。</p>
+<h4 id="2-1-3-Compensate-For-Weak-Type-Information-as-needed-to-clarify-a-parameter’s-role-对弱类型的补充说明参数的作用描述信息。"><a href="#2-1-3-Compensate-For-Weak-Type-Information-as-needed-to-clarify-a-parameter’s-role-对弱类型的补充说明参数的作用描述信息。" class="headerlink" title="2.1.3.  Compensate For Weak Type Information as needed to clarify a parameter’s role. 对弱类型的补充说明参数的作用描述信息。"></a>2.1.3.  <a href="undefined"><strong>Compensate For Weak Type Information</strong></a> as needed to clarify a parameter’s <strong>role</strong>. 对弱类型的补充说明参数的作用描述信息。</h4><p>Especially when a parameter type is <code>NSObject</code>, <code>Any</code>, <code>AnyObject</code>, or a fundamental type such <code>Int</code> or <code>String</code>, type information and context at the point of use may not fully convey intent. 尤其是当参数类型是<code>NSObject</code>，<code>Any</code>，<code>AnyObject</code> 或者最基本的类型如  <code>Int</code> 或 <code>String</code>，这时候类型信息和使用时的上下文可能不能完全表达出意图。</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">func</span> <span class="title function_">addObserver</span>(<span class="keyword">_</span> <span class="params">observer</span>: <span class="type">NSObject</span>, <span class="params">forKeyPath</span> <span class="params">path</span>: <span class="type">String</span>) </span><br><span class="line">grid.addObserver(<span class="keyword">self</span>, forKeyPath: graphics) <span class="comment">// clear</span></span><br></pre></td></tr></table></figure>
+<p>To restore clarity, precede each weakly-typed parameter with a noun describing its role: 回归到清晰，优先添加描述作用的名词来命名弱类型参数</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">func</span> <span class="title function_">addObserver</span>(<span class="keyword">_</span> <span class="params">observer</span>: <span class="type">NSObject</span>, <span class="params">forKeyPath</span> <span class="params">path</span>: <span class="type">String</span>) </span><br><span class="line">grid.addObserver(<span class="keyword">self</span>, forKeyPath: graphics) <span class="comment">// clear</span></span><br></pre></td></tr></table></figure>
+
+
+<h3 id="2-2-Be-Grammatical-遵循语法规则"><a href="#2-2-Be-Grammatical-遵循语法规则" class="headerlink" title="2.2. Be Grammatical 遵循语法规则"></a>2.2. Be Grammatical 遵循语法规则</h3><h4 id="2-2-1-Uses-of-mutating-methods-should-read-as-imperative-verb-phrases-e-g-x-reverse-x-sort-x-append-y-变异的方法应该使用命令式的动词短语。"><a href="#2-2-1-Uses-of-mutating-methods-should-read-as-imperative-verb-phrases-e-g-x-reverse-x-sort-x-append-y-变异的方法应该使用命令式的动词短语。" class="headerlink" title="2.2.1. Uses of mutating methods should read as imperative verb phrases, e.g.,x.reverse(), x.sort(), x.append(y). 变异的方法应该使用命令式的动词短语。"></a>2.2.1. Uses of <strong>mutating methods should read as imperative verb phrases</strong>, e.g.,<code>x.reverse()</code>, <code>x.sort()</code>, <code>x.append(y)</code>. 变异的方法应该使用命令式的动词短语。</h4><h4 id="2-2-2-Uses-of-non-mutating-methods-should-read-as-noun-phrases-when-possible-e-g-x-distanceTo-y-i-successor-非变异的方法尽可能的使用名词短语。"><a href="#2-2-2-Uses-of-non-mutating-methods-should-read-as-noun-phrases-when-possible-e-g-x-distanceTo-y-i-successor-非变异的方法尽可能的使用名词短语。" class="headerlink" title="2.2.2. Uses of non-mutating methods should read as noun phrases when possible, e.g. x.distanceTo(y), i.successor(). 非变异的方法尽可能的使用名词短语。"></a>2.2.2. Uses of <strong>non-mutating methods should read as noun phrases</strong> when possible, e.g. <code>x.distanceTo(y)</code>, <code>i.successor()</code>. 非变异的方法尽可能的使用名词短语。</h4><p>Imperative verbs are acceptable when there is no good alternative that reads as a noun phrase: 必要的使用动词也是可接受的，当没有其他好的可以读起来像一个名字短语的选项。</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> firstAndLast <span class="operator">=</span> fullName.split() <span class="comment">// acceptable</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="2-2-3-When-a-mutating-method-is-described-by-a-verb-name-its-non-mutating-counterpart-according-to-the-“ed-x2F-ing”-rule-e-g-the-non-mutating-versions-ofx-sort-and-x-append-y-are-x-sorted-and-x-appending-y-与变异之对应的非变异自己的变异方法通常是动词加“ed-x2F-ing”"><a href="#2-2-3-When-a-mutating-method-is-described-by-a-verb-name-its-non-mutating-counterpart-according-to-the-“ed-x2F-ing”-rule-e-g-the-non-mutating-versions-ofx-sort-and-x-append-y-are-x-sorted-and-x-appending-y-与变异之对应的非变异自己的变异方法通常是动词加“ed-x2F-ing”" class="headerlink" title="2.2.3. When a mutating method is described by a verb, name its non-mutating counterpart according to the “ed&#x2F;ing” rule, e.g. the non-mutating versions ofx.sort() and x.append(y) are x.sorted() and x.appending(y). 与变异之对应的非变异自己的变异方法通常是动词加“ed&#x2F;ing”"></a>2.2.3. When <strong>a mutating method is described by a verb, name its non-mutating counterpart</strong> according to the <strong>“ed&#x2F;ing” rule</strong>, e.g. the non-mutating versions of<code>x.sort()</code> and <code>x.append(y)</code> are <code>x.sorted()</code> and <code>x.appending(y)</code>. 与变异之对应的非变异自己的变异方法通常是动词加“ed&#x2F;ing”</h4><p>Often, a mutating method will have a non-mutating variant returning the same, or a similar, type as the receiver. 通常，一个非变异自己的变异的方法返回值是一个相同或者相似类型。</p>
+<p>Prefer to name the non-mutating variant using the verb’s past tense (usually appending “ed”): 偏爱用动词过去式（通常是结尾添加“ed”）命名一个非变异体</p>
+  <figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/// Reverses `self` in-place. </span></span><br><span class="line"><span class="keyword">mutating</span> <span class="keyword">func</span> <span class="title function_">reverse</span>()  </span><br><span class="line"></span><br><span class="line"><span class="comment">/// Returns a reversed copy of `self`. </span></span><br><span class="line"><span class="keyword">func</span> <span class="title function_">reversed</span>() -&gt; <span class="keyword">Self</span></span><br><span class="line"><span class="operator">...</span> </span><br><span class="line">x.reverse() </span><br><span class="line"><span class="keyword">let</span> y <span class="operator">=</span> x.reversed()</span><br></pre></td></tr></table></figure>
+<p>When adding “ed” is not grammatical because the verb has a direct object, name the non-mutating variant using the verb’s gerund form (usually appending “ing”): 当因为及物动词添加“ed”不和语法时，就使用动名词形式（通常结尾添加“ing”）来命名</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/// Strips all the newlines from \`self\` </span></span><br><span class="line"><span class="keyword">mutating</span> <span class="keyword">func</span> <span class="title function_">stripNewlines</span>()  </span><br><span class="line"></span><br><span class="line"><span class="comment">/// Returns a copy of \`self\` with all the newlines stripped. </span></span><br><span class="line"><span class="keyword">func</span> <span class="title function_">strippingNewlines</span>() -&gt; <span class="type">String</span> </span><br><span class="line"><span class="operator">...</span> </span><br><span class="line">s.stripNewlines() </span><br><span class="line"><span class="keyword">let</span> oneLine <span class="operator">=</span> t.strippingNewlines() </span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h4 id="2-2-4-Uses-of-non-mutating-Boolean-methods-and-properties-should-read-as-assertions-about-the-receiver-e-g-x-isEmpty-line1-intersects-line2-非变异的布尔方法和属性应使用断言作为接收器。"><a href="#2-2-4-Uses-of-non-mutating-Boolean-methods-and-properties-should-read-as-assertions-about-the-receiver-e-g-x-isEmpty-line1-intersects-line2-非变异的布尔方法和属性应使用断言作为接收器。" class="headerlink" title="2.2.4.  Uses of non-mutating Boolean methods and properties should read as assertions about the receiver, e.g. x.isEmpty, line1.intersects(line2). 非变异的布尔方法和属性应使用断言作为接收器。"></a>2.2.4.  <a href="undefined">Uses</a> of non-mutating <strong>Boolean methods and properties should read as assertions about the receiver</strong>, e.g. <code>x.isEmpty</code>, <code>line1.intersects(line2)</code>. 非变异的布尔方法和属性应使用断言作为接收器。</h4><h4 id="2-2-5-Protocols-that-describe-what-something-is-should-read-as-nouns-e-g-Collection-Protocols-that-describe-a-capability-should-be-named-using-the-suffixes-able-ible-or-ing-e-g-Equatable-ProgressReporting-描述是什么的协议用名词。描述能力的用-able-ible-or-ing-等后缀。"><a href="#2-2-5-Protocols-that-describe-what-something-is-should-read-as-nouns-e-g-Collection-Protocols-that-describe-a-capability-should-be-named-using-the-suffixes-able-ible-or-ing-e-g-Equatable-ProgressReporting-描述是什么的协议用名词。描述能力的用-able-ible-or-ing-等后缀。" class="headerlink" title="2.2.5.  Protocols that describe what something is should read as nouns (e.g. Collection). Protocols that describe a capability should be named using the suffixes able,ible, or ing (e.g. Equatable, ProgressReporting). 描述是什么的协议用名词。描述能力的用 able,ible, or ing 等后缀。"></a>2.2.5.  <strong>Protocols</strong> that describe what something <strong>is</strong> should read as nouns (e.g. <code>Collection</code>). Protocols that describe a <strong>capability</strong> should be named using the suffixes <code>able</code>,<code>ible</code>, or <code>ing</code> (e.g. <code>Equatable</code>, <code>ProgressReporting</code>). 描述是什么的协议用名词。描述能力的用 <code>able</code>,<code>ible</code>, or <code>ing</code> 等后缀。</h4><h4 id="2-2-6-The-names-of-other-types-properties-variables-and-constants-should-read-as-nouns-其余类型，属性，变量和常量用名词。"><a href="#2-2-6-The-names-of-other-types-properties-variables-and-constants-should-read-as-nouns-其余类型，属性，变量和常量用名词。" class="headerlink" title="2.2.6. The names of other types, properties, variables, and constants should read as nouns. 其余类型，属性，变量和常量用名词。"></a>2.2.6. The names of other <strong>types, properties, variables, and constants should read as nouns.</strong> 其余类型，属性，变量和常量用名词。</h4><h3 id="2-3-Use-Terminology-Well-恰当地使用术语"><a href="#2-3-Use-Terminology-Well-恰当地使用术语" class="headerlink" title="2.3. Use Terminology Well 恰当地使用术语"></a>2.3. Use Terminology Well 恰当地使用术语</h3><p><strong>Term of Art</strong></p>
+<p><em>noun</em> - a word or phrase that has a precise, specialized meaning within a particular field or profession. 一个单词或短语，有明确的特定的含义在某一特定领域或专业。</p>
+<h4 id="2-3-1-Avoid-obscure-terms-if-a-more-common-word-conveys-meaning-just-as-well-Don’t-say-“epidermis”-if-“skin”-will-serve-your-purpose-Terms-of-art-are-an-essential-communication-tool-but-should-only-be-used-to-capture-crucial-meaning-that-would-otherwise-be-lost-避免使用生僻词。"><a href="#2-3-1-Avoid-obscure-terms-if-a-more-common-word-conveys-meaning-just-as-well-Don’t-say-“epidermis”-if-“skin”-will-serve-your-purpose-Terms-of-art-are-an-essential-communication-tool-but-should-only-be-used-to-capture-crucial-meaning-that-would-otherwise-be-lost-避免使用生僻词。" class="headerlink" title="2.3.1. Avoid obscure terms if a more common word conveys meaning just as well. Don’t say “epidermis” if “skin” will serve your purpose. Terms of art are an essential communication tool, but should only be used to capture crucial meaning that would otherwise be lost. 避免使用生僻词。"></a>2.3.1. <strong>Avoid obscure terms</strong> if a more common word conveys meaning just as well. Don’t say “epidermis” if “skin” will serve your purpose. Terms of art are an essential communication tool, but should only be used to capture crucial meaning that would otherwise be lost. 避免使用生僻词。</h4><p>The only reason to use a technical term rather than a more common word is that it precisely expresses something that would otherwise be ambiguous or unclear. Therefore, an API should use the term strictly in accordance with its accepted meaning.</p>
+<ul>
+<li><p><strong>Don’t surprise an expert</strong>: anyone already familiar with the term will be surprised and probably angered if we appear to have invented a new meaning for it.</p>
+</li>
+<li><p><strong>Don’t confuse a beginner</strong>: anyone trying to learn the term is likely to do a web search and find its traditional meaning.</p>
+</li>
+</ul>
+<h4 id="2-3-2-Stick-to-the-established-meaning-if-you-do-use-a-term-of-art-Avoid-abbreviations-Abbreviations-especially-non-standard-ones-are-effectively-terms-of-art-because-understanding-depends-on-correctly-translating-them-into-their-non-abbreviated-forms-坚持使用明确的单词。避免缩写，除非很容易搜索到原意。"><a href="#2-3-2-Stick-to-the-established-meaning-if-you-do-use-a-term-of-art-Avoid-abbreviations-Abbreviations-especially-non-standard-ones-are-effectively-terms-of-art-because-understanding-depends-on-correctly-translating-them-into-their-non-abbreviated-forms-坚持使用明确的单词。避免缩写，除非很容易搜索到原意。" class="headerlink" title="2.3.2. Stick to the established meaning if you do use a term of art.Avoid abbreviations. Abbreviations, especially non-standard ones, are effectively terms-of-art, because understanding depends on correctly translating them into their non-abbreviated forms. 坚持使用明确的单词。避免缩写，除非很容易搜索到原意。"></a>2.3.2. <strong>Stick to the established meaning</strong> if you do use a term of art.<strong>Avoid abbreviations</strong>. Abbreviations, especially non-standard ones, are effectively terms-of-art, because understanding depends on correctly translating them into their non-abbreviated forms. 坚持使用明确的单词。避免缩写，除非很容易搜索到原意。</h4><pre><code>&gt;The intended meaning for any abbreviation you use should be easily found by a web search. 
+</code></pre>
+<h4 id="2-3-3-Embrace-precedent-Don’t-optimize-terms-for-the-total-beginner-at-the-expense-of-conformance-to-existing-culture-拥抱先例：不要为了新手，以顺应先前的文化为代价去优化术语。"><a href="#2-3-3-Embrace-precedent-Don’t-optimize-terms-for-the-total-beginner-at-the-expense-of-conformance-to-existing-culture-拥抱先例：不要为了新手，以顺应先前的文化为代价去优化术语。" class="headerlink" title="2.3.3. Embrace precedent: Don’t optimize terms for the total beginner at the expense of conformance to existing culture. 拥抱先例：不要为了新手，以顺应先前的文化为代价去优化术语。"></a>2.3.3. <strong>Embrace precedent:</strong> Don’t optimize terms for the total beginner at the expense of conformance to existing culture. 拥抱先例：不要为了新手，以顺应先前的文化为代价去优化术语。</h4><blockquote>
+<p>译者注：#Swift3 Remove the ++ and – operators<br>Author: Chris Lattner <a target="_blank" rel="noopener" href="https://github.com/apple/swift-evolution/blob/master/proposals/0004-remove-pre-post-inc-decrement.md">https://github.com/apple/swift-evolution/blob/master/proposals/0004-remove-pre-post-inc-decrement.md</a> </p>
+</blockquote>
+<h2 id="3-Conventions-约定"><a href="#3-Conventions-约定" class="headerlink" title="3. Conventions 约定"></a>3. Conventions 约定</h2><h3 id="3-1-General-Conventions-一般约定"><a href="#3-1-General-Conventions-一般约定" class="headerlink" title="3.1. General Conventions 一般约定"></a>3.1. General Conventions 一般约定</h3><ul>
+<li><p><strong>Document the complexity of any computed property that is not O(1)</strong>. People often assume that property access involves no significant computation, because they have stored properties as a mental model. Be sure to alert them when that assumption may be violated. 指出任何复杂度非O(1)的计算属性。因为人们通常假设属性访问并非复杂计算量。</p>
+</li>
+<li><p><strong>Prefer methods and properties to free functions</strong>. Free functions are used only in special cases. 偏爱方法和属性，而非相对独立的函数。</p>
+</li>
+<li><p><strong>Follow case conventions:</strong> names of types, protocols and enum cases are <code>UpperCamelCase</code>. Everything else is <code>lowerCamelCase</code>. 遵循驼峰大小写法：类型，协议和枚举用大驼峰法，其余小驼峰法。</p>
+</li>
+<li><p><strong>Methods can share a base name when they share the same basic meaning</strong>but operate on different types, or are in different domains.  方法可以共用一个通用名，如果均指一个基本含义时，用于不同的类型或者不同的作用域。</p>
+<p>For example, the following is encouraged, since the methods do essentially the same things:</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">extension</span> <span class="title class_">Shape</span> &#123; </span><br><span class="line"><span class="comment">/// Returns true iff other is within the area of self. </span></span><br><span class="line"><span class="keyword">func</span> <span class="title function_">contains</span>(<span class="params">other</span>: <span class="type">Point</span>) -&gt; <span class="type">Bool</span> &#123; <span class="operator">...</span> &#125;  </span><br><span class="line"><span class="comment">/// Returns true iff other is entirely within the area of self. </span></span><br><span class="line"><span class="keyword">func</span> <span class="title function_">contains</span>(<span class="params">other</span>: <span class="type">Shape</span>) -&gt; <span class="type">Bool</span> &#123; <span class="operator">...</span> &#125;  </span><br><span class="line"><span class="comment">/// Returns true iff other is within the area of self. </span></span><br><span class="line"><span class="keyword">func</span> <span class="title function_">contains</span>(<span class="params">other</span>: <span class="type">LineSegment</span>) -&gt; <span class="type">Bool</span> &#123; <span class="operator">...</span> &#125; &#125;</span><br></pre></td></tr></table></figure>
+
+<p>​</p>
+</li>
+</ul>
+<h3 id="3-2-Parameters"><a href="#3-2-Parameters" class="headerlink" title="3.2. Parameters"></a>3.2. Parameters</h3><ul>
+<li><p>3.2.1. <strong>Take advantage of defaulted arguments</strong> when it simplifies common uses. Any parameter with a single commonly-used value is a candidate for defaulting. 充分利用参数的默认值。</p>
+</li>
+<li><p>3.2.2. <strong>Prefer to locate parameters with defaults towards the end</strong> of the parameter list. Parameters without defaults are usually more essential to the semantics of a method, and provide a stable initial pattern of use where methods are invoked. 尽量含默认值参数置于参数列表后面。</p>
+</li>
+<li><p>3.2.3. <strong>Prefer to follow the language’s defaults for the presence of argument labels</strong> 遵循语言习惯填写外部参数标签。</p>
+<p> In other words, usually: 换言之</p>
+<ul>
+<li><p>First parameters to methods and functions should not have required argument labels. 第一参数不必指明外部参数。</p>
+</li>
+<li><p>Other parameters to methods and functions should have required argument labels. 后面的外部参数必须填写。</p>
+</li>
+<li><p>All parameters to initializers should have required argument labels. 所有涉及初始化的参数均需外部参数。</p>
+<pre><code>The above corresponds to where the language would require argument labels if each parameter was declared with the form: 如果符合上述需要外部参数标签，应该向下面这么声明
+</code></pre>
+</li>
+</ul>
+</li>
+</ul>
+<p>​	<code>swift ​	     identifier: Type ​	</code><br>​	<br>    &gt;译者注：参看 <a target="_blank" rel="noopener" href="http://stackoverflow.com/questions/24815832/when-are-argument-labels-required-in-swift">http://stackoverflow.com/questions/24815832/when-are-argument-labels-required-in-swift</a></p>
+<p>There are only a few exceptions: 也有例外</p>
+<ul>
+<li><p><strong>In initializers that should be seen as “full-width type conversions,”</strong> the initial argument should be the source of the conversion, and should be unlabelled.  包含全角的类型转换的初始化应该使用原始指，而且不包含外部参数标签。</p>
+  <figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">extension</span> <span class="title class_">String</span> &#123; </span><br><span class="line"><span class="comment">// Convert `x` into its textual representation in the given radix init(_ x: BigInt, radix: Int = 10) // Note the initial separate underscore </span></span><br><span class="line">&#125;  </span><br><span class="line">text <span class="operator">=</span> <span class="string">&quot;The value is: &quot;</span> </span><br><span class="line">text <span class="operator">+=</span> <span class="type">String</span>(veryLargeNumber) </span><br><span class="line">text <span class="operator">+=</span> <span class="string">&quot; and in hexadecimal, it&#x27;s&quot;</span> </span><br><span class="line">text <span class="operator">+=</span> <span class="type">String</span>(veryLargeNumber, radix: <span class="number">16</span>)</span><br><span class="line">​	```</span><br><span class="line">​</span><br><span class="line"><span class="type">In</span> “narrowing” type conversions, though, a label that describes the narrowing <span class="keyword">is</span> recommended:</span><br><span class="line"></span><br><span class="line">	```<span class="type">Swift</span></span><br><span class="line">	<span class="keyword">extension</span> <span class="title class_">UInt32</span> &#123; </span><br><span class="line">	<span class="keyword">init</span>(<span class="keyword">_</span> <span class="params">value</span>: <span class="type">Int16</span>) <span class="comment">// widening, so no label </span></span><br><span class="line">	<span class="keyword">init</span>(<span class="params">truncating</span> <span class="params">bits</span>: <span class="type">UInt64</span>) </span><br><span class="line">	<span class="keyword">init</span>(<span class="params">saturating</span> <span class="params">value</span>: <span class="type">UInt64</span>) &#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>When all parameters are peers that can’t be usefully distinguished</strong>, none should be labelled. Well-known examples include <code>min(number1, number2)</code> and<code>zip(sequence1, sequence2)</code>. 如果所有参数是平等不易区分重要性，不用加外部参数标签。</p>
+</li>
+<li><p><a href="undefined"><strong>When the first argument is defaulted, it should have a distinct argument label</strong></a>. 如果第一个参数是值可空，那么就应该添加一个清晰的外表参数标签。</p>
+  <figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">extension</span> <span class="title class_">Document</span> &#123; </span><br><span class="line"><span class="keyword">func</span> <span class="title function_">close</span>(<span class="params">completionHandler</span> <span class="params">completion</span>: ((<span class="type">Bool</span>) -&gt; <span class="type">Void</span>)<span class="operator">?</span> <span class="operator">=</span> <span class="literal">nil</span>) </span><br><span class="line">&#125; </span><br><span class="line">doc1.close() </span><br><span class="line">doc2.close(completionHandler: app.quit) </span><br></pre></td></tr></table></figure>
+<p>  As you can see, this practice makes calls read correctly regardless of whether the argument is passed explicitly. If instead you omit the parameter description, the call may incorrectly imply the argument is the direct object of the “sentence:”</p>
+  <figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">extension</span> <span class="title class_">Document</span> &#123; </span><br><span class="line"><span class="keyword">func</span> <span class="title function_">close</span>(<span class="params">completion</span>: ((<span class="type">Bool</span>) -&gt; <span class="type">Void</span>)<span class="operator">?</span> <span class="operator">=</span> <span class="literal">nil</span>) </span><br><span class="line">&#125; </span><br><span class="line"></span><br><span class="line">doc.close(app.quit) <span class="comment">// Closing the quit function?</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<pre><code>  If you attach the parameter description to the function’s base name, it will “dangle” when the default is used:
+  
+</code></pre>
+  <figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">extension</span> <span class="title class_">Document</span> &#123; </span><br><span class="line"><span class="keyword">func</span> <span class="title function_">closeWithCompletionHandler</span>(<span class="params">completion</span>: ((<span class="type">Bool</span>) -&gt; <span class="type">Void</span>)<span class="operator">?</span> <span class="operator">=</span> <span class="literal">nil</span>) </span><br><span class="line">&#125; </span><br><span class="line">doc.closeWithCompletionHandler() <span class="comment">// What completion handler?</span></span><br></pre></td></tr></table></figure></li>
+</ul>
+<h2 id="4-Special-Instructions-特别说明"><a href="#4-Special-Instructions-特别说明" class="headerlink" title="4. Special Instructions 特别说明"></a>4. Special Instructions 特别说明</h2><h3 id="4-1-Take-extra-care-with-unconstrained-polymorphism-e-g-Any-AnyObject-and-unconstrained-generic-parameters-to-avoid-ambiguities-in-overload-sets-特别注意不受约束类型的多态。"><a href="#4-1-Take-extra-care-with-unconstrained-polymorphism-e-g-Any-AnyObject-and-unconstrained-generic-parameters-to-avoid-ambiguities-in-overload-sets-特别注意不受约束类型的多态。" class="headerlink" title="4.1. Take extra care with unconstrained polymorphism (e.g. Any, AnyObject, and unconstrained generic parameters) to avoid ambiguities in overload sets. 特别注意不受约束类型的多态。"></a>4.1. <strong>Take extra care with unconstrained polymorphism</strong> (e.g. <code>Any</code>, <code>AnyObject</code>, and unconstrained generic parameters) to avoid ambiguities in overload sets. 特别注意不受约束类型的多态。</h3><p>For example, consider this overload set:</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">struct</span> <span class="title class_">Array</span> &#123; </span><br><span class="line"><span class="comment">/// Inserts `newElement` at `self.endIndex`. </span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">mutating</span> <span class="keyword">func</span> <span class="title function_">append</span>(<span class="params">newElement</span>: <span class="type">Element</span>) </span><br><span class="line"> </span><br><span class="line"> <span class="comment">/// Inserts the contents of `newElements`, in order, at </span></span><br><span class="line"> <span class="comment">/// `self.endIndex`. </span></span><br><span class="line"> <span class="keyword">public</span> <span class="keyword">mutating</span> <span class="keyword">func</span> <span class="title function_">append</span>&lt;</span><br><span class="line"> <span class="type">S</span> : <span class="type">SequenceType</span> where <span class="type">S</span>.<span class="type">Generator</span>.<span class="type">Element</span> == <span class="type">Element</span> </span><br><span class="line"> &gt;(<span class="params">newElements</span>: <span class="type">S</span>) &#125; </span><br></pre></td></tr></table></figure>
+
+<p>These methods form a semantic family, and the argument types appear at first to be sharply distinct. However, when <code>Element</code> is <code>Any</code>, a single element can have the same type as a sequence of elements:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">var values: [Any] = [1, &quot;a&quot;] values.append([2, 3, 4]) // [1, &quot;a&quot;, [2, 3, 4]] or [1, &quot;a&quot;, 2, 3, 4]? </span><br></pre></td></tr></table></figure>
+
+<p>To eliminate the ambiguity, name the second overload more explicitly: 为了排除歧义，重新命名时更加明确含义。</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">struct</span> <span class="title class_">Array</span> &#123; </span><br><span class="line"><span class="comment">/// Inserts `newElement` at `self.endIndex`. </span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">mutating</span> <span class="keyword">func</span> <span class="title function_">append</span>(<span class="params">newElement</span>: <span class="type">Element</span>)  </span><br><span class="line"></span><br><span class="line"><span class="comment">/// Inserts the contents of `newElements`, in order, at </span></span><br><span class="line"><span class="comment">/// `self.endIndex`. </span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">mutating</span> <span class="keyword">func</span> <span class="title function_">appendContentsOf</span>&lt; </span><br><span class="line"><span class="type">S</span> : <span class="type">SequenceType</span> where <span class="type">S</span>.<span class="type">Generator</span>.<span class="type">Element</span> == <span class="type">Element</span> </span><br><span class="line">&gt;(<span class="params">newElements</span>: <span class="type">S</span>) &#125; </span><br></pre></td></tr></table></figure>
+
+<p>Notice how the new name better matches the documentation comment. In this case, the act of writing the documentation comment actually brought the issue to the API author’s attention.</p>
+<h3 id="4-2-Make-documentation-comments-tool-friendly-they-will-be-automatically-extracted-to-generate-richly-formatted-public-documentation-and-they-appear-in-Xcode-in-generated-interfaces-quick-help-and-code-completion-文档注释对工具优化，方便地自动提取富文本的文档，自动显示在-Xcode，生成界面，快速帮助，代码补全中。"><a href="#4-2-Make-documentation-comments-tool-friendly-they-will-be-automatically-extracted-to-generate-richly-formatted-public-documentation-and-they-appear-in-Xcode-in-generated-interfaces-quick-help-and-code-completion-文档注释对工具优化，方便地自动提取富文本的文档，自动显示在-Xcode，生成界面，快速帮助，代码补全中。" class="headerlink" title="4.2. Make documentation comments tool-friendly; they will be automatically extracted to generate richly-formatted public documentation, and they appear in Xcode, in generated interfaces, quick help, and code completion. 文档注释对工具优化，方便地自动提取富文本的文档，自动显示在 Xcode，生成界面，快速帮助，代码补全中。"></a>4.2. <strong>Make documentation comments tool-friendly</strong>; they will be automatically extracted to generate richly-formatted public documentation, and they appear in Xcode, in generated interfaces, quick help, and code completion. 文档注释对工具优化，方便地自动提取富文本的文档，自动显示在 Xcode，生成界面，快速帮助，代码补全中。</h3><p>Our Markdown processor gives special treatment to the following bullet list keywords: Swift 版 Markdown 会特殊处理下面列出的关键词</p>
+<table>
+<thead>
+<tr>
+<th><code>-Attention:</code></th>
+<th><code>-Important:</code></th>
+<th><code>-Requires:</code></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>-Author:</code></td>
+<td><code>-Invariant:</code></td>
+<td><code>-See:</code></td>
+</tr>
+<tr>
+<td><code>-Authors:</code></td>
+<td><code>-Note:</code></td>
+<td><code>-Since:</code></td>
+</tr>
+<tr>
+<td><code>-Bug:</code></td>
+<td><code>-Postcondition:</code></td>
+<td><code>-Throws:</code></td>
+</tr>
+<tr>
+<td><code>-Complexity:</code></td>
+<td><code>-Precondition:</code></td>
+<td><code>-TODO:</code></td>
+</tr>
+<tr>
+<td><code>-Copyright:</code></td>
+<td><code>-Remark:</code></td>
+<td><code>-Version:</code></td>
+</tr>
+<tr>
+<td><code>-Date:</code></td>
+<td><code>-Remarks:</code></td>
+<td><code>-Warning:</code></td>
+</tr>
+<tr>
+<td><code>-Experiment:</code></td>
+<td><code>-Returns:</code></td>
+<td></td>
+</tr>
+</tbody></table>
+<p><strong>Writing a great summary is more important</strong> than leveraging keywords. 写一个很棒的概要远比仅仅添加关键词重要的多。</p>
+<p>You can omit separate documentation for each parameter and the return type if it wouldn’t add useful information beyond what’s already conveyed by the method signature and its summary line. For example: 除方法签名和概要信息外，如果不能添加有用的信息，就可以省略参数和返回类型的注释文档。</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/// Append `newContent` to this stream. </span></span><br><span class="line"><span class="keyword">mutating</span> <span class="keyword">func</span> <span class="title function_">write</span>(<span class="params">newContent</span>: <span class="type">String</span>)</span><br></pre></td></tr></table></figure>
+
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2015/12/10/Feeyue/" rel="prev" title="Feeyue">
+                  <i class="fa fa-chevron-left"></i> Feeyue
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2015/12/14/Array-Copy/" rel="next" title="数组拷贝">
+                  数组拷贝 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2025</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">Ge Will</span>
+  </div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/pisces/" rel="noopener" target="_blank">NexT.Pisces</a>
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="back-to-top" role="button" aria-label="Back to top">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.1/search.js" integrity="sha256-1kfA5uHPf65M5cphT2dvymhkuyHPQp5A53EGZOnOLmc=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>

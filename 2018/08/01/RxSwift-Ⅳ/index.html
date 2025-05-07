@@ -1,0 +1,534 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 6.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha256-HtsXJanqjKTc8vVQjO4YMhiqFoXkfBsjBWcX91T1jr8=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Pisces","darkmode":true,"version":"8.17.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":true,"style":"mac"},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"},"path":"/search.json","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="一旦你开始编写完整的应用程序与 RxSwift 和 RxCocoa, 你也需要照顾更多的中间主题比简单地观察事件和处理他们与 Rx。 在一个完整的生产质量应用程序中, 您需要构建一个错误处理策略, 执行更高级的多线程处理, 创建一个坚实的测试套件等等。 在这部分, 你将通过学习四个挑战性的章节, 这将解除您的 Rx 从一个菜鸟级的状态到一个实战经验的战士。 第十四章：错误处理实践生活将是美好的,">
+<meta property="og:type" content="article">
+<meta property="og:title" content="RxSwift Ⅳ：RxSwift 和 RxCocoa 进阶">
+<meta property="og:url" content="http://example.com/2018/08/01/RxSwift-%E2%85%A3/index.html">
+<meta property="og:site_name" content="Will&#39;s Blog">
+<meta property="og:description" content="一旦你开始编写完整的应用程序与 RxSwift 和 RxCocoa, 你也需要照顾更多的中间主题比简单地观察事件和处理他们与 Rx。 在一个完整的生产质量应用程序中, 您需要构建一个错误处理策略, 执行更高级的多线程处理, 创建一个坚实的测试套件等等。 在这部分, 你将通过学习四个挑战性的章节, 这将解除您的 Rx 从一个菜鸟级的状态到一个实战经验的战士。 第十四章：错误处理实践生活将是美好的,">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://gewill.org/assets/schedulerExample.png">
+<meta property="og:image" content="https://gewill.org//assets/HotVSCold.png">
+<meta property="article:published_time" content="2018-08-01T14:02:03.000Z">
+<meta property="article:modified_time" content="2025-01-13T03:01:04.065Z">
+<meta property="article:author" content="Ge Will">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://gewill.org/assets/schedulerExample.png">
+
+
+<link rel="canonical" href="http://example.com/2018/08/01/RxSwift-%E2%85%A3/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"en","comments":true,"permalink":"http://example.com/2018/08/01/RxSwift-%E2%85%A3/","path":"2018/08/01/RxSwift-Ⅳ/","title":"RxSwift Ⅳ：RxSwift 和 RxCocoa 进阶"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>RxSwift Ⅳ：RxSwift 和 RxCocoa 进阶 | Will's Blog</title>
+  
+
+
+
+
+
+
+
+<head>
+    <!-- 霞鹜文楷字体 -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lxgw-wenkai-webfont@1.7.0/style.css"/>
+
+    <!-- datapulse统计 -->
+    <script defer type="text/javascript" src="https://datapulse.app/datapulse.min.js" id="datapulse" data-endpoint="https://datapulse.app/api/v1/event" data-workspace="cljxqml5q0y0f8j37d4futnbl"></script>
+
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-DR0FC9YJLH"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() {
+            dataLayer.push(arguments);
+        }
+        gtag('js', new Date());
+
+        gtag('config', 'G-DR0FC9YJLH');
+    </script>
+</head>
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Will's Blog</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="Search" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives<span class="badge">198</span></a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags<span class="badge">17</span></a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories<span class="badge">1</span></a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="Searching..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AC%AC%E5%8D%81%E5%9B%9B%E7%AB%A0%EF%BC%9A%E9%94%99%E8%AF%AF%E5%A4%84%E7%90%86%E5%AE%9E%E8%B7%B5"><span class="nav-number">1.</span> <span class="nav-text">第十四章：错误处理实践</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AE%A1%E7%90%86%E9%94%99%E8%AF%AF"><span class="nav-number">1.1.</span> <span class="nav-text">管理错误</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%8A%9B%E5%87%BA%E9%94%99%E8%AF%AF"><span class="nav-number">1.1.1.</span> <span class="nav-text">抛出错误</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%94%A8-catch-%E5%A4%84%E7%90%86%E9%94%99%E8%AF%AF"><span class="nav-number">1.2.</span> <span class="nav-text">用 catch 处理错误</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B8%80%E4%B8%AA%E5%B8%B8%E8%A7%81%E7%9A%84%E9%99%B7%E9%98%B1"><span class="nav-number">1.2.1.</span> <span class="nav-text">一个常见的陷阱</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%8D%95%E6%8D%89%E9%94%99%E8%AF%AF"><span class="nav-number">1.3.</span> <span class="nav-text">捕捉错误</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%94%99%E8%AF%AF%E7%9A%84%E9%87%8D%E8%AF%95%E6%9C%BA%E5%88%B6"><span class="nav-number">1.4.</span> <span class="nav-text">错误的重试机制</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%87%AA%E5%AE%9A%E4%B9%89%E9%94%99%E8%AF%AF"><span class="nav-number">1.5.</span> <span class="nav-text">自定义错误</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%88%9B%E5%BB%BA%E8%87%AA%E5%AE%9A%E4%B9%89%E9%94%99%E8%AF%AF"><span class="nav-number">1.5.1.</span> <span class="nav-text">创建自定义错误</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%94%99%E8%AF%AF%E5%A4%84%E7%90%86%E8%BF%9B%E9%98%B6"><span class="nav-number">1.6.</span> <span class="nav-text">错误处理进阶</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Materialize-%E5%92%8C-dematerialize"><span class="nav-number">1.6.1.</span> <span class="nav-text">Materialize 和 dematerialize</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AC%AC%E5%8D%81%E4%BA%94%E7%AB%A0%EF%BC%9A%E4%BB%8B%E7%BB%8D%E8%B0%83%E5%BA%A6%E7%A8%8B%E5%BA%8F"><span class="nav-number">2.</span> <span class="nav-text">第十五章：介绍调度程序</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%B0%83%E5%BA%A6%E7%A8%8B%E5%BA%8F%E5%88%B0%E5%BA%95%E6%98%AF%E4%BB%80%E4%B9%88%EF%BC%9F"><span class="nav-number">2.1.</span> <span class="nav-text">调度程序到底是什么？</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%8F%AD%E5%BC%80%E8%B0%83%E5%BA%A6%E7%A8%8B%E5%BA%8F"><span class="nav-number">2.1.1.</span> <span class="nav-text">揭开调度程序</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%AE%BE%E7%BD%AE%E9%A1%B9%E7%9B%AE"><span class="nav-number">2.2.</span> <span class="nav-text">设置项目</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%87%E6%8D%A2%E8%B0%83%E5%BA%A6%E7%A8%8B%E5%BA%8F"><span class="nav-number">2.3.</span> <span class="nav-text">切换调度程序</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%99%B7%E9%98%B1"><span class="nav-number">2.4.</span> <span class="nav-text">陷阱</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%83%AD-vs-%E5%86%B7"><span class="nav-number">2.4.1.</span> <span class="nav-text">热 vs 冷</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5%E5%92%8C%E5%86%85%E7%BD%AE%E8%B0%83%E5%BA%A6%E7%A8%8B%E5%BA%8F"><span class="nav-number">3.</span> <span class="nav-text">最佳实践和内置调度程序</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B8%B2%E8%A1%8C%E4%B8%8E%E5%B9%B6%E5%8F%91%E8%B0%83%E5%BA%A6%E7%A8%8B%E5%BA%8F"><span class="nav-number">3.0.1.</span> <span class="nav-text">串行与并发调度程序</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#MainScheduler"><span class="nav-number">3.0.2.</span> <span class="nav-text">MainScheduler</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#SerialDispatchQueueScheduler"><span class="nav-number">3.0.3.</span> <span class="nav-text">SerialDispatchQueueScheduler</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#ConcurrentDispatchQueueScheduler"><span class="nav-number">3.0.4.</span> <span class="nav-text">ConcurrentDispatchQueueScheduler</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#OperationQueueScheduler"><span class="nav-number">3.0.5.</span> <span class="nav-text">OperationQueueScheduler</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#TestScheduler"><span class="nav-number">3.0.6.</span> <span class="nav-text">TestScheduler</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AC%AC%E5%8D%81%E5%85%AD%E7%AB%A0%EF%BC%9A%E4%BD%BF%E7%94%A8-RxTest-%E8%BF%9B%E8%A1%8C%E6%B5%8B%E8%AF%95"><span class="nav-number">4.</span> <span class="nav-text">第十六章：使用 RxTest 进行测试</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8-RxTest-%E6%B5%8B%E8%AF%95%E6%93%8D%E4%BD%9C%E7%AC%A6"><span class="nav-number">4.1.</span> <span class="nav-text">使用 RxTest 测试操作符</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%83%AD%E5%92%8C%E5%86%B7%E7%9A%84%E5%BA%8F%E5%88%97%E6%98%AF%E4%BB%80%E4%B9%88%EF%BC%9F"><span class="nav-number">4.1.1.</span> <span class="nav-text">热和冷的序列是什么？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8-RxBlocking"><span class="nav-number">4.1.2.</span> <span class="nav-text">使用 RxBlocking</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B5%8B%E8%AF%95-RxSwift-%E7%94%9F%E4%BA%A7%E4%BB%A3%E7%A0%81"><span class="nav-number">4.2.</span> <span class="nav-text">测试 RxSwift 生产代码</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AC%AC%E5%8D%81%E4%B8%83%E7%AB%A0%EF%BC%9A%E5%88%9B%E5%BB%BA%E8%87%AA%E5%AE%9A%E4%B9%89%E5%93%8D%E5%BA%94%E5%BC%8F%E6%8B%93%E5%B1%95"><span class="nav-number">5.</span> <span class="nav-text">第十七章：创建自定义响应式拓展</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A6%82%E4%BD%95%E5%88%9B%E5%BB%BA%E6%8B%93%E5%B1%95"><span class="nav-number">5.1.</span> <span class="nav-text">如何创建拓展</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A6%82%E4%BD%95%E5%88%9B%E5%BB%BA%E8%87%AA%E5%AE%9A%E4%B9%89%E8%BF%90%E7%AE%97%E7%AC%A6"><span class="nav-number">5.2.</span> <span class="nav-text">如何创建自定义运算符</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8%E5%B0%81%E8%A3%85%E7%9A%84%E6%8B%93%E5%B1%95"><span class="nav-number">5.3.</span> <span class="nav-text">如何使用封装的拓展</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B5%8B%E8%AF%95%E5%B0%81%E8%A3%85%E7%9A%84%E6%8B%93%E5%B1%95"><span class="nav-number">5.4.</span> <span class="nav-text">测试封装的拓展</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B8%B8%E7%94%A8%E5%B0%81%E8%A3%85"><span class="nav-number">5.5.</span> <span class="nav-text">常用封装</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B0%8F%E7%BB%93"><span class="nav-number">5.6.</span> <span class="nav-text">小结</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Ge Will"
+      src="/images/avatar.jpeg">
+  <p class="site-author-name" itemprop="name">Ge Will</p>
+  <div class="site-description" itemprop="description">The people who are crazy enough to think they can change the world, are the ones who DO.</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">198</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">17</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/gewill" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;gewill" rel="noopener me" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:531sunlight@gmail.com" title="E-Mail → mailto:531sunlight@gmail.com" rel="noopener me" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://weibo.com/gewei" title="Weibo → https:&#x2F;&#x2F;weibo.com&#x2F;gewei" rel="noopener me" target="_blank"><i class="fab fa-weibo fa-fw"></i>Weibo</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://twitter.com/BoJack_D" title="Twitter → https:&#x2F;&#x2F;twitter.com&#x2F;BoJack_D" rel="noopener me" target="_blank"><i class="fab fa-twitter fa-fw"></i>Twitter</a>
+      </span>
+  </div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2018/08/01/RxSwift-%E2%85%A3/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpeg">
+      <meta itemprop="name" content="Ge Will">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Will's Blog">
+      <meta itemprop="description" content="The people who are crazy enough to think they can change the world, are the ones who DO.">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="RxSwift Ⅳ：RxSwift 和 RxCocoa 进阶 | Will's Blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          RxSwift Ⅳ：RxSwift 和 RxCocoa 进阶
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2018-08-01 22:02:03" itemprop="dateCreated datePublished" datetime="2018-08-01T22:02:03+08:00">2018-08-01</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">Edited on</span>
+      <time title="Modified: 2025-01-13 11:01:04" itemprop="dateModified" datetime="2025-01-13T11:01:04+08:00">2025-01-13</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><p>一旦你开始编写完整的应用程序与 RxSwift 和 RxCocoa, 你也需要照顾更多的中间主题比简单地观察事件和处理他们与 Rx。</p>
+<p>在一个完整的生产质量应用程序中, 您需要构建一个错误处理策略, 执行更高级的多线程处理, 创建一个坚实的测试套件等等。</p>
+<p>在这部分, 你将通过学习四个挑战性的章节, 这将解除您的 Rx 从一个菜鸟级的状态到一个实战经验的战士。</p>
+<h2 id="第十四章：错误处理实践"><a href="#第十四章：错误处理实践" class="headerlink" title="第十四章：错误处理实践"></a>第十四章：错误处理实践</h2><p>生活将是美好的, 如果我们生活在一个完美的世界, 但不幸的事情往往不像预期的那样去。即使是最好的 RxSwift 开发人员也不能避免遇到错误, 因此他们需要知道如何优雅和高效地处理它们。在本章中, 您将学习如何处理错误, 如何通过重试来管理错误恢复, 或者只是向整个宇宙投降, 让错误继续。</p>
+<h3 id="管理错误"><a href="#管理错误" class="headerlink" title="管理错误"></a>管理错误</h3><p>常见错误类型：网络连接失败、无效的输入和API错误或者HTTP错误。</p>
+<p>在 RxSwift 中, 错误处理是框架的一部分, 可以通过两种方式进行处理:    </p>
+<ul>
+<li><strong>Catch</strong>: 从错误中恢复并使用默认值。   </li>
+<li><strong>Retry</strong>: 重试有限 (或无限制) 次数。</li>
+</ul>
+<p>本章项目的起始版本没有任何实际的错误处理。所有错误都是用一个返回虚拟版本的 <code>catchErrorJustReturn</code> 捕获的。这听起来像是一个方便的解决方案, 但是在 RxSwift 中有更好的处理方法。在任何一流的应用程序中, 都应该有一个一致的、信息错误处理方法。</p>
+<h4 id="抛出错误"><a href="#抛出错误" class="headerlink" title="抛出错误"></a>抛出错误</h4><p>一个好的起点是处理 RxCocoa 错误，它包装底层 Apple 框架返回的系统错误。</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">func</span> <span class="title function_">data</span>(<span class="params">request</span>: <span class="type">URLRequest</span>) -&gt; <span class="type">Observable</span>&lt;<span class="type">Data</span>&gt; &#123;<span class="operator">...</span>&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> <span class="number">200</span> <span class="operator">..&lt;</span> <span class="number">300</span> <span class="operator">~=</span> response.statusCode &#123; </span><br><span class="line">    <span class="keyword">return</span> data</span><br><span class="line">&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">	<span class="keyword">throw</span> <span class="type">RxCocoaURLError</span>.httpRequestFailed(response: response, data: data) </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="用-catch-处理错误"><a href="#用-catch-处理错误" class="headerlink" title="用 catch 处理错误"></a>用 catch 处理错误</h3><p>在解释如何抛出错误之后, 是时候看看如何处理错误了。最基本的方法是使用 catch。catch 的工作方式很像在Swift 中的 <code>do-try-catch</code> 流程。执行可观察的操作, 如果出现错误, 则返回包装错误的事件。</p>
+<p>在 RxSwift 中有两个主要的运算符来捕获错误。</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">func</span> <span class="title function_">catchError</span>(<span class="keyword">_</span> <span class="params">handler</span>:) -&gt; <span class="type">RxSwift</span>.<span class="type">Observable</span>&lt;<span class="keyword">Self</span>.<span class="type">E</span>&gt;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">func</span> <span class="title function_">catchErrorJustReturn</span>(<span class="keyword">_</span> <span class="params">element</span>:) -&gt; <span class="type">RxSwift</span>.<span class="type">Observable</span>&lt;<span class="keyword">Self</span>.<span class="type">E</span>&gt;</span><br></pre></td></tr></table></figure>
+
+<h4 id="一个常见的陷阱"><a href="#一个常见的陷阱" class="headerlink" title="一个常见的陷阱"></a>一个常见的陷阱</h4><p>链式调用时候，一个错误就会导致整个订阅以错误结束。有的时候我们想知道错误的仅有一步细节，如 HTTP 404 错误，属于 API 返回错误的具体信息的约定，就需要移除 <code>.catchErrorJustReturn(ApiController.Weather.empty)</code> 来避免出现不期望的错误事件发射。</p>
+<h3 id="捕捉错误"><a href="#捕捉错误" class="headerlink" title="捕捉错误"></a>捕捉错误</h3><p>我们先定义一个属性来缓存天气数据。</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> cache <span class="operator">=</span> [<span class="type">String</span>: <span class="type">Weather</span>]()</span><br></pre></td></tr></table></figure>
+
+<p>再把输入框的序列改为：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> textSearch <span class="operator">=</span> searchInput.flatMap &#123; text <span class="keyword">in</span></span><br><span class="line">  <span class="keyword">return</span> <span class="type">ApiController</span>.shared.currentWeather(city: text <span class="operator">??</span> <span class="string">&quot;Error&quot;</span>)</span><br><span class="line">    .do(onNext: &#123; data <span class="keyword">in</span></span><br><span class="line">      <span class="keyword">if</span> <span class="keyword">let</span> text <span class="operator">=</span> text &#123;</span><br><span class="line">        <span class="keyword">self</span>.cache[text] <span class="operator">=</span> data</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;, onError: &#123; [<span class="keyword">weak</span> <span class="keyword">self</span>] e <span class="keyword">in</span></span><br><span class="line">      <span class="keyword">guard</span> <span class="keyword">let</span> strongSelf <span class="operator">=</span> <span class="keyword">self</span> <span class="keyword">else</span> &#123; <span class="keyword">return</span> &#125;</span><br><span class="line">      <span class="type">DispatchQueue</span>.main.async &#123;</span><br><span class="line">        strongSelf.showError(error: e)</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;)</span><br><span class="line">    .retryWhen(retryHandler)</span><br><span class="line">    .catchError &#123; error <span class="keyword">in</span></span><br><span class="line">      <span class="keyword">if</span> <span class="keyword">let</span> text <span class="operator">=</span> text, <span class="keyword">let</span> cachedData <span class="operator">=</span> <span class="keyword">self</span>.cache[text] &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="type">Observable</span>.just(cachedData)</span><br><span class="line">      &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="type">Observable</span>.just(<span class="type">ApiController</span>.<span class="type">Weather</span>.empty)</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="错误的重试机制"><a href="#错误的重试机制" class="headerlink" title="错误的重试机制"></a>错误的重试机制</h3><p>关于重试上面已经设计到了 <code>.retryWhen(retryHandler)</code>，具体处理实现如下：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> retryHandler: (<span class="type">Observable</span>&lt;<span class="type">Error</span>&gt;) -&gt; <span class="type">Observable</span>&lt;<span class="type">Int</span>&gt; <span class="operator">=</span> &#123; e <span class="keyword">in</span></span><br><span class="line">  <span class="keyword">return</span> e.enumerated().flatMap &#123; (attempt, error) -&gt; <span class="type">Observable</span>&lt;<span class="type">Int</span>&gt; <span class="keyword">in</span></span><br><span class="line">    <span class="keyword">if</span> attempt <span class="operator">&gt;=</span> maxAttempts <span class="operator">-</span> <span class="number">1</span> &#123;</span><br><span class="line">      <span class="keyword">return</span> <span class="type">Observable</span>.error(error)</span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> <span class="keyword">let</span> casted <span class="operator">=</span> error <span class="keyword">as?</span> <span class="type">ApiController</span>.<span class="type">ApiError</span>, casted <span class="operator">==</span> .invalidKey &#123;</span><br><span class="line">      <span class="keyword">return</span> <span class="type">ApiController</span>.shared.apiKey.filter &#123;<span class="variable">$0</span> <span class="operator">!=</span> <span class="string">&quot;&quot;</span>&#125;.map &#123; <span class="keyword">_</span> <span class="keyword">in</span> <span class="keyword">return</span> <span class="number">1</span> &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;== retrying after <span class="subst">\(attempt <span class="operator">+</span> <span class="number">1</span>)</span> seconds ==&quot;</span>)</span><br><span class="line">    <span class="keyword">return</span> <span class="type">Observable</span>&lt;<span class="type">Int</span>&gt;.timer(<span class="type">Double</span>(attempt <span class="operator">+</span> <span class="number">1</span>), scheduler: 				<span class="type">MainScheduler</span>.instance).take(<span class="number">1</span>)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>或者简化版：<code>.retry(3)</code></p>
+<h3 id="自定义错误"><a href="#自定义错误" class="headerlink" title="自定义错误"></a>自定义错误</h3><p>创建自定义错误遵循一般的 Swift 原则, 所以没有一个好的 Swift 程序员不会知道, 但它仍然是好的, 看看如何处理错误和创建定制的操作符。</p>
+<h4 id="创建自定义错误"><a href="#创建自定义错误" class="headerlink" title="创建自定义错误"></a>创建自定义错误</h4><p>先定义错误枚举，然后在结果过滤中抛出定义的错误即可。</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">enum</span> <span class="title class_">ApiError</span>: <span class="title class_">Error</span> &#123;</span><br><span class="line">  <span class="keyword">case</span> cityNotFound</span><br><span class="line">  <span class="keyword">case</span> serverFailure</span><br><span class="line">  <span class="keyword">case</span> invalidKey</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">return</span> session.rx.response(request: request).map() &#123; response, data <span class="keyword">in</span></span><br><span class="line">  <span class="keyword">if</span> <span class="number">200</span> <span class="operator">..&lt;</span> <span class="number">300</span> <span class="operator">~=</span> response.statusCode &#123;</span><br><span class="line">      <span class="keyword">return</span> <span class="keyword">try</span> <span class="type">JSON</span>(data: data)</span><br><span class="line">  &#125; <span class="keyword">else</span> <span class="keyword">if</span> response.statusCode <span class="operator">==</span> <span class="number">401</span> &#123;</span><br><span class="line">    <span class="keyword">throw</span> <span class="type">ApiError</span>.invalidKey</span><br><span class="line">  &#125; <span class="keyword">else</span> <span class="keyword">if</span> <span class="number">400</span> <span class="operator">..&lt;</span> <span class="number">500</span> <span class="operator">~=</span> response.statusCode &#123;</span><br><span class="line">    <span class="keyword">throw</span> <span class="type">ApiError</span>.cityNotFound</span><br><span class="line">  &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    <span class="keyword">throw</span> <span class="type">ApiError</span>.serverFailure</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>订阅者可以根据实际场景把错误展示给用户，这部分和 Swift 中自定义错误一致，就不展开讲了。</p>
+<h3 id="错误处理进阶"><a href="#错误处理进阶" class="headerlink" title="错误处理进阶"></a>错误处理进阶</h3><p>比如处理API 中 401 类型，需要提示用户授权失败，需要重新登录或授权。本例中需要是指API Key 失效，需要用户填写新的有效的API Key。</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">else</span> <span class="keyword">if</span> response.statusCode <span class="operator">==</span> <span class="number">401</span> &#123;</span><br><span class="line">	<span class="keyword">throw</span> <span class="type">ApiError</span>.invalidKey</span><br><span class="line">&#125; </span><br></pre></td></tr></table></figure>
+
+<h4 id="Materialize-和-dematerialize"><a href="#Materialize-和-dematerialize" class="headerlink" title="Materialize 和 dematerialize"></a>Materialize 和 dematerialize</h4><p>materialize 和 dematerialize 通常一起使用, 并且有能力完全打破原始可观察的合同。当没有其他选择来处理特定的情况时, 请小心地使用它们, 并且只有在必要的时候。</p>
+<p>常见的应用是：进行日志记录</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">observableToLog.materialize()</span><br><span class="line">	.do(onNext: &#123; (event) <span class="keyword">in</span> </span><br><span class="line">		myAdvancedLogEvent(event) </span><br><span class="line">     &#125;)</span><br><span class="line">	.dematerialize()</span><br></pre></td></tr></table></figure>
+
+<h2 id="第十五章：介绍调度程序"><a href="#第十五章：介绍调度程序" class="headerlink" title="第十五章：介绍调度程序"></a>第十五章：介绍调度程序</h2><p>到目前为止，您已经设法使用调度程序，同时避免任何有关它们如何处理线程或并发的解释。 在前面的章节中，您使用了隐式使用某种并发&#x2F;线程级别的方法，例如<code>buffer</code>，<code>delaySubscription</code>或<code>interval</code>运算符。</p>
+<p>您可能感觉调度程序有一些神奇的东西，但在您了解调度程序之前，您还需要了解那些<code>observeOn</code>函数的全部内容。</p>
+<p>本章将介绍调度程序背后的美观，在这里您将了解为什么Rx抽象如此强大以及为什么使用异步编程远比使用锁或队列更省心。</p>
+<h3 id="调度程序到底是什么？"><a href="#调度程序到底是什么？" class="headerlink" title="调度程序到底是什么？"></a>调度程序到底是什么？</h3><p>在你着手学习时调度程序, 了解他们是什么和他们不是什么是很重要的。总而言之, 调度程序是一个过程发生的上下文。此上下文可以是线程、调度队列或类似的实体, 甚至是在 OperationQueueScheduler 内部使用的 NSOperation。</p>
+<p>下图是个好的例子：</p>
+<p><img src="https://gewill.org/assets/schedulerExample.png" alt="schedulerExample"></p>
+<p>在此图中，具有缓存运算符的概念。 observable向服务器发出请求并检索一些数据。此数据由名为cache的自定义运算符处理，该运算符将数据存储在某处。 在此之后，数据被传递给不同调度程序中的所有订阅者，很可能是位于主线程之上的MainScheduler，使得UI的更新成为可能。</p>
+<h4 id="揭开调度程序"><a href="#揭开调度程序" class="headerlink" title="揭开调度程序"></a>揭开调度程序</h4><p>调度程序虽然工作方式和GCD类似，却不是等价的。</p>
+<p>要记住的重要一点是, 调度程序不是线程, 并且它们没有与线程的一对一关系。始终检查计划程序执行操作的上下文, 而不是线程。在本章的后面部分, 您将遇到一些好的例子来帮助您理解这一点。</p>
+<h3 id="设置项目"><a href="#设置项目" class="headerlink" title="设置项目"></a>设置项目</h3><p>编写两个函数打印当前调度程序所在线程。</p>
+<h3 id="切换调度程序"><a href="#切换调度程序" class="headerlink" title="切换调度程序"></a>切换调度程序</h3><p>Rx 中最重要的事情之一是随时切换调度程序的能力, 没有任何限制, 除了内部进程生成事件所强加的约束之外。</p>
+<p><code>fruit</code> 是在主线程上生成的, 但是将它移动到后台线程是很好的。要在后台线程中创建 <code>fruit</code> , 必须使用 <code>subscribeOn</code>。</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> fruit <span class="operator">=</span> <span class="type">Observable</span>&lt;<span class="type">String</span>&gt;.create &#123; observer <span class="keyword">in</span></span><br><span class="line">  observer.onNext(<span class="string">&quot;[apple]&quot;</span>)</span><br><span class="line">  sleep(<span class="number">2</span>)</span><br><span class="line">  observer.onNext(<span class="string">&quot;[pineapple]&quot;</span>)</span><br><span class="line">  sleep(<span class="number">2</span>)</span><br><span class="line">  observer.onNext(<span class="string">&quot;[strawberry]&quot;</span>)</span><br><span class="line">  <span class="keyword">return</span> <span class="type">Disposables</span>.create()</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">fruit</span><br><span class="line">  .subscribeOn(globalScheduler)</span><br><span class="line">  .dump()</span><br><span class="line">  .observeOn(<span class="type">MainScheduler</span>.instance)</span><br><span class="line">  .dumpingSubscription()</span><br><span class="line">  .disposed(by: bag)</span><br></pre></td></tr></table></figure>
+
+<p>观察是 Rx 的三基本概念之一。它涉及实体生成事件, 以及这些事件的观察者。在这种情况下, 在对应 <code>subscribeOn</code> 的情况下, 操作符 <code>observeOn</code> 改变了观察发生的调度程序。</p>
+<p>这是一个非常常见的模式。您使用后台进程从服务器检索数据并处理接收的数据, 只切换到 MainScheduler 处理 <code>ﬁnal</code> 事件并在用户界面中显示数据。</p>
+<h3 id="陷阱"><a href="#陷阱" class="headerlink" title="陷阱"></a>陷阱</h3><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> globalScheduler <span class="operator">=</span> <span class="type">ConcurrentDispatchQueueScheduler</span>(queue: <span class="type">DispatchQueue</span>.global())</span><br><span class="line"><span class="keyword">let</span> bag <span class="operator">=</span> <span class="type">DisposeBag</span>()</span><br><span class="line"><span class="keyword">let</span> animal <span class="operator">=</span> <span class="type">BehaviorSubject</span>(value: <span class="string">&quot;[dog]&quot;</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> animalsThread <span class="operator">=</span> <span class="type">Thread</span>() &#123;</span><br><span class="line">  sleep(<span class="number">3</span>)</span><br><span class="line">  animal.onNext(<span class="string">&quot;[cat]&quot;</span>)</span><br><span class="line">  sleep(<span class="number">3</span>)</span><br><span class="line">  animal.onNext(<span class="string">&quot;[tiger]&quot;</span>)</span><br><span class="line">  sleep(<span class="number">3</span>)</span><br><span class="line">  animal.onNext(<span class="string">&quot;[fox]&quot;</span>)</span><br><span class="line">  sleep(<span class="number">3</span>)</span><br><span class="line">  animal.onNext(<span class="string">&quot;[leopard]&quot;</span>)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">animalsThread.name <span class="operator">=</span> <span class="string">&quot;Animals Thread&quot;</span></span><br><span class="line">animalsThread.start()</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">animal.subscribeOn(<span class="type">MainScheduler</span>.instance)</span><br><span class="line">  .dump()</span><br><span class="line">  .observeOn(globalScheduler)</span><br><span class="line">  .dumpingSubscription()</span><br><span class="line">  .disposed(by:bag)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="type">RunLoop</span>.main.run(until: <span class="type">Date</span>(timeIntervalSinceNow: <span class="number">13</span>))</span><br></pre></td></tr></table></figure>
+
+<p>输出结果：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">00s | [D] [dog] received on Main Thread</span><br><span class="line">00s | [S] [dog] received on Anonymous Thread</span><br><span class="line">03s | [D] [cat] received on Animals Thread</span><br><span class="line">03s | [S] [cat] received on Anonymous Thread</span><br><span class="line">06s | [D] [tiger] received on Animals Thread</span><br><span class="line">06s | [S] [tiger] received on Anonymous Thread</span><br><span class="line">09s | [D] [fox] received on Animals Thread</span><br><span class="line">09s | [S] [fox] received on Anonymous Thread</span><br><span class="line">12s | [D] [leopard] received on Animals Thread</span><br><span class="line">12s | [S] [leopard] received on Anonymous Thread</span><br></pre></td></tr></table></figure>
+
+<p>结果出人意料，并没有如愿发生在主线程上。这是一个常见的和危险的陷阱, 它来自于在默认情况下认为 Rx 是异步的或多线程的，但这不是事实。</p>
+<p>Rx 和一般抽象是自由线程的;在处理数据时, 没有发生魔术般的线程切换。如果不指定其他的线程, 则始终在原始线程上执行计算。</p>
+<blockquote>
+<p>任何线程切换都是在程序员使用运算符 <code>subscribeOn</code> 和 <code>observeOn</code> 的显式请求之后发生的。</p>
+</blockquote>
+<p>认为 Rx 做一些线程处理默认会陷入一个常见的陷阱。上面发生的事情是对 Subject 的误用。原始计算在指定的线程上发生, 并且这些事件使用 <code>Thread() &#123; ... &#125;</code> 在该线程中被推入。由于 Subject 的性质, Rx 没有能力切换原始的计算调度程序, 并移动到另一个线程, 因为没有直接控制的 Subject 被推出。</p>
+<p>但是下面的例子：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> globalScheduler <span class="operator">=</span> <span class="type">ConcurrentDispatchQueueScheduler</span>(queue: <span class="type">DispatchQueue</span>.global())</span><br><span class="line"><span class="keyword">let</span> bag <span class="operator">=</span> <span class="type">DisposeBag</span>()</span><br><span class="line"><span class="keyword">let</span> animal <span class="operator">=</span> <span class="type">BehaviorSubject</span>(value: <span class="string">&quot;[dog]&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> fruit <span class="operator">=</span> <span class="type">Observable</span>&lt;<span class="type">String</span>&gt;.create &#123; observer <span class="keyword">in</span></span><br><span class="line">  observer.onNext(<span class="string">&quot;[apple]&quot;</span>)</span><br><span class="line">  sleep(<span class="number">2</span>)</span><br><span class="line">  observer.onNext(<span class="string">&quot;[pineapple]&quot;</span>)</span><br><span class="line">  sleep(<span class="number">2</span>)</span><br><span class="line">  observer.onNext(<span class="string">&quot;[strawberry]&quot;</span>)</span><br><span class="line">  <span class="keyword">return</span> <span class="type">Disposables</span>.create()</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">fruit.subscribeOn(globalScheduler)</span><br><span class="line">  .dump()</span><br><span class="line">  .observeOn(<span class="type">MainScheduler</span>.instance)</span><br><span class="line">  .dumpingSubscription()</span><br><span class="line">  .disposed(by:bag)</span><br><span class="line"></span><br><span class="line"><span class="type">RunLoop</span>.main.run(until: <span class="type">Date</span>(timeIntervalSinceNow: <span class="number">13</span>))</span><br></pre></td></tr></table></figure>
+
+<p>输出：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">00s | [D] [apple] received on Anonymous Thread</span><br><span class="line">00s | [S] [apple] received on Main Thread</span><br><span class="line">02s | [D] [pineapple] received on Anonymous Thread</span><br><span class="line">02s | [S] [pineapple] received on Main Thread</span><br><span class="line">04s | [D] [strawberry] received on Anonymous Thread</span><br><span class="line">04s | [S] [strawberry] received on Main Thread</span><br></pre></td></tr></table></figure>
+
+<p>为什么这适用于fruit 线程呢？ 这是因为使用<code>Observable.create</code>可以让Rx控制Thread块内部发生的事情，这样你就可以更加精确地定制线程处理。<br>这种意想不到的结果通常被称为“冷和热”可观测问题。<br>在上面的例子中，你正在处理热观察。 observable在订阅期间没有任何副作用，但它确实有自己的上下文，其中生成事件并且RxSwift无法控制它（即，它运行自己的Thread）。<br>相反，冷观察不会在任何观察者订阅之前产生任何元素。 这实际上意味着它没有自己的上下文，直到订阅时，它创建一些上下文并开始生成元素。</p>
+<h4 id="热-vs-冷"><a href="#热-vs-冷" class="headerlink" title="热 vs 冷"></a>热 vs 冷</h4><p>上面的部分谈到了冷热观测量的话题。冷热观测量的话题是相当固执己见的, 产生了很多争论, 所以让我们简单在这里看看。这个概念可以归结为一个非常简单的问题:</p>
+<p><img src="https://gewill.org//assets/HotVSCold.png" alt="HotVSCold"></p>
+<p>一些副作用的例子是：</p>
+<ul>
+<li>向服务器发送请求</li>
+<li>编辑本地数据库</li>
+<li>写入文件系统</li>
+<li>发射火箭</li>
+</ul>
+<h2 id="最佳实践和内置调度程序"><a href="#最佳实践和内置调度程序" class="headerlink" title="最佳实践和内置调度程序"></a>最佳实践和内置调度程序</h2><p>调度程序是一个非平凡的主题, 因此它们会为最常见的用例提供一些最佳实践。在本节中, 您将获得串行和并发调度程序的快速介绍, 了解它们如何处理数据并查看哪种类型对特定上下文更有效。</p>
+<h4 id="串行与并发调度程序"><a href="#串行与并发调度程序" class="headerlink" title="串行与并发调度程序"></a>串行与并发调度程序</h4><p>虑到调度程序只是一个上下文, 它可以是任何东西 (调度队列、线程、自定义上下文), 并且所有转换序列的运算符都需要保留隐式保证, 因此需要确保您使用的是正确的计划程序。</p>
+<ul>
+<li><p>如果您使用的是串行调度程序, Rx 将按顺序进行计算。对于串行调度队列, 调度程序还可以在底层执行自己的优化。</p>
+</li>
+<li><p>在并发计划程序中, Rx 将尝试同时运行代码, 但 <code>observeOn</code> 和 <code>subscribeOn</code> 将保留执行任务所需的顺序, 并确保订阅代码在正确的计划程序上结束。</p>
+<h4 id="MainScheduler"><a href="#MainScheduler" class="headerlink" title="MainScheduler"></a>MainScheduler</h4></li>
+</ul>
+<p>MainScheduler 位于主线程的顶端。此计划程序用于处理用户界面上的更改并执行其他高优先级任务。作为在 iOS、tvOS 或 macOS 上开发应用程序的一般做法, 不应使用此计划程序执行长时间运行的任务, 因此应避免诸如服务器请求或其他繁重任务之类的事情。</p>
+<p>MainScheduler 还用于在使用单位和更多特定的（如：Driver）执行所有计算。如前一章所述, Driver 确保始终在 MainScheduler 中执行计算, 以使您能够将数据直接绑定到应用程序的用户界面。</p>
+<h4 id="SerialDispatchQueueScheduler"><a href="#SerialDispatchQueueScheduler" class="headerlink" title="SerialDispatchQueueScheduler"></a>SerialDispatchQueueScheduler</h4><p>SerialDispatchQueueScheduler 负责在串行 DispatchQueue 。这个调度程序在使用 <code>observeOn</code> 时，有很多优化的优势。</p>
+<p>你可以使用此计划程序来处理以串行方式更好地安排的后台作业。例如, 如果应用程序与服务器的单个路径 (如Firebase 或 GraphQL 应用程序) 进行对话, 则可能需要避免调度多个同时请求, 这会给接收端造成太大的压力。这个调度程序是你绝对想要的, 像串行任务队列一样先进。</p>
+<h4 id="ConcurrentDispatchQueueScheduler"><a href="#ConcurrentDispatchQueueScheduler" class="headerlink" title="ConcurrentDispatchQueueScheduler"></a>ConcurrentDispatchQueueScheduler</h4><p>ConcurrentDispatchQueueScheduler 与 SerialDispatchQueueScheduler类似，负责在DispatchQueue上抽象工作。 主要区别在于，调度程序使用并行队列而不是串行队列。</p>
+<p>此类调度程序在使用 <code>observeOn</code> 时没有进行优化, 因此在决定使用哪种调度程序时, 请记住说明这一点。</p>
+<p>对于需要同时结束的多个长时间运行的任务，并发的调度程序可能是一个不错的选择。 将多个可观察对象与阻塞运算符组合在一起，以便在准备好时将所有结果组合在一起，可以防止串行调度程序以最佳状态执行。 相反，并发调度程序可以执行多个并发任务并优化结果的收集。</p>
+<h4 id="OperationQueueScheduler"><a href="#OperationQueueScheduler" class="headerlink" title="OperationQueueScheduler"></a>OperationQueueScheduler</h4><p>OperationQueueScheduler类似于ConcurrentDispatchQueueScheduler，但不是通过DispatchQueue抽象工作，它在NSOperationQueue上执行工作。 有时你需要对正在运行的并发作业进行更多控制，而对于并发DispatchQueue则无法做到这一点。</p>
+<p>如果需要调整最大并发作业数，则这是作业的调度程序。 您可以定义<code>maxConcurrentOperationCount</code>来限制并发操作的数量以满足您的应用程序的需要。</p>
+<h4 id="TestScheduler"><a href="#TestScheduler" class="headerlink" title="TestScheduler"></a>TestScheduler</h4><p>TestScheduler是一种特殊的野兽。 它仅用于测试，因此尽量不要在生产代码中使用此调度程序。 这种特殊的调度程序简化了操作员测试; 它是RxTest库的一部分。 您将在关于测试的专用章节中了解如何使用此调度程序，但是让我们快速浏览一下，因为您正在进行调度程序的全程浏览。</p>
+<h2 id="第十六章：使用-RxTest-进行测试"><a href="#第十六章：使用-RxTest-进行测试" class="headerlink" title="第十六章：使用 RxTest 进行测试"></a>第十六章：使用 RxTest 进行测试</h2><p>本章将向您介绍 RxTest, 以及以后的 RxBlocking, 通过编写针对多个 RxSwift 操作的测试, 还可以编写针对生产 RxSwift 代码的测试。</p>
+<p>本章例子是：一个将Hex颜色值转换为RGB值的应用。架构是MVVM。</p>
+<h3 id="使用-RxTest-测试操作符"><a href="#使用-RxTest-测试操作符" class="headerlink" title="使用 RxTest 测试操作符"></a>使用 RxTest 测试操作符</h3><p> RxTest 是 RxSwift 外一个独立的库。它是托管在 RxSwift 仓库, 但需要一个单独的 pod 安装和导入。RxTest 为测试 RxSwift 代码提供了许多有用的补充, 如 TestScheduler, 它是一个虚拟时间计划程序, 它使你可以对测试的时间线性操作进行粒状控制, 并且包括 <code>next(_:_:)</code>, <code>completed(_:_:)</code> 和 <code>error(_:_:)</code> 在测试中 speciﬁed 时间启用将这些事件添加到观测量中。它还增加了热和冷的观测量, 你可以想到的热和冷三明治。当然, 不是真的三明治。</p>
+<h4 id="热和冷的序列是什么？"><a href="#热和冷的序列是什么？" class="headerlink" title="热和冷的序列是什么？"></a>热和冷的序列是什么？</h4><p>RxSwift 很长的时间来简化和简化你的 Rx 代码, 并且有热和冷的序列的区别, 当它涉及到观测量, 在 RxSwift 可以被认为是可观测的特征而不是具体的类型。</p>
+<p><strong>热序列：</strong></p>
+<ul>
+<li>使用资源，无论是否有订阅者。</li>
+<li>生成元素，无论是否有订阅者。</li>
+<li>主要用于有状态类型，如变量。</li>
+</ul>
+<p><strong>冷序列：</strong></p>
+<ul>
+<li>仅在订阅时消耗资源。</li>
+<li>仅在有订阅者时才生成元素。</li>
+<li>主要用于网络等异步操作。</li>
+</ul>
+<p>下面是 <code>amb</code> 的测试用例：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">func</span> <span class="title function_">testAmb</span>() &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">let</span> observer <span class="operator">=</span> scheduler.createObserver(<span class="type">String</span>.<span class="keyword">self</span>)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">let</span> observableA <span class="operator">=</span> scheduler.createHotObservable([</span><br><span class="line">        next(<span class="number">100</span>, <span class="string">&quot;a&quot;</span>),</span><br><span class="line">        next(<span class="number">110</span>, <span class="string">&quot;b&quot;</span>),</span><br><span class="line">        next(<span class="number">300</span>, <span class="string">&quot;c&quot;</span>)</span><br><span class="line">        ])</span><br><span class="line"></span><br><span class="line">    <span class="keyword">let</span> observableB <span class="operator">=</span> scheduler.createHotObservable([</span><br><span class="line">        next(<span class="number">90</span>, <span class="string">&quot;1&quot;</span>),</span><br><span class="line">        next(<span class="number">200</span>, <span class="string">&quot;2&quot;</span>),</span><br><span class="line">        next(<span class="number">300</span>, <span class="string">&quot;3&quot;</span>)</span><br><span class="line">        ])</span><br><span class="line"></span><br><span class="line">    <span class="keyword">let</span> ambObservable <span class="operator">=</span> observableA.amb(observableB)</span><br><span class="line"></span><br><span class="line">    scheduler.scheduleAt(<span class="number">0</span>) &#123;</span><br><span class="line">        <span class="keyword">self</span>.subscription <span class="operator">=</span> ambObservable.subscribe(observer)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    scheduler.start()</span><br><span class="line"></span><br><span class="line">    <span class="keyword">let</span> results <span class="operator">=</span> observer.events.map &#123;</span><br><span class="line">        <span class="variable">$0</span>.value.element<span class="operator">!</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="type">XCTAssertEqual</span>(results, [<span class="string">&quot;1&quot;</span>, <span class="string">&quot;2&quot;</span>, <span class="string">&quot;3&quot;</span>])</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>上面是同步测试，如果想测试异步错误，最简单地是使用 <code>RxBlocking</code>。</p>
+<h4 id="使用-RxBlocking"><a href="#使用-RxBlocking" class="headerlink" title="使用 RxBlocking"></a>使用 RxBlocking</h4><p>RxBlocking 是另一个库, 寄存在 RxSwift 仓库。它的主要目的是通过它的 <code>toBlocking(timeout:)</code> 方法将 <code>observable</code> 转换为 <code>BlockingObservable</code>。</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">func</span> <span class="title function_">testToArray</span>() &#123;</span><br><span class="line">    <span class="keyword">let</span> scheduler <span class="operator">=</span> <span class="type">ConcurrentDispatchQueueScheduler</span>(qos: .default)</span><br><span class="line">    <span class="keyword">let</span> toArrayObservable <span class="operator">=</span> <span class="type">Observable</span>.of(<span class="number">1</span>, <span class="number">2</span>).subscribeOn(scheduler)</span><br><span class="line">    <span class="type">XCTAssertEqual</span>(<span class="keyword">try!</span> toArrayObservable.toBlocking().toArray(), [<span class="number">1</span>, <span class="number">2</span>])</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">func</span> <span class="title function_">testToArrayMaterialized</span>() &#123;</span><br><span class="line">    <span class="keyword">let</span> scheduler <span class="operator">=</span> <span class="type">ConcurrentDispatchQueueScheduler</span>(qos: .default)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">let</span> toArrayObservable <span class="operator">=</span> <span class="type">Observable</span>.of(<span class="number">1</span>, <span class="number">2</span>).subscribeOn(scheduler)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">let</span> result <span class="operator">=</span> toArrayObservable</span><br><span class="line">        .toBlocking()</span><br><span class="line">        .materialize()</span><br><span class="line"></span><br><span class="line">    <span class="keyword">switch</span> result &#123;</span><br><span class="line">    <span class="keyword">case</span> .completed(elements: <span class="keyword">let</span> elements):</span><br><span class="line">        <span class="type">XCTAssertEqual</span>(elements, [<span class="number">1</span>, <span class="number">2</span>])</span><br><span class="line">    <span class="keyword">case</span> .failed(<span class="keyword">_</span>, error: <span class="keyword">let</span> error):</span><br><span class="line">        <span class="type">XCTFail</span>(error.localizedDescription)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="测试-RxSwift-生产代码"><a href="#测试-RxSwift-生产代码" class="headerlink" title="测试 RxSwift 生产代码"></a>测试 RxSwift 生产代码</h3><p>下面例子是测试MVVM中VM层：</p>
+<p>使用 <code>toBlocking</code>  很方便编写异步测试。</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> XCTest</span><br><span class="line"><span class="keyword">import</span> RxSwift</span><br><span class="line"><span class="keyword">import</span> RxCocoa</span><br><span class="line"><span class="keyword">import</span> RxTest</span><br><span class="line"><span class="keyword">@testable</span> <span class="keyword">import</span> Testing</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">TestingViewModel</span>: <span class="title class_">XCTestCase</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">var</span> viewModel: <span class="type">ViewModel</span>!</span><br><span class="line">    <span class="keyword">var</span> scheduler: <span class="type">ConcurrentDispatchQueueScheduler</span>!</span><br><span class="line"></span><br><span class="line">    <span class="keyword">override</span> <span class="keyword">func</span> <span class="title function_">setUp</span>() &#123;</span><br><span class="line">        <span class="keyword">super</span>.setUp()</span><br><span class="line"></span><br><span class="line">        viewModel <span class="operator">=</span> <span class="type">ViewModel</span>()</span><br><span class="line">        scheduler <span class="operator">=</span> <span class="type">ConcurrentDispatchQueueScheduler</span>(qos: .default)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">func</span> <span class="title function_">testColorIsRedWhenHexStringIsFF0000_async</span>() &#123;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">let</span> disposeBag <span class="operator">=</span> <span class="type">DisposeBag</span>()</span><br><span class="line"></span><br><span class="line">        <span class="keyword">let</span> expect <span class="operator">=</span> expectation(description: <span class="keyword">#function</span>)</span><br><span class="line"></span><br><span class="line">        <span class="keyword">let</span> expectedColor <span class="operator">=</span> <span class="type">UIColor</span>(red: <span class="number">1.0</span>, green: <span class="number">0.0</span>, blue: <span class="number">0.0</span>, alpha: <span class="number">1.0</span>)</span><br><span class="line"></span><br><span class="line">        <span class="keyword">var</span> result: <span class="type">UIColor</span>!</span><br><span class="line"></span><br><span class="line">        viewModel.color.asObservable()</span><br><span class="line">            .skip(<span class="number">1</span>)</span><br><span class="line">            .subscribe(onNext: &#123;</span><br><span class="line">                result <span class="operator">=</span> <span class="variable">$0</span></span><br><span class="line">                expect.fulfill()</span><br><span class="line">            &#125;)</span><br><span class="line">            .disposed(by: disposeBag)</span><br><span class="line"></span><br><span class="line">        viewModel.hexString.value <span class="operator">=</span> <span class="string">&quot;#ff0000&quot;</span></span><br><span class="line"></span><br><span class="line">        waitForExpectations(timeout: <span class="number">1.0</span>) &#123; error <span class="keyword">in</span></span><br><span class="line">            <span class="keyword">guard</span> error <span class="operator">==</span> <span class="literal">nil</span> <span class="keyword">else</span> &#123;</span><br><span class="line">                <span class="type">XCTFail</span>(error<span class="operator">!</span>.localizedDescription)</span><br><span class="line">                <span class="keyword">return</span></span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            <span class="type">XCTAssertEqual</span>(expectedColor, result)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">func</span> <span class="title function_">testColorIsRedWhenHexStringIsFF0000</span>() &#123;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">let</span> colorObservable <span class="operator">=</span> viewModel.color.asObservable().subscribeOn(scheduler)</span><br><span class="line"></span><br><span class="line">        viewModel.hexString.value <span class="operator">=</span> <span class="string">&quot;#ff0000&quot;</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">do</span> &#123;</span><br><span class="line">            <span class="keyword">guard</span> <span class="keyword">let</span> result <span class="operator">=</span> <span class="keyword">try</span> colorObservable.toBlocking(timeout: <span class="number">1.0</span>).first() <span class="keyword">else</span> &#123; <span class="keyword">return</span> &#125;</span><br><span class="line"></span><br><span class="line">            <span class="type">XCTAssertEqual</span>(result, .red)</span><br><span class="line">        &#125; <span class="keyword">catch</span> &#123;</span><br><span class="line">            <span class="built_in">print</span>(error)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="keyword">func</span> <span class="title function_">testRgbIs010WhenHexStringIs00FF00</span>() &#123;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">let</span> rgbObservable <span class="operator">=</span> viewModel.rgb.asObservable().subscribeOn(scheduler)</span><br><span class="line"></span><br><span class="line">        viewModel.hexString.value <span class="operator">=</span> <span class="string">&quot;#00ff00&quot;</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">let</span> result <span class="operator">=</span> <span class="keyword">try!</span> rgbObservable.toBlocking().first()<span class="operator">!</span></span><br><span class="line"></span><br><span class="line">        <span class="type">XCTAssertEqual</span>(<span class="number">0</span> <span class="operator">*</span> <span class="number">255</span>, result.<span class="number">0</span>)</span><br><span class="line">        <span class="type">XCTAssertEqual</span>(<span class="number">1</span> <span class="operator">*</span> <span class="number">255</span>, result.<span class="number">1</span>)</span><br><span class="line">        <span class="type">XCTAssertEqual</span>(<span class="number">0</span> <span class="operator">*</span> <span class="number">255</span>, result.<span class="number">2</span>)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">func</span> <span class="title function_">testColorNameIsRayWenderlichGreenWhenHexStringIs006636</span>() &#123;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">let</span> colorNameObservable <span class="operator">=</span> viewModel.colorName.asObservable().subscribeOn(scheduler)</span><br><span class="line"></span><br><span class="line">        viewModel.hexString.value <span class="operator">=</span> <span class="string">&quot;#006636&quot;</span></span><br><span class="line"></span><br><span class="line">        <span class="type">XCTAssertEqual</span>(<span class="keyword">try!</span> colorNameObservable.toBlocking().first()<span class="operator">!</span>, <span class="string">&quot;rayWenderlichGreen&quot;</span>)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="第十七章：创建自定义响应式拓展"><a href="#第十七章：创建自定义响应式拓展" class="headerlink" title="第十七章：创建自定义响应式拓展"></a>第十七章：创建自定义响应式拓展</h2><p>在学习了RxSwift和RxCocoa，以及如何编写测试，这里我们将学习如何给Apple和第三方库编写RxSwift的拓展。本章例子是给NSURLSession编写拓展，来实现网络请求、缓存。但却是一个教学实例，如果生产项目可以有很多网络库可以直接使用，如RxAlamofire、RxMoya等。</p>
+<h3 id="如何创建拓展"><a href="#如何创建拓展" class="headerlink" title="如何创建拓展"></a>如何创建拓展</h3><p>创建一个Cocoa或库的拓展不是一个简单的任务。你会发现这个过程可能很棘手，你的解决方案在继续之前可能需要一些前期思考。</p>
+<p>这里我们将学习如何拓展URLSession，加上Rx的命名空间。</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">extension</span> <span class="title class_">Reactive</span> <span class="title class_">where</span> <span class="title class_">Base</span>: <span class="title class_">URLSession</span> &#123;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">func</span> <span class="title function_">response</span>(<span class="params">request</span>: <span class="type">URLRequest</span>) -&gt; <span class="type">Observable</span>&lt;(<span class="type">HTTPURLResponse</span>, <span class="type">Data</span>)&gt; &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="type">Observable</span>.create &#123; observer <span class="keyword">in</span></span><br><span class="line">      <span class="comment">// content goes here</span></span><br><span class="line"></span><br><span class="line">      <span class="keyword">let</span> task <span class="operator">=</span> <span class="keyword">self</span>.base.dataTask(with: request) &#123; (data, response, error) <span class="keyword">in</span></span><br><span class="line">        <span class="keyword">guard</span> <span class="keyword">let</span> response <span class="operator">=</span> response, <span class="keyword">let</span> data <span class="operator">=</span> data <span class="keyword">else</span> &#123;</span><br><span class="line">          observer.on(.error(error <span class="operator">??</span> <span class="type">RxURLSessionError</span>.unknown))</span><br><span class="line">          <span class="keyword">return</span></span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">guard</span> <span class="keyword">let</span> httpResponse <span class="operator">=</span> response <span class="keyword">as?</span> <span class="type">HTTPURLResponse</span> <span class="keyword">else</span> &#123;</span><br><span class="line">          observer.on(.error(<span class="type">RxURLSessionError</span>.invalidResponse(response: response)))</span><br><span class="line">          <span class="keyword">return</span></span><br><span class="line">        &#125;</span><br><span class="line">        observer.onNext((httpResponse, data))</span><br><span class="line">        observer.on(.completed)</span><br><span class="line">      &#125;</span><br><span class="line">      task.resume()</span><br><span class="line"></span><br><span class="line">      <span class="keyword">return</span> <span class="type">Disposables</span>.create(with: task.cancel)</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">func</span> <span class="title function_">data</span>(<span class="params">request</span>: <span class="type">URLRequest</span>) -&gt; <span class="type">Observable</span>&lt;<span class="type">Data</span>&gt; &#123;</span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">let</span> url <span class="operator">=</span> request.url<span class="operator">?</span>.absoluteString, <span class="keyword">let</span> data <span class="operator">=</span> internalCache[url] &#123;</span><br><span class="line">      <span class="keyword">return</span> <span class="type">Observable</span>.just(data)</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> response(request: request).cache().map &#123; (response, data) -&gt; <span class="type">Data</span> <span class="keyword">in</span></span><br><span class="line">      <span class="keyword">if</span> <span class="number">200</span> <span class="operator">..&lt;</span> <span class="number">300</span> <span class="operator">~=</span> response.statusCode &#123;</span><br><span class="line">        <span class="keyword">return</span> data</span><br><span class="line">      &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="keyword">throw</span> <span class="type">RxURLSessionError</span>.requestFailed(response: response, data: data)</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">func</span> <span class="title function_">string</span>(<span class="params">request</span>: <span class="type">URLRequest</span>) -&gt; <span class="type">Observable</span>&lt;<span class="type">String</span>&gt; &#123;</span><br><span class="line">    <span class="keyword">return</span> data(request: request).map &#123; d <span class="keyword">in</span></span><br><span class="line">      <span class="keyword">return</span> <span class="type">String</span>(data: d, encoding: .utf8) <span class="operator">??</span> <span class="string">&quot;&quot;</span></span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">func</span> <span class="title function_">json</span>(<span class="params">request</span>: <span class="type">URLRequest</span>) -&gt; <span class="type">Observable</span>&lt;<span class="type">JSON</span>&gt; &#123;</span><br><span class="line">    <span class="keyword">return</span> data(request: request).map &#123; d <span class="keyword">in</span></span><br><span class="line">      <span class="keyword">return</span> <span class="keyword">try</span> <span class="type">JSON</span>(data: d)</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">func</span> <span class="title function_">image</span>(<span class="params">request</span>: <span class="type">URLRequest</span>) -&gt; <span class="type">Observable</span>&lt;<span class="type">UIImage</span>&gt; &#123;</span><br><span class="line">    <span class="keyword">return</span> data(request: request).map &#123; d <span class="keyword">in</span></span><br><span class="line">      <span class="keyword">return</span> <span class="type">UIImage</span>(data: d) <span class="operator">??</span> <span class="type">UIImage</span>()</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="如何创建自定义运算符"><a href="#如何创建自定义运算符" class="headerlink" title="如何创建自定义运算符"></a>如何创建自定义运算符</h3><p>这里我们演示如何使用运算符进行缓存网络请求结果（HTTPURLResponse、Data）的序列，简单起见使用字典。</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">fileprivate</span> <span class="keyword">var</span> internalCache <span class="operator">=</span> [<span class="type">String</span>: <span class="type">Data</span>]()</span><br><span class="line"></span><br><span class="line"><span class="keyword">extension</span> <span class="title class_">ObservableType</span> <span class="title class_">where</span> <span class="title class_">E</span> == (<span class="title class_">HTTPURLResponse</span>, <span class="title class_">Data</span>) &#123;</span><br><span class="line">  <span class="keyword">func</span> <span class="title function_">cache</span>() -&gt; <span class="type">Observable</span>&lt;<span class="type">E</span>&gt; &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">self</span>.do(onNext: &#123; (response, data) <span class="keyword">in</span></span><br><span class="line">      <span class="keyword">if</span> <span class="keyword">let</span> url <span class="operator">=</span> response.url<span class="operator">?</span>.absoluteString, <span class="number">200</span> <span class="operator">..&lt;</span> <span class="number">300</span> <span class="operator">~=</span> response.statusCode &#123;</span><br><span class="line">        internalCache[url] <span class="operator">=</span> data</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="如何使用封装的拓展"><a href="#如何使用封装的拓展" class="headerlink" title="如何使用封装的拓展"></a>如何使用封装的拓展</h3><p>在cell中更具给定url下载gif并显示出来。</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">func</span> <span class="title function_">downloadAndDisplay</span>(<span class="params">gif</span> <span class="params">stringUrl</span>: <span class="type">String</span>) &#123;</span><br><span class="line">  <span class="keyword">guard</span> <span class="keyword">let</span> url <span class="operator">=</span> <span class="type">URL</span>(string: stringUrl) <span class="keyword">else</span> &#123; <span class="keyword">return</span> &#125;</span><br><span class="line">  <span class="keyword">let</span> request <span class="operator">=</span> <span class="type">URLRequest</span>(url: url)</span><br><span class="line">  activityIndicator.startAnimating()</span><br><span class="line"></span><br><span class="line">  <span class="keyword">let</span> s <span class="operator">=</span> <span class="type">URLSession</span>.shared.rx.data(request: request)</span><br><span class="line">    .observeOn(<span class="type">MainScheduler</span>.instance)</span><br><span class="line">    .subscribe(onNext: &#123; imageData <span class="keyword">in</span></span><br><span class="line">      <span class="keyword">self</span>.gifImageView.animate(withGIFData: imageData)</span><br><span class="line">      <span class="keyword">self</span>.activityIndicator.stopAnimating()</span><br><span class="line">    &#125;)</span><br><span class="line">  disposable.setDisposable(s)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="测试封装的拓展"><a href="#测试封装的拓展" class="headerlink" title="测试封装的拓展"></a>测试封装的拓展</h3><p>这里我们使用RxNimble来辅助我们编写测试。RxNimble 使测试更容易编写, 并有助于代码更简明。</p>
+<p>RxBlocking版本：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> result <span class="operator">=</span> <span class="keyword">try!</span> observable.toBlocking().first()</span><br><span class="line">expect(result) <span class="operator">==</span> <span class="number">42</span></span><br></pre></td></tr></table></figure>
+
+<p>RxNimble版本：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">expect(observable).first <span class="operator">==</span> <span class="number">42</span></span><br></pre></td></tr></table></figure>
+
+<p>完整测试代码：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> XCTest</span><br><span class="line"><span class="keyword">import</span> RxSwift</span><br><span class="line"><span class="keyword">import</span> RxBlocking</span><br><span class="line"><span class="keyword">import</span> Nimble</span><br><span class="line"><span class="keyword">import</span> RxNimble</span><br><span class="line"><span class="keyword">import</span> OHHTTPStubs</span><br><span class="line"><span class="keyword">import</span> SwiftyJSON</span><br><span class="line"></span><br><span class="line"><span class="keyword">@testable</span> <span class="keyword">import</span> iGif</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">iGifTests</span>: <span class="title class_">XCTestCase</span> &#123;</span><br><span class="line">  </span><br><span class="line">  <span class="keyword">let</span> obj <span class="operator">=</span> [<span class="string">&quot;array&quot;</span>:[<span class="string">&quot;foo&quot;</span>,<span class="string">&quot;bar&quot;</span>], <span class="string">&quot;foo&quot;</span>:<span class="string">&quot;bar&quot;</span>] <span class="keyword">as</span> [<span class="type">String</span> : <span class="keyword">Any</span>]</span><br><span class="line">  <span class="keyword">let</span> request <span class="operator">=</span> <span class="type">URLRequest</span>(url: <span class="type">URL</span>(string: <span class="string">&quot;http://raywenderlich.com&quot;</span>)<span class="operator">!</span>)</span><br><span class="line">  <span class="keyword">let</span> errorRequest <span class="operator">=</span> <span class="type">URLRequest</span>(url: <span class="type">URL</span>(string: <span class="string">&quot;http://rw.com&quot;</span>)<span class="operator">!</span>)</span><br><span class="line">  </span><br><span class="line">  <span class="keyword">override</span> <span class="keyword">func</span> <span class="title function_">setUp</span>() &#123;</span><br><span class="line">    <span class="keyword">super</span>.setUp()</span><br><span class="line">    <span class="comment">// Put setup code here. This method is called before the invocation of each test method in the class.</span></span><br><span class="line">    stub(condition: isHost(<span class="string">&quot;raywenderlich.com&quot;</span>)) &#123; <span class="keyword">_</span> <span class="keyword">in</span></span><br><span class="line">      <span class="keyword">return</span> <span class="type">OHHTTPStubsResponse</span>(jsonObject: <span class="keyword">self</span>.obj, statusCode: <span class="number">200</span>, headers: <span class="literal">nil</span>)</span><br><span class="line">    &#125;</span><br><span class="line">    stub(condition: isHost(<span class="string">&quot;rw.com&quot;</span>)) &#123; <span class="keyword">_</span> <span class="keyword">in</span></span><br><span class="line">      <span class="keyword">return</span> <span class="type">OHHTTPStubsResponse</span>(error: <span class="type">RxURLSessionError</span>.unknown)</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  </span><br><span class="line">  <span class="keyword">override</span> <span class="keyword">func</span> <span class="title function_">tearDown</span>() &#123;</span><br><span class="line">    <span class="comment">// Put teardown code here. This method is called after the invocation of each test method in the class.</span></span><br><span class="line">    <span class="keyword">super</span>.tearDown()</span><br><span class="line">    <span class="type">OHHTTPStubs</span>.removeAllStubs()</span><br><span class="line">  &#125;</span><br><span class="line">  </span><br><span class="line">  <span class="keyword">func</span> <span class="title function_">testData</span>() &#123;</span><br><span class="line">    <span class="keyword">let</span> observable <span class="operator">=</span> <span class="type">URLSession</span>.shared.rx.data(request: <span class="keyword">self</span>.request)</span><br><span class="line">    expect(observable.toBlocking().firstOrNil()).toNot(beNil())</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">func</span> <span class="title function_">testString</span>() &#123;</span><br><span class="line">    <span class="keyword">let</span> observable <span class="operator">=</span> <span class="type">URLSession</span>.shared.rx.string(request: <span class="keyword">self</span>.request)</span><br><span class="line">    <span class="keyword">let</span> string <span class="operator">=</span> <span class="string">&quot;&#123;<span class="subst">\&quot;</span>array<span class="subst">\&quot;</span>:[<span class="subst">\&quot;</span>foo<span class="subst">\&quot;</span>,<span class="subst">\&quot;</span>bar<span class="subst">\&quot;</span>],<span class="subst">\&quot;</span>foo<span class="subst">\&quot;</span>:<span class="subst">\&quot;</span>bar<span class="subst">\&quot;</span>&#125;&quot;</span></span><br><span class="line">    expect(observable.toBlocking().firstOrNil()) <span class="operator">==</span> string</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">func</span> <span class="title function_">testJSON</span>() &#123;</span><br><span class="line">    <span class="keyword">let</span> observable <span class="operator">=</span> <span class="type">URLSession</span>.shared.rx.json(request: <span class="keyword">self</span>.request)</span><br><span class="line">    <span class="keyword">let</span> string <span class="operator">=</span> <span class="string">&quot;&#123;<span class="subst">\&quot;</span>array<span class="subst">\&quot;</span>:[<span class="subst">\&quot;</span>foo<span class="subst">\&quot;</span>,<span class="subst">\&quot;</span>bar<span class="subst">\&quot;</span>],<span class="subst">\&quot;</span>foo<span class="subst">\&quot;</span>:<span class="subst">\&quot;</span>bar<span class="subst">\&quot;</span>&#125;&quot;</span></span><br><span class="line">    <span class="keyword">let</span> json <span class="operator">=</span> <span class="keyword">try?</span> <span class="type">JSON</span>(data: string.data(using: .utf8)<span class="operator">!</span>)</span><br><span class="line">    expect(observable.toBlocking().firstOrNil()) <span class="operator">==</span> json</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">func</span> <span class="title function_">testError</span>() &#123;</span><br><span class="line">    <span class="keyword">var</span> erroredCorrectly <span class="operator">=</span> <span class="literal">false</span></span><br><span class="line">    <span class="keyword">let</span> observable <span class="operator">=</span> <span class="type">URLSession</span>.shared.rx.json(request: <span class="keyword">self</span>.errorRequest)</span><br><span class="line">    <span class="keyword">do</span> &#123;</span><br><span class="line">      <span class="keyword">let</span> <span class="keyword">_</span> <span class="operator">=</span> <span class="keyword">try</span> observable.toBlocking().first()</span><br><span class="line">      <span class="built_in">assertionFailure</span>()</span><br><span class="line">    &#125; <span class="keyword">catch</span> (<span class="type">RxURLSessionError</span>.unknown) &#123;</span><br><span class="line">      erroredCorrectly <span class="operator">=</span> <span class="literal">true</span></span><br><span class="line">    &#125; <span class="keyword">catch</span> &#123;</span><br><span class="line">      <span class="built_in">assertionFailure</span>()</span><br><span class="line">    &#125;</span><br><span class="line">    expect(erroredCorrectly) <span class="operator">==</span> <span class="literal">true</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">extension</span> <span class="title class_">BlockingObservable</span> &#123;</span><br><span class="line">  <span class="keyword">func</span> <span class="title function_">firstOrNil</span>() -&gt; <span class="type">E</span>? &#123;</span><br><span class="line">    <span class="keyword">do</span> &#123;</span><br><span class="line">      <span class="keyword">return</span> <span class="keyword">try</span> first()</span><br><span class="line">    &#125; <span class="keyword">catch</span> &#123;</span><br><span class="line">      <span class="keyword">return</span> <span class="literal">nil</span></span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="常用封装"><a href="#常用封装" class="headerlink" title="常用封装"></a>常用封装</h3><p>RxSwift社区非常活跃，并且已经有很多扩展和封装。 一些基于Apple组件，而另一些则基于许多iOS和macOS项目中广泛使用的第三方库。<br>你可以在 <a target="_blank" rel="noopener" href="http://community.rxswift.org/">http://community.rxswift.org</a> 找到最新的封装列表。</p>
+<p>下面几个常用的封装：</p>
+<ul>
+<li>RxDataSources</li>
+<li>RxAlamofire</li>
+<li>RxBluetoothKit</li>
+</ul>
+<h3 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h3><p>关于何时需要抽象，没有真正明确的规则，但建议如果框架满足以下一个或多个条件，则应用此策略：</p>
+<ul>
+<li>使用带有完成和失败信息的回调</li>
+<li>使用大量委托异步返回信息</li>
+<li>需要与应用程序的其他RxSwift部分进行互操作</li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2018/08/01/RxSwift-%E2%85%A2/" rel="prev" title="RxSwift Ⅲ：iOS 应用程序与 RxCocoa">
+                  <i class="fa fa-chevron-left"></i> RxSwift Ⅲ：iOS 应用程序与 RxCocoa
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2018/10/25/Add-sh-in-fastlane-to-slim-HyphenateSDK/" rel="next" title="fastlane添加sh来给环信SDK瘦身">
+                  fastlane添加sh来给环信SDK瘦身 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2025</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">Ge Will</span>
+  </div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/pisces/" rel="noopener" target="_blank">NexT.Pisces</a>
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="back-to-top" role="button" aria-label="Back to top">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.1/search.js" integrity="sha256-1kfA5uHPf65M5cphT2dvymhkuyHPQp5A53EGZOnOLmc=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>

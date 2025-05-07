@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 6.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha256-HtsXJanqjKTc8vVQjO4YMhiqFoXkfBsjBWcX91T1jr8=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Pisces","darkmode":true,"version":"8.17.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":true,"style":"mac"},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"},"path":"/search.json","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="示例代码🔗https:&#x2F;&#x2F;github.com&#x2F;gewill&#x2F;BlogCodes&#x2F;tree&#x2F;main&#x2F;Localizable%20in%20SwiftPM 在处理SwiftPM中本地化时，尝试了几种方案。先说结论Rswift preferredLanguage方案最佳。 方案一：Local在SwiftUI中使用local可行，但是在SwiftPM会被宿主应用中覆写。不过也是小问题，只要命名规范，">
+<meta property="og:type" content="article">
+<meta property="og:title" content="SwiftPM本地化方案探索">
+<meta property="og:url" content="http://example.com/2024/01/28/Localizable-in-SwiftPM/index.html">
+<meta property="og:site_name" content="Will&#39;s Blog">
+<meta property="og:description" content="示例代码🔗https:&#x2F;&#x2F;github.com&#x2F;gewill&#x2F;BlogCodes&#x2F;tree&#x2F;main&#x2F;Localizable%20in%20SwiftPM 在处理SwiftPM中本地化时，尝试了几种方案。先说结论Rswift preferredLanguage方案最佳。 方案一：Local在SwiftUI中使用local可行，但是在SwiftPM会被宿主应用中覆写。不过也是小问题，只要命名规范，">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2024-01-28T07:11:04.000Z">
+<meta property="article:modified_time" content="2025-01-13T03:01:04.064Z">
+<meta property="article:author" content="Ge Will">
+<meta property="article:tag" content="Swift">
+<meta property="article:tag" content="SwiftUI">
+<meta property="article:tag" content="SwiftPM">
+<meta property="article:tag" content="iOS">
+<meta property="article:tag" content="Localizable">
+<meta property="article:tag" content="i18n">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="http://example.com/2024/01/28/Localizable-in-SwiftPM/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"en","comments":true,"permalink":"http://example.com/2024/01/28/Localizable-in-SwiftPM/","path":"2024/01/28/Localizable-in-SwiftPM/","title":"SwiftPM本地化方案探索"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>SwiftPM本地化方案探索 | Will's Blog</title>
+  
+
+
+
+
+
+
+
+<head>
+    <!-- 霞鹜文楷字体 -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lxgw-wenkai-webfont@1.7.0/style.css"/>
+
+    <!-- datapulse统计 -->
+    <script defer type="text/javascript" src="https://datapulse.app/datapulse.min.js" id="datapulse" data-endpoint="https://datapulse.app/api/v1/event" data-workspace="cljxqml5q0y0f8j37d4futnbl"></script>
+
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-DR0FC9YJLH"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() {
+            dataLayer.push(arguments);
+        }
+        gtag('js', new Date());
+
+        gtag('config', 'G-DR0FC9YJLH');
+    </script>
+</head>
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Will's Blog</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="Search" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives<span class="badge">198</span></a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags<span class="badge">17</span></a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories<span class="badge">1</span></a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="Searching..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%96%B9%E6%A1%88%E4%B8%80%EF%BC%9ALocal"><span class="nav-number">1.</span> <span class="nav-text">方案一：Local</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%96%B9%E6%A1%88%E4%BA%8C%EF%BC%9ARswift-preferredLanguage"><span class="nav-number">2.</span> <span class="nav-text">方案二：Rswift preferredLanguage</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%96%B9%E6%A1%88%E4%B8%89%EF%BC%9Aliamnichols-x2F-xcstrings-tool"><span class="nav-number">3.</span> <span class="nav-text">方案三：liamnichols &#x2F; xcstrings-tool</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Ge Will"
+      src="/images/avatar.jpeg">
+  <p class="site-author-name" itemprop="name">Ge Will</p>
+  <div class="site-description" itemprop="description">The people who are crazy enough to think they can change the world, are the ones who DO.</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">198</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">17</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/gewill" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;gewill" rel="noopener me" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:531sunlight@gmail.com" title="E-Mail → mailto:531sunlight@gmail.com" rel="noopener me" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://weibo.com/gewei" title="Weibo → https:&#x2F;&#x2F;weibo.com&#x2F;gewei" rel="noopener me" target="_blank"><i class="fab fa-weibo fa-fw"></i>Weibo</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://twitter.com/BoJack_D" title="Twitter → https:&#x2F;&#x2F;twitter.com&#x2F;BoJack_D" rel="noopener me" target="_blank"><i class="fab fa-twitter fa-fw"></i>Twitter</a>
+      </span>
+  </div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2024/01/28/Localizable-in-SwiftPM/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpeg">
+      <meta itemprop="name" content="Ge Will">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Will's Blog">
+      <meta itemprop="description" content="The people who are crazy enough to think they can change the world, are the ones who DO.">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="SwiftPM本地化方案探索 | Will's Blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          SwiftPM本地化方案探索
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2024-01-28 15:11:04" itemprop="dateCreated datePublished" datetime="2024-01-28T15:11:04+08:00">2024-01-28</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">Edited on</span>
+      <time title="Modified: 2025-01-13 11:01:04" itemprop="dateModified" datetime="2025-01-13T11:01:04+08:00">2025-01-13</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><p>示例代码🔗<a target="_blank" rel="noopener" href="https://github.com/gewill/BlogCodes/tree/main/Localizable%20in%20SwiftPM">https://github.com/gewill/BlogCodes/tree/main/Localizable%20in%20SwiftPM</a></p>
+<p>在处理SwiftPM中本地化时，尝试了几种方案。先说结论Rswift preferredLanguage方案最佳。</p>
+<h2 id="方案一：Local"><a href="#方案一：Local" class="headerlink" title="方案一：Local"></a>方案一：Local</h2><p>在SwiftUI中使用local可行，但是在SwiftPM会被宿主应用中覆写。不过也是小问题，只要命名规范，按照模块页面功能前缀来的话，一般也不会出现key重复的问题。</p>
+<p>这里也是用到了Rswift自动生成的<code>key</code>，避免复制粘贴字符串类型的<code>key</code>。</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// SwiftUI view			</span></span><br><span class="line"><span class="type">Section</span> &#123;</span><br><span class="line">  <span class="type">Text</span>(<span class="string">&quot;Change locale&quot;</span>).font(.title)</span><br><span class="line">  <span class="type">Text</span>(<span class="string">&quot;Will be overwrite by host app!&quot;</span>).foregroundColor(.pink)</span><br><span class="line">  <span class="type">Button</span>(action: &#123;</span><br><span class="line">    viewModel.locale <span class="operator">=</span> <span class="type">Locale</span>(identifier: <span class="type">Language</span>.en.rawValue)</span><br><span class="line">  &#125;, label: &#123;</span><br><span class="line">    <span class="type">Text</span>(<span class="string">&quot;Change locale english&quot;</span>)</span><br><span class="line">  &#125;)</span><br><span class="line">  <span class="type">Button</span>(action: &#123;</span><br><span class="line">    viewModel.locale <span class="operator">=</span> <span class="type">Locale</span>(identifier: <span class="type">Language</span>.zh_Hans.rawValue)</span><br><span class="line">  &#125;, label: &#123;</span><br><span class="line">    <span class="type">Text</span>(<span class="string">&quot;Change locale chinese simplified&quot;</span>)</span><br><span class="line">  &#125;)</span><br><span class="line">  <span class="type">Text</span>(<span class="type">LocalizedStringKey</span>(<span class="type">R</span>.string.localizable.hello_world.key.description))</span><br><span class="line">&#125; header: &#123;</span><br><span class="line">  <span class="type">Text</span>(<span class="string">&quot;Change locale&quot;</span>)</span><br><span class="line">&#125;</span><br><span class="line">.environment(\.locale, viewModel.locale)</span><br></pre></td></tr></table></figure>
+
+<h2 id="方案二：Rswift-preferredLanguage"><a href="#方案二：Rswift-preferredLanguage" class="headerlink" title="方案二：Rswift preferredLanguage"></a>方案二：<a target="_blank" rel="noopener" href="https://github.com/mac-cain13/R.swift">Rswift</a> preferredLanguage</h2><p>目前是比较完善的方案。配合 <code>AppLocale</code> 可以全局切换语言。</p>
+<p>利用Rswift可处理key和bundle的问题，还优化了<code>SwiftUI.Text</code>的使用体验，直接使用<code>init</code>即可。</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">AppLocale</span> &#123;</span><br><span class="line">  <span class="keyword">let</span> preferredLanguage <span class="operator">=</span> <span class="type">CurrentValueSubject</span>&lt;<span class="type">Language</span>, <span class="type">Never</span>&gt;(.en)</span><br><span class="line">  <span class="keyword">var</span> preferredString: _R.string &#123;</span><br><span class="line">    <span class="type">R</span>.string(preferredLanguages: [preferredLanguage.value.rawValue])</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">static</span> <span class="keyword">var</span> shared <span class="operator">=</span> <span class="type">AppLocale</span>()</span><br><span class="line">  <span class="keyword">private</span> <span class="keyword">init</span>() &#123;&#125;</span><br><span class="line">&#125; 			</span><br><span class="line"></span><br><span class="line"><span class="comment">// SwiftUI view</span></span><br><span class="line"><span class="type">Section</span> &#123;</span><br><span class="line">  <span class="type">Text</span>(<span class="string">&quot;Preferred Languages <span class="subst">\(viewModel.preferredLanguage.displayTitle)</span>&quot;</span>)</span><br><span class="line">  <span class="type">Picker</span>(<span class="string">&quot;Preferred Languages&quot;</span>, selection: <span class="variable">$viewModel</span>.preferredLanguage) &#123;</span><br><span class="line">    <span class="type">ForEach</span>(<span class="type">Language</span>.allCases) &#123;</span><br><span class="line">      <span class="type">Text</span>(<span class="variable">$0</span>.displayTitle)</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  .pickerStyle(.segmented)</span><br><span class="line">  <span class="type">Text</span>(<span class="type">AppLocale</span>.shared.preferredString.localizable.hello_world)</span><br><span class="line">&#125; header: &#123;</span><br><span class="line">  <span class="type">Text</span>(<span class="string">&quot;Change R.string Preferred Languages&quot;</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>最轻量级集成方式在ViewModel订阅<code>AppLocale.shared.preferredLanguage</code>，更新<code>self.objectWillChange.send()</code>，即可响应语言切换。</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">HomeViewModel</span>: <span class="title class_">ObservableObject</span> &#123;</span><br><span class="line">  <span class="keyword">init</span>() &#123;</span><br><span class="line">  <span class="type">AppLocale</span>.shared.preferredLanguage</span><br><span class="line">    .removeDuplicates()</span><br><span class="line">    .sink(receiveValue: &#123; <span class="keyword">_</span> <span class="keyword">in</span></span><br><span class="line">				<span class="keyword">guard</span> <span class="keyword">let</span> <span class="keyword">self</span> <span class="keyword">else</span> &#123; <span class="keyword">return</span> &#125;</span><br><span class="line">        <span class="keyword">self</span>.objectWillChange.send()</span><br><span class="line">    &#125;)</span><br><span class="line">    .store(in: <span class="operator">&amp;</span>cancelables)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">struc <span class="type">HomeView</span>: <span class="type">View</span> &#123;</span><br><span class="line">  <span class="meta">@StateObject</span> <span class="keyword">var</span> viewModel <span class="operator">=</span> <span class="type">HomeViewModel</span>()</span><br><span class="line">  </span><br><span class="line">  <span class="keyword">var</span> body: <span class="keyword">some</span> <span class="type">View</span> &#123;</span><br><span class="line">     <span class="type">Text</span>(<span class="type">AppLocale</span>.shared.preferredString.localizable.hello_world)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="方案三：liamnichols-x2F-xcstrings-tool"><a href="#方案三：liamnichols-x2F-xcstrings-tool" class="headerlink" title="方案三：liamnichols &#x2F; xcstrings-tool"></a>方案三：<a target="_blank" rel="noopener" href="https://github.com/liamnichols/xcstrings-tool">liamnichols &#x2F; xcstrings-tool</a></h2><p>可用，但是仅支持 <code>iOS16+</code>。有个小坑SwiftPM集成时，官方教程的有错误，正确的git地址为：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 1. Add the xcstrings-tool Package dependency</span></span><br><span class="line">.package(url: <span class="string">&quot;https://github.com/liamnichols/xcstrings-tool.git&quot;</span>, from: <span class="string">&quot;0.1.0&quot;</span>)</span><br><span class="line"><span class="comment">// 2. Or use the repo is essentially a mirror of the main repository however the xcstrings-tool command line interface is a binary dependency that significantly simplifies your build graph and improves compile times.</span></span><br><span class="line">.package(url: <span class="string">&quot;https://github.com/liamnichols/xcstrings-tool-plugin.git&quot;</span>, from: <span class="string">&quot;0.1.0&quot;</span>)</span><br></pre></td></tr></table></figure>
+
+<p>具体参考官方的示例：<a target="_blank" rel="noopener" href="https://github.com/liamnichols/xcstrings-tool-demo">https://github.com/liamnichols/xcstrings-tool-demo</a></p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Swift/" rel="tag"># Swift</a>
+              <a href="/tags/SwiftUI/" rel="tag"># SwiftUI</a>
+              <a href="/tags/SwiftPM/" rel="tag"># SwiftPM</a>
+              <a href="/tags/iOS/" rel="tag"># iOS</a>
+              <a href="/tags/Localizable/" rel="tag"># Localizable</a>
+              <a href="/tags/i18n/" rel="tag"># i18n</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2023/12/25/Alamofire-serverTrustEvaluationFailed-error/" rel="prev" title="Alamofire serverTrustEvaluationFailed 错误分析">
+                  <i class="fa fa-chevron-left"></i> Alamofire serverTrustEvaluationFailed 错误分析
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2024/07/05/SwiftPM-to-XCFramework/" rel="next" title="Scipio打包SwiftPM为XCFramework教程">
+                  Scipio打包SwiftPM为XCFramework教程 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2025</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">Ge Will</span>
+  </div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/pisces/" rel="noopener" target="_blank">NexT.Pisces</a>
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="back-to-top" role="button" aria-label="Back to top">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.1/search.js" integrity="sha256-1kfA5uHPf65M5cphT2dvymhkuyHPQp5A53EGZOnOLmc=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>

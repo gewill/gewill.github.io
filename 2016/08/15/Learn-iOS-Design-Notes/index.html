@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 6.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha256-HtsXJanqjKTc8vVQjO4YMhiqFoXkfBsjBWcX91T1jr8=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Pisces","darkmode":true,"version":"8.17.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":true,"style":"mac"},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"},"path":"/search.json","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="Learn iOS Design 是 Design Code 第一本，详细介绍了iOS 设计的方方面面，几乎每篇都是理论加工具。总体很全面，还有待进一步的实践中得到提高。 Core Philosophies讲解了设计的哲学，和最低的三个要求：consider the touch interface, make the text readable and optimize for the iPhon">
+<meta property="og:type" content="article">
+<meta property="og:title" content="The Animation Tools Learn iOS Design - 笔记">
+<meta property="og:url" content="http://example.com/2016/08/15/Learn-iOS-Design-Notes/index.html">
+<meta property="og:site_name" content="Will&#39;s Blog">
+<meta property="og:description" content="Learn iOS Design 是 Design Code 第一本，详细介绍了iOS 设计的方方面面，几乎每篇都是理论加工具。总体很全面，还有待进一步的实践中得到提高。 Core Philosophies讲解了设计的哲学，和最低的三个要求：consider the touch interface, make the text readable and optimize for the iPhon">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://designcode.io/cloud/chapter1/Colors.jpg">
+<meta property="og:image" content="https://designcode.io/cloud/chapter1/Typography-Basics.jpg">
+<meta property="og:image" content="https://designcode.io/cloud/chapter1/Typography-LineHeight.jpg">
+<meta property="og:image" content="https://designcode.io/cloud/chapter1/Animation-Good.jpg">
+<meta property="og:image" content="https://designcode.io/cloud/chapter1/2015-10-14%2004_02_36.gif">
+<meta property="og:image" content="https://designcode.io/cloud/chapter1/Inspiration-Split.png">
+<meta property="article:published_time" content="2016-08-15T11:02:00.000Z">
+<meta property="article:modified_time" content="2025-01-13T03:01:04.064Z">
+<meta property="article:author" content="Ge Will">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://designcode.io/cloud/chapter1/Colors.jpg">
+
+
+<link rel="canonical" href="http://example.com/2016/08/15/Learn-iOS-Design-Notes/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"en","comments":true,"permalink":"http://example.com/2016/08/15/Learn-iOS-Design-Notes/","path":"2016/08/15/Learn-iOS-Design-Notes/","title":"The Animation Tools Learn iOS Design - 笔记"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>The Animation Tools Learn iOS Design - 笔记 | Will's Blog</title>
+  
+
+
+
+
+
+
+
+<head>
+    <!-- 霞鹜文楷字体 -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lxgw-wenkai-webfont@1.7.0/style.css"/>
+
+    <!-- datapulse统计 -->
+    <script defer type="text/javascript" src="https://datapulse.app/datapulse.min.js" id="datapulse" data-endpoint="https://datapulse.app/api/v1/event" data-workspace="cljxqml5q0y0f8j37d4futnbl"></script>
+
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-DR0FC9YJLH"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() {
+            dataLayer.push(arguments);
+        }
+        gtag('js', new Date());
+
+        gtag('config', 'G-DR0FC9YJLH');
+    </script>
+</head>
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Will's Blog</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="Search" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives<span class="badge">198</span></a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags<span class="badge">17</span></a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories<span class="badge">1</span></a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="Searching..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Core-Philosophies"><span class="nav-number">1.</span> <span class="nav-text">Core Philosophies</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Designing-for-iOS-9"><span class="nav-number">2.</span> <span class="nav-text">Designing for iOS 9</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Learn-Colors"><span class="nav-number">3.</span> <span class="nav-text">Learn Colors</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Learn-Typography"><span class="nav-number">4.</span> <span class="nav-text">Learn Typography</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Learn-Animations"><span class="nav-number">5.</span> <span class="nav-text">Learn Animations</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#UI-Icons"><span class="nav-number">6.</span> <span class="nav-text">UI Icons</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#UI-Sounds"><span class="nav-number">7.</span> <span class="nav-text">UI Sounds</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Design-Inspiration"><span class="nav-number">8.</span> <span class="nav-text">Design Inspiration</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Design-Principles"><span class="nav-number">9.</span> <span class="nav-text">Design Principles</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Getting-Your-Product-Out-There"><span class="nav-number">10.</span> <span class="nav-text">Getting Your Product Out There</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Ge Will"
+      src="/images/avatar.jpeg">
+  <p class="site-author-name" itemprop="name">Ge Will</p>
+  <div class="site-description" itemprop="description">The people who are crazy enough to think they can change the world, are the ones who DO.</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">198</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">17</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/gewill" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;gewill" rel="noopener me" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:531sunlight@gmail.com" title="E-Mail → mailto:531sunlight@gmail.com" rel="noopener me" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://weibo.com/gewei" title="Weibo → https:&#x2F;&#x2F;weibo.com&#x2F;gewei" rel="noopener me" target="_blank"><i class="fab fa-weibo fa-fw"></i>Weibo</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://twitter.com/BoJack_D" title="Twitter → https:&#x2F;&#x2F;twitter.com&#x2F;BoJack_D" rel="noopener me" target="_blank"><i class="fab fa-twitter fa-fw"></i>Twitter</a>
+      </span>
+  </div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2016/08/15/Learn-iOS-Design-Notes/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpeg">
+      <meta itemprop="name" content="Ge Will">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Will's Blog">
+      <meta itemprop="description" content="The people who are crazy enough to think they can change the world, are the ones who DO.">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="The Animation Tools Learn iOS Design - 笔记 | Will's Blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          The Animation Tools Learn iOS Design - 笔记
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2016-08-15 19:02:00" itemprop="dateCreated datePublished" datetime="2016-08-15T19:02:00+08:00">2016-08-15</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">Edited on</span>
+      <time title="Modified: 2025-01-13 11:01:04" itemprop="dateModified" datetime="2025-01-13T11:01:04+08:00">2025-01-13</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><p><a target="_blank" rel="noopener" href="https://designcode.io/iosdesign">Learn iOS Design</a> 是 Design Code 第一本，详细介绍了iOS 设计的方方面面，几乎每篇都是理论加工具。总体很全面，还有待进一步的实践中得到提高。</p>
+<h2 id="Core-Philosophies"><a href="#Core-Philosophies" class="headerlink" title="Core Philosophies"></a>Core Philosophies</h2><p>讲解了设计的哲学，和最低的三个要求：consider the touch interface, make the text readable and optimize for the iPhone 5, 6 and 6 Plus.</p>
+<p>iOS is driven by 3 core philosophies: deference, clarity and depth.</p>
+<p>In Retina, typography should have a minimum size of 11pt. The optimal size for reading is around 16pt.</p>
+<h2 id="Designing-for-iOS-9"><a href="#Designing-for-iOS-9" class="headerlink" title="Designing for iOS 9"></a>Designing for iOS 9</h2><p>详细讲解了 iOS 9 上常见控件的合理布局大小。</p>
+<p>iOS uses vibrant colors to bring out the buttons. </p>
+<p>iOS often uses neutral colors to serve as the background and menu areas.</p>
+<p><img src="https://designcode.io/cloud/chapter1/Colors.jpg" alt="iOS-Colors"></p>
+<h2 id="Learn-Colors"><a href="#Learn-Colors" class="headerlink" title="Learn Colors"></a>Learn Colors</h2><p>色彩运用和对比是 HSB 在数值上更有易于理解和对比。<br>下面介绍了：单色系、相似色、互补色、中间色、反色等色彩运用。将用的中间色的色板、颜色的含义、原质化设计(Material Design)颜色、阶梯色(UI Gradients)。</p>
+<p>use colors only to draw attention to a button or element of importance.</p>
+<p>I suggest starting with a vibrant, pastel color that is Primary or Secondary. </p>
+<p>These are the colors used by Apple in their native apps. They’re vibrant and perfect for buttons, icons and actionable items.</p>
+<p>I can easily map in my mind how much Hue, Saturation and Brightness. Those values make a lot more sense to me.</p>
+<p>Meaning In Colors：I suggest reading this <a target="_blank" rel="noopener" href="http://www.rocket-design.fr/color-template/">guide</a> about colors.</p>
+<p>This is a nice collection of gradients: <a target="_blank" rel="noopener" href="http://uigradients.com/">http://uigradients.com</a></p>
+<h2 id="Learn-Typography"><a href="#Learn-Typography" class="headerlink" title="Learn Typography"></a>Learn Typography</h2><p>介绍了一些字体常用使用，和字体网站。</p>
+<p>字体一些基础知识：位置线、有无衬线字体</p>
+<p><img src="https://designcode.io/cloud/chapter1/Typography-Basics.jpg" alt="Typography-Basics"></p>
+<p>Let’s look at these <a target="_blank" rel="noopener" href="http://practicaltypography.com/typography-in-ten-minutes.html">5 rules of good typography</a> and apply them to modern design for mobile and for Websites.</p>
+<p>The font size should be at least <strong>11pt</strong> to be readable on the iPhone, iPad and Apple Watch. While that is the minimum value, the recommended size for the body text is actually<strong>15-18pt</strong>.</p>
+<p>At 12-18pt, use Regular. At 18-24pt, use Light, at 24-32pt, use Thin and at 32pt or more, use Ultralight. Notice that for each scale, the text remains readable while looking clean and sophisticated.</p>
+<p><img src="https://designcode.io/cloud/chapter1/Typography-LineHeight.jpg" alt="Typography-LineHeight"></p>
+<p>“People say design isn’t art. It isn’t. Great design is art.”</p>
+<p>字体资源网站：</p>
+<p>* <a target="_blank" rel="noopener" href="https://www.google.com/fonts">Google Fonts</a><br>* <a target="_blank" rel="noopener" href="https://typekit.com/fonts">Typekit</a><br>* <a href="fonts.com">fonts.com</a></p>
+<h2 id="Learn-Animations"><a href="#Learn-Animations" class="headerlink" title="Learn Animations"></a>Learn Animations</h2><p>介绍动画在交互中的作用，和一些基本原则，以及一些做动画原型的工具。</p>
+<p>Good animations enhance, bad animations distract.</p>
+<p>Good animations should provide feedback on taps and gestures, and give a sense of direct manipulation.</p>
+<p>Modern apps tend to use Spring and Ease animations much more than Linear.</p>
+<p><img src="https://designcode.io/cloud/chapter1/Animation-Good.jpg" alt="Animation-Good"></p>
+<p><img src="https://designcode.io/cloud/chapter1/2015-10-14%2004_02_36.gif" alt="Animation Curve"></p>
+<p>On <a target="_blank" rel="noopener" href="https://github.com/mengto/spring">Spring</a>, an animation framework that I created for iOS, I made available a bunch of preset animations that combine many transforms at once. They can be inexpensively integrated to your app, without even learning how to code. 和 <a target="_blank" rel="noopener" href="https://github.com/IBAnimatable/IBAnimatable">IBAnimatable</a> 类似的一个不用代码的动画库。</p>
+<p>效果视频：<a target="_blank" rel="noopener" href="https://designcode.io/cloud/chapter1/Animation-Spring.mp4">https://designcode.io/cloud/chapter1/Animation-Spring.mp4</a></p>
+<p>Animations Shouldn’t Last Longer Than 1 second.</p>
+<blockquote>
+<p>“Design is the fundamental soul of a human-made creation that ends up expressing itself in successive outer layers of the product or service.” </p>
+<p>– Steve Jobs</p>
+</blockquote>
+<p>The Animation Tools:</p>
+<ul>
+<li>Principle</li>
+<li>Flinto for Mac</li>
+<li>Pixate</li>
+<li>Origami</li>
+<li>Framer</li>
+<li>After Effects</li>
+</ul>
+<h2 id="UI-Icons"><a href="#UI-Icons" class="headerlink" title="UI Icons"></a>UI Icons</h2><p>好水的一章，介绍一些图标的网站。</p>
+<p>图标要表意，避免于其他app混淆，除非故意为之。</p>
+<h2 id="UI-Sounds"><a href="#UI-Sounds" class="headerlink" title="UI Sounds"></a>UI Sounds</h2><p>音效也是应用增强体验的一个方面，可应用在通知、正操作反馈和负操作反馈。</p>
+<h2 id="Design-Inspiration"><a href="#Design-Inspiration" class="headerlink" title="Design Inspiration"></a>Design Inspiration</h2><p>介绍获取涉及灵感的方式：观察生活中的技艺，看书，和一些网站。</p>
+<p>书：</p>
+<ul>
+<li>Becoming Steve Jobs</li>
+<li>Steve Jobs by Walter Isaacson</li>
+<li>Jony Ive: The Genius Behind Apple’s Greatest Products</li>
+<li>Dieter Rams</li>
+<li>Elon Musk</li>
+<li>The Tipping Point,</li>
+<li>Outliers, </li>
+<li>Blink, </li>
+<li>David and Goliath</li>
+<li>What The Dog Saw</li>
+</ul>
+<p>网站：Twitter、Medium、<a target="_blank" rel="noopener" href="http://sidebar.io/">Sidebar</a></p>
+<p>it’s about 10% reading, 30% writing and collecting, and 60% design and code.</p>
+<p><img src="https://designcode.io/cloud/chapter1/Inspiration-Split.png"></p>
+<h2 id="Design-Principles"><a href="#Design-Principles" class="headerlink" title="Design Principles"></a>Design Principles</h2><p>介绍了设计常见的几个原则和作者个人的一些建议：自学能力、尽可能少的设计、三原则法、一万小时法、做梦想的事、休息为强者准备的。</p>
+<h2 id="Getting-Your-Product-Out-There"><a href="#Getting-Your-Product-Out-There" class="headerlink" title="Getting Your Product Out There"></a>Getting Your Product Out There</h2><p>介绍了产品运营的一些建议。</p>
+<p>Benefits, Not Features</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2016/06/21/7-Closures-Extensions-Protocols-Delegation-and-ScrollView-Notes/" rel="prev" title="7. Closures, Extensions, Protocols, Delegation, and ScrollView - 笔记">
+                  <i class="fa fa-chevron-left"></i> 7. Closures, Extensions, Protocols, Delegation, and ScrollView - 笔记
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2016/10/18/Objective-C-id-as-Swift-Any-Notes/" rel="next" title="Objective-C id as Swift Any-笔记">
+                  Objective-C id as Swift Any-笔记 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2025</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">Ge Will</span>
+  </div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/pisces/" rel="noopener" target="_blank">NexT.Pisces</a>
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="back-to-top" role="button" aria-label="Back to top">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.1/search.js" integrity="sha256-1kfA5uHPf65M5cphT2dvymhkuyHPQp5A53EGZOnOLmc=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>

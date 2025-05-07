@@ -1,0 +1,579 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 6.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha256-HtsXJanqjKTc8vVQjO4YMhiqFoXkfBsjBWcX91T1jr8=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Pisces","darkmode":true,"version":"8.17.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":true,"style":"mac"},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"},"path":"/search.json","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="📒RxSwift I：开始学习 RxSwift  第一章：RxSwift 介绍RxSwift是一个组合异步和事件驱动编程的库，通过使用可观察序列和功能样式运算符来，从而允许通过调度程序进行参数化执行。 RxSwift 在本质上简化了开发异步程序，允许代码对新数据作出反应，并以顺序和孤立的方式处理它。 介绍异步编程 使用 Cocoa 和 UIKit 异步的API的问题在于：复杂的异步代码变得非常难">
+<meta property="og:type" content="article">
+<meta property="og:title" content="RxSwift I：开始学习 RxSwift">
+<meta property="og:url" content="http://example.com/2018/05/18/RxSwift-I/index.html">
+<meta property="og:site_name" content="Will&#39;s Blog">
+<meta property="og:description" content="📒RxSwift I：开始学习 RxSwift  第一章：RxSwift 介绍RxSwift是一个组合异步和事件驱动编程的库，通过使用可观察序列和功能样式运算符来，从而允许通过调度程序进行参数化执行。 RxSwift 在本质上简化了开发异步程序，允许代码对新数据作出反应，并以顺序和孤立的方式处理它。 介绍异步编程 使用 Cocoa 和 UIKit 异步的API的问题在于：复杂的异步代码变得非常难">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://gewill.org/assets/Rx_Logo_M.png">
+<meta property="og:image" content="https://gewill.org/assets/51526546882_.pic.jpg">
+<meta property="og:image" content="https://gewill.org/assets/61526549641_.pic_hd.jpg">
+<meta property="og:image" content="https://gewill.org/assets/71526551674_.pic_hd.jpg">
+<meta property="og:image" content="https://gewill.org/assets/81526552550_.pic.jpg">
+<meta property="og:image" content="https://gewill.org/assets/101526552877_.pic.jpg">
+<meta property="og:image" content="https://gewill.org/assets/141526623515_.pic.jpg">
+<meta property="og:image" content="https://gewill.org/assets/151526623523_.pic.jpg">
+<meta property="og:image" content="https://gewill.org/assets/RxSwiftPublishSubject.jpg">
+<meta property="og:image" content="https://gewill.org/assets/RxSwiftBehaviorSubject.png">
+<meta property="og:image" content="https://gewill.org/assets/Talkingtootherviewcontrollersviadelegate.jpg">
+<meta property="og:image" content="https://gewill.org/assets/Talkingtootherviewcontrollersviasubjects.jpg">
+<meta property="og:image" content="https://gewill.org/assets/single.jpg">
+<meta property="og:image" content="https://gewill.org/assets/maybe.jpg">
+<meta property="og:image" content="https://gewill.org/assets/completable.jpg">
+<meta property="article:published_time" content="2018-05-18T15:01:03.000Z">
+<meta property="article:modified_time" content="2025-01-13T03:01:04.065Z">
+<meta property="article:author" content="Ge Will">
+<meta property="article:tag" content="Swift">
+<meta property="article:tag" content="RxSwift">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://gewill.org/assets/Rx_Logo_M.png">
+
+
+<link rel="canonical" href="http://example.com/2018/05/18/RxSwift-I/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"en","comments":true,"permalink":"http://example.com/2018/05/18/RxSwift-I/","path":"2018/05/18/RxSwift-I/","title":"RxSwift I：开始学习 RxSwift"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>RxSwift I：开始学习 RxSwift | Will's Blog</title>
+  
+
+
+
+
+
+
+
+<head>
+    <!-- 霞鹜文楷字体 -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lxgw-wenkai-webfont@1.7.0/style.css"/>
+
+    <!-- datapulse统计 -->
+    <script defer type="text/javascript" src="https://datapulse.app/datapulse.min.js" id="datapulse" data-endpoint="https://datapulse.app/api/v1/event" data-workspace="cljxqml5q0y0f8j37d4futnbl"></script>
+
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-DR0FC9YJLH"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() {
+            dataLayer.push(arguments);
+        }
+        gtag('js', new Date());
+
+        gtag('config', 'G-DR0FC9YJLH');
+    </script>
+</head>
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Will's Blog</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="Search" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives<span class="badge">198</span></a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags<span class="badge">17</span></a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories<span class="badge">1</span></a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="Searching..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%F0%9F%93%92RxSwift-I%EF%BC%9A%E5%BC%80%E5%A7%8B%E5%AD%A6%E4%B9%A0-RxSwift"><span class="nav-number">1.</span> <span class="nav-text">📒RxSwift I：开始学习 RxSwift</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AC%AC%E4%B8%80%E7%AB%A0%EF%BC%9ARxSwift-%E4%BB%8B%E7%BB%8D"><span class="nav-number">1.1.</span> <span class="nav-text">第一章：RxSwift 介绍</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BB%8B%E7%BB%8D%E5%BC%82%E6%AD%A5%E7%BC%96%E7%A8%8B"><span class="nav-number">1.1.1.</span> <span class="nav-text">介绍异步编程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#RxSwift-%E5%9F%BA%E7%A1%80"><span class="nav-number">1.1.2.</span> <span class="nav-text">RxSwift 基础</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#App-architecture-%E5%BA%94%E7%94%A8%E7%9A%84%E6%9E%B6%E6%9E%84"><span class="nav-number">1.1.3.</span> <span class="nav-text">App architecture 应用的架构</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#RxCocoa"><span class="nav-number">1.1.4.</span> <span class="nav-text">RxCocoa</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%89%E8%A3%85"><span class="nav-number">1.1.5.</span> <span class="nav-text">安装</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#RxSwift-%E5%92%8C-Combine"><span class="nav-number">1.1.6.</span> <span class="nav-text">RxSwift 和 Combine</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%A4%BE%E5%8C%BA"><span class="nav-number">1.1.7.</span> <span class="nav-text">社区</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AC%AC%E4%BA%8C%E7%AB%A0%EF%BC%9AObservables"><span class="nav-number">1.2.</span> <span class="nav-text">第二章：Observables</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Observable-%E6%98%AF%E4%BB%80%E4%B9%88"><span class="nav-number">1.2.1.</span> <span class="nav-text">Observable 是什么</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Observable-%E7%9A%84%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F"><span class="nav-number">1.2.2.</span> <span class="nav-text">Observable 的生命周期</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%9B%E5%BB%BA-Observable"><span class="nav-number">1.2.3.</span> <span class="nav-text">创建 Observable</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%AE%A2%E9%98%85-Observable"><span class="nav-number">1.2.4.</span> <span class="nav-text">订阅 Observable</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Disposing-%E5%92%8C-terminating"><span class="nav-number">1.2.5.</span> <span class="nav-text">Disposing 和 terminating</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%9B%E5%BB%BA-observable-%E5%B7%A5%E5%8E%82%E7%B1%BB"><span class="nav-number">1.2.6.</span> <span class="nav-text">创建 observable 工厂类</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8Traits"><span class="nav-number">1.2.7.</span> <span class="nav-text">使用Traits</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%89%AF%E4%BD%9C%E7%94%A8"><span class="nav-number">1.2.8.</span> <span class="nav-text">副作用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%89%93%E5%8D%B0debug-%E4%BF%A1%E6%81%AF"><span class="nav-number">1.2.9.</span> <span class="nav-text">打印debug 信息</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AC%AC%E4%B8%89%E7%AB%A0%EF%BC%9ASubjects"><span class="nav-number">1.3.</span> <span class="nav-text">第三章：Subjects</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Subject-%E6%98%AF%E4%BB%80%E4%B9%88"><span class="nav-number">1.3.1.</span> <span class="nav-text">Subject 是什么</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#PublishSubject"><span class="nav-number">1.3.2.</span> <span class="nav-text">PublishSubject</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ReplaySubject"><span class="nav-number">1.3.3.</span> <span class="nav-text">ReplaySubject</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#BehaviorSubject"><span class="nav-number">1.3.4.</span> <span class="nav-text">BehaviorSubject</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Relay"><span class="nav-number">1.3.5.</span> <span class="nav-text">Relay</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AC%AC%E5%9B%9B%E7%AB%A0%EF%BC%9AObservables-%E5%92%8C-Subjects-%E5%AE%9E%E8%B7%B5"><span class="nav-number">1.4.</span> <span class="nav-text">第四章：Observables 和 Subjects 实践</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9C%A8-view-controller-%E4%B8%AD%E4%BD%BF%E7%94%A8-subject-x2F-relay"><span class="nav-number">1.4.1.</span> <span class="nav-text">在 view controller 中使用 subject&#x2F;relay</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8-subject-%E5%9C%A8-view-controller-%E4%B9%8B%E9%97%B4%E4%BC%A0%E5%80%BC"><span class="nav-number">1.4.2.</span> <span class="nav-text">使用 subject 在 view controller 之间传值</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B0%81%E8%A3%85%E5%B7%B2%E6%9C%89API%E4%B8%BAObservable"><span class="nav-number">1.4.3.</span> <span class="nav-text">封装已有API为Observable</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#RxSwift-traits-%E5%AE%9E%E8%B7%B5"><span class="nav-number">1.4.4.</span> <span class="nav-text">RxSwift traits 实践</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Single"><span class="nav-number">1.4.4.1.</span> <span class="nav-text">Single</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Maybe"><span class="nav-number">1.4.4.2.</span> <span class="nav-text">Maybe</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Completable"><span class="nav-number">1.4.4.3.</span> <span class="nav-text">Completable</span></a></li></ol></li></ol></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Ge Will"
+      src="/images/avatar.jpeg">
+  <p class="site-author-name" itemprop="name">Ge Will</p>
+  <div class="site-description" itemprop="description">The people who are crazy enough to think they can change the world, are the ones who DO.</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">198</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">17</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/gewill" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;gewill" rel="noopener me" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:531sunlight@gmail.com" title="E-Mail → mailto:531sunlight@gmail.com" rel="noopener me" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://weibo.com/gewei" title="Weibo → https:&#x2F;&#x2F;weibo.com&#x2F;gewei" rel="noopener me" target="_blank"><i class="fab fa-weibo fa-fw"></i>Weibo</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://twitter.com/BoJack_D" title="Twitter → https:&#x2F;&#x2F;twitter.com&#x2F;BoJack_D" rel="noopener me" target="_blank"><i class="fab fa-twitter fa-fw"></i>Twitter</a>
+      </span>
+  </div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2018/05/18/RxSwift-I/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpeg">
+      <meta itemprop="name" content="Ge Will">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Will's Blog">
+      <meta itemprop="description" content="The people who are crazy enough to think they can change the world, are the ones who DO.">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="RxSwift I：开始学习 RxSwift | Will's Blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          RxSwift I：开始学习 RxSwift
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2018-05-18 23:01:03" itemprop="dateCreated datePublished" datetime="2018-05-18T23:01:03+08:00">2018-05-18</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">Edited on</span>
+      <time title="Modified: 2025-01-13 11:01:04" itemprop="dateModified" datetime="2025-01-13T11:01:04+08:00">2025-01-13</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/RxSwift/" itemprop="url" rel="index"><span itemprop="name">RxSwift</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><h1 id="📒RxSwift-I：开始学习-RxSwift"><a href="#📒RxSwift-I：开始学习-RxSwift" class="headerlink" title="📒RxSwift I：开始学习 RxSwift"></a>📒<strong>RxSwift</strong> I：开始学习 RxSwift</h1><p> <img src="https://gewill.org/assets/Rx_Logo_M.png" alt="Rx_Logo_M.png"></p>
+<h2 id="第一章：RxSwift-介绍"><a href="#第一章：RxSwift-介绍" class="headerlink" title="第一章：RxSwift 介绍"></a>第一章：RxSwift 介绍</h2><p>RxSwift是一个组合异步和事件驱动编程的库，通过使用可观察序列和功能样式运算符来，从而允许通过调度程序进行参数化执行。</p>
+<p>RxSwift 在本质上简化了开发异步程序，允许代码对新数据作出反应，并以顺序和孤立的方式处理它。</p>
+<h3 id="介绍异步编程"><a href="#介绍异步编程" class="headerlink" title="介绍异步编程"></a>介绍异步编程</h3><p><img src="https://gewill.org/assets/51526546882_.pic.jpg" alt="51526546882_.pic.jpg"></p>
+<p>使用 Cocoa 和 UIKit 异步的API的问题在于：复杂的异步代码变得非常难写，部分原因是苹果SDK提供的API种类繁多。如NotificationCenter、Delegate、GCD、闭包、Combine。</p>
+<p>异步编程词汇表：</p>
+<ol>
+<li>状态（State），具体地说：共享可变状态</li>
+<li>命令式编程（Imperative programming）</li>
+<li>副作用（Side effects）</li>
+<li>声明式编程（Declarative code）：声明式代码让您可以定义行为片段。只要有相关事件发生，RxSwift 就会运行这些行为，并提供一个不可变的、孤立的数据片段来处理。这样，您可以使用异步代码，但做出与简单 for 循环相同的假设：您正在使用不可变数据并且可以以顺序、确定的方式执行代码。</li>
+<li>响应式系统（Reactive systems）</li>
+</ol>
+<p>响应式系统（Reactive systems）是一个相当抽象的术语，它涵盖了Web或iOS应用程序，它们显示了大多数或全部以下特性：</p>
+<ul>
+<li>响应式设计（Responsive）：始终保持UI更新，代表了最新的应用程序状态。</li>
+<li>能复原的（Resilient）：每个行为都是独立定义的，并提供灵活的错误恢复。</li>
+<li>灵活的（Elastic）: 该代码处理不同的工作负载，通常实现诸如懒惰驱动数据收集、事件节流和资源共享等特性。</li>
+<li>消息驱动（Message driven）：组件使用基于消息的通信来提高可重用性和隔离性，解耦类的生命周期和实现。</li>
+</ul>
+<h3 id="RxSwift-基础"><a href="#RxSwift-基础" class="headerlink" title="RxSwift 基础"></a>RxSwift 基础</h3><p><img src="https://gewill.org/assets/61526549641_.pic_hd.jpg" alt="61526549641_.pic_hd.jpg"></p>
+<p>这个标志是一只电鳗。(Rx 项目曾经被称为Volta）</p>
+<p>RxSwift 是微软开源的 ReactiveX 的Swift语言的实现。</p>
+<p><strong>RxSwift</strong> 在传统的<strong>Cocoa</strong>编程和纯函数编程之间找到了最佳位置。它允许您对事件作出反应, 方法是使用不可变的代码定义以确定性的、可组合的方式处理异步输入部分。</p>
+<p>Rx代码的三个组成部分是 <code>Observable</code>, <code>Operator</code>和 <code>Scheduler</code>。</p>
+<p><code>Observable&lt;Element&gt;</code>类提供了Rx代码的基础：异步产生一系列事件的能力，它可以“携带”数据的不可变快照。简单来说，它允许类在一段时间内订阅其他类发出的值。</p>
+<p><code>ObservableType</code> 协议 (<code>Observable</code>需要遵循的) 非常简单。<code>Observable</code>可能发出 (并且<code>Observer</code>能接受) 仅三类型事件:</p>
+<p>- next 下一个事件: “携带” 最新 (或  “下一个 “) 数据值的事件。这是<code>Observer</code> “接收” 值的方式。</p>
+<p>- completed 已完成的事件: 此事件以成功终止事件序列。这意味着<code>Observable</code>完成其生命周期成功, 不会发出任何其他事件。</p>
+<p>- error 错误事件: <code>Observable</code>终止带有错误, 不会发出其他事件.</p>
+<p>两种不同的可观测序列: 有限和无限的。</p>
+<p>由于它们是高度解耦和可组合的, 所以这些方法通常称为<code>Operator</code>。比如filter。</p>
+<p><code>Operator</code>也是高度可组合的，它们总是把数据作为输入并输出它们的结果，所以你可以用许多不同的方式轻松地将它们连接起来，实现比单个<code>Operator</code>自己能做的更多的事情。</p>
+<p> <code>Scheduler</code>是<a target="_blank" rel="noopener" href="https://developer.apple.com/documentation/DISPATCH">GCD</a>和<a target="_blank" rel="noopener" href="https://developer.apple.com/documentation/foundation/operationqueue">OperationQueue</a>的Rx等价物。</p>
+<p>RxSwift将充当你的订阅（在左边）和<code>Scheduler</code>（在右边）之间的调度器，将工件发送到正确的上下文，并无缝地允许它们与彼此的输出一起工作。</p>
+<p><img src="https://gewill.org/assets/71526551674_.pic_hd.jpg" alt="71526551674_.pic_hd.jpg"></p>
+<p>要读取此关系图, 请在不同的计划程序中按预定的顺序 (1、2、3、…) 来执行彩色作品。例如:</p>
+<p>·蓝色网络订阅以在基于自定义 NSOperation 的计划程序上运行的一段代码 (1) 开始。</p>
+<p>·数据输出块作为下一个块 (2) 的输入, 它运行在一个不同的调度程序上, 它位于并发后台 GCD 队列中。</p>
+<p>·最后, 在主线程调度程序上计划最后一块蓝色代码 (3), 以便用新数据更新 UI。</p>
+<h3 id="App-architecture-应用的架构"><a href="#App-architecture-应用的架构" class="headerlink" title="App architecture 应用的架构"></a>App architecture 应用的架构</h3><p>值得一提的是，RxSwift并没有以任何方式改变应用程序的架构；它主要处理事件、异步数据序列和通用通信协议。</p>
+<p>通过在苹果开发文档中实现MVC体系结构，可以创建具有Rx的应用程序。如果你喜欢的话，你也可以选择实现MVP架构或MVVM。RxSwift也可以帮你实现自己的单向数据架构。</p>
+<p>微软的MVVM架构是专门针对在平台上创建的事件驱动软件开发的，该平台提供数据绑定。RxSwift和MVVM很好地结合在一起，在这本书的末尾，你会看到这个模式以及如何用RxSwift来实现它。</p>
+<p>MVVM和RxSwift结合在一起的原因是，ViewModel允许您公开<code>Observable</code>属性，这些属性可以直接绑定到View Controller 代码中的UIKit控件。这使得绑定模型数据到UI非常简单地展示和编码：</p>
+<p><img src="https://gewill.org/assets/81526552550_.pic.jpg" alt="81526552550_.pic.jpg"></p>
+<p>本书中的所有其他示例都使用MVC架构来保持示例代码简单易懂。</p>
+<h3 id="RxCocoa"><a href="#RxCocoa" class="headerlink" title="RxCocoa"></a>RxCocoa</h3><p>RxSwift是通用Rx API的实现。因此，它不涉及任何Cocoa或UIKit类。</p>
+<p>RxCocoa是RxSwift的配套库，所有的类都有助于UIKit和Cocoa的开发。除了具有一些高级类之外，RxCocoa还为许多UI组件添加了响应式扩展，以便您可以订阅不同的UI事件。</p>
+<p>例如，使用RxCocoa订阅UISwitch的状态变化是非常容易的，例如：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">toggleSwitch.rx.isOn</span><br><span class="line">	.subcribe(onNext: &#123;enabled <span class="keyword">in</span></span><br><span class="line">    	<span class="built_in">print</span>(enabled <span class="operator">?</span> <span class="string">&quot;it&#x27;s ON&quot;</span> : <span class="string">&quot;it&#x27;s OFF&quot;</span>)</span><br><span class="line">	&#125;)</span><br></pre></td></tr></table></figure>
+
+<p>RxCocoa adds the rx.isOn property (among others) to the UISwitch class so you can subscribe to generally useful event sequences.</p>
+<p>RxCocoa将rx.isOn属性（其中之一）添加到UISwitch类，这样您就可以订阅通常有用的<code>Observable</code>序列。</p>
+<p><img src="https://gewill.org/assets/101526552877_.pic.jpg" alt="101526552877_.pic.jpg"></p>
+<h3 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h3><p>官方git：<a target="_blank" rel="noopener" href="https://github.com/ReactiveX/RxSwift">https://github.com/ReactiveX/RxSwift</a></p>
+<p>使用 <a target="_blank" rel="noopener" href="https://guides.cocoapods.org/using/using-cocoapods.html">CocoaPods</a> 、 <a target="_blank" rel="noopener" href="https://github.com/Carthage/Carthage">Carthage</a> 和 <a target="_blank" rel="noopener" href="https://github.com/apple/swift-package-manager">Swift Package Manager</a> 均很方便集成RxSwift。</p>
+<h3 id="RxSwift-和-Combine"><a href="#RxSwift-和-Combine" class="headerlink" title="RxSwift 和 Combine"></a>RxSwift 和 Combine</h3><p>RxSwift 和 Combine（以及 Swift 中的其他相应式编程框架）共享许多通用语言和非常相似的概念。</p>
+<p>RxSwift是一个较旧的，完善的框架，具有一些自己的原始概念，运算符名称和类型多样性，这主要是由于其多平台跨语言标准，该标准也适用于Linux，这对于Server-Side Swift非常有用。它也是开源的，所以如果你愿意，你可以直接为其核心做出贡献，并确切地看到它的特定部分是如何工作的。它与所有支持 Swift 的 Apple 平台版本兼容，一直支持 iOS 8。</p>
+<p>Combine 是 Apple 新的、闪亮的框架，涵盖了类似的概念，但专门针对 Swift 和 Apple 自己的平台量身定制。它与 Swift 标准库共享许多通用语言，因此即使新手也觉得 API 非常熟悉。它仅支持从iOS 13，macOS 10.15等开始的较新的Apple平台。不幸的是，截至今天，它还没有开源，并且不支持Linux。</p>
+<p>幸运的是，由于 RxSwift 和 Combine 非常相似，因此您的 RxSwift 知识可以轻松转移到 Combine，反之亦然。RxCombine（<a target="_blank" rel="noopener" href="https://github.com/CombineCommunity/RxCombine%EF%BC%89%E7%AD%89%E9%A1%B9%E7%9B%AE%E5%85%81%E8%AE%B8%E6%82%A8%E6%A0%B9%E6%8D%AE%E9%9C%80%E8%A6%81%E6%B7%B7%E5%90%88%E6%90%AD%E9%85%8D">https://github.com/CombineCommunity/RxCombine）等项目允许您根据需要混合搭配</a> RxSwift Observables 和 Combine Publishers。</p>
+<p><a target="_blank" rel="noopener" href="https://github.com/ReactiveX/RxSwift/releases/tag/6.5.0">RxSwift 6.5.0</a> 也迎来了 Swift Concurrency 的支持。提供了互操作性：</p>
+<ol>
+<li><code>await  </code> 调用<code>Observable</code>的<code>values</code></li>
+<li>封装 <code>async</code> Task 为 <code>Observable</code></li>
+</ol>
+<h3 id="社区"><a href="#社区" class="headerlink" title="社区"></a>社区</h3><p>RxSwift社区非常友好，思想开放，并且热衷于讨论模式，常用技巧或互相帮助。</p>
+<p>更多的Rx库和实验，像雨后春笋一样的涌现，可以在这里找到：<a target="_blank" rel="noopener" href="https://github.com/RxSwiftCommunity">https://github.com/RxSwiftCommunity</a></p>
+<p>可能最好的方式来满足许多对RxSwift感兴趣的人，这是Slack的频道：<a target="_blank" rel="noopener" href="http://rxswift-slack.herokuapp.com/">http://rxswift-slack.herokuapp.com</a>。</p>
+<p>Slack频道拥有约5000名成员！ 日常的主题包括：互相帮助，讨论RxSwift或其同伴库的潜在新功能，以及共享RxSwift博客文章和会议讲座。</p>
+<h2 id="第二章：Observables"><a href="#第二章：Observables" class="headerlink" title="第二章：Observables"></a>第二章：Observables</h2><h3 id="Observable-是什么"><a href="#Observable-是什么" class="headerlink" title="Observable 是什么"></a>Observable 是什么</h3><p>Observable、observable sequence 和 sequence 在 Rx 都是一个意思。或者在其他Rx实现中称之为stream。</p>
+<blockquote>
+<p>最好称之为 Observable，不过翻译过来还是序列顺口些。</p>
+</blockquote>
+<h3 id="Observable-的生命周期"><a href="#Observable-的生命周期" class="headerlink" title="Observable 的生命周期"></a>Observable 的生命周期</h3><ul>
+<li>observable发出包含元素的<strong>next</strong>事件。 它可以继续这样做，直到它：</li>
+<li>…发出<strong>error</strong>事件并终止，或</li>
+<li>…发出<strong>completed</strong>事件并终止。</li>
+<li>一旦observable被终止，它不能再发出事件。</li>
+</ul>
+<p>将这种概念化的最佳方法之一是使用弹珠图（<strong>Marble Diagrams</strong> 基于时间轴上绘制的值）。</p>
+<p><img src="https://gewill.org/assets/141526623515_.pic.jpg" alt="141526623515_.pic.jpg"></p>
+<p><img src="https://gewill.org/assets/151526623523_.pic.jpg" alt="151526623523_.pic.jpg"></p>
+<h3 id="创建-Observable"><a href="#创建-Observable" class="headerlink" title="创建 Observable"></a><strong>创建</strong> <strong>Observable</strong></h3><p>类型擦除的ObservableType，也就是 Swift 中的泛型。</p>
+<p>它代表了一种推式风格队列。</p>
+<p>let observable: Observable<Int> &#x3D; Observable<Int>.just(one)</p>
+<h3 id="订阅-Observable"><a href="#订阅-Observable" class="headerlink" title="订阅 Observable"></a><strong>订阅</strong> <strong>Observable</strong></h3><p>订阅observable sequence的事件处理程序。</p>
+<p>func subscribe(_ on: @escaping (RxSwift.Event&lt;Self.E&gt;) -&gt; Swift.Void) -&gt; Disposable</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> one <span class="operator">=</span> <span class="number">1</span></span><br><span class="line"><span class="keyword">let</span> two <span class="operator">=</span> <span class="number">2</span></span><br><span class="line"><span class="keyword">let</span> three <span class="operator">=</span> <span class="number">3</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> observable <span class="operator">=</span> <span class="type">Observable</span>.of(one, two, three)</span><br><span class="line"></span><br><span class="line">observable.subscribe(onNext: &#123; element <span class="keyword">in</span></span><br><span class="line">    <span class="built_in">print</span>(element)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<p>在指定的范围内生成一个整数的observable sequence，使用指定的scheduler生成和发送<code>Observer</code>消息。</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">static</span> <span class="keyword">func</span> <span class="title function_">range</span>(<span class="params">start</span>: <span class="keyword">Self</span>.<span class="type">E</span>, <span class="params">count</span>: <span class="keyword">Self</span>.<span class="type">E</span>, <span class="params">scheduler</span>: <span class="type">ImmediateSchedulerType</span> <span class="operator">=</span> <span class="keyword">default</span>) -&gt; <span class="type">RxSwift</span>.<span class="type">Observable</span>&lt;<span class="keyword">Self</span>.<span class="type">E</span>&gt;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> observable <span class="operator">=</span> <span class="type">Observable</span>&lt;<span class="type">Int</span>&gt;.range(start: <span class="number">1</span>, count: <span class="number">10</span>)</span><br><span class="line">observable</span><br><span class="line">    .subscribe(onNext: &#123; i <span class="keyword">in</span></span><br><span class="line">        <span class="keyword">let</span> n <span class="operator">=</span> <span class="type">Double</span>(i)</span><br><span class="line">        <span class="keyword">let</span> fibonacci <span class="operator">=</span> <span class="type">Int</span>(((pow(<span class="number">1.61803</span>, n) <span class="operator">-</span> pow(<span class="number">0.61803</span>, n)) <span class="operator">/</span></span><br><span class="line">            <span class="number">2.23606</span>).rounded())</span><br><span class="line">        <span class="built_in">print</span>(fibonacci)</span><br><span class="line">    &#125;)</span><br></pre></td></tr></table></figure>
+
+<h3 id="Disposing-和-terminating"><a href="#Disposing-和-terminating" class="headerlink" title="Disposing 和 terminating"></a><strong>Disposing 和 terminating</strong></h3><p>请记住, 在收到订阅之前, Observable的内容不会执行任何事情。它是触发一个Observable的开始发出事件的订阅, 直到它发出. error 或.completed完成事件并终止。您可以通过取消对它的订阅来手动终止Observable。</p>
+<p><code>subscription.dispose()</code></p>
+<p>单独管理每个订阅将是单调乏味的, 因此 RxSwift 引入 DisposeBag 类型。DisposeBag 持有 disposable协议的对象，通常是使用<code>.disposed(by:)</code> 方法, 并将调用dispose(), 当DisposeBag即将deallocated。</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> observable <span class="operator">=</span> <span class="type">Observable</span>.of(<span class="string">&quot;A&quot;</span>, <span class="string">&quot;B&quot;</span>, <span class="string">&quot;C&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> subscription <span class="operator">=</span> observable.subscribe &#123; event <span class="keyword">in</span></span><br><span class="line">    <span class="built_in">print</span>(event)</span><br><span class="line">&#125;</span><br><span class="line">subscription.dispose()</span><br></pre></td></tr></table></figure>
+
+<p>create操作符接受一个名为subscribe的参数。 它的工作是提供对可观察对象进行调用订阅的实现。 换句话说，它定义了将发送给订阅者的所有事件。</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">static</span> <span class="keyword">func</span> <span class="title function_">create</span>(<span class="keyword">_</span> <span class="params">subscribe</span>: <span class="keyword">@escaping</span> (<span class="type">AnyObserver</span>&lt;<span class="type">String</span>&gt;) -&gt; <span class="type">Disposable</span>) -&gt; <span class="type">Observable</span>&lt;<span class="type">String</span>&gt;</span><br></pre></td></tr></table></figure>
+
+<h3 id="创建-observable-工厂类"><a href="#创建-observable-工厂类" class="headerlink" title="创建 observable 工厂类"></a><strong>创建 observable 工厂类</strong></h3><p>可以创建一个可观察的工厂，向每个订阅者发布一个新的Observable，而不是创建一个等待订阅者的Observable。</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">static</span> <span class="keyword">func</span> <span class="title function_">deferred</span>(<span class="keyword">_</span> <span class="params">observableFactory</span>: <span class="keyword">@escaping</span> () <span class="keyword">throws</span> -&gt; <span class="type">Observable</span>&lt;<span class="type">Int</span>&gt;) -&gt; <span class="type">Observable</span>&lt;<span class="type">Int</span>&gt;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> disposeBag <span class="operator">=</span> <span class="type">DisposeBag</span>()</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> flip <span class="operator">=</span> <span class="literal">false</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> factory: <span class="type">Observable</span>&lt;<span class="type">Int</span>&gt; <span class="operator">=</span> <span class="type">Observable</span>.deferred &#123;</span><br><span class="line">    flip <span class="operator">=</span> <span class="operator">!</span>flip</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> flip &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="type">Observable</span>.of(<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>)</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="type">Observable</span>.of(<span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> <span class="keyword">_</span> <span class="keyword">in</span> <span class="number">0</span><span class="operator">...</span><span class="number">3</span> &#123;</span><br><span class="line">    factory.subscribe(onNext: &#123;</span><br><span class="line">        <span class="built_in">print</span>(<span class="variable">$0</span>, terminator: <span class="string">&quot;&quot;</span>)</span><br><span class="line">    &#125;)</span><br><span class="line">        .disposed(by: disposeBag)</span><br><span class="line"></span><br><span class="line">    <span class="built_in">print</span>()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">123 </span><br><span class="line">456 </span><br><span class="line">123 </span><br><span class="line">456</span><br></pre></td></tr></table></figure>
+
+<h3 id="使用Traits"><a href="#使用Traits" class="headerlink" title="使用Traits"></a><strong>使用Traits</strong></h3><p><strong>Traits</strong>是具有比常规Observable更窄的行为集合的一种Observable。它们的使用是可选的；您可以在任何可能使用trait的地方使用常规Observable。他们的目的是提供一种给你的API或者代码的读者更清楚地表达意图的方式。 </p>
+<p>RxSwift中有三种Traits: Single, Maybe 和 Completable.</p>
+<p>Singles将发出.success(value)或.error事件。 .success(value)实际上是.next和.completed事件的组合。 这对于一次性进程非常有用，它可以成功并产生一个值或失败，例如下载数据或从磁盘加载数据。</p>
+<p>下面的例子是读取 <code>Copyright.txt</code> 的文件内容：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> disposeBag <span class="operator">=</span> <span class="type">DisposeBag</span>()</span><br><span class="line"></span><br><span class="line"><span class="keyword">enum</span> <span class="title class_">FileReadError</span>: <span class="title class_">Error</span> &#123;</span><br><span class="line">    <span class="keyword">case</span> fileNotFound, unreadable, encodingFailed</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">func</span> <span class="title function_">loadText</span>(<span class="params">from</span> <span class="params">filename</span>: <span class="type">String</span>) -&gt; <span class="type">Single</span>&lt;<span class="type">String</span>&gt; &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="type">Single</span>.create &#123; single <span class="keyword">in</span></span><br><span class="line">        <span class="keyword">let</span> disposable <span class="operator">=</span> <span class="type">Disposables</span>.create()</span><br><span class="line"></span><br><span class="line">        <span class="keyword">guard</span> <span class="keyword">let</span> path <span class="operator">=</span> <span class="type">Bundle</span>.main.path(forResource: filename, ofType: <span class="string">&quot;txt&quot;</span>) <span class="keyword">else</span> &#123;</span><br><span class="line">            single(.error(<span class="type">FileReadError</span>.fileNotFound))</span><br><span class="line">            <span class="keyword">return</span> disposable</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">guard</span> <span class="keyword">let</span> data <span class="operator">=</span> <span class="type">FileManager</span>.default.contents(atPath: path) <span class="keyword">else</span> &#123;</span><br><span class="line">            single(.error(<span class="type">FileReadError</span>.unreadable))</span><br><span class="line">            <span class="keyword">return</span> disposable</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">guard</span> <span class="keyword">let</span> contents <span class="operator">=</span> <span class="type">String</span>(data: data, encoding: .utf8) <span class="keyword">else</span> &#123;</span><br><span class="line">            single(.error(<span class="type">FileReadError</span>.encodingFailed))</span><br><span class="line">            <span class="keyword">return</span> disposable</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        single(.success(contents))</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> disposable</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">loadText(from: <span class="string">&quot;Copyright&quot;</span>)</span><br><span class="line">    .subscribe &#123;</span><br><span class="line">        <span class="keyword">switch</span> <span class="variable">$0</span> &#123;</span><br><span class="line">        <span class="keyword">case</span> .success(<span class="keyword">let</span> string):</span><br><span class="line">            <span class="built_in">print</span>(string)</span><br><span class="line">        <span class="keyword">case</span> .error(<span class="keyword">let</span> error):</span><br><span class="line">            <span class="built_in">print</span>(error)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    .disposed(by: disposeBag)</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="副作用"><a href="#副作用" class="headerlink" title="副作用"></a><strong>副作用</strong></h3><p> <code>do</code> Operator允许插入副作用，处理程序执行过程中并不会以任何方式更改发出的事件的操作。</p>
+<h3 id="打印debug-信息"><a href="#打印debug-信息" class="headerlink" title="打印debug 信息"></a><strong>打印debug 信息</strong></h3><p><code>debug</code> Operator, 它将打印observable的每个事件的信息。</p>
+<h2 id="第三章：Subjects"><a href="#第三章：Subjects" class="headerlink" title="第三章：Subjects"></a>第三章：Subjects</h2><h3 id="Subject-是什么"><a href="#Subject-是什么" class="headerlink" title="Subject 是什么"></a>Subject 是什么</h3><p>既可以作为<code>Observable</code>，也可以作为<code>Observer</code>，这就是所谓的 Subjects。</p>
+<blockquote>
+<p>也是最方便互操作的，<code>BehaviorRelay</code>比较常用。</p>
+</blockquote>
+<p>RxSwift 中有四个subject类型: </p>
+<ol>
+<li><code>PublishSubject</code>: 开始为空, 只向订阅者发出新元素. </li>
+<li><code>ReplaySubject</code>: 用缓冲区大小, 并将保持元素的缓冲区大小, 并将其重播到新订阅者. </li>
+<li><code>BehaviorSubject</code>: 从初始值开始, 将其重播或将最新的元素给新订阅者. </li>
+<li><code>AsyncSubject</code>：仅发出序列中的最后一个next事件，并且仅当subject收到completed事件时才发出。这是一个很少使用的主题。</li>
+</ol>
+<h3 id="PublishSubject"><a href="#PublishSubject" class="headerlink" title="PublishSubject"></a>PublishSubject</h3><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/// Represents an object that is both an observable sequence as well as an observer.</span></span><br><span class="line"><span class="comment">/// Each notification is broadcasted to all subscribed observers.</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">class</span> <span class="title class_">PublishSubject</span>&lt;<span class="title class_">Element</span>&gt;</span><br></pre></td></tr></table></figure>
+
+<p>当你只是想让订阅者只接受在订阅的时候以后发生的新的事件，直到他们unsubscribe，或者subject已经terminated以.completed或.error事件的方式，PublishSubject就可以派上用场。</p>
+<p><img src="https://gewill.org/assets/RxSwiftPublishSubject.jpg" alt="RxSwiftPublishSubject"></p>
+<p>第一个订阅者在将 1 添加到subject后进行订阅，因此它不会收到该事件。不过，它确实得到了2和3。由于第二个订阅者在添加2之前不会加入，因此它只能获得3。</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">extension</span> <span class="title class_">ObservableType</span> &#123;</span><br><span class="line">    <span class="comment">/// 添加带有`id`的观察者并打印每个发出的事件。</span></span><br><span class="line">    <span class="keyword">func</span> <span class="title function_">addObserver</span>(<span class="keyword">_</span> <span class="params">id</span>: <span class="type">String</span>) -&gt; <span class="type">Disposable</span> &#123;</span><br><span class="line">        subscribe &#123; <span class="built_in">print</span>(<span class="string">&quot;观察者:&quot;</span>, id, <span class="string">&quot;事件:&quot;</span>, <span class="variable">$0</span>) &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 从订阅开始向所有观察者广播新事件。</span></span><br><span class="line">example(<span class="string">&quot;PublishSubject&quot;</span>) &#123;</span><br><span class="line">    <span class="keyword">let</span> disposeBag <span class="operator">=</span> <span class="type">DisposeBag</span>()</span><br><span class="line">    <span class="keyword">let</span> subject <span class="operator">=</span> <span class="type">PublishSubject</span>&lt;<span class="type">String</span>&gt;()</span><br><span class="line"></span><br><span class="line">    subject.addObserver(<span class="string">&quot;1&quot;</span>).disposed(by: disposeBag)</span><br><span class="line">    subject.onNext(<span class="string">&quot;🐶&quot;</span>)</span><br><span class="line">    subject.onNext(<span class="string">&quot;🐱&quot;</span>)</span><br><span class="line"></span><br><span class="line">    subject.addObserver(<span class="string">&quot;2&quot;</span>).disposed(by: disposeBag)</span><br><span class="line">    subject.onNext(<span class="string">&quot;🅰️&quot;</span>)</span><br><span class="line">    subject.onNext(<span class="string">&quot;🅱️&quot;</span>)</span><br><span class="line">    </span><br><span class="line">    subject.onCompleted()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">--- PublishSubject example ---</span><br><span class="line">观察者: 1 事件: next(🐶)</span><br><span class="line">观察者: 1 事件: next(🐱)</span><br><span class="line">观察者: 1 事件: next(🅰️)</span><br><span class="line">观察者: 2 事件: next(🅰️)</span><br><span class="line">观察者: 1 事件: next(🅱️)</span><br><span class="line">观察者: 2 事件: next(🅱️)</span><br><span class="line">观察者: 1 事件: completed</span><br><span class="line">观察者: 2 事件: completed</span><br></pre></td></tr></table></figure>
+
+<h3 id="ReplaySubject"><a href="#ReplaySubject" class="headerlink" title="ReplaySubject"></a>ReplaySubject</h3><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/// Represents an object that is both an observable sequence as well as an observer.</span></span><br><span class="line"><span class="comment">///</span></span><br><span class="line"><span class="comment">/// Each notification is broadcasted to all subscribed and future observers, subject to buffer trimming policies.</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">ReplaySubject</span>&lt;<span class="title class_">Element</span>&gt;</span><br></pre></td></tr></table></figure>
+
+<p>ReplaySubject将临时缓存, 或缓冲区, 它们发出的最新元素, 由您选择的 speciﬁed 大小决定。然后, 他们会将该缓冲区重播到新订阅者。</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 向所有观察者广播新事件，并向新观察者广播之前指定的bufferSize大小的事件数。</span></span><br><span class="line">example(<span class="string">&quot;ReplaySubject&quot;</span>) &#123;</span><br><span class="line">    <span class="keyword">let</span> disposeBag <span class="operator">=</span> <span class="type">DisposeBag</span>()</span><br><span class="line">    <span class="keyword">let</span> subject <span class="operator">=</span> <span class="type">ReplaySubject</span>&lt;<span class="type">String</span>&gt;.create(bufferSize: <span class="number">1</span>)</span><br><span class="line"></span><br><span class="line">    subject.addObserver(<span class="string">&quot;1&quot;</span>).disposed(by: disposeBag)</span><br><span class="line">    subject.onNext(<span class="string">&quot;🐶&quot;</span>)</span><br><span class="line">    subject.onNext(<span class="string">&quot;🐱&quot;</span>)</span><br><span class="line"></span><br><span class="line">    subject.addObserver(<span class="string">&quot;2&quot;</span>).disposed(by: disposeBag)</span><br><span class="line">    subject.onNext(<span class="string">&quot;🅰️&quot;</span>)</span><br><span class="line">    subject.onNext(<span class="string">&quot;🅱️&quot;</span>)</span><br><span class="line">    </span><br><span class="line">    subject.onCompleted()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">--- ReplaySubject example ---</span><br><span class="line">观察者: 1 事件: next(🐶)</span><br><span class="line">观察者: 1 事件: next(🐱)</span><br><span class="line">观察者: 2 事件: next(🐱) // 相比PublishSubject多了订阅前一个事件</span><br><span class="line">观察者: 1 事件: next(🅰️)</span><br><span class="line">观察者: 2 事件: next(🅰️)</span><br><span class="line">观察者: 1 事件: next(🅱️)</span><br><span class="line">观察者: 2 事件: next(🅱️)</span><br><span class="line">观察者: 1 事件: completed</span><br><span class="line">观察者: 2 事件: completed</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="BehaviorSubject"><a href="#BehaviorSubject" class="headerlink" title="BehaviorSubject"></a>BehaviorSubject</h3><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/// Represents a value that changes over time.</span></span><br><span class="line"><span class="comment">/// Observers can subscribe to the subject to receive the last (or initial) value and all subsequent notifications.</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">class</span> <span class="title class_">BehaviorSubject</span>&lt;<span class="title class_">Element</span>&gt;</span><br></pre></td></tr></table></figure>
+
+<p>当您希望使用最新数据预先填充View时, BehaviorSubject非常有用。例如, 可以将用户详情页中的控件绑定到BehaviorSubject, 以便在应用程序获取新数据时, 可以使用最新值来预先填充显示。 </p>
+<p><img src="https://gewill.org/assets/RxSwiftBehaviorSubject.png" alt="RxSwiftBehaviorSubject"> </p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">example(<span class="string">&quot;BehaviorSubject&quot;</span>) &#123;</span><br><span class="line">    <span class="keyword">let</span> disposeBag <span class="operator">=</span> <span class="type">DisposeBag</span>()</span><br><span class="line">    <span class="keyword">let</span> subject <span class="operator">=</span> <span class="type">BehaviorSubject</span>(value: <span class="string">&quot;🔴&quot;</span>)</span><br><span class="line"></span><br><span class="line">    subject.addObserver(<span class="string">&quot;1&quot;</span>).disposed(by: disposeBag)</span><br><span class="line">    subject.onNext(<span class="string">&quot;🐶&quot;</span>)</span><br><span class="line">    subject.onNext(<span class="string">&quot;🐱&quot;</span>)</span><br><span class="line"></span><br><span class="line">    subject.addObserver(<span class="string">&quot;2&quot;</span>).disposed(by: disposeBag)</span><br><span class="line">    subject.onNext(<span class="string">&quot;🅰️&quot;</span>)</span><br><span class="line">    subject.onNext(<span class="string">&quot;🅱️&quot;</span>)</span><br><span class="line">  </span><br><span class="line">    subject.onCompleted()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">--- BehaviorSubject example ---</span><br><span class="line">观察者: 1 事件: next(🔴) // 相比ReplaySubject多了订阅前一个事件</span><br><span class="line">观察者: 1 事件: next(🐶)</span><br><span class="line">观察者: 1 事件: next(🐱)</span><br><span class="line">观察者: 2 事件: next(🐱)</span><br><span class="line">观察者: 1 事件: next(🅰️)</span><br><span class="line">观察者: 2 事件: next(🅰️)</span><br><span class="line">观察者: 1 事件: next(🅱️)</span><br><span class="line">观察者: 2 事件: next(🅱️)</span><br><span class="line">观察者: 1 事件: completed</span><br><span class="line">观察者: 2 事件: completed</span><br></pre></td></tr></table></figure>
+
+<h3 id="Relay"><a href="#Relay" class="headerlink" title="Relay"></a>Relay</h3><p>Relay在保持其replay行为的同时包装了subject。与其他subject不同，可以使用 <code>accept(_:)</code> 添加值，而非 <code>onNext(_:)</code>。这是因为Relay只能接受值，即不能向它们添加错误或已完成的事件。</p>
+<p>PublishRelay将包装PublishSubject ，而BehaviorRelay将包装BehaviorSubject。中继与包装主体的区别在于，它们可以保证永远不会终止。</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> RxRelay</span><br><span class="line"></span><br><span class="line">example(<span class="string">&quot;PublishRelay&quot;</span>) &#123;</span><br><span class="line">    <span class="keyword">let</span> disposeBag <span class="operator">=</span> <span class="type">DisposeBag</span>()</span><br><span class="line">    <span class="keyword">let</span> subject <span class="operator">=</span> <span class="type">PublishRelay</span>&lt;<span class="type">String</span>&gt;()</span><br><span class="line"></span><br><span class="line">    subject.addObserver(<span class="string">&quot;1&quot;</span>).disposed(by: disposeBag)</span><br><span class="line">    subject.accept(<span class="string">&quot;🐶&quot;</span>)</span><br><span class="line">    subject.accept(<span class="string">&quot;🐱&quot;</span>)</span><br><span class="line"></span><br><span class="line">    subject.addObserver(<span class="string">&quot;2&quot;</span>).disposed(by: disposeBag)</span><br><span class="line">    subject.accept(<span class="string">&quot;🅰️&quot;</span>)</span><br><span class="line">    subject.accept(<span class="string">&quot;🅱️&quot;</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">--- PublishRelay example ---</span><br><span class="line">观察者: 1 事件: next(🐶) //next事件和PublishSubject一样，少了completed事件</span><br><span class="line">观察者: 1 事件: next(🐱)</span><br><span class="line">观察者: 1 事件: next(🅰️)</span><br><span class="line">观察者: 2 事件: next(🅰️)</span><br><span class="line">观察者: 1 事件: next(🅱️)</span><br><span class="line">观察者: 2 事件: next(🅱️)</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> RxRelay</span><br><span class="line"></span><br><span class="line">example(<span class="string">&quot;BehaviorRelay&quot;</span>) &#123;</span><br><span class="line">    <span class="keyword">let</span> disposeBag <span class="operator">=</span> <span class="type">DisposeBag</span>()</span><br><span class="line">    <span class="keyword">let</span> subject <span class="operator">=</span> <span class="type">BehaviorRelay</span>&lt;<span class="type">String</span>&gt;(value: <span class="string">&quot;🔴&quot;</span>)</span><br><span class="line"></span><br><span class="line">    subject.addObserver(<span class="string">&quot;1&quot;</span>).disposed(by: disposeBag)</span><br><span class="line">    subject.accept(<span class="string">&quot;🐶&quot;</span>)</span><br><span class="line">    subject.accept(<span class="string">&quot;🐱&quot;</span>)</span><br><span class="line"></span><br><span class="line">    subject.addObserver(<span class="string">&quot;2&quot;</span>).disposed(by: disposeBag)</span><br><span class="line">    subject.accept(<span class="string">&quot;🅰️&quot;</span>)</span><br><span class="line">    subject.accept(<span class="string">&quot;🅱️&quot;</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">--- BehaviorRelay example ---</span><br><span class="line">观察者: 1 事件: next(🔴)  //next事件和BehaviorSubject，少了completed事件</span><br><span class="line">观察者: 1 事件: next(🐶)</span><br><span class="line">观察者: 1 事件: next(🐱)</span><br><span class="line">观察者: 2 事件: next(🐱)</span><br><span class="line">观察者: 1 事件: next(🅰️)</span><br><span class="line">观察者: 2 事件: next(🅰️)</span><br><span class="line">观察者: 1 事件: next(🅱️)</span><br><span class="line">观察者: 2 事件: next(🅱️)</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="第四章：Observables-和-Subjects-实践"><a href="#第四章：Observables-和-Subjects-实践" class="headerlink" title="第四章：Observables 和 Subjects 实践"></a>第四章：Observables 和 Subjects 实践</h2><p>本章重点是在一个完整的应用开发中使用RxSwift，一步一步的学会如何把概念应用到实际项目中。</p>
+<h3 id="在-view-controller-中使用-subject-x2F-relay"><a href="#在-view-controller-中使用-subject-x2F-relay" class="headerlink" title="在 view controller 中使用 subject&#x2F;relay"></a>在 view controller 中使用 subject&#x2F;relay</h3><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">override</span> <span class="keyword">func</span> <span class="title function_">viewDidLoad</span>() &#123;</span><br><span class="line">  <span class="keyword">super</span>.viewDidLoad()</span><br><span class="line"></span><br><span class="line">  images</span><br><span class="line">    .subscribe(onNext: &#123; [<span class="keyword">weak</span> imagePreview] photos <span class="keyword">in</span></span><br><span class="line">      <span class="keyword">guard</span> <span class="keyword">let</span> preview <span class="operator">=</span> imagePreview <span class="keyword">else</span> &#123; <span class="keyword">return</span> &#125;</span><br><span class="line">      preview.image <span class="operator">=</span> photos.collage(size: preview.frame.size)</span><br><span class="line">    &#125;)</span><br><span class="line">    .disposed(by: bag)</span><br><span class="line"></span><br><span class="line">  images</span><br><span class="line">    .subscribe(onNext: &#123; [<span class="keyword">weak</span> <span class="keyword">self</span>] photos <span class="keyword">in</span></span><br><span class="line">      <span class="keyword">self</span><span class="operator">?</span>.updateUI(photos: photos)</span><br><span class="line">    &#125;)</span><br><span class="line">    .disposed(by: bag)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="使用-subject-在-view-controller-之间传值"><a href="#使用-subject-在-view-controller-之间传值" class="headerlink" title="使用 subject 在 view controller 之间传值"></a>使用 subject 在 view controller 之间传值</h3><p>view controller 之间传值可以通过 delegate，但是用 subject 更好。</p>
+<p><img src="https://gewill.org/assets/Talkingtootherviewcontrollersviadelegate.jpg" alt="Talkingtootherviewcontrollersviadelegate"></p>
+<p><img src="https://gewill.org/assets/Talkingtootherviewcontrollersviasubjects.jpg" alt="Talkingtootherviewcontrollersviasubjects"></p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">@IBAction</span> <span class="keyword">func</span> <span class="title function_">actionAdd</span>() &#123;</span><br><span class="line">    <span class="keyword">let</span> photosViewController <span class="operator">=</span> storyboard<span class="operator">!</span>.instantiateViewController(</span><br><span class="line">        withIdentifier: <span class="string">&quot;PhotosViewController&quot;</span>) <span class="keyword">as!</span> <span class="type">PhotosViewController</span></span><br><span class="line"></span><br><span class="line">    navigationController<span class="operator">!</span>.pushViewController(photosViewController, animated: <span class="literal">true</span>)</span><br><span class="line"></span><br><span class="line">    photosViewController.selectedPhotos</span><br><span class="line">        .subscribe(</span><br><span class="line">            onNext: &#123; [<span class="keyword">weak</span> <span class="keyword">self</span>] newImage <span class="keyword">in</span></span><br><span class="line">                <span class="keyword">guard</span> <span class="keyword">let</span> images <span class="operator">=</span> <span class="keyword">self</span><span class="operator">?</span>.images <span class="keyword">else</span> &#123; <span class="keyword">return</span> &#125;</span><br><span class="line">                images.accept(images.value <span class="operator">+</span> [newImage])</span><br><span class="line">            &#125;,</span><br><span class="line">            onDisposed: &#123;</span><br><span class="line">                <span class="built_in">print</span>(<span class="string">&quot;completed photo selection&quot;</span>)</span><br><span class="line">            &#125;</span><br><span class="line">        )</span><br><span class="line">        .disposed(by: bag)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="封装已有API为Observable"><a href="#封装已有API为Observable" class="headerlink" title="封装已有API为Observable"></a>封装已有API为Observable</h3><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> Foundation</span><br><span class="line"><span class="keyword">import</span> Photos</span><br><span class="line"><span class="keyword">import</span> RxSwift</span><br><span class="line"><span class="keyword">import</span> UIKit</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">PhotoWriter</span> &#123;</span><br><span class="line">  <span class="keyword">enum</span> <span class="title class_">Errors</span>: <span class="title class_">Error</span> &#123;</span><br><span class="line">    <span class="keyword">case</span> couldNotSavePhoto</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">static</span> <span class="keyword">func</span> <span class="title function_">save</span>(<span class="keyword">_</span> <span class="params">image</span>: <span class="type">UIImage</span>) -&gt; <span class="type">Observable</span>&lt;<span class="type">String</span>&gt; &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="type">Observable</span>.create &#123; observer <span class="keyword">in</span></span><br><span class="line">      <span class="keyword">var</span> savedAssetId: <span class="type">String</span>?</span><br><span class="line">      <span class="type">PHPhotoLibrary</span>.shared().performChanges(&#123;</span><br><span class="line">        <span class="keyword">let</span> request <span class="operator">=</span> <span class="type">PHAssetChangeRequest</span>.creationRequestForAsset(from: image)</span><br><span class="line">        savedAssetId <span class="operator">=</span> request.placeholderForCreatedAsset<span class="operator">?</span>.localIdentifier</span><br><span class="line">      &#125;, completionHandler: &#123; success, error <span class="keyword">in</span></span><br><span class="line">        <span class="type">DispatchQueue</span>.main.async &#123;</span><br><span class="line">          <span class="keyword">if</span> success, <span class="keyword">let</span> id <span class="operator">=</span> savedAssetId &#123;</span><br><span class="line">            observer.onNext(id)</span><br><span class="line">            observer.onCompleted()</span><br><span class="line">          &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            observer.onError(error <span class="operator">??</span> <span class="type">Errors</span>.couldNotSavePhoto)</span><br><span class="line">          &#125;</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;)</span><br><span class="line"></span><br><span class="line">      <span class="keyword">return</span> <span class="type">Disposables</span>.create()</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="RxSwift-traits-实践"><a href="#RxSwift-traits-实践" class="headerlink" title="RxSwift traits 实践"></a>RxSwift traits 实践</h3><h4 id="Single"><a href="#Single" class="headerlink" title="Single"></a>Single</h4><p>Single 只有<code>.success</code> 或 <code>.error</code> 两种事件 。适合作为封装网络接口的返回值，要么成功，要么失败。<img src="https://gewill.org/assets/single.jpg" alt="single"></p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">PhotoWriter</span>.save(image)</span><br><span class="line">      .asSingle()</span><br><span class="line">      .subscribe(onSuccess: &#123; [<span class="keyword">weak</span> <span class="keyword">self</span>] id <span class="keyword">in</span></span><br><span class="line">        <span class="keyword">self</span><span class="operator">?</span>.showMessage(<span class="string">&quot;Saved with id: <span class="subst">\(id)</span>&quot;</span>)</span><br><span class="line">        <span class="keyword">self</span><span class="operator">?</span>.actionClear()</span><br><span class="line">        &#125;, onError: &#123; [<span class="keyword">weak</span> <span class="keyword">self</span>] error <span class="keyword">in</span></span><br><span class="line">          <span class="keyword">self</span><span class="operator">?</span>.showMessage(<span class="string">&quot;Error&quot;</span>, description: error.localizedDescription)</span><br><span class="line">      &#125;)</span><br><span class="line">      .disposed(by: bag)</span><br></pre></td></tr></table></figure>
+
+<h4 id="Maybe"><a href="#Maybe" class="headerlink" title="Maybe"></a>Maybe</h4><p>Maybe 有三种事件：<code>.success</code>、<code>.completed</code> 和 <code>.error</code> 。</p>
+<p>和 Single 一样，你既可以通过 <code>Maybe.create(&#123; ... &#125;)</code> 直接创建，也可以使用 <code>.asMaybe()</code></p>
+<p><img src="https://gewill.org/assets/maybe.jpg" alt="maybe"></p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">PhotoWriter</span>.save(image)</span><br><span class="line">    .asMaybe()</span><br><span class="line">    .subscribe(</span><br><span class="line">        onSuccess: &#123; [<span class="keyword">weak</span> <span class="keyword">self</span>] id <span class="keyword">in</span></span><br><span class="line">            <span class="keyword">self</span><span class="operator">?</span>.showMessage(<span class="string">&quot;Saved with id: <span class="subst">\(id)</span>&quot;</span>)</span><br><span class="line">            <span class="keyword">self</span><span class="operator">?</span>.actionClear()</span><br><span class="line">        &#125;,</span><br><span class="line">        onError: &#123; [<span class="keyword">weak</span> <span class="keyword">self</span>] error <span class="keyword">in</span></span><br><span class="line">            <span class="keyword">self</span><span class="operator">?</span>.showMessage(<span class="string">&quot;Error&quot;</span>, description: error.localizedDescription)</span><br><span class="line">        &#125;,</span><br><span class="line">        onCompleted: &#123; [<span class="keyword">weak</span> <span class="keyword">self</span>] <span class="keyword">in</span></span><br><span class="line">            <span class="keyword">self</span><span class="operator">?</span>.showMessage(<span class="string">&quot;Saved&quot;</span>)</span><br><span class="line">        &#125;</span><br><span class="line">    )</span><br><span class="line">    .disposed(by: bag)</span><br></pre></td></tr></table></figure>
+
+<h4 id="Completable"><a href="#Completable" class="headerlink" title="Completable"></a>Completable</h4><p>Completable 只有<code>.completed</code> 和 <code>.error</code> 两种事件。适合只关心是否完成，而不需要传递value的情况。使用方法：<code>Completable.create(&#123; ... &#125;)</code></p>
+<p><img src="https://gewill.org/assets/completable.jpg" alt="completable"></p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">PhotoWriter</span> &#123;</span><br><span class="line">  <span class="keyword">enum</span> <span class="title class_">Errors</span>: <span class="title class_">Error</span> &#123;</span><br><span class="line">    <span class="keyword">case</span> couldNotSavePhoto</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">static</span> <span class="keyword">func</span> <span class="title function_">save</span>(<span class="keyword">_</span> <span class="params">image</span>: <span class="type">UIImage</span>) -&gt; <span class="type">Completable</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="type">Completable</span>.create &#123; completable <span class="keyword">in</span></span><br><span class="line">      <span class="type">PHPhotoLibrary</span>.shared().performChanges(&#123;</span><br><span class="line">        <span class="type">PHAssetChangeRequest</span>.creationRequestForAsset(from: image)</span><br><span class="line">      &#125;, completionHandler: &#123; success, error <span class="keyword">in</span></span><br><span class="line">        <span class="type">DispatchQueue</span>.main.async &#123;</span><br><span class="line">          <span class="keyword">if</span> success &#123;</span><br><span class="line">            completable(.completed)</span><br><span class="line">          &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            completable(.error(error <span class="operator">??</span> <span class="type">Errors</span>.couldNotSavePhoto))</span><br><span class="line">          &#125;</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;)</span><br><span class="line">      <span class="keyword">return</span> <span class="type">Disposables</span>.create()</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="type">PhotoWriter</span>.save(image)</span><br><span class="line">  .subscribe(</span><br><span class="line">    onCompleted: &#123; [<span class="keyword">weak</span> <span class="keyword">self</span>] <span class="keyword">in</span></span><br><span class="line">      <span class="keyword">self</span><span class="operator">?</span>.showMessage(<span class="string">&quot;Saved&quot;</span>)</span><br><span class="line">    &#125;,</span><br><span class="line">    onError: &#123; [<span class="keyword">weak</span> <span class="keyword">self</span>] error <span class="keyword">in</span></span><br><span class="line">      <span class="keyword">self</span><span class="operator">?</span>.showMessage(<span class="string">&quot;Error&quot;</span>, description: error.localizedDescription)</span><br><span class="line">    &#125;</span><br><span class="line">  )</span><br><span class="line">  .disposed(by: bag)</span><br></pre></td></tr></table></figure>
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Swift/" rel="tag"># Swift</a>
+              <a href="/tags/RxSwift/" rel="tag"># RxSwift</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2018/05/10/Realm-Notes-2/" rel="prev" title="Realm 笔记(二)">
+                  <i class="fa fa-chevron-left"></i> Realm 笔记(二)
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2018/08/01/RxSwift-%E2%85%A1/" rel="next" title="RxSwift Ⅱ：操作符和最佳实践">
+                  RxSwift Ⅱ：操作符和最佳实践 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2025</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">Ge Will</span>
+  </div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/pisces/" rel="noopener" target="_blank">NexT.Pisces</a>
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="back-to-top" role="button" aria-label="Back to top">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.1/search.js" integrity="sha256-1kfA5uHPf65M5cphT2dvymhkuyHPQp5A53EGZOnOLmc=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>

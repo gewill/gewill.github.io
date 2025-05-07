@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 6.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha256-HtsXJanqjKTc8vVQjO4YMhiqFoXkfBsjBWcX91T1jr8=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Pisces","darkmode":true,"version":"8.17.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":true,"style":"mac"},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"},"path":"/search.json","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="最近项目写 Core Data 感觉之前的看过零碎的知识忘记的差不多了，又遇到异步处理的问题。重新看了一些资料，总结了一些要点如下。 1. Core Data 是一个 对象图管理和存储框架。简单明确的属性和关系以及获取，都已封装好。不管底层数据库的实现，开发者只需关心数据和获取就行了。 2.图形化编辑器：xcdatamodel  managed object model ：  属性支持 NSDat">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Core Data - Notes">
+<meta property="og:url" content="http://example.com/2016/04/28/Core-Data-Notes/index.html">
+<meta property="og:site_name" content="Will&#39;s Blog">
+<meta property="og:description" content="最近项目写 Core Data 感觉之前的看过零碎的知识忘记的差不多了，又遇到异步处理的问题。重新看了一些资料，总结了一些要点如下。 1. Core Data 是一个 对象图管理和存储框架。简单明确的属性和关系以及获取，都已封装好。不管底层数据库的实现，开发者只需关心数据和获取就行了。 2.图形化编辑器：xcdatamodel  managed object model ：  属性支持 NSDat">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2016-04-28T15:39:00.000Z">
+<meta property="article:modified_time" content="2025-01-13T03:01:04.060Z">
+<meta property="article:author" content="Ge Will">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="http://example.com/2016/04/28/Core-Data-Notes/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"en","comments":true,"permalink":"http://example.com/2016/04/28/Core-Data-Notes/","path":"2016/04/28/Core-Data-Notes/","title":"Core Data - Notes"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>Core Data - Notes | Will's Blog</title>
+  
+
+
+
+
+
+
+
+<head>
+    <!-- 霞鹜文楷字体 -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lxgw-wenkai-webfont@1.7.0/style.css"/>
+
+    <!-- datapulse统计 -->
+    <script defer type="text/javascript" src="https://datapulse.app/datapulse.min.js" id="datapulse" data-endpoint="https://datapulse.app/api/v1/event" data-workspace="cljxqml5q0y0f8j37d4futnbl"></script>
+
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-DR0FC9YJLH"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() {
+            dataLayer.push(arguments);
+        }
+        gtag('js', new Date());
+
+        gtag('config', 'G-DR0FC9YJLH');
+    </script>
+</head>
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Will's Blog</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="Search" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives<span class="badge">198</span></a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags<span class="badge">17</span></a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories<span class="badge">1</span></a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="Searching..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1"><span class="nav-number">1.</span> <span class="nav-text">1.</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2"><span class="nav-number">2.</span> <span class="nav-text">2.</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3"><span class="nav-number">3.</span> <span class="nav-text">3.</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4"><span class="nav-number">4.</span> <span class="nav-text">4.</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5"><span class="nav-number">5.</span> <span class="nav-text">5.</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#6"><span class="nav-number">6.</span> <span class="nav-text">6.</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#7"><span class="nav-number">7.</span> <span class="nav-text">7.</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#8"><span class="nav-number">8.</span> <span class="nav-text">8.</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#9-%E5%8F%82%E8%80%83%E8%B5%84%E6%96%99"><span class="nav-number">9.</span> <span class="nav-text">9. 参考资料</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Ge Will"
+      src="/images/avatar.jpeg">
+  <p class="site-author-name" itemprop="name">Ge Will</p>
+  <div class="site-description" itemprop="description">The people who are crazy enough to think they can change the world, are the ones who DO.</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">198</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">17</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/gewill" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;gewill" rel="noopener me" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:531sunlight@gmail.com" title="E-Mail → mailto:531sunlight@gmail.com" rel="noopener me" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://weibo.com/gewei" title="Weibo → https:&#x2F;&#x2F;weibo.com&#x2F;gewei" rel="noopener me" target="_blank"><i class="fab fa-weibo fa-fw"></i>Weibo</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://twitter.com/BoJack_D" title="Twitter → https:&#x2F;&#x2F;twitter.com&#x2F;BoJack_D" rel="noopener me" target="_blank"><i class="fab fa-twitter fa-fw"></i>Twitter</a>
+      </span>
+  </div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2016/04/28/Core-Data-Notes/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpeg">
+      <meta itemprop="name" content="Ge Will">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Will's Blog">
+      <meta itemprop="description" content="The people who are crazy enough to think they can change the world, are the ones who DO.">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="Core Data - Notes | Will's Blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Core Data - Notes
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2016-04-28 23:39:00" itemprop="dateCreated datePublished" datetime="2016-04-28T23:39:00+08:00">2016-04-28</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">Edited on</span>
+      <time title="Modified: 2025-01-13 11:01:04" itemprop="dateModified" datetime="2025-01-13T11:01:04+08:00">2025-01-13</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><p>最近项目写 Core Data 感觉之前的看过零碎的知识忘记的差不多了，又遇到异步处理的问题。重新看了一些资料，总结了一些要点如下。</p>
+<h2 id="1"><a href="#1" class="headerlink" title="1."></a>1.</h2><p> Core Data 是一个 对象图管理和存储框架。简单明确的属性和关系以及获取，都已封装好。不管底层数据库的实现，开发者只需关心数据和获取就行了。</p>
+<h2 id="2"><a href="#2" class="headerlink" title="2."></a>2.</h2><p>图形化编辑器：xcdatamodel </p>
+<p>managed object model ：</p>
+<ul>
+<li>属性支持 NSData：Binary Data 和符合 NSCoding protocol 的类型：Transformable</li>
+<li>关系建议采取 inverse</li>
+<li>关系一对多和一对一，其中有有序和无序的一对多的关系，分别为 NSSet 和 NSOrderedSet，具体可以参考这样文章</li>
+</ul>
+<p>Core Data and Swift: Relationships and More Fetching ：<br><a target="_blank" rel="noopener" href="http://code.tutsplus.com/tutorials/core-data-and-swift-relationships-and-more-fetching--cms-25070">http://code.tutsplus.com/tutorials/core-data-and-swift-relationships-and-more-fetching--cms-25070
+</a> </p>
+<h2 id="3"><a href="#3" class="headerlink" title="3."></a>3.</h2><p>  Core Data Stack 涉及四个类：</p>
+<ul>
+<li>NSManagedObjectModel</li>
+<li>NSPersistentStore</li>
+<li>NSPersistentStoreCoordinator</li>
+<li>NSManagedObjectContext</li>
+</ul>
+<h2 id="4"><a href="#4" class="headerlink" title="4."></a>4.</h2><p>NSManagedObjectContext：</p>
+<ul>
+<li>内存寄存器来处理 managed objects</li>
+<li>记得 save()</li>
+<li>掌管 managed objects 生命周期包括创建和获取</li>
+<li>managed object 不能独立于 context 存在</li>
+<li>context 具有领域性，一旦一个 managed object 被管理在一个 context ，将会在其整个生命周期绑定该 context</li>
+<li>支持多个 context</li>
+<li><strong>context 不是线程安全的</strong></li>
+</ul>
+<h2 id="5"><a href="#5" class="headerlink" title="5."></a>5.</h2><p>如何配置 Core Data Stack：</p>
+<p>其中 lazy、try catch 等技术细节不用多解释，后面在介绍多个 context 和异步处理的线程安全问题。</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> CoreData</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">CoreDataStack</span> &#123;</span><br><span class="line">  </span><br><span class="line">  <span class="keyword">let</span> modelName <span class="operator">=</span> <span class="string">&quot;Dog Walk&quot;</span></span><br><span class="line">  </span><br><span class="line">  <span class="keyword">lazy</span> <span class="keyword">var</span> context: <span class="type">NSManagedObjectContext</span> <span class="operator">=</span> &#123;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">var</span> managedObjectContext <span class="operator">=</span> <span class="type">NSManagedObjectContext</span>(</span><br><span class="line">      concurrencyType: .<span class="type">MainQueueConcurrencyType</span>)</span><br><span class="line">    </span><br><span class="line">    managedObjectContext.persistentStoreCoordinator <span class="operator">=</span> <span class="keyword">self</span>.psc</span><br><span class="line">    <span class="keyword">return</span> managedObjectContext</span><br><span class="line">    &#125;()</span><br><span class="line">  </span><br><span class="line">  <span class="keyword">private</span> <span class="keyword">lazy</span> <span class="keyword">var</span> psc: <span class="type">NSPersistentStoreCoordinator</span> <span class="operator">=</span> &#123;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">let</span> coordinator <span class="operator">=</span> <span class="type">NSPersistentStoreCoordinator</span>(</span><br><span class="line">      managedObjectModel: <span class="keyword">self</span>.managedObjectModel)</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">let</span> url <span class="operator">=</span> <span class="keyword">self</span>.applicationDocumentsDirectory</span><br><span class="line">      .<span class="type">URLByAppendingPathComponent</span>(<span class="keyword">self</span>.modelName)</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">do</span> &#123;</span><br><span class="line">      <span class="keyword">let</span> options <span class="operator">=</span></span><br><span class="line">      [<span class="type">NSMigratePersistentStoresAutomaticallyOption</span> : <span class="literal">true</span>]</span><br><span class="line">      </span><br><span class="line">      <span class="keyword">try</span> coordinator.addPersistentStoreWithType(</span><br><span class="line">        <span class="type">NSSQLiteStoreType</span>, configuration: <span class="literal">nil</span>, URL: url,</span><br><span class="line">        options: options)</span><br><span class="line">    &#125; <span class="keyword">catch</span>  &#123;</span><br><span class="line">      <span class="built_in">print</span>(<span class="string">&quot;Error adding persistent store.&quot;</span>)</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> coordinator</span><br><span class="line">    &#125;()</span><br><span class="line">  </span><br><span class="line">  <span class="keyword">private</span> <span class="keyword">lazy</span> <span class="keyword">var</span> managedObjectModel: <span class="type">NSManagedObjectModel</span> <span class="operator">=</span> &#123;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">let</span> modelURL <span class="operator">=</span> <span class="type">NSBundle</span>.mainBundle()</span><br><span class="line">      .<span class="type">URLForResource</span>(<span class="keyword">self</span>.modelName,</span><br><span class="line">        withExtension: <span class="string">&quot;momd&quot;</span>)<span class="operator">!</span></span><br><span class="line">    <span class="keyword">return</span> <span class="type">NSManagedObjectModel</span>(contentsOfURL: modelURL)<span class="operator">!</span></span><br><span class="line">    &#125;()</span><br><span class="line">  </span><br><span class="line">  <span class="keyword">private</span> <span class="keyword">lazy</span> <span class="keyword">var</span> applicationDocumentsDirectory: <span class="type">NSURL</span> <span class="operator">=</span> &#123;</span><br><span class="line">    <span class="keyword">let</span> urls <span class="operator">=</span> <span class="type">NSFileManager</span>.defaultManager().<span class="type">URLsForDirectory</span>(</span><br><span class="line">      .<span class="type">DocumentDirectory</span>, inDomains: .<span class="type">UserDomainMask</span>)</span><br><span class="line">    <span class="keyword">return</span> urls[urls.count<span class="operator">-</span><span class="number">1</span>]</span><br><span class="line">    &#125;()</span><br><span class="line">  </span><br><span class="line">  <span class="keyword">func</span> <span class="title function_">saveContext</span> () &#123;</span><br><span class="line">    <span class="keyword">if</span> context.hasChanges &#123;</span><br><span class="line">      <span class="keyword">do</span> &#123;</span><br><span class="line">        <span class="keyword">try</span> context.save()</span><br><span class="line">      &#125; <span class="keyword">catch</span> <span class="keyword">let</span> error <span class="keyword">as</span> <span class="type">NSError</span> &#123;</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;Error: <span class="subst">\(error.localizedDescription)</span>&quot;</span>)</span><br><span class="line">        abort()</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="6"><a href="#6" class="headerlink" title="6."></a>6.</h2><p>Fetch</p>
+<ul>
+<li>NSManagedObjectResultType: 默认值，返回 managed objects </li>
+<li>NSCountResultType: 返回 count</li>
+<li>NSDictionaryResultType:  返回一个计算后值，如 sum。详细用法可以看文档 NSExpression</li>
+<li>NSManagedObjectIDResultType:</li>
+</ul>
+<p>从性能优化的角度，可以考虑时候后面的几个类型。<br>iOS8异步fetch：NSAsynchronousFetchRequest、批量更新&#x2F;删除属性</p>
+<h2 id="7"><a href="#7" class="headerlink" title="7."></a>7.</h2><p>fetched results controller 可以帮助我们处理 core data 和 table view datasource，可以简单的看成专用的 datasource。</p>
+<p>记得添加 cacheName</p>
+<h2 id="8"><a href="#8" class="headerlink" title="8."></a>8.</h2><p>后台处理使用 context PrivateQueueConcurrencyType，默认使用 MainQueueConcurrencyType，尤其设计 UI。</p>
+<p>可以使用 child context，先保存 child context 至 内存寄存器，一直到 parent context 保存后，才会保存至硬盘。</p>
+<p>这里就涉及一个好的实践：有多个 context 总是调用 performBlock 来保证安全。</p>
+<p>下面是一个 private context 后台处理，回到主线程的实践：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">// 1</span></span><br><span class="line"><span class="keyword">let</span> privateContext <span class="operator">=</span> <span class="type">NSManagedObjectContext</span>(</span><br><span class="line">    concurrencyType: .<span class="type">PrivateQueueConcurrencyType</span>)</span><br><span class="line">privateContext.persistentStoreCoordinator <span class="operator">=</span></span><br><span class="line">    coreDataStack.context.persistentStoreCoordinator</span><br><span class="line"></span><br><span class="line"><span class="comment">// 2</span></span><br><span class="line">privateContext.performBlock &#123; () -&gt; <span class="type">Void</span> <span class="keyword">in</span></span><br><span class="line">    <span class="comment">// 3</span></span><br><span class="line">    <span class="keyword">let</span> results: [<span class="type">AnyObject</span>]</span><br><span class="line">    <span class="keyword">do</span> &#123;</span><br><span class="line">        results <span class="operator">=</span> <span class="keyword">try</span> <span class="keyword">self</span>.coreDataStack.context</span><br><span class="line">            .executeFetchRequest(<span class="keyword">self</span>.surfJournalFetchRequest())</span><br><span class="line">    &#125; <span class="keyword">catch</span> &#123;</span><br><span class="line">        <span class="keyword">let</span> nserror <span class="operator">=</span> error <span class="keyword">as</span> <span class="type">NSError</span></span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;ERROR: <span class="subst">\(nserror)</span>&quot;</span>)</span><br><span class="line">        results <span class="operator">=</span> []</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">let</span> exportFilePath <span class="operator">=</span></span><br><span class="line">        <span class="type">NSTemporaryDirectory</span>() <span class="operator">+</span> <span class="string">&quot;export.csv&quot;</span></span><br><span class="line">    <span class="keyword">let</span> exportFileURL <span class="operator">=</span> <span class="type">NSURL</span>(fileURLWithPath: exportFilePath)</span><br><span class="line">    <span class="type">NSFileManager</span>.defaultManager().createFileAtPath(</span><br><span class="line">        exportFilePath, contents: <span class="type">NSData</span>(), attributes: <span class="literal">nil</span>)</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 3</span></span><br><span class="line">    <span class="keyword">let</span> fileHandle: <span class="type">NSFileHandle</span>?</span><br><span class="line">    <span class="keyword">do</span> &#123;</span><br><span class="line">        fileHandle <span class="operator">=</span> <span class="keyword">try</span> <span class="type">NSFileHandle</span>(forWritingToURL: exportFileURL)</span><br><span class="line">    &#125; <span class="keyword">catch</span> &#123;</span><br><span class="line">        <span class="keyword">let</span> nserror <span class="operator">=</span> error <span class="keyword">as</span> <span class="type">NSError</span></span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;ERROR: <span class="subst">\(nserror)</span>&quot;</span>)</span><br><span class="line">        fileHandle <span class="operator">=</span> <span class="literal">nil</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">let</span> fileHandle <span class="operator">=</span> fileHandle &#123;</span><br><span class="line">        <span class="comment">// 4</span></span><br><span class="line">        <span class="keyword">for</span> object <span class="keyword">in</span> results &#123;</span><br><span class="line">            <span class="keyword">let</span> journalEntry <span class="operator">=</span> object <span class="keyword">as!</span> <span class="type">JournalEntry</span></span><br><span class="line"></span><br><span class="line">            fileHandle.seekToEndOfFile()</span><br><span class="line">            <span class="keyword">let</span> csvData <span class="operator">=</span> journalEntry.csv().dataUsingEncoding(</span><br><span class="line">                <span class="type">NSUTF8StringEncoding</span>, allowLossyConversion: <span class="literal">false</span>)</span><br><span class="line">            fileHandle.writeData(csvData<span class="operator">!</span>)</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 5</span></span><br><span class="line">        fileHandle.closeFile()</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 4</span></span><br><span class="line">        dispatch_async(dispatch_get_main_queue(), &#123; () -&gt; <span class="type">Void</span> <span class="keyword">in</span></span><br><span class="line">            <span class="keyword">self</span>.navigationItem.leftBarButtonItem <span class="operator">=</span></span><br><span class="line">                <span class="keyword">self</span>.exportBarButtonItem()</span><br><span class="line">            <span class="built_in">print</span>(<span class="string">&quot;Export Path: <span class="subst">\(exportFilePath)</span>&quot;</span>)</span><br><span class="line">            <span class="keyword">self</span>.showExportFinishedAlertView(exportFilePath)</span><br><span class="line">        &#125;)</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        dispatch_async(dispatch_get_main_queue(), &#123; () -&gt; <span class="type">Void</span> <span class="keyword">in</span></span><br><span class="line">            <span class="keyword">self</span>.navigationItem.leftBarButtonItem <span class="operator">=</span></span><br><span class="line">                <span class="keyword">self</span>.exportBarButtonItem()</span><br><span class="line">        &#125;)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125; <span class="comment">// 5 Closing brace for performBlock()</span></span><br><span class="line">    </span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h2 id="9-参考资料"><a href="#9-参考资料" class="headerlink" title="9. 参考资料"></a>9. 参考资料</h2><ul>
+<li>走进Core Data的世界：<br>  <a target="_blank" rel="noopener" href="http://liuduo.me/2016/03/12/gointocoredata/">http://liuduo.me/2016/03/12/gointocoredata/</a></li>
+<li>Core Data by Tutorials:<br>   <a target="_blank" rel="noopener" href="https://www.raywenderlich.com/store/core-data-by-tutorials">https://www.raywenderlich.com/store/core-data-by-tutorials
+</a></li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2016/04/22/AVFoundation-Camera-Swift/" rel="prev" title="AVFoundation Camera Swift">
+                  <i class="fa fa-chevron-left"></i> AVFoundation Camera Swift
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2016/05/03/AVFoundation-Programming-Guide-Export/" rel="next" title="AVFoundation Programming Guide - Export">
+                  AVFoundation Programming Guide - Export <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2025</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">Ge Will</span>
+  </div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/pisces/" rel="noopener" target="_blank">NexT.Pisces</a>
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="back-to-top" role="button" aria-label="Back to top">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.1/search.js" integrity="sha256-1kfA5uHPf65M5cphT2dvymhkuyHPQp5A53EGZOnOLmc=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>

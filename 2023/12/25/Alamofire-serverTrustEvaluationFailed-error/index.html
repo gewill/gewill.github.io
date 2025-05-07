@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 6.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha256-HtsXJanqjKTc8vVQjO4YMhiqFoXkfBsjBWcX91T1jr8=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Pisces","darkmode":true,"version":"8.17.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":true,"style":"mac"},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"},"path":"/search.json","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="serverTrustEvaluationFailed 错误12345678Printing description of error:▿ AFError  ▿ serverTrustEvaluationFailed : 1 element    ▿ reason : ServerTrustFailureReason      ▿ noRequiredEvaluator : 1 element">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Alamofire serverTrustEvaluationFailed 错误分析">
+<meta property="og:url" content="http://example.com/2023/12/25/Alamofire-serverTrustEvaluationFailed-error/index.html">
+<meta property="og:site_name" content="Will&#39;s Blog">
+<meta property="og:description" content="serverTrustEvaluationFailed 错误12345678Printing description of error:▿ AFError  ▿ serverTrustEvaluationFailed : 1 element    ▿ reason : ServerTrustFailureReason      ▿ noRequiredEvaluator : 1 element">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2023-12-25T12:41:13.000Z">
+<meta property="article:modified_time" content="2025-01-13T03:01:04.058Z">
+<meta property="article:author" content="Ge Will">
+<meta property="article:tag" content="Network">
+<meta property="article:tag" content="Swift">
+<meta property="article:tag" content="Alamofire">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="http://example.com/2023/12/25/Alamofire-serverTrustEvaluationFailed-error/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"en","comments":true,"permalink":"http://example.com/2023/12/25/Alamofire-serverTrustEvaluationFailed-error/","path":"2023/12/25/Alamofire-serverTrustEvaluationFailed-error/","title":"Alamofire serverTrustEvaluationFailed 错误分析"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>Alamofire serverTrustEvaluationFailed 错误分析 | Will's Blog</title>
+  
+
+
+
+
+
+
+
+<head>
+    <!-- 霞鹜文楷字体 -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lxgw-wenkai-webfont@1.7.0/style.css"/>
+
+    <!-- datapulse统计 -->
+    <script defer type="text/javascript" src="https://datapulse.app/datapulse.min.js" id="datapulse" data-endpoint="https://datapulse.app/api/v1/event" data-workspace="cljxqml5q0y0f8j37d4futnbl"></script>
+
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-DR0FC9YJLH"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() {
+            dataLayer.push(arguments);
+        }
+        gtag('js', new Date());
+
+        gtag('config', 'G-DR0FC9YJLH');
+    </script>
+</head>
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Will's Blog</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="Search" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives<span class="badge">198</span></a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags<span class="badge">17</span></a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories<span class="badge">1</span></a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="Searching..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#serverTrustEvaluationFailed-%E9%94%99%E8%AF%AF"><span class="nav-number">1.</span> <span class="nav-text">serverTrustEvaluationFailed 错误</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%8E%9F%E5%9B%A0%E6%98%AF%E9%85%8D%E7%BD%AE%E4%BA%86%E7%99%BD%E5%90%8D%E5%8D%95"><span class="nav-number">2.</span> <span class="nav-text">原因是配置了白名单</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%8E%9F%E7%90%86-TLS-Server-Trust"><span class="nav-number">3.</span> <span class="nav-text">原理 TLS Server Trust</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#ServerTrustManager"><span class="nav-number">3.1.</span> <span class="nav-text">ServerTrustManager</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%B5%8B%E8%AF%95%E7%94%A8%E4%BE%8B"><span class="nav-number">3.2.</span> <span class="nav-text">测试用例</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Ge Will"
+      src="/images/avatar.jpeg">
+  <p class="site-author-name" itemprop="name">Ge Will</p>
+  <div class="site-description" itemprop="description">The people who are crazy enough to think they can change the world, are the ones who DO.</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">198</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">17</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/gewill" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;gewill" rel="noopener me" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:531sunlight@gmail.com" title="E-Mail → mailto:531sunlight@gmail.com" rel="noopener me" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://weibo.com/gewei" title="Weibo → https:&#x2F;&#x2F;weibo.com&#x2F;gewei" rel="noopener me" target="_blank"><i class="fab fa-weibo fa-fw"></i>Weibo</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://twitter.com/BoJack_D" title="Twitter → https:&#x2F;&#x2F;twitter.com&#x2F;BoJack_D" rel="noopener me" target="_blank"><i class="fab fa-twitter fa-fw"></i>Twitter</a>
+      </span>
+  </div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2023/12/25/Alamofire-serverTrustEvaluationFailed-error/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpeg">
+      <meta itemprop="name" content="Ge Will">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Will's Blog">
+      <meta itemprop="description" content="The people who are crazy enough to think they can change the world, are the ones who DO.">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="Alamofire serverTrustEvaluationFailed 错误分析 | Will's Blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Alamofire serverTrustEvaluationFailed 错误分析
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2023-12-25 20:41:13" itemprop="dateCreated datePublished" datetime="2023-12-25T20:41:13+08:00">2023-12-25</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">Edited on</span>
+      <time title="Modified: 2025-01-13 11:01:04" itemprop="dateModified" datetime="2025-01-13T11:01:04+08:00">2025-01-13</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><h1 id="serverTrustEvaluationFailed-错误"><a href="#serverTrustEvaluationFailed-错误" class="headerlink" title="serverTrustEvaluationFailed 错误"></a>serverTrustEvaluationFailed 错误</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">Printing description of error:</span><br><span class="line">▿ AFError</span><br><span class="line">  ▿ serverTrustEvaluationFailed : 1 element</span><br><span class="line">    ▿ reason : ServerTrustFailureReason</span><br><span class="line">      ▿ noRequiredEvaluator : 1 element</span><br><span class="line">        - host : <span class="string">&quot;***&quot;</span></span><br><span class="line">(lldb) po error.debugDescription</span><br><span class="line"><span class="string">&quot;Server trust evaluation failed due to reason: A ServerTrustEvaluating value is required for host *** but none was found.&quot;</span></span><br></pre></td></tr></table></figure>
+
+<h1 id="原因是配置了白名单"><a href="#原因是配置了白名单" class="headerlink" title="原因是配置了白名单"></a>原因是配置了白名单</h1><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> evaluators: [<span class="type">String</span>: <span class="type">ServerTrustEvaluating</span>] <span class="operator">=</span> [:]</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> evaluators: [<span class="type">String</span>: <span class="type">ServerTrustEvaluating</span>] <span class="operator">=</span> [</span><br><span class="line">        <span class="string">&quot;*.yourdomain.com&quot;</span>: <span class="type">PinnedCertificatesTrustEvaluator</span>()</span><br><span class="line">    ]</span><br><span class="line"><span class="comment">// 白名单 allHostsMustBeEvaluated: true</span></span><br><span class="line"><span class="keyword">let</span> serverTrust <span class="operator">=</span> <span class="type">ServerTrustManager</span>(allHostsMustBeEvaluated: <span class="literal">true</span>,</span><br><span class="line">                                     evaluators: evaluators)</span><br><span class="line"></span><br><span class="line">session <span class="operator">=</span> <span class="type">Alamofire</span>.<span class="type">Session</span>(configuration: configuration,</span><br><span class="line">                            serverTrustManager: serverTrust)</span><br></pre></td></tr></table></figure>
+
+<p>可把 <code>allHostsMustBeEvaluated</code> 改为 <code>false</code>，只对指定的host开启。</p>
+<h1 id="原理-TLS-Server-Trust"><a href="#原理-TLS-Server-Trust" class="headerlink" title="原理 TLS Server Trust"></a>原理 TLS Server Trust</h1><p><a target="_blank" rel="noopener" href="https://github.com/Alamofire/Alamofire/blob/master/Documentation/AdvancedUsage.md#evaluating-server-trusts-with-servertrustmanager-and-servertrustevaluating">https://github.com/Alamofire/Alamofire/blob/master/Documentation/AdvancedUsage.md#evaluating-server-trusts-with-servertrustmanager-and-servertrustevaluating</a></p>
+<p>在与服务器和 Web 服务通信时使用安全的 HTTPS 连接是保护敏感数据的重要步骤。默认情况下，Alamofire 会收到与 <code>URLSession</code> 相同的自动 TLS 证书和证书链验证。虽然这保证了证书链的有效性，但它并不能防止中间人 （MITM） 攻击或其他潜在漏洞。为了减轻中间人攻击，处理敏感客户数据或财务信息的应用程序应使用 Alamofire <code>ServerTrustEvaluating</code> 协议提供的证书或公钥固定。</p>
+<p><strong>使用 <code>ServerTrustManager</code> 和 <code>ServerTrustEvaluating</code> 评估服务器信任</strong></p>
+<p>该协议 <code>ServerTrustEvaluating</code> 提供了一种执行任何类型的服务器信任评估的方法。它只有一个要求：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">func</span> <span class="title function_">evaluate</span>(<span class="keyword">_</span> <span class="params">trust</span>: <span class="type">SecTrust</span>, <span class="params">forHost</span> <span class="params">host</span>: <span class="type">String</span>) <span class="keyword">throws</span></span><br></pre></td></tr></table></figure>
+
+<p>此方法提供从基础 <code>URLSession</code> 接收 <code>SecTrust</code> 的值和主机 <code>String</code> ，并提供执行各种评估的机会。</p>
+<p>包括许多不同类型的信任评估器，提供对评估过程的可组合控制：</p>
+<ol>
+<li><code>DefaultTrustEvaluator</code> ：使用默认服务器信任评估，同时允许您控制是否验证质询提供的主机。</li>
+<li><code>RevocationTrustEvaluator</code> ：检查收到的证书的状态，以确保其未被吊销。由于它需要网络请求开销，因此通常不会对每个请求执行此操作。</li>
+<li><code>PinnedCertificatesTrustEvaluator</code> ：使用提供的证书来验证服务器信任。如果其中一个固定的证书与其中一个服务器证书匹配，则认为服务器信任有效。此赋值器还可以接受自签名证书。</li>
+<li><code>PublicKeysTrustEvaluator</code> ：使用提供的公钥来验证服务器信任。如果其中一个固定的公钥与其中一个服务器证书公钥匹配，则认为服务器信任有效。</li>
+<li><code>CompositeTrustEvaluator</code> ：计算值数组，仅当所有 <code>ServerTrustEvaluating</code> 值都成功时才成功。例如，此类型可用于组合 <code>RevocationTrustEvaluator</code> 和 <code>PinnedCertificatesTrustEvaluator</code> 。</li>
+<li><code>DisabledTrustEvaluator</code> ：此评估程序应仅在调试方案中使用，因为它会禁用所有评估，而这些评估将始终将任何服务器信任视为有效。此评估器绝不应在生产环境中使用！</li>
+</ol>
+<h2 id="ServerTrustManager"><a href="#ServerTrustManager" class="headerlink" title="ServerTrustManager"></a><strong><code>ServerTrustManager</code></strong></h2><p>负责 <code>ServerTrustManager</code> 存储值到特定主机的 <code>ServerTrustEvaluating</code> 内部映射。这允许 Alamofire 使用不同的评估器评估每个主机。</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> evaluators: [<span class="type">String</span>: <span class="type">ServerTrustEvaluating</span>] <span class="operator">=</span> [</span><br><span class="line">    <span class="comment">// 默认情况下，应用程序捆绑包中包含的证书会自动固定。</span></span><br><span class="line">    <span class="string">&quot;cert.example.com&quot;</span>: <span class="type">PinnedCertificatesTrustEvaluator</span>(),</span><br><span class="line">    <span class="comment">// 默认情况下，会自动使用应用程序包中包含的证书中的公钥。</span></span><br><span class="line">    <span class="string">&quot;keys.example.com&quot;</span>: <span class="type">PublicKeysTrustEvaluator</span>(),</span><br><span class="line">]</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> manager <span class="operator">=</span> <span class="type">ServerTrustManager</span>(evaluators: evaluators)</span><br></pre></td></tr></table></figure>
+
+<p>这将 <code>ServerTrustManager</code> 具有以下行为：</p>
+<ol>
+<li><code>cert.example.com</code> 将始终使用启用默认和主机验证的证书固定，因此需要满足以下条件才能使 TLS 握手成功：<ol>
+<li>证书链必须有效。</li>
+<li>证书链必须包含其中一个固定的证书。</li>
+<li>质询主机必须与证书链的叶证书中的主机匹配。</li>
+</ol>
+</li>
+<li><code>keys.example.com</code> 将始终使用启用默认和主机验证的公钥固定，因此需要满足以下条件才能使 TLS 握手成功：<ol>
+<li>证书链必须有效。</li>
+<li>证书链必须包含其中一个固定的公钥。</li>
+<li>质询主机必须与证书链的叶证书中的主机匹配。</li>
+</ol>
+</li>
+<li>对其他主机的请求将产生错误，因为 <code>ServerTrustManager</code> 默认情况下需要评估所有主机。</li>
+</ol>
+<h2 id="测试用例"><a href="#测试用例" class="headerlink" title="测试用例"></a>测试用例</h2><p>Alamofire 项目中测试用例：<a target="_blank" rel="noopener" href="https://github.com/Alamofire/Alamofire/blob/master/Tests/TLSEvaluationTests.swift#L422C12-L422C12">Tests&#x2F;TLSEvaluationTests.swift</a></p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="keyword">enum</span> <span class="title class_">TestCertificates</span> &#123;</span><br><span class="line">    <span class="keyword">static</span> <span class="keyword">let</span> rootCA <span class="operator">=</span> <span class="type">TestCertificates</span>.certificate(filename: <span class="string">&quot;expired.badssl.com-root-ca&quot;</span>)</span><br><span class="line">    <span class="keyword">static</span> <span class="keyword">let</span> intermediateCA1 <span class="operator">=</span> <span class="type">TestCertificates</span>.certificate(filename: <span class="string">&quot;expired.badssl.com-intermediate-ca-1&quot;</span>)</span><br><span class="line">    <span class="keyword">static</span> <span class="keyword">let</span> intermediateCA2 <span class="operator">=</span> <span class="type">TestCertificates</span>.certificate(filename: <span class="string">&quot;expired.badssl.com-intermediate-ca-2&quot;</span>)</span><br><span class="line">    <span class="keyword">static</span> <span class="keyword">let</span> leaf <span class="operator">=</span> <span class="type">TestCertificates</span>.certificate(filename: <span class="string">&quot;expired.badssl.com-leaf&quot;</span>)</span><br><span class="line"></span><br><span class="line">		<span class="comment">// 从给定的文件名创建证书：SecCertificate对象。</span></span><br><span class="line">    <span class="keyword">static</span> <span class="keyword">func</span> <span class="title function_">certificate</span>(<span class="params">filename</span>: <span class="type">String</span>) -&gt; <span class="type">SecCertificate</span> &#123;</span><br><span class="line">        <span class="keyword">let</span> filePath <span class="operator">=</span> <span class="type">Bundle</span>.test.path(forResource: filename, ofType: <span class="string">&quot;cer&quot;</span>)<span class="operator">!</span></span><br><span class="line">        <span class="keyword">let</span> data <span class="operator">=</span> <span class="keyword">try!</span> <span class="type">Data</span>(contentsOf: <span class="type">URL</span>(fileURLWithPath: filePath))</span><br><span class="line">        <span class="keyword">let</span> certificate <span class="operator">=</span> <span class="type">SecCertificateCreateWithData</span>(<span class="literal">nil</span>, data <span class="keyword">as</span> <span class="type">CFData</span>)<span class="operator">!</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> certificate</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">func</span> <span class="title function_">testThatExpiredCertificateRequestFailsWhenPinningLeafPublicKeyWithCertificateChainValidation</span>() &#123;</span><br><span class="line">        <span class="comment">// Given</span></span><br><span class="line">				<span class="comment">// 这里直接从证书提取公钥</span></span><br><span class="line">        <span class="keyword">let</span> keys <span class="operator">=</span> [<span class="type">TestCertificates</span>.leaf].af.publicKeys</span><br><span class="line">        <span class="keyword">let</span> evaluators <span class="operator">=</span> [expiredHost: <span class="type">PublicKeysTrustEvaluator</span>(keys: keys)]</span><br><span class="line"></span><br><span class="line">        <span class="keyword">let</span> manager <span class="operator">=</span> <span class="type">Session</span>(configuration: configuration,</span><br><span class="line">                              serverTrustManager: <span class="type">ServerTrustManager</span>(evaluators: evaluators))</span><br><span class="line"></span><br><span class="line">        <span class="keyword">let</span> expectation <span class="operator">=</span> expectation(description: <span class="string">&quot;<span class="subst">\(expiredURLString)</span>&quot;</span>)</span><br><span class="line">        <span class="keyword">var</span> error: <span class="type">AFError</span>?</span><br><span class="line"></span><br><span class="line">        <span class="comment">// When</span></span><br><span class="line">        manager.request(expiredURLString)</span><br><span class="line">            .response &#123; resp <span class="keyword">in</span></span><br><span class="line">                error <span class="operator">=</span> resp.error</span><br><span class="line">                expectation.fulfill()</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">        waitForExpectations(timeout: timeout)</span><br><span class="line"></span><br><span class="line">        <span class="comment">// Then</span></span><br><span class="line">        <span class="type">XCTAssertNotNil</span>(error, <span class="string">&quot;error should not be nil&quot;</span>)</span><br><span class="line">        <span class="type">XCTAssertEqual</span>(error<span class="operator">?</span>.isServerTrustEvaluationError, <span class="literal">true</span>)</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">case</span> <span class="keyword">let</span> .serverTrustEvaluationFailed(reason)<span class="operator">?</span> <span class="operator">=</span> error &#123;</span><br><span class="line">            <span class="keyword">if</span> <span class="keyword">#available</span>(<span class="keyword">iOS</span> <span class="number">12</span>, <span class="keyword">macOS</span> <span class="number">10.14</span>, <span class="keyword">tvOS</span> <span class="number">12</span>, <span class="keyword">watchOS</span> <span class="number">5</span>, <span class="operator">*</span>) &#123;</span><br><span class="line">                <span class="type">XCTAssertTrue</span>(reason.isTrustEvaluationFailed, <span class="string">&quot;should be .trustEvaluationFailed&quot;</span>)</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                <span class="type">XCTAssertTrue</span>(reason.isDefaultEvaluationFailed, <span class="string">&quot;should be .defaultEvaluationFailed&quot;</span>)</span><br><span class="line">            &#125;</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="type">XCTFail</span>(<span class="string">&quot;error should be .serverTrustEvaluationFailed&quot;</span>)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Network/" rel="tag"># Network</a>
+              <a href="/tags/Swift/" rel="tag"># Swift</a>
+              <a href="/tags/Alamofire/" rel="tag"># Alamofire</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2023/12/18/CI-CD-with-Tart-and-GitHub-Actions/" rel="prev" title="Tart和GitHub Actions的CI/CD方案">
+                  <i class="fa fa-chevron-left"></i> Tart和GitHub Actions的CI/CD方案
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2024/01/28/Localizable-in-SwiftPM/" rel="next" title="SwiftPM本地化方案探索">
+                  SwiftPM本地化方案探索 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2025</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">Ge Will</span>
+  </div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/pisces/" rel="noopener" target="_blank">NexT.Pisces</a>
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="back-to-top" role="button" aria-label="Back to top">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.1/search.js" integrity="sha256-1kfA5uHPf65M5cphT2dvymhkuyHPQp5A53EGZOnOLmc=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>

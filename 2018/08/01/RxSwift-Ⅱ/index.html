@@ -1,0 +1,541 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 6.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha256-HtsXJanqjKTc8vVQjO4YMhiqFoXkfBsjBWcX91T1jr8=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Pisces","darkmode":true,"version":"8.17.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":true,"style":"mac"},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"},"path":"/search.json","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="第五章：Filtering OperatorIgnoring忽略所有event，转化为一个 Comletable。 1func ignoreElements() -&gt; Completable  仅发射指定index的event，其余都忽略。 1func elementAt(_ index: Int) -&gt; Observable&lt;String&gt;  或者直接使用 .filter">
+<meta property="og:type" content="article">
+<meta property="og:title" content="RxSwift Ⅱ：操作符和最佳实践">
+<meta property="og:url" content="http://example.com/2018/08/01/RxSwift-%E2%85%A1/index.html">
+<meta property="og:site_name" content="Will&#39;s Blog">
+<meta property="og:description" content="第五章：Filtering OperatorIgnoring忽略所有event，转化为一个 Comletable。 1func ignoreElements() -&gt; Completable  仅发射指定index的event，其余都忽略。 1func elementAt(_ index: Int) -&gt; Observable&lt;String&gt;  或者直接使用 .filter">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://gewill.org/assets/toArray.jpg">
+<meta property="og:image" content="https://gewill.org/assets/map.jpg">
+<meta property="og:image" content="https://gewill.org/assets/flatMap.jpg">
+<meta property="og:image" content="https://gewill.org/assets/flatMapLatest.jpg">
+<meta property="og:image" content="https://gewill.org/assets/CocoaAPIToRxAPI.jpeg">
+<meta property="og:image" content="https://gewill.org/assets/merge.jpg">
+<meta property="og:image" content="https://gewill.org/assets/Combining%20elements.jpg">
+<meta property="og:image" content="https://gewill.org/assets/zip.jpg">
+<meta property="og:image" content="https://gewill.org/assets/trigger.jpg">
+<meta property="og:image" content="https://gewill.org/assets/sample.jpg">
+<meta property="og:image" content="https://gewill.org/assets/Switches.jpg">
+<meta property="og:image" content="https://gewill.org/assets/switchLatest.jpg">
+<meta property="og:image" content="https://gewill.org/assets/reduce.jpg">
+<meta property="og:image" content="https://gewill.org/assets/scan.jpg">
+<meta property="article:published_time" content="2018-08-01T13:57:49.000Z">
+<meta property="article:modified_time" content="2025-01-13T03:01:04.065Z">
+<meta property="article:author" content="Ge Will">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://gewill.org/assets/toArray.jpg">
+
+
+<link rel="canonical" href="http://example.com/2018/08/01/RxSwift-%E2%85%A1/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"en","comments":true,"permalink":"http://example.com/2018/08/01/RxSwift-%E2%85%A1/","path":"2018/08/01/RxSwift-Ⅱ/","title":"RxSwift Ⅱ：操作符和最佳实践"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>RxSwift Ⅱ：操作符和最佳实践 | Will's Blog</title>
+  
+
+
+
+
+
+
+
+<head>
+    <!-- 霞鹜文楷字体 -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lxgw-wenkai-webfont@1.7.0/style.css"/>
+
+    <!-- datapulse统计 -->
+    <script defer type="text/javascript" src="https://datapulse.app/datapulse.min.js" id="datapulse" data-endpoint="https://datapulse.app/api/v1/event" data-workspace="cljxqml5q0y0f8j37d4futnbl"></script>
+
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-DR0FC9YJLH"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() {
+            dataLayer.push(arguments);
+        }
+        gtag('js', new Date());
+
+        gtag('config', 'G-DR0FC9YJLH');
+    </script>
+</head>
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Will's Blog</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="Search" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives<span class="badge">198</span></a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags<span class="badge">17</span></a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories<span class="badge">1</span></a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="Searching..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AC%AC%E4%BA%94%E7%AB%A0%EF%BC%9AFiltering-Operator"><span class="nav-number">1.</span> <span class="nav-text">第五章：Filtering Operator</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Ignoring"><span class="nav-number">1.1.</span> <span class="nav-text">Ignoring</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Skipping"><span class="nav-number">1.2.</span> <span class="nav-text">Skipping</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Taking"><span class="nav-number">1.3.</span> <span class="nav-text">Taking</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Distinct"><span class="nav-number">1.4.</span> <span class="nav-text">Distinct</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AC%AC%E5%85%AD%E7%AB%A0%EF%BC%9AFiltering-%E5%AE%9E%E8%B7%B5"><span class="nav-number">2.</span> <span class="nav-text">第六章：Filtering 实践</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%94%B9%E8%BF%9B-Combinestagram-%E9%A1%B9%E7%9B%AE"><span class="nav-number">2.1.</span> <span class="nav-text">改进 Combinestagram 项目</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9F%BA%E4%BA%8E%E6%97%B6%E9%97%B4%E7%9A%84%E6%93%8D%E4%BD%9C%E7%AC%A6"><span class="nav-number">2.2.</span> <span class="nav-text">基于时间的操作符</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AC%AC%E4%B8%83%E7%AB%A0%EF%BC%9ATransforming-Operator"><span class="nav-number">3.</span> <span class="nav-text">第七章：Transforming Operator</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Transforming-%E5%85%83%E7%B4%A0"><span class="nav-number">3.1.</span> <span class="nav-text">Transforming 元素</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Transforming-%E5%86%85%E9%83%A8-Observable"><span class="nav-number">3.2.</span> <span class="nav-text">Transforming 内部 Observable</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%A7%82%E5%AF%9F%E4%BA%8B%E4%BB%B6"><span class="nav-number">3.3.</span> <span class="nav-text">观察事件</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AC%AC%E5%85%AB%E7%AB%A0%EF%BC%9ATransforming-%E5%AE%9E%E8%B7%B5"><span class="nav-number">4.</span> <span class="nav-text">第八章：Transforming 实践</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BC%80%E5%A7%8B-GitFeed-%E9%A1%B9%E7%9B%AE"><span class="nav-number">4.1.</span> <span class="nav-text">开始 GitFeed 项目</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BD%91%E7%BB%9C%E8%8E%B7%E5%8F%96%E6%95%B0%E6%8D%AE"><span class="nav-number">4.2.</span> <span class="nav-text">网络获取数据</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AC%AC%E4%B9%9D%E7%AB%A0%EF%BC%9A%E5%90%88%E5%B9%B6Operator"><span class="nav-number">5.</span> <span class="nav-text">第九章：合并Operator</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%89%8D%E7%BC%80%E5%92%8C%E4%B8%B2%E8%81%94"><span class="nav-number">5.1.</span> <span class="nav-text">前缀和串联</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Merge"><span class="nav-number">5.2.</span> <span class="nav-text">Merge</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Combining-%E5%85%83%E7%B4%A0"><span class="nav-number">5.3.</span> <span class="nav-text">Combining 元素</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Triggers"><span class="nav-number">5.4.</span> <span class="nav-text">Triggers</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Switches"><span class="nav-number">5.5.</span> <span class="nav-text">Switches</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Combining-%E4%B8%80%E4%B8%AA%E5%BA%8F%E5%88%97%E4%B8%AD%E5%85%83%E7%B4%A0"><span class="nav-number">5.6.</span> <span class="nav-text">Combining 一个序列中元素</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AC%AC%E5%8D%81%E7%AB%A0%EF%BC%9A%E5%90%88%E5%B9%B6Operator%E5%AE%9E%E8%B7%B5"><span class="nav-number">6.</span> <span class="nav-text">第十章：合并Operator实践</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%87%86%E5%A4%87%E7%BD%91%E7%BB%9C%E5%90%8E%E7%AB%AF%E6%9C%8D%E5%8A%A1"><span class="nav-number">6.1.</span> <span class="nav-text">准备网络后端服务</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Categories-view-controller"><span class="nav-number">6.2.</span> <span class="nav-text">Categories view controller</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Adding-the-event-download-service"><span class="nav-number">6.3.</span> <span class="nav-text">Adding the event download service</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Getting-events-for-categories"><span class="nav-number">6.4.</span> <span class="nav-text">Getting events for categories</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Events-view-controller"><span class="nav-number">6.5.</span> <span class="nav-text">Events view controller</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Wiring-the-days-selector"><span class="nav-number">6.6.</span> <span class="nav-text">Wiring the days selector</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Splitting-event-downloads"><span class="nav-number">6.7.</span> <span class="nav-text">Splitting event downloads</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AC%AC%E5%8D%81%E4%B8%80%E7%AB%A0%EF%BC%9A%E5%9F%BA%E4%BA%8E%E6%97%B6%E9%97%B4%E7%9A%84Operator"><span class="nav-number">7.</span> <span class="nav-text">第十一章：基于时间的Operator</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Ge Will"
+      src="/images/avatar.jpeg">
+  <p class="site-author-name" itemprop="name">Ge Will</p>
+  <div class="site-description" itemprop="description">The people who are crazy enough to think they can change the world, are the ones who DO.</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">198</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">17</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/gewill" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;gewill" rel="noopener me" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:531sunlight@gmail.com" title="E-Mail → mailto:531sunlight@gmail.com" rel="noopener me" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://weibo.com/gewei" title="Weibo → https:&#x2F;&#x2F;weibo.com&#x2F;gewei" rel="noopener me" target="_blank"><i class="fab fa-weibo fa-fw"></i>Weibo</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://twitter.com/BoJack_D" title="Twitter → https:&#x2F;&#x2F;twitter.com&#x2F;BoJack_D" rel="noopener me" target="_blank"><i class="fab fa-twitter fa-fw"></i>Twitter</a>
+      </span>
+  </div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2018/08/01/RxSwift-%E2%85%A1/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpeg">
+      <meta itemprop="name" content="Ge Will">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Will's Blog">
+      <meta itemprop="description" content="The people who are crazy enough to think they can change the world, are the ones who DO.">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="RxSwift Ⅱ：操作符和最佳实践 | Will's Blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          RxSwift Ⅱ：操作符和最佳实践
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2018-08-01 21:57:49" itemprop="dateCreated datePublished" datetime="2018-08-01T21:57:49+08:00">2018-08-01</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">Edited on</span>
+      <time title="Modified: 2025-01-13 11:01:04" itemprop="dateModified" datetime="2025-01-13T11:01:04+08:00">2025-01-13</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><h2 id="第五章：Filtering-Operator"><a href="#第五章：Filtering-Operator" class="headerlink" title="第五章：Filtering Operator"></a>第五章：Filtering Operator</h2><h3 id="Ignoring"><a href="#Ignoring" class="headerlink" title="Ignoring"></a>Ignoring</h3><p>忽略所有event，转化为一个 Comletable。</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">func</span> <span class="title function_">ignoreElements</span>() -&gt; <span class="type">Completable</span></span><br></pre></td></tr></table></figure>
+
+<p>仅发射指定index的event，其余都忽略。</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">func</span> <span class="title function_">elementAt</span>(<span class="keyword">_</span> <span class="params">index</span>: <span class="type">Int</span>) -&gt; <span class="type">Observable</span>&lt;<span class="type">String</span>&gt;</span><br></pre></td></tr></table></figure>
+
+<p>或者直接使用 <code>.filter</code> ，是 RxSwift 对 Swift 标准库中 <code>.filter</code> 对应版本。具体用法很简单，和 Swift 版一样。</p>
+<h3 id="Skipping"><a href="#Skipping" class="headerlink" title="Skipping"></a>Skipping</h3><p><code>.skip(n) 即可跳过前</code> n 个 event。</p>
+<p><code>.skipWhile</code> 跳过符合条件的 event，但是遇到不符合条件的 event 后，不再跳过该 event 以及后面的event。</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">Observable</span>.of(<span class="number">2</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>)</span><br><span class="line">    .skipWhile &#123; integer <span class="keyword">in</span></span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;<span class="subst">\(integer)</span> skipWhile&quot;</span>)</span><br><span class="line">        <span class="keyword">return</span> integer <span class="operator">%</span> <span class="number">2</span> <span class="operator">==</span> <span class="number">0</span></span><br><span class="line">    &#125;</span><br><span class="line">    .subscribe(onNext: &#123;</span><br><span class="line">        <span class="built_in">print</span>(<span class="variable">$0</span>)</span><br><span class="line">    &#125;)</span><br><span class="line">    .disposed(by: disposeBag)</span><br></pre></td></tr></table></figure>
+
+<p>Console 输出：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">2 skipWhile</span><br><span class="line">2 skipWhile</span><br><span class="line">3 skipWhile</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td></tr></table></figure>
+
+<p><code>.skipUntil(trigger)</code> 持续跳过直到另一个Observable生成元素。</p>
+<h3 id="Taking"><a href="#Taking" class="headerlink" title="Taking"></a>Taking</h3><p>Taking 和 Skipping 是相反的。</p>
+<p><code>.take(n)</code> 只发射前 n 个 event 。</p>
+<p><code>.takeWhile &#123; &#125;</code>  放射符合条件的event，直到遇到不符合条件的元素，不再发射。</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> disposeBag <span class="operator">=</span> <span class="type">DisposeBag</span>()</span><br><span class="line"></span><br><span class="line"><span class="type">Observable</span>.of(<span class="number">2</span>, <span class="number">2</span>, <span class="number">4</span>, <span class="number">4</span>, <span class="number">6</span>, <span class="number">6</span>)</span><br><span class="line">    .enumerated()</span><br><span class="line">    .takeWhile &#123; index, integer <span class="keyword">in</span></span><br><span class="line">        integer <span class="operator">%</span> <span class="number">2</span> <span class="operator">==</span> <span class="number">0</span> <span class="operator">&amp;&amp;</span> index <span class="operator">&lt;</span> <span class="number">3</span></span><br><span class="line">    &#125;</span><br><span class="line">    .map &#123; <span class="variable">$0</span>.element &#125;</span><br><span class="line">    .subscribe(onNext: &#123;</span><br><span class="line">        <span class="built_in">print</span>(<span class="variable">$0</span>)</span><br><span class="line">    &#125;)</span><br><span class="line">    .disposed(by: disposeBag)</span><br></pre></td></tr></table></figure>
+
+<p>Console 输出：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">2</span><br><span class="line">2</span><br><span class="line">4</span><br></pre></td></tr></table></figure>
+
+<p><code>.takeUntil(trigger)</code>  类似的，持续发射，直到另一个Observable生成元素，后面不再发射。</p>
+<h3 id="Distinct"><a href="#Distinct" class="headerlink" title="Distinct"></a>Distinct</h3><p><code>.distinctUntilChanged()</code> 只发射不同于前一个的元素。</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">Observable</span>.of(<span class="string">&quot;A&quot;</span>, <span class="string">&quot;A&quot;</span>, <span class="string">&quot;B&quot;</span>, <span class="string">&quot;B&quot;</span>, <span class="string">&quot;A&quot;</span>)</span><br><span class="line">    .distinctUntilChanged()</span><br><span class="line">    .subscribe(onNext: &#123;</span><br><span class="line">        <span class="built_in">print</span>(<span class="variable">$0</span>)</span><br><span class="line">    &#125;)</span><br><span class="line">    .disposed(by: disposeBag)</span><br></pre></td></tr></table></figure>
+
+<p> Console 输出：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">A</span><br><span class="line">B</span><br><span class="line">A</span><br></pre></td></tr></table></figure>
+
+<p><code>distinctUntilChanged(_:)</code> 对阻止重复发射不符合 <code>Equatable</code> 类型的元素时很有用。因为你可以控制前后两个元素是否相等。</p>
+<h2 id="第六章：Filtering-实践"><a href="#第六章：Filtering-实践" class="headerlink" title="第六章：Filtering 实践"></a>第六章：Filtering 实践</h2><p>上一章介绍了RxSwift中函数式编程的观念。操作符操作一个Observable，输出一个心得Observable。得益于此，我么可以链式调用操作符。</p>
+<h3 id="改进-Combinestagram-项目"><a href="#改进-Combinestagram-项目" class="headerlink" title="改进 Combinestagram 项目"></a>改进 Combinestagram 项目</h3><p>就是把上一章的 filtering 操作符应用在项目中。</p>
+<h3 id="基于时间的操作符"><a href="#基于时间的操作符" class="headerlink" title="基于时间的操作符"></a>基于时间的操作符</h3><p>基于时间的操作符使用 <strong>Scheduler</strong> 。</p>
+<p><code>take(_:scheduler:)</code> 是一个过滤操作符，和 <code>take(1)</code> 和 <code>takeWhile(...)</code> 类似。</p>
+<p>只会发送指定时间段内的元素。一旦时间点过了，就会发送 <code>.complete</code> 事件。</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="keyword">func</span> <span class="title function_">errorMessage</span>() &#123;</span><br><span class="line">  alert(title: <span class="string">&quot;No access to Camera Roll&quot;</span>,</span><br><span class="line">        text: <span class="string">&quot;You can grant access to Combinestagram from the Settings app&quot;</span>)</span><br><span class="line">    .asObservable()</span><br><span class="line">    .take(<span class="number">5.0</span>, scheduler: <span class="type">MainScheduler</span>.instance)</span><br><span class="line">    .subscribe(onCompleted: &#123; [<span class="keyword">weak</span> <span class="keyword">self</span>] <span class="keyword">in</span></span><br><span class="line">      <span class="keyword">self</span><span class="operator">?</span>.dismiss(animated: <span class="literal">true</span>, completion: <span class="literal">nil</span>)</span><br><span class="line">      <span class="keyword">_</span> <span class="operator">=</span> <span class="keyword">self</span><span class="operator">?</span>.navigationController<span class="operator">?</span>.popViewController(animated: <span class="literal">true</span>)</span><br><span class="line">    &#125;)</span><br><span class="line">    .disposed(by: bag)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<p>以下是一些合适使用 <code>throttle</code> 的场景：</p>
+<ul>
+<li>搜索输入框的订阅，然后发送当前文本内容的API请求。通过 <code>throttle</code> , 你可以让用户快速输入，同时仅在用户完成输入时才你的向服务器发送请求。</li>
+<li>当用户点击按钮来展示一个 modal view controller 时，你可以阻止双击以及展示两次 modal view controller。通过 <code>throttle</code> 点击事件，可以现实只接收最后一次点击事件，不论用户双击或三击。</li>
+<li>如果你只关心用户拖动手势时停留的地方。你可以使用 <code>throttle</code> 当前触摸位置，只考虑那些停止改变的位置的元素。</li>
+</ul>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">images.asObservable()</span><br><span class="line">    .throttle(<span class="number">0.5</span>, scheduler: <span class="type">MainScheduler</span>.instance)</span><br><span class="line">    .subscribe(onNext: &#123; [<span class="keyword">weak</span> <span class="keyword">self</span>] photos <span class="keyword">in</span></span><br><span class="line">      <span class="keyword">guard</span> <span class="keyword">let</span> preview <span class="operator">=</span> <span class="keyword">self</span><span class="operator">?</span>.imagePreview <span class="keyword">else</span> &#123; <span class="keyword">return</span> &#125;</span><br><span class="line">      preview.image <span class="operator">=</span> <span class="type">UIImage</span>.collage(images: photos,</span><br><span class="line">                                      size: preview.frame.size)</span><br><span class="line">    &#125;)</span><br><span class="line">    .disposed(by: bag)</span><br></pre></td></tr></table></figure>
+
+<h2 id="第七章：Transforming-Operator"><a href="#第七章：Transforming-Operator" class="headerlink" title="第七章：Transforming Operator"></a>第七章：Transforming Operator</h2><p>当你决定学习 RxSwift，或许会觉得它是深奥的库。也许让你想起来当初学习 iOS 或者 Swift 的时候。但学习到第七章你应该意识到 RxSwift 并非魔法。它是精心构建的API，能让极大地提升效率和简化代码。学到这里你应该会感觉不错。</p>
+<p>本章你将学习运算符中最重要的一类：transforming 运算符。你将一直使用 transforming，准备Observable数据以供订阅者使用。需要强调的是，RxSwift 中的 transforming 运算符与 Swift 标准库之间有相似之处 ，如 <code>map (_:)</code> 和 <code>flatMap (_:)</code> 。 </p>
+<h3 id="Transforming-元素"><a href="#Transforming-元素" class="headerlink" title="Transforming 元素"></a>Transforming 元素</h3><p>将可观察到的单个元素转换为所有这些元素的数组的一种简便方法是使用 <code>toArray</code>。<img src="https://gewill.org/assets/toArray.jpg" alt="toArray"></p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> disposeBag <span class="operator">=</span> <span class="type">DisposeBag</span>()</span><br><span class="line"><span class="type">Observable</span>.of(<span class="string">&quot;A&quot;</span>, <span class="string">&quot;B&quot;</span>, <span class="string">&quot;C&quot;</span>)</span><br><span class="line">  .toArray()</span><br><span class="line">  .subscribe(onNext: &#123;</span><br><span class="line">    <span class="built_in">print</span>(<span class="variable">$0</span>)</span><br><span class="line">  &#125;)</span><br><span class="line">  .disposed(by: disposeBag)</span><br></pre></td></tr></table></figure>
+
+<p><code>map</code> 可将每个元素进行 transforming 。<img src="https://gewill.org/assets/map.jpg" alt="map"></p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> disposeBag <span class="operator">=</span> <span class="type">DisposeBag</span>()</span><br><span class="line"><span class="keyword">let</span> formatter <span class="operator">=</span> <span class="type">NumberFormatter</span>()</span><br><span class="line">formatter.numberStyle <span class="operator">=</span> .spellOut</span><br><span class="line"></span><br><span class="line"><span class="type">Observable</span>&lt;<span class="type">NSNumber</span>&gt;.of(<span class="number">123</span>, <span class="number">4</span>, <span class="number">56</span>)</span><br><span class="line">    .map &#123;</span><br><span class="line">        formatter.string(from: <span class="variable">$0</span>) <span class="operator">??</span> <span class="string">&quot;&quot;</span></span><br><span class="line">    &#125;</span><br><span class="line">    .subscribe(onNext: &#123;</span><br><span class="line">        <span class="built_in">print</span>(<span class="variable">$0</span>)</span><br><span class="line">    &#125;)</span><br><span class="line">    .disposed(by: disposeBag)</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> disposeBag <span class="operator">=</span> <span class="type">DisposeBag</span>()</span><br><span class="line"><span class="type">Observable</span>.of(<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>)</span><br><span class="line">    .enumerated()</span><br><span class="line">    .map &#123; index, integer <span class="keyword">in</span></span><br><span class="line">        index <span class="operator">&gt;</span> <span class="number">2</span> <span class="operator">?</span> integer <span class="operator">*</span> <span class="number">2</span> : integer</span><br><span class="line">    &#125;</span><br><span class="line">    .subscribe(onNext: &#123;</span><br><span class="line">        <span class="built_in">print</span>(<span class="variable">$0</span>)</span><br><span class="line">    &#125;)</span><br><span class="line">    .disposed(by: disposeBag)</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="Transforming-内部-Observable"><a href="#Transforming-内部-Observable" class="headerlink" title="Transforming 内部 Observable"></a>Transforming 内部 Observable</h3><p>RxSwift 包含 <code>flatMap</code> 系列中的几个运算符, 允许你深入Observable,处理其Observable类型的属性。<img src="https://gewill.org/assets/flatMap.jpg" alt="flatMap"></p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">struct</span> <span class="title class_">Student</span> &#123;</span><br><span class="line">	<span class="keyword">var</span> score: <span class="type">BehaviorSubject</span>&lt;<span class="type">Int</span>&gt;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> disposeBag <span class="operator">=</span> <span class="type">DisposeBag</span>()</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> ryan <span class="operator">=</span> <span class="type">Student</span>(score: <span class="type">BehaviorSubject</span>(value: <span class="number">80</span>))</span><br><span class="line"><span class="keyword">let</span> charlotte <span class="operator">=</span> <span class="type">Student</span>(score: <span class="type">BehaviorSubject</span>(value: <span class="number">90</span>))</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> student <span class="operator">=</span> <span class="type">PublishSubject</span>&lt;<span class="type">Student</span>&gt;()</span><br><span class="line"></span><br><span class="line">student</span><br><span class="line">    .flatMap &#123;</span><br><span class="line">        <span class="variable">$0</span>.score</span><br><span class="line">    &#125;</span><br><span class="line">    .subscribe(onNext: &#123;</span><br><span class="line">        <span class="built_in">print</span>(<span class="variable">$0</span>)</span><br><span class="line">    &#125;)</span><br><span class="line">    .disposed(by: disposeBag)</span><br><span class="line"></span><br><span class="line">student.onNext(ryan)</span><br><span class="line">ryan.score.onNext(<span class="number">85</span>)</span><br><span class="line"></span><br><span class="line">student.onNext(charlotte)</span><br><span class="line">ryan.score.onNext(<span class="number">95</span>)</span><br><span class="line"></span><br><span class="line">charlotte.score.onNext(<span class="number">100</span>)</span><br></pre></td></tr></table></figure>
+
+<p>What makes</p>
+<p>flatMapLatest different is that it will automatically switch to the latest observable and</p>
+<p>unsubscribe from the the previous one.</p>
+<p><code>flatMapLatest</code> 和 <code>flatMap</code> 略有不同之处是它会自动切换到最后一个 Observable，注销订阅之前的 Observable。</p>
+<p><img src="https://gewill.org/assets/flatMapLatest.jpg" alt="flatMapLatest"></p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> disposeBag <span class="operator">=</span> <span class="type">DisposeBag</span>()</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> ryan <span class="operator">=</span> <span class="type">Student</span>(score: <span class="type">BehaviorSubject</span>(value: <span class="number">80</span>))</span><br><span class="line"><span class="keyword">let</span> charlotte <span class="operator">=</span> <span class="type">Student</span>(score: <span class="type">BehaviorSubject</span>(value: <span class="number">90</span>))</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> student <span class="operator">=</span> <span class="type">PublishSubject</span>&lt;<span class="type">Student</span>&gt;()</span><br><span class="line"></span><br><span class="line">student</span><br><span class="line">    .flatMapLatest &#123;</span><br><span class="line">        <span class="variable">$0</span>.score</span><br><span class="line">    &#125;</span><br><span class="line">    .subscribe(onNext: &#123;</span><br><span class="line">        <span class="built_in">print</span>(<span class="variable">$0</span>)</span><br><span class="line">    &#125;)</span><br><span class="line">    .disposed(by: disposeBag)</span><br><span class="line"></span><br><span class="line">student.onNext(ryan)</span><br><span class="line"></span><br><span class="line">ryan.score.onNext(<span class="number">85</span>)</span><br><span class="line"></span><br><span class="line">student.onNext(charlotte)</span><br><span class="line"></span><br><span class="line">ryan.score.onNext(<span class="number">95</span>)</span><br><span class="line"></span><br><span class="line">charlotte.score.onNext(<span class="number">100</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">// Only one thing to point out here that’s different from the previous example of flatMap:</span></span><br><span class="line"><span class="comment">// Changing ryan’s score here will have no effect. It will not be printed out. This is because flatMapLatest has already switched to the latest observable, for charlotte.</span></span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="观察事件"><a href="#观察事件" class="headerlink" title="观察事件"></a>观察事件</h3><p>使用具体化运算符 <code>materialize</code>, 可以将 Observable 发射的每个事件包装成 Observable。比如下面的例子中 <code>$0.score.materialize()</code>  将 <code>BehaviorSubject&lt;Int&gt;</code> 封装为  <code>Observable&lt;Event&lt;Int&gt;&gt;</code> 。这样的话，我的就可以自己处理 .error 和 .complete 事件，而不终结该 Observable 。</p>
+<p>对应的我们再使用 <code>.dematerialize()</code>  转回 <code>Observable&lt;Int&gt;</code> ，即可正常订阅。</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">enum</span> <span class="title class_">MyError</span>: <span class="title class_">Error</span> &#123;</span><br><span class="line">    <span class="keyword">case</span> anError</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> disposeBag <span class="operator">=</span> <span class="type">DisposeBag</span>()</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> ryan <span class="operator">=</span> <span class="type">Student</span>(score: <span class="type">BehaviorSubject</span>(value: <span class="number">80</span>))</span><br><span class="line"><span class="keyword">let</span> charlotte <span class="operator">=</span> <span class="type">Student</span>(score: <span class="type">BehaviorSubject</span>(value: <span class="number">100</span>))</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> student: <span class="type">BehaviorSubject</span>&lt;<span class="type">Student</span>&gt; <span class="operator">=</span> <span class="type">BehaviorSubject</span>(value: ryan)</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> studentScore: <span class="type">Observable</span>&lt;<span class="type">Event</span>&lt;<span class="type">Int</span>&gt;&gt; <span class="operator">=</span> student</span><br><span class="line">    .flatMapLatest &#123;</span><br><span class="line">        <span class="variable">$0</span>.score.materialize()</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">studentScore</span><br><span class="line">    .filter &#123;</span><br><span class="line">        <span class="keyword">guard</span> <span class="variable">$0</span>.error <span class="operator">==</span> <span class="literal">nil</span> <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="built_in">print</span>(<span class="variable">$0</span>.error<span class="operator">!</span>)</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">false</span></span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> <span class="literal">true</span></span><br><span class="line">    &#125;</span><br><span class="line">    .dematerialize()</span><br><span class="line">    .subscribe(onNext: &#123;</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;subscribe: <span class="subst">\(<span class="variable">$0</span>)</span>&quot;</span>)</span><br><span class="line">    &#125;)</span><br><span class="line">    .disposed(by: disposeBag)</span><br><span class="line"></span><br><span class="line">ryan.score.onNext(<span class="number">85</span>)</span><br><span class="line">ryan.score.onError(<span class="type">MyError</span>.anError)</span><br><span class="line">ryan.score.onNext(<span class="number">90</span>)</span><br><span class="line">student.onNext(charlotte)</span><br></pre></td></tr></table></figure>
+
+<p>Console 输出结果：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">subscribe: 80</span><br><span class="line">subscribe: 85</span><br><span class="line">anError</span><br><span class="line">subscribe: 100</span><br></pre></td></tr></table></figure>
+
+<h2 id="第八章：Transforming-实践"><a href="#第八章：Transforming-实践" class="headerlink" title="第八章：Transforming 实践"></a>第八章：Transforming 实践</h2><p>在上一章中学习了 RxSwift 的主要功能，包括：map 和 flatMap 。</p>
+<h3 id="开始-GitFeed-项目"><a href="#开始-GitFeed-项目" class="headerlink" title="开始 GitFeed 项目"></a>开始 GitFeed 项目</h3><p>本章中要处理的项目将显示 GitHub 仓库的动态, 如所有最新的 like, fork 和 comment.。</p>
+<p>该项目将有两个不同的故事情节:</p>
+<ul>
+<li>主要的情节是要接触到 GitHub 的 JSON API, 接收 JSON 响应, 并最终将其转换为对象集合.    </li>
+<li>次要将提取的对象保存到磁盘并在 “新” 活动列表之前的表中显示它们。从服务器获取事件。</li>
+</ul>
+<h3 id="网络获取数据"><a href="#网络获取数据" class="headerlink" title="网络获取数据"></a>网络获取数据</h3><p>我们将会将 URLSession 添加个响应式拓展。</p>
+<p><img src="https://gewill.org/assets/CocoaAPIToRxAPI.jpeg" alt="CocoaAPIToRxAPI"></p>
+<p>具体就是把网络API的请求和响应分别封装起来：</p>
+<p>其中 <code>share(replay:, scope:)</code> ，可以避免 <code>URLSession.rx.response(request:)</code> 因过早 .complete 造成订阅时重新发送网络请求。原理就是封装多个 Observable 的元素为一个新的 Observable，并指定缓冲区最大元素数量，生命周期。定义如下：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">func</span> <span class="title function_">share</span>(<span class="params">replay</span>: <span class="type">Int</span> <span class="operator">=</span> <span class="keyword">default</span>, <span class="params">scope</span>: <span class="type">SubjectLifetimeScope</span> <span class="operator">=</span> <span class="keyword">default</span>)</span><br></pre></td></tr></table></figure>
+
+<p>代码如下：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">func</span> <span class="title function_">fetchEvents</span>(<span class="params">repo</span>: <span class="type">String</span>) &#123;</span><br><span class="line">    	<span class="comment">// 1. 使用 map 构造一个请求</span></span><br><span class="line">        <span class="keyword">let</span> response <span class="operator">=</span> <span class="type">Observable</span>.from([repo])</span><br><span class="line">            .map &#123; urlString -&gt; <span class="type">URL</span> <span class="keyword">in</span></span><br><span class="line">                <span class="keyword">return</span> <span class="type">URL</span>(string: <span class="string">&quot;https://api.github.com/repos/<span class="subst">\(urlString)</span>/events&quot;</span>)<span class="operator">!</span></span><br><span class="line">            &#125;</span><br><span class="line">            .map &#123; [<span class="keyword">weak</span> <span class="keyword">self</span>] url -&gt; <span class="type">URLRequest</span> <span class="keyword">in</span></span><br><span class="line">                <span class="keyword">var</span> request <span class="operator">=</span> <span class="type">URLRequest</span>(url: url)</span><br><span class="line">                <span class="keyword">if</span> <span class="keyword">let</span> modifiedHeader <span class="operator">=</span> <span class="keyword">self</span><span class="operator">?</span>.lastModified.value &#123;</span><br><span class="line">                    request.addValue(modifiedHeader <span class="keyword">as</span> <span class="type">String</span>,</span><br><span class="line">                        forHTTPHeaderField: <span class="string">&quot;Last-Modified&quot;</span>)</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">return</span> request</span><br><span class="line">            &#125;</span><br><span class="line">            .flatMap &#123; request -&gt; <span class="type">Observable</span>&lt;(response: <span class="type">HTTPURLResponse</span>, data: <span class="type">Data</span>)&gt; <span class="keyword">in</span></span><br><span class="line">                <span class="keyword">return</span> <span class="type">URLSession</span>.shared.rx.response(request: request)</span><br><span class="line">            &#125;</span><br><span class="line">            .share(replay: <span class="number">1</span>, scope: .whileConnected)</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 2. 转换响应</span></span><br><span class="line">        response</span><br><span class="line">            .filter &#123; response, <span class="keyword">_</span> <span class="keyword">in</span></span><br><span class="line">                 <span class="comment">// 检查右边的值是否在左边的 range 内</span></span><br><span class="line">                <span class="keyword">return</span> <span class="number">200</span><span class="operator">..&lt;</span><span class="number">300</span> <span class="operator">~=</span> response.statusCode</span><br><span class="line">            &#125;</span><br><span class="line">            .map &#123; <span class="keyword">_</span>, data -&gt; [[<span class="type">String</span>: <span class="keyword">Any</span>]] <span class="keyword">in</span></span><br><span class="line">                <span class="keyword">guard</span> <span class="keyword">let</span> jsonObject <span class="operator">=</span> <span class="keyword">try?</span> <span class="type">JSONSerialization</span>.jsonObject(with: data, options: []),</span><br><span class="line">                    <span class="keyword">let</span> result <span class="operator">=</span> jsonObject <span class="keyword">as?</span> [[<span class="type">String</span>: <span class="keyword">Any</span>]] <span class="keyword">else</span> &#123;</span><br><span class="line">                        <span class="keyword">return</span> []</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">return</span> result</span><br><span class="line">            &#125;</span><br><span class="line">            .filter &#123; objects <span class="keyword">in</span></span><br><span class="line">                <span class="keyword">return</span> objects.count <span class="operator">&gt;</span> <span class="number">0</span></span><br><span class="line">            &#125;</span><br><span class="line">            .map &#123; objects <span class="keyword">in</span></span><br><span class="line">                <span class="keyword">return</span> objects.flatMap(<span class="type">Event</span>.<span class="keyword">init</span>)</span><br><span class="line">            &#125;</span><br><span class="line">            .subscribe(onNext: &#123; [<span class="keyword">weak</span> <span class="keyword">self</span>] newEvents <span class="keyword">in</span></span><br><span class="line">                <span class="keyword">self</span><span class="operator">?</span>.processEvents(newEvents)</span><br><span class="line">            &#125;)</span><br><span class="line">            .disposed(by: bag)</span><br><span class="line"></span><br><span class="line">        response</span><br><span class="line">            .filter &#123; response, <span class="keyword">_</span> <span class="keyword">in</span></span><br><span class="line">                <span class="keyword">return</span> <span class="number">200</span><span class="operator">..&lt;</span><span class="number">400</span> <span class="operator">~=</span> response.statusCode</span><br><span class="line">            &#125;</span><br><span class="line">            .flatMap &#123; response, <span class="keyword">_</span> -&gt; <span class="type">Observable</span>&lt;<span class="type">NSString</span>&gt; <span class="keyword">in</span></span><br><span class="line">                <span class="keyword">guard</span> <span class="keyword">let</span> value <span class="operator">=</span> response.allHeaderFields[<span class="string">&quot;Last-Modified&quot;</span>] <span class="keyword">as?</span> <span class="type">NSString</span> <span class="keyword">else</span> &#123;</span><br><span class="line">                    <span class="keyword">return</span> <span class="type">Observable</span>.empty()</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">return</span> <span class="type">Observable</span>.just(value)</span><br><span class="line">            &#125;</span><br><span class="line">            .subscribe(onNext: &#123; [<span class="keyword">weak</span> <span class="keyword">self</span>] modifiedHeader <span class="keyword">in</span></span><br><span class="line">                <span class="keyword">guard</span> <span class="keyword">let</span> strongSelf <span class="operator">=</span> <span class="keyword">self</span> <span class="keyword">else</span> &#123; <span class="keyword">return</span> &#125;</span><br><span class="line">                strongSelf.lastModified.value <span class="operator">=</span> modifiedHeader</span><br><span class="line">                <span class="keyword">try?</span> modifiedHeader.write(to: strongSelf.modifiedFileURL, atomically: <span class="literal">true</span>,</span><br><span class="line">                    encoding: <span class="type">String</span>.<span class="type">Encoding</span>.utf8.rawValue)</span><br><span class="line">            &#125;)</span><br><span class="line">            .disposed(by: bag)</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="第九章：合并Operator"><a href="#第九章：合并Operator" class="headerlink" title="第九章：合并Operator"></a>第九章：合并Operator</h2><p>在前面的章节中, 你学习了如何创建、ﬁlter 和转换可观察序列。RxSwift ﬁltering 和转换运算符的行为与 Swift 的标准集合运算符非常相似。你看到了 RxSwift 与 flatMap 的真正力量, 它让你用很少的代码执行很多任务.   </p>
+<p>这一章将向你展示几种不同的组合序列的方法, 以及如何在每个序列中组合数据。你将使用的一些操作员与 Swift 集合操作员非常相似。它们有助于结合异步序列中的元素, 就像使用 Swift 数组一样。</p>
+<h3 id="前缀和串联"><a href="#前缀和串联" class="headerlink" title="前缀和串联"></a>前缀和串联</h3><p>从 <code>startWith(_:)</code> 运算符赋值给定初始值的可观察序列。此值必须与可观察元素的类型相同。</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> numbers <span class="operator">=</span> <span class="type">Observable</span>.of(<span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>)</span><br><span class="line"><span class="keyword">let</span> observable <span class="operator">=</span> numbers.startWith(<span class="number">1</span>) observable.subscribe(onNext: &#123; value <span class="keyword">in</span> <span class="built_in">print</span>(value) &#125;)</span><br></pre></td></tr></table></figure>
+
+<p>类似地 <code>.concat(_:)</code> 可以合并两个序列。</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> first <span class="operator">=</span> <span class="type">Observable</span>.of(<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>) <span class="keyword">let</span> second <span class="operator">=</span> <span class="type">Observable</span>.of(<span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>)</span><br><span class="line"><span class="keyword">let</span> observable <span class="operator">=</span> <span class="type">Observable</span>.concat([first, second])</span><br><span class="line">observable.subscribe(onNext: &#123; value <span class="keyword">in</span> <span class="built_in">print</span>(value) &#125;)</span><br></pre></td></tr></table></figure>
+
+<h3 id="Merge"><a href="#Merge" class="headerlink" title="Merge"></a>Merge</h3><p>Merge 也是合并，不过会按照顺序发射事件。</p>
+<p><img src="https://gewill.org/assets/merge.jpg" alt="merge"></p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> left <span class="operator">=</span> <span class="type">PublishSubject</span>&lt;<span class="type">String</span>&gt;()</span><br><span class="line"><span class="keyword">let</span> right <span class="operator">=</span> <span class="type">PublishSubject</span>&lt;<span class="type">String</span>&gt;()</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> source <span class="operator">=</span> <span class="type">Observable</span>.of(left.asObservable(), right.asObservable())</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> observable <span class="operator">=</span> source.merge()</span><br><span class="line"><span class="keyword">let</span> disposable <span class="operator">=</span> observable.subscribe(onNext: &#123; value <span class="keyword">in</span></span><br><span class="line">    <span class="built_in">print</span>(value)</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> leftValues <span class="operator">=</span> [<span class="string">&quot;Berlin&quot;</span>, <span class="string">&quot;Munich&quot;</span>, <span class="string">&quot;Frankfurt&quot;</span>]</span><br><span class="line"><span class="keyword">var</span> rightValues <span class="operator">=</span> [<span class="string">&quot;Madrid&quot;</span>, <span class="string">&quot;Barcelona&quot;</span>, <span class="string">&quot;Valencia&quot;</span>]</span><br><span class="line"></span><br><span class="line"><span class="keyword">repeat</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> arc4random_uniform(<span class="number">2</span>) <span class="operator">==</span> <span class="number">0</span> &#123;</span><br><span class="line">        <span class="keyword">if</span> <span class="operator">!</span>leftValues.isEmpty &#123;</span><br><span class="line">            left.onNext(<span class="string">&quot;Left:  &quot;</span> <span class="operator">+</span> leftValues.removeFirst())</span><br><span class="line">        &#125;</span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> <span class="operator">!</span>rightValues.isEmpty &#123;</span><br><span class="line">        right.onNext(<span class="string">&quot;Right: &quot;</span> <span class="operator">+</span> rightValues.removeFirst())</span><br><span class="line">    &#125;</span><br><span class="line">&#125; <span class="keyword">while</span> <span class="operator">!</span>leftValues.isEmpty <span class="operator">||</span> <span class="operator">!</span>rightValues.isEmpty</span><br><span class="line"></span><br><span class="line">disposable.dispose()</span><br></pre></td></tr></table></figure>
+
+<p>Console 输出：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">Right: Madrid</span><br><span class="line">Right: Barcelona</span><br><span class="line">Left:  Berlin</span><br><span class="line">Left:  Munich</span><br><span class="line">Left:  Frankfurt</span><br><span class="line">Right: Valencia</span><br></pre></td></tr></table></figure>
+
+<h3 id="Combining-元素"><a href="#Combining-元素" class="headerlink" title="Combining 元素"></a>Combining 元素</h3><p>RxSwift中一组基本的运算符是 <code>combineLatest</code> 。他们组合来自几个序列的值：</p>
+<p><img src="https://gewill.org/assets/Combining%20elements.jpg" alt="Combining elements"></p>
+<p>Every time one of the inner (combined) sequences emits a value, it calls a closure you provide. You receive the last value from each of the inner sequences. This has many concrete applications, such as observing several text ﬁelds at once and combining their value, watching the status of multiple sources, and so on.</p>
+<p>每当内部（组合）序列中的一个发出一个值时，它会调用您提供的闭包。 你会收到每个内部序列的最后一个值。 这里有很多具体的应用场景，例如一次观察几个文本字段并结合它们的价值，观察多个来源的状态等等。</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> left <span class="operator">=</span> <span class="type">PublishSubject</span>&lt;<span class="type">String</span>&gt;()</span><br><span class="line"><span class="keyword">let</span> right <span class="operator">=</span> <span class="type">PublishSubject</span>&lt;<span class="type">String</span>&gt;()</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> observable <span class="operator">=</span> <span class="type">Observable</span>.combineLatest(left, right, resultSelector: &#123;</span><br><span class="line">    lastLeft, lastRight <span class="keyword">in</span></span><br><span class="line">    <span class="string">&quot;<span class="subst">\(lastLeft)</span> <span class="subst">\(lastRight)</span>&quot;</span></span><br><span class="line">&#125;)</span><br><span class="line"><span class="keyword">let</span> disposable <span class="operator">=</span> observable.subscribe(onNext: &#123; value <span class="keyword">in</span></span><br><span class="line">    <span class="built_in">print</span>(value)</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;&gt; Sending a value to Left&quot;</span>)</span><br><span class="line">left.onNext(<span class="string">&quot;Hello,&quot;</span>)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;&gt; Sending a value to Right&quot;</span>)</span><br><span class="line">right.onNext(<span class="string">&quot;world&quot;</span>)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;&gt; Sending another value to Right&quot;</span>)</span><br><span class="line">right.onNext(<span class="string">&quot;RxSwift&quot;</span>)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;&gt; Sending another value to Left&quot;</span>)</span><br><span class="line">left.onNext(<span class="string">&quot;Have a good day,&quot;</span>)</span><br><span class="line"></span><br><span class="line">disposable.dispose()</span><br></pre></td></tr></table></figure>
+
+<p>Console 输出：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&gt; Sending a value to Left</span><br><span class="line">&gt; Sending a value to Right</span><br><span class="line">Hello, world</span><br><span class="line">&gt; Sending another value to Right</span><br><span class="line">Hello, RxSwift</span><br><span class="line">&gt; Sending another value to Left</span><br><span class="line">Have a good day, RxSwift</span><br></pre></td></tr></table></figure>
+
+<p><code>zip</code> 总是按照顺序一对一对的组合。类似把两个数组按照相同的下标进行组合。</p>
+<p> <img src="https://gewill.org/assets/zip.jpg" alt="zip"></p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">enum</span> <span class="title class_">Weather</span> &#123;</span><br><span class="line">    <span class="keyword">case</span> cloudy</span><br><span class="line">    <span class="keyword">case</span> sunny</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">let</span> left: <span class="type">Observable</span>&lt;<span class="type">Weather</span>&gt; <span class="operator">=</span> <span class="type">Observable</span>.of(.sunny, .cloudy, .cloudy, .sunny)</span><br><span class="line"><span class="keyword">let</span> right <span class="operator">=</span> <span class="type">Observable</span>.of(<span class="string">&quot;Lisbon&quot;</span>, <span class="string">&quot;Copenhagen&quot;</span>, <span class="string">&quot;London&quot;</span>, <span class="string">&quot;Madrid&quot;</span>, <span class="string">&quot;Vienna&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> observable <span class="operator">=</span> <span class="type">Observable</span>.zip(left, right) &#123; weather, city <span class="keyword">in</span></span><br><span class="line">    <span class="keyword">return</span> <span class="string">&quot;It&#x27;s <span class="subst">\(weather)</span> in <span class="subst">\(city)</span>&quot;</span></span><br><span class="line">&#125;</span><br><span class="line">observable.subscribe(onNext: &#123; value <span class="keyword">in</span></span><br><span class="line">    <span class="built_in">print</span>(value)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<p>Console 输出：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">It&#x27;s sunny in Lisbon</span><br><span class="line">It&#x27;s cloudy in Copenhagen</span><br><span class="line">It&#x27;s cloudy in London</span><br><span class="line">It&#x27;s sunny in Madrid</span><br></pre></td></tr></table></figure>
+
+<h3 id="Triggers"><a href="#Triggers" class="headerlink" title="Triggers"></a>Triggers</h3><p>应用程序有不同的需求，必须管理多个输入源。 你经常需要立即接受来自多个观察对象的输入。 有些会简单地在代码中触发行为，而其他的将提供数据。 RxSwift 已经覆盖了强大的运算符这会让你的生活更轻松。 或者，至少你的编码生活！</p>
+<p>首先看看 <code>withLatestFrom(_:)</code>。 经常被初学者忽略，它在处理用户界面等方面是一个有用的配套工具。<img src="https://gewill.org/assets/trigger.jpg" alt="trigger"></p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> button <span class="operator">=</span> <span class="type">PublishSubject</span>&lt;<span class="type">Void</span>&gt;()</span><br><span class="line"><span class="keyword">let</span> textField <span class="operator">=</span> <span class="type">PublishSubject</span>&lt;<span class="type">String</span>&gt;()</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> observable <span class="operator">=</span> button.withLatestFrom(textField)</span><br><span class="line"><span class="keyword">_</span> <span class="operator">=</span> observable.subscribe(onNext: &#123; value <span class="keyword">in</span></span><br><span class="line">    <span class="built_in">print</span>(value)</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">textField.onNext(<span class="string">&quot;Par&quot;</span>)</span><br><span class="line">textField.onNext(<span class="string">&quot;Pari&quot;</span>)</span><br><span class="line">textField.onNext(<span class="string">&quot;Paris&quot;</span>)</span><br><span class="line">button.onNext(())</span><br><span class="line">button.onNext(())</span><br></pre></td></tr></table></figure>
+
+<p>Console 输出：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Paris</span><br><span class="line">Paris</span><br></pre></td></tr></table></figure>
+
+<p><code>sample(_:)</code> 和 几乎只有一个变化：每当触发器observable发射一个值时，<code>sample(_:)</code> 从其它的可观察值发出最新值，但只有在自上一次元素后才到达。 如果没有新的数据到达，<code>sample(_:)</code> 将不会发射任何东西。<img src="https://gewill.org/assets/sample.jpg" alt="sample"></p>
+<h3 id="Switches"><a href="#Switches" class="headerlink" title="Switches"></a>Switches</h3><p><img src="https://gewill.org/assets/Switches.jpg" alt="Switches"></p>
+<p><code>amb(_:)</code> 运算符订阅左侧和右侧的可观察序列。 它等待其中任何一个发出一个元素，然后退订另一个序列。 之后，它只传递第一个活动可观察元素。 它可以从模棱两可中选出一个：首先，你不知道你感兴趣的是哪一个序列，等其中先发射一个序列再做决定。</p>
+<p>这个运算符经常被忽视。 它有一些精选的实际应用场景，如连接到冗余服务器，并坚持使用第一个响应的服务器。</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> left <span class="operator">=</span> <span class="type">PublishSubject</span>&lt;<span class="type">String</span>&gt;()</span><br><span class="line"><span class="keyword">let</span> right <span class="operator">=</span> <span class="type">PublishSubject</span>&lt;<span class="type">String</span>&gt;()</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> observable <span class="operator">=</span> left.amb(right)</span><br><span class="line"><span class="keyword">let</span> disposable <span class="operator">=</span> observable.subscribe(onNext: &#123; value <span class="keyword">in</span></span><br><span class="line">    <span class="built_in">print</span>(value)</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">left.onNext(<span class="string">&quot;Lisbon&quot;</span>)</span><br><span class="line">right.onNext(<span class="string">&quot;Copenhagen&quot;</span>)</span><br><span class="line">left.onNext(<span class="string">&quot;London&quot;</span>)</span><br><span class="line">left.onNext(<span class="string">&quot;Madrid&quot;</span>)</span><br><span class="line">right.onNext(<span class="string">&quot;Vienna&quot;</span>)</span><br><span class="line"></span><br><span class="line">disposable.dispose()</span><br></pre></td></tr></table></figure>
+
+
+
+<p>更流行的选项是 <code>switchLatest()</code> 运算符：</p>
+<p>可以自由切换偏爱那个子序列发射的元素。<img src="https://gewill.org/assets/switchLatest.jpg" alt="switchLatest"></p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> one <span class="operator">=</span> <span class="type">PublishSubject</span>&lt;<span class="type">String</span>&gt;()</span><br><span class="line"><span class="keyword">let</span> two <span class="operator">=</span> <span class="type">PublishSubject</span>&lt;<span class="type">String</span>&gt;()</span><br><span class="line"><span class="keyword">let</span> three <span class="operator">=</span> <span class="type">PublishSubject</span>&lt;<span class="type">String</span>&gt;()</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> source <span class="operator">=</span> <span class="type">PublishSubject</span>&lt;<span class="type">Observable</span>&lt;<span class="type">String</span>&gt;&gt;()</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> observable <span class="operator">=</span> source.switchLatest()</span><br><span class="line"><span class="keyword">let</span> disposable <span class="operator">=</span> observable.subscribe(onNext: &#123; value <span class="keyword">in</span></span><br><span class="line">    <span class="built_in">print</span>(value)</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">source.onNext(one)</span><br><span class="line">one.onNext(<span class="string">&quot;Some text from sequence one&quot;</span>)</span><br><span class="line">two.onNext(<span class="string">&quot;Some text from sequence two&quot;</span>)</span><br><span class="line"></span><br><span class="line">source.onNext(two)</span><br><span class="line">two.onNext(<span class="string">&quot;More text from sequence two&quot;</span>)</span><br><span class="line">one.onNext(<span class="string">&quot;and also from sequence one&quot;</span>)</span><br><span class="line"></span><br><span class="line">source.onNext(three)</span><br><span class="line">two.onNext(<span class="string">&quot;Why don&#x27;t you seem me?&quot;</span>)</span><br><span class="line">one.onNext(<span class="string">&quot;I&#x27;m alone, help me&quot;</span>)</span><br><span class="line">three.onNext(<span class="string">&quot;Hey it&#x27;s three. I win.&quot;</span>)</span><br><span class="line"></span><br><span class="line">source.onNext(one)</span><br><span class="line">one.onNext(<span class="string">&quot;Nope. It&#x27;s me, one!&quot;</span>)</span><br><span class="line"></span><br><span class="line">disposable.dispose()</span><br></pre></td></tr></table></figure>
+
+<p>Console 输出：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Some text from sequence one</span><br><span class="line">More text from sequence two</span><br><span class="line">Hey it&#x27;s three. I win.</span><br><span class="line">Nope. It&#x27;s me, one!</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>形成可观察序列的心智模型可能很困难。 别担心， 你会习惯它。 <strong>练习是顺序理解序列的关键</strong>。 随着您的体验增长，请随时审查这些示例！ 你将在下一章中更好地了解如何使用它。</p>
+<h3 id="Combining-一个序列中元素"><a href="#Combining-一个序列中元素" class="headerlink" title="Combining 一个序列中元素"></a>Combining 一个序列中元素</h3><p>所有的厨师都知道你减少得越多，酱汁就越美味。 虽然不是针对厨师，但 RxSwift 拥有将酱汁减少到最有味道的组分的工具。</p>
+<p><code>reduce(_:_:)</code> 和 Swift 标准库中类似。<img src="https://gewill.org/assets/reduce.jpg" alt="reduce"></p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> source <span class="operator">=</span> <span class="type">Observable</span>.of(<span class="number">1</span>, <span class="number">3</span>, <span class="number">5</span>, <span class="number">7</span>, <span class="number">9</span>)</span><br><span class="line"><span class="keyword">let</span> observable <span class="operator">=</span> source.reduce(<span class="number">0</span>, accumulator: &#123; summary, newValue <span class="keyword">in</span></span><br><span class="line">    <span class="keyword">return</span> summary <span class="operator">+</span> newValue</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">observable.subscribe(onNext: &#123; value <span class="keyword">in</span></span><br><span class="line">    <span class="built_in">print</span>(value)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<p>Console 输出：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">25</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p><code>scan(_:accumulator:)</code> 和<code>reduce(_:_:)</code> 只有一个最终结果不同：每次发射事件，都会计算结果并发射。<img src="https://gewill.org/assets/scan.jpg" alt="scan"></p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> source <span class="operator">=</span> <span class="type">Observable</span>.of(<span class="number">1</span>, <span class="number">3</span>, <span class="number">5</span>, <span class="number">7</span>, <span class="number">9</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> observable <span class="operator">=</span> source.scan(<span class="number">0</span>, accumulator: <span class="operator">+</span>)</span><br><span class="line">observable.subscribe(onNext: &#123; value <span class="keyword">in</span></span><br><span class="line">    <span class="built_in">print</span>(value)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<p>Console 输出：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">1</span><br><span class="line">4</span><br><span class="line">9</span><br><span class="line">16</span><br><span class="line">25</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h2 id="第十章：合并Operator实践"><a href="#第十章：合并Operator实践" class="headerlink" title="第十章：合并Operator实践"></a>第十章：合并Operator实践</h2><p>在前一章中，你学习了将操作符合并，并通过对一些相当令人头脑灵活的概念进行越来越详细的练习。 一些运算符可能会让你对这些反应性概念的真实应用感到疑惑。<br>在“……实践”一章中，你将有机会尝试一些最强大的运算符。 你将学会解决类似于你在自己的应用程序中遇到的问题。</p>
+<h3 id="准备网络后端服务"><a href="#准备网络后端服务" class="headerlink" title="准备网络后端服务"></a>准备网络后端服务</h3><p>这里使用NASA的EONET服务。</p>
+<p>我们称之为EONET服务。 它抽象访问由EONET服务器公开的数据，将它们作为服务提供给你的应用程序。 你会看到，结合Rx，这种模式将找到许多应用程序。 它可以让你在应用程序内清晰地分离数据生产和消耗。 你可以轻松替换或模拟生产环境，而不会对用户方面产生任何影响。</p>
+<p>先封装一个通用网络请求，然后把 categories 封装为单例，方便所有订阅者订阅。</p>
+<h3 id="Categories-view-controller"><a href="#Categories-view-controller" class="headerlink" title="Categories view controller"></a>Categories view controller</h3><p>categories view controller 显示 categories 列表。</p>
+<h3 id="Adding-the-event-download-service"><a href="#Adding-the-event-download-service" class="headerlink" title="Adding the event download service"></a>Adding the event download service</h3><h3 id="Getting-events-for-categories"><a href="#Getting-events-for-categories" class="headerlink" title="Getting events for categories"></a>Getting events for categories</h3><h3 id="Events-view-controller"><a href="#Events-view-controller" class="headerlink" title="Events view controller"></a>Events view controller</h3><h3 id="Wiring-the-days-selector"><a href="#Wiring-the-days-selector" class="headerlink" title="Wiring the days selector"></a>Wiring the days selector</h3><h3 id="Splitting-event-downloads"><a href="#Splitting-event-downloads" class="headerlink" title="Splitting event downloads"></a>Splitting event downloads</h3><h2 id="第十一章：基于时间的Operator"><a href="#第十一章：基于时间的Operator" class="headerlink" title="第十一章：基于时间的Operator"></a>第十一章：基于时间的Operator</h2><p>时间就是一切。响应式编程背后的核心思想是基于时间异步数据流的模型。在这方面, RxSwift 提供了一系列操作, 使你能够处理时间和序列在一段时间内的响应和转换方式。正如你将在本章中看到的, 管理序列的时间维度是简单而直接的。</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2018/05/18/RxSwift-I/" rel="prev" title="RxSwift I：开始学习 RxSwift">
+                  <i class="fa fa-chevron-left"></i> RxSwift I：开始学习 RxSwift
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2018/08/01/RxSwift-%E2%85%A2/" rel="next" title="RxSwift Ⅲ：iOS 应用程序与 RxCocoa">
+                  RxSwift Ⅲ：iOS 应用程序与 RxCocoa <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2025</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">Ge Will</span>
+  </div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/pisces/" rel="noopener" target="_blank">NexT.Pisces</a>
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="back-to-top" role="button" aria-label="Back to top">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.1/search.js" integrity="sha256-1kfA5uHPf65M5cphT2dvymhkuyHPQp5A53EGZOnOLmc=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>

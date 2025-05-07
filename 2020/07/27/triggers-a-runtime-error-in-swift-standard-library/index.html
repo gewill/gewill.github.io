@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 6.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha256-HtsXJanqjKTc8vVQjO4YMhiqFoXkfBsjBWcX91T1jr8=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Pisces","darkmode":true,"version":"8.17.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":true,"style":"mac"},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"},"path":"/search.json","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="Array.swiftUsing a negative number or an index equal to or greater than count triggers a runtime error. 使用负数或大于等于count的索引会触发运行时错误。 1print(emptyDoubles[0])  ClosedRange.swiftAn equivalent range must be">
+<meta property="og:type" content="article">
+<meta property="og:title" content="在Swift标准库中触发运行时错误">
+<meta property="og:url" content="http://example.com/2020/07/27/triggers-a-runtime-error-in-swift-standard-library/index.html">
+<meta property="og:site_name" content="Will&#39;s Blog">
+<meta property="og:description" content="Array.swiftUsing a negative number or an index equal to or greater than count triggers a runtime error. 使用负数或大于等于count的索引会触发运行时错误。 1print(emptyDoubles[0])  ClosedRange.swiftAn equivalent range must be">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2020-07-27T14:06:26.000Z">
+<meta property="article:modified_time" content="2025-01-13T03:01:04.074Z">
+<meta property="article:author" content="Ge Will">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="http://example.com/2020/07/27/triggers-a-runtime-error-in-swift-standard-library/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"en","comments":true,"permalink":"http://example.com/2020/07/27/triggers-a-runtime-error-in-swift-standard-library/","path":"2020/07/27/triggers-a-runtime-error-in-swift-standard-library/","title":"在Swift标准库中触发运行时错误"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>在Swift标准库中触发运行时错误 | Will's Blog</title>
+  
+
+
+
+
+
+
+
+<head>
+    <!-- 霞鹜文楷字体 -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lxgw-wenkai-webfont@1.7.0/style.css"/>
+
+    <!-- datapulse统计 -->
+    <script defer type="text/javascript" src="https://datapulse.app/datapulse.min.js" id="datapulse" data-endpoint="https://datapulse.app/api/v1/event" data-workspace="cljxqml5q0y0f8j37d4futnbl"></script>
+
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-DR0FC9YJLH"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() {
+            dataLayer.push(arguments);
+        }
+        gtag('js', new Date());
+
+        gtag('config', 'G-DR0FC9YJLH');
+    </script>
+</head>
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Will's Blog</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="Search" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives<span class="badge">198</span></a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags<span class="badge">17</span></a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories<span class="badge">1</span></a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="Searching..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Array-swift"><span class="nav-number">1.</span> <span class="nav-text">Array.swift</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#ClosedRange-swift"><span class="nav-number">2.</span> <span class="nav-text">ClosedRange.swift</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Dictionary-swift"><span class="nav-number">3.</span> <span class="nav-text">Dictionary.swift</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#DictionaryCasting-swift"><span class="nav-number">4.</span> <span class="nav-text">DictionaryCasting.swift</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Integers-swift"><span class="nav-number">5.</span> <span class="nav-text">Integers.swift</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Optional-swift"><span class="nav-number">6.</span> <span class="nav-text">Optional.swift</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Policy-swift"><span class="nav-number">7.</span> <span class="nav-text">Policy.swift</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Range-swift"><span class="nav-number">8.</span> <span class="nav-text">Range.swift</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#RangeReplaceableCollection-swift"><span class="nav-number">9.</span> <span class="nav-text">RangeReplaceableCollection.swift</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#SetCasting-swift"><span class="nav-number">10.</span> <span class="nav-text">SetCasting.swift</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#StaticString-swift"><span class="nav-number">11.</span> <span class="nav-text">StaticString.swift</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Ge Will"
+      src="/images/avatar.jpeg">
+  <p class="site-author-name" itemprop="name">Ge Will</p>
+  <div class="site-description" itemprop="description">The people who are crazy enough to think they can change the world, are the ones who DO.</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">198</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">17</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/gewill" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;gewill" rel="noopener me" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:531sunlight@gmail.com" title="E-Mail → mailto:531sunlight@gmail.com" rel="noopener me" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://weibo.com/gewei" title="Weibo → https:&#x2F;&#x2F;weibo.com&#x2F;gewei" rel="noopener me" target="_blank"><i class="fab fa-weibo fa-fw"></i>Weibo</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://twitter.com/BoJack_D" title="Twitter → https:&#x2F;&#x2F;twitter.com&#x2F;BoJack_D" rel="noopener me" target="_blank"><i class="fab fa-twitter fa-fw"></i>Twitter</a>
+      </span>
+  </div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2020/07/27/triggers-a-runtime-error-in-swift-standard-library/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpeg">
+      <meta itemprop="name" content="Ge Will">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Will's Blog">
+      <meta itemprop="description" content="The people who are crazy enough to think they can change the world, are the ones who DO.">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="在Swift标准库中触发运行时错误 | Will's Blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          在Swift标准库中触发运行时错误
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2020-07-27 22:06:26" itemprop="dateCreated datePublished" datetime="2020-07-27T22:06:26+08:00">2020-07-27</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">Edited on</span>
+      <time title="Modified: 2025-01-13 11:01:04" itemprop="dateModified" datetime="2025-01-13T11:01:04+08:00">2025-01-13</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><h1 id="Array-swift"><a href="#Array-swift" class="headerlink" title="Array.swift"></a>Array.swift</h1><p>Using a negative number or an index equal to or greater than <code>count</code> triggers a runtime error.</p>
+<p>使用负数或大于等于<code>count</code>的索引会触发运行时错误。</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">print</span>(emptyDoubles[<span class="number">0</span>])</span><br></pre></td></tr></table></figure>
+
+<h1 id="ClosedRange-swift"><a href="#ClosedRange-swift" class="headerlink" title="ClosedRange.swift"></a>ClosedRange.swift</h1><p>An equivalent range must be representable as a closed range.  For example, passing an empty range as <code>other</code> triggers a runtime error,  because an empty range cannot be represented by a closed range instance.</p>
+<p>等效范围必须可以表示为闭合范围。例如，将空范围作为 <code>other</code> 传递会触发运行时错误，因为空范围不能由封闭范围实例表示。</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> emptyRange <span class="operator">=</span> <span class="number">0</span><span class="operator">..&lt;</span><span class="number">0</span></span><br><span class="line"><span class="type">ClosedRange</span>(emptyRange)</span><br></pre></td></tr></table></figure>
+
+<h1 id="Dictionary-swift"><a href="#Dictionary-swift" class="headerlink" title="Dictionary.swift"></a>Dictionary.swift</h1><p>Passing a sequence with duplicate keys to this initializer results in a runtime error. If your sequence might have duplicate keys, use the <code>Dictionary(_:uniquingKeysWith:)</code> initializer instead.</p>
+<p>向此构造器传递具有重复键的序列会导致运行时错误。如果序列可能有重复的键，则使用<code>Dictionary(_:uniquingKeysWith:)</code> 初始化。</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> digitWords <span class="operator">=</span> [<span class="string">&quot;one&quot;</span>, <span class="string">&quot;two&quot;</span>, <span class="string">&quot;three&quot;</span>, <span class="string">&quot;four&quot;</span>, <span class="string">&quot;five&quot;</span>]</span><br><span class="line"><span class="keyword">let</span> wordToValue <span class="operator">=</span> <span class="type">Dictionary</span>(uniqueKeysWithValues: <span class="built_in">zip</span>(digitWords, <span class="number">1</span> <span class="operator">...</span> <span class="number">5</span>))</span><br><span class="line"><span class="keyword">let</span> wordToValueAndRemoveDuplicateKeys <span class="operator">=</span> <span class="type">Dictionary</span>(<span class="built_in">zip</span>([<span class="string">&quot;one&quot;</span>, <span class="string">&quot;one&quot;</span>, <span class="string">&quot;three&quot;</span>, <span class="string">&quot;four&quot;</span>, <span class="string">&quot;five&quot;</span>], <span class="number">1</span> <span class="operator">...</span> <span class="number">5</span>)) &#123; <span class="built_in">max</span>(<span class="variable">$0</span>, <span class="variable">$1</span>) &#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="DictionaryCasting-swift"><a href="#DictionaryCasting-swift" class="headerlink" title="DictionaryCasting.swift"></a>DictionaryCasting.swift</h1><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> dic: [<span class="type">String</span>: <span class="keyword">Any</span>] <span class="operator">=</span> [<span class="string">&quot;name&quot;</span>: <span class="string">&quot;li&quot;</span>, <span class="string">&quot;age&quot;</span>: <span class="number">18</span>]</span><br><span class="line">dic <span class="keyword">as!</span> [<span class="type">String</span>: <span class="type">String</span>]</span><br></pre></td></tr></table></figure>
+
+<h1 id="Integers-swift"><a href="#Integers-swift" class="headerlink" title="Integers.swift"></a>Integers.swift</h1><p>When the additive inverse of a value is unrepresentable in a conforming type, the operation should either trap or return an exceptional value. For example, using the negation operator (prefix <code>-</code>) with <code>Int.min</code> results in a runtime error.</p>
+<p>当一个值的负值在一个符合类型中不可表示时，操作应该捕获或返回一个异常值。例如，将否定运算符(前缀<code>-</code>)与 <code>Int.min</code>一起使用会导致运行时错误。</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> x <span class="operator">=</span> <span class="type">Int</span>.min</span><br><span class="line"><span class="keyword">let</span> y <span class="operator">=</span> <span class="operator">-</span>x</span><br><span class="line"><span class="comment">// Overflow error</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> z <span class="operator">=</span> <span class="operator">-</span><span class="type">Int8</span>.min</span><br><span class="line"><span class="comment">// Overflow error</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> y <span class="operator">=</span> <span class="type">Int8</span>.min</span><br><span class="line">y.negate()</span><br><span class="line"><span class="comment">// Overflow error</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> z <span class="operator">=</span> <span class="type">UInt32</span>(<span class="operator">-</span><span class="number">500</span>)</span><br><span class="line"><span class="comment">// Error</span></span><br></pre></td></tr></table></figure>
+
+<h1 id="Optional-swift"><a href="#Optional-swift" class="headerlink" title="Optional.swift"></a>Optional.swift</h1><p>In debug builds (<code>-Onone</code>), the <code>unsafelyUnwrapped</code> property has the same behavior as using the postfix <code>!</code> operator and triggers a runtime error if the instance is <code>nil</code>.</p>
+<p>在调试版本(<code>-Onone</code>)中，<code>unsafelyUnwrapped</code>属性的行为与使用后缀的行为相同<code>!</code>如果实例为<code> nil</code> ，则触发运行时错误。<strong>谨慎使用</strong>。</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> optionalInt: <span class="type">Int</span>? <span class="operator">=</span> <span class="literal">nil</span></span><br><span class="line">optionalInt.unsafelyUnwrapped</span><br><span class="line">optionalInt<span class="operator">!</span></span><br></pre></td></tr></table></figure>
+
+<h1 id="Policy-swift"><a href="#Policy-swift" class="headerlink" title="Policy.swift"></a>Policy.swift</h1><p>If you have prior knowledge that an <code>AnyObject</code> instance has a particular type, you can use the unconditional downcast operator (<code>as!</code>). Performing an invalid cast triggers a runtime error.</p>
+<p>如果您事先知道<code>AnyObject</code>实例具有特定的类型，则可以使用无条件向下转换运算符(<code>as</code>)。 执行无效强制转换会触发运行时错误。</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> message <span class="operator">=</span> s <span class="keyword">as!</span> <span class="type">String</span></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;Successful cast to String: <span class="subst">\(message)</span>&quot;</span>)</span><br><span class="line"><span class="comment">// Prints &quot;Successful cast to String: This is a bridged string.&quot;</span></span><br><span class="line"><span class="keyword">let</span> badCase <span class="operator">=</span> v <span class="keyword">as!</span> <span class="type">String</span></span><br><span class="line"><span class="comment">// Runtime error</span></span><br></pre></td></tr></table></figure>
+
+<h1 id="Range-swift"><a href="#Range-swift" class="headerlink" title="Range.swift"></a>Range.swift</h1><p>An equivalent range must be representable as an instance of Range<Bound>. For example, passing a closed range with an upper bound of <code>Int.max</code> triggers a runtime error, because the resulting half-open range would require an upper bound of <code>Int.max + 1</code>, which is not representable as</p>
+<p>范围边界值越界会触发运行时错误，如设置最大值为<code>Int.max</code>时。</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">Range</span>(<span class="number">0</span> <span class="operator">...</span> <span class="type">Int</span>.max)</span><br></pre></td></tr></table></figure>
+
+
+
+<p>Always use the slice’s <code>startIndex</code> property instead of assuming that its indices start at a particular value. Attempting to access an element by using an index outside the bounds of the slice’s indices may result in a runtime error, even if that index is valid for the original collection.</p>
+<p>始终使用 slice 的<code>startIndex</code>属性，而不是假设它的索引以特定的值开始。试图通过在slice索引的边界之外使用索引来访问元素可能会导致运行时错误，即使该索引对原始集合有效。</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> streets <span class="operator">=</span> [<span class="string">&quot;Adams&quot;</span>, <span class="string">&quot;Bryant&quot;</span>, <span class="string">&quot;Channing&quot;</span>, <span class="string">&quot;Douglas&quot;</span>, <span class="string">&quot;Evarts&quot;</span>]</span><br><span class="line"><span class="keyword">let</span> streetsSlice <span class="operator">=</span> streets[<span class="number">2</span><span class="operator">...</span>]</span><br><span class="line"><span class="built_in">print</span>(streetsSlice)</span><br><span class="line"><span class="comment">// [&quot;Channing&quot;, &quot;Douglas&quot;, &quot;Evarts&quot;]</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(streetsSlice.startIndex)</span><br><span class="line"><span class="comment">// 2</span></span><br><span class="line"><span class="built_in">print</span>(streetsSlice[<span class="number">2</span>])</span><br><span class="line"><span class="comment">// &quot;Channing&quot;</span></span><br><span class="line"><span class="built_in">print</span>(streetsSlice[<span class="number">0</span>])</span><br><span class="line"><span class="comment">// error: Index out of bounds</span></span><br></pre></td></tr></table></figure>
+
+<h1 id="RangeReplaceableCollection-swift"><a href="#RangeReplaceableCollection-swift" class="headerlink" title="RangeReplaceableCollection.swift"></a>RangeReplaceableCollection.swift</h1><p>Attempting to remove more elements than exist in the collection triggers a runtime error.</p>
+<p>尝试移除集合中存在的元素数目多于存在的元素会触发运行时错误。</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> array <span class="operator">=</span> <span class="type">Array</span>(<span class="number">0</span> <span class="operator">..&lt;</span> <span class="number">5</span>)</span><br><span class="line">array.removeFirst(<span class="number">6</span>)</span><br><span class="line">array.removeLast(<span class="number">6</span>)</span><br></pre></td></tr></table></figure>
+
+<h1 id="SetCasting-swift"><a href="#SetCasting-swift" class="headerlink" title="SetCasting.swift"></a>SetCasting.swift</h1><p> We can’t just delegate to _setDownCastConditional here because we rely on  <code>as!</code> to generate nice runtime errors when the downcast fails.</p>
+<p>Set 向下强制转换失败时，会产生运行时错误。</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> s: <span class="type">Set</span>&lt;<span class="type">AnyHashable</span>&gt; <span class="operator">=</span> [<span class="number">1</span>, <span class="number">2</span>, <span class="string">&quot;3&quot;</span>]</span><br><span class="line">s <span class="keyword">as!</span> <span class="type">Set</span>&lt;<span class="type">Int</span>&gt;</span><br></pre></td></tr></table></figure>
+
+<h1 id="StaticString-swift"><a href="#StaticString-swift" class="headerlink" title="StaticString.swift"></a>StaticString.swift</h1><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// * a pointer to a null-terminated sequence of UTF-8 code units:</span></span><br><span class="line"><span class="keyword">let</span> emoji: <span class="type">StaticString</span> <span class="operator">=</span> <span class="string">&quot;<span class="subst">\u&#123;1F600&#125;</span>&quot;</span></span><br><span class="line">emoji.hasPointerRepresentation <span class="comment">// -&gt; true</span></span><br><span class="line">emoji.isASCII <span class="comment">// -&gt; false</span></span><br><span class="line"><span class="comment">// emoji.unicodeScalar // -&gt; Fatal error!</span></span><br><span class="line">emoji.utf8CodeUnitCount <span class="comment">// -&gt; 4</span></span><br><span class="line">emoji.utf8Start[<span class="number">0</span>] <span class="comment">// -&gt; 0xF0</span></span><br><span class="line">emoji.utf8Start[<span class="number">1</span>] <span class="comment">// -&gt; 0x9F</span></span><br><span class="line">emoji.utf8Start[<span class="number">2</span>] <span class="comment">// -&gt; 0x98</span></span><br><span class="line">emoji.utf8Start[<span class="number">3</span>] <span class="comment">// -&gt; 0x80</span></span><br><span class="line">emoji.utf8Start[<span class="number">4</span>] <span class="comment">// -&gt; 0x00</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// * a single Unicode scalar value, under very limited circumstances:</span></span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">MyStaticScalar</span>: <span class="title class_">ExpressibleByUnicodeScalarLiteral</span> &#123;</span><br><span class="line">    <span class="keyword">typealias</span> <span class="type">UnicodeScalarLiteralType</span> <span class="operator">=</span> <span class="type">StaticString</span></span><br><span class="line">    <span class="keyword">let</span> value: <span class="type">StaticString</span></span><br><span class="line">    <span class="keyword">init</span>(<span class="params">unicodeScalarLiteral</span> <span class="params">value</span>: <span class="type">StaticString</span>) &#123;</span><br><span class="line">        <span class="keyword">self</span>.value <span class="operator">=</span> value</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> emoji: <span class="type">StaticString</span> <span class="operator">=</span> <span class="type">MyStaticScalar</span>(<span class="string">&quot;<span class="subst">\u&#123;1F600&#125;</span>&quot;</span>).value</span><br><span class="line">emoji.hasPointerRepresentation <span class="comment">// -&gt; false</span></span><br><span class="line">emoji.isASCII <span class="comment">// -&gt; false</span></span><br><span class="line">emoji.unicodeScalar.value <span class="comment">// -&gt; 0x1F600</span></span><br><span class="line">emoji.utf8CodeUnitCount <span class="comment">// -&gt; Fatal error!</span></span><br><span class="line">emoji.utf8Start <span class="comment">// -&gt; Fatal error!</span></span><br></pre></td></tr></table></figure>
+
+<p><code>hasPointerRepresentation</code> 一个布尔值，表示静态字符串是否存储指向以 null 结尾的 UTF-8代码单元序列的指针。</p>
+<ul>
+<li>true：这时访问<code>unicodeScalar</code>会触发运行时错误；</li>
+<li>false：静态字符串存储单个 Unicode 标量值。这时访问<code>utf8</code>开头的属性会触发运行时错误；</li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2019/11/18/Data-Structures-and-Algorithms-in-Swift-Notes-2/" rel="prev" title="Swift数据结构和算法（二）">
+                  <i class="fa fa-chevron-left"></i> Swift数据结构和算法（二）
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2020/11/14/Update-Hackintosh-to-Big-Sur-with-Open-Core/" rel="next" title="使用 Open Core 黑苹果升级至 Big Sur">
+                  使用 Open Core 黑苹果升级至 Big Sur <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2025</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">Ge Will</span>
+  </div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/pisces/" rel="noopener" target="_blank">NexT.Pisces</a>
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="back-to-top" role="button" aria-label="Back to top">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.1/search.js" integrity="sha256-1kfA5uHPf65M5cphT2dvymhkuyHPQp5A53EGZOnOLmc=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>

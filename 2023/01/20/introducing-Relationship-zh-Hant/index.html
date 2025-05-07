@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 6.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha256-HtsXJanqjKTc8vVQjO4YMhiqFoXkfBsjBWcX91T1jr8=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Pisces","darkmode":true,"version":"8.17.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":true,"style":"mac"},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"},"path":"/search.json","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="介绍  逢年過節遇到三姑六婆，拒絕叫不出口的尷尬！輕鬆搞定親戚關係～ 親屬是基於婚姻、血緣和法律擬制而形成的社會關係。親屬關係包括夫妻、父母、子女、兄弟姊妹、祖父母和外祖父母、孫子女和外孫子女、兒媳和公婆、女婿和岳父母、以及其他三代以內的旁系血親，如伯、叔、姑、舅、姨、侄子女、甥子女、堂兄弟姊妹、表兄弟姊妹、姨兄弟姊妹等。  親屬稱謂指是以本人為中心確定親族成員和本人關係的名稱，是基於血親姻親基礎">
+<meta property="og:type" content="article">
+<meta property="og:title" content="親戚關係計算器介紹">
+<meta property="og:url" content="http://example.com/2023/01/20/introducing-Relationship-zh-Hant/index.html">
+<meta property="og:site_name" content="Will&#39;s Blog">
+<meta property="og:description" content="介绍  逢年過節遇到三姑六婆，拒絕叫不出口的尷尬！輕鬆搞定親戚關係～ 親屬是基於婚姻、血緣和法律擬制而形成的社會關係。親屬關係包括夫妻、父母、子女、兄弟姊妹、祖父母和外祖父母、孫子女和外孫子女、兒媳和公婆、女婿和岳父母、以及其他三代以內的旁系血親，如伯、叔、姑、舅、姨、侄子女、甥子女、堂兄弟姊妹、表兄弟姊妹、姨兄弟姊妹等。  親屬稱謂指是以本人為中心確定親族成員和本人關係的名稱，是基於血親姻親基礎">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://gewill.org/assets/Relationship-iPhone-preview.png">
+<meta property="og:image" content="https://gewill.org/assets/Relationship-iPad-preview.png">
+<meta property="article:published_time" content="2023-01-20T05:20:33.000Z">
+<meta property="article:modified_time" content="2025-01-13T03:01:04.073Z">
+<meta property="article:author" content="Ge Will">
+<meta property="article:tag" content="Swift">
+<meta property="article:tag" content="SwiftUI">
+<meta property="article:tag" content="iOS">
+<meta property="article:tag" content="macOS">
+<meta property="article:tag" content="iPadOS">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://gewill.org/assets/Relationship-iPhone-preview.png">
+
+
+<link rel="canonical" href="http://example.com/2023/01/20/introducing-Relationship-zh-Hant/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"en","comments":true,"permalink":"http://example.com/2023/01/20/introducing-Relationship-zh-Hant/","path":"2023/01/20/introducing-Relationship-zh-Hant/","title":"親戚關係計算器介紹"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>親戚關係計算器介紹 | Will's Blog</title>
+  
+
+
+
+
+
+
+
+<head>
+    <!-- 霞鹜文楷字体 -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lxgw-wenkai-webfont@1.7.0/style.css"/>
+
+    <!-- datapulse统计 -->
+    <script defer type="text/javascript" src="https://datapulse.app/datapulse.min.js" id="datapulse" data-endpoint="https://datapulse.app/api/v1/event" data-workspace="cljxqml5q0y0f8j37d4futnbl"></script>
+
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-DR0FC9YJLH"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() {
+            dataLayer.push(arguments);
+        }
+        gtag('js', new Date());
+
+        gtag('config', 'G-DR0FC9YJLH');
+    </script>
+</head>
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Will's Blog</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="Search" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives<span class="badge">198</span></a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags<span class="badge">17</span></a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories<span class="badge">1</span></a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="Searching..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BB%8B%E7%BB%8D"><span class="nav-number">1.</span> <span class="nav-text">介绍</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%84%9F%E8%AC%9D-%E7%AE%97%E6%B3%95%E9%96%8B%E6%BA%90"><span class="nav-number">1.1.</span> <span class="nav-text">感謝  算法開源</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%9A%B1%E7%A7%81%E6%94%BF%E7%AD%96"><span class="nav-number">2.</span> <span class="nav-text">隱私政策</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%94%B6%E9%9B%86%E5%93%AA%E4%BA%9B%E4%BF%A1%E6%81%AF"><span class="nav-number">2.1.</span> <span class="nav-text">收集哪些信息</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%94%B6%E9%9B%86%E7%9A%84%E4%BF%A1%E6%81%AF%E8%88%87%E7%94%A8%E9%80%94"><span class="nav-number">2.2.</span> <span class="nav-text">收集的信息與用途</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AC%AC%E4%B8%89%E6%96%B9%E5%88%86%E6%9E%90%E5%B7%A5%E5%85%B7"><span class="nav-number">2.3.</span> <span class="nav-text">第三方分析工具</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AC%AC%E4%B8%89%E6%96%B9%E5%BB%A3%E5%91%8A%E5%90%88%E4%BD%9C%E5%A4%A5%E4%BC%B4"><span class="nav-number">2.4.</span> <span class="nav-text">第三方廣告合作夥伴</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9B%B4%E6%96%B0"><span class="nav-number">2.5.</span> <span class="nav-text">更新</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%81%AF%E7%B9%AB%E6%88%91%E5%80%91"><span class="nav-number">2.6.</span> <span class="nav-text">聯繫我們</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Ge Will"
+      src="/images/avatar.jpeg">
+  <p class="site-author-name" itemprop="name">Ge Will</p>
+  <div class="site-description" itemprop="description">The people who are crazy enough to think they can change the world, are the ones who DO.</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">198</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">17</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/gewill" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;gewill" rel="noopener me" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:531sunlight@gmail.com" title="E-Mail → mailto:531sunlight@gmail.com" rel="noopener me" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://weibo.com/gewei" title="Weibo → https:&#x2F;&#x2F;weibo.com&#x2F;gewei" rel="noopener me" target="_blank"><i class="fab fa-weibo fa-fw"></i>Weibo</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://twitter.com/BoJack_D" title="Twitter → https:&#x2F;&#x2F;twitter.com&#x2F;BoJack_D" rel="noopener me" target="_blank"><i class="fab fa-twitter fa-fw"></i>Twitter</a>
+      </span>
+  </div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2023/01/20/introducing-Relationship-zh-Hant/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpeg">
+      <meta itemprop="name" content="Ge Will">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Will's Blog">
+      <meta itemprop="description" content="The people who are crazy enough to think they can change the world, are the ones who DO.">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="親戚關係計算器介紹 | Will's Blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          親戚關係計算器介紹
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2023-01-20 13:20:33" itemprop="dateCreated datePublished" datetime="2023-01-20T13:20:33+08:00">2023-01-20</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">Edited on</span>
+      <time title="Modified: 2025-01-13 11:01:04" itemprop="dateModified" datetime="2025-01-13T11:01:04+08:00">2025-01-13</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><h2 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h2><p><img src="https://gewill.org/assets/Relationship-iPhone-preview.png" alt="Relationship-iPhone-preview"></p>
+<p><img src="https://gewill.org/assets/Relationship-iPad-preview.png" alt="Relationship-iPad-preview"></p>
+<p>逢年過節遇到三姑六婆，拒絕叫不出口的尷尬！輕鬆搞定親戚關係～</p>
+<p>親屬是基於婚姻、血緣和法律擬制而形成的社會關係。親屬關係包括夫妻、父母、子女、兄弟姊妹、祖父母和外祖父母、孫子女和外孫子女、兒媳和公婆、女婿和岳父母、以及其他三代以內的旁系血親，如伯、叔、姑、舅、姨、侄子女、甥子女、堂兄弟姊妹、表兄弟姊妹、姨兄弟姊妹等。</p>
+<p> 親屬稱謂指是以本人為中心確定親族成員和本人關係的名稱，是基於血親姻親基礎上的親屬之間相互稱呼的名稱、叫法。漢族的家族親屬關係條理分明尊卑有序：比自己長一輩的稱呼有姨姑舅叔伯，同輩的有兄弟姊妹、堂表親等等，下一輩有甥侄等等。中國人由於姻親而產生的親戚關係相當龐雜，「祖宗十八代」、「五服」、「六親」、「九族」讓人難以區分，其派生出的各種稱謂也是中華文化的一大特徵。</p>
+<p> 如今由於工作生活節奏差異，很多關係稍疏遠的親戚之間來往並不多，年齡差異長幼輩分模糊。春節拜年走親戚遇到七大姑八大姨，往往會搞不清楚哪位親戚應該喊什麼稱呼，很是尷尬。不僅小孩搞不清親戚關係和親戚稱謂，就連年輕一代的大人也都常常模糊混亂。</p>
+<p> 「親戚關係計算器」為你避免了叫錯、不會叫親戚的尷尬，收錄了中國親戚關係稱呼大全，只需簡單的輸入即可完成稱呼計算。稱呼計算器同時兼容了不同地域的方言叫法，你可以稱呼父親為：「老爸」、「爹地」、「老爺子」等等。讓您準確的叫出親戚稱謂，理清親屬之間的親戚關係，輕鬆掌握中國式的親戚關係換算，讓你更瞭解中國文化。</p>
+<p>支持iOS、iPadOS和macOS。</p>
+<p>下載地址：<a target="_blank" rel="noopener" href="https://apps.apple.com/app/relationship/id1665455216">App Store</a></p>
+<p>有任何疑問或者建議，可以通過 <a href="mailto:531sunlight@gmail.com">Email</a> 聯繫。</p>
+<h3 id="感謝-算法開源"><a href="#感謝-算法開源" class="headerlink" title="感謝  算法開源"></a>感謝  <a target="_blank" rel="noopener" href="https://github.com/mumuy/relationship/">算法開源</a></h3><blockquote>
+<p>​      本項目致力於讓更多人瞭解中國傳統文化，學習各式各樣的中國親戚稱謂。本人深感項目的完善僅憑一己之力是遠遠不夠的，如果你對此感興趣，歡迎關注本項目 或 提交代碼，與我一起完善它，使它被更多人熟知和使用。你也可以通過本項目提供的方法和教程，打造更符合自己使用習慣的親戚計算器版本。</p>
+<p>​      算法基於「MIT許可協議」開源，除需在源碼中保留版權信息和許可聲明外，你有權利使用、複製、修改、合併、出版發行、散布、再授權及販售軟件及軟件的副本。算法持續更新中，如發現錯漏或有想法建議可在此 反饋問題。</p>
+</blockquote>
+<h2 id="隱私政策"><a href="#隱私政策" class="headerlink" title="隱私政策"></a>隱私政策</h2><p>本隱私政策描述了我們如何收集，使用和披露與服務有關的個人信息，您通過訪問服務即表示同意。「個人信息」是指有關可識別個人的信息，但不包括商業信息。</p>
+<h3 id="收集哪些信息"><a href="#收集哪些信息" class="headerlink" title="收集哪些信息"></a>收集哪些信息</h3><p>親戚關係計算器希望使您與我們的體驗令人滿意且安全。我們的數據收集政策使您可以選擇向我們提供多少個人信息，並控制我們如何使用這些信息。我們的目標是為您提供滿意的體驗，同時讓您控制自己的隱私。親戚關係計算器收集和使用信息主要是為了使您使用我們的服務更輕鬆，更有意義。如果您選擇向我們註冊，則可能會在不同時間要求您提供信息，我們將竭盡所能使親戚關係計算器滿足您的服務並只為您提供所需的內容。</p>
+<h3 id="收集的信息與用途"><a href="#收集的信息與用途" class="headerlink" title="收集的信息與用途"></a>收集的信息與用途</h3><p>為識別您的設備 ID 並預防惡意程序、提高服務安全性、保障運營質量及效率，我們使用的第三方平台包括Firebase 會收集您的設備信息（包括IMEI、MEID、IMSI、GUID、MAC地址）、您安裝的應用信息或運行中的進程信息。</p>
+<p><strong>匿名信息</strong>是指無法與特定個人聯繫在一起的信息，我們不知道您的姓名，住處或出生日期。匿名信息可能以多種方式收集，包括通過使用 Cookie，網絡信標或從您使用的設備中收集。</p>
+<h3 id="第三方分析工具"><a href="#第三方分析工具" class="headerlink" title="第三方分析工具"></a>第三方分析工具</h3><p>我們的服務可能包含來自我們服務提供商的第三方跟蹤以及數據收集和分析工具，例如 Google Analytics（分析）和 Google Firebase 。此類第三方可以在我們的服務中使用 Cookie，API 和 SDK，以使他們能夠代表我們收集和分析與用戶和設備相關的數據和信息。第三方可能會訪問並收集有關您的數據和信息，例如您的設備標識符(包括IMEI、MEID、IMSI、GUID、MAC地址及其他相關信息)，語言環境（使用特定語言的特定位置），地理位置信息，IP 地址，應用程序使用情況，訪問權限和會話時間，傳感器數據，設備上存在的或在設備上特定時間使用的應用程序以及您對廣告的觀看和互動，以提供其服務，包括例如啓用，提供和投放廣告在下面有更詳細的說明。</p>
+<p>我們的服務提供商的隱私政策可能包括有關其數據收集和使用慣例以及跟蹤技術的其他條款和披露，我們鼓勵您檢查這些隱私政策以瞭解有關其數據收集和使用慣例以及 Cookie 的使用的更多信息以及其他類似的跟蹤技術。</p>
+<p>為識別您的設備 ID 並預防惡意程序、提高服務安全性、保障運營質量及效率，我們使用的第三方平台將獲取設備序列號。</p>
+<ul>
+<li><strong>Google</strong><br>隱私政策：<a target="_blank" rel="noopener" href="https://policies.google.com/privacy">https://policies.google.com/privacy</a></li>
+</ul>
+<h3 id="第三方廣告合作夥伴"><a href="#第三方廣告合作夥伴" class="headerlink" title="第三方廣告合作夥伴"></a>第三方廣告合作夥伴</h3><p>我們與各種廣告商，廣告網絡，廣告服務器和分析公司合作。這些廣告商，廣告網絡，廣告服務器和分析公司使用各種技術以及第三方公司的技術來收集數據，以便向您和其他用戶發送（或投放）相關廣告。這些技術可能包括放置Cookie或網絡信標，使用唯一或非唯一的非個人標識符，或在我們的服務上使用其他技術，並且這些技術可用於跟蹤用戶行為，跟蹤我們如何服務正在使用中，有可能為您提供更多相關的廣告。這些目標廣告可能會出現在我們的服務或您訪問的其他服務上。本隱私政策不涵蓋廣告商，廣告網絡，廣告服務器和分析公司對各種技術的使用。這些公司還可能從您從其他公司使用的服務中獲取信息，這些服務包括但不限於其他網站，移動網站，可移動下載的應用程序和可下載的桌面應用程序，並將這些信息與他們通過我們的服務通過這些第三方技術獲取的信息結合在一起。您應該意識到，我們無法控制這些第三方技術或其中包含的信息。</p>
+<h3 id="更新"><a href="#更新" class="headerlink" title="更新"></a>更新</h3><p>親戚關係計算器可以隨時修改本隱私政策。請經常檢查是否有任何更改。繼續使用服務，即表示您接受本隱私政策的所有更新。此版本於 2023 年 02 月 01 日更新。</p>
+<h3 id="聯繫我們"><a href="#聯繫我們" class="headerlink" title="聯繫我們"></a>聯繫我們</h3><p>我們希望此聲明能為您提供豐富而清晰的信息。如果您有任何疑問或進一步的信息，請給我們發送電子郵件。</p>
+<p>App 與服務反饋: <a href="mailto:531sunlight@gmail.com">531sunlight@gmail.com</a></p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Swift/" rel="tag"># Swift</a>
+              <a href="/tags/SwiftUI/" rel="tag"># SwiftUI</a>
+              <a href="/tags/iOS/" rel="tag"># iOS</a>
+              <a href="/tags/macOS/" rel="tag"># macOS</a>
+              <a href="/tags/iPadOS/" rel="tag"># iPadOS</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2023/01/20/introducing-Relationship/" rel="prev" title="亲戚关系计算器介绍">
+                  <i class="fa fa-chevron-left"></i> 亲戚关系计算器介绍
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2023/01/31/SF-Symbols-Availability-Issue/" rel="next" title="SF Symbols 对于旧版iOS可用性的问题">
+                  SF Symbols 对于旧版iOS可用性的问题 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2025</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">Ge Will</span>
+  </div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/pisces/" rel="noopener" target="_blank">NexT.Pisces</a>
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="back-to-top" role="button" aria-label="Back to top">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.1/search.js" integrity="sha256-1kfA5uHPf65M5cphT2dvymhkuyHPQp5A53EGZOnOLmc=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>

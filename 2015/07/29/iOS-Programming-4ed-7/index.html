@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 6.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha256-HtsXJanqjKTc8vVQjO4YMhiqFoXkfBsjBWcX91T1jr8=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Pisces","darkmode":true,"version":"8.17.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":true,"style":"mac"},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"},"path":"/search.json","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="重读前言提到的学习方法： 设定目标一天一章，找一个安静地场所，关闭手机和电脑各种聊天和通知，读书无法多任务并行，必须集中精力。  通读整章 编写代码和调试（特别有帮助） 笔记  最终目标：  必须学会 Objective-C 必须掌握 Cocoa 的常用技术：视图、控制器、内存管理、代理 必须掌握框架和学会查看官方文档  The 4 Most Important Skills for a Soft">
+<meta property="og:type" content="article">
+<meta property="og:title" content="《iOS 编程》7. 委托与文本输入">
+<meta property="og:url" content="http://example.com/2015/07/29/iOS-Programming-4ed-7/index.html">
+<meta property="og:site_name" content="Will&#39;s Blog">
+<meta property="og:description" content="重读前言提到的学习方法： 设定目标一天一章，找一个安静地场所，关闭手机和电脑各种聊天和通知，读书无法多任务并行，必须集中精力。  通读整章 编写代码和调试（特别有帮助） 笔记  最终目标：  必须学会 Objective-C 必须掌握 Cocoa 的常用技术：视图、控制器、内存管理、代理 必须掌握框架和学会查看官方文档  The 4 Most Important Skills for a Soft">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2015-07-29T03:27:23.000Z">
+<meta property="article:modified_time" content="2025-01-13T03:01:04.071Z">
+<meta property="article:author" content="Ge Will">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="http://example.com/2015/07/29/iOS-Programming-4ed-7/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"en","comments":true,"permalink":"http://example.com/2015/07/29/iOS-Programming-4ed-7/","path":"2015/07/29/iOS-Programming-4ed-7/","title":"《iOS 编程》7. 委托与文本输入"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>《iOS 编程》7. 委托与文本输入 | Will's Blog</title>
+  
+
+
+
+
+
+
+
+<head>
+    <!-- 霞鹜文楷字体 -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lxgw-wenkai-webfont@1.7.0/style.css"/>
+
+    <!-- datapulse统计 -->
+    <script defer type="text/javascript" src="https://datapulse.app/datapulse.min.js" id="datapulse" data-endpoint="https://datapulse.app/api/v1/event" data-workspace="cljxqml5q0y0f8j37d4futnbl"></script>
+
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-DR0FC9YJLH"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() {
+            dataLayer.push(arguments);
+        }
+        gtag('js', new Date());
+
+        gtag('config', 'G-DR0FC9YJLH');
+    </script>
+</head>
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Will's Blog</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="Search" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives<span class="badge">198</span></a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags<span class="badge">17</span></a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories<span class="badge">1</span></a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="Searching..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#7-2-%E5%A7%94%E6%89%98"><span class="nav-number">1.</span> <span class="nav-text">7.2 委托</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#7-8-%E4%B8%AD%E7%BA%A7%E7%BB%83%E4%B9%A0%EF%BC%9A%E6%8D%8F%E5%90%88-%E7%BC%A9%E6%94%BE"><span class="nav-number">2.</span> <span class="nav-text">7.8 中级练习：捏合-缩放</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%A1%B9%E7%9B%AE%E4%BB%A3%E7%A0%81%E4%BF%9D%E5%AD%98%E5%9C%A8%E6%88%91%E7%9A%84-GitHub-iOSProgramming4edSolutions"><span class="nav-number">3.</span> <span class="nav-text">项目代码保存在我的 GitHub: iOSProgramming4edSolutions</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Ge Will"
+      src="/images/avatar.jpeg">
+  <p class="site-author-name" itemprop="name">Ge Will</p>
+  <div class="site-description" itemprop="description">The people who are crazy enough to think they can change the world, are the ones who DO.</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">198</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">17</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/gewill" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;gewill" rel="noopener me" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:531sunlight@gmail.com" title="E-Mail → mailto:531sunlight@gmail.com" rel="noopener me" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://weibo.com/gewei" title="Weibo → https:&#x2F;&#x2F;weibo.com&#x2F;gewei" rel="noopener me" target="_blank"><i class="fab fa-weibo fa-fw"></i>Weibo</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://twitter.com/BoJack_D" title="Twitter → https:&#x2F;&#x2F;twitter.com&#x2F;BoJack_D" rel="noopener me" target="_blank"><i class="fab fa-twitter fa-fw"></i>Twitter</a>
+      </span>
+  </div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2015/07/29/iOS-Programming-4ed-7/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpeg">
+      <meta itemprop="name" content="Ge Will">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Will's Blog">
+      <meta itemprop="description" content="The people who are crazy enough to think they can change the world, are the ones who DO.">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="《iOS 编程》7. 委托与文本输入 | Will's Blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          《iOS 编程》7. 委托与文本输入
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2015-07-29 11:27:23" itemprop="dateCreated datePublished" datetime="2015-07-29T11:27:23+08:00">2015-07-29</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">Edited on</span>
+      <time title="Modified: 2025-01-13 11:01:04" itemprop="dateModified" datetime="2025-01-13T11:01:04+08:00">2025-01-13</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><p>重读前言提到的学习方法：</p>
+<p>设定目标一天一章，找一个安静地场所，关闭手机和电脑各种聊天和通知，读书无法多任务并行，必须集中精力。</p>
+<ol>
+<li>通读整章</li>
+<li>编写代码和调试（特别有帮助）</li>
+<li>笔记</li>
+</ol>
+<p>最终目标：</p>
+<ul>
+<li>必须学会 Objective-C</li>
+<li>必须掌握 Cocoa 的常用技术：视图、控制器、内存管理、代理</li>
+<li>必须掌握框架和学会查看官方文档</li>
+</ul>
+<p><a target="_blank" rel="noopener" href="http://simpleprogrammer.com/2012/12/09/the-4-most-important-skills-for-a-software-developer/">The 4 Most Important Skills for a Software Developer</a>: If you can solve problems, learn things quickly, name things well and deal with people, you will have a much greater level of success in the long run than you will in specializing in any particular technology.</p>
+<p>上面这篇文章中提到解决问题的能力很重要，因为真实的编程工作内容就是解决问题，所以习题很重要，做习题就是解决问题，这也和本书提到调试非常有帮助不谋而合，因为你在调试就是在解决问题。</p>
+<blockquote>
+<p>发现我一直在寻求简单的道理（大道至简），习惯于归纳要旨和大纲。但是却忽略了细节，其实全局的理解和记忆也是必经之路。读书先薄再厚再薄，第二阶段最为繁长的耗时，但也是最重要的。</p>
+</blockquote>
+<h2 id="7-2-委托"><a href="#7-2-委托" class="headerlink" title="7.2 委托"></a>7.2 委托</h2><p>Delegation 翻译为委托&#x2F;代理</p>
+<p>代理的前三步：</p>
+<ul>
+<li>视图中创建一个代理协议</li>
+<li>视图中创建一个代理的属性，其类型是代理协议</li>
+<li>视图中使用代理的属性</li>
+</ul>
+<p>代理的后三步：</p>
+<ul>
+<li>控制器声明并完成代理协议</li>
+<li>控制器把自己作为视图的代理，通过设置代理的属性</li>
+<li>控制器实施代理的方法</li>
+</ul>
+<h2 id="7-8-中级练习：捏合-缩放"><a href="#7-8-中级练习：捏合-缩放" class="headerlink" title="7.8 中级练习：捏合-缩放"></a>7.8 中级练习：捏合-缩放</h2><p>习题提示部分大不大懂。对比了英文版，翻译的不对啊。看中文翻译有出入，看英文太慢。解决方法：还是看中文版，Demo 和习题都做完了，再看一遍英文版。先精通一门语言的再说，以后学其他的就容易了。</p>
+<p>谁让开发语言和大部分开发者都用英文呢，其实我现阶段看简单 Stack Overflow 和 Apple Document 都没有问题了，毕竟英文单词不多，也都是简单的词。希望以后能够直接看英文教材。</p>
+<p>又是看了 BNR 论坛答案： <a target="_blank" rel="noopener" href="http://forums.bignerdranch.com/viewtopic.php?f=488&t=9983">http://forums.bignerdranch.com/viewtopic.php?f=488&t=9983</a></p>
+<p>是我想复杂了，这里只是一个框架内置的协议，所以只要在<br><code>AppDelegate.m</code> 完成后三步就行了。</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//</span></span><br><span class="line"><span class="comment">//  AppDelegate.m</span></span><br><span class="line"><span class="comment">//  Hypnosister</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="meta">#import <span class="string">&quot;AppDelegate.h&quot;</span></span></span><br><span class="line"><span class="meta">#import <span class="string">&quot;GWHypnosisView.h&quot;</span></span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">AppDelegate</span> () &lt;<span class="title">UIScrollViewDelegate</span>&gt;  // ①</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// setting property for the image view...</span></span><br><span class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>) GWHypnosisView *scrollHypnosisView; <span class="comment">// ②</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">@end</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">@implementation</span> <span class="title">AppDelegate</span></span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">- (<span class="type">BOOL</span>)application:(<span class="built_in">UIApplication</span> *)application didFinishLaunchingWithOptions:(<span class="built_in">NSDictionary</span> *)launchOptions &#123;</span><br><span class="line">    <span class="keyword">self</span>.window = [[<span class="built_in">UIWindow</span> alloc] initWithFrame:[[<span class="built_in">UIScreen</span> mainScreen] bounds]];</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// Override point for customization after application launch.</span></span><br><span class="line">    </span><br><span class="line">    <span class="built_in">CGRect</span> screenRect = <span class="keyword">self</span>.window.bounds;</span><br><span class="line">    <span class="built_in">CGRect</span> bigRect = screenRect;</span><br><span class="line">    bigRect.size.width *= <span class="number">2.0</span>;</span><br><span class="line">    bigRect.size.height *= <span class="number">2.0</span>;</span><br><span class="line">    </span><br><span class="line">    </span><br><span class="line">    <span class="built_in">UIScrollView</span> *scrollView = [[<span class="built_in">UIScrollView</span> alloc] initWithFrame:screenRect];</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// setting some zooming properties</span></span><br><span class="line">    scrollView.pagingEnabled = <span class="literal">NO</span>;</span><br><span class="line">    scrollView.minimumZoomScale = <span class="number">0.5</span>;</span><br><span class="line">    scrollView.maximumZoomScale = <span class="number">6.0</span>;</span><br><span class="line">    scrollView.contentSize = <span class="built_in">CGSizeMake</span>(<span class="number">1280</span>, <span class="number">960</span>);</span><br><span class="line">    scrollView.delegate = <span class="keyword">self</span>;</span><br><span class="line">    </span><br><span class="line">    [<span class="keyword">self</span>.window addSubview:scrollView];</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">self</span>.scrollHypnosisView = [[GWHypnosisView alloc] initWithFrame:bigRect];</span><br><span class="line">    </span><br><span class="line">    </span><br><span class="line">    [scrollView addSubview:<span class="keyword">self</span>.scrollHypnosisView];</span><br><span class="line">    </span><br><span class="line">    scrollView.contentSize = bigRect.size;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">self</span>.window.backgroundColor = [<span class="built_in">UIColor</span> whiteColor];</span><br><span class="line">    [<span class="keyword">self</span>.window makeKeyAndVisible];</span><br><span class="line">    </span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> <span class="literal">YES</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// ③ zooming method definition</span></span><br><span class="line">-(<span class="built_in">UIView</span> *) viewForZoomingInScrollView:(<span class="built_in">UIScrollView</span> *)scrollView</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">self</span>.scrollHypnosisView;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+
+
+<h2 id="项目代码保存在我的-GitHub-iOSProgramming4edSolutions"><a href="#项目代码保存在我的-GitHub-iOSProgramming4edSolutions" class="headerlink" title="项目代码保存在我的 GitHub: iOSProgramming4edSolutions"></a>项目代码保存在我的 GitHub: <a target="_blank" rel="noopener" href="https://github.com/gewill/iOSProgramming4edSolutions">iOSProgramming4edSolutions</a></h2>
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2015/07/28/GeekBand-iOS-APP-Development-2/" rel="prev" title="极客班 iOS 应用开发实战（二）">
+                  <i class="fa fa-chevron-left"></i> 极客班 iOS 应用开发实战（二）
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2015/08/01/Why-I-get-up-at-5-o-clock/" rel="next" title="最近5点钟起床">
+                  最近5点钟起床 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2025</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">Ge Will</span>
+  </div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/pisces/" rel="noopener" target="_blank">NexT.Pisces</a>
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="back-to-top" role="button" aria-label="Back to top">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.1/search.js" integrity="sha256-1kfA5uHPf65M5cphT2dvymhkuyHPQp5A53EGZOnOLmc=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>

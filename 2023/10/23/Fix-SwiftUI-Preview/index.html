@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 6.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha256-HtsXJanqjKTc8vVQjO4YMhiqFoXkfBsjBWcX91T1jr8=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Pisces","darkmode":true,"version":"8.17.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":true,"style":"mac"},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"},"path":"/search.json","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="第一步：定位问题   页面 Scheme Target Preview是否成功    空白View App 失败   空白View Package 成功   空白View + import Core Package 成功   空白View + import Core + 调用Font Package 失败   定位到时Common中Core的错误 第二步：分析解决问题分析Common中Produc">
+<meta property="og:type" content="article">
+<meta property="og:title" content="修复 SwiftUI Preview 项目中无法运行的问题">
+<meta property="og:url" content="http://example.com/2023/10/23/Fix-SwiftUI-Preview/index.html">
+<meta property="og:site_name" content="Will&#39;s Blog">
+<meta property="og:description" content="第一步：定位问题   页面 Scheme Target Preview是否成功    空白View App 失败   空白View Package 成功   空白View + import Core Package 成功   空白View + import Core + 调用Font Package 失败   定位到时Common中Core的错误 第二步：分析解决问题分析Common中Produc">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2023-10-23T02:07:25.000Z">
+<meta property="article:modified_time" content="2025-01-13T03:01:04.061Z">
+<meta property="article:author" content="Ge Will">
+<meta property="article:tag" content="Swift">
+<meta property="article:tag" content="SwiftUI">
+<meta property="article:tag" content="SwiftPM">
+<meta property="article:tag" content="iOS">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="http://example.com/2023/10/23/Fix-SwiftUI-Preview/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"en","comments":true,"permalink":"http://example.com/2023/10/23/Fix-SwiftUI-Preview/","path":"2023/10/23/Fix-SwiftUI-Preview/","title":"修复 SwiftUI Preview 项目中无法运行的问题"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>修复 SwiftUI Preview 项目中无法运行的问题 | Will's Blog</title>
+  
+
+
+
+
+
+
+
+<head>
+    <!-- 霞鹜文楷字体 -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lxgw-wenkai-webfont@1.7.0/style.css"/>
+
+    <!-- datapulse统计 -->
+    <script defer type="text/javascript" src="https://datapulse.app/datapulse.min.js" id="datapulse" data-endpoint="https://datapulse.app/api/v1/event" data-workspace="cljxqml5q0y0f8j37d4futnbl"></script>
+
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-DR0FC9YJLH"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() {
+            dataLayer.push(arguments);
+        }
+        gtag('js', new Date());
+
+        gtag('config', 'G-DR0FC9YJLH');
+    </script>
+</head>
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Will's Blog</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="Search" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives<span class="badge">198</span></a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags<span class="badge">17</span></a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories<span class="badge">1</span></a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="Searching..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%AC%AC%E4%B8%80%E6%AD%A5%EF%BC%9A%E5%AE%9A%E4%BD%8D%E9%97%AE%E9%A2%98"><span class="nav-number">1.</span> <span class="nav-text">第一步：定位问题</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%AC%AC%E4%BA%8C%E6%AD%A5%EF%BC%9A%E5%88%86%E6%9E%90%E8%A7%A3%E5%86%B3%E9%97%AE%E9%A2%98"><span class="nav-number">2.</span> <span class="nav-text">第二步：分析解决问题</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9C%89%E4%B8%A4%E4%B8%AA%E7%BB%86%E8%8A%82%E8%A6%81%E8%B0%83%E6%95%B4%EF%BC%9A"><span class="nav-number">2.1.</span> <span class="nav-text">有两个细节要调整：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E6%94%B9%E4%B8%BA%E9%9D%99%E6%80%81%E5%BA%93%EF%BC%9F"><span class="nav-number">2.2.</span> <span class="nav-text">为什么改为静态库？</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%AC%AC%E4%B8%89%E6%AD%A5%EF%BC%9A%E8%A7%A3%E5%86%B3%E8%B7%A8Package%E5%BC%95%E7%94%A8%E8%B5%84%E6%BA%90%E6%96%87%E4%BB%B6%E7%9A%84%E9%97%AE%E9%A2%98"><span class="nav-number">3.</span> <span class="nav-text">第三步：解决跨Package引用资源文件的问题</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#SwiftUI-Preview-%E4%BD%8D%E7%BD%AE%E7%89%B9%E6%AE%8A%E5%A4%84%E7%90%86"><span class="nav-number">3.1.</span> <span class="nav-text">SwiftUI Preview 位置特殊处理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8Bundle-module"><span class="nav-number">3.2.</span> <span class="nav-text">使用Bundle.module</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%8F%82%E8%80%83%E6%96%87%E7%AB%A0"><span class="nav-number">4.</span> <span class="nav-text">参考文章</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Ge Will"
+      src="/images/avatar.jpeg">
+  <p class="site-author-name" itemprop="name">Ge Will</p>
+  <div class="site-description" itemprop="description">The people who are crazy enough to think they can change the world, are the ones who DO.</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">198</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">17</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/gewill" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;gewill" rel="noopener me" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:531sunlight@gmail.com" title="E-Mail → mailto:531sunlight@gmail.com" rel="noopener me" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://weibo.com/gewei" title="Weibo → https:&#x2F;&#x2F;weibo.com&#x2F;gewei" rel="noopener me" target="_blank"><i class="fab fa-weibo fa-fw"></i>Weibo</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://twitter.com/BoJack_D" title="Twitter → https:&#x2F;&#x2F;twitter.com&#x2F;BoJack_D" rel="noopener me" target="_blank"><i class="fab fa-twitter fa-fw"></i>Twitter</a>
+      </span>
+  </div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2023/10/23/Fix-SwiftUI-Preview/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpeg">
+      <meta itemprop="name" content="Ge Will">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Will's Blog">
+      <meta itemprop="description" content="The people who are crazy enough to think they can change the world, are the ones who DO.">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="修复 SwiftUI Preview 项目中无法运行的问题 | Will's Blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          修复 SwiftUI Preview 项目中无法运行的问题
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2023-10-23 10:07:25" itemprop="dateCreated datePublished" datetime="2023-10-23T10:07:25+08:00">2023-10-23</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">Edited on</span>
+      <time title="Modified: 2025-01-13 11:01:04" itemprop="dateModified" datetime="2025-01-13T11:01:04+08:00">2025-01-13</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><h1 id="第一步：定位问题"><a href="#第一步：定位问题" class="headerlink" title="第一步：定位问题"></a><strong>第一步：定位问题</strong></h1><table>
+<thead>
+<tr>
+<th>页面</th>
+<th>Scheme Target</th>
+<th>Preview是否成功</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>空白View</td>
+<td>App</td>
+<td>失败</td>
+</tr>
+<tr>
+<td>空白View</td>
+<td>Package</td>
+<td>成功</td>
+</tr>
+<tr>
+<td>空白View + import Core</td>
+<td>Package</td>
+<td>成功</td>
+</tr>
+<tr>
+<td>空白View + import Core + 调用Font</td>
+<td>Package</td>
+<td>失败</td>
+</tr>
+</tbody></table>
+<p>定位到时<code>Common</code>中<code>Core</code>的错误</p>
+<h1 id="第二步：分析解决问题"><a href="#第二步：分析解决问题" class="headerlink" title="第二步：分析解决问题"></a><strong>第二步：分析解决问题</strong></h1><p>分析<code>Common</code>中<code>Product</code>：<code>Core</code>依赖没有真正引入。</p>
+<p>故拆分<code>Common</code>为四个<code>Product</code>，直接对外暴露，解决了Preview无法运行的问题。</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> PackageDescription</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> package <span class="operator">=</span> <span class="type">Package</span>(</span><br><span class="line">    name: <span class="string">&quot;Common&quot;</span>,</span><br><span class="line">    platforms: [</span><br><span class="line">        .iOS(.v14)</span><br><span class="line">    ],</span><br><span class="line">    products: [</span><br><span class="line">        .library(</span><br><span class="line">            name: <span class="string">&quot;Core&quot;</span>,</span><br><span class="line">           <span class="comment">// type: .dynamic,</span></span><br><span class="line">            targets: [<span class="string">&quot;Core&quot;</span>]</span><br><span class="line">        ),</span><br><span class="line">    ],</span><br></pre></td></tr></table></figure>
+
+<h2 id="有两个细节要调整："><a href="#有两个细节要调整：" class="headerlink" title="有两个细节要调整："></a>有两个细节要调整：</h2><ol>
+<li>全局Package移除 <code>type: .dynamic</code>，让SPM决定使用什么类型。</li>
+<li>Fork <code>ProgressHUD</code>， 移除 <code>type: .static</code>。并在<code>Common</code> <code>Package.swift</code> 中引用fork</li>
+</ol>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// .package(url: &quot;https://github.com/relatedcode/ProgressHUD.git&quot;, from: &quot;13.7.2&quot;)</span></span><br><span class="line">.package(url: <span class="string">&quot;https://github.com/gewill/ProgressHUD.git&quot;</span>, branch: <span class="string">&quot;devlop&quot;</span>)</span><br></pre></td></tr></table></figure>
+
+<h2 id="为什么改为静态库？"><a href="#为什么改为静态库？" class="headerlink" title="为什么改为静态库？"></a>为什么改为静态库？</h2><p>静态库可以避免Core引用的重复的问题。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">Showing Recent Messages</span><br><span class="line">Swift package target <span class="string">&#x27;Core&#x27;</span> is linked as a static library by <span class="string">&#x27;AppCommoms&#x27;</span> and <span class="string">&#x27;Core&#x27;</span>, but cannot be built dynamically because there is a package product with the same name.</span><br><span class="line"></span><br><span class="line">Swift package target <span class="string">&#x27;Core&#x27;</span> is linked as a static library by <span class="string">&#x27;Onboarding&#x27;</span> and <span class="string">&#x27;Core&#x27;</span>, but cannot be built dynamically because there is a package product with the same name.</span><br><span class="line"></span><br><span class="line">Swift package target <span class="string">&#x27;Core&#x27;</span> is linked as a static library by <span class="string">&#x27;AppSDK&#x27;</span> and <span class="string">&#x27;Core&#x27;</span>, but cannot be built dynamically because there is a package product with the same name.</span><br></pre></td></tr></table></figure>
+
+<h1 id="第三步：解决跨Package引用资源文件的问题"><a href="#第三步：解决跨Package引用资源文件的问题" class="headerlink" title="第三步：解决跨Package引用资源文件的问题"></a><strong>第三步：解决跨Package引用资源文件的问题</strong></h1><h2 id="SwiftUI-Preview-位置特殊处理"><a href="#SwiftUI-Preview-位置特殊处理" class="headerlink" title="SwiftUI Preview 位置特殊处理"></a>SwiftUI Preview 位置特殊处理</h2><p>由于Preview特殊机制，实际上<code>Bundle(for: BundleFinder.**self**).resourceURL</code>，位置在 <code>/Users/will/Library/Developer/Xcode/DerivedData/App-gvnjpztkrklpjvfegxsksaoxjaaf/Build/Intermediates.noindex/Previews/Onboarding/Products/Debug-iphonesimulator/PackageFrameworks/Onboarding_-570F2A58E471CBF3_PackageProduct.framework</code></p>
+<p>需要往上跳两级目录。故在<code>AppCommomsBundle</code> 的<code>Bundle</code>备选中添加SwiftUI Preview目录即可。</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="keyword">class</span> <span class="title class_">BundleFinder</span> &#123;&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">AppCommomsBundle</span> &#123;</span><br><span class="line">    <span class="keyword">static</span> <span class="keyword">var</span> module: <span class="type">Bundle</span> <span class="operator">=</span> &#123;</span><br><span class="line">        <span class="comment">// Bundle name should be like this &quot;ProductName_TargetName&quot;</span></span><br><span class="line">        <span class="keyword">let</span> bundleName <span class="operator">=</span> <span class="string">&quot;AppCommoms_AppCommoms&quot;</span></span><br><span class="line">        <span class="keyword">let</span> candidates <span class="operator">=</span> [</span><br><span class="line">            <span class="comment">// Bundle should be present here when the package is linked into an App.</span></span><br><span class="line">            <span class="type">Bundle</span>.main.resourceURL,</span><br><span class="line">            </span><br><span class="line">            <span class="comment">// Bundle should be present here when the package is linked into a framework.</span></span><br><span class="line">            <span class="type">Bundle</span>(for: <span class="type">BundleFinder</span>.<span class="keyword">self</span>).resourceURL,</span><br><span class="line">            </span><br><span class="line">            <span class="comment">// SwiftUI Preview</span></span><br><span class="line">            <span class="type">Bundle</span>(for: <span class="type">BundleFinder</span>.<span class="keyword">self</span>).resourceURL<span class="operator">?</span>.deletingLastPathComponent().deletingLastPathComponent(),</span><br><span class="line">            </span><br><span class="line">            <span class="comment">// For command-line tools.</span></span><br><span class="line">            <span class="type">Bundle</span>.main.bundleURL</span><br><span class="line">        ] <span class="operator">+</span> <span class="type">Bundle</span>.allBundles.map &#123; <span class="variable">$0</span>.bundleURL &#125;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">for</span> candidate <span class="keyword">in</span> candidates &#123;</span><br><span class="line">            <span class="keyword">let</span> bundlePath <span class="operator">=</span> candidate<span class="operator">?</span>.appendingPathComponent(bundleName <span class="operator">+</span> <span class="string">&quot;.bundle&quot;</span>)</span><br><span class="line">            <span class="keyword">if</span> <span class="keyword">let</span> bundle <span class="operator">=</span> bundlePath.flatMap(<span class="type">Bundle</span>.<span class="keyword">init</span>(url:)) &#123;</span><br><span class="line">                <span class="keyword">return</span> bundle</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="type">Bundle</span>(for: <span class="type">BundleFinder</span>.<span class="keyword">self</span>)</span><br><span class="line"><span class="comment">//        fatalError(&quot;unable to find bundle named \(bundleName)&quot;)</span></span><br><span class="line">    &#125;()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="使用Bundle-module"><a href="#使用Bundle-module" class="headerlink" title="使用Bundle.module"></a>使用<code>Bundle.module</code></h2><p>还有一种更简单的方案就是用Apple推荐的<code>Bundle.module</code>，也是Rswift使用的<code>public let R = _R(bundle: Bundle.module)</code>。</p>
+<blockquote>
+<p><a target="_blank" rel="noopener" href="https://developer.apple.com/documentation/xcode/bundling-resources-with-a-swift-package#Access-a-resource-in-code"><strong>Access a resource in codein page link</strong> </a><br>Always use <code>Bundle.module</code> when you access resources. A package shouldn’t make assumptions about the exact location of a resource.</p>
+</blockquote>
+<p>具体原因见Xcode Build生成的资源文件：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> class Foundation.Bundle</span><br><span class="line"><span class="keyword">import</span> class Foundation.ProcessInfo</span><br><span class="line"><span class="keyword">import</span> struct Foundation.URL</span><br><span class="line"></span><br><span class="line"><span class="keyword">private</span> <span class="keyword">class</span> <span class="title class_">BundleFinder</span> &#123;&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">extension</span> <span class="title class_">Foundation</span>.<span class="title class_">Bundle</span> &#123;</span><br><span class="line">    <span class="comment">/// Returns the resource bundle associated with the current Swift module.</span></span><br><span class="line">    <span class="keyword">static</span> <span class="keyword">let</span> module: <span class="type">Bundle</span> <span class="operator">=</span> &#123;</span><br><span class="line">        <span class="keyword">let</span> bundleName <span class="operator">=</span> <span class="string">&quot;Onboarding_Onboarding&quot;</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">let</span> overrides: [<span class="type">URL</span>]</span><br><span class="line">        <span class="keyword">#if</span> <span class="type">DEBUG</span></span><br><span class="line">        <span class="comment">// The &#x27;PACKAGE_RESOURCE_BUNDLE_PATH&#x27; name is preferred since the expected value is a path. The</span></span><br><span class="line">        <span class="comment">// check for &#x27;PACKAGE_RESOURCE_BUNDLE_URL&#x27; will be removed when all clients have switched over.</span></span><br><span class="line">        <span class="comment">// This removal is tracked by rdar://107766372.</span></span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">let</span> <span class="keyword">override</span> <span class="operator">=</span> <span class="type">ProcessInfo</span>.processInfo.environment[<span class="string">&quot;PACKAGE_RESOURCE_BUNDLE_PATH&quot;</span>]</span><br><span class="line">                       <span class="operator">??</span> <span class="type">ProcessInfo</span>.processInfo.environment[<span class="string">&quot;PACKAGE_RESOURCE_BUNDLE_URL&quot;</span>] &#123;</span><br><span class="line">            overrides <span class="operator">=</span> [<span class="type">URL</span>(fileURLWithPath: <span class="keyword">override</span>)]</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            overrides <span class="operator">=</span> []</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">#else</span></span><br><span class="line">        overrides <span class="operator">=</span> []</span><br><span class="line">        <span class="keyword">#endif</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">let</span> candidates <span class="operator">=</span> overrides <span class="operator">+</span> [</span><br><span class="line">            <span class="comment">// Bundle should be present here when the package is linked into an App.</span></span><br><span class="line">            <span class="type">Bundle</span>.main.resourceURL,</span><br><span class="line"></span><br><span class="line">            <span class="comment">// Bundle should be present here when the package is linked into a framework.</span></span><br><span class="line">            <span class="type">Bundle</span>(for: <span class="type">BundleFinder</span>.<span class="keyword">self</span>).resourceURL,</span><br><span class="line"></span><br><span class="line">            <span class="comment">// For command-line tools.</span></span><br><span class="line">            <span class="type">Bundle</span>.main.bundleURL,</span><br><span class="line">        ]</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> candidate <span class="keyword">in</span> candidates &#123;</span><br><span class="line">            <span class="keyword">let</span> bundlePath <span class="operator">=</span> candidate<span class="operator">?</span>.appendingPathComponent(bundleName <span class="operator">+</span> <span class="string">&quot;.bundle&quot;</span>)</span><br><span class="line">            <span class="keyword">if</span> <span class="keyword">let</span> bundle <span class="operator">=</span> bundlePath.flatMap(<span class="type">Bundle</span>.<span class="keyword">init</span>(url:)) &#123;</span><br><span class="line">                <span class="keyword">return</span> bundle</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="built_in">fatalError</span>(<span class="string">&quot;unable to find bundle named Onboarding_Onboarding&quot;</span>)</span><br><span class="line">    &#125;()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+<h1 id="参考文章"><a href="#参考文章" class="headerlink" title="参考文章"></a>参考文章</h1><ol>
+<li><a target="_blank" rel="noopener" href="https://developer.apple.com/documentation/xcode/bundling-resources-with-a-swift-package"><strong>Bundling resources with a Swift package</strong></a></li>
+<li><a target="_blank" rel="noopener" href="https://pratheeshbennet.medium.com/static-library-vs-dynamic-library-in-ios-55478ed53a03"><strong>Static Library vs Dynamic Library in iOS</strong></a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/Moya/Moya/blob/master/Package.swift"><strong>Moya Package.swift</strong> </a></li>
+<li><a target="_blank" rel="noopener" href="https://www.fatbobman.com/posts/how-SwiftUI-Preview-works/"><strong>构建稳定的预览视图 —— SwiftUI 预览的工作原理</strong></a></li>
+</ol>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Swift/" rel="tag"># Swift</a>
+              <a href="/tags/SwiftUI/" rel="tag"># SwiftUI</a>
+              <a href="/tags/SwiftPM/" rel="tag"># SwiftPM</a>
+              <a href="/tags/iOS/" rel="tag"># iOS</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2023/08/16/introducing-ConnectUI-zh-Hans/" rel="prev" title="introducing-ConnectUI-zh-Hans">
+                  <i class="fa fa-chevron-left"></i> introducing-ConnectUI-zh-Hans
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2023/12/17/introducing-OpenCCman-zh-Hant/" rel="next" title="OpenCCman介紹">
+                  OpenCCman介紹 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2025</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">Ge Will</span>
+  </div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/pisces/" rel="noopener" target="_blank">NexT.Pisces</a>
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="back-to-top" role="button" aria-label="Back to top">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.1/search.js" integrity="sha256-1kfA5uHPf65M5cphT2dvymhkuyHPQp5A53EGZOnOLmc=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>

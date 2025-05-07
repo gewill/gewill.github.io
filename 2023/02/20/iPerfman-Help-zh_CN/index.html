@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 6.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha256-HtsXJanqjKTc8vVQjO4YMhiqFoXkfBsjBWcX91T1jr8=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Pisces","darkmode":true,"version":"8.17.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":true,"style":"mac"},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"},"path":"/search.json","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="English Help 繁體中文帮助 测试Wi-Fi和以太网有多快和可靠？像Speedtest、Netflix的FAST和DSLReports这样的在线测试会告诉你你的互联网连接总体上有多快，但你的服务提供商的速度不是唯一因素。Wi-Fi本身会大大影响速度、延迟和可靠性。而随着宽带互联网连接速度越来越快，Wi-Fi通常已经成为瓶颈。iPerfman帮助你测试你的Wi-Fi连接速度和波动。 性能测">
+<meta property="og:type" content="article">
+<meta property="og:title" content="iPerfman 帮助">
+<meta property="og:url" content="http://example.com/2023/02/20/iPerfman-Help-zh_CN/index.html">
+<meta property="og:site_name" content="Will&#39;s Blog">
+<meta property="og:description" content="English Help 繁體中文帮助 测试Wi-Fi和以太网有多快和可靠？像Speedtest、Netflix的FAST和DSLReports这样的在线测试会告诉你你的互联网连接总体上有多快，但你的服务提供商的速度不是唯一因素。Wi-Fi本身会大大影响速度、延迟和可靠性。而随着宽带互联网连接速度越来越快，Wi-Fi通常已经成为瓶颈。iPerfman帮助你测试你的Wi-Fi连接速度和波动。 性能测">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://gewill.org/assets/iPerfman-Help/iPerfman-listen-macOS-zh_CN.jpg">
+<meta property="og:image" content="https://gewill.org/assets/iPerfman-Help/iPerfman-server-macOS-zh_CN.jpg">
+<meta property="og:image" content="https://gewill.org/assets/iPerfman-Help/iPerfman-client-iOS-zh_CN.jpg">
+<meta property="article:published_time" content="2023-02-20T13:24:38.000Z">
+<meta property="article:modified_time" content="2025-01-13T03:01:04.072Z">
+<meta property="article:author" content="Ge Will">
+<meta property="article:tag" content="iPerf">
+<meta property="article:tag" content="iPerfman">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://gewill.org/assets/iPerfman-Help/iPerfman-listen-macOS-zh_CN.jpg">
+
+
+<link rel="canonical" href="http://example.com/2023/02/20/iPerfman-Help-zh_CN/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"en","comments":true,"permalink":"http://example.com/2023/02/20/iPerfman-Help-zh_CN/","path":"2023/02/20/iPerfman-Help-zh_CN/","title":"iPerfman 帮助"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>iPerfman 帮助 | Will's Blog</title>
+  
+
+
+
+
+
+
+
+<head>
+    <!-- 霞鹜文楷字体 -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lxgw-wenkai-webfont@1.7.0/style.css"/>
+
+    <!-- datapulse统计 -->
+    <script defer type="text/javascript" src="https://datapulse.app/datapulse.min.js" id="datapulse" data-endpoint="https://datapulse.app/api/v1/event" data-workspace="cljxqml5q0y0f8j37d4futnbl"></script>
+
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-DR0FC9YJLH"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() {
+            dataLayer.push(arguments);
+        }
+        gtag('js', new Date());
+
+        gtag('config', 'G-DR0FC9YJLH');
+    </script>
+</head>
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Will's Blog</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="Search" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives<span class="badge">198</span></a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags<span class="badge">17</span></a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories<span class="badge">1</span></a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="Searching..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%B5%8B%E8%AF%95Wi-Fi%E5%92%8C%E4%BB%A5%E5%A4%AA%E7%BD%91%E6%9C%89%E5%A4%9A%E5%BF%AB%E5%92%8C%E5%8F%AF%E9%9D%A0%EF%BC%9F"><span class="nav-number">1.</span> <span class="nav-text">测试Wi-Fi和以太网有多快和可靠？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%80%A7%E8%83%BD%E6%B5%8B%E8%AF%95%E6%98%AF%E5%A6%82%E4%BD%95%E8%BF%9B%E8%A1%8C%E7%9A%84%EF%BC%9F"><span class="nav-number">2.</span> <span class="nav-text">性能测试是如何进行的？</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AC%AC%E4%B8%80%E6%AD%A5"><span class="nav-number">2.1.</span> <span class="nav-text">第一步</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AC%AC%E4%BA%8C%E6%AD%A5"><span class="nav-number">2.2.</span> <span class="nav-text">第二步</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%86%E6%9E%90%E6%B5%8B%E8%AF%95%E7%BB%93%E6%9E%9C"><span class="nav-number">3.</span> <span class="nav-text">分析测试结果</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9B%B4%E5%A4%9A%E5%8F%82%E6%95%B0"><span class="nav-number">4.</span> <span class="nav-text">更多参数</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%A2%E6%88%B7%E7%AB%AF%E5%8F%82%E6%95%B0"><span class="nav-number">4.1.</span> <span class="nav-text">客户端参数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9C%8D%E5%8A%A1%E7%AB%AF%E5%8F%82%E6%95%B0"><span class="nav-number">4.2.</span> <span class="nav-text">服务端参数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%80%9A%E7%94%A8%E5%8F%82%E6%95%B0"><span class="nav-number">4.3.</span> <span class="nav-text">通用参数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%BA%AB%E4%BB%BD%E9%AA%8C%E8%AF%81"><span class="nav-number">4.4.</span> <span class="nav-text">身份验证</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BB%8D%E9%9C%80%E5%B8%AE%E5%8A%A9%EF%BC%9F"><span class="nav-number">5.</span> <span class="nav-text">仍需帮助？</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Ge Will"
+      src="/images/avatar.jpeg">
+  <p class="site-author-name" itemprop="name">Ge Will</p>
+  <div class="site-description" itemprop="description">The people who are crazy enough to think they can change the world, are the ones who DO.</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">198</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">17</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/gewill" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;gewill" rel="noopener me" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:531sunlight@gmail.com" title="E-Mail → mailto:531sunlight@gmail.com" rel="noopener me" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://weibo.com/gewei" title="Weibo → https:&#x2F;&#x2F;weibo.com&#x2F;gewei" rel="noopener me" target="_blank"><i class="fab fa-weibo fa-fw"></i>Weibo</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://twitter.com/BoJack_D" title="Twitter → https:&#x2F;&#x2F;twitter.com&#x2F;BoJack_D" rel="noopener me" target="_blank"><i class="fab fa-twitter fa-fw"></i>Twitter</a>
+      </span>
+  </div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2023/02/20/iPerfman-Help-zh_CN/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpeg">
+      <meta itemprop="name" content="Ge Will">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Will's Blog">
+      <meta itemprop="description" content="The people who are crazy enough to think they can change the world, are the ones who DO.">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="iPerfman 帮助 | Will's Blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          iPerfman 帮助
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2023-02-20 21:24:38" itemprop="dateCreated datePublished" datetime="2023-02-20T21:24:38+08:00">2023-02-20</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">Edited on</span>
+      <time title="Modified: 2025-01-13 11:01:04" itemprop="dateModified" datetime="2025-01-13T11:01:04+08:00">2025-01-13</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><p><a target="_blank" rel="noopener" href="https://gewill.org/2023/02/20/iPerfman-Help-en/">English Help</a></p>
+<p><a target="_blank" rel="noopener" href="https://gewill.org/2023/02/20/iPerfman-Help-zh_Hant/">繁體中文帮助</a></p>
+<h2 id="测试Wi-Fi和以太网有多快和可靠？"><a href="#测试Wi-Fi和以太网有多快和可靠？" class="headerlink" title="测试Wi-Fi和以太网有多快和可靠？"></a>测试Wi-Fi和以太网有多快和可靠？</h2><p>像<a target="_blank" rel="noopener" href="https://www.speedtest.net/">Speedtest</a>、Netflix的<a target="_blank" rel="noopener" href="https://fast.com/">FAST</a>和<a target="_blank" rel="noopener" href="https://www.dslreports.com/speedtest">DSLReports</a>这样的在线测试会告诉你你的互联网连接总体上有多快，但你的服务提供商的速度不是唯一因素。Wi-Fi本身会大大影响速度、延迟和可靠性。而随着宽带互联网连接速度越来越快，Wi-Fi通常已经成为瓶颈。iPerfman帮助你测试你的Wi-Fi连接速度和波动。</p>
+<h2 id="性能测试是如何进行的？"><a href="#性能测试是如何进行的？" class="headerlink" title="性能测试是如何进行的？"></a>性能测试是如何进行的？</h2><p>你需要一台电脑来运行它，用网线连接到你的家庭网络的路由器上。最好是运行<a target="_blank" rel="noopener" href="https://openwrt.org/">软路由器</a>，这样路由器传输数据，最接近真实互联网模式。</p>
+<h3 id="第一步"><a href="#第一步" class="headerlink" title="第一步"></a>第一步</h3><p>你需要在macOS安装iPerfman，打开监听，找到局域网IP地址，如<code>192.168.8.8</code>，设为服务端，点击开始。</p>
+<p><img src="https://gewill.org/assets/iPerfman-Help/iPerfman-listen-macOS-zh_CN.jpg" alt="iPerfman-listen-macOS-zh_CN"></p>
+<p><img src="https://gewill.org/assets/iPerfman-Help/iPerfman-server-macOS-zh_CN.jpg" alt="iPerfman-server-macOS-zh_CN"> </p>
+<h3 id="第二步"><a href="#第二步" class="headerlink" title="第二步"></a>第二步</h3><p>你需要在iPhone或者iPad上运行iPerfman，地址填写第一步设置的局域网IP地址，如<code>192.168.8.8</code>，设为客户端，点击开始。</p>
+<p><img src="https://gewill.org/assets/iPerfman-Help/iPerfman-client-iOS-zh_CN.jpg" alt="iPerfman-client-iOS-zh_CN"></p>
+<p>很快测试完成，我们就得到测试结果了。这里我们可以分别测试下载和上传两个模式。这里只是简单例子。你可以测试任意两台设备，不管局域网还是万维网，IPv4还是IPv6。</p>
+<blockquote>
+<p>关于在macOS上安装iPerf 3需要熟悉命令行和安装<a target="_blank" rel="noopener" href="https://brew.sh/">Homebrew</a>。</p>
+<p>在Linux和Windows上，请参考<a target="_blank" rel="noopener" href="https://iperf.fr/iperf-download.php">iperf.fr</a>网站。</p>
+</blockquote>
+<h2 id="分析测试结果"><a href="#分析测试结果" class="headerlink" title="分析测试结果"></a>分析测试结果</h2><p>主要分析平均速度和波动图。</p>
+<p>可以从以下方面优化网速：路由器位置、WiFi连接5G或6G、避免隔墙，有条件网线连接每个房间。</p>
+<h2 id="更多参数"><a href="#更多参数" class="headerlink" title="更多参数"></a>更多参数</h2><h3 id="客户端参数"><a href="#客户端参数" class="headerlink" title="客户端参数"></a><strong>客户端参数</strong></h3><p><strong>协议</strong><br>不同应用场景和应用会使用不同网络协议，TCP和UDP是最常见两者，所以有必要分别测试。 UDP可以设置不同<strong>速率</strong>，以达到限速测试。</p>
+<p><strong>流数量</strong> <code>-P, --parallel n</code><br>在测试期间应使用多少个并行的数据流，以测试数据并发传输的情况。</p>
+<p><strong>结束条件</strong><br>有两种方式：<code>时长</code>和<code>字节数</code>，只可选其一。</p>
+<p><strong>时长</strong> <code>-t, --time n</code><br>单位是秒，选择你想运行测试的时间，30秒是获得稳定数据的好时间，但可以随意设置得更高，在家里或办公室周围走走，看看带宽如何变化。</p>
+<p><strong>字节数</strong> <code>-n, --bytes n[KMGT]</code><br>选择你想运行测试的数据量大小为制定的字节数。<br>测试可以在任何时候停止，所以可以随意设置一个较高的持续时间，在你满意的时候停止。</p>
+<p><strong>连接超时</strong> <code>--connect-timeout n</code><br>单位是秒，设置建立到服务器的初始控件连接的超时时间。提供一个较短的值可以加快对一个宕机的iPer3服务器的检测。</p>
+<p><strong>忽略前N秒</strong> <code>-O, --omit n</code><br>单位是秒，执行预测试N秒，省略预测试统计信息，跳过TCP慢启动周期。</p>
+<p><strong>零拷贝</strong> <code>-Z, --zerocopy</code><br>使用零拷贝(zero copy)的方法发送数据。</p>
+<h3 id="服务端参数"><a href="#服务端参数" class="headerlink" title="服务端参数"></a><strong>服务端参数</strong></h3><p><strong>保持运行</strong><br>当作为服务端时，每次其它客户端测试完成后，服务端保持运行。关闭此选项，单次测试结束是，服务端也停止运行。</p>
+<h3 id="通用参数"><a href="#通用参数" class="headerlink" title="通用参数"></a><strong>通用参数</strong></h3><p><strong>报告间隔</strong> <code>-i, --interval n</code><br>定期吞吐量报告之间的秒数</p>
+<p><strong>详细日志</strong> <code>-V, --verbose</code><br>是否记录详细日志。</p>
+<h3 id="身份验证"><a href="#身份验证" class="headerlink" title="身份验证"></a><strong>身份验证</strong></h3><ol>
+<li>生成公私钥<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">openssl genrsa -des3 -out private.pem 2048</span><br><span class="line">openssl rsa -<span class="keyword">in</span> private.pem -outform PEM -pubout -out public.pem</span><br><span class="line">openssl rsa -<span class="keyword">in</span> private.pem -out private_not_protected.pem -outform PEM</span><br></pre></td></tr></table></figure></li>
+<li>生成登录凭证</li>
+</ol>
+<p>下面给出在 UNIX&#x2F;Linux 系统上生成密码散列的命令示例:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">S_USER=mario S_PASSWD=rossi</span><br><span class="line"><span class="built_in">echo</span> -n \&quot;&#123;<span class="variable">$S_USER</span>&#125;<span class="variable">$S_PASSWD</span>\&quot; | <span class="built_in">sha256sum</span> | awk <span class="string">&#x27;&#123; print $1 &#125;&#x27;</span></span><br></pre></td></tr></table></figure>
+
+<p>该文件是一个用逗号分隔的用户名和相应密码哈希的列表。密码哈希是字符串&quot;{$用户名}$密码&quot;的SHA256哈希。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cat</span> credentials.csv</span><br><span class="line"><span class="comment"># 文件格式: 用户名,密码哈希</span></span><br><span class="line">mario,bf7a49a846d44b454a5d11e7acfaf13d138bbe0b7483aa3e050879700572709b</span><br></pre></td></tr></table></figure>
+
+<p><strong>私钥</strong> <code>--rsa-private-key-path file</code><br>RSA 私钥，复制<code>private_not_protected.pem</code>全部内容。</p>
+<p><strong>授权用户</strong> <code>--authorized-users-path file</code><br>授权用户文件(CSV)，用逗号分隔的用户名和密码哈希列表sha256，复制全部内容。</p>
+<p><strong>时间偏移阈值</strong> <code>--time-skew-thresholdsecond seconds</code><br>在身份验证过程中，服务器和客户端之间的时间偏移阈值(秒)。</p>
+<p><strong>公钥</strong> <code>--rsa-public-key-path file</code><br>RSA 公钥，复制<code>public.pem</code>全部内容。</p>
+<p><strong>用户名</strong> <code>--username username</code><br>授权用户文件中记录的用户名。</p>
+<p><strong>密码</strong><br>授权用户文件中记录的原始密码，非哈希列表sha256。</p>
+<p>如果对iPerf3有不清楚的，可以参考<a target="_blank" rel="noopener" href="https://software.es.net/iperf/invoking.html">iPerf3 用户手册</a></p>
+<p>该应用程序目前使用的是iPerf v3.13代码，使用不同版本的服务器也能正常工作。</p>
+<h2 id="仍需帮助？"><a href="#仍需帮助？" class="headerlink" title="仍需帮助？"></a>仍需帮助？</h2><p>应用使用有任何问题或建议，欢迎邮件联系：<a href="mailto:531sunlight@gmail.com">531sunlight@gmail.com</a>。最好附带应用截图和相关环境情况。</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/iPerf/" rel="tag"># iPerf</a>
+              <a href="/tags/iPerfman/" rel="tag"># iPerfman</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2023/02/20/iPerfman-Help-zh_Hant/" rel="prev" title="iPerfman 幫助">
+                  <i class="fa fa-chevron-left"></i> iPerfman 幫助
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2023/03/02/introducing-Secret-Diary/" rel="next" title="秘密日记介绍(Introducing Secret Diary)">
+                  秘密日记介绍(Introducing Secret Diary) <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2025</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">Ge Will</span>
+  </div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/pisces/" rel="noopener" target="_blank">NexT.Pisces</a>
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="back-to-top" role="button" aria-label="Back to top">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.1/search.js" integrity="sha256-1kfA5uHPf65M5cphT2dvymhkuyHPQp5A53EGZOnOLmc=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>
