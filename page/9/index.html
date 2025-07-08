@@ -104,7 +104,7 @@
 
 
 <nav class="site-nav">
-  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives<span class="badge">198</span></a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags<span class="badge">17</span></a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories<span class="badge">1</span></a></li>
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives<span class="badge">199</span></a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags<span class="badge">17</span></a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories<span class="badge">1</span></a></li>
       <li class="menu-item menu-item-search">
         <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
         </a>
@@ -169,7 +169,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">198</span>
+          <span class="site-state-item-count">199</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -211,6 +211,85 @@
     </div>
 
     <div class="main-inner index posts-expand">
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2016/03/02/Swift-2-Automatic-Reference-Counting/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpeg">
+      <meta itemprop="name" content="Ge Will">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Will's Blog">
+      <meta itemprop="description" content="The people who are crazy enough to think they can change the world, are the ones who DO.">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | Will's Blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2016/03/02/Swift-2-Automatic-Reference-Counting/" class="post-title-link" itemprop="url">Swift Examples - Automatic Reference Counting</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2016-03-02 23:19:16" itemprop="dateCreated datePublished" datetime="2016-03-02T23:19:16+08:00">2016-03-02</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">Edited on</span>
+      <time title="Modified: 2025-01-13 11:01:04" itemprop="dateModified" datetime="2025-01-13T11:01:04+08:00">2025-01-13</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <p>The Swift Programming Language  Examples</p>
+<p>源码在 GitHub：<a target="_blank" rel="noopener" href="https://github.com/gewill/The-Swift-Programming-Language-2.1-Examples">https://github.com/gewill/The-Swift-Programming-Language-2.1-Examples</a></p>
+<p>Playground -&gt;</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// : Playground - noun: a place where people can play</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> UIKit</span><br><span class="line"></span><br><span class="line"><span class="comment">//: 自动引用计数（Automatic Reference Counting）</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//自动引用计数实践</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Person0</span> &#123;</span><br><span class="line">    <span class="keyword">let</span> name: <span class="type">String</span></span><br><span class="line">    <span class="keyword">init</span>(<span class="params">name</span>: <span class="type">String</span>) &#123;</span><br><span class="line">        <span class="keyword">self</span>.name <span class="operator">=</span> name</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;<span class="subst">\(name)</span> is being initialized&quot;</span>)</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">deinit</span> &#123;</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;<span class="subst">\(name)</span> is being deinitialized&quot;</span>)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> reference1: <span class="type">Person0</span>?</span><br><span class="line"><span class="keyword">var</span> reference2: <span class="type">Person0</span>?</span><br><span class="line"><span class="keyword">var</span> reference3: <span class="type">Person0</span>?</span><br><span class="line"></span><br><span class="line">reference1 <span class="operator">=</span> <span class="type">Person0</span>(name: <span class="string">&quot;John Appleseed&quot;</span>)</span><br><span class="line"></span><br><span class="line">reference2 <span class="operator">=</span> reference1</span><br><span class="line">reference3 <span class="operator">=</span> reference1</span><br><span class="line"></span><br><span class="line">reference1 <span class="operator">=</span> <span class="literal">nil</span></span><br><span class="line">reference2 <span class="operator">=</span> <span class="literal">nil</span></span><br><span class="line"></span><br><span class="line">reference3 <span class="operator">=</span> <span class="literal">nil</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//: 解决实例之间的循环强引用</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//Swift 提供了两种办法用来解决你在使用类的属性时所遇到的循环强引用问题：弱引用（weak reference）和无主引用（unowned reference）。</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//弱引用和无主引用允许循环引用中的一个实例引用另外一个实例而不保持强引用。这样实例能够互相引用而不产生循环强引用。</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//对于生命周期中会变为nil的实例使用弱引用。相反地，对于初始化赋值后再也不会被赋值为nil的实例，使用无主引用。</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//和弱引用类似，无主引用不会牢牢保持住引用的实例。和弱引用不同的是，无主引用是永远有值的。因此，无主引用总是被定义为非可选类型（non-optional type）。你可以在声明属性或者变量时，在前面加上关键字unowned表示这是一个无主引用。</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//: 1 - Person和Apartment的例子展示了两个属性的值都允许为nil，并会潜在的产生循环强引用。这种场景最适合用弱引用来解决。</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Person</span> &#123;</span><br><span class="line">    <span class="keyword">let</span> name: <span class="type">String</span></span><br><span class="line">    <span class="keyword">init</span>(<span class="params">name</span>: <span class="type">String</span>) &#123; <span class="keyword">self</span>.name <span class="operator">=</span> name &#125;</span><br><span class="line">    <span class="keyword">var</span> apartment: <span class="type">Apartment</span>?</span><br><span class="line">    <span class="keyword">deinit</span> &#123; <span class="built_in">print</span>(<span class="string">&quot;<span class="subst">\(name)</span> is being deinitialized&quot;</span>) &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Apartment</span> &#123;</span><br><span class="line">    <span class="keyword">let</span> unit: <span class="type">String</span></span><br><span class="line">    <span class="keyword">init</span>(<span class="params">unit</span>: <span class="type">String</span>) &#123; <span class="keyword">self</span>.unit <span class="operator">=</span> unit &#125;</span><br><span class="line">    <span class="keyword">weak</span> <span class="keyword">var</span> tenant: <span class="type">Person</span>?</span><br><span class="line">    <span class="keyword">deinit</span> &#123; <span class="built_in">print</span>(<span class="string">&quot;Apartment <span class="subst">\(unit)</span> is being deinitialized&quot;</span>) &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> john: <span class="type">Person</span>?</span><br><span class="line"><span class="keyword">var</span> unit4A: <span class="type">Apartment</span>?</span><br><span class="line"></span><br><span class="line">john <span class="operator">=</span> <span class="type">Person</span>(name: <span class="string">&quot;John Appleseed&quot;</span>)</span><br><span class="line">unit4A <span class="operator">=</span> <span class="type">Apartment</span>(unit: <span class="string">&quot;4A&quot;</span>)</span><br><span class="line"></span><br><span class="line">john<span class="operator">!</span>.apartment <span class="operator">=</span> unit4A</span><br><span class="line">unit4A<span class="operator">!</span>.tenant <span class="operator">=</span> john</span><br><span class="line"></span><br><span class="line">john <span class="operator">=</span> <span class="literal">nil</span></span><br><span class="line">unit4A <span class="operator">=</span> <span class="literal">nil</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//: 2 - Customer和CreditCard的例子展示了一个属性的值允许为nil，而另一个属性的值不允许为nil，这也可能会产生循环强引用。这种场景最适合通过无主引用来解决。</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Customer</span> &#123;</span><br><span class="line">    <span class="keyword">let</span> name: <span class="type">String</span></span><br><span class="line">    <span class="keyword">var</span> card: <span class="type">CreditCard</span>?</span><br><span class="line">    <span class="keyword">init</span>(<span class="params">name</span>: <span class="type">String</span>) &#123;</span><br><span class="line">        <span class="keyword">self</span>.name <span class="operator">=</span> name</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">deinit</span> &#123; <span class="built_in">print</span>(<span class="string">&quot;<span class="subst">\(name)</span> is being deinitialized&quot;</span>) &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">class</span> <span class="title class_">CreditCard</span> &#123;</span><br><span class="line">    <span class="keyword">let</span> number: <span class="type">UInt64</span></span><br><span class="line">    <span class="keyword">unowned</span> <span class="keyword">let</span> customer: <span class="type">Customer</span></span><br><span class="line">    <span class="keyword">init</span>(<span class="params">number</span>: <span class="type">UInt64</span>, <span class="params">customer</span>: <span class="type">Customer</span>) &#123;</span><br><span class="line">        <span class="keyword">self</span>.number <span class="operator">=</span> number</span><br><span class="line">        <span class="keyword">self</span>.customer <span class="operator">=</span> customer</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">deinit</span> &#123; <span class="built_in">print</span>(<span class="string">&quot;Card #<span class="subst">\(number)</span> is being deinitialized&quot;</span>) &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> lee: <span class="type">Customer</span>?</span><br><span class="line">lee <span class="operator">=</span> <span class="type">Customer</span>(name: <span class="string">&quot;Brunce Lee&quot;</span>)</span><br><span class="line"><span class="keyword">let</span> card <span class="operator">=</span> <span class="type">CreditCard</span>(number: <span class="number">1234567890123456</span>, customer: lee<span class="operator">!</span>)</span><br><span class="line">lee <span class="operator">=</span> <span class="literal">nil</span></span><br><span class="line">card</span><br><span class="line"></span><br><span class="line"><span class="comment">//: 3 - 两个属性都必须有值，并且初始化完成后永远不会为nil。在这种场景中，需要一个类使用无主属性，而另外一个类使用隐式解析可选属性。</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Country</span> &#123;</span><br><span class="line">    <span class="keyword">let</span> name: <span class="type">String</span></span><br><span class="line">    <span class="keyword">var</span> capitalCity: <span class="type">City</span>!</span><br><span class="line">    <span class="keyword">init</span>(<span class="params">name</span>: <span class="type">String</span>, <span class="params">capitalName</span>: <span class="type">String</span>) &#123;</span><br><span class="line">        <span class="keyword">self</span>.name <span class="operator">=</span> name</span><br><span class="line">        <span class="keyword">self</span>.capitalCity <span class="operator">=</span> <span class="type">City</span>(name: capitalName, country: <span class="keyword">self</span>)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">class</span> <span class="title class_">City</span> &#123;</span><br><span class="line">    <span class="keyword">let</span> name: <span class="type">String</span></span><br><span class="line">    <span class="keyword">unowned</span> <span class="keyword">let</span> country: <span class="type">Country</span></span><br><span class="line">    <span class="keyword">init</span>(<span class="params">name</span>: <span class="type">String</span>, <span class="params">country</span>: <span class="type">Country</span>) &#123;</span><br><span class="line">        <span class="keyword">self</span>.name <span class="operator">=</span> name</span><br><span class="line">        <span class="keyword">self</span>.country <span class="operator">=</span> country</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> country: <span class="type">Country</span>?</span><br><span class="line">country <span class="operator">=</span> <span class="type">Country</span>(name: <span class="string">&quot;Canada&quot;</span>, capitalName: <span class="string">&quot;Ottawa&quot;</span>)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;<span class="subst">\(country<span class="operator">!</span>.name)</span>&#x27;s capital city is called <span class="subst">\(country<span class="operator">!</span>.capitalCity.name)</span>&quot;</span>)</span><br><span class="line">country <span class="operator">=</span> <span class="literal">nil</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//: 解决闭包引起的循环强引用</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//在定义闭包时同时定义捕获列表作为闭包的一部分，通过这种方式可以解决闭包和类实例之间的循环强引用。</span></span><br><span class="line"></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment"> lazy var someClosure: (Int, String) -&gt; String = &#123;</span></span><br><span class="line"><span class="comment"> [unowned self, weak delegate = self.delegate!] (index: Int, stringToProcess: String) -&gt; String in</span></span><br><span class="line"><span class="comment"> // 这里是闭包的函数体</span></span><br><span class="line"><span class="comment"> &#125;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">HTMLElement</span> &#123;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">let</span> name: <span class="type">String</span></span><br><span class="line">    <span class="keyword">let</span> text: <span class="type">String</span>?</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">lazy</span> <span class="keyword">var</span> asHTML: <span class="type">Void</span> -&gt; <span class="type">String</span> <span class="operator">=</span> &#123;</span><br><span class="line">        [<span class="keyword">unowned</span> <span class="keyword">self</span>] <span class="keyword">in</span></span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">let</span> text <span class="operator">=</span> <span class="keyword">self</span>.text &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="string">&quot;&lt;<span class="subst">\(<span class="keyword">self</span>.name)</span>&gt;<span class="subst">\(text)</span>&lt;/<span class="subst">\(<span class="keyword">self</span>.name)</span>&gt;&quot;</span></span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="string">&quot;&lt;<span class="subst">\(<span class="keyword">self</span>.name)</span> /&gt;&quot;</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">init</span>(<span class="params">name</span>: <span class="type">String</span>, <span class="params">text</span>: <span class="type">String</span>? <span class="operator">=</span> <span class="literal">nil</span>) &#123;</span><br><span class="line">        <span class="keyword">self</span>.name <span class="operator">=</span> name</span><br><span class="line">        <span class="keyword">self</span>.text <span class="operator">=</span> text</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">deinit</span> &#123;</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;<span class="subst">\(name)</span> is being deinitialized&quot;</span>)</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> paragraph: <span class="type">HTMLElement</span>? <span class="operator">=</span> <span class="type">HTMLElement</span>(name: <span class="string">&quot;p&quot;</span>, text: <span class="string">&quot;hello, world&quot;</span>)</span><br><span class="line"><span class="built_in">print</span>(paragraph<span class="operator">!</span>.asHTML())</span><br><span class="line">paragraph <span class="operator">=</span> <span class="literal">nil</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
 
     
 
@@ -963,98 +1042,6 @@
 <figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">- (TableViewCell *)tableView:(<span class="built_in">UITableView</span> *)tableView</span><br><span class="line">       cellForRowAtIndexPath:(<span class="built_in">NSIndexPath</span> *)indexPath &#123;</span><br><span class="line">  TableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:<span class="string">@&quot;cell&quot;</span></span><br><span class="line">                                                        forIndexPath:indexPath];</span><br><span class="line">  cell.avatar.image = [<span class="built_in">UIImage</span> imageNamed:<span class="string">@&quot;avatar&quot;</span>];</span><br><span class="line">  cell.name.text = [<span class="built_in">NSString</span> stringWithFormat:<span class="string">@&quot;%ld&quot;</span>, indexPath.row % <span class="number">2</span>];</span><br><span class="line">  cell.time.text = [<span class="built_in">NSString</span> stringWithFormat:<span class="string">@&quot;%@&quot;</span>, [<span class="built_in">NSDate</span> date]];</span><br><span class="line">  cell.source.text = <span class="string">@&quot;Weibo.com&quot;</span>;</span><br><span class="line"></span><br><span class="line">  <span class="built_in">NSMutableString</span> *str = [<span class="built_in">NSMutableString</span> new];</span><br><span class="line">  <span class="keyword">for</span> (<span class="type">long</span> i = <span class="number">1</span>; i &lt; indexPath.row; i++) &#123;</span><br><span class="line">    [str appendString:<span class="string">@&quot;The 1989 World Tour (Live)&quot;</span>];</span><br><span class="line">  &#125;</span><br><span class="line">  [str appendString:<span class="string">@&quot;END!!!&quot;</span>];</span><br><span class="line">  cell.text.text = str;</span><br><span class="line"></span><br><span class="line">  <span class="comment">//移除多余边框，如果是图片是 Aspect Fill 或者 Aspect Fit</span></span><br><span class="line">  cell.pic.layer.borderColor = [<span class="built_in">UIColor</span> clearColor].CGColor;</span><br><span class="line">  cell.pic.layer.borderWidth = <span class="number">0.1</span>;</span><br><span class="line">  cell.pic.layer.masksToBounds = <span class="literal">YES</span>;</span><br><span class="line">  </span><br><span class="line">  <span class="keyword">if</span> (indexPath.row % <span class="number">2</span> == <span class="number">1</span>) &#123;</span><br><span class="line">    cell.pic.image = [<span class="built_in">UIImage</span> imageNamed:<span class="string">@&quot;pic&quot;</span>];</span><br><span class="line">  &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    cell.pic.image = <span class="literal">nil</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  </span><br><span class="line">  <span class="keyword">return</span> cell;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>源码：<a target="_blank" rel="noopener" href="https://github.com/gewill/test-projects/tree/master/test%20auto%20height%20cell">https://github.com/gewill/test-projects/tree/master/test%20auto%20height%20cell</a></p>
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2015/12/14/Swift-Pointer/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.jpeg">
-      <meta itemprop="name" content="Ge Will">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Will's Blog">
-      <meta itemprop="description" content="The people who are crazy enough to think they can change the world, are the ones who DO.">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | Will's Blog">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2015/12/14/Swift-Pointer/" class="post-title-link" itemprop="url">Swift 指针</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">Posted on</span>
-
-      <time title="Created: 2015-12-14 18:50:57" itemprop="dateCreated datePublished" datetime="2015-12-14T18:50:57+08:00">2015-12-14</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">Edited on</span>
-      <time title="Modified: 2025-01-13 11:01:04" itemprop="dateModified" datetime="2025-01-13T11:01:04+08:00">2025-01-13</time>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <p>Swift中的内存指针讲解的很清楚：<a target="_blank" rel="noopener" href="http://onevcat.com/2015/01/swift-pointer/">http://onevcat.com/2015/01/swift-pointer/</a>。<br>Apple期望在Swift中指针能够尽量减少登场几率，因此在Swift中指针被映射为了一个泛型类型，并且还比较抽象。Swift中，指针都使用一个特殊的类型来表示，那就是UnsafePointer<T>。总的来说还是为了方便处理 C API，平时并不需要深入了解。</p>
-<p>还有苹果官方博客：<a target="_blank" rel="noopener" href="https://developer.apple.com/swift/blog/?id=6">Interacting with C Pointers</a>。</p>
-<p>下面代码是数组指针用法：</p>
-<pre><code class="swift">    // Swift Memory UnsafePointer
-    var array = [1, 2, 3, 4, 5]
-    var arrayPtr = UnsafeMutableBufferPointer&lt;Int&gt;(start: &amp;array, count: array.count)
-    // baseAddress 是第一个元素的指针
-    var basePtr = arrayPtr.baseAddress as UnsafeMutablePointer&lt;Int&gt;
-    print(basePtr.memory) // 1
-    basePtr.memory = 10
-    print(basePtr.memory) // 10
-    //下一个元素
-    var nextPtr = basePtr.successor()
-    print(nextPtr.memory) // 2
-    print(array) // [10, 2, 3, 4, 5]
-    
-</code></pre>
 
       
     </div>

@@ -104,7 +104,7 @@
 
 
 <nav class="site-nav">
-  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives<span class="badge">198</span></a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags<span class="badge">17</span></a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories<span class="badge">1</span></a></li>
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives<span class="badge">199</span></a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags<span class="badge">17</span></a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories<span class="badge">1</span></a></li>
       <li class="menu-item menu-item-search">
         <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
         </a>
@@ -169,7 +169,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">198</span>
+          <span class="site-state-item-count">199</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -211,6 +211,98 @@
     </div>
 
     <div class="main-inner index posts-expand">
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2015/12/14/Swift-Pointer/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpeg">
+      <meta itemprop="name" content="Ge Will">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Will's Blog">
+      <meta itemprop="description" content="The people who are crazy enough to think they can change the world, are the ones who DO.">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | Will's Blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2015/12/14/Swift-Pointer/" class="post-title-link" itemprop="url">Swift 指针</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2015-12-14 18:50:57" itemprop="dateCreated datePublished" datetime="2015-12-14T18:50:57+08:00">2015-12-14</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">Edited on</span>
+      <time title="Modified: 2025-01-13 11:01:04" itemprop="dateModified" datetime="2025-01-13T11:01:04+08:00">2025-01-13</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <p>Swift中的内存指针讲解的很清楚：<a target="_blank" rel="noopener" href="http://onevcat.com/2015/01/swift-pointer/">http://onevcat.com/2015/01/swift-pointer/</a>。<br>Apple期望在Swift中指针能够尽量减少登场几率，因此在Swift中指针被映射为了一个泛型类型，并且还比较抽象。Swift中，指针都使用一个特殊的类型来表示，那就是UnsafePointer<T>。总的来说还是为了方便处理 C API，平时并不需要深入了解。</p>
+<p>还有苹果官方博客：<a target="_blank" rel="noopener" href="https://developer.apple.com/swift/blog/?id=6">Interacting with C Pointers</a>。</p>
+<p>下面代码是数组指针用法：</p>
+<pre><code class="swift">    // Swift Memory UnsafePointer
+    var array = [1, 2, 3, 4, 5]
+    var arrayPtr = UnsafeMutableBufferPointer&lt;Int&gt;(start: &amp;array, count: array.count)
+    // baseAddress 是第一个元素的指针
+    var basePtr = arrayPtr.baseAddress as UnsafeMutablePointer&lt;Int&gt;
+    print(basePtr.memory) // 1
+    basePtr.memory = 10
+    print(basePtr.memory) // 10
+    //下一个元素
+    var nextPtr = basePtr.successor()
+    print(nextPtr.memory) // 2
+    print(array) // [10, 2, 3, 4, 5]
+    
+</code></pre>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
 
     
 
@@ -1154,85 +1246,6 @@
 <p>源码在 GitHub：<a target="_blank" rel="noopener" href="https://github.com/gewill/The-Swift-Programming-Language-2.1-Examples">https://github.com/gewill/The-Swift-Programming-Language-2.1-Examples</a></p>
 <p>Playground -&gt;</p>
 <figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//: Playground - noun: a place where people can play</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> UIKit</span><br><span class="line"></span><br><span class="line"><span class="comment">//: 类和结构体对比</span></span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">Resolution</span> &#123;</span><br><span class="line">    <span class="keyword">var</span> width <span class="operator">=</span> <span class="number">0</span></span><br><span class="line">    <span class="keyword">var</span> height <span class="operator">=</span> <span class="number">0</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">VideoMode</span> &#123;</span><br><span class="line">    <span class="keyword">var</span> resolution <span class="operator">=</span> <span class="type">Resolution</span>()</span><br><span class="line">    <span class="keyword">var</span> interlaced <span class="operator">=</span> <span class="literal">false</span></span><br><span class="line">    <span class="keyword">var</span> frameRate <span class="operator">=</span> <span class="number">0.0</span></span><br><span class="line">    <span class="keyword">var</span> name: <span class="type">String</span>?</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//: 类和结构体实例 </span></span><br><span class="line"><span class="comment">//: 一个引用类型一个值类型 Classes are reference types, Structures and Enumerations are value types</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> someResolution <span class="operator">=</span> <span class="type">Resolution</span>()</span><br><span class="line"><span class="keyword">let</span> someVideoMode <span class="operator">=</span> <span class="type">VideoMode</span>()</span><br><span class="line"></span><br><span class="line">someResolution.height</span><br><span class="line">someVideoMode.frameRate</span><br><span class="line">someVideoMode.resolution.height</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> vga <span class="operator">=</span> <span class="type">Resolution</span>(width: <span class="number">640</span>, height: <span class="number">480</span>)</span><br><span class="line"><span class="keyword">let</span> hd <span class="operator">=</span> <span class="type">Resolution</span>(width: <span class="number">1920</span>, height: <span class="number">1080</span>)</span><br><span class="line"><span class="keyword">var</span> cinema <span class="operator">=</span> hd</span><br><span class="line">cinema.height <span class="operator">=</span> <span class="number">3096</span></span><br><span class="line">cinema.width</span><br><span class="line">hd</span><br><span class="line"><span class="keyword">let</span> tenEighty <span class="operator">=</span> <span class="type">VideoMode</span>()</span><br><span class="line"><span class="keyword">var</span> asloTenEighty <span class="operator">=</span> tenEighty</span><br><span class="line">asloTenEighty.frameRate <span class="operator">=</span> <span class="number">30.0</span></span><br><span class="line">tenEighty.frameRate</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">//: 恒等运算符 Identity Operators : === !==</span></span><br><span class="line"><span class="keyword">if</span> tenEighty <span class="operator">===</span> asloTenEighty &#123;</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;These two variables refer to the same instance&quot;</span>)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//: 指针 Pointers </span></span><br><span class="line"><span class="comment">//: Swift指针类型不用带 *</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//: 类和结构体的选择: 结构体适合存储简单数据值和拷贝行为, 不需要继承另一个类型属性或者行为</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//: String/Array/Dictionary 类型的赋值和复制行为：Assignment and copy behaviors on Strings, Arrays and Dicitonaries</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//: Swift 均以结构体形式实现，值拷贝，但是处于性能优化，只哟确有必要时才会实际执行拷贝；Objective-C是类，传递的是实例的引用。</span></span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2015/11/03/VPS/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.jpeg">
-      <meta itemprop="name" content="Ge Will">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Will's Blog">
-      <meta itemprop="description" content="The people who are crazy enough to think they can change the world, are the ones who DO.">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | Will's Blog">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2015/11/03/VPS/" class="post-title-link" itemprop="url">VPS</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">Posted on</span>
-
-      <time title="Created: 2015-11-03 15:33:47" itemprop="dateCreated datePublished" datetime="2015-11-03T15:33:47+08:00">2015-11-03</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">Edited on</span>
-      <time title="Modified: 2025-01-13 11:01:04" itemprop="dateModified" datetime="2025-01-13T11:01:04+08:00">2025-01-13</time>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <p>最近学会了使用 Surge + Shadowsocks，终于可以优雅地在 iOS上分流模式上网了。</p>
-<p>购买的是 <a target="_blank" rel="noopener" href="http://www.host1plus.com/">host1plus.com</a>的VPS，$2一个月好便宜的说。只有一个SSH ，一切都是命令行搞定。折腾了几天后发现，命令行完全是一个简洁高效操作计算机的方式。相比GUI的程序，唯一的缺点：可操作项和文件目录等不能够一目了然的看到，最多一个<code>--help</code>，还是不行就要求助Google了。当然熟悉了命令行之后这也不是问题，就是记忆多一些嘛。</p>
-<p>首先安装了Shadowsocks，后来有安装了 WordPress 256的内存瞬间就满了。使用speedtest-cli测试下来， 主机的速度1000M&#x2F;100M，但是连接上海服务器就只有20M&#x2F;2M左右。手机也算够用了，毕竟电脑上有强大的Lantern。</p>
-<p>最坑的是一般搜索的官方教程都是有坑的，一般都要找一些个人安装文章才能完美运行。PHP和FTP都是找了好多教程才搞定的，下次在配置一定官方+个人教程，搜索的时候也注意筛选最近一周或一月的结果比较靠谱。</p>
 
       
     </div>

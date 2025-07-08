@@ -104,7 +104,7 @@
 
 
 <nav class="site-nav">
-  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives<span class="badge">198</span></a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags<span class="badge">17</span></a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories<span class="badge">1</span></a></li>
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives<span class="badge">199</span></a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags<span class="badge">17</span></a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories<span class="badge">1</span></a></li>
       <li class="menu-item menu-item-search">
         <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
         </a>
@@ -169,7 +169,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">198</span>
+          <span class="site-state-item-count">199</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -211,6 +211,162 @@
     </div>
 
     <div class="main-inner index posts-expand">
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2018/05/10/Realm-Notes-2/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpeg">
+      <meta itemprop="name" content="Ge Will">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Will's Blog">
+      <meta itemprop="description" content="The people who are crazy enough to think they can change the world, are the ones who DO.">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | Will's Blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2018/05/10/Realm-Notes-2/" class="post-title-link" itemprop="url">Realm 笔记(二)</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2018-05-10 20:46:38" itemprop="dateCreated datePublished" datetime="2018-05-10T20:46:38+08:00">2018-05-10</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">Edited on</span>
+      <time title="Modified: 2025-01-13 11:01:04" itemprop="dateModified" datetime="2025-01-13T11:01:04+08:00">2025-01-13</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <p><img src="https://cdn-images-1.medium.com/max/1600/1*s1KQFE3IHyzb_PKF-q_wHA@2x.png" alt="RealmsSchema"></p>
+<p><strong>系列文章目录：</strong></p>
+<ol>
+<li><a target="_blank" rel="noopener" href="http://gewill.org/2018/04/26/Realm-Notes-1/">Realm 笔记 (一)</a></li>
+<li><a target="_blank" rel="noopener" href="http://gewill.org/2018/05/10/Realm-Notes-2/">Realm 笔记 (二)</a></li>
+</ol>
+<h3 id="第七章：Realm配置"><a href="#第七章：Realm配置" class="headerlink" title="第七章：Realm配置"></a>第七章：<strong>Realm</strong>配置</h3><p>打开一个Realm:<code>let realm = try! Realm()</code></p>
+<p>Realm没有使用单例，而是每次直接尝试新建一个Realm实例，有以下几个运行时优化：</p>
+<ol>
+<li>调用Realm()返回同一个共享实例，而不受创建该Realm实例的线程限制。而Object和Realm实例被限制在创建的线程中，所以不能跨线程分享。</li>
+<li>Realm也提供了多个安全措施，如：使用不同的密钥或文件不存在均会报错。</li>
+</ol>
+<blockquote>
+<p>书中均使用 try! ，但实际生产环境你可以进行错误处理。</p>
+</blockquote>
+<p><code>deleteRealmIfMigrationNeeded</code> 新版直接删除Realm文件，不做迁移处理。</p>
+<p>存在文件在Documents文件夹有几个好处：自动备份到用户的iCloud storage，方便用户使用iTunes备份和访问。当然苹果推荐存储文件在Library文件夹。</p>
+<p>App Bundle 文件夹是只读的，所以该目录中的Realm是能作为只读数据库。</p>
+<p>加密在Realm极为简单，只要在配置中添加一个64位的密钥即可。</p>
+<h3 id="第八章：多个Realm和共享Realm"><a href="#第八章：多个Realm和共享Realm" class="headerlink" title="第八章：多个Realm和共享Realm"></a>第八章：多个<strong>Realm</strong>和共享<strong>Realm</strong></h3><p>创建一个RealmProvider以方便操作Realm，尤其是涉及多个Realm或加密等情况。</p>
+<p><img src="https://cdn-images-1.medium.com/max/1600/1*W8tnptm39Ixw0gvV-ub4FA.jpeg" alt="img"></p>
+<p>如需转换JSON、CSV或纯文本为Realm，并内置到App Bundle。此时可以创建一个Target和来Tools.swift，自动生成Realm文件。把生成的Realm文件拖入Xcode即可。</p>
+<p><img src="https://cdn-images-1.medium.com/max/1600/1*PQoGupwjm1ZNHXXRjQysUA.jpeg" alt="img"></p>
+<h3 id="第九章：依赖注入和测试"><a href="#第九章：依赖注入和测试" class="headerlink" title="第九章：依赖注入和测试"></a>第九章：依赖注入和测试</h3><p>在本章中，您将学习两个重要主题：如何使用依赖注入来改进 Flash Cards 应用的架构，以及如何编写由Realm支持的同步和异步测试。</p>
+<p>本章不会深入研究诸如测试驱动开发等主题，而是专注测试使用 Realm Object的类的技巧，并且依赖于特定于Realm的功能，例如更改通知。</p>
+<h4 id="测试-cards-场景-Scene"><a href="#测试-cards-场景-Scene" class="headerlink" title="测试 cards 场景(Scene)"></a><strong>测试 cards 场景(Scene)</strong></h4><ul>
+<li>CardsViewController：设置所需的手势识别器并根据用户的输入更新UI。本章不会介绍UI测试。</li>
+<li>CardsModel：从Realm中抽象查询对象的简单封装。为它编写测试将意味着在测试中重复相同的代码并比较输出，而不提供实际值。除此之外，你真正要在这里测试的将是Realm的底层实现，它已经经过了充分测试。</li>
+<li>CardsViewModel：实现此场景的业务逻辑。它格式化Model的输出，以显示在屏幕上，并提供与模型交互的方法。这将是一些单元测试的完美候选！</li>
+</ul>
+<p><img src="https://cdn-images-1.medium.com/max/1600/1*vhkdTdhoOoY1dQW3yPescA.jpeg" alt="img"></p>
+<p>这里只是简单测试 ViewModel 初始化和更新状态。</p>
+<p><img src="https://cdn-images-1.medium.com/max/1600/1*dmF8jn3bhAwCz7kzsys2cw.jpeg" alt="img"></p>
+<h4 id="测试-sets-场景"><a href="#测试-sets-场景" class="headerlink" title="测试 sets 场景"></a>测试 sets 场景</h4><p>在显示列表的场景中，您的视图模型依赖于Realm通知来动态更新数据。你必须：</p>
+<ul>
+<li>模拟Realm框架以测试依赖通知的 ViewModel 和其他高级Realm功能。</li>
+<li>编写依赖Realm通知的测试</li>
+</ul>
+<p>为了使测试有效，您需要稍微更改代码以提供一个方法将测试的 Realm providers 注入到Model和ViewModel中。</p>
+<p><img src="https://cdn-images-1.medium.com/max/1600/1*gfi15_iu5vDJ-u7YgZ6dcQ.jpeg" alt="img"></p>
+<p><img src="https://cdn-images-1.medium.com/max/1600/1*xnR1I5wQ3laa3dVpLMqPoQ.jpeg" alt="img"></p>
+<p>异步测试需要使用XCTestExpectation，这个期望类将帮助你等待某些条件在您的测试中得到满足，然后再转到您测试断言的部分。</p>
+<p>在使用XCTWaiter类来持有测试的执行，直到满足期望为止。 XCTWaiter是Apple的XCTest框架中的一个便捷类，它暂时停止当前代码的执行，而不会阻塞当前线程。 XCTWaiter定期检查期望的状态，因此当异步代码将执行计数增加到3时，XCTWaiter将负责恢复执行测试。</p>
+<p>步骤如下：</p>
+<ul>
+<li>初始化XCTestExpectation和expectedFulfillmentCount</li>
+<li>在异步回调中fulfill，</li>
+<li>最后添加定期检查结果的帮助类XCTWaiter。</li>
+</ul>
+<p><img src="https://cdn-images-1.medium.com/max/1600/1*dTCJ1PW8lPGR6l3_W5GBnQ.jpeg" alt="img"></p>
+<h4 id="测试-Word-of-Today-场景"><a href="#测试-Word-of-Today-场景" class="headerlink" title="测试 Word of Today 场景"></a>测试 Word of Today 场景</h4><p><img src="https://cdn-images-1.medium.com/max/1600/1*FDEM3iDyXtpv-Yqp3iRIIA.jpeg" alt="img"></p>
+<h4 id="小结："><a href="#小结：" class="headerlink" title="小结："></a>小结：</h4><p>在本章中，你将亲身体验用Realm编写同步和异步测试的简易性。本章中重点是：</p>
+<ul>
+<li>测试自己的逻辑，而不是Realm，因为它已经在全球数百万用户中得到了充分测试和使用。</li>
+<li>“哑”模型和视图控制器可以更轻松地测试视图模型，您通常可以在其中放置MVVM应用程序的逻辑。</li>
+<li>编写需要这些依赖项的特定测试版本的测试时，使用中央provider结构来抽取某些依赖项的检索很有用。</li>
+</ul>
+<p>通常，测试基于Realm的代码可能不会改变您构建自己的测试套件的方式。借助本章的经验，您应该能够为您的Realm项目编写可靠的测试，无论你心意哪一种架构。</p>
+<blockquote>
+<p>注意：对于单元测试，模拟Realm本身是一个偏爱的问题。如果你想模拟Realm并从测试套件中删除Realm依赖关系，你可以模拟关键的方法，比如对象（^）、过滤器（^）等等。风险是你必须增加和保持的代码量，以保持与Realm自己行为的一致，尤其是已经有了基于内存的Realm这个特别棒的方案。</p>
+</blockquote>
+<blockquote>
+<p>笔者觉得模拟Realm的唯一好处是，Realm依赖增加了CI服务器需要安装，构建和测试应用程序的时间。</p>
+</blockquote>
+<h3 id="第十章：高效率的多线程"><a href="#第十章：高效率的多线程" class="headerlink" title="第十章：高效率的多线程"></a>第十章：高效率的多线程</h3><p>Realm线程：多线程访问同一个Realm总是可以读写到最新的数据。</p>
+<p>线程间传递Object，有以下两个替代方法：</p>
+<ul>
+<li>传递Object的主键</li>
+<li>使用ThreadSafeReference：<code>let ref = ThreadSafeReference(to: myRealmObject)</code> 和 <code>let myRealmobject = realm.resolve(ref)</code></li>
+</ul>
+<p>主线程：访问带主键合适数量的数据时，无需担心性能问题。如在View Controller lifecycle 和 UIKit delegate 中直接读取Object，和更新UI。因为总是在同一个Realm文件的快照中工作，所以速度最快。</p>
+<p><img src="https://cdn-images-1.medium.com/max/1600/1*Sae-yNE-Z8AiShY1NJPY9A.jpeg" alt="img"></p>
+<p>后台线程：（不推荐）由于是异步并发执行，会因为Realm 快照之间同步问题，产生性能和体积大的问题。</p>
+<p>专用线程：（推荐）可以解决主线程影响UI，后台线程性能问题。使用Thread，自己维护一个线程的生命周期，所有读写都在该线程操作。还可以缓存任务批量提交读写事务，进一步提高性能。</p>
+<p><img src="https://cdn-images-1.medium.com/max/1600/1*vJX_oPQhAAXBeFCDHFyIfQ.jpeg" alt="img"></p>
+<p><img src="https://cdn-images-1.medium.com/max/1600/1*qdG-8dAadridla-Oztjq5w.jpeg" alt="img"></p>
+<p>简版（无缓冲机制）</p>
+<p><img src="https://cdn-images-1.medium.com/max/1600/1*yaxbDhdgZUPxzFNbAIEozA.jpeg" alt="img"></p>
+<blockquote>
+<p><em>未完待续…</em></p>
+</blockquote>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
 
     
 
@@ -1125,104 +1281,6 @@
 </ul>
 <h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>感觉每次听下来都很容易，毕竟是苹果出品，写笔记时才感觉要操作的细节很多。作为一个开发者更多的是思考：声音对app的体验的帮助。</p>
 <p>ps：稍后看WWDC打算参考这个 WWDC 2017 Viewing Guide：<a target="_blank" rel="noopener" href="https://useyourloaf.com/blog/wwdc-2017-viewing-guide/">https://useyourloaf.com/blog/wwdc-2017-viewing-guide/</a> </p>
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2017/06/09/Platforms-State-of-the-Union-Notes/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.jpeg">
-      <meta itemprop="name" content="Ge Will">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Will's Blog">
-      <meta itemprop="description" content="The people who are crazy enough to think they can change the world, are the ones who DO.">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | Will's Blog">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2017/06/09/Platforms-State-of-the-Union-Notes/" class="post-title-link" itemprop="url">Platforms State of the Union - 笔记</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">Posted on</span>
-
-      <time title="Created: 2017-06-09 21:34:14" itemprop="dateCreated datePublished" datetime="2017-06-09T21:34:14+08:00">2017-06-09</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">Edited on</span>
-      <time title="Modified: 2025-01-13 11:01:04" itemprop="dateModified" datetime="2025-01-13T11:01:04+08:00">2025-01-13</time>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <p>WWDC 2017 Session 102 地址：<a target="_blank" rel="noopener" href="https://developer.apple.com/videos/play/wwdc2017/102/">https://developer.apple.com/videos/play/wwdc2017/102/</a></p>
-<h3 id="1-Swift-Playground"><a href="#1-Swift-Playground" class="headerlink" title="1. Swift Playground"></a>1. Swift Playground</h3><ul>
-<li>更强大的 Playground，支持控制外设，如：机器人、无人机。</li>
-</ul>
-<h3 id="2-Xcode-9"><a href="#2-Xcode-9" class="headerlink" title="2. Xcode 9"></a>2. Xcode 9</h3><ul>
-<li>重写的代码编辑器（ Source Editor），支持Markdown，开源转换引擎（Transformation Engine）</li>
-<li>问题（Issues） 更好的提示和更智能的自动修复</li>
-<li>当然还有缺席已久的重构（Refactoring）</li>
-<li>移动文件到group，自动移动物理位置</li>
-<li>完整支持git，和github集成</li>
-</ul>
-<h3 id="3-Swift-4"><a href="#3-Swift-4" class="headerlink" title="3. Swift 4"></a>3. Swift 4</h3><h3 id="4-调试和分析（Debugging-and-Analysis）"><a href="#4-调试和分析（Debugging-and-Analysis）" class="headerlink" title="4. 调试和分析（Debugging and Analysis）"></a>4. 调试和分析（Debugging and Analysis）</h3><ul>
-<li>View Debugger</li>
-<li>Thread Sanitizer、Address Sanitizer</li>
-<li>正确的 Main Thread API Checker</li>
-</ul>
-<h3 id="5-Xcode-Server-Built-in"><a href="#5-Xcode-Server-Built-in" class="headerlink" title="5. Xcode Server Built in"></a>5. Xcode Server Built in</h3><h3 id="6-UITest更快，支持多应用多模拟器"><a href="#6-UITest更快，支持多应用多模拟器" class="headerlink" title="6. UITest更快，支持多应用多模拟器"></a>6. UITest更快，支持多应用多模拟器</h3><ul>
-<li>模拟器支持自定义大小</li>
-</ul>
-<h3 id="7-无线调试"><a href="#7-无线调试" class="headerlink" title="7. 无线调试"></a>7. 无线调试</h3><h3 id="8-Frameworks"><a href="#8-Frameworks" class="headerlink" title="8. Frameworks"></a>8. Frameworks</h3><ul>
-<li>简单介绍了主要更新的库，就不看了，和Keynote差不多，直接看感兴趣的Session好了。</li>
-</ul>
-<p>ps：不知不觉看到了凌晨一点，今天把感性的的Session都下载了。立个flag，今年争取看30个。</p>
 
       
     </div>

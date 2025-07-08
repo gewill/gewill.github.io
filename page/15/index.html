@@ -104,7 +104,7 @@
 
 
 <nav class="site-nav">
-  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives<span class="badge">198</span></a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags<span class="badge">17</span></a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories<span class="badge">1</span></a></li>
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives<span class="badge">199</span></a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags<span class="badge">17</span></a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories<span class="badge">1</span></a></li>
       <li class="menu-item menu-item-search">
         <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
         </a>
@@ -169,7 +169,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">198</span>
+          <span class="site-state-item-count">199</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -211,6 +211,111 @@
     </div>
 
     <div class="main-inner index posts-expand">
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2015/08/11/Zen-and-the-Art-of-the-Objective-C-Craftsmanship/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpeg">
+      <meta itemprop="name" content="Ge Will">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Will's Blog">
+      <meta itemprop="description" content="The people who are crazy enough to think they can change the world, are the ones who DO.">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | Will's Blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2015/08/11/Zen-and-the-Art-of-the-Objective-C-Craftsmanship/" class="post-title-link" itemprop="url">禅与 Objective-C 编程艺术 - 笔记</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2015-08-11 10:26:15" itemprop="dateCreated datePublished" datetime="2015-08-11T10:26:15+08:00">2015-08-11</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">Edited on</span>
+      <time title="Modified: 2025-01-13 11:01:04" itemprop="dateModified" datetime="2025-01-13T11:01:04+08:00">2025-01-13</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <p><strong>转发整理一些我认为值得学习的小节。</strong></p>
+<p>-原文 <a target="_blank" rel="noopener" href="https://github.com/objc-zen/objc-zen-book">https://github.com/objc-zen/objc-zen-book</a></p>
+<p>-Gitbook 链接(包含 PDF, mobi, epub 格式): <a target="_blank" rel="noopener" href="http://yourtion.gitbooks.io/objc-zen-book-cn/">http://yourtion.gitbooks.io/objc-zen-book-cn/</a> (感谢 <a target="_blank" rel="noopener" href="https://github.com/yourtion">yourtion</a> 整理 )</p>
+<h2 id="nil-和-BOOL-检查"><a href="#nil-和-BOOL-检查" class="headerlink" title="nil 和 BOOL 检查"></a>nil 和 BOOL 检查</h2><p>类似于 Yoda 表达式，nil 检查的方式也是存在争议的。一些 notous 库像这样检查对象是否为 nil：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">if (nil == myValue) &#123; ...</span><br></pre></td></tr></table></figure>
+
+<p>或许有人会提出这是错的，因为在 nil 作为一个常量的情况下，这样做就像 Yoda 表达式了。 但是一些程序员这么做的原因是为了避免调试的困难，看下面的代码：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">if (myValue == nil) &#123; ...</span><br></pre></td></tr></table></figure>
+
+<p>如果程序员敲错成这样：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">if (myValue = nil) &#123; ...</span><br></pre></td></tr></table></figure>
+
+
+
+<p>这是合法的语句，但是即使你是一个丰富经验的程序员，即使盯着眼睛瞧上好多遍也很难调试出错误。但是如果把 nil 放在左边，因为它不能被赋值，所以就不会发生这样的错误。 如果程序员这样做，他&#x2F;她就可以轻松检查出可能的原因，比一遍遍检查敲下的代码要好很多。</p>
+<p>为了避免这些奇怪的问题，可以用感叹号来作为运算符。因为 nil 是 解释到 NO，所以没必要在条件语句里面把它和其他值比较。同时，不要直接把它和 <code>YES</code> 比较，因为 <code>YES</code> 的定义是 1， 而 <code>BOOL</code> 是 8 bit的，实际上是 char 类型。</p>
+<p><strong>推荐:</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">if (someObject) &#123; ...</span><br><span class="line">if (![someObject boolValue]) &#123; ...</span><br><span class="line">if (!someObject) &#123; ...</span><br></pre></td></tr></table></figure>
+
+<p><strong>不推荐:</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">if (someObject == YES) &#123; ... // Wrong</span><br><span class="line">if (myRawValue == YES) &#123; ... // Never do this.</span><br><span class="line">if ([someObject boolValue] == NO) &#123; ...</span><br></pre></td></tr></table></figure>
+
+<p>同时这样也能提高一致性，以及提升可读性。</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2015/08/11/Zen-and-the-Art-of-the-Objective-C-Craftsmanship/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
 
     
 
@@ -1085,107 +1190,6 @@
 <p>BLDemo01 L16 在 ViewController.h 完成代理，非课堂上 AppDelegate.h 中。</p>
 </blockquote>
 <h2 id="源码保存在我的-GitHub-GeekBand-iOS-Demo"><a href="#源码保存在我的-GitHub-GeekBand-iOS-Demo" class="headerlink" title="源码保存在我的 GitHub: GeekBand-iOS-Demo"></a>源码保存在我的 GitHub: <a target="_blank" rel="noopener" href="https://github.com/gewill/GeekBand-iOS-Demo/tree/master/Objective-C%20Programming">GeekBand-iOS-Demo</a></h2>
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2015/08/04/GeekBand-iOS-APP-Development-3/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.jpeg">
-      <meta itemprop="name" content="Ge Will">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Will's Blog">
-      <meta itemprop="description" content="The people who are crazy enough to think they can change the world, are the ones who DO.">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | Will's Blog">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2015/08/04/GeekBand-iOS-APP-Development-3/" class="post-title-link" itemprop="url">极客班 iOS 应用开发实战（三）</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">Posted on</span>
-
-      <time title="Created: 2015-08-04 08:00:00" itemprop="dateCreated datePublished" datetime="2015-08-04T08:00:00+08:00">2015-08-04</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">Edited on</span>
-      <time title="Modified: 2025-01-13 11:01:04" itemprop="dateModified" datetime="2025-01-13T11:01:04+08:00">2025-01-13</time>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <blockquote>
-<p>Removed FuzzyAutocomplete plugin. It made me stupid.</p>
-</blockquote>
-<h2 id="15-地图与定位"><a href="#15-地图与定位" class="headerlink" title="15. 地图与定位"></a>15. 地图与定位</h2><p>地图这一节实践了一天，理一理知识点：</p>
-<ul>
-<li>CLLocationManager and CLLocationManagerDelegate 地理事件处理和其代理方法</li>
-<li>CLLocation 地理坐标</li>
-<li>CLGeocoder 地理坐标化</li>
-<li>MKMapView and MKMapViewDelegate 地图显示和处理相关的代理方法</li>
-<li>MKAnnotationView’s protocol is MKAnnotation 自定义一个标记</li>
-</ul>
-<blockquote>
-<p>Geocoding (sometimes called forward geocoding) uses a description of a location, most typically a postal address or place name, to find geographic coordinates from spatial reference data such as building polygons, land parcels, street addresses, postal codes (e.g. ZIP codes, CEDEX) and so on. </p>
-</blockquote>
-<p>可能是时间不充足，段老师后面课程的代码风格不好。少#pragma mark 分段，少注释，if 语句嵌套的错误，命名随意。</p>
-<p>贴一个 Apple Sample: <a target="_blank" rel="noopener" href="https://developer.apple.com/library/prerelease/ios/samplecode/MapCallouts/Introduction/Intro.html">MapCallouts</a></p>
-<h2 id="17-UITableView（一）"><a href="#17-UITableView（一）" class="headerlink" title="17. UITableView（一）"></a>17. UITableView（一）</h2><p>UITableView 和 UITableViewController 关系图</p>
-<p><img src="http://i.imgur.com/IQWE4NL.jpg" alt="Imgur"><br><img src="http://i.imgur.com/XqbWU5H.jpg" alt="Imgur"></p>
-<ul>
-<li>UITableView 初始化后，属性和方法</li>
-<li>UITableViewDataSource and UITableViewDelegate 方法</li>
-<li>section、row、cell 部分、行、细胞</li>
-<li>header、footer </li>
-<li>separator 分割线</li>
-</ul>
-<h2 id="20-UITableView（四）"><a href="#20-UITableView（四）" class="headerlink" title="20.UITableView（四）"></a>20.UITableView（四）</h2><p>主要是一个 table view 的 Demo。</p>
-<h2 id="源码保存在我的-GitHub-GeekBand-iOS-Demo"><a href="#源码保存在我的-GitHub-GeekBand-iOS-Demo" class="headerlink" title="源码保存在我的 GitHub: GeekBand-iOS-Demo"></a>源码保存在我的 GitHub: <a target="_blank" rel="noopener" href="https://github.com/gewill/GeekBand-iOS-Demo/tree/master/iOS%20APP%20Development">GeekBand-iOS-Demo</a></h2>
       
     </div>
 

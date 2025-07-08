@@ -104,7 +104,7 @@
 
 
 <nav class="site-nav">
-  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives<span class="badge">198</span></a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags<span class="badge">17</span></a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories<span class="badge">1</span></a></li>
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives<span class="badge">199</span></a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags<span class="badge">17</span></a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories<span class="badge">1</span></a></li>
       <li class="menu-item menu-item-search">
         <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
         </a>
@@ -169,7 +169,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">198</span>
+          <span class="site-state-item-count">199</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -211,6 +211,172 @@
     </div>
 
     <div class="main-inner index posts-expand">
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2015/08/22/GeekBand-Test-2/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpeg">
+      <meta itemprop="name" content="Ge Will">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Will's Blog">
+      <meta itemprop="description" content="The people who are crazy enough to think they can change the world, are the ones who DO.">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | Will's Blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2015/08/22/GeekBand-Test-2/" class="post-title-link" itemprop="url">GeekBand Test 2</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2015-08-22 22:00:00" itemprop="dateCreated datePublished" datetime="2015-08-22T22:00:00+08:00">2015-08-22</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">Edited on</span>
+      <time title="Modified: 2025-01-13 11:01:04" itemprop="dateModified" datetime="2025-01-13T11:01:04+08:00">2025-01-13</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h2 id="做习题涉及和想到的点"><a href="#做习题涉及和想到的点" class="headerlink" title="做习题涉及和想到的点"></a>做习题涉及和想到的点</h2><blockquote>
+<p>我的习题代码 <a target="_blank" rel="noopener" href="https://github.com/gewill/GeekBand-IOS-1501-Homework/tree/new-branch/G2015010176/iOS%20APP%20Development">Github</a></p>
+</blockquote>
+<ul>
+<li>Lazy load image in table view: Apple example<br><a target="_blank" rel="noopener" href="https://developer.apple.com/library/ios/samplecode/LazyTableImages/Introduction/Intro.html">LazyTableImagesor</a> or <a target="_blank" rel="noopener" href="https://github.com/rs/SDWebImage">SDWebImage</a></li>
+<li>Try NSURLSession </li>
+<li>望文生义的能力很重要</li>
+<li>拿到一个项目代码，start step into from initial view，了解了整个 app 的运行时的结构或循环，才能理解整个 app 的逻辑框架。</li>
+<li>框架&gt;目录&gt;类&gt;方法&gt;属性&#x2F;实例变量，这样子下来整个一个 App 就跑起来了，入口就是 main.m，然后各种设置属性和发消息，基于事件驱动的这一层理解运行时是比较合适的颗粒。</li>
+<li>Lazy load iamge use AFNetworking</li>
+</ul>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[cell.appImage setImageWithURL:[<span class="built_in">NSURL</span> URLWithString:[mediumImage valueForKeyPath:<span class="string">@&quot;label&quot;</span>]] placeholderImage:[<span class="built_in">UIImage</span> imageNamed:<span class="string">@&quot;placeholder&quot;</span>]];</span><br></pre></td></tr></table></figure>
+
+<h2 id="习题完成情况"><a href="#习题完成情况" class="headerlink" title="习题完成情况"></a>习题完成情况</h2><h3 id="第二题"><a href="#第二题" class="headerlink" title="第二题"></a>第二题</h3><p>完成 1.0:</p>
+<ul>
+<li>实现 table view 自带刷新</li>
+<li>添加 Cellular 开关，并能够检查网络连接方式，并提醒用户</li>
+<li>NSURLSession 下载 JSON</li>
+</ul>
+<blockquote>
+<p>2015-08-26</p>
+</blockquote>
+<p>进行中 1.1: </p>
+<ul>
+<li>Lazy load iamge use AFNetworking</li>
+</ul>
+<blockquote>
+<p>2015-09-03 11:36:32</p>
+</blockquote>
+<h3 id="Further-Reading"><a href="#Further-Reading" class="headerlink" title="Further Reading"></a>Further Reading</h3><ul>
+<li><p><a target="_blank" rel="noopener" href="http://blog.ibireme.com/2015/05/18/runloop/#apple">深入理解 RunLoop</a></p>
+<blockquote>
+<p>通过 Runloop 讲解了 NSURLConnection 的工作过程<br>iOS 中，关于网络请求的接口自下至上有如下几层:</p>
+</blockquote>
+</li>
+</ul>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">CFSocket</span></span><br><span class="line"><span class="built_in">CFNetwork</span>       -&gt;ASIHttpRequest</span><br><span class="line"><span class="built_in">NSURLConnection</span> -&gt;AFNetworking</span><br><span class="line"><span class="built_in">NSURLSession</span>    -&gt;AFNetworking2, Alamofire</span><br></pre></td></tr></table></figure>
+<ul>
+<li><p>CFSocket 是最底层的接口，只负责 socket 通信。</p>
+</li>
+<li><p>CFNetwork 是基于 CFSocket 等接口的上层封装，ASIHttpRequest 工作于这一层。</p>
+</li>
+<li><p>NSURLConnection 是基于 CFNetwork 的更高层的封装，提供面向对象的接口，AFNetworking 工作于这一层。</p>
+</li>
+<li><p>NSURLSession 是 iOS7 中新增的接口，表面上是和 NSURLConnection 并列的，但底层仍然用到了 NSURLConnection 的部分功能 (比如 com.apple.NSURLConnectionLoader 线程)，AFNetworking2 和 Alamofire 工作于这一层。</p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="http://cocoadocs.org/docsets/AFNetworking/2.6.0/index.html">Network Reachability Manager</a></p>
+<blockquote>
+<p>AFNetworkReachabilityManager monitors the reachability of domains, and addresses for both WWAN and WiFi network interfaces.</p>
+</blockquote>
+<blockquote>
+<p>Do not use Reachability to determine if the original request should be sent.</p>
+</blockquote>
+</li>
+</ul>
+<p>You should try to send it.<br>You can use Reachability to determine when a request should be automatically retried.<br>Although it may still fail, a Reachability notification that the connectivity is available is a good time to retry something.<br>Network reachability is a useful tool for determining why a request might have failed.<br>After a network request has failed, telling the user they’re offline is better than giving them a more technical but accurate error, such as “request timed out.”</p>
+<ul>
+<li><p>See also <a target="_blank" rel="noopener" href="https://developer.apple.com/videos/wwdc/2012/#706%22">WWDC 2012 session 706, “Networking Best Practices</a>.</p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://github.com/rs/SDWebImage">SDWebImage</a></p>
+<blockquote>
+<p>AFNetworking takes advantage of Foundation URL Loading System caching using NSURLCache, as well as a configurable in-memory cache for UIImageView and UIButton, which uses NSCache by default. Caching behavior can be further specified in the caching policy of a corresponding NSURLRequest. Other SDWebImage features, like background decompression of image data is also provided by AFNetworking.</p>
+</blockquote>
+<blockquote>
+<p>If you’re already using AFNetworking and just want an easy async image loading category, the built-in UIKit extensions will probably fit your needs.
+  </p>
+</blockquote>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://github.com/AFNetworking/AFNetworking">AFNetworking</a> example</p>
+<blockquote>
+<p>iOS example 非常经典，包含了使用方法和一个 UITableView实用框架。</p>
+</blockquote>
+</li>
+<li><p><a target="_blank" rel="noopener" href="http://www.raywenderlich.com/59255/afnetworking-2-0-tutorial">AFNetworking 2.0 Tutorial</a></p>
+</li>
+</ul>
+<h2 id="测试题原文"><a href="#测试题原文" class="headerlink" title="测试题原文"></a>测试题原文</h2><h3 id="1-做一个类似微信的聊天的-tableview-tablewviewcell-自定义-。只需要-显示文字内容和用户头像-不需要做输入部分-文字内容自己模拟"><a href="#1-做一个类似微信的聊天的-tableview-tablewviewcell-自定义-。只需要-显示文字内容和用户头像-不需要做输入部分-文字内容自己模拟" class="headerlink" title="1. 做一个类似微信的聊天的 tableview(tablewviewcell 自定义) 。只需要 显示文字内容和用户头像(不需要做输入部分,文字内容自己模拟)"></a>1. 做一个类似微信的聊天的 tableview(tablewviewcell 自定义) 。只需要 显示文字内容和用户头像(不需要做输入部分,文字内容自己模拟)</h3><p>1 必须实现文字内容背景<br>2 背景的长度和高度要合适<br>3 发生者和接受者左右布局区分  </p>
+<h3 id="2-使用-http-api-请求解析-json-or-xml-数据-并且使用-tableview-展示出来-http-ax-itunes-apple-com-WebObjects-MZStoreServices-woa-ws-RSS-toppaidapplications-limit-10-json-or-xml"><a href="#2-使用-http-api-请求解析-json-or-xml-数据-并且使用-tableview-展示出来-http-ax-itunes-apple-com-WebObjects-MZStoreServices-woa-ws-RSS-toppaidapplications-limit-10-json-or-xml" class="headerlink" title="2. 使用 http api 请求解析 json or xml 数据,并且使用 tableview 展示出来 http://ax.itunes.apple.com/WebObjects/MZStoreServices.woa/ws/RSS/toppaidapplications/limit=10/json or xml"></a>2. 使用 http api 请求解析 json or xml 数据,并且使用 tableview 展示出来 <a target="_blank" rel="noopener" href="http://ax.itunes.apple.com/WebObjects/MZStoreServices.woa/ws/RSS/toppaidapplications/limit=10/json">http://ax.itunes.apple.com/WebObjects/MZStoreServices.woa/ws/RSS/toppaidapplications/limit=10/json</a> or xml</h3><p><strong>提示</strong>:  </p>
+<ol>
+<li>可以使用第三方库,也可以使用 SDK 基础库  </li>
+<li>显示网络下载数据时间  </li>
+<li>比较 xml or json 解析效率  </li>
+<li>tableviewcell自定义</li>
+</ol>
+<p>注:</p>
+<ul>
+<li>希望大家在一周内上传答案到极客班 github 个人的作业文件夹(以学生编 号命名)</li>
+<li>IOS 专业 Github 目录: <a target="_blank" rel="noopener" href="https://github.com/GeekBand/GeekBand-IOS-1501-Homework">https://github.com/GeekBand/GeekBand-IOS-1501-Homework</a></li>
+<li>老师会在直播环节点评此题</li>
+<li>作业的最终批改和成绩公布会在结业时进行。</li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
 
     
 
@@ -1127,94 +1293,6 @@
           <p>函数（Functions）是用来完成特地任务的独立的代码块；方法（Methods）是与某些特定类型相关联的函数。所以 Swift 中都用的 func 关键词。 结构体和枚举能够定义方法是 Swift 与 C&#x2F;Objective-C 的主要区别之一。</p>
 <p>Functions are self-contained chunks of code that perform a specific task.</p>
 <p>Methods are functions that are associated with a particular type: classes, structures, and enumerations.</p>
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2015/08/17/Sketch-3-Tutorials-by-LevelUpTuts/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.jpeg">
-      <meta itemprop="name" content="Ge Will">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Will's Blog">
-      <meta itemprop="description" content="The people who are crazy enough to think they can change the world, are the ones who DO.">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | Will's Blog">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2015/08/17/Sketch-3-Tutorials-by-LevelUpTuts/" class="post-title-link" itemprop="url">Sketch 3 Tutorials by LevelUpTuts</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">Posted on</span>
-
-      <time title="Created: 2015-08-17 22:39:30" itemprop="dateCreated datePublished" datetime="2015-08-17T22:39:30+08:00">2015-08-17</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">Edited on</span>
-      <time title="Modified: 2025-01-13 11:01:04" itemprop="dateModified" datetime="2025-01-13T11:01:04+08:00">2025-01-13</time>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <p>Sketch 3 Tutorials by LevelUpTuts: <a target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=-1BMzQLq7zk">https://www.youtube.com/watch?v=-1BMzQLq7zk</a></p>
-<p>A very basic tutorial, and very detailed. But lots of plugins usage.</p>
-<h2 id="6-Using-Text-Styles"><a href="#6-Using-Text-Styles" class="headerlink" title="6. Using Text Styles"></a>6. Using Text Styles</h2><p>Just like CSS style, change it every text in the style will update.</p>
-<h2 id="9-Shapes-in-Sketch-3"><a href="#9-Shapes-in-Sketch-3" class="headerlink" title="9. Shapes in Sketch 3"></a>9. Shapes in Sketch 3</h2><p>Star and Polygon can change Points.</p>
-<h2 id="10-Creating-and-Using-Symbols"><a href="#10-Creating-and-Using-Symbols" class="headerlink" title="10. Creating and Using Symbols"></a>10. Creating and Using Symbols</h2><blockquote>
-<p>Symbols is one of the brand new features in Sketch 3.0 and it allows you to re-use Groups, Layer and Text Styles in your document. Once added, simply insert them via Insert &gt; Symbol in the toolbar.</p>
-</blockquote>
-<h2 id="11-iOS-Design-UI-Tools"><a href="#11-iOS-Design-UI-Tools" class="headerlink" title="11. iOS Design UI Tools"></a>11. iOS Design UI Tools</h2><p>We use collections of symbols and text styles inside Sketch: File -&gt; New From Template.</p>
-<h2 id="19-Extending-Sketch-With-Free-Resources"><a href="#19-Extending-Sketch-With-Free-Resources" class="headerlink" title="19. Extending Sketch With Free Resources"></a>19. Extending Sketch With Free Resources</h2><blockquote>
-<p>Sketch App Sources is a website that focuses on providing resources for Sketch 3 by Bohemian Coding.<br>We aim to provide top quality resources that designers love to use, and make their workflow simpler and more enjoyable.</p>
-</blockquote>
-<p><a target="_blank" rel="noopener" href="http://www.sketchappsources.com/">http://www.sketchappsources.com/</a> </p>
-<h2 id="20-Create-Animated-GIFs"><a href="#20-Create-Animated-GIFs" class="headerlink" title="20. Create Animated GIFs"></a>20. Create Animated GIFs</h2><p>Generate-GIF: plugin for generating animated GIFs</p>
 
       
     </div>
