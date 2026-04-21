@@ -104,7 +104,7 @@
 
 
 <nav class="site-nav">
-  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives<span class="badge">199</span></a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags<span class="badge">17</span></a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories<span class="badge">1</span></a></li>
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives<span class="badge">220</span></a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags<span class="badge">17</span></a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories<span class="badge">1</span></a></li>
       <li class="menu-item menu-item-search">
         <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
         </a>
@@ -169,7 +169,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">199</span>
+          <span class="site-state-item-count">220</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -220,7 +220,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2015/08/11/Zen-and-the-Art-of-the-Objective-C-Craftsmanship/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2015/08/24/CS193P-Fall-2013-11-Table-View-and-iPad/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.jpeg">
@@ -238,7 +238,7 @@
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          <a href="/2015/08/11/Zen-and-the-Art-of-the-Objective-C-Craftsmanship/" class="post-title-link" itemprop="url">禅与 Objective-C 编程艺术 - 笔记</a>
+          <a href="/2015/08/24/CS193P-Fall-2013-11-Table-View-and-iPad/" class="post-title-link" itemprop="url">CS193P Fall 2013: 11.Table View and iPad</a>
         </h2>
 
         <div class="post-meta-container">
@@ -249,7 +249,7 @@
       </span>
       <span class="post-meta-item-text">Posted on</span>
 
-      <time title="Created: 2015-08-11 10:26:15" itemprop="dateCreated datePublished" datetime="2015-08-11T10:26:15+08:00">2015-08-11</time>
+      <time title="Created: 2015-08-24 09:35:28" itemprop="dateCreated datePublished" datetime="2015-08-24T09:35:28+08:00">2015-08-24</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -269,119 +269,19 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <p><strong>转发整理一些我认为值得学习的小节。</strong></p>
-<p>-原文 <a target="_blank" rel="noopener" href="https://github.com/objc-zen/objc-zen-book">https://github.com/objc-zen/objc-zen-book</a></p>
-<p>-Gitbook 链接(包含 PDF, mobi, epub 格式): <a target="_blank" rel="noopener" href="http://yourtion.gitbooks.io/objc-zen-book-cn/">http://yourtion.gitbooks.io/objc-zen-book-cn/</a> (感谢 <a target="_blank" rel="noopener" href="https://github.com/yourtion">yourtion</a> 整理 )</p>
-<h2 id="nil-和-BOOL-检查"><a href="#nil-和-BOOL-检查" class="headerlink" title="nil 和 BOOL 检查"></a>nil 和 BOOL 检查</h2><p>类似于 Yoda 表达式，nil 检查的方式也是存在争议的。一些 notous 库像这样检查对象是否为 nil：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">if (nil == myValue) &#123; ...</span><br></pre></td></tr></table></figure>
-
-<p>或许有人会提出这是错的，因为在 nil 作为一个常量的情况下，这样做就像 Yoda 表达式了。 但是一些程序员这么做的原因是为了避免调试的困难，看下面的代码：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">if (myValue == nil) &#123; ...</span><br></pre></td></tr></table></figure>
-
-<p>如果程序员敲错成这样：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">if (myValue = nil) &#123; ...</span><br></pre></td></tr></table></figure>
-
-
-
-<p>这是合法的语句，但是即使你是一个丰富经验的程序员，即使盯着眼睛瞧上好多遍也很难调试出错误。但是如果把 nil 放在左边，因为它不能被赋值，所以就不会发生这样的错误。 如果程序员这样做，他&#x2F;她就可以轻松检查出可能的原因，比一遍遍检查敲下的代码要好很多。</p>
-<p>为了避免这些奇怪的问题，可以用感叹号来作为运算符。因为 nil 是 解释到 NO，所以没必要在条件语句里面把它和其他值比较。同时，不要直接把它和 <code>YES</code> 比较，因为 <code>YES</code> 的定义是 1， 而 <code>BOOL</code> 是 8 bit的，实际上是 char 类型。</p>
-<p><strong>推荐:</strong></p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">if (someObject) &#123; ...</span><br><span class="line">if (![someObject boolValue]) &#123; ...</span><br><span class="line">if (!someObject) &#123; ...</span><br></pre></td></tr></table></figure>
-
-<p><strong>不推荐:</strong></p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">if (someObject == YES) &#123; ... // Wrong</span><br><span class="line">if (myRawValue == YES) &#123; ... // Never do this.</span><br><span class="line">if ([someObject boolValue] == NO) &#123; ...</span><br></pre></td></tr></table></figure>
-
-<p>同时这样也能提高一致性，以及提升可读性。</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2015/08/11/Zen-and-the-Art-of-the-Objective-C-Craftsmanship/#more" rel="contents">
-                Read more &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2015/08/11/GeekBand-iOS-APP-Development-4/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.jpeg">
-      <meta itemprop="name" content="Ge Will">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Will's Blog">
-      <meta itemprop="description" content="The people who are crazy enough to think they can change the world, are the ones who DO.">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | Will's Blog">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2015/08/11/GeekBand-iOS-APP-Development-4/" class="post-title-link" itemprop="url">极客班 iOS 应用开发实战（四）</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">Posted on</span>
-
-      <time title="Created: 2015-08-11 09:45:05" itemprop="dateCreated datePublished" datetime="2015-08-11T09:45:05+08:00">2015-08-11</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">Edited on</span>
-      <time title="Modified: 2025-01-13 11:01:04" itemprop="dateModified" datetime="2025-01-13T11:01:04+08:00">2025-01-13</time>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h2 id="21-iOS应用框架-上"><a href="#21-iOS应用框架-上" class="headerlink" title="21. iOS应用框架(上)"></a>21. iOS应用框架(上)</h2><p>主要讲解了 Project 文件目录整理分类，Storyboard 和代码结合使用，Constraints 的使用。稍后在项目里面实践一下。</p>
-<p>有提到 [UIScreen mainScreen].bounds 的问题。</p>
-<p>我之前就研究过，见：<a target="_blank" rel="noopener" href="http://gewill.org/2015/08/04/UIScreen-mainScreen-bounds-in-Xcode-7-Beta-4/">http://gewill.org/2015/08/04/UIScreen-mainScreen-bounds-in-Xcode-7-Beta-4/</a></p>
-<h2 id="23-iOS应用框架-下"><a href="#23-iOS应用框架-下" class="headerlink" title="23. iOS应用框架(下)"></a>23. iOS应用框架(下)</h2><p>主要演示 Storyboard 的自动布局和代码管理跳转和动画过度。但是总感觉有点基本上是在 AppDelegate 中管理 Storyboard 的跳转关系，实不如 Storyboard references 清晰明了，且不妨碍分工开发。</p>
-<p>代码如下：</p>
-<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//  AppDelegate.h</span></span><br><span class="line"><span class="comment">//  BLDemo05</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="meta">#import <span class="string">&lt;UIKit/UIKit.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">AppDelegate</span> : <span class="title">UIResponder</span> &lt;<span class="title">UIApplicationDelegate</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">@property</span> (<span class="keyword">strong</span>, <span class="keyword">nonatomic</span>) <span class="built_in">UIWindow</span> *window;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> *  声明一个 UINavigationController 属性，作为 rootViewController</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">@property</span> (<span class="keyword">strong</span>, <span class="keyword">nonatomic</span>) <span class="built_in">UINavigationController</span> *loginNavigationVC;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> *  使用代码加载 Login.storyboard 的函数</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line">- (<span class="type">void</span>)loadLoginView;</span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> *  使用代码加载 Login.storyboard 的函数</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line">- (<span class="type">void</span>)loadMainView;</span><br><span class="line"></span><br><span class="line"><span class="keyword">@end</span></span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//  AppDelegate.m</span></span><br><span class="line"><span class="comment">//  BLDemo05</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="meta">#import <span class="string">&quot;AppDelegate.h&quot;</span></span></span><br><span class="line"><span class="meta">#import <span class="string">&quot;BLUserInfoViewController.h&quot;</span></span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">AppDelegate</span> ()</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">@end</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">@implementation</span> <span class="title">AppDelegate</span></span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">- (<span class="type">void</span>)loadLoginView &#123;</span><br><span class="line">    <span class="comment">// 读取 Login.storyboard， 压入 rootViewController（loginNavigationVC）</span></span><br><span class="line">    <span class="built_in">UIStoryboard</span> *loginStoryboard</span><br><span class="line">    = [<span class="built_in">UIStoryboard</span> storyboardWithName:<span class="string">@&quot;Login&quot;</span></span><br><span class="line">                                bundle:[<span class="built_in">NSBundle</span> mainBundle]];</span><br><span class="line">    <span class="keyword">self</span>.loginNavigationVC = loginStoryboard.instantiateInitialViewController;</span><br><span class="line">    <span class="keyword">self</span>.window.rootViewController = <span class="keyword">self</span>.loginNavigationVC;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">- (<span class="type">void</span>)loadMainView &#123;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 1 - 读取 UserInfo.storyboard， 压入 BLUserInfoViewController（userInfoVC）， 一并压入 UINavigationController（navc）</span></span><br><span class="line">    <span class="built_in">UIStoryboard</span> *userInfoStoryboard</span><br><span class="line">    = [<span class="built_in">UIStoryboard</span> storyboardWithName:<span class="string">@&quot;UserInfo&quot;</span> bundle:[<span class="built_in">NSBundle</span> mainBundle]];</span><br><span class="line">    </span><br><span class="line">    BLUserInfoViewController *userInfoVC</span><br><span class="line">    = [userInfoStoryboard instantiateViewControllerWithIdentifier:<span class="string">@&quot;BLUserInfoViewController&quot;</span>];</span><br><span class="line">    </span><br><span class="line">    <span class="built_in">UINavigationController</span> *navc</span><br><span class="line">    = [[<span class="built_in">UINavigationController</span> alloc] initWithRootViewController:userInfoVC];</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 2 - 添加 UINavigationController 标题</span></span><br><span class="line">    navc.tabBarItem.title = <span class="string">@&quot;userInfo&quot;</span>;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 3 - 新建一个 UITabBarController（tabBarC），并设为 rootViewController</span></span><br><span class="line">    <span class="built_in">UITabBarController</span> *tabBarC = [[<span class="built_in">UITabBarController</span> alloc] init];</span><br><span class="line">    tabBarC.viewControllers = @[navc];</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">self</span>.window.rootViewController = tabBarC;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 4 - 添加过度效果</span></span><br><span class="line">    [<span class="keyword">self</span>.window addSubview:<span class="keyword">self</span>.loginNavigationVC.view];</span><br><span class="line">    </span><br><span class="line">    [<span class="built_in">UIView</span> animateWithDuration:<span class="number">0.3</span></span><br><span class="line">                     animations:^&#123;</span><br><span class="line">                         <span class="keyword">self</span>.loginNavigationVC.view.alpha = <span class="number">0</span>;</span><br><span class="line">                         <span class="keyword">self</span>.loginNavigationVC.view.frame = <span class="built_in">CGRectZero</span>;</span><br><span class="line">                         <span class="keyword">self</span>.loginNavigationVC.view.transform = <span class="built_in">CGAffineTransformMakeScale</span>(<span class="number">0.1</span>, <span class="number">0.1</span>);</span><br><span class="line">                     &#125; completion:^(<span class="type">BOOL</span> finished) &#123;</span><br><span class="line">                         <span class="keyword">self</span>.loginNavigationVC = <span class="literal">nil</span>;</span><br><span class="line">                     &#125;];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (<span class="type">BOOL</span>)application:(<span class="built_in">UIApplication</span> *)application didFinishLaunchingWithOptions:(<span class="built_in">NSDictionary</span> *)launchOptions &#123;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">self</span>.window = [[<span class="built_in">UIWindow</span> alloc] initWithFrame:[[<span class="built_in">UIScreen</span> mainScreen] bounds]];</span><br><span class="line">    <span class="keyword">self</span>.window.backgroundColor = [<span class="built_in">UIColor</span> whiteColor];</span><br><span class="line">    [<span class="keyword">self</span>.window makeKeyAndVisible];</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// App 启动，调用 loadLoginView 函数</span></span><br><span class="line">    [<span class="keyword">self</span> loadLoginView];</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> <span class="literal">YES</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (<span class="type">void</span>)applicationWillResignActive:(<span class="built_in">UIApplication</span> *)application &#123;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (<span class="type">void</span>)applicationDidEnterBackground:(<span class="built_in">UIApplication</span> *)application &#123;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (<span class="type">void</span>)applicationWillEnterForeground:(<span class="built_in">UIApplication</span> *)application &#123;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (<span class="type">void</span>)applicationDidBecomeActive:(<span class="built_in">UIApplication</span> *)application &#123;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (<span class="type">void</span>)applicationWillTerminate:(<span class="built_in">UIApplication</span> *)application &#123;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">@end</span></span><br></pre></td></tr></table></figure>
+          <p>之前直接听英语单词不懂，基础概念也没有，很难真正明白。现在学习了许多中文课程，主要是概念有了，重新看一遍，容易理解的多。</p>
+<p>所以最好是想看中文了解相关背景概念，熟悉一下其实的关键词对应的英文，然后再学习英文的课程。</p>
+<p>项目驱动，习题驱动学习比较有劲头。</p>
+<h2 id="Table-View"><a href="#Table-View" class="headerlink" title="Table View"></a>Table View</h2><ul>
+<li>UITableView Segue: <code>NSIndexPath *indexPath = [self.tableView indexPathForCell:sender];</code></li>
+<li>UITableView Spinner: UITableViewController has an “activity indicator” built in</li>
+<li>What if your Model changes? <code>(void)reloadData;</code></li>
+</ul>
+<h2 id="Universal-Applications"><a href="#Universal-Applications" class="headerlink" title="Universal Applications"></a>Universal Applications</h2><p>Generally recommned use different storyboards.</p>
+<h2 id="UISplitViewController"><a href="#UISplitViewController" class="headerlink" title="UISplitViewController"></a>UISplitViewController</h2><ul>
+<li>UISplitViewControllerDelegate: <code>awakeFromNib</code></li>
+<li>Hide Master in portrait orientation only (the default)</li>
+</ul>
 
       
     </div>
@@ -408,7 +308,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2015/08/10/TestFlight-Apps-in-iTunes-Connect/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2015/08/22/GeekBand-Test-2/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.jpeg">
@@ -426,7 +326,7 @@
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          <a href="/2015/08/10/TestFlight-Apps-in-iTunes-Connect/" class="post-title-link" itemprop="url">TestFlight Apps in iTunes Connect</a>
+          <a href="/2015/08/22/GeekBand-Test-2/" class="post-title-link" itemprop="url">GeekBand Test 2</a>
         </h2>
 
         <div class="post-meta-container">
@@ -437,7 +337,7 @@
       </span>
       <span class="post-meta-item-text">Posted on</span>
 
-      <time title="Created: 2015-08-10 11:56:18" itemprop="dateCreated datePublished" datetime="2015-08-10T11:56:18+08:00">2015-08-10</time>
+      <time title="Created: 2015-08-22 22:00:00" itemprop="dateCreated datePublished" datetime="2015-08-22T22:00:00+08:00">2015-08-22</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -457,299 +357,97 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <p><img src="https://developer.apple.com/library/ios/documentation/IDEs/Conceptual/AppDistributionGuide/Art/1_administration_tasks_2x.png" alt="App Distributio"></p>
-<ol>
-<li>iTunes Connet &gt; MyApps &gt; add App</li>
-<li>Xcode</li>
-</ol>
+          <h2 id="做习题涉及和想到的点"><a href="#做习题涉及和想到的点" class="headerlink" title="做习题涉及和想到的点"></a>做习题涉及和想到的点</h2><blockquote>
+<p>我的习题代码 <a target="_blank" rel="noopener" href="https://github.com/gewill/GeekBand-IOS-1501-Homework/tree/new-branch/G2015010176/iOS%20APP%20Development">Github</a></p>
+</blockquote>
 <ul>
-<li>Product &gt; Acrchive </li>
-<li>Window &gt; Organizer &gt; Submit to App Store</li>
+<li>Lazy load image in table view: Apple example<br><a target="_blank" rel="noopener" href="https://developer.apple.com/library/ios/samplecode/LazyTableImages/Introduction/Intro.html">LazyTableImagesor</a> or <a target="_blank" rel="noopener" href="https://github.com/rs/SDWebImage">SDWebImage</a></li>
+<li>Try NSURLSession </li>
+<li>望文生义的能力很重要</li>
+<li>拿到一个项目代码，start step into from initial view，了解了整个 app 的运行时的结构或循环，才能理解整个 app 的逻辑框架。</li>
+<li>框架&gt;目录&gt;类&gt;方法&gt;属性&#x2F;实例变量，这样子下来整个一个 App 就跑起来了，入口就是 main.m，然后各种设置属性和发消息，基于事件驱动的这一层理解运行时是比较合适的颗粒。</li>
+<li>Lazy load iamge use AFNetworking</li>
 </ul>
-<ol start="3">
-<li>iTunes Connet &gt; MyApps &gt; Prerelease</li>
-</ol>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[cell.appImage setImageWithURL:[<span class="built_in">NSURL</span> URLWithString:[mediumImage valueForKeyPath:<span class="string">@&quot;label&quot;</span>]] placeholderImage:[<span class="built_in">UIImage</span> imageNamed:<span class="string">@&quot;placeholder&quot;</span>]];</span><br></pre></td></tr></table></figure>
+
+<h2 id="习题完成情况"><a href="#习题完成情况" class="headerlink" title="习题完成情况"></a>习题完成情况</h2><h3 id="第二题"><a href="#第二题" class="headerlink" title="第二题"></a>第二题</h3><p>完成 1.0:</p>
 <ul>
-<li>Builds: Turn on <code>TestFlight Beta Testing</code></li>
-<li>Add Internal or External Testers</li>
+<li>实现 table view 自带刷新</li>
+<li>添加 Cellular 开关，并能够检查网络连接方式，并提醒用户</li>
+<li>NSURLSession 下载 JSON</li>
 </ul>
-<ol start="4">
-<li>Click <code>Open in TestFlight</code> in email from iTunes Store on your iPhone</li>
-</ol>
-<p>More in <a target="_blank" rel="noopener" href="https://developer.apple.com/library/ios/documentation/IDEs/Conceptual/AppDistributionGuide/Introduction/Introduction.html#//apple_ref/doc/uid/TP40012582-CH1-SW1">App Distribution Guide</a></p>
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2015/08/09/Dash-3-Snippets/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.jpeg">
-      <meta itemprop="name" content="Ge Will">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Will's Blog">
-      <meta itemprop="description" content="The people who are crazy enough to think they can change the world, are the ones who DO.">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | Will's Blog">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2015/08/09/Dash-3-Snippets/" class="post-title-link" itemprop="url">Dash 3 Snippets</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">Posted on</span>
-
-      <time title="Created: 2015-08-09 09:22:45" itemprop="dateCreated datePublished" datetime="2015-08-09T09:22:45+08:00">2015-08-09</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">Edited on</span>
-      <time title="Modified: 2025-01-13 11:01:04" itemprop="dateModified" datetime="2025-01-13T11:01:04+08:00">2025-01-13</time>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <p>Dash 3 Snippets 全局使用很好很强大，稍后添加一些 Swift 和常用邮箱和用户名。</p>
-<p>下面是打开 MacDown 软件直接开始文章，不用去 Terminal 新建文章。<br>定义为：hexon</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">title: __placeholder__</span><br><span class="line"></span><br><span class="line">date: @date @time</span><br><span class="line"></span><br><span class="line">---</span><br><span class="line"></span><br><span class="line">@cursor</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2015/08/08/GeekBand-Objective-C-Test1/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.jpeg">
-      <meta itemprop="name" content="Ge Will">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Will's Blog">
-      <meta itemprop="description" content="The people who are crazy enough to think they can change the world, are the ones who DO.">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | Will's Blog">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2015/08/08/GeekBand-Objective-C-Test1/" class="post-title-link" itemprop="url">极客班《Objective-C 高级编程》测试题</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">Posted on</span>
-
-      <time title="Created: 2015-08-08 22:24:20" itemprop="dateCreated datePublished" datetime="2015-08-08T22:24:20+08:00">2015-08-08</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">Edited on</span>
-      <time title="Modified: 2025-01-13 11:01:04" itemprop="dateModified" datetime="2025-01-13T11:01:04+08:00">2025-01-13</time>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <p>##《Objective-C 高级编程》测试题</p>
-<ol>
-<li>设计一个动物基类。<br>要求: A、抽象出动物的基本属性(包括:性别、名字、体重)。 B、抽象出动物的基本能力(包括:发声)。 C、基本属性性别用枚举定义。</li>
-<li>由题目 1 设计好的动物基类继承,设计一个新的鸟和鱼的子类。 要求:<br>A、鸟类需要扩展颜色属性。 B、鸟类需要扩展飞的方法(方法体输出打印出飞行状态即可)。 C、鱼类需要扩展颜色属性。 D、鱼类需要扩展出游的方法(方法体输出打印游的状态即可)。</li>
-<li>设计好 1、2 两个题目要求的类后,创建一个数组。使用一个循环,生成 10 只鸟、10 条鱼的对象,并将 10 只鸟、10 条鱼的对象加入到创建好的数组中。 最后,遍历这个数组对象,遍历到鸟对象时调用鸟儿飞的方法,遍历到鱼对象 时调用鱼儿游的方法。</li>
-<li>考虑游戏中捞鱼, 随机器捞到 n 条鱼,纪录数量(被捞到的鱼认为对象的生 命周期结束,需要从内存中释放)。打鸟同理。</li>
-</ol>
-<h2 id="我的实现"><a href="#我的实现" class="headerlink" title="我的实现"></a>我的实现</h2><p><a target="_blank" rel="noopener" href="https://github.com/GeekBand/GeekBand-IOS-1501-Homework/tree/master/G2015010176/Objective-C/BLTest1">github 源码：BLTest1</a></p>
-<p>复习了类的定义，属性，实例方法，枚举，NSArray，随机数。<br>@孔祥波 老师点评了我的错误实现。自己回来改了很多，终于完成了，也加深了涉及知识点的应用。再次感觉 Google 真是个好东西。</p>
-<p>###实现代码位置：</p>
-<ol>
-<li>一二题目定义类为：GWAnimal，GWBird，GWFish</li>
-<li>三四题对应代码在：ViewController.m 的 - (void)viewDidLoad {}中<br>分别添加 &#x2F;&#x2F; MARK No.3 和 &#x2F;&#x2F; MARK: No.4，方便定位。</li>
-</ol>
-<h3 id="注释文档"><a href="#注释文档" class="headerlink" title="注释文档"></a>注释文档</h3><p>其他的 Headerdoc 为练习写注释文档，尤其是&#x2F;&#x2F; FIXME: Print a more readable result. 和 &#x2F;&#x2F; TODO: Set a NSArray to init randomGWFish. 纯粹凑字数。测试 Swift 哪些可以用在 Objective-C 上。参看： <a target="_blank" rel="noopener" href="http://nshipster.cn/swift-documentation/">Swift Documentation</a>。</p>
-<p>其实这个实现是 Objective-C，应该看这一篇的 <a target="_blank" rel="noopener" href="http://nshipster.com/documentation/">Documentation</a>：</p>
+<blockquote>
+<p>2015-08-26</p>
+</blockquote>
+<p>进行中 1.1: </p>
 <ul>
-<li>@param [param] [Description]: Describes what value should be passed for this parameter</li>
-<li>@return [Description]: Describes the return value of the method</li>
-<li>@see [selector]: Provide “see also” reference to related method</li>
-<li>@warning [description]: Call out exceptional or potentially dangerous behavior</li>
+<li>Lazy load iamge use AFNetworking</li>
 </ul>
 <blockquote>
-<p>To help speed up the process of documenting your project, you may want to check out the <a target="_blank" rel="noopener" href="https://github.com/onevcat/VVDocumenter-Xcode">VVDocumenter-Xcode project</a>, which automatically adds @param and @return labels for methods according to their signature.</p>
+<p>2015-09-03 11:36:32</p>
 </blockquote>
-<figure class="highlight obj-c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment">// MARK: No.3</span></span><br><span class="line"><span class="built_in">NSMutableArray</span> *animal = [[<span class="built_in">NSMutableArray</span> alloc] init];</span><br><span class="line"><span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; <span class="number">10</span>; i++) &#123;</span><br><span class="line">    <span class="built_in">NSArray</span> *birdNames = @[<span class="string">@&quot;Parrot&quot;</span>, <span class="string">@&quot;Pelican&quot;</span>, <span class="string">@&quot;Raptor&quot;</span>, <span class="string">@&quot;Ural&quot;</span>, <span class="string">@&quot;Owls&quot;</span>, <span class="string">@&quot;BABY BLUE&quot;</span>, <span class="string">@&quot;AIDEN&quot;</span>, <span class="string">@&quot;BB&quot;</span>, <span class="string">@&quot;DAVE&quot;</span>, <span class="string">@&quot;CHILI&quot;</span>];</span><br><span class="line">    GWBird *randomGWBird = [[GWBird alloc] initWithName:birdNames[i] gender:(Gender)(arc4random() % <span class="number">2</span>) weight:(<span class="built_in">NSUInteger</span>)(arc4random() % <span class="number">100</span>)];</span><br><span class="line">    randomGWBird.color = [<span class="built_in">UIColor</span> whiteColor];</span><br><span class="line">    [animal addObject:randomGWBird];</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// <span class="doctag">TODO:</span> Set a NSArray to init randomGWFish.</span></span><br><span class="line">    GWFish *randomGWFish = [[GWFish alloc] initWithName:<span class="string">@&quot;Fish&quot;</span> gender:(Gender)(arc4random() % <span class="number">2</span>) weight:(<span class="built_in">NSUInteger</span>)(arc4random() % <span class="number">100</span>)];</span><br><span class="line">    randomGWFish.color = [<span class="built_in">UIColor</span> colorWithRed:<span class="number">0.0</span> green:<span class="number">1.0</span> blue:<span class="number">0.0</span> alpha:<span class="number">1.0</span>];</span><br><span class="line">    [animal addObject:randomGWFish];</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; [animal count]; i++) &#123;</span><br><span class="line">    <span class="keyword">if</span> ([animal[i] isKindOfClass:[GWBird <span class="keyword">class</span>]]) &#123;</span><br><span class="line">        [animal[i] fly];</span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> ([animal[i] isKindOfClass:[GWFish <span class="keyword">class</span>]]) &#123;</span><br><span class="line">        [animal[i] swim];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">// MARK: No.4</span></span><br><span class="line"><span class="type">int</span> fishCount = <span class="number">0</span>;</span><br><span class="line"><span class="type">int</span> birdCount = <span class="number">0</span>;</span><br><span class="line"><span class="built_in">NSUInteger</span> randomRemoveNumber = (<span class="built_in">NSUInteger</span>)(arc4random() % <span class="number">20</span>);</span><br><span class="line"><span class="keyword">for</span> (<span class="built_in">NSUInteger</span> i = randomRemoveNumber; i &gt; <span class="number">0</span>; i--) &#123;</span><br><span class="line">    </span><br><span class="line">    <span class="built_in">NSUInteger</span> randomIndex = (<span class="built_in">NSUInteger</span>)(arc4random() % i);</span><br><span class="line">    [animal removeObjectAtIndex:randomIndex];</span><br><span class="line">    <span class="keyword">if</span> ([animal[randomIndex] isKindOfClass:[GWBird <span class="keyword">class</span>]]) &#123;</span><br><span class="line">        birdCount++;</span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> ([animal[randomIndex] isKindOfClass:[GWFish <span class="keyword">class</span>]]) &#123;</span><br><span class="line">        fishCount++;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// <span class="doctag">FIXME:</span> Print a more readable result.</span></span><br><span class="line"><span class="built_in">NSLog</span>(<span class="string">@&quot;fishCount:%d, birdCount:%d, randomRemoveNumber:%lu, [animal count]:%lu&quot;</span>, fishCount, birdCount, (<span class="type">unsigned</span> <span class="type">long</span>)randomRemoveNumber, (<span class="type">unsigned</span> <span class="type">long</span>)[animal count]);</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2015/08/08/GeekBand-flip-classroom-week-4/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.jpeg">
-      <meta itemprop="name" content="Ge Will">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Will's Blog">
-      <meta itemprop="description" content="The people who are crazy enough to think they can change the world, are the ones who DO.">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | Will's Blog">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2015/08/08/GeekBand-flip-classroom-week-4/" class="post-title-link" itemprop="url">极客班线下翻转课堂第四周</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">Posted on</span>
-
-      <time title="Created: 2015-08-08 09:47:19" itemprop="dateCreated datePublished" datetime="2015-08-08T09:47:19+08:00">2015-08-08</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">Edited on</span>
-      <time title="Modified: 2025-01-13 11:01:04" itemprop="dateModified" datetime="2025-01-13T11:01:04+08:00">2025-01-13</time>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h2 id="日程安装"><a href="#日程安装" class="headerlink" title="日程安装"></a>日程安装</h2><ul>
-<li>上午完成测试题目</li>
-<li>下午项目可行性的探讨，是否砍掉</li>
+<h3 id="Further-Reading"><a href="#Further-Reading" class="headerlink" title="Further Reading"></a>Further Reading</h3><ul>
+<li><p><a target="_blank" rel="noopener" href="http://blog.ibireme.com/2015/05/18/runloop/#apple">深入理解 RunLoop</a></p>
+<blockquote>
+<p>通过 Runloop 讲解了 NSURLConnection 的工作过程<br>iOS 中，关于网络请求的接口自下至上有如下几层:</p>
+</blockquote>
+</li>
 </ul>
-<h2 id="芦苇：-BRD-x2F-MRD文档撰写指导"><a href="#芦苇：-BRD-x2F-MRD文档撰写指导" class="headerlink" title="@芦苇： BRD&#x2F;MRD文档撰写指导"></a>@芦苇： BRD&#x2F;MRD文档撰写指导</h2><p>###产品的7问：</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">CFSocket</span></span><br><span class="line"><span class="built_in">CFNetwork</span>       -&gt;ASIHttpRequest</span><br><span class="line"><span class="built_in">NSURLConnection</span> -&gt;AFNetworking</span><br><span class="line"><span class="built_in">NSURLSession</span>    -&gt;AFNetworking2, Alamofire</span><br></pre></td></tr></table></figure>
+<ul>
+<li><p>CFSocket 是最底层的接口，只负责 socket 通信。</p>
+</li>
+<li><p>CFNetwork 是基于 CFSocket 等接口的上层封装，ASIHttpRequest 工作于这一层。</p>
+</li>
+<li><p>NSURLConnection 是基于 CFNetwork 的更高层的封装，提供面向对象的接口，AFNetworking 工作于这一层。</p>
+</li>
+<li><p>NSURLSession 是 iOS7 中新增的接口，表面上是和 NSURLConnection 并列的，但底层仍然用到了 NSURLConnection 的部分功能 (比如 com.apple.NSURLConnectionLoader 线程)，AFNetworking2 和 Alamofire 工作于这一层。</p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="http://cocoadocs.org/docsets/AFNetworking/2.6.0/index.html">Network Reachability Manager</a></p>
+<blockquote>
+<p>AFNetworkReachabilityManager monitors the reachability of domains, and addresses for both WWAN and WiFi network interfaces.</p>
+</blockquote>
+<blockquote>
+<p>Do not use Reachability to determine if the original request should be sent.</p>
+</blockquote>
+</li>
+</ul>
+<p>You should try to send it.<br>You can use Reachability to determine when a request should be automatically retried.<br>Although it may still fail, a Reachability notification that the connectivity is available is a good time to retry something.<br>Network reachability is a useful tool for determining why a request might have failed.<br>After a network request has failed, telling the user they’re offline is better than giving them a more technical but accurate error, such as “request timed out.”</p>
+<ul>
+<li><p>See also <a target="_blank" rel="noopener" href="https://developer.apple.com/videos/wwdc/2012/#706%22">WWDC 2012 session 706, “Networking Best Practices</a>.</p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://github.com/rs/SDWebImage">SDWebImage</a></p>
+<blockquote>
+<p>AFNetworking takes advantage of Foundation URL Loading System caching using NSURLCache, as well as a configurable in-memory cache for UIImageView and UIButton, which uses NSCache by default. Caching behavior can be further specified in the caching policy of a corresponding NSURLRequest. Other SDWebImage features, like background decompression of image data is also provided by AFNetworking.</p>
+</blockquote>
+<blockquote>
+<p>If you’re already using AFNetworking and just want an easy async image loading category, the built-in UIKit extensions will probably fit your needs.
+  </p>
+</blockquote>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://github.com/AFNetworking/AFNetworking">AFNetworking</a> example</p>
+<blockquote>
+<p>iOS example 非常经典，包含了使用方法和一个 UITableView实用框架。</p>
+</blockquote>
+</li>
+<li><p><a target="_blank" rel="noopener" href="http://www.raywenderlich.com/59255/afnetworking-2-0-tutorial">AFNetworking 2.0 Tutorial</a></p>
+</li>
+</ul>
+<h2 id="测试题原文"><a href="#测试题原文" class="headerlink" title="测试题原文"></a>测试题原文</h2><h3 id="1-做一个类似微信的聊天的-tableview-tablewviewcell-自定义-。只需要-显示文字内容和用户头像-不需要做输入部分-文字内容自己模拟"><a href="#1-做一个类似微信的聊天的-tableview-tablewviewcell-自定义-。只需要-显示文字内容和用户头像-不需要做输入部分-文字内容自己模拟" class="headerlink" title="1. 做一个类似微信的聊天的 tableview(tablewviewcell 自定义) 。只需要 显示文字内容和用户头像(不需要做输入部分,文字内容自己模拟)"></a>1. 做一个类似微信的聊天的 tableview(tablewviewcell 自定义) 。只需要 显示文字内容和用户头像(不需要做输入部分,文字内容自己模拟)</h3><p>1 必须实现文字内容背景<br>2 背景的长度和高度要合适<br>3 发生者和接受者左右布局区分  </p>
+<h3 id="2-使用-http-api-请求解析-json-or-xml-数据-并且使用-tableview-展示出来-http-ax-itunes-apple-com-WebObjects-MZStoreServices-woa-ws-RSS-toppaidapplications-limit-10-json-or-xml"><a href="#2-使用-http-api-请求解析-json-or-xml-数据-并且使用-tableview-展示出来-http-ax-itunes-apple-com-WebObjects-MZStoreServices-woa-ws-RSS-toppaidapplications-limit-10-json-or-xml" class="headerlink" title="2. 使用 http api 请求解析 json or xml 数据,并且使用 tableview 展示出来 http://ax.itunes.apple.com/WebObjects/MZStoreServices.woa/ws/RSS/toppaidapplications/limit=10/json or xml"></a>2. 使用 http api 请求解析 json or xml 数据,并且使用 tableview 展示出来 <a target="_blank" rel="noopener" href="http://ax.itunes.apple.com/WebObjects/MZStoreServices.woa/ws/RSS/toppaidapplications/limit=10/json">http://ax.itunes.apple.com/WebObjects/MZStoreServices.woa/ws/RSS/toppaidapplications/limit=10/json</a> or xml</h3><p><strong>提示</strong>:  </p>
 <ol>
-<li>做什么</li>
-<li>为谁做</li>
-<li>市场有多大</li>
-<li>竞争对手</li>
-<li>时机</li>
-<li>如何打造核心竞争力</li>
-<li>阶段性的目标</li>
+<li>可以使用第三方库,也可以使用 SDK 基础库  </li>
+<li>显示网络下载数据时间  </li>
+<li>比较 xml or json 解析效率  </li>
+<li>tableviewcell自定义</li>
 </ol>
-<p><strong>想清楚做什么，可能做起来会容易一点。</strong></p>
-<h2 id="项目可行性的探讨"><a href="#项目可行性的探讨" class="headerlink" title="项目可行性的探讨"></a>项目可行性的探讨</h2><p>@孔祥波：主界面日历方式的实现：锻炼逻辑，都是一些基础的，实现布局和代理的。可以学习 table view 的整个逻辑，datasource、delegate，</p>
-<p>小组讨论了：几个页面和存储功能开发的分配，添加 task 到 Teambition。</p>
-<p>@李建忠：产品核心竞争力，亮点有没有？不仅仅要学习技术，更是要学会做一个好的产品，做出来一个好的产品。</p>
-<p>要好好想想我们项目的方向问题。</p>
-<h2 id="最后下周-Swift-开课，晒一下新书"><a href="#最后下周-Swift-开课，晒一下新书" class="headerlink" title="最后下周 Swift 开课，晒一下新书"></a>最后下周 Swift 开课，晒一下新书</h2><p><img src="http://ww4.sinaimg.cn/large/5369602ejw1euvif8kwalj21kw16oki5.jpg" alt="Swift books"></p>
+<p>注:</p>
+<ul>
+<li>希望大家在一周内上传答案到极客班 github 个人的作业文件夹(以学生编 号命名)</li>
+<li>IOS 专业 Github 目录: <a target="_blank" rel="noopener" href="https://github.com/GeekBand/GeekBand-IOS-1501-Homework">https://github.com/GeekBand/GeekBand-IOS-1501-Homework</a></li>
+<li>老师会在直播环节点评此题</li>
+<li>作业的最终批改和成绩公布会在结业时进行。</li>
+</ul>
 
       
     </div>
@@ -776,7 +474,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2015/08/07/class-dump-and-Clutch/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2015/08/22/GeekBand-flip-classroom-week-6/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.jpeg">
@@ -794,7 +492,7 @@
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          <a href="/2015/08/07/class-dump-and-Clutch/" class="post-title-link" itemprop="url">class-dump & Clutch 分析 APP 内部实现</a>
+          <a href="/2015/08/22/GeekBand-flip-classroom-week-6/" class="post-title-link" itemprop="url">极客班线下翻转课堂第六周</a>
         </h2>
 
         <div class="post-meta-container">
@@ -805,7 +503,7 @@
       </span>
       <span class="post-meta-item-text">Posted on</span>
 
-      <time title="Created: 2015-08-07 13:28:02" itemprop="dateCreated datePublished" datetime="2015-08-07T13:28:02+08:00">2015-08-07</time>
+      <time title="Created: 2015-08-22 16:28:43" itemprop="dateCreated datePublished" datetime="2015-08-22T16:28:43+08:00">2015-08-22</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -825,42 +523,16 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <p><a target="_blank" rel="noopener" href="http://limboy.me/ios/2014/12/31/learning-ios.html">自学 iOS 开发的一些经验</a>，是一篇充实有料常看常新的开发文章，提到了 “class-dump 从 Mach-O 文件生成 OC 头文件，有时想看看某个 App 大概是如何组织的会比较方便”。刚好最近项目想学习一下别人的APP，尝试了7-8个小时终于成功了，记录一下过程。最主要是介绍 Clutch 的文章太少，其输出路径被卡壳。</p>
-<p>##<a target="_blank" rel="noopener" href="http://www.cnblogs.com/y279336671/p/3593530.html">class-dump 安装</a></p>
-<ol>
-<li>下载地址 <a target="_blank" rel="noopener" href="http://stevenygard.com/projects/class-dump/">http://stevenygard.com/projects/class-dump/</a></li>
-<li>终端中输入open &#x2F;usr&#x2F;bin</li>
-<li>将解压出来的class-dump放入刚打开的目录。     </li>
-<li>更改class-dump权限     sudo chmod 777 &#x2F;usr&#x2F;bin&#x2F;class-dump</li>
-</ol>
-<p>##class-dump 用法</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">class-dump Name.app &gt; class-dump.md  </span><br><span class="line">class-dump -H Name.app -o folderName  </span><br></pre></td></tr></table></figure>
-
-<p>第一行表示输出为一个文件方便搜索查找，第二行表示输出所以 class 到 folderName 文件夹。</p>
-<h2 id="解密工具-Clutch"><a href="#解密工具-Clutch" class="headerlink" title="解密工具 Clutch"></a>解密工具 Clutch</h2><p>由于 App Store 对 ipa 文件进行了加密，就有了下面的解密过程。</p>
-<p><a target="_blank" rel="noopener" href="https://github.com/KJCracks/Clutch">Clutch</a> on GitHub:</p>
-<blockquote>
-<p>Introducing Clutch, the fastest and most advanced dumping utility for the iPhone, iPod Touch, and iPad.</p>
-</blockquote>
-<blockquote>
-<p>Works with all devices, iOS versions, architecture types, with most binaries.</p>
-</blockquote>
-<blockquote>
-<p>This product is meant only for educational purposes and security research.</p>
-</blockquote>
-<blockquote>
-<p>Compiling: Use Xcode with iOSOpenDev installed</p>
-</blockquote>
-<p>可以直接去 Releases 下载编译好的版本，复制到 &#x2F;usr&#x2F;bin</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">scp ~/Downloads/Clutch root@192.168.0.X:/usr/bin</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p>参看：<a target="_blank" rel="noopener" href="http://itony.me/200.html">iOS 使用Class-dump分析App内部实现：</a>：</p>
-<blockquote>
-<p>Openssh，然后电脑端使用ssh连接真机（默认密码是alpine），输入命令Clutch后会看到一个App列表，找到sing在列表中的序号是3，执行命令Clutch 3，这时它就真的开始运行了，运行后的结果是将原Appstore App转换为ipa文件；最重要的是，它被解密了~</p>
-</blockquote>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Clutch </span><br><span class="line"></span><br><span class="line">Clutch -d 3</span><br></pre></td></tr></table></figure>
-<p>但是在 Clutch 2.0 版目录改为：&#x2F;var&#x2F;mobile&#x2F;Documents&#x2F;Dumped&#x2F; 或 User&#x2F;Documents&#x2F;Dumped&#x2F;，导出 ipa 即可开始 class-dump。</p>
-<p><img src="http://i.imgur.com/JUAWRRV.png" alt="Clutch 2.0 Dumped folder"></p>
+          <h2 id="孔祥波"><a href="#孔祥波" class="headerlink" title="孔祥波"></a>孔祥波</h2><p>iOS 测试题解答：</p>
+<ul>
+<li>Static cell or dynamic </li>
+<li>Different identifiers for cells</li>
+<li>学习 iOS 开发的目标是提升工资，还是爱好，还是进入一个好的团队？</li>
+<li>应聘1-3年工作经验要求时，就报极客班孔老师的名字😎</li>
+<li>学习曲线摆在那里，一点点进步。</li>
+<li><a target="_blank" rel="noopener" href="https://github.com/robovm/apple-ios-samples">apple-ios-samples</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/Lax/iOS-Swift-Demos">iOS-Swift-Demos</a></li>
+</ul>
 
       
     </div>
@@ -887,7 +559,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2015/08/04/UIScreen-mainScreen-bounds-in-Xcode-7-Beta-4/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2015/08/21/Swift-Tutorial-Core-Data-Notes/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.jpeg">
@@ -905,7 +577,7 @@
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          <a href="/2015/08/04/UIScreen-mainScreen-bounds-in-Xcode-7-Beta-4/" class="post-title-link" itemprop="url">[UIScreen mainScreen].bounds in Xcode 7 Beta 4</a>
+          <a href="/2015/08/21/Swift-Tutorial-Core-Data-Notes/" class="post-title-link" itemprop="url">Swift Tutorial - Core Data - Notes</a>
         </h2>
 
         <div class="post-meta-container">
@@ -916,7 +588,7 @@
       </span>
       <span class="post-meta-item-text">Posted on</span>
 
-      <time title="Created: 2015-08-04 19:09:00" itemprop="dateCreated datePublished" datetime="2015-08-04T19:09:00+08:00">2015-08-04</time>
+      <time title="Created: 2015-08-21 21:20:19" itemprop="dateCreated datePublished" datetime="2015-08-21T21:20:19+08:00">2015-08-21</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -936,10 +608,23 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">// in Xcode 7 Beta 4</span><br><span class="line"></span><br><span class="line">if (Main Interface == nil &amp;&amp; Launch Screen File == nil) &#123; </span><br><span class="line">	[UIScreen mainScreen].bounds = &#123;&#123;0, 0&#125;, &#123;320, 480&#125;&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+          <h2 id="Swift-Tutorial-Core-Data"><a href="#Swift-Tutorial-Core-Data" class="headerlink" title="Swift Tutorial - Core Data"></a>Swift Tutorial - Core Data</h2><p>From <a target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=3IDfgATVqHw">Swift Tutorial - Core Data</a> by rm2kdev</p>
+<iframe width="700" height="394" src="https://www.youtube.com/embed/3IDfgATVqHw?rel=0" frameborder="0" allowfullscreen></iframe>
 
-<p><img src="http://i.imgur.com/3Ttq2AD.png" alt="Imgur"></p>
-<p><a target="_blank" rel="noopener" href="https://github.com/gewill/random-projects-/tree/master/test%5BUIScreen%20mainScreen%5D.bounds">Demo</a></p>
+<p><a target="_blank" rel="noopener" href="https://github.com/gewill/test-projects/tree/master/test%20Core%20Data">Project on GitHub</a></p>
+<p>Add some comments into the project.</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//</span></span><br><span class="line"><span class="comment">//  ViewController.swift</span></span><br><span class="line"><span class="comment">//  test Core Data</span></span><br><span class="line"><span class="comment">//</span></span><br><span class="line"><span class="comment">//  Created by Will Ge on 8/21/15.</span></span><br><span class="line"><span class="comment">//  Copyright (c) 2015 gewill.org. All rights reserved.</span></span><br><span class="line"><span class="comment">//</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> UIKit</span><br><span class="line"><span class="keyword">import</span> CoreData</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">ViewController</span>: <span class="title class_">UIViewController</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">override</span> <span class="keyword">func</span> <span class="title function_">viewDidLoad</span>() &#123;</span><br><span class="line">        <span class="keyword">super</span>.viewDidLoad()</span><br><span class="line">        <span class="comment">// Do any additional setup after loading the view, typically from a nib.</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">override</span> <span class="keyword">func</span> <span class="title function_">didReceiveMemoryWarning</span>() &#123;</span><br><span class="line">        <span class="keyword">super</span>.didReceiveMemoryWarning()</span><br><span class="line">        <span class="comment">// Dispose of any resources that can be recreated.</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="keyword">@IBOutlet</span> <span class="keyword">weak</span> <span class="keyword">var</span> textUserName: <span class="type">UITextField</span>!</span><br><span class="line">    <span class="keyword">@IBOutlet</span> <span class="keyword">weak</span> <span class="keyword">var</span> textPassword: <span class="type">UITextField</span>!</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">@IBAction</span> <span class="keyword">func</span> <span class="title function_">saveButton</span>(<span class="params">sender</span>: <span class="type">AnyObject</span>) &#123;</span><br><span class="line">        </span><br><span class="line">        <span class="comment">// Cora Data already settled done in AppDelegate.swift</span></span><br><span class="line">        <span class="comment">// get the ManagedObjectContext</span></span><br><span class="line">        <span class="keyword">var</span> appDel <span class="operator">=</span> <span class="type">UIApplication</span> .sharedApplication().delegate <span class="keyword">as!</span> <span class="type">AppDelegate</span></span><br><span class="line">        <span class="keyword">var</span> context: <span class="type">NSManagedObjectContext</span> <span class="operator">=</span> appDel.managedObjectContext<span class="operator">!</span></span><br><span class="line">        </span><br><span class="line">        <span class="comment">// get the ManagedObject</span></span><br><span class="line">        <span class="keyword">var</span> newUser <span class="operator">=</span> <span class="type">NSEntityDescription</span>.insertNewObjectForEntityForName(<span class="string">&quot;Users&quot;</span>, inManagedObjectContext: context) <span class="keyword">as!</span> <span class="type">NSManagedObject</span></span><br><span class="line">        </span><br><span class="line">        <span class="comment">// set value for key</span></span><br><span class="line">        newUser.setValue(<span class="string">&quot;&quot;</span> <span class="operator">+</span> textUserName.text, forKey: <span class="string">&quot;username&quot;</span>)</span><br><span class="line">        newUser.setValue(<span class="string">&quot;&quot;</span> <span class="operator">+</span> textPassword.text, forKey: <span class="string">&quot;password&quot;</span>)</span><br><span class="line">        </span><br><span class="line">        <span class="comment">// save</span></span><br><span class="line">        context.save(<span class="literal">nil</span>)</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;New username: <span class="subst">\(textPassword.text)</span> and password: <span class="subst">\(textPassword.text)</span> saved successfully.<span class="subst">\n</span>&quot;</span>)</span><br><span class="line">        </span><br><span class="line">        </span><br><span class="line">    &#125;</span><br><span class="line">  </span><br><span class="line">    <span class="keyword">@IBAction</span> <span class="keyword">func</span> <span class="title function_">loadButton</span>(<span class="params">sender</span>: <span class="type">AnyObject</span>) &#123;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">var</span> appDel <span class="operator">=</span> <span class="type">UIApplication</span> .sharedApplication().delegate <span class="keyword">as!</span> <span class="type">AppDelegate</span></span><br><span class="line">        <span class="keyword">var</span> context: <span class="type">NSManagedObjectContext</span> <span class="operator">=</span> appDel.managedObjectContext<span class="operator">!</span></span><br><span class="line">        </span><br><span class="line">        <span class="comment">// add FetchRequest and add Predicate/ SortDescriptor etc.</span></span><br><span class="line">        <span class="keyword">var</span> request <span class="operator">=</span> <span class="type">NSFetchRequest</span>(entityName: <span class="string">&quot;Users&quot;</span>)</span><br><span class="line">        request.returnsObjectsAsFaults <span class="operator">=</span> <span class="literal">false</span></span><br><span class="line">        request.predicate <span class="operator">=</span> <span class="type">NSPredicate</span>(format: <span class="string">&quot;username = %@&quot;</span>, <span class="string">&quot;&quot;</span> <span class="operator">+</span> textUserName.text)</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">var</span> requests: <span class="type">NSArray</span> <span class="operator">=</span> context.executeFetchRequest(request, error: <span class="literal">nil</span>)<span class="operator">!</span></span><br><span class="line">        </span><br><span class="line">        <span class="keyword">if</span> (requests.count <span class="operator">&gt;</span> <span class="number">0</span>) &#123;</span><br><span class="line">            </span><br><span class="line">            <span class="keyword">var</span> res <span class="operator">=</span> requests[<span class="number">0</span>] <span class="keyword">as!</span> <span class="type">NSManagedObject</span></span><br><span class="line">            textUserName.text <span class="operator">=</span> res.valueForKeyPath(<span class="string">&quot;username&quot;</span>) <span class="keyword">as!</span> <span class="type">String</span></span><br><span class="line">            textPassword.text <span class="operator">=</span> res.valueForKeyPath(<span class="string">&quot;password&quot;</span>) <span class="keyword">as!</span> <span class="type">String</span></span><br><span class="line">            </span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            </span><br><span class="line">            <span class="built_in">print</span>(<span class="string">&quot;0 Results Returned... Poterial Error.<span class="subst">\n</span>&quot;</span>)</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p><img src="http://ww4.sinaimg.cn/large/5369602egw1evalz3mz5lj21kg0tqagy.jpg" alt="test_Core_Data.xcdatamodeld settings"></p>
+<h2 id="Discovry-Core-Data-stack"><a href="#Discovry-Core-Data-stack" class="headerlink" title="Discovry - Core Data stack"></a>Discovry - Core Data stack</h2><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//  AppDelegate.swift</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="comment">// MARK: - Core Data stack</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">lazy</span> <span class="keyword">var</span> applicationDocumentsDirectory: <span class="type">NSURL</span> <span class="operator">=</span> &#123;</span><br><span class="line">        <span class="comment">// The directory the application uses to store the Core Data store file. This code uses a directory named &quot;org.gewill.test_Core_Data&quot; in the application&#x27;s documents Application Support directory.</span></span><br><span class="line">        <span class="keyword">let</span> urls <span class="operator">=</span> <span class="type">NSFileManager</span>.defaultManager().<span class="type">URLsForDirectory</span>(.<span class="type">DocumentDirectory</span>, inDomains: .<span class="type">UserDomainMask</span>)</span><br><span class="line">        <span class="keyword">return</span> urls[urls.count<span class="operator">-</span><span class="number">1</span>] <span class="keyword">as!</span> <span class="type">NSURL</span></span><br><span class="line">    &#125;()</span><br><span class="line"></span><br><span class="line">    <span class="keyword">lazy</span> <span class="keyword">var</span> managedObjectModel: <span class="type">NSManagedObjectModel</span> <span class="operator">=</span> &#123;</span><br><span class="line">        <span class="comment">// The managed object model for the application. This property is not optional. It is a fatal error for the application not to be able to find and load its model.</span></span><br><span class="line">        <span class="keyword">let</span> modelURL <span class="operator">=</span> <span class="type">NSBundle</span>.mainBundle().<span class="type">URLForResource</span>(<span class="string">&quot;test_Core_Data&quot;</span>, withExtension: <span class="string">&quot;momd&quot;</span>)<span class="operator">!</span></span><br><span class="line">        <span class="keyword">return</span> <span class="type">NSManagedObjectModel</span>(contentsOfURL: modelURL)<span class="operator">!</span></span><br><span class="line">    &#125;()</span><br><span class="line"></span><br><span class="line">    <span class="keyword">lazy</span> <span class="keyword">var</span> persistentStoreCoordinator: <span class="type">NSPersistentStoreCoordinator</span>? <span class="operator">=</span> &#123;</span><br><span class="line">        <span class="comment">// The persistent store coordinator for the application. This implementation creates and return a coordinator, having added the store for the application to it. This property is optional since there are legitimate error conditions that could cause the creation of the store to fail.</span></span><br><span class="line">        <span class="comment">// Create the coordinator and store</span></span><br><span class="line">        <span class="keyword">var</span> coordinator: <span class="type">NSPersistentStoreCoordinator</span>? <span class="operator">=</span> <span class="type">NSPersistentStoreCoordinator</span>(managedObjectModel: <span class="keyword">self</span>.managedObjectModel)</span><br><span class="line">        <span class="keyword">let</span> url <span class="operator">=</span> <span class="keyword">self</span>.applicationDocumentsDirectory.<span class="type">URLByAppendingPathComponent</span>(<span class="string">&quot;test_Core_Data.sqlite&quot;</span>)</span><br><span class="line">        <span class="keyword">var</span> error: <span class="type">NSError</span>? <span class="operator">=</span> <span class="literal">nil</span></span><br><span class="line">        <span class="keyword">var</span> failureReason <span class="operator">=</span> <span class="string">&quot;There was an error creating or loading the application&#x27;s saved data.&quot;</span></span><br><span class="line">        <span class="keyword">if</span> coordinator<span class="operator">!</span>.addPersistentStoreWithType(<span class="type">NSSQLiteStoreType</span>, configuration: <span class="literal">nil</span>, URL: url, options: <span class="literal">nil</span>, error: <span class="operator">&amp;</span>error) <span class="operator">==</span> <span class="literal">nil</span> &#123;</span><br><span class="line">            coordinator <span class="operator">=</span> <span class="literal">nil</span></span><br><span class="line">            <span class="comment">// Report any error we got.</span></span><br><span class="line">            <span class="keyword">var</span> dict <span class="operator">=</span> [<span class="type">String</span>: <span class="type">AnyObject</span>]()</span><br><span class="line">            dict[<span class="type">NSLocalizedDescriptionKey</span>] <span class="operator">=</span> <span class="string">&quot;Failed to initialize the application&#x27;s saved data&quot;</span></span><br><span class="line">            dict[<span class="type">NSLocalizedFailureReasonErrorKey</span>] <span class="operator">=</span> failureReason</span><br><span class="line">            dict[<span class="type">NSUnderlyingErrorKey</span>] <span class="operator">=</span> error</span><br><span class="line">            error <span class="operator">=</span> <span class="type">NSError</span>(domain: <span class="string">&quot;YOUR_ERROR_DOMAIN&quot;</span>, code: <span class="number">9999</span>, userInfo: dict)</span><br><span class="line">            <span class="comment">// Replace this with code to handle the error appropriately.</span></span><br><span class="line">            <span class="comment">// abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.</span></span><br><span class="line">            <span class="type">NSLog</span>(<span class="string">&quot;Unresolved error <span class="subst">\(error)</span>, <span class="subst">\(error<span class="operator">!</span>.userInfo)</span>&quot;</span>)</span><br><span class="line">            abort()</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">return</span> coordinator</span><br><span class="line">    &#125;()</span><br><span class="line"></span><br><span class="line">    <span class="keyword">lazy</span> <span class="keyword">var</span> managedObjectContext: <span class="type">NSManagedObjectContext</span>? <span class="operator">=</span> &#123;</span><br><span class="line">        <span class="comment">// Returns the managed object context for the application (which is already bound to the persistent store coordinator for the application.) This property is optional since there are legitimate error conditions that could cause the creation of the context to fail.</span></span><br><span class="line">        <span class="keyword">let</span> coordinator <span class="operator">=</span> <span class="keyword">self</span>.persistentStoreCoordinator</span><br><span class="line">        <span class="keyword">if</span> coordinator <span class="operator">==</span> <span class="literal">nil</span> &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">nil</span></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">var</span> managedObjectContext <span class="operator">=</span> <span class="type">NSManagedObjectContext</span>()</span><br><span class="line">        managedObjectContext.persistentStoreCoordinator <span class="operator">=</span> coordinator</span><br><span class="line">        <span class="keyword">return</span> managedObjectContext</span><br><span class="line">    &#125;()</span><br><span class="line"></span><br><span class="line">    <span class="comment">// MARK: - Core Data Saving support</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">func</span> <span class="title function_">saveContext</span> () &#123;</span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">let</span> moc <span class="operator">=</span> <span class="keyword">self</span>.managedObjectContext &#123;</span><br><span class="line">            <span class="keyword">var</span> error: <span class="type">NSError</span>? <span class="operator">=</span> <span class="literal">nil</span></span><br><span class="line">            <span class="keyword">if</span> moc.hasChanges <span class="operator">&amp;&amp;</span> <span class="operator">!</span>moc.save(<span class="operator">&amp;</span>error) &#123;</span><br><span class="line">                <span class="comment">// Replace this implementation with code to handle the error appropriately.</span></span><br><span class="line">                <span class="comment">// abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.</span></span><br><span class="line">                <span class="type">NSLog</span>(<span class="string">&quot;Unresolved error <span class="subst">\(error)</span>, <span class="subst">\(error<span class="operator">!</span>.userInfo)</span>&quot;</span>)</span><br><span class="line">                abort()</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>Debug:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">p applicationDocumentsDirectory</span><br><span class="line">(NSURL) $R0 = 0x00000001740a8b20 &quot;file:///var/mobile/Containers/Data/Application/601088B9-EB64-4E8D-9817-96E23D0D5D7E/Documents/&quot;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">ssh root@192.168.0.101</span><br><span class="line"><span class="meta prompt_">root# </span><span class="language-bash"><span class="built_in">cd</span> /var/mobile/Containers/Data/Application/601088B9-EB64-4E8D-9817-96E23D0D5D7E/Documents/</span></span><br><span class="line"><span class="meta prompt_">root# </span><span class="language-bash"><span class="built_in">ls</span> -la</span></span><br><span class="line">total 192</span><br><span class="line">drwxr-xr-x 2 mobile mobile    170 Aug 21 22:16 ./</span><br><span class="line">drwxr-xr-x 5 mobile mobile    204 Aug 21 22:16 ../</span><br><span class="line">-rw-r--r-- 1 mobile mobile  20480 Aug 21 22:16 test_Core_Data.sqlite</span><br><span class="line">-rw-r--r-- 1 mobile mobile  32768 Aug 21 22:24 test_Core_Data.sqlite-shm</span><br><span class="line">-rw-r--r-- 1 mobile mobile 140112 Aug 21 22:24 test_Core_Data.sqlite-wal</span><br></pre></td></tr></table></figure>
+
+<h3 id="Read-More"><a href="#Read-More" class="headerlink" title="Read More"></a>Read More</h3><ul>
+<li><a target="_blank" rel="noopener" href="http://www.wikiwand.com/en/LLDB_(debugger)">LLDB (debugger)</a></li>
+</ul>
 
       
     </div>
@@ -966,7 +651,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2015/08/04/new-shortcuts/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2015/08/21/Design-Patterns-Delegation-Notes/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.jpeg">
@@ -984,7 +669,7 @@
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          <a href="/2015/08/04/new-shortcuts/" class="post-title-link" itemprop="url">New Shortcuts</a>
+          <a href="/2015/08/21/Design-Patterns-Delegation-Notes/" class="post-title-link" itemprop="url">Design Patterns: Delegation - Notes</a>
         </h2>
 
         <div class="post-meta-container">
@@ -995,7 +680,7 @@
       </span>
       <span class="post-meta-item-text">Posted on</span>
 
-      <time title="Created: 2015-08-04 16:58:51" itemprop="dateCreated datePublished" datetime="2015-08-04T16:58:51+08:00">2015-08-04</time>
+      <time title="Created: 2015-08-21 18:50:48" itemprop="dateCreated datePublished" datetime="2015-08-21T18:50:48+08:00">2015-08-21</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -1015,88 +700,280 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <p>Update 2015-08-15: Updated for more search shortcuts.</p>
+          <p>From：<a target="_blank" rel="noopener" href="http://code.tutsplus.com/articles/design-patterns-delegation--cms-23901">Design Patterns: Delegation</a> by Bart Jacobs</p>
+<h2 id="1-What-Is-Delegation"><a href="#1-What-Is-Delegation" class="headerlink" title="1. What Is Delegation?"></a>1. What Is Delegation?</h2><p>The definition of the delegation pattern is short and simple. This is how Apple defines the pattern.</p>
+<blockquote>
+<p>A delegate is an object that acts on behalf of, or in coordination with, another object when that object encounters an event in a program.</p>
+</blockquote>
+<h2 id="2-Example"><a href="#2-Example" class="headerlink" title="2. Example"></a>2. Example</h2><h3 id="The-UITableViewDelegate-protocol"><a href="#The-UITableViewDelegate-protocol" class="headerlink" title="The UITableViewDelegate protocol"></a>The UITableViewDelegate protocol</h3><p>An important difference between Swift and Objective-C is the possibility to mark protocol methods as optional. In Objective-C, the methods of a protocol are required by default. The methods of the UITableViewDelegate protocol, however, are optional. In other words, it is possible for a class to conform to the UITableViewDelegate protocol without implementing any of the protocol’s methods.</p>
+<p>In Swift, however, a class conforming to a particular protocol is required to implement every method defined by the protocol. This is much safer since the delegating object doesn’t need to verify whether the delegate implements a protocol method. This subtle, but important, difference is illustrated later in this tutorial when we implement the delegation pattern.</p>
+<h3 id="Data-Source"><a href="#Data-Source" class="headerlink" title="Data Source"></a>Data Source</h3><p>The data source pattern fits nicely in the Model-View-Controller or MVC pattern. Why is that? A table view, for example, is part of the view layer. It doesn’t and shouldn’t know about the model layer and isn’t in charge of handling the data that is coming from the model layer. This implies that the data source of a table view, or any other view component that implements the data source pattern, is often a controller of some sort. On iOS, it’s usually a UIViewController subclass.</p>
+<h2 id="3-Implementation"><a href="#3-Implementation" class="headerlink" title="3. Implementation"></a>3. Implementation</h2><h3 id="Objective-C"><a href="#Objective-C" class="headerlink" title="Objective-C"></a>Objective-C</h3><p><a target="_blank" rel="noopener" href="https://github.com/gewill/test-projects/tree/master/test%20Delegation%20Objective-C">Project on GitHub</a></p>
+<p><strong>recipient:</strong></p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// AddItemViewController.h</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#import <span class="string">&lt;UIKit/UIKit.h&gt;</span></span></span><br><span class="line"> </span><br><span class="line"><span class="class"><span class="keyword">@protocol</span> <span class="title">AddItemViewControllerDelegate</span>;</span></span><br><span class="line"> </span><br><span class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">AddItemViewController</span> : <span class="title">UIViewController</span></span></span><br><span class="line"> </span><br><span class="line"><span class="keyword">@property</span> (<span class="keyword">weak</span>, <span class="keyword">nonatomic</span>) <span class="type">id</span>&lt;AddItemViewControllerDelegate&gt; delegate;</span><br><span class="line"> </span><br><span class="line"><span class="keyword">@end</span></span><br><span class="line"> </span><br><span class="line"><span class="class"><span class="keyword">@protocol</span> <span class="title">AddItemViewControllerDelegate</span> &lt;<span class="title">NSObject</span>&gt;</span></span><br><span class="line">- (<span class="type">void</span>)viewControllerDidCancel:(AddItemViewController *)viewController;</span><br><span class="line">- (<span class="type">void</span>)viewController:(AddItemViewController *)viewController didAddItem:(<span class="built_in">NSString</span> *)item;</span><br><span class="line"> </span><br><span class="line"><span class="keyword">@optional</span></span><br><span class="line">- (<span class="type">BOOL</span>)viewController:(AddItemViewController *)viewController validateItem:(<span class="built_in">NSString</span> *)item;</span><br><span class="line"><span class="keyword">@end</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>We declare a class, AddItemViewController, which extends UIViewController. The class declares a property, delegate, of type id<AddItemViewControllerDelegate>. Note that the property is marked as weak, which means that an AddItemViewController instance keeps a weak reference to its delegate.</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// AddItemViewController.m</span></span><br><span class="line"></span><br><span class="line">- (<span class="keyword">IBAction</span>)cancel:(<span class="type">id</span>)sender &#123;</span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">self</span>.delegate &amp;&amp; [<span class="keyword">self</span>.delegate respondsToSelector:<span class="keyword">@selector</span>(viewControllerDidCancel:)]) &#123;</span><br><span class="line">        [<span class="keyword">self</span>.delegate viewControllerDidCancel:<span class="keyword">self</span>];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<hr>
+<p><strong>Sender:</strong></p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// ViewController.m</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#import <span class="string">&quot;ViewController.h&quot;</span></span></span><br><span class="line"><span class="meta">#import <span class="string">&quot;AddItemViewController.h&quot;</span></span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">ViewController</span> () &lt;<span class="title">AddItemViewControllerDelegate</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">@end</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">@implementation</span> <span class="title">ViewController</span></span></span><br><span class="line"></span><br><span class="line">- (<span class="type">void</span>)viewDidLoad &#123;</span><br><span class="line">    [<span class="variable language_">super</span> viewDidLoad];</span><br><span class="line">    <span class="comment">// Do any additional setup after loading the view, typically from a nib.</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (<span class="type">void</span>)didReceiveMemoryWarning &#123;</span><br><span class="line">    [<span class="variable language_">super</span> didReceiveMemoryWarning];</span><br><span class="line">    <span class="comment">// Dispose of any resources that can be recreated.</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (<span class="keyword">IBAction</span>)addItem:(<span class="type">id</span>)sender &#123;</span><br><span class="line">    <span class="comment">// Initialize View Controller</span></span><br><span class="line">    AddItemViewController *viewController = [[AddItemViewController alloc] init];</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// Configure View Controller</span></span><br><span class="line">    [viewController setDelegate:<span class="keyword">self</span>];</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// Present View Controller</span></span><br><span class="line">    [<span class="keyword">self</span> presentViewController:viewController animated:<span class="literal">YES</span> completion:<span class="literal">nil</span>];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (<span class="type">void</span>)viewControllerDidCancel:(AddItemViewController *)viewController &#123;</span><br><span class="line">    <span class="comment">// Dismiss Add Item View Controller</span></span><br><span class="line">    </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">@end</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="Swift"><a href="#Swift" class="headerlink" title="Swift"></a>Swift</h3><p><a target="_blank" rel="noopener" href="https://github.com/gewill/test-projects/tree/master/test%20Delegation%20Swift">Project on GitHub</a></p>
+<p>In Swift, the delegation pattern is just as easy to implement and you’ll find that Swift makes delegation slightly more elegant. Let’s implement the above example in Swift. This is what the AddItemViewController class looks like in Swift.</p>
+<p><strong>recipient:</strong></p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// AddItemViewController.swift</span></span><br><span class="line"><span class="keyword">import</span> UIKit</span><br><span class="line"> </span><br><span class="line"><span class="keyword">protocol</span> <span class="title class_">AddItemViewControllerDelegate</span>: <span class="title class_">NSObjectProtocol</span> &#123;</span><br><span class="line">    <span class="keyword">func</span> <span class="title function_">viewControllerDidCancel</span>(<span class="params">viewController</span>: <span class="type">AddItemViewController</span>)</span><br><span class="line">    <span class="keyword">func</span> <span class="title function_">viewController</span>(<span class="params">viewController</span>: <span class="type">AddItemViewController</span>, <span class="params">didAddItem</span>: <span class="type">String</span>)</span><br><span class="line">    <span class="keyword">func</span> <span class="title function_">viewController</span>(<span class="params">viewController</span>: <span class="type">AddItemViewController</span>, <span class="params">validateItem</span>: <span class="type">String</span>) -&gt; <span class="type">Bool</span></span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line"><span class="keyword">class</span> <span class="title class_">AddItemViewController</span>: <span class="title class_">UIViewController</span> &#123;</span><br><span class="line">    <span class="keyword">var</span> delegate: <span class="type">AddItemViewControllerDelegate</span>?</span><br><span class="line">     </span><br><span class="line">    <span class="keyword">func</span> <span class="title function_">cancel</span>(<span class="params">sender</span>: <span class="type">AnyObject</span>) &#123;</span><br><span class="line">        delegate<span class="operator">?</span>.viewControllerDidCancel(<span class="keyword">self</span>)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>The protocol declaration looks a bit different in Swift. Note that the AddItemViewControllerDelegate protocol extends the NSObjectProtocol instead of the NSObject protocol. In Swift, classes and protocols cannot have the same name, which is why the NSObject protocol is named differently in Swift.</p>
+<hr>
+<p>Let’s now look at the ViewController class, which implements the AddItemViewControllerDelegate protocol. The interface shows us that the ViewController class extends the UIViewController class and adopts the AddItemViewControllerDelegate protocol.</p>
+<p><strong>Sender:</strong></p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// ViewController.swift</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> UIKit</span><br><span class="line"> </span><br><span class="line"><span class="keyword">class</span> <span class="title class_">ViewController</span>: <span class="title class_">UIViewController</span>, <span class="title class_">AddItemViewControllerDelegate</span> &#123;</span><br><span class="line">    <span class="keyword">func</span> <span class="title function_">addItem</span>(<span class="params">send</span>: <span class="type">AnyObject</span>) &#123;</span><br><span class="line">        <span class="comment">// Initialize View Controller</span></span><br><span class="line">        <span class="keyword">let</span> viewController <span class="operator">=</span> <span class="type">AddItemViewController</span>()</span><br><span class="line">         </span><br><span class="line">        <span class="comment">// Configure View Controller</span></span><br><span class="line">        viewController.delegate <span class="operator">=</span> <span class="keyword">self</span></span><br><span class="line">         </span><br><span class="line">        <span class="comment">// Present View Controller</span></span><br><span class="line">        presentViewController(viewController, animated: <span class="literal">true</span>, completion: <span class="literal">nil</span>)</span><br><span class="line">    &#125;</span><br><span class="line">     </span><br><span class="line">    <span class="keyword">func</span> <span class="title function_">viewControllerDidCancel</span>(<span class="params">viewController</span>: <span class="type">AddItemViewController</span>) &#123;</span><br><span class="line">        <span class="comment">// Dismiss Add Item View Controller</span></span><br><span class="line">        <span class="operator">...</span></span><br><span class="line">    &#125;</span><br><span class="line">     </span><br><span class="line">    <span class="keyword">func</span> <span class="title function_">viewController</span>(<span class="params">viewController</span>: <span class="type">AddItemViewController</span>, <span class="params">didAddItem</span>: <span class="type">String</span>) &#123;</span><br><span class="line">         </span><br><span class="line">    &#125;</span><br><span class="line">     </span><br><span class="line">    <span class="keyword">func</span> <span class="title function_">viewController</span>(<span class="params">viewController</span>: <span class="type">AddItemViewController</span>, <span class="params">validateItem</span>: <span class="type">String</span>) -&gt; <span class="type">Bool</span> &#123;</span><br><span class="line">         </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="4-Conclusion"><a href="#4-Conclusion" class="headerlink" title="4. Conclusion"></a>4. Conclusion</h2><p>Delegation is a pattern you’ll come across frequently when developing iOS and OS X applications. Cocoa relies heavily on this design pattern so it’s important to become familiar with it.</p>
+<p>Since the introduction of blocks, a few years ago, Apple has slowly offered an alternative blocks-based API to some delegation implementations. Some developers have followed Apple’s lead by offering their own blocks-based alternatives. The popular AFNetworking library, for example, relies heavily on blocks instead of delegation, resulting in an elegant, intuitive API.</p>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2015/08/20/Memory-Management-Attribute-of-Properties-in-Objective-C/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpeg">
+      <meta itemprop="name" content="Ge Will">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Will's Blog">
+      <meta itemprop="description" content="The people who are crazy enough to think they can change the world, are the ones who DO.">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | Will's Blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2015/08/20/Memory-Management-Attribute-of-Properties-in-Objective-C/" class="post-title-link" itemprop="url">Objective-C 属性的内存管理特性</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2015-08-20 22:16:21" itemprop="dateCreated datePublished" datetime="2015-08-20T22:16:21+08:00">2015-08-20</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">Edited on</span>
+      <time title="Modified: 2025-01-13 11:01:04" itemprop="dateModified" datetime="2025-01-13T11:01:04+08:00">2025-01-13</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <p>当对象没有拥有者时，指针变量的内存就该被释放。故 ARC 就是为了解决什么时候释放内存的问题。对应的就是引用计数为零时。</p>
+<h3 id="ARC："><a href="#ARC：" class="headerlink" title="ARC："></a>ARC：</h3><ul>
+<li>strong：指针变量指向对象后，相应的对象多一个拥有者，引用计数加一。默认值，但通常会写出来。</li>
+<li>weak ：指针变量指向对象后，相应的对象拥有者个数不变，引用计数不变。相对 strong，避免循环引用问题。</li>
+<li>copy	：属性指向的对象有可能修改的子类， 如 NSMutableString&#x2F;NSMutbaleArray，这时使用 copy，引用计数为一。</li>
+<li>unsafe_unretained：与 weak 类似，但不会指针自动设置为 nil，适合非对象属性，不需要做内存管理，如 int，也是其默认值可不写。</li>
+</ul>
+<p><strong>ARC 四个特性的典型用法：</strong></p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//</span></span><br><span class="line"><span class="comment">//  GWItem.h</span></span><br><span class="line"><span class="comment">//  RandomItems</span></span><br><span class="line"><span class="comment">//</span></span><br><span class="line"><span class="comment">//  Created by Will Ge on 7/23/15.</span></span><br><span class="line"><span class="comment">//  Copyright © 2015 gewill.org. All rights reserved.</span></span><br><span class="line"><span class="comment">//</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#import <span class="string">&lt;Foundation/Foundation.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">GWItem</span> : <span class="title">NSObject</span></span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">copy</span>) <span class="built_in">NSString</span> *itemName;</span><br><span class="line">    <span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">copy</span>) <span class="built_in">NSString</span> *serialNumber;</span><br><span class="line">    <span class="keyword">@property</span> (<span class="keyword">nonatomic</span>) <span class="type">int</span> valueInDollars;</span><br><span class="line">    <span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">readonly</span>, <span class="keyword">strong</span>) <span class="built_in">NSDate</span> *dateCreated;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">strong</span>) GWItem *containedItem;</span><br><span class="line">    <span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">weak</span>) GWItem *container;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">+ (<span class="keyword">instancetype</span>)randomItem;</span><br><span class="line"></span><br><span class="line"><span class="comment">// GWItem 类的指定初始化方法</span></span><br><span class="line">- (<span class="keyword">instancetype</span>)initWithItemName:(<span class="built_in">NSString</span> *)name</span><br><span class="line">                  valueInDollars:(<span class="type">int</span>)value</span><br><span class="line">                    serialNumber:(<span class="built_in">NSString</span> *)sNumber;</span><br><span class="line"></span><br><span class="line">- (<span class="keyword">instancetype</span>)initWithItemName:(<span class="built_in">NSString</span> *)name;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">@end</span></span><br></pre></td></tr></table></figure>
+<h3 id="非-ARC："><a href="#非-ARC：" class="headerlink" title="非 ARC："></a>非 ARC：</h3><ul>
+<li>assign：使用基本数据类型，如 int，float，与 unsafe_unretained 类似</li>
+<li>retain：非 ARC 版本 strong</li>
+</ul>
+<h3 id="参考："><a href="#参考：" class="headerlink" title="参考："></a>参考：</h3><ul>
+<li><a target="_blank" rel="noopener" href="http://ios-blog.co.uk/tutorials/objective-c-property-attribute-reference-guide/">Objective-C: Property Attribute Reference Guide</a></li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2015/08/20/GeekBand-iOS-APP-Development-5/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpeg">
+      <meta itemprop="name" content="Ge Will">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Will's Blog">
+      <meta itemprop="description" content="The people who are crazy enough to think they can change the world, are the ones who DO.">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | Will's Blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2015/08/20/GeekBand-iOS-APP-Development-5/" class="post-title-link" itemprop="url">极客班 iOS 应用开发实战（五）</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2015-08-20 16:11:23" itemprop="dateCreated datePublished" datetime="2015-08-20T16:11:23+08:00">2015-08-20</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">Edited on</span>
+      <time title="Modified: 2025-01-13 11:01:04" itemprop="dateModified" datetime="2025-01-13T11:01:04+08:00">2025-01-13</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <p>学以致用，不如说：<strong>用到再学</strong>。这样可以保证能用到。记得 <a target="_blank" rel="noopener" href="http://www.gotealeaf.com/books/http">Introduction to HTTP</a> 以前就看多，但是没有认真的分析，只是达到了了解的地步。现在 iOS 开发，也就认真仔细，尤其是能用到的部分。</p>
+<p>老师讲的比较快，真的每个关键词都查文档，才会完成明白每一步什么意思。顺便加了注释（没忍住再次吐槽了段老师的代码没注释😅）。</p>
+<p>Option 键快被我按坏了，今天才发现三只轻拍也可以 Quick Help。</p>
+<p>提炼常用类，可以拆分代码，方便复用，逻辑清晰。</p>
+<p>可以按照 MVC 或者其他方式整理项目文件。</p>
+<h2 id="24-网络编程"><a href="#24-网络编程" class="headerlink" title="24. 网络编程"></a>24. 网络编程</h2><p><a target="_blank" rel="noopener" href="https://github.com/gewill/GeekBand-iOS-Demo/tree/master/iOS%20APP%20Development/BLDemo05%20L21">项目源码</a></p>
+<h3 id="主要内容"><a href="#主要内容" class="headerlink" title="主要内容"></a>主要内容</h3><ul>
+<li>Web service 应用开发流程：网络数据的获取&gt;解析&gt;生成&gt;上传</li>
+<li>Http 网络通信： NSURLConnection&#x2F;NSURLConnectionDataDelegate (Get&#x2F;Post)</li>
+<li>XML 数据解析： NSXMLParser&#x2F;NSXMLParserDelegate</li>
+<li>JSON 数据解析：NSJSONSerialization</li>
+<li>上传&amp;下载：参考 Http 网络通信</li>
+</ul>
+<p>安装配置 XAMPP</p>
+<p>以微博 API：<a target="_blank" rel="noopener" href="http://open.weibo.com/wiki/2/users/show">users&#x2F;show</a> 说明 Http 通信过程。</p>
+<p>整个过程还算清晰主要是下载和登陆类添加代理，方便与对应的控制器通信。</p>
+<p>服务器比较简陋，无法 POST 什么信息，都能从 <a target="_blank" rel="noopener" href="http://localhost/login.xml">http://localhost/login.xml</a> 返回 user 信息。</p>
+<h3 id="解析-JSON"><a href="#解析-JSON" class="headerlink" title="解析 JSON"></a>解析 JSON</h3><p>看 CS193P 更优雅的方案，就是 NSJSONSerialization：转化为字典或数组，顺序如下面代码所示，最后使用 valueForKeyPath: 访问数组即可。</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="built_in">NSURL</span> *url = [<span class="built_in">NSURL</span> URLWithString:<span class="string">@&quot;http://ax.itunes.apple.com/WebObjects/MZStoreServices.woa/ws/RSS/topfreeapplications/limit=10/json&quot;</span>];</span><br><span class="line"></span><br><span class="line"><span class="built_in">NSData</span> *jsonRequests = [<span class="built_in">NSData</span> dataWithContentsOfURL:url];</span><br><span class="line"></span><br><span class="line"><span class="built_in">NSDictionary</span> *appListRequests = [<span class="built_in">NSJSONSerialization</span> JSONObjectWithData:jsonRequests options:<span class="number">0</span> error:<span class="literal">NULL</span>];</span><br><span class="line"></span><br><span class="line"><span class="built_in">NSArray</span> *appEntry = [appListRequests valueForKeyPath:<span class="string">@&quot;feed.entry&quot;</span>];</span><br></pre></td></tr></table></figure>
+
+<h3 id="POST-网络请求的过程"><a href="#POST-网络请求的过程" class="headerlink" title="POST 网络请求的过程"></a>POST 网络请求的过程</h3><p>GWLoginRequest.m 文件代码如下：</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//</span></span><br><span class="line"><span class="comment">//  GWLoginRequest.m</span></span><br><span class="line"><span class="comment">//  BLDemo05 L21</span></span><br><span class="line"><span class="comment">//</span></span><br><span class="line"><span class="comment">//  Created by Will Ge on 8/21/15.</span></span><br><span class="line"><span class="comment">//  Copyright (c) 2015 gewill.org. All rights reserved.</span></span><br><span class="line"><span class="comment">//</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#import <span class="string">&quot;GWLoginRequest.h&quot;</span></span></span><br><span class="line"><span class="meta">#import <span class="string">&quot;GWMutipartForm.h&quot;</span></span></span><br><span class="line"><span class="meta">#import <span class="string">&quot;GWLoginRequestsParsers.h&quot;</span></span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">@implementation</span> <span class="title">GWLoginRequest</span></span></span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> *  发送登陆用户名密码请求的方法</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> *  @param userName 用户名</span></span><br><span class="line"><span class="comment"> *  @param password 密码</span></span><br><span class="line"><span class="comment"> *  @param delegate 登陆请求的代理方法</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line">- (<span class="type">void</span>)sendLoginRequestWithUserName:(<span class="built_in">NSString</span> *)userName</span><br><span class="line">                            password:(<span class="built_in">NSString</span> *)password</span><br><span class="line">                            delegate:(<span class="type">id</span>&lt;GWLoginRequestDelegate&gt;)delegate &#123;</span><br><span class="line">    </span><br><span class="line">    [<span class="keyword">self</span>.URLConnection cancel];</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">self</span>.delegate = delegate;</span><br><span class="line">    <span class="built_in">NSString</span> *URLString = <span class="string">@&quot;http://localhost/login.xml&quot;</span>;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// POST</span></span><br><span class="line">    <span class="comment">// 转化为合法的 URL 格式</span></span><br><span class="line">    <span class="built_in">NSString</span> *encodeURLString = [URLString stringByAddingPercentEscapesUsingEncoding:<span class="built_in">NSUTF8StringEncoding</span>];</span><br><span class="line">    <span class="built_in">NSURL</span> *URL = [<span class="built_in">NSURL</span> URLWithString:encodeURLString];</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 转化为 NSMutableURLRequest ，方便调用存取方法更改属性</span></span><br><span class="line">    <span class="built_in">NSMutableURLRequest</span> *request = [<span class="built_in">NSMutableURLRequest</span> requestWithURL:URL];</span><br><span class="line">    request.HTTPMethod = <span class="string">@&quot;POST&quot;</span>;</span><br><span class="line">    request.timeoutInterval = <span class="number">60</span>;</span><br><span class="line">    request.cachePolicy = <span class="built_in">NSURLRequestReloadIgnoringCacheData</span>;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 发送的数据转换为表单</span></span><br><span class="line">    GWMutipartForm *form = [[GWMutipartForm alloc] init];</span><br><span class="line">    [form addValue:userName forField:<span class="string">@&quot;username&quot;</span>];</span><br><span class="line">    [form addValue:password forField:<span class="string">@&quot;password&quot;</span>];</span><br><span class="line">    </span><br><span class="line">    request.HTTPBody = [form httpBody];</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 更新 URLConnection</span></span><br><span class="line">    <span class="keyword">self</span>.URLConnection = [[<span class="built_in">NSURLConnection</span> alloc] initWithRequest:request</span><br><span class="line">                                                         delegate:<span class="keyword">self</span> startImmediately:<span class="literal">YES</span>];</span><br><span class="line">    </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> *  取消登陆请求的方法</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line">- (<span class="type">void</span>)cancelRequest &#123;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">self</span>.URLConnection) &#123;</span><br><span class="line">        </span><br><span class="line">        <span class="comment">// 取消异步请求，并置空</span></span><br><span class="line">        [<span class="keyword">self</span>.URLConnection cancel];</span><br><span class="line">        <span class="keyword">self</span>.URLConnection = <span class="literal">nil</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">pragma</span> mark - NSURLConnectionDataDelegate methods</span></span><br><span class="line"><span class="comment">// 作为 NSURLConnection 补充，来处理网络请求的过程</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// URL 响应请求状态</span></span><br><span class="line">- (<span class="type">void</span>)connection:(<span class="built_in">NSURLConnection</span> *)connection didReceiveResponse:(<span class="built_in">NSURLResponse</span> *)response &#123;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 转化为 NSHTTPURLResponse ，来访问 HTTP 状态码</span></span><br><span class="line">    <span class="built_in">NSHTTPURLResponse</span> *httpResponse = (<span class="built_in">NSHTTPURLResponse</span> *)response;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 根据状态码分情况处理</span></span><br><span class="line">    <span class="keyword">if</span> (httpResponse.statusCode == <span class="number">200</span>) &#123; <span class="comment">//连接成功</span></span><br><span class="line">        </span><br><span class="line">        <span class="keyword">self</span>.receviedData = [<span class="built_in">NSMutableData</span> data]; <span class="comment">// 设置为一个空的 NSData</span></span><br><span class="line">        </span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        </span><br><span class="line">        <span class="comment">// 连接失败，待处理</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 接受数据增量</span></span><br><span class="line">- (<span class="type">void</span>)connection:(<span class="built_in">NSURLConnection</span> *)connection didReceiveData:(<span class="built_in">NSData</span> *)data &#123;</span><br><span class="line">    </span><br><span class="line">    [<span class="keyword">self</span>.receviedData appendData:data];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 完成连接或加载</span></span><br><span class="line">- (<span class="type">void</span>)connectionDidFinishLoading:(<span class="built_in">NSURLConnection</span> *)connection &#123;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 整理收到的数据，并解析</span></span><br><span class="line">    <span class="built_in">NSString</span> *string = [[<span class="built_in">NSString</span> alloc ] initWithData:<span class="keyword">self</span>.receviedData</span><br><span class="line">                                              encoding:<span class="built_in">NSUTF8StringEncoding</span>];</span><br><span class="line">    <span class="built_in">NSLog</span>(<span class="string">@&quot;%@&quot;</span>, string);</span><br><span class="line">    </span><br><span class="line">    GWLoginRequestsParsers *parser = [[GWLoginRequestsParsers alloc] init];</span><br><span class="line">    GWUser *user = [parser parseXML:<span class="keyword">self</span>.receviedData];</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 检查接收者是非实现代理方法，并响应代理方法：</span></span><br><span class="line">    <span class="keyword">if</span> ([_delegate respondsToSelector:<span class="keyword">@selector</span>(requestSuccess:user:)]) &#123;</span><br><span class="line">        </span><br><span class="line">        [_delegate requestSuccess:<span class="keyword">self</span> user:user];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 连接失败</span></span><br><span class="line">- (<span class="type">void</span>)connection:(<span class="built_in">NSURLConnection</span> *)connection didFailWithError:(<span class="built_in">NSError</span> *)error &#123;</span><br><span class="line">    </span><br><span class="line">    <span class="built_in">NSLog</span>(<span class="string">@&quot;%@&quot;</span>, error);</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 检查接收者是非实现代理方法，并响应代理方法：</span></span><br><span class="line">    <span class="keyword">if</span> ([<span class="keyword">self</span>.delegate respondsToSelector:<span class="keyword">@selector</span>(requestFailed:error:)]) &#123;</span><br><span class="line">        </span><br><span class="line">        [<span class="keyword">self</span>.delegate requestFailed:<span class="keyword">self</span> error:error];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">@end</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h3 id="延伸阅读："><a href="#延伸阅读：" class="headerlink" title="延伸阅读："></a>延伸阅读：</h3><ul>
+<li><p><a target="_blank" rel="noopener" href="http://www.gotealeaf.com/books/http">Introduction to HTTP</a> by Tealeaf Academy</p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="http://www.w3schools.com/tags/ref_httpmethods.asp">HTTP Methods: GET vs. POST</a></p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="http://www.cnblogs.com/hyddd/archive/2009/03/31/1426026.html">浅谈HTTP中Get与Post的区别</a></p>
+<blockquote>
+<p>Http定义了与服务器交互的不同方法，最基本的方法有4种，分别是GET，POST，PUT，DELETE。URL全称是资源描述符，我们可以这样认为：一个URL地址，它用于描述一个网络上的资源，而HTTP中的GET，POST，PUT，DELETE就对应着对这个资源的查，改，增，删4个操作。到这里，大家应该有个大概的了解了，GET一般用于获取&#x2F;查询资源信息，而POST一般用于更新资源信息。</p>
+</blockquote>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://www.wikiwand.com/en/List_of_HTTP_status_codes">HTTP status codes</a></p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="http://json.org/">JSON</a></p>
+<blockquote>
+<p>JSON (JavaScript Object Notation) is a lightweight data-interchange format. It is easy for humans to read and write. It is easy for machines to parse and generate. </p>
+</blockquote>
+</li>
+<li><p><a target="_blank" rel="noopener" href="http://code.tutsplus.com/articles/design-patterns-delegation--cms-23901">Design Patterns: Delegation</a> by Bart Jacobs</p>
+<blockquote>
+<p><code>@property (weak, nonatomic) id&lt;AddItemViewControllerDelegate&gt; delegate;</code><br>We declare a class, AddItemViewController, which extends UIViewController. The class declares a property, delegate, of type id<AddItemViewControllerDelegate>. Note that the property is marked as weak, which means that an AddItemViewController instance keeps a weak reference to its delegate.</p>
+</blockquote>
+</li>
+<li><p><a target="_blank" rel="noopener" href="http://nshipster.com/nil/">nil &#x2F; Nil &#x2F; NULL &#x2F; NSNull</a> by Mattt Thompson</p>
+</li>
+</ul>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 举个例子，这个表达...</span></span><br><span class="line"><span class="keyword">if</span> (name != <span class="literal">nil</span> &amp;&amp; [name isEqualToString:<span class="string">@&quot;Steve&quot;</span>]) &#123; ... &#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// …可以被简化为：</span></span><br><span class="line"><span class="keyword">if</span> ([name isEqualToString:<span class="string">@&quot;steve&quot;</span>]) &#123; ... &#125;</span><br></pre></td></tr></table></figure>
 <table>
 <thead>
 <tr>
-<th>Shortcuts</th>
-<th>Description</th>
+<th>Symbol</th>
+<th>Value</th>
+<th>Meaning</th>
 </tr>
 </thead>
 <tbody><tr>
-<td>F1</td>
-<td>Alfred</td>
+<td>NULL</td>
+<td>(void *)0</td>
+<td>literal null value for C pointers</td>
 </tr>
 <tr>
-<td>F2</td>
-<td>Look up in Dash</td>
+<td>nil</td>
+<td>(id)0</td>
+<td>literal null value for Objective-C objects</td>
 </tr>
 <tr>
-<td>Command-F2</td>
-<td>Open or hide Dash</td>
+<td>Nil</td>
+<td>(Class)0</td>
+<td>literal null value for Objective-C classes</td>
 </tr>
 <tr>
-<td>F3</td>
-<td>Look up in EuDic</td>
-</tr>
-<tr>
-<td>F4</td>
-<td>Search with Google</td>
-</tr>
-<tr>
-<td>F5</td>
-<td>Next source in Input menu</td>
-</tr>
-<tr>
-<td>F6</td>
-<td>Speak selected text</td>
+<td>NSNull</td>
+<td>[NSNull null]</td>
+<td>singleton object used to represent null</td>
 </tr>
 </tbody></table>
-<table>
-<thead>
-<tr>
-<th>Default Shortcuts</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>Control-Space Bar</td>
-<td>Change input source</td>
-</tr>
-<tr>
-<td>Command-Space Bar</td>
-<td>Spotlight</td>
-</tr>
-<tr>
-<td>Command-T</td>
-<td>New Tab</td>
-</tr>
-<tr>
-<td>Shift-Command-T</td>
-<td>Reopen Closed Tab or File</td>
-</tr>
-<tr>
-<td>Command-W</td>
-<td>Close Tab or Window</td>
-</tr>
-<tr>
-<td>Option–Left Arrow</td>
-<td>Move the insertion point to the beginning of the previous word.</td>
-</tr>
-<tr>
-<td>Control-A</td>
-<td>Move to the beginning of the line or paragraph.</td>
-</tr>
-<tr>
-<td>Control-E</td>
-<td>Move to the end of a line or paragraph.</td>
-</tr>
-</tbody></table>
-<p>Use all F1, F2, etc. keys as standard functions keys. It‘s more efficient.</p>
-<blockquote>
-<p><a target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=Zbo-A9SLEGc">Predictive Text in OS X</a>, <code>esc</code> in some apps, <code>F5</code> in all apps. But <a target="_blank" rel="noopener" href="https://github.com/dongyuwei/hallelujahIM">hallelujahIM(哈利路亚 英文输入法)</a> is much better with translation.</p>
-</blockquote>
-<p><a target="_blank" rel="noopener" href="https://support.apple.com/en-us/HT201236">More OS X default shortcuts</a></p>
 
       
     </div>
@@ -1123,7 +1000,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2015/08/04/GeekBand-Objective-C-Programming-3/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2015/08/19/iOS-Study-Methods/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.jpeg">
@@ -1141,7 +1018,7 @@
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          <a href="/2015/08/04/GeekBand-Objective-C-Programming-3/" class="post-title-link" itemprop="url">极客班 Objective-C 高级编程（三）</a>
+          <a href="/2015/08/19/iOS-Study-Methods/" class="post-title-link" itemprop="url">iOS 学习方法</a>
         </h2>
 
         <div class="post-meta-container">
@@ -1152,7 +1029,7 @@
       </span>
       <span class="post-meta-item-text">Posted on</span>
 
-      <time title="Created: 2015-08-04 13:24:50" itemprop="dateCreated datePublished" datetime="2015-08-04T13:24:50+08:00">2015-08-04</time>
+      <time title="Created: 2015-08-19 13:15:06" itemprop="dateCreated datePublished" datetime="2015-08-19T13:15:06+08:00">2015-08-19</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -1172,24 +1049,261 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <h2 id="13-集合类"><a href="#13-集合类" class="headerlink" title="13. 集合类"></a>13. 集合类</h2><p>只要记住有这个方法或类，知道有什么用，不一定非要记住长长的名字，我们随时查看文档即可。</p>
-<h2 id="14-代理"><a href="#14-代理" class="headerlink" title="14. 代理"></a>14. 代理</h2><p>上班怎么收家里衣服：电话请家人、邻居帮忙。</p>
-<p>MVC 为什么使用代理？</p>
-<p>前三步：A、申明代理原型。B、申明代理变量。C、调用代理方法。</p>
-<p>后三步：A、&lt;&gt;申明实现代理。B、设置代理的值。C、实现代理方法。</p>
-<h2 id="16-类别、扩展与通知"><a href="#16-类别、扩展与通知" class="headerlink" title="16. 类别、扩展与通知"></a>16. 类别、扩展与通知</h2><p>Category &amp; Extension</p>
+          <ul>
+<li>关掉各种聊天通讯的通知，安静的场所，集中精神学习。</li>
+<li>看视频教程：简单快速，按照进度表，系统的学习，贪多嚼不烂。</li>
+<li>延伸阅读：加深理解概念，不要太多，看看官方文档和一两篇博客</li>
+<li>做小练习：删删改改，真正会用</li>
+<li>应用到项目中：或大或小，这才是学习的目的，能用来做开发</li>
+<li>遵循遗忘曲线复习：花不了多长时间</li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2015/08/19/GeekBand-iOS-Design-Patterns-2/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpeg">
+      <meta itemprop="name" content="Ge Will">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Will's Blog">
+      <meta itemprop="description" content="The people who are crazy enough to think they can change the world, are the ones who DO.">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | Will's Blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2015/08/19/GeekBand-iOS-Design-Patterns-2/" class="post-title-link" itemprop="url">极客班 iOS 设计模式（二）</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2015-08-19 11:30:24" itemprop="dateCreated datePublished" datetime="2015-08-19T11:30:24+08:00">2015-08-19</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">Edited on</span>
+      <time title="Modified: 2025-01-13 11:01:04" itemprop="dateModified" datetime="2025-01-13T11:01:04+08:00">2025-01-13</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <p>重点在通知模式流程图，大致了解几种通知模式的用途的区别。都是理论的东西，还是希望实际写代码时联系理论，仔细考虑选择。</p>
+<p>课件下载：<a target="_blank" rel="noopener" href="https://github.com/gewill/GeekBand-iOS-Demo/tree/master/Design%20Patterns">https://github.com/gewill/GeekBand-iOS-Demo/tree/master/Design%20Patterns</a></p>
+<h2 id="6-委托模式"><a href="#6-委托模式" class="headerlink" title="6. 委托模式"></a>6. 委托模式</h2><ul>
+<li>复杂的模型,scrollView,tableView,collectionView</li>
+<li>单⼀一个类无法表现复杂的设计</li>
+<li>设计拆分</li>
+<li>方便重⽤</li>
+<li>delegate 独立对象 </li>
+<li>清晰定义功能,变化行为&#x2F;自定义界⾯面 </li>
+<li>松散耦合,容易扩展</li>
+</ul>
+<p>以 Master-Detail Application 模板详细介绍了委托模式。孔老师喜欢直接看类的定义。</p>
+<p><img src="http://i.imgur.com/ijupTTB.png" alt="UITableView delegation"><br><img src="http://i.imgur.com/QPtgCFl.png" alt="Jump to Definition"><br><img src="http://i.imgur.com/eUzOn9O.png" alt="UITableViewDataSource"></p>
+<h2 id="7-观察者和消息通知"><a href="#7-观察者和消息通知" class="headerlink" title="7. 观察者和消息通知"></a>7. 观察者和消息通知</h2><p><img src="http://i.imgur.com/i8HTac7.png" alt="MVC"><br><img src="http://cdn.cocimg.com/cms/uploads/allimg/130506/4196_130506095606_1.png" alt="Observer pattern"></p>
 <ul>
-<li><p>Category给原有的类扩展特有的方法。可以分解文件代码和功能</p>
+<li>定义对象间一种⼀对多的依赖关系,使得每当一个对象改变状态,则所有依赖于他的对象都会得到通知并被自动更新。</li>
+<li>Subject被观察者：定义被观察者必须实现的职责,它必须能够动态的增加、取消 观察者。它一般是抽象类或者是实现类,仅仅完成作为被观察者必须实现的职责<br>：管理观察者并通知观察者</li>
+<li>Observer观察者：观察者接收到消息后,即进行update(更新方法)操作,对接收到的信息进行处理。</li>
+<li>具体的被观察者：定义被观察者自己的业务逻辑,同时定义对哪些事件进行通知。</li>
+<li>具体的观察者：每个观察者在接收到消息后的处理反应是不同的,各个观察者有自己的处理逻辑。</li>
+</ul>
+<h3 id="通知"><a href="#通知" class="headerlink" title="通知"></a>通知</h3><p><img src="http://i.imgur.com/18qyxxi.png" alt="Notification pattern"></p>
+<p><strong>应用场景：</strong></p>
+<ul>
+<li>窗口变化通知 </li>
+<li>系统键盘的出现和消失&#x2F;位置⼤小变化</li>
+<li>UITextField 字符变化通知(可以用来限制输入长度)</li>
+<li>MPMoviePlayerController 播放器的⾏为变化(开始结束等事件) </li>
+<li>自定义Class使用</li>
+</ul>
+<p>代码实现参看李久寧的文章：<a target="_blank" rel="noopener" href="http://www.cnblogs.com/limlee/archive/2012/06/21/2547582.html">iOS 设计模式之四：观察者模式</a></p>
+<h3 id="Key-Value-Coding-and-Key-Value-Observing"><a href="#Key-Value-Coding-and-Key-Value-Observing" class="headerlink" title="Key-Value-Coding and Key-Value-Observing"></a>Key-Value-Coding and Key-Value-Observing</h3><p>可在 Xcode 中 Open Quickly(⇧⌘O)，查看<code>NSKeyValueCoding.h</code>协议的内容。</p>
+<p>典型的例子 NSOperation and NSOperationQueue</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment">/*	NSOperation.h</span></span><br><span class="line"><span class="comment">	Copyright (c) 2006-2014, Apple Inc. All rights reserved.</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">NSOperation</span> : <span class="title">NSObject</span> </span>&#123;</span><br><span class="line"><span class="keyword">@private</span></span><br><span class="line">    <span class="type">id</span> _private;</span><br><span class="line">    int32_t _private1;</span><br><span class="line"><span class="meta">#<span class="keyword">if</span> __LP64__</span></span><br><span class="line">    int32_t _private1b;</span><br><span class="line"><span class="meta">#<span class="keyword">endif</span></span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (<span class="type">void</span>)start;</span><br><span class="line">- (<span class="type">void</span>)main;</span><br><span class="line"></span><br><span class="line"><span class="keyword">@property</span> (<span class="keyword">readonly</span>, <span class="keyword">getter</span>=isCancelled) <span class="type">BOOL</span> cancelled;</span><br><span class="line">- (<span class="type">void</span>)cancel;</span><br><span class="line"></span><br><span class="line"><span class="keyword">@property</span> (<span class="keyword">readonly</span>, <span class="keyword">getter</span>=isExecuting) <span class="type">BOOL</span> executing;</span><br><span class="line"><span class="keyword">@property</span> (<span class="keyword">readonly</span>, <span class="keyword">getter</span>=isFinished) <span class="type">BOOL</span> finished;</span><br><span class="line"><span class="keyword">@property</span> (<span class="keyword">readonly</span>, <span class="keyword">getter</span>=isConcurrent) <span class="type">BOOL</span> concurrent; <span class="comment">// To be deprecated; use and override &#x27;asynchronous&#x27; below</span></span><br><span class="line"><span class="keyword">@property</span> (<span class="keyword">readonly</span>, <span class="keyword">getter</span>=isAsynchronous) <span class="type">BOOL</span> asynchronous <span class="built_in">NS_AVAILABLE</span>(<span class="number">10</span>_8, <span class="number">7</span>_0);</span><br><span class="line"><span class="keyword">@property</span> (<span class="keyword">readonly</span>, <span class="keyword">getter</span>=isReady) <span class="type">BOOL</span> ready;</span><br></pre></td></tr></table></figure>
+<p><img src="http://upload-images.jianshu.io/upload_images/42743-6dd68172ae4cbf64.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="NSOperationQueue"></p>
+<p>###延伸阅读：</p>
+<ul>
+<li>Apple <a target="_blank" rel="noopener" href="https://developer.apple.com/library/mac/documentation/Cocoa/Conceptual/KeyValueCoding/Articles/KeyValueCoding.html#//apple_ref/doc/uid/10000107-SW1">Key-Value Coding Programming Guide</a><blockquote>
+<p>This document describes the NSKeyValueCoding informal protocol, which defines a mechanism allowing applications to access the properties of an object indirectly by name (or key), rather than directly through invocation of an accessor method or as instance variables.</p>
+</blockquote>
+<blockquote>
+<p>Dot Syntax and Key-Value Coding: Objective-C’s dot syntax and key-value coding are orthogonal technologies. You can use key-value coding whether or not you use the dot syntax, and you can use the dot syntax whether or not you use KVC. Both, though, make use of a “dot syntax.” In the case of key-value coding, the syntax is used to delimit elements in a key path. Remember that when you access a property using the dot syntax, you invoke the receiver’s standard accessor methods.</p>
+</blockquote>
 </li>
-<li><p>Extension可以扩展变量、属性,可以改写属性的读写属性。</p>
-</li>
-<li><p>什么时候用？</p>
+<li><a target="_blank" rel="noopener" href="http://objccn.io/issue-7-3/">KVC 和 KVO</a></li>
+<li><a target="_blank" rel="noopener" href="http://objccn.io/issue-7-4/">消息传递机制</a><blockquote>
+<p>我们会常常提及“接收者”和“发送者”。它们在消息传递中的意思可以通过以下的例子解释：一个 table view 是发送者，它的 delegate 就是接收者。Core Data managed object context 是它所发出的 notification 的发送者，获取 notification 的就是接收者。一个滑块 (slider) 是 action 消息的发送者，而实现这个 action （方法）的是它的接收者。任何修改一个支持 KVO 的对象的对象是发送者，这个 KVO 对象的观察者就是接收者。明白精髓了吗？<br>基于不同消息传递机制的特点的流程图<br><img src="http://img.objccn.io/issue-7/communication-patterns-flow-chart.png" alt="communication-patterns-flow-chart"></p>
+</blockquote>
 </li>
 </ul>
-<blockquote>
-<p>BLDemo01 L16 在 ViewController.h 完成代理，非课堂上 AppDelegate.h 中。</p>
-</blockquote>
-<h2 id="源码保存在我的-GitHub-GeekBand-iOS-Demo"><a href="#源码保存在我的-GitHub-GeekBand-iOS-Demo" class="headerlink" title="源码保存在我的 GitHub: GeekBand-iOS-Demo"></a>源码保存在我的 GitHub: <a target="_blank" rel="noopener" href="https://github.com/gewill/GeekBand-iOS-Demo/tree/master/Objective-C%20Programming">GeekBand-iOS-Demo</a></h2>
+<h2 id="9-归档和解档"><a href="#9-归档和解档" class="headerlink" title="9. 归档和解档"></a>9. 归档和解档</h2><p>###NSCoding </p>
+<p>是一个简单的协议，有两个方法： -initWithCoder: 和 encodeWithCoder:。遵循NSCoding协议的类可以被序列化和反序列化，这样可以归档到磁盘上或分发到网络上。</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">Book</span> : <span class="title">NSObject</span> &lt;<span class="title">NSCoding</span>&gt;</span></span><br><span class="line"><span class="keyword">@property</span> <span class="built_in">NSString</span> *title;</span><br><span class="line"><span class="keyword">@property</span> <span class="built_in">NSString</span> *author;</span><br><span class="line"><span class="keyword">@property</span> <span class="built_in">NSUInteger</span> pageCount;</span><br><span class="line"><span class="keyword">@property</span> <span class="built_in">NSSet</span> *categories;</span><br><span class="line"><span class="keyword">@property</span> (<span class="keyword">getter</span> = isAvailable) <span class="type">BOOL</span> available;</span><br><span class="line"><span class="keyword">@end</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">@implementation</span> <span class="title">Book</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">pragma</span> mark - NSCoding</span></span><br><span class="line"></span><br><span class="line">- (<span class="type">id</span>)initWithCoder:(<span class="built_in">NSCoder</span> *)decoder &#123;</span><br><span class="line">    <span class="keyword">self</span> = [<span class="variable language_">super</span> init];</span><br><span class="line">    <span class="keyword">if</span> (!<span class="keyword">self</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">nil</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">self</span>.title = [decoder decodeObjectForKey:<span class="string">@&quot;title&quot;</span>];</span><br><span class="line">    <span class="keyword">self</span>.author = [decoder decodeObjectForKey:<span class="string">@&quot;author&quot;</span>];</span><br><span class="line">    <span class="keyword">self</span>.pageCount = [decoder decodeIntegerForKey:<span class="string">@&quot;pageCount&quot;</span>];</span><br><span class="line">    <span class="keyword">self</span>.categories = [decoder decodeObjectForKey:<span class="string">@&quot;categories&quot;</span>];</span><br><span class="line">    <span class="keyword">self</span>.available = [decoder decodeBoolForKey:<span class="string">@&quot;available&quot;</span>];</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">self</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (<span class="type">void</span>)encodeWithCoder:(<span class="built_in">NSCoder</span> *)encoder &#123;</span><br><span class="line">    [encoder encodeObject:<span class="keyword">self</span>.title forKey:<span class="string">@&quot;title&quot;</span>];</span><br><span class="line">    [encoder encodeObject:<span class="keyword">self</span>.author forKey:<span class="string">@&quot;author&quot;</span>];</span><br><span class="line">    [encoder encodeInteger:<span class="keyword">self</span>.pageCount forKey:<span class="string">@&quot;pageCount&quot;</span>];</span><br><span class="line">    [encoder encodeObject:<span class="keyword">self</span>.categories forKey:<span class="string">@&quot;categories&quot;</span>];</span><br><span class="line">    [encoder encodeBool:[<span class="keyword">self</span> isAvailable] forKey:<span class="string">@&quot;available&quot;</span>];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">@end</span></span><br></pre></td></tr></table></figure>
+
+
+<h3 id="NSKeyedArchiver-和-NSKeyedUnarchiver"><a href="#NSKeyedArchiver-和-NSKeyedUnarchiver" class="headerlink" title="NSKeyedArchiver 和 NSKeyedUnarchiver"></a>NSKeyedArchiver 和 NSKeyedUnarchiver</h3><p>提供了很方便的API把对象读取&#x2F;写入磁盘。一个基于NSCoding的table view controller可以通过file manager设置它的属性集合。</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[<span class="built_in">NSKeyedArchiver</span> archiveRootObject:books toFile:<span class="string">@&quot;/path/to/archive&quot;</span>];</span><br><span class="line"></span><br><span class="line">[<span class="built_in">NSKeyedUnarchiver</span> unarchiveObjectWithFile:<span class="string">@&quot;/path/to/archive&quot;</span>];</span><br></pre></td></tr></table></figure>
+
+<h3 id="NSUserDefaults"><a href="#NSUserDefaults" class="headerlink" title="NSUserDefaults"></a>NSUserDefaults</h3><p>每个应用程序都有自己的user preferences，它可以存储和检索遵循NSCoding协议的对象或者是C类型数据。</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">NSData</span> *data = [<span class="built_in">NSKeyedArchiver</span> archivedDataWithRootObject:books];</span><br><span class="line">[[<span class="built_in">NSUserDefaults</span> standardUserDefaults] setObject:data forKey:<span class="string">@&quot;books&quot;</span>];</span><br><span class="line"></span><br><span class="line"><span class="built_in">NSData</span> *data = [[<span class="built_in">NSUserDefaults</span> standardUserDefaults] objectForKey:<span class="string">@&quot;books&quot;</span>];</span><br><span class="line"><span class="built_in">NSArray</span> *books = [<span class="built_in">NSKeyedUnarchiver</span> unarchiveObjectWithData:data];</span><br></pre></td></tr></table></figure>
+
+<p>###延伸阅读：</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="http://nshipster.cn/nscoding/">NSCoding &#x2F; NSKeyed​Archiver</a></li>
+<li><a target="_blank" rel="noopener" href="http://nshipster.cn/nsfilemanager/">NSFile​Manager</a></li>
+</ul>
+<h2 id="10-复制模式"><a href="#10-复制模式" class="headerlink" title="10. 复制模式"></a>10. 复制模式</h2><ul>
+<li>创建一个对象的新副本</li>
+<li>复制一个复杂对象时,保护一个一样的对象,还是包含原来对象的副本</li>
+<li>用户界面上的复制&#x2F;粘贴 有些对象封装了独一无⼆的资源,复制没有意义</li>
+<li>浅复制和深复制。顾名思义,浅复制,并不拷⻉对象本⾝,仅仅是拷贝指向对象的指针;深复制是直接拷贝整个对象内存到另⼀块内存中</li>
+</ul>
+<p><code>- initWithDictionary:copyItems</code> 就是个典型例子，可深可浅。</p>
+<p>参看 MicroCai 的文章：<a target="_blank" rel="noopener" href="https://www.zybuluo.com/MicroCai/note/50592">iOS 集合的深复制与浅复制 </a></p>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2015/08/18/ICF-12-Core-Data-Primer/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpeg">
+      <meta itemprop="name" content="Ge Will">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Will's Blog">
+      <meta itemprop="description" content="The people who are crazy enough to think they can change the world, are the ones who DO.">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | Will's Blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2015/08/18/ICF-12-Core-Data-Primer/" class="post-title-link" itemprop="url">ICF 12章 Core Data 简介</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2015-08-18 20:53:18" itemprop="dateCreated datePublished" datetime="2015-08-18T20:53:18+08:00">2015-08-18</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">Edited on</span>
+      <time title="Modified: 2025-01-13 11:01:04" itemprop="dateModified" datetime="2025-01-13T11:01:04+08:00">2025-01-13</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <p>Core Data 有点复杂，明明一个数据库，被苹果整的这么复杂。结果了还是看翻译的书才明白，太多新的概念需要消化。</p>
+<p><a target="_blank" rel="noopener" href="http://book.douban.com/subject/26284107/">《iOS 组件与框架》</a> </p>
+<p>Core Data 提供了直接使用 SQLite 的大部分大部分灵活性，同时无需关心关系数据库使用机制。</p>
+<ul>
+<li><p>托管对象（Managed object）是 NSManagedObject 实例，应用主要与之交互。可视为字典。包含一组键值对。托管对象之间可以建立关系。</p>
+</li>
+<li><p>托管对象是在托管对象模型（NSManagedObjectModel）中定义的。托管对象模型包含一系列实体、实体的特性、特性和实体的有效性约束以及实体之间的关系。通常在 Xcode 中可视化模型编辑器创建的。</p>
+</li>
+<li><p>托管对象只能存在于托管对象上下文中（NSManagedObjectContext），即 Core Data 的工作区。托管对象只能在托管对象上下文中创建或获取。</p>
+</li>
+<li><p>Core Data 需要指定托管对象对应的实体，可使用 NSEntityDescription </p>
+</li>
+<li><p>对象的检索：直接使用 objectID；编写检索请求</p>
+</li>
+<li><p>检索请求可包含：排序描述符（NSSortDescriptor）、谓词（NSPredicate）、返回聚合函数（如 sum 和 count）的结果。</p>
+</li>
+<li><p>检索结果控制器（fetched results controller）可以讲检索请求与 UITableView 关联起来。使用委托方法可以更新表视图。</p>
+</li>
+<li><p>Core Data 环境</p>
+<p> <img src="https://developer.apple.com/library/mac/documentation/DataManagement/Devpedia-CoreData/Art/single_persistent_stack.jpg" alt="Core Data stack"></p>
+</li>
+</ul>
+
       
     </div>
 
@@ -1208,7 +1322,7 @@
 
 
   <nav class="pagination">
-    <a class="extend prev" rel="prev" title="Previous page" aria-label="Previous page" href="/page/14/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/14/">14</a><span class="page-number current">15</span><a class="page-number" href="/page/16/">16</a><span class="space">&hellip;</span><a class="page-number" href="/page/20/">20</a><a class="extend next" rel="next" title="Next page" aria-label="Next page" href="/page/16/"><i class="fa fa-angle-right"></i></a>
+    <a class="extend prev" rel="prev" title="Previous page" aria-label="Previous page" href="/page/14/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/14/">14</a><span class="page-number current">15</span><a class="page-number" href="/page/16/">16</a><span class="space">&hellip;</span><a class="page-number" href="/page/22/">22</a><a class="extend next" rel="next" title="Next page" aria-label="Next page" href="/page/16/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 </div>

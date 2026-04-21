@@ -104,7 +104,7 @@
 
 
 <nav class="site-nav">
-  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives<span class="badge">199</span></a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags<span class="badge">17</span></a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories<span class="badge">1</span></a></li>
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives<span class="badge">220</span></a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags<span class="badge">17</span></a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories<span class="badge">1</span></a></li>
       <li class="menu-item menu-item-search">
         <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
         </a>
@@ -169,7 +169,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">199</span>
+          <span class="site-state-item-count">220</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -220,7 +220,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2015/05/25/Sketch-improvements-and-skills/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2015/07/27/cocoapods-install/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.jpeg">
@@ -238,7 +238,7 @@
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          <a href="/2015/05/25/Sketch-improvements-and-skills/" class="post-title-link" itemprop="url">Sketch improvements and skills</a>
+          <a href="/2015/07/27/cocoapods-install/" class="post-title-link" itemprop="url">CocoaPods 安装步骤</a>
         </h2>
 
         <div class="post-meta-container">
@@ -249,7 +249,7 @@
       </span>
       <span class="post-meta-item-text">Posted on</span>
 
-      <time title="Created: 2015-05-25 18:36:44" itemprop="dateCreated datePublished" datetime="2015-05-25T18:36:44+08:00">2015-05-25</time>
+      <time title="Created: 2015-07-27 07:26:59" itemprop="dateCreated datePublished" datetime="2015-07-27T07:26:59+08:00">2015-07-27</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -269,36 +269,700 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <h1 id="Sketch-进阶与技巧"><a href="#Sketch-进阶与技巧" class="headerlink" title="Sketch 进阶与技巧"></a><a target="_blank" rel="noopener" href="http://www.jikexueyuan.com/course/704.html">Sketch 进阶与技巧</a></h1><h2 id="一：App-设计标准"><a href="#一：App-设计标准" class="headerlink" title="一：App 设计标准"></a>一：App 设计标准</h2><ol>
-<li>Point (PT)</li>
+          <p>看到极客班同学 Kevin Wang 分享的 CocoaPods 笔记：<a target="_blank" rel="noopener" href="http://www.jianshu.com/p/c1063c9017b0">iOS学习备忘录：CocoaPods基本使用技巧</a>，我自己就试着一下。</p>
+<p>以下安装 <a target="_blank" rel="noopener" href="https://github.com/AFNetworking/AFNetworking">AFNetworking</a> 的过程，同时参考了：<a target="_blank" rel="noopener" href="https://github.com/AFNetworking/AFNetworking/wiki/Getting-Started-with-AFNetworking">Getting Started with AFNetworking</a> 和 唐巧的 <a target="_blank" rel="noopener" href="http://book.douban.com/subject/26287173/">《iOS 开发进阶》</a>。</p>
+<p>感觉 <a target="_blank" rel="noopener" href="https://github.com/AFNetworking/AFNetworking/wiki/Getting-Started-with-AFNetworking">Getting Started with AFNetworking</a>，写的非常好了。我已经没有地方修改，就加了我在安装 CocoaPods 遇到的一个坑。看样子还是要英文顺溜才行。</p>
+<p>CocoaPods 网络库加 Podfile 配置文件，一个可以方便添加第三方库，而是团队协作容易统一版本，真真一个好东西。</p>
+<h2 id="Step-1-Download-CocoaPods"><a href="#Step-1-Download-CocoaPods" class="headerlink" title="Step 1: Download CocoaPods"></a>Step 1: Download CocoaPods</h2><p>第一步开 VPN，不要问为什么。终端输入：</p>
+<pre><code>$ sudo gem install cocoapods
+$ pod setup
+</code></pre>
+<blockquote>
+<p>我遇到没有安装没有如何进度和提示，重装 Ruby 和 RubyGems 就好了。</p>
+</blockquote>
+<pre><code> $ brew install ruby
+ $ gem update --system
+ 
+ 
+</code></pre>
+<h2 id="Step-2-Create-a-Podfile"><a href="#Step-2-Create-a-Podfile" class="headerlink" title="Step 2: Create a Podfile"></a>Step 2: Create a Podfile</h2><p>用 Xcode 或其他编辑器新建 <code>Podfile</code>，放在项目根目录下：</p>
+<pre><code>$ touch Podfile
+$ open -a Xcode Podfile
+</code></pre>
+<p>并复制下面内容到 <code>Podfile</code>：</p>
+<pre><code>source &#39;https://github.com/CocoaPods/Specs.git&#39;
+platform :ios, &#39;7.0&#39;
+pod &#39;AFNetworking&#39;, &#39;~&gt; 2.5&#39;
+</code></pre>
+<h2 id="Step-3-Install-Dependencies"><a href="#Step-3-Install-Dependencies" class="headerlink" title="Step 3: Install Dependencies"></a>Step 3: Install Dependencies</h2><pre><code>$ pod install
+</code></pre>
+<p>以后只要打开 Xcode workspace (<code>.xcworkspace</code>)才行</p>
+<pre><code>$ open &lt;YourProjectName&gt;.xcworkspace
+</code></pre>
+<h2 id="Step-4-Dive-In"><a href="#Step-4-Dive-In" class="headerlink" title="Step 4: Dive In!"></a>Step 4: Dive In!</h2><p>大功告成，至此就可以使用 AFNetworking 了。记得在需要的类中 <code>#import</code> 头文件。</p>
+<blockquote>
+<p>最后分享一个在<a target="_blank" rel="noopener" href="http://liqi.io/">利器</a>上看到的利器：<a target="_blank" rel="noopener" href="https://www.pushbullet.com/">Pushbullet</a> 是跨平台双向文件传输工具。如果你同时使用 Mac、ios 和 Android 又想要在设备间无线传输图片、文字，那么你一定需要这样的工具。</p>
+</blockquote>
+<blockquote>
+<p>其实还有隐藏功能共享剪切板，瞬间变成神器了，有没有？比微信和 Airdrop 方便多了。</p>
+</blockquote>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2015/07/26/GeekBand-Objective-C-Programming-2/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpeg">
+      <meta itemprop="name" content="Ge Will">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Will's Blog">
+      <meta itemprop="description" content="The people who are crazy enough to think they can change the world, are the ones who DO.">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | Will's Blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2015/07/26/GeekBand-Objective-C-Programming-2/" class="post-title-link" itemprop="url">极客班 Objective-C 高级编程（二）</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2015-07-26 21:53:50" itemprop="dateCreated datePublished" datetime="2015-07-26T21:53:50+08:00">2015-07-26</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">Edited on</span>
+      <time title="Modified: 2025-01-13 11:01:04" itemprop="dateModified" datetime="2025-01-13T11:01:04+08:00">2025-01-13</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h2 id="课堂笔记"><a href="#课堂笔记" class="headerlink" title="课堂笔记"></a>课堂笔记</h2><p><a target="_blank" rel="noopener" href="http://weibo.com/songduan">@段松</a> 老师上课喜欢类比生活中的对象，还是比较容易理解的。</p>
+<p>断点的使用可以帮助理解每一行的作用和追踪对象或属性的变化。</p>
+<p>内存管理讲的挺详细，发现课程结构顺序和《iOS 编程》很像。</p>
+<h2 id="源码保存在我的-GitHub-GeekBand-iOS-Demo"><a href="#源码保存在我的-GitHub-GeekBand-iOS-Demo" class="headerlink" title="源码保存在我的 GitHub: GeekBand-iOS-Demo"></a>源码保存在我的 GitHub: <a target="_blank" rel="noopener" href="https://github.com/gewill/GeekBand-iOS-Demo/tree/master/Objective-C%20Programming">GeekBand-iOS-Demo</a></h2>
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2015/07/25/GeekBand-flip-classroom-week-2/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpeg">
+      <meta itemprop="name" content="Ge Will">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Will's Blog">
+      <meta itemprop="description" content="The people who are crazy enough to think they can change the world, are the ones who DO.">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | Will's Blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2015/07/25/GeekBand-flip-classroom-week-2/" class="post-title-link" itemprop="url">极客班线下翻转课堂第二周</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2015-07-25 17:30:12" itemprop="dateCreated datePublished" datetime="2015-07-25T17:30:12+08:00">2015-07-25</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">Edited on</span>
+      <time title="Modified: 2025-01-13 11:01:04" itemprop="dateModified" datetime="2025-01-13T11:01:04+08:00">2025-01-13</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h2 id="李建忠：课程安排"><a href="#李建忠：课程安排" class="headerlink" title="@李建忠：课程安排"></a><a target="_blank" rel="noopener" href="http://weibo.com/jzli">@李建忠</a>：课程安排</h2><p>startup：账号系统，登陆系统，setting，有时间的组员可以多做一点</p>
+<p>项目变化，很正常，确定人员分配，推动项目往前走。</p>
+<h2 id="袁店明：探讨产品"><a href="#袁店明：探讨产品" class="headerlink" title="@袁店明：探讨产品"></a><a target="_blank" rel="noopener" href="http://weibo.com/80yuandm">@袁店明</a>：探讨产品</h2><p>我们小组的项目“一秒”：需求真实性，目的在哪里，目标用户为什么会用，解决什么问题。</p>
+<p>添加一个主题：亲子成长，空气环境变化。</p>
+<p>分享带有主题的视频，类似 iMovie 的手机版</p>
+<p>很多时候需求都是你自己猜想的，产品的使用场景，都是需要验证的！</p>
+<p><strong>言语表达要求很高。</strong></p>
+<p><strong>语言描述要准确</strong>，不一定要非常简练华丽。</p>
+<blockquote>
+<p><a target="_blank" rel="noopener" href="http://weibo.com/jzli">@李建忠</a>: A good thinker is a good talker.</p>
+</blockquote>
+<p>例子：上班很远，并不是所有人都是问题，并不是所有人都一样的界定。所以提供的解决方案都不一样，用户真实的上班方式开车自行车走路，又该如何解决？要面对面访谈用户，电话次之。</p>
+<p>产品探索过程中，要抛弃自己的创意和解决方法，重点在用户的需求和相应的解决方案，最后收敛（投票和排序重要性）成一个产品。</p>
+<p>所有人：销售运营开发测试产品经理坐在一起产品的逻辑推理，然后才能进行用户访谈。</p>
+<p>用户细分，不然找错人浪费了时间经理。</p>
+<p>这一套做产品思维，可以用工作中，如正在培训的创业公司敏捷开发。</p>
+<p>不要让天使用户看到你的访谈的问题。</p>
+<p>热点事件来分析，<strong>提高逻辑推理</strong>。推荐<a target="_blank" rel="noopener" href="http://book.douban.com/subject/1137278/">《系统化思维导论》</a>。</p>
+<p>最近在看<a target="_blank" rel="noopener" href="http://book.douban.com/subject/26278639/">《精益数据分析》</a>。</p>
+<p>用户群不要混合现有用户群来定义你的用户群，如：色影无忌和蜂鸟网</p>
+<p>用户发现问题-&gt;寻找解决方案-&gt;找到产品-&gt;愿意付费</p>
+<blockquote>
+<p>我是 iOS 学员，关于产品方面听来挺过瘾。多谢 Tele Deng 的笔记：<a target="_blank" rel="noopener" href="http://note.youdao.com/share/?id=befe7cc6bef23e9f7d6ceb4fe4567590&type=note">【极客班-精益产品探索】第一周课堂笔记</a>。</p>
+</blockquote>
+<h2 id="段松：iOS-大纲的梳理"><a href="#段松：iOS-大纲的梳理" class="headerlink" title="@段松：iOS 大纲的梳理"></a><a target="_blank" rel="noopener" href="http://weibo.com/songduan">@段松</a>：iOS 大纲的梳理</h2><blockquote>
+<p>说话真心快</p>
+</blockquote>
+<p>创业中：<a target="_blank" rel="noopener" href="https://itunes.apple.com/us/app/jian-mei-le/id1001465884?mt=8">健美乐</a></p>
+<p>过去培训经验：5小时 * 12天完成培训，走向职场。</p>
+<p>不是看了多少书，死记硬背了多少知识点，更多是写代码的能力，写的多了自然会用了。</p>
+<p>学习过程中类比现实生活中的东西，可能比较容易理解。</p>
+<p>代理就是委托，力有不逮时，联系朋友去完成。</p>
+<p>学习方法：就是梳理大纲知识点，掌握要点，理清楚后，自己写代码自然就会了。</p>
+<p>先学习整体框架，后学习细节。</p>
+<p>UITabBarViewController 90%使用的框架。</p>
+<p>UITableView</p>
+<p>实战中的两种应用框架（后续课程）</p>
+<p>查看开源项目，删除多余的部分，只看自己关注的部分。最基本也要会用开源框架。</p>
+<p>iOS 数据结构用的不多。</p>
+<p>分享易庆晟的笔记：<a target="_blank" rel="noopener" href="http://www.jianshu.com/p/8a24ffc1dd22">GeekBand第二周线下课堂</a>，总结的非常好。</p>
+<h2 id="李建忠：C-辅导"><a href="#李建忠：C-辅导" class="headerlink" title="@李建忠：C++ 辅导"></a><a target="_blank" rel="noopener" href="http://weibo.com/jzli">@李建忠</a>：C++ 辅导</h2><p>分享 X-Lion 的 C++ 笔记：<a target="_blank" rel="noopener" href="http://blog.csdn.net/lionpku/article/details/47059299?from=timeline&isappinstalled=0">极客班GeekBand - C++第一次课程辅导 - 李建忠</a>，和于航的笔记：<a target="_blank" rel="noopener" href="http://www.yhspy.com/blog/67.html">GeekBank极客班C++线下班学习心得（二）</a>。</p>
+<h2 id="李建忠：确定项目"><a href="#李建忠：确定项目" class="headerlink" title="@李建忠：确定项目"></a><a target="_blank" rel="noopener" href="http://weibo.com/jzli">@李建忠</a>：确定项目</h2><p>均衡组员分配，iOS&#x2F;C++&#x2F;PM，考虑到产品上线审核产生的延迟，要提前两周就要完成项目，约9月12日。</p>
+<p> <strong>基于 MVP，产品原型图和技术要点分解同步进行，快速迭代，让真实项目催促你前进。</strong></p>
+<p>一天下来，我们小组项目最终打磨为：“一秒变大人”，张诚 PM、我和易庆晟iOS 方面、郭意亮 C++ 技术、还有新加入的沈秋艳 PM，希望尽快下周末前出第一个版本。</p>
+<p>我负责项目图片视频处理方面，TODO：</p>
+<p>-阅读图片视频相关的文档<br>-objc.io 关于图片视频的小节<br>-找几个相关开源的项目</p>
+<p>Swift or Objective-C？虽然两门课都有，但是我还是❤️Swift，并不仅仅因为❤️Taylor。</p>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2015/07/24/iOS-Programming-4ed-3/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpeg">
+      <meta itemprop="name" content="Ge Will">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Will's Blog">
+      <meta itemprop="description" content="The people who are crazy enough to think they can change the world, are the ones who DO.">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | Will's Blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2015/07/24/iOS-Programming-4ed-3/" class="post-title-link" itemprop="url">《iOS 编程》3. 通过 ARC 管理内存</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2015-07-24 12:00:00" itemprop="dateCreated datePublished" datetime="2015-07-24T12:00:00+08:00">2015-07-24</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">Edited on</span>
+      <time title="Modified: 2025-01-13 11:01:04" itemprop="dateModified" datetime="2025-01-13T11:01:04+08:00">2025-01-13</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h2 id="3-1-栈"><a href="#3-1-栈" class="headerlink" title="3.1 栈"></a>3.1 栈</h2><p>栈对应方法或函数的帧，堆则是包含大量 iOS 应用创建的对象</p>
+<h2 id="3-3-指针变量与对象所有权"><a href="#3-3-指针变量与对象所有权" class="headerlink" title="3.3 指针变量与对象所有权"></a>3.3 指针变量与对象所有权</h2><p>引用计数就是社保局，调查每个人有几份工作，一个正式工作，或兼职几份工作，或失业。失业，内存就会被释放，就会给你这个 free man 推荐新工作。</p>
+<p>那些情况会使对象失去拥有者：</p>
+<ul>
+<li>修改指针指向另一个变量（跳槽）</li>
+<li>设为 nil（辞职）</li>
+<li>对象拥有者被释放（公司倒闭）</li>
+<li>从 collection 对象中删除对象（裁员）</li>
+</ul>
+<p>当对象没有拥有者时，指针变量的内存就该被释放。</p>
+<h2 id="3-4-强引用与弱引用"><a href="#3-4-强引用与弱引用" class="headerlink" title="3.4 强引用与弱引用"></a>3.4 强引用与弱引用</h2><p><img src="http://ww2.sinaimg.cn/large/5369602ejw1eue4oorli3j20go08amxk.jpg" alt="解决强引用循环问题后的RandomItems"><br>大部分强引用循环可以确定一个父子关系，子对象改为弱引用即可。</p>
+<p>Xcode 的 Leaks 工具可以帮忙找出强引用循环问题。</p>
+<h2 id="3-5-属性"><a href="#3-5-属性" class="headerlink" title="3.5 属性"></a>3.5 属性</h2><p>声明属性，等于隐式地声明和创建相应名称的实例变量，声明一对存取方法。当然我们还可以自定义存取方法。</p>
+<p>属性的特性（attribute）:</p>
+<ul>
+<li>多线程：nonatomic&#x2F;atomic</li>
+<li>读写：readwrite&#x2F;readonly</li>
+<li>内存管理：strong&#x2F;weak&#x2F;copy&#x2F;unsafe_unretained</li>
+</ul>
+<h2 id="项目代码保存在我的-GitHub-iOSProgramming4edSolutions"><a href="#项目代码保存在我的-GitHub-iOSProgramming4edSolutions" class="headerlink" title="项目代码保存在我的 GitHub: iOSProgramming4edSolutions"></a>项目代码保存在我的 GitHub: <a target="_blank" rel="noopener" href="https://github.com/gewill/iOSProgramming4edSolutions">iOSProgramming4edSolutions</a></h2>
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2015/07/23/iOS-Programming-4ed-2/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpeg">
+      <meta itemprop="name" content="Ge Will">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Will's Blog">
+      <meta itemprop="description" content="The people who are crazy enough to think they can change the world, are the ones who DO.">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | Will's Blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2015/07/23/iOS-Programming-4ed-2/" class="post-title-link" itemprop="url">《iOS 编程》2. Objective-C</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2015-07-23 15:44:27" itemprop="dateCreated datePublished" datetime="2015-07-23T15:44:27+08:00">2015-07-23</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">Edited on</span>
+      <time title="Modified: 2025-01-13 11:01:04" itemprop="dateModified" datetime="2025-01-13T11:01:04+08:00">2025-01-13</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <blockquote>
+<p>网站加了一个 <a target="_blank" rel="noopener" href="https://github.com/hexojs/hexo-filter-auto-spacing">hexo-filter-auto-spacing</a> 插件，中英文之间自动加空格😊</p>
+</blockquote>
+<h2 id="2-1-类和对象"><a href="#2-1-类和对象" class="headerlink" title="2.1 类和对象"></a>2.1 类和对象</h2><ul>
+<li><p>类和对象。对象通过实例变量保存属性的值。</p>
+</li>
+<li><p>类有方法，类似函数，调用对象的方法一般叫发消息。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[ partyInstance addAttendee: somePerson</span><br><span class="line">                   withDish: deviledEggs]</span><br></pre></td></tr></table></figure></li>
+<li><p>方法的唯一性取决方法名。</p>
+</li>
+<li><p>实例变量的存取方法：get 和 set</p>
+</li>
+<li><p>发消息的三种语法：</p>
+<ul>
+<li>发消息[]：调用方法</li>
+<li>点语法.：存取实例变量</li>
+<li>下标语法[]：访问数组</li>
+</ul>
+</li>
+<li><p>类方法和实例方法区别：</p>
+<ul>
+<li>类方法通常用来创建对象，或者获取类的全局变量</li>
+<li>实例变量则是用来操作类的对象（对象就是类的实例），如存取方法</li>
+</ul>
+</li>
+<li><p>类方法的初始化</p>
+<p>必须选一个指定初始化方法，其他初始化方法可以调用指定初始化方法，形成一个初始化方法链<br><img src="http://ww2.sinaimg.cn/large/5369602ejw1eudiggqtaej20go08adgf.jpg" alt="初始化方法链"></p>
+</li>
+</ul>
+<h2 id="2-5-NSArray与-NSMultableArray"><a href="#2-5-NSArray与-NSMultableArray" class="headerlink" title="2.5 NSArray与 NSMultableArray"></a>2.5 NSArray与 NSMultableArray</h2><p>数组对象只能保存指向 Objective-C 对象的指针，不能保存基本类型和 C 结构加入数组对象。当然包装成 Objective-C 对象，就可以了，如 NSNumber、NSValue 和 NSDate。nil 包装成 NSNull 才能加入数组。</p>
+<h2 id="项目代码保存在我的-GitHub-iOSProgramming4edSolutions"><a href="#项目代码保存在我的-GitHub-iOSProgramming4edSolutions" class="headerlink" title="项目代码保存在我的 GitHub: iOSProgramming4edSolutions"></a>项目代码保存在我的 GitHub: <a target="_blank" rel="noopener" href="https://github.com/gewill/iOSProgramming4edSolutions">iOSProgramming4edSolutions</a></h2>
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2015/07/22/CS193P-7-Multiple-MVCs/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpeg">
+      <meta itemprop="name" content="Ge Will">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Will's Blog">
+      <meta itemprop="description" content="The people who are crazy enough to think they can change the world, are the ones who DO.">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | Will's Blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2015/07/22/CS193P-7-Multiple-MVCs/" class="post-title-link" itemprop="url">CS193P 7. Multiple MVCs</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2015-07-22 12:40:09" itemprop="dateCreated datePublished" datetime="2015-07-22T12:40:09+08:00">2015-07-22</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">Edited on</span>
+      <time title="Modified: 2025-01-13 11:01:04" itemprop="dateModified" datetime="2025-01-13T11:01:04+08:00">2025-01-13</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h2 id="1-Split-View-Controllers-amp-Navigation-Controllers-amp-Tab-Bar-Controllers"><a href="#1-Split-View-Controllers-amp-Navigation-Controllers-amp-Tab-Bar-Controllers" class="headerlink" title="1. Split View Controllers &amp; Navigation Controllers &amp; Tab Bar Controllers"></a>1. Split View Controllers &amp; Navigation Controllers &amp; Tab Bar Controllers</h2><blockquote>
+<p>Slide 中图太多就不一一贴在这里了</p>
+</blockquote>
+<p>UINavigationController 比喻成一堆卡片，只能看到一张卡片。新的 MVC 出来，旧的就被丢弃。</p>
+<h2 id="2-Segues"><a href="#2-Segues" class="headerlink" title="2. Segues"></a>2. Segues</h2><p>Segue 总是引导到一个新建的 MVC，旧的同样被丢弃。</p>
+<p>Storyboard 总是通过名字连接代码的：UIView 的 Class、View Controller 的 Class、Outlet 的名字、IBAction 的名字，这是一种松散耦合，能够这个两件东西连接起来。</p>
+<h2 id="3-Demo-Psychologist"><a href="#3-Demo-Psychologist" class="headerlink" title="3. Demo: Psychologist"></a>3. Demo: Psychologist</h2><p>最好的理解就是做实践（Demo）。</p>
+<p>我们将会新建一个 Psychologist MVC</p>
+<p>Psychologist 将会披露他的诊断，通过 segue Happiness MVC。</p>
+<p>我们会把 MVCs 放进 navigation controllers 内部 split view controllers,它将兼容 iPad 和 iPhone 设备。</p>
+<p>Autolayout 另一个技巧是使用 Reset to Suggested Constraints，配合 Size Inspector 面板里 Descendant Constraints。</p>
+<h2 id="4-Popovers"><a href="#4-Popovers" class="headerlink" title="4. Popovers"></a>4. Popovers</h2><p>Popover 对应的是 popoverPresentationController</p>
+<p>由于 Popover 出来的 MVC 每次的新建的，History 相关信息可以存储到 NSUserDefaults 中。</p>
+<p>iPad 是小的弹窗，iPhone 默认 Modal，可以改回 Popover。</p>
+<p>可以UIPopoverPresentationControllerDelegate协议，重写  UIViewController 中的 preferredContentSize 自定义大小。</p>
+<h2 id="源码保存在我的-GitHub-CS193P-2015"><a href="#源码保存在我的-GitHub-CS193P-2015" class="headerlink" title="源码保存在我的 GitHub: CS193P-2015"></a>源码保存在我的 GitHub: <a target="_blank" rel="noopener" href="https://github.com/gewill/CS193P-2015">CS193P-2015</a></h2>
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2015/07/20/CS193P-6-Protocols-and-Delegation-Gestures/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpeg">
+      <meta itemprop="name" content="Ge Will">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Will's Blog">
+      <meta itemprop="description" content="The people who are crazy enough to think they can change the world, are the ones who DO.">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | Will's Blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2015/07/20/CS193P-6-Protocols-and-Delegation-Gestures/" class="post-title-link" itemprop="url">CS193P 6. Protocols and Delegation, Gestures</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2015-07-20 22:05:05" itemprop="dateCreated datePublished" datetime="2015-07-20T22:05:05+08:00">2015-07-20</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">Edited on</span>
+      <time title="Modified: 2025-01-13 11:01:04" itemprop="dateModified" datetime="2025-01-13T11:01:04+08:00">2025-01-13</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <p>网站添加 Tags，方便分类查找文章。 <a target="_blank" rel="noopener" href="https://medium.com/">Medium</a> 非常简洁优雅，可以借鉴。网站改版和文章排版比较耗费时间，以后要以内容输出优先。</p>
+<p>关于课程中 Swift 语言的知识我只是简单浏览一遍，毕竟他说的也不详细，真正搞懂还是要系统学习。复习一下《疯狂 Swift 讲义》或者 Google 都是可行的。重要是 Demo 实践。今天微博看到的玩笑：<a target="_blank" rel="noopener" href="http://www.theallium.com/engineering/computer-programming-to-be-officially-renamed-googling-stackoverflow/">Computer Programming To Be Officially Renamed “Googling Stackoverflow”
+</a>。</p>
+<h2 id="1-Interface-Builder"><a href="#1-Interface-Builder" class="headerlink" title="1. Interface Builder"></a>1. Interface Builder</h2><p>Demo: 自定义 UIViews in your storyboard (FaceView)</p>
+<blockquote>
+<p><a target="_blank" rel="noopener" href="http://www.cocoachina.com/ios/20140619/8883.html">如何在iOS 8中使用Swift和Xcode 6制作精美的UI组件</a> 有个例子：苹果在Xcode 6中加入了两个新的Interface Builder（下文用IB简称）属性声明:IBInspectable和IBDesignable。IBInspectable在IB的Attribute Inspector（属性检查器）中查看类的属性，而IBDesignable能实时更新视图，很厉害吧！</p>
+</blockquote>
+<h2 id="2-The-Happiness-MVC’s-Model"><a href="#2-The-Happiness-MVC’s-Model" class="headerlink" title="2. The Happiness MVC’s Model"></a>2. The Happiness MVC’s Model</h2><p>是寄于 HappinessViewController 里的 happiness，不同于 smiliness。</p>
+<h2 id="3-Protocols-and-Delegation"><a href="#3-Protocols-and-Delegation" class="headerlink" title="3. Protocols and Delegation"></a>3. Protocols and Delegation</h2><p>扩展</p>
+<p>协议也是一种数据类型</p>
+<p>代理是一种非常重要的协议的应用。<br>代理是我们完成视图和控制器盲沟通的方式。</p>
+<p><img src="http://i.imgur.com/OuW94mJ.png" alt="Delegation"></p>
+<p>通过代理模式 UIViews 可以控制 Model，虽然并不是真的拥有 Model。</p>
+<p><strong>如何实现：</strong></p>
+<ol>
+<li>视图中创建一个代理协议 (定义具体视图想要控制器关心的内容) </li>
+<li>视图中创建一个代理的属性，其类型是代理协议</li>
+<li>视图中使用代理的属性去得到并不用的事，或做并不能控制的事</li>
+<li>控制器声明并完成代理协议</li>
+<li>控制器把自己作为视图的代理，通过设置设置代理的属性（上面2提到的）</li>
+<li>控制器实施协议</li>
 </ol>
-<ul>
-<li>Point (PT) - 表示独立于设备的<br>像素点 (在 Android 上叫 DP)</li>
-</ul>
-<ol start="2">
-<li>Point (PT)和像素的关系</li>
+<p>现在视图就勾住了控制器。不过视图仍不晓得控制器的内容，所以视图仍是通用&#x2F;可重复使用的。</p>
+<p><strong>Demo:  Happiness MVC’s Model using generic FaceView in its View</strong></p>
+<blockquote>
+<p>Cmd + Shift + O 快速打开文档，有种 Xcode 内置 spotlight 的即视感。</p>
+</blockquote>
+<p>FaceView.swift 为自定义 UIView 的类，是 View。<br>HappinessViewController.swift 是继承自 UIViewController，是 Controller。</p>
+<p>View 中 dataSource 是 protocol FaceViewDataSource 的属性（代理或数据源），作为 dataSource?.smilinessForFaceView(self) 的形参。</p>
+<p>Controller 实现了该协议，并将自己作为代理的对象，并通过 happiness 变量来改变协议中</p>
+<p>Controller 中的 faceView 通过 Outlet 监控 dataSource 值的改变（didSet），来控制 View 笑脸的变化（smiliness）。</p>
+<p><img src="http://i.imgur.com/Zop3POa.png" alt="Happiness MVC"></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">//  FaceView.swift 部分代码</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">import UIKit</span><br><span class="line"></span><br><span class="line">protocol FaceViewDataSource: class &#123;</span><br><span class="line">    func smilinessForFaceView(sender: FaceView) -&gt; Double?</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">@IBDesignable</span><br><span class="line">class FaceView: UIView</span><br><span class="line">&#123;</span><br><span class="line">    @IBInspectable</span><br><span class="line">    var lineWidth: CGFloat = 3 &#123; didSet &#123; setNeedsDisplay() &#125; &#125;</span><br><span class="line">    @IBInspectable</span><br><span class="line">    var color: UIColor = UIColor.blueColor() &#123; didSet &#123; setNeedsDisplay() &#125; &#125;</span><br><span class="line">    @IBInspectable</span><br><span class="line">    var scale: CGFloat = 0.90 &#123; didSet &#123; setNeedsDisplay() &#125; &#125;</span><br><span class="line">    </span><br><span class="line">    var faceCenter: CGPoint &#123;</span><br><span class="line">        return convertPoint(center, fromView: superview)</span><br><span class="line">    &#125;</span><br><span class="line">    var faceRadius: CGFloat &#123;</span><br><span class="line">        return min(bounds.size.width, bounds.size.height) / 2 * scale</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    weak var dataSource: FaceViewDataSource?</span><br><span class="line">    </span><br><span class="line">  </span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">//  HappinessViewController.swift</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">import UIKit</span><br><span class="line"></span><br><span class="line">class HappinessViewController: UIViewController, FaceViewDataSource</span><br><span class="line">&#123;</span><br><span class="line"></span><br><span class="line">    @IBOutlet weak var faceView: FaceView! &#123;</span><br><span class="line">        didSet &#123;</span><br><span class="line">            faceView.dataSource = self</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    var happiness: Int = 99 &#123; // 0 = very sad, 100 = ecstatic</span><br><span class="line">        didSet &#123;</span><br><span class="line">            happiness = min(max(happiness, 0), 100)</span><br><span class="line">            print(&quot;happiness = \(happiness)&quot;)</span><br><span class="line">            updateUI()</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    func updateUI() &#123;</span><br><span class="line">        faceView.setNeedsDisplay()</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    func smilinessForFaceView(sender: FaceView) -&gt; Double? &#123;</span><br><span class="line">        return Double(happiness - 50) / 50</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h2 id="4-Gestures"><a href="#4-Gestures" class="headerlink" title="4. Gestures"></a>4. Gestures</h2><p>手势识别分两步走：</p>
+<ol>
+<li>Adding a gesture recognizer to a UIView (asking the UIView to “recognize” that gesture)</li>
+<li>Providing a method to “handle” that gesture (not necessarily handled by the UIView)</li>
 </ol>
-<ul>
-<li>像素点: 相同 Point 的按钮, 在 Retina 屏幕上的图片像素是非Retina屏幕的两倍 </li>
-<li>通过 @2x 后缀标识</li>
-</ul>
-<ol start="3">
-<li><p>iPhone 分辨率的终极指南</p>
-<ul>
-<li><a target="_blank" rel="noopener" href="http://www.paintcodeapp.com/news/ultimate-guide-to-iphone-resolutions">http://www.paintcodeapp.com/news/ultimate-guide-to-iphone-resolutions</a></li>
-</ul>
-</li>
-<li><p>iOS App 设计尺寸标准</p>
-</li>
-</ol>
-<ul>
-<li><p><a target="_blank" rel="noopener" href="https://developer.apple.com/library/ios/documentation/UserExperience/Conceptual/MobileHIG/index.html#//apple_ref/doc/uid/TP40006556-CH66-SW1">Apple HIG</a></p>
-</li>
-<li><p><a target="_blank" rel="noopener" href="https://developer.apple.com/library/ios/documentation/UserExperience/Conceptual/MobileHIG/IconMatrix.html">Icon and Image Sizes</a></p>
-</li>
-<li><p><a target="_blank" rel="noopener" href="http://mp.weixin.qq.com/s?__biz=MjM5NTA0NjY4MA==&amp;mid=204122367&amp;idx=2&amp;sn=8e24fbbfd81cf56991cf1714a175ae02&amp;scene=0#rd">手把手带你入门 iOS 8人机界面设计</a></p>
-</li>
-</ul>
+<blockquote>
+<p>Usually the first is done by a Controller<br>Though occasionally a UIView will do this itself if the gesture is integral to its existence</p>
+</blockquote>
+<blockquote>
+<p>The second is provided either by the UIView or a Controller Depending on the situation. We’ll see an example of both in our demo.</p>
+</blockquote>
+<h3 id="第一步：Adding-a-gesture-recognizer-to-a-UIView"><a href="#第一步：Adding-a-gesture-recognizer-to-a-UIView" class="headerlink" title="第一步：Adding a gesture recognizer to a UIView"></a>第一步：Adding a gesture recognizer to a UIView</h3><p>Imagine we wanted a UIView in our Controller’s View to recognize a “pan” gesture …</p>
+<p><img src="http://i.imgur.com/c1mSjmj.png" alt="pannableView"></p>
+<blockquote>
+<p>上面的代码造成排版错误，估计代码高亮产生的，先换成图片。</p>
+</blockquote>
+<p>This is just a normal outlet to the UIView we want to recognize the gesture</p>
+<p>We use its property observer to get involved when the outlet gets hooked up by iOS</p>
+<p>Here we are creating an instance of a concrete subclass of UIGestureRecognizer (for pans) </p>
+<p>The target gets notified when the gesture is recognized (in this case, the Controller itself) </p>
+<p>The action is the method invoked on recognition (the : means it has an argument)</p>
+<p>Here we ask the UIView to actually start trying to recognize this gesture in its bounds </p>
+<p>Let’s talk about how we implement the handler …</p>
+<h3 id="第二步：A-handler-for-a-gesture-needs-gesture-specific-information"><a href="#第二步：A-handler-for-a-gesture-needs-gesture-specific-information" class="headerlink" title="第二步：A handler for a gesture needs gesture-specific information"></a>第二步：A handler for a gesture needs gesture-specific information</h3><p>So each concrete subclass provides special methods for handling that type of gesture</p>
+<p><strong>For example, UIPanGestureRecognizer provides 3 methods</strong></p>
+<p><code>func translationInView(view: UIView) -&gt; CGPoint</code> &#x2F;&#x2F; cumulative since start of recognition </p>
+<p><code>func velocityInView(view: UIView) -&gt; CGPoint</code> &#x2F;&#x2F; how fast the finger is moving (points&#x2F;s)</p>
+<p><code>func setTranslation(translation: CGPoint, inView: UIView)</code></p>
+<p>This last one is interesting because it allows you to reset the translation so far</p>
+<p>By resetting the translation to zero all the time, you end up getting “incremental” translation </p>
+<p><strong>The abstract superclass also provides state information</strong></p>
+<p><code>var state: UIGestureRecognizerState &#123; get &#125;</code><br>This sits around in <code>.Possible</code> until recognition starts<br>For a discrete gesture (e.g. a Swipe), it changes to <code>.Recognized</code> (Tap is not a normal discrete) For a continues gesture (e.g. a Pan), it moves from <code>.Began</code> thru repeated <code>.Changed</code> to <code>.Ended</code><br>It can go to <code>.Failed</code> or <code>.Cancelled</code> too, so watch out for those!</p>
+<p><strong>So, given this information, what would the pan handler look like?</strong></p>
+<pre><code>  func pan(gesture: UIPanGestureRecognizer) &#123;
+      switch gesture.state &#123;
+          case .Changed: fallthrough
+          case .Ended:
+              let translation = gesture.translationInView(pannableView)
+// update anything that depends on the pan gesture using translation.x and .y
+￼            gesture.setTranslation(CGPointZero, inView: pannableView)
+        default: break
+     &#125;
+&#125;
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">Remember that the action was “pan:” (if no colon, we would not get the gesture argument)</span><br><span class="line"></span><br><span class="line">We are only going to do anything when the finger moves or lifts up off the device’s surface </span><br><span class="line"></span><br><span class="line">fallthrough means “execute the code for the next case down”Here we get the location of the pan in the pannableView’s coordinate systemNow we do whatever we want with that informationBy resetting the translation, the next one we get will be how much it moved since this one### 常用手势：</span><br><span class="line">- UIPinchGestureRecognizer</span><br><span class="line">  var scale: CGFloat // not read-only (can reset)</span><br><span class="line">  </span><br><span class="line">  var   velocity: CGFloat &#123; get &#125; // scale factor per second</span><br><span class="line">  - UIRotationGestureRecognizer</span><br><span class="line">  var rotation: CGFloat // not read-only (can reset); in radians </span><br><span class="line">  </span><br><span class="line">  var velocity: CGFloat &#123; get &#125; // radians per second</span><br><span class="line">  - UISwipeGestureRecognizer  Set up the direction and number of fingers you want, then look for .Recognized</span><br><span class="line">  </span><br><span class="line">  var direction: UISwipeGestureRecoginzerDirection // which swipes you want </span><br><span class="line">  </span><br><span class="line">  var numberOfTouchesRequired: Int // finger count</span><br><span class="line">  - UITapGestureRecognizer</span><br><span class="line">  Set up the number of taps and fingers you want, then look for .Ended </span><br><span class="line">  </span><br><span class="line">  var numberOfTapsRequired: Int // single tap, double tap, etc. </span><br><span class="line">  </span><br><span class="line">  var numberOfTouchesRequired: Int // finger count</span><br><span class="line">  </span><br><span class="line">￼￼￼￼### Demo: Happiness pinch and pan</span><br><span class="line"></span><br><span class="line">**FaceView Gestures**</span><br><span class="line">Add a gesture recognizer (pinch) to the FaceView to zoom in and out (control its own scale) </span><br><span class="line"></span><br><span class="line">Add a gesture recognizer (pan) to the FaceView to control happiness (Model) in the Controller```</span><br><span class="line"></span><br><span class="line">//  FaceView.swift 部分代码</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">import UIKit</span><br><span class="line"></span><br><span class="line">protocol FaceViewDataSource: class &#123;</span><br><span class="line">    func smilinessForFaceView(sender: FaceView) -&gt; Double?</span><br><span class="line">&#125;</span><br><span class="line">    </span><br><span class="line">    // 2. handler</span><br><span class="line">    func scale(gestrue: UIPinchGestureRecognizer) &#123;</span><br><span class="line">    </span><br><span class="line">        if gestrue.state == .Changed &#123;</span><br><span class="line">            scale *= gestrue.scale</span><br><span class="line">            gestrue.scale = 1</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">   </span><br></pre></td></tr></table></figure>
+
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br></pre></td><td class="code"><pre><span class="line">//  HappinessViewController.swift 部分代码</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">import UIKit</span><br><span class="line"></span><br><span class="line">class HappinessViewController: UIViewController, FaceViewDataSource</span><br><span class="line">&#123;</span><br><span class="line"></span><br><span class="line">    @IBOutlet weak var faceView: FaceView! &#123;</span><br><span class="line">        didSet &#123;</span><br><span class="line">            faceView.dataSource = self</span><br><span class="line">            </span><br><span class="line">            // 1. Adding a gesture recognizer</span><br><span class="line">            faceView.addGestureRecognizer(UIPinchGestureRecognizer(target: faceView, action: &quot;scale:&quot;))</span><br><span class="line">            // try in storyboard</span><br><span class="line">            // faceView.addGestureRecognizer(UIPanGestureRecognizer(target: self, action: &quot;changeHapponess:&quot;))</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    </span><br><span class="line">    // 通过 storyboard 添加 Pan Gesture Recognizer，然后 storyboard 添加 IBAction 到 Controller 中</span><br><span class="line">    private struct Constants &#123;</span><br><span class="line">        static let HappinessGestureScale: CGFloat = 4</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    @IBAction func changeHappiness(gesture: UIPanGestureRecognizer) &#123;</span><br><span class="line">        switch gesture.state &#123;</span><br><span class="line">        case .Ended: fallthrough</span><br><span class="line">        case .Changed:</span><br><span class="line">            let translatrion = gesture.translationInView(faceView)</span><br><span class="line">            let happinessChange = -Int(translatrion.y / Constants.HappinessGestureScale)</span><br><span class="line">            if happinessChange != 0 &#123;</span><br><span class="line">                happiness -= happinessChange</span><br><span class="line">                gesture.setTranslation(CGPointZero, inView: faceView)</span><br><span class="line">            &#125;</span><br><span class="line">        default: break</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    var happiness: Int = 3 &#123; // 0 = very sad, 100 = ecstatic</span><br><span class="line">        didSet &#123;</span><br><span class="line">            happiness = min(max(happiness, 0), 100)</span><br><span class="line">            print(&quot;happiness = \(happiness)&quot;)</span><br><span class="line">            updateUI()</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    func updateUI() &#123;</span><br><span class="line">        faceView.setNeedsDisplay()</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    func smilinessForFaceView(sender: FaceView) -&gt; Double? &#123;</span><br><span class="line">        return Double(happiness - 50) / 50</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+&gt;有待翻译
+
+## 5. 拓展阅读
+
+[UIGestureRecognizer Tutorial: Getting Started](http://www.raywenderlich.com/76020/using-uigesturerecognizer-with-swift-tutorial)
+
+
+## 项目代码保存在我的 GitHub: [CS193P-2015](https://github.com/gewill/CS193P-2015)
+</code></pre>
 
       
     </div>
@@ -325,7 +989,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2015/05/25/Sketch-interface-design/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2015/07/20/GeekBand-iOS-APP-Development-1/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.jpeg">
@@ -343,7 +1007,7 @@
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          <a href="/2015/05/25/Sketch-interface-design/" class="post-title-link" itemprop="url">Sketch interface design</a>
+          <a href="/2015/07/20/GeekBand-iOS-APP-Development-1/" class="post-title-link" itemprop="url">极客班 iOS 应用开发实战（一）</a>
         </h2>
 
         <div class="post-meta-container">
@@ -354,7 +1018,7 @@
       </span>
       <span class="post-meta-item-text">Posted on</span>
 
-      <time title="Created: 2015-05-25 10:46:07" itemprop="dateCreated datePublished" datetime="2015-05-25T10:46:07+08:00">2015-05-25</time>
+      <time title="Created: 2015-07-20 14:25:38" itemprop="dateCreated datePublished" datetime="2015-07-20T14:25:38+08:00">2015-07-20</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -374,120 +1038,26 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <h1 id="Sketch-界面设计入门和实战"><a href="#Sketch-界面设计入门和实战" class="headerlink" title="Sketch 界面设计入门和实战"></a>Sketch 界面设计入门和实战</h1><p>极客学院的视频教程，<a target="_blank" rel="noopener" href="http://www.jikexueyuan.com/course/543_2.html?ss=2">地址点我</a>。总体上算是入门了，有待熟练要多做几个练习。</p>
-<h2 id="一：Sketch-概述"><a href="#一：Sketch-概述" class="headerlink" title="一：Sketch 概述"></a>一：Sketch 概述</h2><p>Sketch 的优点</p>
-<ul>
-<li>1.矢量</li>
-<li>2.文件小</li>
-<li>3.画布无限大</li>
-<li>4.每个图层都支持多种填充模式</li>
-<li>5.Symbol 和 Style</li>
-<li>6.强大的文件导出工具</li>
-<li>7.自动保留所有历史版本</li>
+          <p>还是<a target="_blank" rel="noopener" href="http://weibo.com/songduan">@段松</a> 老师，讲解了 Xcode 常用的设置。还有楼房设计和楼房建造对应软件设计框架和代码实现。</p>
+<h2 id="课程目标："><a href="#课程目标：" class="headerlink" title="课程目标："></a>课程目标：</h2><ul>
+<li>会做 APP</li>
+<li>APP 微架构、代码风格</li>
 </ul>
-<p>Sketch 的弱点</p>
-<ul>
-<li>位图处理能力弱</li>
-</ul>
-<h2 id="二：Sketch-界面功能布局"><a href="#二：Sketch-界面功能布局" class="headerlink" title="二：Sketch 界面功能布局"></a>二：Sketch 界面功能布局</h2><ul>
-<li>1.软件布局</li>
-<li>2.画布</li>
-<li>3.检查器</li>
-<li>4.图形列表</li>
-</ul>
-<h2 id="三：Sketch-基础工具-图层"><a href="#三：Sketch-基础工具-图层" class="headerlink" title="三：Sketch 基础工具-图层"></a>三：Sketch 基础工具-图层</h2><ul>
-<li><p>1.添加图层</p>
+<h2 id="课程大纲："><a href="#课程大纲：" class="headerlink" title="课程大纲："></a>课程大纲：</h2><ul>
+<li><p>熟悉 Xcode</p>
 </li>
-<li><p>Shift 和 Option 的使用</p>
+<li><p>一个 iOS 应用的构成详解</p>
 </li>
-<li><p>2.选择图层</p>
+<li><p>iOS 应用的生命周期</p>
 </li>
-<li><p>同时选择多个图层</p>
-</li>
-<li><p>重叠图层 </p>
-</li>
-<li><p>3.移动图层</p>
-<ul>
-<li>Shift、Alt、Cmd+D</li>
-<li>隐藏图层</li>
-</ul>
-</li>
-<li><p>4.改变大小</p>
-<ul>
-<li>Cmd+方向键</li>
-<li>Cmd+Shift+方向键</li>
-</ul>
-</li>
-<li><p>5.锁定图层</p>
+<li><p>一款 iOS 应用是如何产生的？</p>
+<p>看了7遍需求文档，心中自然有了成了一个原型图，甚至找到需求中缺乏的组件。</p>
+<p>曾经辍学做过建筑，就有了下面比喻，很形象好理解：</p>
 </li>
 </ul>
-<h2 id="四：Sketch-基础工具-图形"><a href="#四：Sketch-基础工具-图形" class="headerlink" title="四：Sketch 基础工具-图形"></a>四：Sketch 基础工具-图形</h2><ul>
-<li><p>1.基本图形</p>
-</li>
-<li><p>2.图形编辑</p>
-</li>
-<li><p>点的控制手柄</p>
-</li>
-<li><p>矢量工具</p>
-</li>
-<li><p>封闭路径 VS 开发路径</p>
-</li>
-<li><p>Shift</p>
-<ul>
-<li>选中多个点</li>
-</ul>
-</li>
-<li><p>添加锚点</p>
-</li>
-<li><p>3.布尔运算</p>
-</li>
-<li><p>4.变形工具</p>
-</li>
-<li><p>5.蒙版</p>
-<ul>
-<li>限制蒙版</li>
-<li>图形蒙版</li>
-<li>ALPHA 蒙版</li>
-</ul>
-</li>
-<li><p>6.剪刀工具</p>
-</li>
-<li><p>7.复制旋转</p>
-</li>
-</ul>
-<h2 id="五：Sketch-基础工具-文本"><a href="#五：Sketch-基础工具-文本" class="headerlink" title="五：Sketch 基础工具-文本"></a>五：Sketch 基础工具-文本</h2><ul>
-<li><p>1.添加文本</p>
-</li>
-<li><p>2.文本检查器</p>
-</li>
-<li><p>Text Style </p>
-</li>
-<li><p>3.文本转换问轮廓</p>
-</li>
-<li><p>渐变效果</p>
-</li>
-<li><p>4.文本字体的技巧</p>
-</li>
-<li><p>Fonts：找了半天，原来</p>
-</li>
-</ul>
-<h2 id="六：Sketch-基础工具-图片"><a href="#六：Sketch-基础工具-图片" class="headerlink" title="六：Sketch 基础工具-图片"></a>六：Sketch 基础工具-图片</h2><ul>
-<li><p>1.位图编辑</p>
-</li>
-<li><p>高斯模糊</p>
-</li>
-<li><p>Color Adjust</p>
-</li>
-<li><p>反选</p>
-</li>
-<li><p>剪裁</p>
-</li>
-<li><p>填充</p>
-</li>
-<li><p>2.九宫格</p>
-</li>
-</ul>
-<h2 id="七：App-登陆界面制作完整步骤"><a href="#七：App-登陆界面制作完整步骤" class="headerlink" title="七：App 登陆界面制作完整步骤"></a>七：App 登陆界面制作完整步骤</h2><p><img src="http://i.imgur.com/HVAhSXP.png" alt="Imgur"></p>
+<p><img src="http://i.imgur.com/X0jT1YE.png" alt="楼房建造流程图"><br><img src="http://i.imgur.com/0gTWv40.png" alt="iOS 开发流程图"></p>
+<p>  项目开发流程图：</p>
+<p><img src="http://i.imgur.com/qV2FtGd.png" alt="项目开发流程图"></p>
 
       
     </div>
@@ -514,7 +1084,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2015/05/24/Photo-DEMO/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2015/07/20/GeekBand-Objective-C-Programming-1/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.jpeg">
@@ -532,7 +1102,7 @@
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          <a href="/2015/05/24/Photo-DEMO/" class="post-title-link" itemprop="url">Photo DEMO</a>
+          <a href="/2015/07/20/GeekBand-Objective-C-Programming-1/" class="post-title-link" itemprop="url">极客班 Objective-C 高级编程（一）</a>
         </h2>
 
         <div class="post-meta-container">
@@ -543,7 +1113,7 @@
       </span>
       <span class="post-meta-item-text">Posted on</span>
 
-      <time title="Created: 2015-05-24 19:04:06" itemprop="dateCreated datePublished" datetime="2015-05-24T19:04:06+08:00">2015-05-24</time>
+      <time title="Created: 2015-07-20 07:53:50" itemprop="dateCreated datePublished" datetime="2015-07-20T07:53:50+08:00">2015-07-20</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -563,9 +1133,10 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <p>尚有一个 BUG，真机无法加载图片，模拟器可以。</p>
-<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//</span></span><br><span class="line"><span class="comment">//  ViewController.m</span></span><br><span class="line"><span class="comment">//  Photo DEMO</span></span><br><span class="line"><span class="comment">//</span></span><br><span class="line"><span class="comment">//  Created by Will on 5/24/15.</span></span><br><span class="line"><span class="comment">//  Copyright (c) 2015 gewill.org. All rights reserved.</span></span><br><span class="line"><span class="comment">//</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#import <span class="string">&quot;ViewController.h&quot;</span></span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">ViewController</span> ()</span></span><br><span class="line"><span class="keyword">@property</span> (<span class="keyword">weak</span>, <span class="keyword">nonatomic</span>) <span class="keyword">IBOutlet</span> <span class="built_in">UILabel</span> *topLabel;</span><br><span class="line"><span class="keyword">@property</span> (<span class="keyword">weak</span>, <span class="keyword">nonatomic</span>) <span class="keyword">IBOutlet</span> <span class="built_in">UILabel</span> *descLabel;</span><br><span class="line"><span class="keyword">@property</span> (<span class="keyword">weak</span>, <span class="keyword">nonatomic</span>) <span class="keyword">IBOutlet</span> <span class="built_in">UIButton</span> *leftBtn;</span><br><span class="line"><span class="keyword">@property</span> (<span class="keyword">weak</span>, <span class="keyword">nonatomic</span>) <span class="keyword">IBOutlet</span> <span class="built_in">UIButton</span> *rightBtn;</span><br><span class="line"><span class="keyword">@property</span> (<span class="keyword">weak</span>, <span class="keyword">nonatomic</span>) <span class="keyword">IBOutlet</span> <span class="built_in">UIImageView</span> *imageView;</span><br><span class="line"></span><br><span class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">assign</span>) <span class="type">int</span>  index;</span><br><span class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">strong</span>) <span class="built_in">NSArray</span> *imageDicts;</span><br><span class="line"></span><br><span class="line"><span class="keyword">@end</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">@implementation</span> <span class="title">ViewController</span></span></span><br><span class="line"></span><br><span class="line">- (<span class="built_in">NSArray</span> *)imageDicts&#123;</span><br><span class="line">    <span class="keyword">if</span> (!_imageDicts) &#123;</span><br><span class="line">        _imageDicts = [<span class="built_in">NSArray</span> arrayWithContentsOfFile:</span><br><span class="line">        [[<span class="built_in">NSBundle</span> mainBundle] pathForResource:<span class="string">@&quot;imageDate.plist&quot;</span> ofType:<span class="literal">nil</span>]];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> _imageDicts;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (<span class="keyword">IBAction</span>)clickLeftBtn:(<span class="built_in">UIButton</span> *)sender &#123;</span><br><span class="line">    <span class="keyword">self</span>.index --;</span><br><span class="line">    [<span class="keyword">self</span> clickBtn];</span><br><span class="line">&#125;</span><br><span class="line">- (<span class="keyword">IBAction</span>)clickRightBtn:(<span class="built_in">UIButton</span> *)sender &#123;</span><br><span class="line">    <span class="keyword">self</span>.index ++;</span><br><span class="line">    [<span class="keyword">self</span> clickBtn];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (<span class="type">void</span>)clickBtn&#123;</span><br><span class="line">    <span class="keyword">self</span>.topLabel.text = [<span class="built_in">NSString</span> stringWithFormat:<span class="string">@&quot;%d/%d&quot;</span>, <span class="keyword">self</span>.index+<span class="number">1</span>, <span class="keyword">self</span>.imageDicts.count];</span><br><span class="line">    <span class="keyword">self</span>.descLabel.text = <span class="keyword">self</span>.imageDicts[<span class="keyword">self</span>.index][<span class="string">@&quot;description&quot;</span>];</span><br><span class="line">    <span class="keyword">self</span>.imageView.image = [<span class="built_in">UIImage</span> imageNamed:<span class="keyword">self</span>.imageDicts[<span class="keyword">self</span>.index][<span class="string">@&quot;name&quot;</span>]];</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">self</span>.leftBtn.enabled = (<span class="keyword">self</span>.index != <span class="number">0</span>);</span><br><span class="line">    <span class="keyword">self</span>.rightBtn.enabled = (<span class="keyword">self</span>.index != <span class="number">4</span>);</span><br><span class="line">    </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (<span class="type">void</span>)viewDidLoad &#123;</span><br><span class="line">    [<span class="variable language_">super</span> viewDidLoad];</span><br><span class="line">    <span class="comment">// Do any additional setup after loading the view, typically from a nib.</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (<span class="type">void</span>)didReceiveMemoryWarning &#123;</span><br><span class="line">    [<span class="variable language_">super</span> didReceiveMemoryWarning];</span><br><span class="line">    <span class="comment">// Dispose of any resources that can be recreated.</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">@end</span></span><br></pre></td></tr></table></figure>
-
+          <p><a target="_blank" rel="noopener" href="http://weibo.com/songduan">@段松</a> 老师有7年的iOS研发经验，一线大牛我喜欢，奇幻之旅就正式开始吧。</p>
+<p>iOS 开发和盖房子差不多，那么我们就先学习一些基本建筑材料:数据类型与操作符。后面还有一些数组、运算符、流程控制语句、枚举、结构体和宏定义等。</p>
+<p>虽然这些之前都有学过，也算温故知新吧。和 Swift 相比确实繁琐古老的一些。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br></pre></td><td class="code"><pre><span class="line">NSInteger age = 18;</span><br><span class="line">NSInteger testAge;</span><br><span class="line">testAge = age &gt;= 18 ? 1 : 0;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">if (testAge) &#123;</span><br><span class="line">    NSLog(@&quot;你已经是个成年人了&quot;);</span><br><span class="line">&#125; else &#123;</span><br><span class="line">    NSLog(@&quot;你还是未成年人&quot;);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">char name[] = &quot;Will&quot;;</span><br><span class="line">printf(name);</span><br><span class="line"></span><br><span class="line">NSInteger price = 4;</span><br><span class="line">switch (price) &#123;</span><br><span class="line">    case 4: &#123;</span><br><span class="line">        NSLog(@&quot;four&quot;);</span><br><span class="line">        NSLog(@&quot;more than one line.&quot;);</span><br><span class="line">                break;</span><br><span class="line">            &#125;</span><br><span class="line">    case 3:        </span><br><span class="line">        NSLog(@&quot;three&quot;);        </span><br><span class="line">        break;        </span><br><span class="line">    case 2:        </span><br><span class="line">        NSLog(@&quot;two&quot;);        </span><br><span class="line">        break;        </span><br><span class="line">    default:        </span><br><span class="line">        break;        </span><br><span class="line"> &#125;</span><br><span class="line">        </span><br><span class="line">bool isFemale = false;</span><br><span class="line">BOOL isMale = YES;</span><br><span class="line">if (isMale) &#123;</span><br><span class="line">    if (!isFemale) &#123;</span><br><span class="line">        NSLog(@&quot;You are a ture man.&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">// 循环</span><br><span class="line">int sum = 0;</span><br><span class="line">for (int i = 1; i &lt;= 100; ++i) &#123;</span><br><span class="line">    sum += i;</span><br><span class="line">&#125;</span><br><span class="line">NSLog(@&quot;%i&quot;, sum);</span><br><span class="line"></span><br><span class="line">int sum1 = 0;</span><br><span class="line">int j = 1;</span><br><span class="line">for ( ;  ;  ) &#123;</span><br><span class="line">    sum1 += j;</span><br><span class="line">    j++;</span><br><span class="line">    if (j &gt; 100) &#123;</span><br><span class="line">        break;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">NSLog(@&quot;%i&quot;, sum1);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">// 枚举</span><br><span class="line">enum Person &#123;GoodGirl, GodBoy, BadGirl, BadBoy&#125;;</span><br><span class="line">enum Person someone;</span><br><span class="line">someone = GodBoy;</span><br><span class="line">if (someone != BadBoy &amp;&amp; someone != BadGirl) &#123;</span><br><span class="line">            NSLog(@&quot;Someone is a good person.&quot;);</span><br><span class="line">&#125;</span><br><span class="line">        </span><br><span class="line">        </span><br><span class="line">// 结构体</span><br><span class="line">typedef struct &#123;CGFloat x; CGFloat y;&#125; MyPoint;</span><br><span class="line">MyPoint myPoint = &#123;6, 8&#125;;</span><br><span class="line">CGFloat result = myPoint.x + myPoint.y;</span><br><span class="line">NSLog(@&quot;result = %f&quot;, result);</span><br><span class="line"></span><br><span class="line">// #define 宏：文本替换</span><br><span class="line">        </span><br><span class="line">#define PI 3.1415926</span><br><span class="line">#define SQUARE(x) ((x)*(x))</span><br><span class="line">        </span><br><span class="line">NSLog(@&quot;%f&quot;, PI * SQUARE(5 - 4));   // 3.141593</span><br><span class="line">NSLog(@&quot;%.7f&quot;, PI * SQUARE(5 - 4)); // 3.1415926</span><br><span class="line">NSLog(@&quot;%e&quot;, PI * SQUARE(5 - 4));   // 3.141593e+00</span><br><span class="line">    </span><br><span class="line">// #import 导入文件</span><br><span class="line">// #import &quot;example.h&quot;</span><br><span class="line">        </span><br><span class="line">// 条件编译</span><br><span class="line">#ifdef __OBJC__</span><br><span class="line">#import &lt;Foundation/Foundation.h&gt;</span><br><span class="line">#endif</span><br><span class="line">        </span><br></pre></td></tr></table></figure>
       
     </div>
 
@@ -591,7 +1162,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2015/05/24/Flat-Tomato/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2015/07/19/GeekBand-flip-classroom-week-1/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.jpeg">
@@ -609,7 +1180,7 @@
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          <a href="/2015/05/24/Flat-Tomato/" class="post-title-link" itemprop="url">Flat Tomato</a>
+          <a href="/2015/07/19/GeekBand-flip-classroom-week-1/" class="post-title-link" itemprop="url">极客班线下翻转课堂第一周</a>
         </h2>
 
         <div class="post-meta-container">
@@ -620,7 +1191,7 @@
       </span>
       <span class="post-meta-item-text">Posted on</span>
 
-      <time title="Created: 2015-05-24 18:22:32" itemprop="dateCreated datePublished" datetime="2015-05-24T18:22:32+08:00">2015-05-24</time>
+      <time title="Created: 2015-07-19 15:25:48" itemprop="dateCreated datePublished" datetime="2015-07-19T15:25:48+08:00">2015-07-19</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -640,498 +1211,57 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <p>重新使用番茄学习法，<a target="_blank" rel="noopener" href="https://itunes.apple.com/cn/app/flat-tomato-time-management/id719462746?l=en&mt=8">Flat Tomato</a> 设计非常简洁优雅。</p>
-<p>使用计时器感觉时间过得飞快，也是平日里浪费时间习惯了。一晃一下午就过去了，什么都没做，就听歌看新闻了，关键是没有总结和互动，往往一个耳朵进一个耳朵出。</p>
-<p>希望以后能够珍惜时间，做正确的事。</p>
-<p><img src="http://i.imgur.com/SjGeNXd.jpg" alt="Imgur"></p>
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2015/05/24/Tomcat-Game-DEMO/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.jpeg">
-      <meta itemprop="name" content="Ge Will">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Will's Blog">
-      <meta itemprop="description" content="The people who are crazy enough to think they can change the world, are the ones who DO.">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | Will's Blog">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2015/05/24/Tomcat-Game-DEMO/" class="post-title-link" itemprop="url">Tomcat Game DEMO</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">Posted on</span>
-
-      <time title="Created: 2015-05-24 17:24:53" itemprop="dateCreated datePublished" datetime="2015-05-24T17:24:53+08:00">2015-05-24</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">Edited on</span>
-      <time title="Modified: 2025-01-13 11:01:04" itemprop="dateModified" datetime="2025-01-13T11:01:04+08:00">2025-01-13</time>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <p><a target="_blank" rel="noopener" href="http://www.jikexueyuan.com/">极客学院</a>充值月度 VIP，学习 iOS 视频，感觉他们的知识体系图和实战路径图很不错，按照一个大纲去学习的。</p>
-<p>今天按照视频指导：<a target="_blank" rel="noopener" href="http://www.jikexueyuan.com/course/339.html">制作汤姆猫小游戏</a>，完成以下 DEMO。</p>
-<p>其中发现我写代码中遇到很多小问题，google 就有答案的。</p>
-<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//</span></span><br><span class="line"><span class="comment">//  ViewController.m</span></span><br><span class="line"><span class="comment">//  Tomcat Game DEMO</span></span><br><span class="line"><span class="comment">//</span></span><br><span class="line"><span class="comment">//  Created by Will on 5/24/15.</span></span><br><span class="line"><span class="comment">//  Copyright (c) 2015 gewill.org. All rights reserved.</span></span><br><span class="line"><span class="comment">//</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#import <span class="string">&quot;ViewController.h&quot;</span></span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">ViewController</span> ()</span></span><br><span class="line"><span class="keyword">@property</span> (<span class="keyword">weak</span>, <span class="keyword">nonatomic</span>) <span class="keyword">IBOutlet</span> <span class="built_in">UIImageView</span> *tomImageView;</span><br><span class="line"></span><br><span class="line"><span class="keyword">@end</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">@implementation</span> <span class="title">ViewController</span></span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">- (<span class="keyword">IBAction</span>)touchHeadOnHead:(<span class="built_in">UIButton</span> *)sender &#123;</span><br><span class="line">    [<span class="keyword">self</span> tomAnimateWith:<span class="string">@&quot;knockout&quot;</span> imageCount:<span class="number">81</span>];</span><br><span class="line">    </span><br><span class="line">    </span><br><span class="line">&#125;</span><br><span class="line">- (<span class="keyword">IBAction</span>)touchEat:(<span class="built_in">UIButton</span> *)sender &#123;</span><br><span class="line">    [<span class="keyword">self</span> tomAnimateWith:<span class="string">@&quot;eat&quot;</span> imageCount:<span class="number">40</span>];</span><br><span class="line">&#125;</span><br><span class="line">- (<span class="keyword">IBAction</span>)touchPie:(<span class="built_in">UIButton</span> *)sender &#123;</span><br><span class="line">    [<span class="keyword">self</span> tomAnimateWith:<span class="string">@&quot;pie&quot;</span> imageCount:<span class="number">24</span>];</span><br><span class="line">&#125;</span><br><span class="line">- (<span class="keyword">IBAction</span>)touchScratch:(<span class="built_in">UIButton</span> *)sender &#123;</span><br><span class="line">    [<span class="keyword">self</span> tomAnimateWith:<span class="string">@&quot;scratch&quot;</span> imageCount:<span class="number">56</span>];</span><br><span class="line">&#125;</span><br><span class="line">- (<span class="keyword">IBAction</span>)TouchDrink:(<span class="built_in">UIButton</span> *)sender &#123;</span><br><span class="line">    [<span class="keyword">self</span> tomAnimateWith:<span class="string">@&quot;drink&quot;</span> imageCount:<span class="number">81</span>];</span><br><span class="line">&#125;</span><br><span class="line">- (<span class="keyword">IBAction</span>)touchCymbal:(<span class="built_in">UIButton</span> *)sender &#123;</span><br><span class="line">    [<span class="keyword">self</span> tomAnimateWith:<span class="string">@&quot;symbal&quot;</span> imageCount:<span class="number">13</span>];</span><br><span class="line">&#125;</span><br><span class="line">- (<span class="keyword">IBAction</span>)touchStomach:(<span class="built_in">UIButton</span> *)sender &#123;</span><br><span class="line">    [<span class="keyword">self</span> tomAnimateWith:<span class="string">@&quot;stomach&quot;</span> imageCount:<span class="number">34</span>];</span><br><span class="line">    </span><br><span class="line">&#125;</span><br><span class="line">- (<span class="keyword">IBAction</span>)touchFootLeft:(<span class="built_in">UIButton</span> *)sender &#123;</span><br><span class="line">    [<span class="keyword">self</span> tomAnimateWith:<span class="string">@&quot;footLeft&quot;</span> imageCount:<span class="number">30</span>];</span><br><span class="line">&#125;</span><br><span class="line">- (<span class="keyword">IBAction</span>)touchFootRight:(<span class="built_in">UIButton</span> *)sender &#123;</span><br><span class="line">    [<span class="keyword">self</span> tomAnimateWith:<span class="string">@&quot;footRight&quot;</span> imageCount:<span class="number">30</span>];</span><br><span class="line">&#125;</span><br><span class="line">- (<span class="keyword">IBAction</span>)touchAngry:(<span class="built_in">UIButton</span> *)sender &#123;</span><br><span class="line">    [<span class="keyword">self</span> tomAnimateWith:<span class="string">@&quot;angry&quot;</span> imageCount:<span class="number">26</span>];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">pragma</span> mark - 动画执行方法</span></span><br><span class="line">- (<span class="type">void</span>)tomAnimateWith:(<span class="built_in">NSString</span> *)fileName imageCount:(<span class="built_in">NSInteger</span>)imageCount&#123;</span><br><span class="line">    <span class="comment">// 0. 判断是否正在执行动画</span></span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">self</span>.tomImageView.isAnimating) &#123;</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 1. 创建图片数组</span></span><br><span class="line">    <span class="built_in">NSMutableArray</span> *tomImages = [<span class="built_in">NSMutableArray</span> array];</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; imageCount; i++) &#123;</span><br><span class="line">        <span class="built_in">NSString</span> *imageName = [<span class="built_in">NSString</span> stringWithFormat:<span class="string">@&quot;%@_%02d.jpg&quot;</span>, fileName, i];</span><br><span class="line">        <span class="built_in">NSString</span> *path =[[<span class="built_in">NSBundle</span> mainBundle] pathForResource:imageName ofType:<span class="literal">nil</span>];</span><br><span class="line">        <span class="built_in">UIImage</span> *image = [<span class="built_in">UIImage</span> imageWithContentsOfFile:path];</span><br><span class="line">        [tomImages addObject:image ];</span><br><span class="line">    &#125;</span><br><span class="line">   </span><br><span class="line">    <span class="comment">// 2. 设置动画过程</span></span><br><span class="line">    [<span class="keyword">self</span>.tomImageView setAnimationImages:tomImages];</span><br><span class="line">    [<span class="keyword">self</span>.tomImageView setAnimationDuration:<span class="keyword">self</span>.tomImageView.animationImages.count * <span class="number">0.1</span>];</span><br><span class="line">    [<span class="keyword">self</span>.tomImageView setAnimationRepeatCount:<span class="number">1</span>];</span><br><span class="line">    [<span class="keyword">self</span>.tomImageView startAnimating];</span><br><span class="line">    </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">- (<span class="type">void</span>)viewDidLoad &#123;</span><br><span class="line">    [<span class="variable language_">super</span> viewDidLoad];</span><br><span class="line">    <span class="comment">// Do any additional setup after loading the view, typically from a nib.</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (<span class="type">void</span>)didReceiveMemoryWarning &#123;</span><br><span class="line">    [<span class="variable language_">super</span> didReceiveMemoryWarning];</span><br><span class="line">    <span class="comment">// Dispose of any resources that can be recreated.</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">@end</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2015/05/24/Simple-Calculator/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.jpeg">
-      <meta itemprop="name" content="Ge Will">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Will's Blog">
-      <meta itemprop="description" content="The people who are crazy enough to think they can change the world, are the ones who DO.">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | Will's Blog">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2015/05/24/Simple-Calculator/" class="post-title-link" itemprop="url">Simple Calculator</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">Posted on</span>
-
-      <time title="Created: 2015-05-24 10:23:41" itemprop="dateCreated datePublished" datetime="2015-05-24T10:23:41+08:00">2015-05-24</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">Edited on</span>
-      <time title="Modified: 2025-01-13 11:01:04" itemprop="dateModified" datetime="2025-01-13T11:01:04+08:00">2025-01-13</time>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <p>一个简单地计算器，可以加减乘除，除法还有问题，待解决。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br></pre></td><td class="code"><pre><span class="line">//</span><br><span class="line">//  ViewController.swift</span><br><span class="line">//  Simple Calculator</span><br><span class="line">//</span><br><span class="line">//  Created by Will on 5/24/15.</span><br><span class="line">//  Copyright (c) 2015 gewill.org. All rights reserved.</span><br><span class="line">//</span><br><span class="line"></span><br><span class="line">import UIKit</span><br><span class="line"></span><br><span class="line">class ViewController: UIViewController &#123;</span><br><span class="line">    @IBOutlet weak var text1: UITextField!</span><br><span class="line">    </span><br><span class="line">    </span><br><span class="line">    @IBOutlet weak var text2: UITextField!</span><br><span class="line">    @IBOutlet weak var result: UITextField!</span><br><span class="line">    </span><br><span class="line">    @IBAction func BeZero(sender: AnyObject) &#123;</span><br><span class="line">        self.result.text = &quot;0&quot;</span><br><span class="line">        self.text1.text = &quot; &quot;</span><br><span class="line">        self.text2.text = &quot; &quot;</span><br><span class="line">        </span><br><span class="line">    &#125;</span><br><span class="line">    @IBAction func plus(sender: AnyObject) &#123;</span><br><span class="line">        // 三目运算符简洁，但是没有 if 逻辑清晰。</span><br><span class="line">        var num1 = self.text1.text.isEmpty ? 0 : self.text1.text.toInt()</span><br><span class="line">        var num2 = self.text2.text.isEmpty ? 0 : self.text2.text.toInt()</span><br><span class="line">        </span><br><span class="line">        </span><br><span class="line">        var resultNum:Double = Double(num1!) + Double(num2!)</span><br><span class="line">        println(resultNum)</span><br><span class="line">        </span><br><span class="line">        self.result.text = &quot;\(resultNum)&quot;</span><br><span class="line">        </span><br><span class="line">        self.text1.resignFirstResponder()</span><br><span class="line">        self.text2.resignFirstResponder()</span><br><span class="line">        </span><br><span class="line">        </span><br><span class="line">    &#125;</span><br><span class="line">    @IBAction func minus(sender: AnyObject) &#123;</span><br><span class="line">        // 三目运算符简洁，但是没有 if 逻辑清晰。</span><br><span class="line">        var num1 = self.text1.text.isEmpty ? 0 : self.text1.text.toInt()</span><br><span class="line">        var num2 = self.text2.text.isEmpty ? 0 : self.text2.text.toInt()</span><br><span class="line">        </span><br><span class="line">        </span><br><span class="line">        var resultNum = num1! - num2!</span><br><span class="line">        </span><br><span class="line">        self.result.text = &quot;\(resultNum)&quot;</span><br><span class="line">        </span><br><span class="line">        self.text1.resignFirstResponder()</span><br><span class="line">        self.text2.resignFirstResponder()</span><br><span class="line">        </span><br><span class="line">    &#125;</span><br><span class="line">    @IBAction func multiply(sender: AnyObject) &#123;</span><br><span class="line">        // 三目运算符简洁，但是没有 if 逻辑清晰。</span><br><span class="line">        var num1 = self.text1.text.isEmpty ? 0 : self.text1.text.toInt()</span><br><span class="line">        var num2 = self.text2.text.isEmpty ? 0 : self.text2.text.toInt()</span><br><span class="line">        </span><br><span class="line">        </span><br><span class="line">        var resultNum = num1! * num2!</span><br><span class="line">        </span><br><span class="line">        self.result.text = &quot;\(resultNum)&quot;</span><br><span class="line">        </span><br><span class="line">        self.text1.resignFirstResponder()</span><br><span class="line">        self.text2.resignFirstResponder()</span><br><span class="line">        </span><br><span class="line">    &#125;</span><br><span class="line">    @IBAction func division(sender: AnyObject) &#123;</span><br><span class="line">        // 三目运算符简洁，但是没有 if 逻辑清晰。</span><br><span class="line">        var num1 = self.text1.text.isEmpty ? 0 : self.text1.text.toInt()</span><br><span class="line">        var num2 = self.text2.text.isEmpty ? 0 : self.text2.text.toInt()</span><br><span class="line">        </span><br><span class="line">        </span><br><span class="line">        var resultNum = num1! / num2!</span><br><span class="line">        </span><br><span class="line">        self.result.text = &quot;\(resultNum)&quot;</span><br><span class="line">        </span><br><span class="line">        self.text1.resignFirstResponder()</span><br><span class="line">        self.text2.resignFirstResponder()</span><br><span class="line">        </span><br><span class="line">    &#125;</span><br><span class="line">    override func viewDidLoad() &#123;</span><br><span class="line">        super.viewDidLoad()</span><br><span class="line">        // Do any additional setup after loading the view, typically from a nib.</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    override func didReceiveMemoryWarning() &#123;</span><br><span class="line">        super.didReceiveMemoryWarning()</span><br><span class="line">        // Dispose of any resources that can be recreated.</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<p><img src="http://i.imgur.com/96q8Eay.png" alt="Imgur"><br><img src="http://i.imgur.com/7kHLTc4.png" alt="Imgur"></p>
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2015/05/22/how-to-be-an-excellent-designer/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.jpeg">
-      <meta itemprop="name" content="Ge Will">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Will's Blog">
-      <meta itemprop="description" content="The people who are crazy enough to think they can change the world, are the ones who DO.">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | Will's Blog">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2015/05/22/how-to-be-an-excellent-designer/" class="post-title-link" itemprop="url">如何成为一名优秀的设计师</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">Posted on</span>
-
-      <time title="Created: 2015-05-22 23:08:28" itemprop="dateCreated datePublished" datetime="2015-05-22T23:08:28+08:00">2015-05-22</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">Edited on</span>
-      <time title="Modified: 2025-01-13 11:01:04" itemprop="dateModified" datetime="2025-01-13T11:01:04+08:00">2025-01-13</time>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <p>如何成为一名优秀的设计师：罗子雄<br>@TEDx Chongqing</p>
-<iframe height=395 width=700 src="http://player.youku.com/embed/XOTU4NzE4NTQ4" frameborder=0 allowfullscreen></iframe>
-
-<p>##入门</p>
+          <p>极客班线下翻转课堂第一周，坐标浦东软件园，时间7月19日。</p>
+<p>一天下来学习不少关于开发和产品的干货，感觉获益匪浅，但是还是要以后的学习和项目中实践可能才会理解透彻。本来参加极客班，是因为一个人独自钻研太累进展缓慢，现在感觉豁然开朗，信心十足，最主要的是有了学习的精神头，希望这一份主动性能够持续下去。既然 iOS 是我兴趣爱好，完成线上课程的同时，完成自我管理自律，明天图书馆约起。</p>
+<p>课程安排的是线上课堂和项目实践同时进行，我想也多少和 Tiny 老师提到的学习方法相通：先了解官方文档 Guidelines，Release note，Documentation，理清楚技术架构关系，项目实际使用技术重点学习突破，也就完成了项目（大意如此）。</p>
+<p>今天最大缺憾是没有和老师同学很好的交流，无论是上台提创意，提问题，听课有疑问没有去请教。一则我一直性格害羞内向，二则因为一造成的缺乏想法表达能力和技巧。性格弱我早就知道，天天提醒自己最棒能做好，希望能一点点进步。</p>
+<p><strong>以下是课程安排：</strong></p>
+<h2 id="自我介绍："><a href="#自我介绍：" class="headerlink" title="自我介绍："></a>自我介绍：</h2><p>一部分同学是网络，开发，室内设计，摄影，大三，多是因为兴趣爱好报名的。但更多的都已经是几年的开发经验，还有几个是5-10年的，没有开发工作经验的我要努力了，不能落了后。</p>
+<h2 id="李建忠"><a href="#李建忠" class="headerlink" title="@李建忠"></a><a target="_blank" rel="noopener" href="http://weibo.com/jzli">@李建忠</a></h2><p>线下班推你下水，逼你学会游泳。真实做项目中学习技术。</p>
+<p>推荐 iOS 样板项目供同学选择：</p>
 <ul>
-<li>看：<a target="_blank" rel="noopener" href="https://www.behance.net/">Bēhance</a>、<a target="_blank" rel="noopener" href="https://www.pinterest.com/">Pinterest</a>、<a target="_blank" rel="noopener" href="https://500px.com/">500px</a>、<a target="_blank" rel="noopener" href="http://www.thefwa.com/">FWA</a>、<a target="_blank" rel="noopener" href="https://www.artstation.com/">ArtStation</a>、<a target="_blank" rel="noopener" href="https://dribbble.com/">dribbble</a></li>
-<li>做</li>
-<li>基础实例教程</li>
-<li>教育机构：<a target="_blank" rel="noopener" href="https://www.gnomon.edu/">GNOMON</a>、<a target="_blank" rel="noopener" href="http://www.digitaltutors.com/">digital-tutors</a>、<a target="_blank" rel="noopener" href="http://www.aboutcg.com/">ABOUTCG</a></li>
-<li>有问题，问 Google</li>
-<li>大问题拆分小问题</li>
-<li>想：为什么</li>
+<li>移动的 Blog</li>
+<li>交互式白板</li>
+<li>多媒体相册</li>
 </ul>
-<p>##提高</p>
-<ul>
-<li><p>看 v2.0</p>
+<h2 id="Tinyfool"><a href="#Tinyfool" class="headerlink" title="@Tinyfool"></a><a target="_blank" rel="noopener" href="http://weibo.com/tinyfool">@Tinyfool</a></h2><ul>
+<li><p>全栈：建筑学-掌握全局</p>
+<p>实际项目需要技术和知识，如何组合运用到项目中，再去详细学习。培训目的，自主学习，遇到具体的难题可以提问。</p>
 </li>
-<li><p>做 v2.0：模仿、参赛</p>
-<ul>
-<li>借鉴</li>
-<li>改进</li>
-<li>组合</li>
-</ul>
+<li><p>创业： Zero to One，先失败，项目火之前少有人认同，先做一个简版让客户评判</p>
 </li>
-<li><p>想 v2.0</p>
+<li><p>项目管理：项目迭代去做，MVP，如：10行代码，成就感，</p>
+<p>PM 和程序员关系，需求<strong>优先级</strong>往往没说，程序员<strong>分功能评估时间</strong>。两者之间的如何协作好，进度表中的关键：细分技术评估时间，确定优先级。</p>
+</li>
+<li><p>融资-&gt;招人-&gt;离职，半年才招齐人</p>
+</li>
+<li><p>创业泥潭，产品不温不火，添加不靠谱功能</p>
+</li>
+<li><p>UX 优先级低于功能实现</p>
+</li>
+<li><p>先站出来才有人认识你，占尽便宜 </p>
+</li>
+<li><p>以后课堂不说了，只接受提问交流</p>
 </li>
 </ul>
-<p>虽然目录已经整理很好，但是为了多说话，我就讲讲的感受。 最近接触 iOS 开发需要做 logo 和 UI 设计，才开始接触设计方面，发现是一门创造美的过程。罗子雄说的方法很平白，也易于操作。但于我这般没有自律和执行力的人，报班学习最好，定闹钟次之，</p>
+<h2 id="孔祥波"><a href="#孔祥波" class="headerlink" title="孔祥波"></a>孔祥波</h2><p>经历：Unix&#x2F;SA-&gt;SP-&gt;Python-&gt;OC</p>
+<p>写代码自我要求，优秀。不要用直接抄袭其他产品。</p>
+<p>知识像产品迭代，每次看一个知识都会不一样的理解。能讲解一个知识或技术，说明真的懂了。例如：UIObject等的继承关系。</p>
+<h2 id="大家提创意项目："><a href="#大家提创意项目：" class="headerlink" title="大家提创意项目："></a>大家提创意项目：</h2><ul>
+<li>信贷员工具项目</li>
+<li>个人版历史上的今天</li>
+<li>局域网多屏互动</li>
+<li>摄影项目</li>
+<li>个人头像贴图</li>
+</ul>
+<h2 id="董飞"><a href="#董飞" class="headerlink" title="董飞"></a><a target="_blank" rel="noopener" href="http://www.zhihu.com/people/dongfei">董飞</a></h2><p><a target="_blank" rel="noopener" href="http://geekband.com/course/syllabus/10">算法原理与实践</a> 课程知识梳理。</p>
+<h2 id="投票分组选项目"><a href="#投票分组选项目" class="headerlink" title="投票分组选项目"></a>投票分组选项目</h2><p>互联网：UGC(User-generated content)、用户互动、公司基因创始人背景专业</p>
+<p>组团学习重要性，学习是动词</p>
+<p>证书不重要，重要的是真正学习成长</p>
+<p>重分享：output 带动 input</p>
+<p>TODO：第一周的功能列表，团队 GitHub账号</p>
+<p>我选了信贷员工具项目。</p>
 
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2015/05/21/App-open-gewill-org/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.jpeg">
-      <meta itemprop="name" content="Ge Will">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Will's Blog">
-      <meta itemprop="description" content="The people who are crazy enough to think they can change the world, are the ones who DO.">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | Will's Blog">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2015/05/21/App-open-gewill-org/" class="post-title-link" itemprop="url">App : open gewill.org</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">Posted on</span>
-
-      <time title="Created: 2015-05-21 23:13:18" itemprop="dateCreated datePublished" datetime="2015-05-21T23:13:18+08:00">2015-05-21</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">Edited on</span>
-      <time title="Modified: 2025-01-13 11:01:04" itemprop="dateModified" datetime="2025-01-13T11:01:04+08:00">2025-01-13</time>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <p>自动打开我的网站 <a target="_blank" rel="noopener" href="http://gewill.org/">gewill.org</a> 的 app。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">//</span><br><span class="line">//  ViewController.swift</span><br><span class="line">//  Open gewill.org</span><br><span class="line">//</span><br><span class="line">//  Created by Will on 5/21/15.</span><br><span class="line">//  Copyright (c) 2015 gewill.org. All rights reserved.</span><br><span class="line">//</span><br><span class="line"></span><br><span class="line">import UIKit</span><br><span class="line"></span><br><span class="line">class ViewController: UIViewController &#123;</span><br><span class="line"></span><br><span class="line">    override func viewDidLoad() &#123;</span><br><span class="line">        super.viewDidLoad()</span><br><span class="line">        // Do any additional setup after loading the view, typically from a nib.</span><br><span class="line">        UIApplication.sharedApplication().openURL(NSURL(string: &quot;http://gewill.org&quot;)!)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    override func didReceiveMemoryWarning() &#123;</span><br><span class="line">        super.didReceiveMemoryWarning()</span><br><span class="line">        // Dispose of any resources that can be recreated.</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2015/05/21/Self-learning-is-so-hard/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.jpeg">
-      <meta itemprop="name" content="Ge Will">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Will's Blog">
-      <meta itemprop="description" content="The people who are crazy enough to think they can change the world, are the ones who DO.">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | Will's Blog">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2015/05/21/Self-learning-is-so-hard/" class="post-title-link" itemprop="url">Self-learning is so hard</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">Posted on</span>
-
-      <time title="Created: 2015-05-21 22:08:37" itemprop="dateCreated datePublished" datetime="2015-05-21T22:08:37+08:00">2015-05-21</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">Edited on</span>
-      <time title="Modified: 2025-01-13 11:01:04" itemprop="dateModified" datetime="2025-01-13T11:01:04+08:00">2025-01-13</time>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <p>Time is not enough, and always not do as schedule.</p>
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2015/05/17/MUST-CODE/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.jpeg">
-      <meta itemprop="name" content="Ge Will">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Will's Blog">
-      <meta itemprop="description" content="The people who are crazy enough to think they can change the world, are the ones who DO.">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | Will's Blog">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2015/05/17/MUST-CODE/" class="post-title-link" itemprop="url">MUST CODE</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">Posted on</span>
-
-      <time title="Created: 2015-05-17 21:32:37" itemprop="dateCreated datePublished" datetime="2015-05-17T21:32:37+08:00">2015-05-17</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">Edited on</span>
-      <time title="Modified: 2025-01-13 11:01:04" itemprop="dateModified" datetime="2025-01-13T11:01:04+08:00">2025-01-13</time>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          
       
     </div>
 
@@ -1150,7 +1280,7 @@
 
 
   <nav class="pagination">
-    <a class="extend prev" rel="prev" title="Previous page" aria-label="Previous page" href="/page/18/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/18/">18</a><span class="page-number current">19</span><a class="page-number" href="/page/20/">20</a><a class="extend next" rel="next" title="Next page" aria-label="Next page" href="/page/20/"><i class="fa fa-angle-right"></i></a>
+    <a class="extend prev" rel="prev" title="Previous page" aria-label="Previous page" href="/page/18/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/18/">18</a><span class="page-number current">19</span><a class="page-number" href="/page/20/">20</a><span class="space">&hellip;</span><a class="page-number" href="/page/22/">22</a><a class="extend next" rel="next" title="Next page" aria-label="Next page" href="/page/20/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 </div>
